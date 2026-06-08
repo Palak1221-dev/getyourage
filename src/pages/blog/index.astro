@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from "../../layouts/Layout.astro";
+import Card from "../../components/ui/Card.astro";
+
+const posts = await getCollection('blog');
+---
+
+<Layout title="Blog - GetYourAge.com">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+    <div class="text-center mb-16 max-w-3xl mx-auto">
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-ink mb-6">
+        Latest from our Blog <span class="text-primary text-6xl">.</span>
+      </h1>
+      <p class="text-lg md:text-xl text-body leading-relaxed">
+        Insights, tips, and fun facts about age, time, and life milestones.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {posts.map((post) => (
+        <a href={`/blog/${post.id}`} class="group">
+          <Card elevation="sm" class="h-full group-hover:card-shadow-lg transition-all">
+            <h2 class="text-xl font-bold text-ink mb-3 group-hover:text-primary transition-colors">{post.data.title}</h2>
+            <p class="text-sm text-body line-clamp-3 mb-4">{post.data.description}</p>
+            <div class="mt-auto pt-4 border-t border-hairline flex justify-between items-center text-xs font-mono text-mute">
+              <span>{post.data.pubDate.toLocaleDateString()}</span>
+              <span class="text-primary group-hover:translate-x-1 transition-transform">Read More &rarr;</span>
+            </div>
+          </Card>
+        </a>
+      ))}
+    </div>
+  </div>
+</Layout>

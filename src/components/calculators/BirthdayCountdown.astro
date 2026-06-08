@@ -1,0 +1,93 @@
+---
+import Card from "../ui/Card.astro";
+import Button from "../ui/Button.astro";
+import Input from "../ui/Input.astro";
+---
+
+<Card elevation="lg" padding="xl" class="max-w-2xl mx-auto">
+  <form id="birthday-form" class="space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <Input label="Day" type="number" id="dob-day" placeholder="01" min="1" max="31" required />
+      <Input label="Month" type="number" id="dob-month" placeholder="01" min="1" max="12" required />
+      <Input label="Year" type="number" id="dob-year" placeholder="1995" min={new Date().getFullYear() - 130} max={new Date().getFullYear()} required />
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-4">
+      <Button type="submit" class="flex-grow shadow-lg shadow-link/20">Show Countdown</Button>
+      <Button variant="secondary" id="reset-btn">Reset</Button>
+    </div>
+  </form>
+
+  <div id="result-container" class="mt-12 hidden space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 scroll-mt-24">
+    <div class="text-center">
+      <h3 class="text-mute font-mono text-xs uppercase tracking-widest mb-2">Days until next birthday</h3>
+      <div class="flex flex-wrap justify-center items-baseline gap-2">
+        <span id="res-days" class="text-6xl font-bold tracking-tighter text-link">0</span>
+        <span class="text-2xl font-semibold text-body">days left</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 pt-8 border-t border-hairline">
+      <div class="p-4 bg-canvas-soft rounded-md border border-hairline text-center">
+        <span class="block text-xs font-mono text-mute uppercase mb-1">Birthday Weekday</span>
+        <span id="res-weekday" class="text-xl font-bold text-ink">-</span>
+      </div>
+      <div class="p-4 bg-canvas-soft rounded-md border border-hairline text-center">
+        <span class="block text-xs font-mono text-mute uppercase mb-1">Age Turning</span>
+        <span id="res-age" class="text-xl font-bold text-ink">0</span>
+      </div>
+    </div>
+  </div>
+</Card>
+
+<script>
+  import { getNextBirthdayCountdown } from "../../utils/dateUtils";
+  import { validateBirthDate } from "../../utils/formValidation";
+  import { setQueryParams, getQueryParams } from "../../utils/seoUtils";
+
+  const form = document.getElementById('birthday-form') as HTMLFormElement;
+  const resultContainer = document.getElementById('result-container');
+  const resDays = document.getElementById('res-days');
+  const resWeekday = document.getElementById('res-weekday');
+  const resAge = document.getElementById('res-age');
+  
+  const dobDay = document.getElementById('dob-day') as HTMLInputElement;
+  const dobMonth = document.getElementById('dob-month') as HTMLInputElement;
+  const dobYear = document.getElementById('dob-year') as HTMLInputElement;
+
+  const updateUI = () => {
+    const d = parseInt(dobDay.value);
+    const m = parseInt(dobMonth.value);
+    const y = parseInt(dobYear.value);
+
+    if (validateBirthDate(y, m, d)) return;
+
+    const result = getNextBirthdayCountdown(new Date(y, m - 1, d));
+
+    if (resDays) resDays.textContent = result.days.toString();
+    if (resWeekday) resWeekday.textContent = result.weekday;
+    if (resAge) resAge.textContent = result.ageOnNextBirthday.toString();
+
+    resultContainer?.classList.remove('hidden');
+    setQueryParams({ d: d.toString(), m: m.toString(), y: y.toString() });
+  };
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    updateUI();
+  });
+
+  document.getElementById('reset-btn')?.addEventListener('click', () => {
+    form.reset();
+    resultContainer?.classList.add('hidden');
+    setQueryParams({ d: '', m: '', y: '' });
+  });
+
+  const params = getQueryParams();
+  if (params.y) {
+    dobDay.value = params.d;
+    dobMonth.value = params.m;
+    dobYear.value = params.y;
+    updateUI();
+  }
+</script>

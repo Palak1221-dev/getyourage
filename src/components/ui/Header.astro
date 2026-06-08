@@ -1,0 +1,90 @@
+---
+import Button from "./Button.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+
+const currentPath = Astro.url.pathname;
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/age-difference", label: "Age Difference" },
+  { href: "/birthday-countdown", label: "Birthday" },
+  { href: "/duration", label: "Duration" },
+  { href: "/future-age", label: "Future Age" }
+];
+---
+
+<header class="sticky top-0 z-50 w-full bg-canvas/80 backdrop-blur-md border-b border-hairline h-16">
+  <div class="max-w-[1200px] mx-auto h-full px-4 flex items-center justify-between">
+    <div class="flex items-center gap-8">
+      <a href="/" class="flex items-center gap-2 group">
+        <span class="text-xl font-bold tracking-tighter text-ink group-hover:text-primary transition-colors">
+          GetYourAge<span class="text-primary">.com</span>
+        </span>
+      </a>
+      
+      <nav class="hidden md:flex items-center gap-1">
+        {navLinks.map(link => (
+          <a href={link.href} class:list={["px-3 py-2 text-sm font-medium transition-all rounded-full", currentPath === link.href ? "text-link bg-link/5" : "text-body hover:text-ink hover:bg-canvas-soft-2"]}>{link.label}</a>
+        ))}
+      </nav>
+    </div>
+
+    <div class="flex items-center gap-2 sm:gap-4">
+      <ThemeToggle />
+      <a href="/about" class="hidden sm:block text-sm font-medium text-body hover:text-ink">About</a>
+      
+      <!-- Hamburger Menu Button (Mobile Only) -->
+      <button id="mobile-menu-btn" class="md:hidden p-2 text-body hover:text-ink rounded-md hover:bg-canvas-soft-2 transition-colors focus:outline-none" aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Dropdown -->
+  <div id="mobile-menu" class="hidden absolute top-16 left-0 w-full bg-canvas border-b border-hairline shadow-2xl md:hidden">
+    <nav class="flex flex-col px-4 py-4 space-y-1">
+      {navLinks.map(link => (
+        <a href={link.href} class:list={["px-4 py-3 text-sm font-medium transition-all rounded-md mobile-link", currentPath === link.href ? "text-link bg-link/5" : "text-body hover:text-ink hover:bg-canvas-soft-2"]}>{link.label}</a>
+      ))}
+      <a href="/about" class:list={["px-4 py-3 text-sm font-medium transition-all rounded-md mobile-link", currentPath === "/about" ? "text-link bg-link/5" : "text-body hover:text-ink hover:bg-canvas-soft-2"]}>About</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const setupMobileMenu = () => {
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    const links = document.querySelectorAll('.mobile-link');
+
+    if (btn && menu) {
+      // Toggle menu on button click
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menu.classList.toggle('hidden');
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!menu.contains(e.target as Node) && !btn.contains(e.target as Node)) {
+          menu.classList.add('hidden');
+        }
+      });
+      
+      // Prevent clicks inside the menu from closing it immediately (unless it's a link)
+      menu.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+
+      // Close menu when a link is clicked
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          menu.classList.add('hidden');
+        });
+      });
+    }
+  };
+
+  setupMobileMenu();
+</script>

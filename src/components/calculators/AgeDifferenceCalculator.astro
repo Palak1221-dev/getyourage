@@ -1,0 +1,114 @@
+---
+import Card from "../ui/Card.astro";
+import Button from "../ui/Button.astro";
+import Input from "../ui/Input.astro";
+---
+
+<Card elevation="lg" padding="xl" class="max-w-2xl mx-auto">
+  <form id="diff-form" class="space-y-8">
+    <div class="space-y-4">
+      <h3 class="text-sm font-mono uppercase tracking-widest text-mute">Person 1</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Input label="Day" type="number" id="p1-day" placeholder="01" min="1" max="31" required />
+        <Input label="Month" type="number" id="p1-month" placeholder="01" min="1" max="12" required />
+        <Input label="Year" type="number" id="p1-year" placeholder="1995" min={new Date().getFullYear() - 130} max={new Date().getFullYear()} required />
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <h3 class="text-sm font-mono uppercase tracking-widest text-mute">Person 2</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Input label="Day" type="number" id="p2-day" placeholder="01" min="1" max="31" required />
+        <Input label="Month" type="number" id="p2-month" placeholder="01" min="1" max="12" required />
+        <Input label="Year" type="number" id="p2-year" placeholder="1995" min="1900" max={new Date().getFullYear()} required />
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+      <Button type="submit" class="flex-grow shadow-lg shadow-link/20">Calculate Difference</Button>
+      <Button variant="secondary" id="reset-btn">Reset</Button>
+    </div>
+  </form>
+
+  <div id="result-container" class="mt-12 hidden space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 scroll-mt-24">
+    <div class="text-center">
+      <h3 class="text-mute font-mono text-xs uppercase tracking-widest mb-2">The difference is</h3>
+      <div class="flex flex-wrap justify-center items-baseline gap-2">
+        <span id="res-years" class="text-6xl font-bold tracking-tighter text-link">0</span>
+        <span class="text-2xl font-semibold text-body">years</span>
+        <span id="res-months" class="text-6xl font-bold tracking-tighter text-link">0</span>
+        <span class="text-2xl font-semibold text-body">months</span>
+        <span id="res-days" class="text-6xl font-bold tracking-tighter text-link">0</span>
+        <span class="text-2xl font-semibold text-body">days</span>
+      </div>
+    </div>
+  </div>
+</Card>
+
+<script>
+  import { calculateAgeDifference } from "../../utils/dateUtils";
+  import { validateBirthDate } from "../../utils/formValidation";
+  import { setQueryParams, getQueryParams } from "../../utils/seoUtils";
+
+  const form = document.getElementById('diff-form') as HTMLFormElement;
+  const resultContainer = document.getElementById('result-container');
+  const resYears = document.getElementById('res-years');
+  const resMonths = document.getElementById('res-months');
+  const resDays = document.getElementById('res-days');
+
+  const updateUI = () => {
+    const p1 = {
+      d: parseInt((document.getElementById('p1-day') as HTMLInputElement).value),
+      m: parseInt((document.getElementById('p1-month') as HTMLInputElement).value),
+      y: parseInt((document.getElementById('p1-year') as HTMLInputElement).value)
+    };
+    const p2 = {
+      d: parseInt((document.getElementById('p2-day') as HTMLInputElement).value),
+      m: parseInt((document.getElementById('p2-month') as HTMLInputElement).value),
+      y: parseInt((document.getElementById('p2-year') as HTMLInputElement).value)
+    };
+
+    if (validateBirthDate(p1.y, p1.m, p1.d) || validateBirthDate(p2.y, p2.m, p2.d)) return;
+
+    const result = calculateAgeDifference(
+      new Date(p1.y, p1.m - 1, p1.d),
+      new Date(p2.y, p2.m - 1, p2.d)
+    );
+
+    if (resYears) resYears.textContent = result.years.toString();
+    if (resMonths) resMonths.textContent = result.months.toString();
+    if (resDays) resDays.textContent = result.days.toString();
+
+    resultContainer?.classList.remove('hidden');
+
+    setQueryParams({ 
+      p1d: p1.d.toString(), p1m: p1.m.toString(), p1y: p1.y.toString(),
+      p2d: p2.d.toString(), p2m: p2.m.toString(), p2y: p2.y.toString()
+    });
+  };
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    updateUI();
+  });
+
+  document.getElementById('reset-btn')?.addEventListener('click', () => {
+    form.reset();
+    resultContainer?.classList.add('hidden');
+    setQueryParams({ 
+      p1d: '', p1m: '', p1y: '',
+      p2d: '', p2m: '', p2y: ''
+    });
+  });
+
+  const params = getQueryParams();
+  if (params.p1y && params.p2y) {
+    (document.getElementById('p1-day') as HTMLInputElement).value = params.p1d;
+    (document.getElementById('p1-month') as HTMLInputElement).value = params.p1m;
+    (document.getElementById('p1-year') as HTMLInputElement).value = params.p1y;
+    (document.getElementById('p2-day') as HTMLInputElement).value = params.p2d;
+    (document.getElementById('p2-month') as HTMLInputElement).value = params.p2m;
+    (document.getElementById('p2-year') as HTMLInputElement).value = params.p2y;
+    updateUI();
+  }
+</script>

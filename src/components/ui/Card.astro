@@ -1,0 +1,44 @@
+---
+interface Props {
+  variant?: 'white' | 'soft';
+  elevation?: 'none' | 'sm' | 'lg';
+  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  class?: string;
+}
+
+const { 
+  variant = 'white', 
+  elevation = 'sm', 
+  padding = 'md',
+  class: className 
+} = Astro.props;
+
+const variants = {
+  white: 'bg-canvas text-ink',
+  soft: 'bg-canvas-soft text-ink',
+};
+
+const elevations = {
+  none: '',
+  sm: 'shadow-md border border-hairline',
+  lg: 'shadow-2xl border border-hairline/80 ring-1 ring-hairline/50',
+};
+
+const paddings = {
+  none: '',
+  sm: 'p-3',
+  md: 'p-6',
+  lg: 'p-8',
+  xl: 'p-10',
+};
+---
+
+<div class:list={[
+  'rounded-md transition-all',
+  variants[variant],
+  elevations[elevation],
+  paddings[padding],
+  className
+]}>
+  <slot />
+</div>

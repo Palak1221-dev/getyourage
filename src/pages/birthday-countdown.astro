@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BirthdayCountdown from "../components/calculators/BirthdayCountdown.astro";
+import FAQ from "../components/ui/FAQ.astro";
+
+const faqItems = [
+  {
+    question: "When is my next birthday?",
+    answer: "Our countdown shows you exactly how many days are left until your next birthday celebration, along with the specific day of the week it falls on."
+  },
+  {
+    question: "How old will I be on my next birthday?",
+    answer: "The calculator automatically determines your upcoming age by looking at your birth year and the current year."
+  },
+  {
+    question: "Does it account for leap years?",
+    answer: "Yes, our algorithm correctly accounts for leap years to ensure the countdown to your next big day is 100% accurate."
+  }
+];
+---
+
+<Layout 
+  title="Birthday Countdown - Days until your next birthday" 
+  description="See exactly how many days, weeks, and months are left until your next birthday. Find out what day of the week your birthday falls on this year."
+>
+  <div class="max-w-[1200px] mx-auto px-4 py-6 md:py-10">
+    <div class="max-w-4xl mx-auto text-center mb-6">
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-ink mb-4">
+        Birthday Countdown
+      </h1>
+      <p class="text-lg md:text-xl text-body leading-relaxed max-w-[700px] mx-auto mb-6">
+        Can't wait for your next birthday? Enter your birth date to see the live countdown and fun facts about your upcoming special day.
+      </p>
+    </div>
+
+    <div class="max-w-[800px] mx-auto">
+      <BirthdayCountdown />
+    </div>
+
+    <div class="max-w-4xl mx-auto mt-24">
+      <FAQ items={faqItems} />
+    </div>
+  </div>
+</Layout>

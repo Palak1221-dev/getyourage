@@ -1,0 +1,160 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const faqSections = [
+  {
+    category: "Age Calculator",
+    items: [
+      {
+        q: "How is my exact age calculated?",
+        a: "We calculate your exact age by determining the precise time elapsed between your date of birth and the current date, intelligently accounting for leap years and the varying number of days in each month."
+      },
+      {
+        q: "Can I find out exactly how many days I have lived?",
+        a: "Yes, our age calculator provides a granular breakdown including your total days, weeks, hours, and seconds lived."
+      },
+      {
+        q: "Is my birth date data stored on your servers?",
+        a: "No. All calculations are performed entirely locally within your browser. We prioritize your privacy and never store, log, or transmit your personal data."
+      },
+      {
+        q: "How accurate is the calculation for leap years?",
+        a: "Our algorithm uses highly precise native date logic that perfectly accounts for leap years, ensuring your exact age is always 100% accurate."
+      }
+    ]
+  },
+  {
+    category: "Age Difference Calculator",
+    items: [
+      {
+        q: "How do you calculate the age gap between two people?",
+        a: "By entering two distinct birth dates, the tool calculates the absolute chronological time difference between them, outputting the gap clearly in years, months, and days."
+      },
+      {
+        q: "Does the order of dates matter when calculating age difference?",
+        a: "No, you can enter the dates in any order. The calculator automatically identifies the older and younger dates to compute the positive chronological difference."
+      },
+      {
+        q: "Can I use this to find the age gap between me and a historical figure?",
+        a: "Absolutely. As long as the birth year falls within our dynamic 130-year window, you can compare your exact age with anyone else's."
+      },
+      {
+        q: "What happens if I enter the exact same date for both people?",
+        a: "The calculator will output a 0-day difference, which accurately reflects the identical age gap between twins born on the exact same day."
+      }
+    ]
+  },
+  {
+    category: "Birthday Countdown",
+    items: [
+      {
+        q: "How do I know how many days are left until my next birthday?",
+        a: "Our Birthday Countdown tool takes your date of birth, identifies your next upcoming birthday in the current or following calendar year, and calculates the exact number of days remaining."
+      },
+      {
+        q: "Will it tell me what day of the week my birthday is on?",
+        a: "Yes, the countdown results specifically highlight the weekday (e.g., Monday, Friday) your next birthday will fall on."
+      },
+      {
+        q: "Does the countdown update automatically?",
+        a: "The countdown provides an exact calculation at the moment you run it, based on your device's current date and time zone."
+      },
+      {
+        q: "What age will I be turning on my next birthday?",
+        a: "Along with the countdown, the tool explicitly displays the exact age you will be turning on that upcoming date."
+      }
+    ]
+  },
+  {
+    category: "Date Duration Calculator",
+    items: [
+      {
+        q: "What is the Date Duration Calculator used for?",
+        a: "It is primarily used for project planning, tracking relationship milestones, or simply finding out exactly how much time has elapsed between any two historical or future dates."
+      },
+      {
+        q: "Does the duration calculation include the end date?",
+        a: "It calculates the elapsed time between the start and end dates. If you need inclusive dates (counting both the first and last day), you may need to add one day manually."
+      },
+      {
+        q: "Can I calculate the duration between a past date and a future date?",
+        a: "Yes, you can select any combination of past, present, or future dates to find the exact chronological span between them."
+      },
+      {
+        q: "Is the output only provided in days?",
+        a: "No, the duration is broken down into years, months, and days to give you a comprehensive and easily understandable timeframe."
+      }
+    ]
+  },
+  {
+    category: "Future Age Calculator",
+    items: [
+      {
+        q: "How can I find out how old I will be in the year 2050?",
+        a: "Enter your date of birth and set the target future date to any day in 2050. The tool will calculate exactly how old you will be on that specific day."
+      },
+      {
+        q: "Can I use the Future Age Calculator for past dates?",
+        a: "Yes! Despite the name, you can enter a target date in the past (as long as it is after your birth date) to see exactly how old you were at that historical moment."
+      },
+      {
+        q: "What happens if I enter a future date that is before my date of birth?",
+        a: "The tool includes strict validation to prevent this. You cannot calculate an age for a date before you were actually born."
+      },
+      {
+        q: "Do these future calculations account for calendar anomalies?",
+        a: "Yes, the underlying logic perfectly handles leap years and variable month lengths far into the future, ensuring mathematical accuracy."
+      }
+    ]
+  }
+];
+
+const flatFaqs = faqSections.flatMap(section => section.items);
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": flatFaqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.a
+    }
+  }))
+};
+---
+
+<Layout 
+  title="Frequently Asked Questions - GetYourAge.com" 
+  description="Answers to common questions about calculating your exact age, finding age differences, counting down to birthdays, and projecting future ages."
+>
+  <div class="max-w-[1200px] mx-auto px-4 py-12 md:py-24">
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-ink mb-6">
+        Frequently Asked Questions
+      </h1>
+      <p class="text-lg md:text-xl text-body leading-relaxed">
+        Everything you need to know about our precision date and age calculators.
+      </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto prose prose-neutral max-w-none">
+      {faqSections.map(section => (
+        <div class="mb-16">
+          <h2 class="text-2xl font-bold text-ink mb-8 pb-4 border-b border-hairline">{section.category}</h2>
+          <div class="space-y-8">
+            {section.items.map(faq => (
+              <div>
+                <h3 class="text-lg font-semibold text-ink mb-2">{faq.q}</h3>
+                <p class="text-body leading-relaxed m-0">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+</Layout>

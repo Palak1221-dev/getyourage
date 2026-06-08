@@ -1,0 +1,109 @@
+---
+import Layout from "../layouts/Layout.astro";
+import FutureAgeCalculator from "../components/calculators/FutureAgeCalculator.astro";
+import FAQ from "../components/ui/FAQ.astro";
+
+const faqItems = [
+  {
+    question: "How does a future age calculator work?",
+    answer: "It calculates the exact time difference between your date of birth and any specific future date you provide, accounting for leap years and different month lengths."
+  },
+  {
+    question: "Can I calculate my age in 2030?",
+    answer: "Yes, simply enter your birth date and set the future date to any day in the year 2030 to see exactly how old you will be."
+  },
+  {
+    question: "Is leap year handled correctly?",
+    answer: "Absolutely. Our advanced date algorithms perfectly account for leap years, ensuring your calculated future age is mathematically accurate."
+  },
+  {
+    question: "Can I calculate age on a specific date?",
+    answer: "Yes, you can select any exact day, month, and year in the future (or past, as long as it's after your birth date) to find your precise age on that day."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<Layout 
+  title="Future Age Calculator - Calculate Your Age on Any Future Date" 
+  description="Find out exactly how old you will be on any future date. Calculate future age in years, months, weeks, and days."
+>
+  <!-- Hero Section (Matching Homepage Design) -->
+  <section class="w-full pt-4 lg:pt-8 pb-6">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr,460px] gap-6 lg:gap-16 items-start">
+        <div class="text-center lg:text-left lg:pt-2">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-ink mb-3 leading-[1.1]">
+            Future Age Calculator
+          </h1>
+          <p class="text-base md:text-lg text-body leading-relaxed max-w-lg mx-auto lg:mx-0 mb-6">
+            Find out exactly how old you will be on any future date. Calculate future age in years, months, weeks, and days.
+          </p>
+          
+          <!-- Trust Signals Desktop -->
+          <div class="hidden lg:flex items-center gap-6 text-[11px] font-bold text-mute uppercase tracking-widest">
+            <div class="flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-link"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Privacy First
+            </div>
+            <div class="flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+              Instant Results
+            </div>
+            <div class="flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+              100% Free
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full">
+          <FutureAgeCalculator />
+          
+          <!-- Trust Signals Mobile -->
+          <div class="flex lg:hidden flex-wrap justify-center gap-4 mt-6 text-[10px] font-bold text-mute uppercase tracking-widest">
+            <span class="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Privacy First</span>
+            <span class="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg> Instant</span>
+            <span class="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg> Free</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="w-full py-16 bg-canvas-soft-2/50 border-y border-hairline">
+    <div class="max-w-[1200px] mx-auto px-6 text-center">
+      <h2 class="text-2xl font-bold text-ink mb-8">Try our other calculators</h2>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="/age-difference" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+          Try our Age Difference Calculator
+        </a>
+        <a href="/birthday-countdown" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+          Try our Birthday Countdown Calculator
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="w-full py-24">
+    <div class="max-w-[800px] mx-auto px-6">
+      <FAQ items={faqItems} />
+    </div>
+  </section>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+</Layout>

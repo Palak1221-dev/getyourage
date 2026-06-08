@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+import DateDurationCalculator from "../components/calculators/DateDurationCalculator.astro";
+import FAQ from "../components/ui/FAQ.astro";
+
+const faqItems = [
+  {
+    question: "What is the Date Duration Calculator?",
+    answer: "This tool calculates the total time between any two dates. It's useful for project planning, tracking historical events, or seeing how much time has passed between two milestones."
+  },
+  {
+    question: "Does it include the end date?",
+    answer: "Our calculator finds the difference between two dates. By default, it calculates the 'duration' which is the time elapsed from the start to the end date."
+  },
+  {
+    question: "Can I calculate duration in weeks?",
+    answer: "Currently, our results provide a breakdown in years, months, and days. We are working on adding total weeks and other units soon."
+  }
+];
+---
+
+<Layout 
+  title="Date Duration Calculator - Time between two dates" 
+  description="Calculate the exact duration between any two dates. See the results in years, months, and days instantly."
+>
+  <div class="max-w-[1200px] mx-auto px-4 py-6 md:py-10">
+    <div class="max-w-4xl mx-auto text-center mb-6">
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-ink mb-4">
+        Date Duration Calculator
+      </h1>
+      <p class="text-lg md:text-xl text-body leading-relaxed max-w-[700px] mx-auto mb-6">
+        Need to know exactly how much time is between two dates? Use our precision tool to calculate years, months, and days between any two points in time.
+      </p>
+    </div>
+
+    <div class="max-w-[800px] mx-auto">
+      <DateDurationCalculator />
+    </div>
+
+    <div class="max-w-4xl mx-auto mt-24">
+      <FAQ items={faqItems} />
+    </div>
+  </div>
+</Layout>

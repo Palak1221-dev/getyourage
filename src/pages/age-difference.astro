@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+import AgeDifferenceCalculator from "../components/calculators/AgeDifferenceCalculator.astro";
+import FAQ from "../components/ui/FAQ.astro";
+
+const faqItems = [
+  {
+    question: "How is age difference calculated?",
+    answer: "Age difference is calculated by finding the total amount of time between two birth dates. We provide the result in years, months, and days for better clarity."
+  },
+  {
+    question: "Can I use this for twins?",
+    answer: "Yes! For twins born on the same day, the calculator will show a 0-day difference, reflecting their identical age."
+  },
+  {
+    question: "Does the order of dates matter?",
+    answer: "No, our calculator automatically identifies which date is earlier and calculates the positive difference between them."
+  }
+];
+---
+
+<Layout 
+  title="Age Difference Calculator - Gap between two people" 
+  description="Calculate the exact age difference between two people. See the gap in years, months, and days instantly."
+>
+  <div class="max-w-[1200px] mx-auto px-4 py-6 md:py-10">
+    <div class="max-w-4xl mx-auto text-center mb-6">
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-ink mb-4">
+        Age Difference Calculator
+      </h1>
+      <p class="text-lg md:text-xl text-body leading-relaxed max-w-[700px] mx-auto mb-6">
+        Find the exact age gap between friends, partners, or family members. Simply enter two dates of birth below to see the precise difference.
+      </p>
+    </div>
+
+    <div class="max-w-[800px] mx-auto">
+      <AgeDifferenceCalculator />
+    </div>
+
+    <div class="max-w-4xl mx-auto mt-24">
+      <FAQ items={faqItems} />
+    </div>
+  </div>
+</Layout>

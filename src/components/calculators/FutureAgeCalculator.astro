@@ -1,0 +1,161 @@
+---
+import Card from "../ui/Card.astro";
+import Button from "../ui/Button.astro";
+import Input from "../ui/Input.astro";
+---
+
+<Card elevation="lg" padding="md" class="w-full shadow-2xl ring-1 ring-hairline">
+  <form id="future-form" class="space-y-4">
+    <div class="space-y-3">
+      <h3 class="text-sm font-mono uppercase tracking-widest text-mute">Date of Birth</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <Input label="Day" type="number" id="dob-day" placeholder="01" min="1" max="31" required />
+        <Input label="Month" type="number" id="dob-month" placeholder="01" min="1" max="12" required />
+        <Input label="Year" type="number" id="dob-year" placeholder="1995" min={new Date().getFullYear() - 130} required />
+      </div>
+    </div>
+
+    <div class="space-y-3">
+      <h3 class="text-sm font-mono uppercase tracking-widest text-mute">Future Date</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <Input label="Day" type="number" id="f-day" placeholder="01" min="1" max="31" required />
+        <Input label="Month" type="number" id="f-month" placeholder="01" min="1" max="12" required />
+        <Input label="Year" type="number" id="f-year" placeholder="2050" min={new Date().getFullYear() - 130} required />
+      </div>
+    </div>
+
+    <!-- Error Message Container -->
+    <div id="error-message" class="hidden text-sm text-error font-medium p-3 bg-error/10 border border-error/20 rounded-md">
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+      <Button type="submit" class="flex-grow shadow-lg shadow-link/20">Calculate Future Age</Button>
+      <Button variant="secondary" id="reset-btn">Reset</Button>
+    </div>
+  </form>
+
+  <div id="result-container" class="mt-8 hidden space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 scroll-mt-24">
+    <div class="text-center">
+      <h3 class="text-mute font-mono text-xs uppercase tracking-widest mb-2">Age on that date will be</h3>
+      <div class="flex flex-wrap justify-center items-baseline gap-2">
+        <span id="res-years" class="text-6xl font-bold tracking-tighter text-link">0</span>
+        <span class="text-2xl font-semibold text-body">years</span>
+        <span id="res-months" class="text-6xl font-bold tracking-tighter text-link">0</span>
+        <span class="text-2xl font-semibold text-body">months</span>
+        <span id="res-days" class="text-6xl font-bold tracking-tighter text-link">0</span>
+        <span class="text-2xl font-semibold text-body">days</span>
+      </div>
+    </div>
+    
+    <!-- Additional Statistics -->
+    <div class="grid grid-cols-3 gap-3 pt-6 border-t border-hairline">
+        <div class="p-3 bg-canvas-soft-2/50 rounded-lg border border-hairline text-center group hover:border-link transition-colors">
+          <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Total Months</span>
+          <span id="res-total-months" class="text-lg font-bold text-link tracking-tight">0</span>
+        </div>
+        <div class="p-3 bg-canvas-soft-2/50 rounded-lg border border-hairline text-center group hover:border-link transition-colors">
+          <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Total Weeks</span>
+          <span id="res-total-weeks" class="text-lg font-bold text-link tracking-tight">0</span>
+        </div>
+        <div class="p-3 bg-canvas-soft-2/50 rounded-lg border border-hairline text-center group hover:border-link transition-colors">
+          <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Total Days</span>
+          <span id="res-total-days" class="text-lg font-bold text-link tracking-tight">0</span>
+        </div>
+    </div>
+  </div>
+</Card>
+
+<script>
+  import { calculateAge } from "../../utils/dateUtils";
+  import { setQueryParams, getQueryParams } from "../../utils/seoUtils";
+
+  const form = document.getElementById('future-form') as HTMLFormElement;
+  const resultContainer = document.getElementById('result-container');
+  const errorMessage = document.getElementById('error-message');
+  
+  const resYears = document.getElementById('res-years');
+  const resMonths = document.getElementById('res-months');
+  const resDays = document.getElementById('res-days');
+  const resTotalMonths = document.getElementById('res-total-months');
+  const resTotalWeeks = document.getElementById('res-total-weeks');
+  const resTotalDays = document.getElementById('res-total-days');
+
+  const showError = (msg: string) => {
+    if (errorMessage) {
+      errorMessage.textContent = msg;
+      errorMessage.classList.remove('hidden');
+    }
+  };
+
+  const hideError = () => {
+    if (errorMessage) {
+      errorMessage.classList.add('hidden');
+    }
+  };
+
+  const updateUI = () => {
+    hideError();
+    const d = {
+      d: parseInt((document.getElementById('dob-day') as HTMLInputElement).value),
+      m: parseInt((document.getElementById('dob-month') as HTMLInputElement).value),
+      y: parseInt((document.getElementById('dob-year') as HTMLInputElement).value)
+    };
+    const f = {
+      d: parseInt((document.getElementById('f-day') as HTMLInputElement).value),
+      m: parseInt((document.getElementById('f-month') as HTMLInputElement).value),
+      y: parseInt((document.getElementById('f-year') as HTMLInputElement).value)
+    };
+
+    const dob = new Date(d.y, d.m - 1, d.d);
+    const future = new Date(f.y, f.m - 1, f.d);
+
+    if (future < dob) {
+      showError("The future date cannot be earlier than the date of birth.");
+      return;
+    }
+
+    const result = calculateAge(dob, future);
+    const totalMonthsVal = result.years * 12 + result.months;
+
+    if (resYears) resYears.textContent = result.years.toString();
+    if (resMonths) resMonths.textContent = result.months.toString();
+    if (resDays) resDays.textContent = result.days.toString();
+    if (resTotalMonths) resTotalMonths.textContent = totalMonthsVal.toLocaleString();
+    if (resTotalWeeks) resTotalWeeks.textContent = result.totalWeeks.toLocaleString();
+    if (resTotalDays) resTotalDays.textContent = result.totalDays.toLocaleString();
+
+    resultContainer?.classList.remove('hidden');
+    resultContainer?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    setQueryParams({ 
+      dd: d.d.toString(), dm: d.m.toString(), dy: d.y.toString(),
+      fd: f.d.toString(), fm: f.m.toString(), fy: f.y.toString()
+    });
+  };
+
+  form.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    updateUI();
+  });
+
+  document.getElementById('reset-btn')?.addEventListener('click', () => {
+    form.reset();
+    hideError();
+    resultContainer?.classList.add('hidden');
+    setQueryParams({ 
+      dd: '', dm: '', dy: '',
+      fd: '', fm: '', fy: ''
+    });
+  });
+
+  const params = getQueryParams();
+  if (params.dy && params.fy) {
+    (document.getElementById('dob-day') as HTMLInputElement).value = params.dd;
+    (document.getElementById('dob-month') as HTMLInputElement).value = params.dm;
+    (document.getElementById('dob-year') as HTMLInputElement).value = params.dy;
+    (document.getElementById('f-day') as HTMLInputElement).value = params.fd;
+    (document.getElementById('f-month') as HTMLInputElement).value = params.fm;
+    (document.getElementById('f-year') as HTMLInputElement).value = params.fy;
+    updateUI();
+  }
+</script>

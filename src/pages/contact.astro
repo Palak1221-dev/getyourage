@@ -1,0 +1,31 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/ui/Card.astro";
+import Button from "../components/ui/Button.astro";
+import Input from "../components/ui/Input.astro";
+---
+
+<Layout title="Contact Us - GetYourAge.com">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+    <h1 class="text-4xl font-bold text-ink mb-8">Contact Us</h1>
+    <p class="text-lg text-body mb-12">
+      Have feedback, a bug report, or a feature request? We'd love to hear from you.
+    </p>
+
+    <Card elevation="lg">
+      <form class="space-y-6">
+        <Input label="Name" type="text" placeholder="Your Name" required />
+        <Input label="Email" type="email" placeholder="your@email.com" required />
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-medium text-ink">Message</label>
+          <textarea 
+            class="min-h-[150px] px-3 py-2 bg-canvas border border-hairline rounded-sm text-sm text-ink placeholder:text-mute focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10"
+            placeholder="How can we help?"
+            required
+          ></textarea>
+        </div>
+        <Button type="submit" class="w-full">Send Message</Button>
+      </form>
+    </Card>
+  </div>
+</Layout>

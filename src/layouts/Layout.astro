@@ -1,23 +1,101 @@
+---
+import "../styles/global.css";
+import Header from "../components/ui/Header.astro";
+import Footer from "../components/ui/Footer.astro";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { 
+	title = "Age Calculator - GetYourAge.com", 
+	description = "Calculate your exact age in years, months, days, and more. Free, fast, and modern age calculator." 
+} = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+		<!-- Modern SVG Favicon -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+		<!-- Fallback for older browsers -->
+		<link rel="icon" type="image/x-icon" href="/favicon.ico?v=2" />
+		<!-- Apple Touch Icon -->
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+		<!-- Theme Color for mobile browsers -->
+		<meta name="theme-color" content="#2563EB" />
+		
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		
+		<link rel="canonical" href={Astro.url} />
+		<script is:inline>
+			const theme = (() => {
+				if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+					return localStorage.getItem('theme');
+				}
+				if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+					return 'dark';
+				}
+				return 'light';
+			})();
+		
+			if (theme === 'light') {
+				document.documentElement.setAttribute('data-theme', 'light');
+			} else {
+				document.documentElement.setAttribute('data-theme', 'dark');
+			}
+			window.localStorage.setItem('theme', theme);
+		</script>
 	</head>
-	<body>
-		<slot />
+	<body class="relative min-h-screen flex flex-col">
+		<!-- Mesh Gradient Background -->
+		<div class="mesh-gradient absolute top-0 left-0 w-full h-[600px] -z-10 pointer-events-none"></div>
+		
+		<Header />
+		
+		<main class="flex-grow">
+			<slot />
+		</main>
+
+		<Footer />
+		
+		<style is:global>
+			@font-face {
+				font-family: 'Geist';
+				src: url('https://cdn.jsdelivr.net/font-geist/1.0.0/Geist-Variable.woff2') format('woff2');
+				font-weight: 100 900;
+				font-display: swap;
+			}
+			@font-face {
+				font-family: 'Geist Mono';
+				src: url('https://cdn.jsdelivr.net/font-geist/1.0.0/GeistMono-Variable.woff2') format('woff2');
+				font-weight: 100 900;
+				font-display: swap;
+			}
+      
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100%;
+      }
+		</style>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
