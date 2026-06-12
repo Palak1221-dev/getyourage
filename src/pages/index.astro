@@ -1,102 +1,148 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import AgeCalculator from "../components/calculators/AgeCalculator.astro";
-import FAQ from "../components/ui/FAQ.astro";
+import Card from "../components/ui/Card.astro";
 
-const faqItems = [
+const tools = [
   {
-    question: "How is my age calculated?",
-    answer: "Your age is calculated by finding the difference between your date of birth and the current date. We account for leap years and the varying number of days in each month to provide an exact breakdown in years, months, and days."
+    title: "Age Calculator",
+    description: "Calculate your exact age in years, months, days, and seconds.",
+    href: "/age-calculator",
+    icon: "clock"
   },
   {
-    question: "Is this age calculator accurate?",
-    answer: "Yes, our age calculator uses precise date logic to ensure accuracy. It handles all calendar complexities, including leap years, to give you the most reliable result."
+    title: "Age Difference",
+    description: "Find the exact age gap between two people instantly.",
+    href: "/age-difference",
+    icon: "users"
   },
   {
-    question: "Does it track seconds in real-time?",
-    answer: "Our advanced calculator provides your age down to the exact second at the time of calculation, giving you a unique perspective on the math of your life."
+    title: "Birthday Countdown",
+    description: "See how many days are left until your next special day.",
+    href: "/birthday-countdown",
+    icon: "gift"
+  },
+  {
+    title: "Duration Calculator",
+    description: "Calculate the precise time elapsed between any two dates.",
+    href: "/duration",
+    icon: "calendar"
+  },
+  {
+    title: "Future Age",
+    description: "Find out exactly how old you will be on any future date.",
+    href: "/future-age",
+    icon: "forward"
   }
 ];
 ---
 
-<Layout>
+<Layout 
+  title="Tooltails - Free Online Precision Date & Age Calculators" 
+  description="Discover a collection of free, fast, and accurate online tools for age calculation, birthday countdowns, and date durations. No ads, no tracking, just tools."
+>
   <!-- Hero Section -->
-  <section class="w-full pt-4 lg:pt-8 pb-6">
+  <section class="w-full pt-12 md:pt-20 pb-20 md:pb-32">
+    <div class="max-w-[1200px] mx-auto px-6 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-link/5 border border-link/10 text-link text-xs font-mono mb-8 uppercase tracking-widest animate-in fade-in slide-in-from-top-4 duration-1000">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-link opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-link"></span>
+        </span>
+        Premium Utility Tools
+      </div>
+      
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-ink mb-8 leading-none">
+        Tooltails <span class="text-primary">.</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-body leading-relaxed max-w-2xl mx-auto mb-12">
+        A collection of precision tools designed for accuracy, speed, and privacy. Calculate milestones, track time, and discover the math of your life.
+      </p>
+
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#tools" class="inline-flex items-center justify-center px-8 h-12 text-sm font-bold rounded-pill bg-ink text-canvas hover:bg-primary transition-all active:scale-[0.98]">
+          Explore All Tools
+        </a>
+        <a href="/age-calculator" class="inline-flex items-center justify-center px-8 h-12 text-sm font-bold rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 transition-all active:scale-[0.98]">
+          Try Age Calculator
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools Grid -->
+  <section id="tools" class="w-full py-24 bg-canvas-soft-2/50 border-y border-hairline scroll-mt-16">
     <div class="max-w-[1200px] mx-auto px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-[1fr,460px] gap-6 lg:gap-16 items-start">
-        <div class="text-center lg:text-left lg:pt-2">
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-ink mb-3 leading-[1.1]">
-            Calculate Your Exact Age
-          </h1>
-          <p class="text-base md:text-lg text-body leading-relaxed max-w-lg mx-auto lg:mx-0 mb-6">
-            Calculate your exact age in years, months, days, weeks, and seconds instantly.
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div class="max-w-xl">
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-ink mb-4">
+            Available Calculators
+          </h2>
+          <p class="text-lg text-body">
+            Choose from our specialized date and time tools. Every calculation is performed locally in your browser to ensure maximum privacy.
           </p>
-          
-          <!-- Trust Signals Desktop -->
-          <div class="hidden lg:flex items-center gap-8 text-[12px] font-bold text-mute uppercase tracking-[0.2em]">
-            <div class="flex items-center gap-2 group">
-              <div class="p-2 rounded-full bg-link/5 group-hover:bg-link/10 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-link"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              </div>
-              Privacy First
-            </div>
-            <div class="flex items-center gap-2 group">
-              <div class="p-2 rounded-full bg-link/5 group-hover:bg-link/10 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-              </div>
-              Instant Results
-            </div>
-            <div class="flex items-center gap-2 group">
-              <div class="p-2 rounded-full bg-link/5 group-hover:bg-link/10 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
-              </div>
-              100% Free
-            </div>
-          </div>
         </div>
+      </div>
 
-        <div class="w-full">
-          <AgeCalculator />
-          
-          <!-- Trust Signals Mobile -->
-          <div class="flex lg:hidden flex-wrap justify-center gap-4 mt-6 text-[10px] font-bold text-mute uppercase tracking-widest">
-            <span class="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Privacy First</span>
-            <span class="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg> Instant</span>
-            <span class="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg> Free</span>
-          </div>
-        </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {tools.map((tool) => (
+          <a href={tool.href} class="group">
+            <Card elevation="sm" class="h-full group-hover:shadow-2xl group-hover:border-link/30 transition-all duration-500">
+              <div class="flex flex-col h-full">
+                <div class="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-link/5 text-link group-hover:bg-link group-hover:text-canvas transition-colors duration-500">
+                  {tool.icon === 'clock' && (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  )}
+                  {tool.icon === 'users' && (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  )}
+                  {tool.icon === 'gift' && (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect width="20" height="5" x="2" y="7"/><line x1="12" x2="12" y1="22" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+                  )}
+                  {tool.icon === 'calendar' && (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                  )}
+                  {tool.icon === 'forward' && (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
+                  )}
+                </div>
+                <h3 class="text-xl font-bold text-ink mb-3 group-hover:text-link transition-colors duration-500">
+                  {tool.title}
+                </h3>
+                <p class="text-body text-sm leading-relaxed mb-6">
+                  {tool.description}
+                </p>
+                <div class="mt-auto flex items-center text-xs font-bold text-mute uppercase tracking-widest group-hover:text-link transition-colors duration-500">
+                  Launch Tool &rarr;
+                </div>
+              </div>
+            </Card>
+          </a>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- Feature Grid -->
-  <section class="w-full py-24 bg-canvas-soft-2/50 border-y border-hairline">
-    <div class="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="p-8 bg-canvas border border-hairline rounded-lg card-shadow">
-        <h3 class="text-lg font-bold text-ink mb-3">Millisecond Precision</h3>
-        <p class="text-sm text-body leading-relaxed">
-          We calculate your age down to the second, so you know exactly how much life you've lived.
-        </p>
-      </div>
-      <div class="p-8 bg-canvas border border-hairline rounded-lg card-shadow">
-        <h3 class="text-lg font-bold text-ink mb-3">Privacy Friendly</h3>
-        <p class="text-sm text-body leading-relaxed">
-          Your birth date is processed locally in your browser. We never store or share your personal data.
-        </p>
-      </div>
-      <div class="p-8 bg-canvas border border-hairline rounded-lg card-shadow">
-        <h3 class="text-lg font-bold text-ink mb-3">Easy Sharing</h3>
-        <p class="text-sm text-body leading-relaxed">
-          Found a fun milestone? Copy your results or share a unique link with friends and family instantly.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
+  <!-- Call to Action -->
   <section class="w-full py-24">
-    <div class="max-w-[800px] mx-auto px-6">
-      <FAQ items={faqItems} />
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="p-12 md:p-20 bg-ink rounded-3xl text-center relative overflow-hidden">
+        <!-- Mesh backdrop inside CTA -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-link/20 via-transparent to-transparent"></div>
+        
+        <div class="relative z-10">
+          <h2 class="text-3xl md:text-5xl font-bold tracking-tighter text-canvas mb-6 leading-tight">
+            Built for precision.<br/>Free for everyone.
+          </h2>
+          <p class="text-lg md:text-xl text-canvas/60 max-w-xl mx-auto mb-10">
+            No ads, no tracking, and no accounts required. Just the most accurate date tools on the web.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="/age-calculator" class="inline-flex items-center justify-center px-10 h-14 text-base font-bold rounded-pill bg-canvas text-ink hover:bg-canvas-soft-2 transition-all active:scale-[0.98]">
+              Get Started Now
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </Layout>
