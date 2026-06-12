@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://getyourage.com/sitemap-index.xml
+Sitemap: https://tooltails.com/sitemap-index.xml

@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://getyourage.com',
+  site: 'https://tooltails.com',
   devToolbar: {
     enabled: false
   },

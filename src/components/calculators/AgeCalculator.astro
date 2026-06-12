@@ -166,7 +166,7 @@ import Input from "../ui/Input.astro";
   });
 
   document.getElementById('copy-btn')?.addEventListener('click', () => {
-    const text = `I am ${resYears?.textContent} years, ${resMonths?.textContent} months, and ${resDays?.textContent} days old! Calculated on GetYourAge.com`;
+    const text = `I am ${resYears?.textContent} years, ${resMonths?.textContent} months, and ${resDays?.textContent} days old! Calculated on Tooltails.com`;
     copyToClipboard(text).then(success => {
       if (success) {
         const btn = document.getElementById('copy-btn');
