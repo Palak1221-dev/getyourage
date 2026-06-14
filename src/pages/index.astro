@@ -86,7 +86,7 @@ const whyTooltails = [
   description="Tooltails offers free online calculators, generators, converters and productivity tools. Fast, accurate and easy to use."
 >
   <!-- Hero Section -->
-  <section class="relative w-full pt-20 md:pt-32 pb-24 md:pb-40 overflow-hidden">
+  <section class="relative w-full pt-16 md:pt-24 pb-12 md:pb-20 overflow-hidden">
     <!-- Decorative background elements -->
     <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-link/10 rounded-full blur-[120px] pointer-events-none opacity-50"></div>
     <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none opacity-30"></div>
@@ -94,7 +94,7 @@ const whyTooltails = [
 
     <div class="max-w-[1200px] mx-auto px-6 relative z-10">
       <div class="flex flex-col items-center text-center">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-link/10 border border-link/20 text-link text-xs font-bold mb-10 uppercase tracking-wider animate-in fade-in slide-in-from-top-4 duration-1000 shadow-sm">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-link/10 border border-link/20 text-link text-xs font-bold mb-8 uppercase tracking-wider animate-in fade-in slide-in-from-top-4 duration-1000 shadow-sm">
           <span class="relative flex h-2 w-2">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-link opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-link"></span>
@@ -102,15 +102,15 @@ const whyTooltails = [
           100% Free Online Tools
         </div>
         
-        <h1 class="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight text-ink mb-10 leading-[0.85] max-w-5xl animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100">
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-ink mb-6 leading-[0.9] max-w-5xl animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100">
           Tools for <span class="text-link">Modern</span> Life.
         </h1>
-        <p class="text-xl md:text-2xl text-body leading-relaxed max-w-2xl mx-auto mb-12 opacity-80 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
+        <p class="text-lg md:text-xl text-body leading-relaxed max-w-2xl mx-auto mb-10 opacity-80 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
           Tooltails provides free online calculators, generators, and productivity tools designed to help you work faster and smarter.
         </p>
 
         <!-- Category Pills -->
-        <div class="flex flex-wrap justify-center gap-2 mb-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+        <div class="flex flex-wrap justify-center gap-2 mb-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
           {categories.map(category => (
             <span class="px-4 py-1.5 rounded-full bg-canvas border border-hairline text-body text-[13px] font-medium hover:border-link/50 hover:text-link transition-all cursor-default shadow-sm">
               {category}
@@ -119,11 +119,11 @@ const whyTooltails = [
         </div>
 
         <div class="flex flex-wrap justify-center gap-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-400">
-          <a href="#tools" class="inline-flex items-center justify-center px-10 h-16 text-lg font-bold rounded-pill bg-ink text-canvas hover:bg-link transition-all active:scale-[0.98] shadow-xl shadow-ink/10 group">
+          <a href="#tools" class="inline-flex items-center justify-center px-8 h-14 text-base font-bold rounded-pill bg-ink text-canvas hover:bg-link transition-all active:scale-[0.98] shadow-xl shadow-ink/10 group">
             Explore All Tools
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-y-1 transition-transform"><line x1="12" x2="12" y1="5" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-y-1 transition-transform"><line x1="12" x2="12" y1="5" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
           </a>
-          <a href="/about" class="inline-flex items-center justify-center px-10 h-16 text-lg font-bold rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 transition-all active:scale-[0.98]">
+          <a href="/about" class="inline-flex items-center justify-center px-8 h-14 text-base font-bold rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 transition-all active:scale-[0.98]">
             Learn More
           </a>
         </div>
@@ -132,19 +132,19 @@ const whyTooltails = [
   </section>
 
   <!-- Stats Section -->
-  <section class="w-full pb-32">
+  <section class="w-full pb-20">
     <div class="max-w-[1200px] mx-auto px-6">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
         {stats.map(stat => (
-          <div class="p-8 rounded-3xl bg-canvas border border-hairline shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center group">
+          <div class="p-6 md:p-8 rounded-3xl bg-canvas border border-hairline shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center group">
             <div class="mb-4 text-link/50 group-hover:text-link transition-colors">
               {stat.icon === 'tool' && <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 21 8.35-8.35a5.5 5.5 0 0 0-7.78-7.78l-8.35 8.35a5.5 5.5 0 0 0 7.78 7.78Z"/><path d="m9.5 14.5 5-5"/></svg>}
               {stat.icon === 'gift' && <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect width="20" height="5" x="2" y="7"/><line x1="12" x2="12" y1="22" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>}
               {stat.icon === 'user-minus' && <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="22" x2="16" y1="11" y2="11"/></svg>}
               {stat.icon === 'zap' && <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>}
             </div>
-            <div class="text-3xl font-bold text-ink mb-1">{stat.value}</div>
-            <div class="text-[11px] font-bold text-mute uppercase tracking-[0.2em]">{stat.label}</div>
+            <div class="text-2xl md:text-3xl font-bold text-ink mb-1">{stat.value}</div>
+            <div class="text-[10px] md:text-[11px] font-bold text-mute uppercase tracking-[0.2em]">{stat.label}</div>
           </div>
         ))}
       </div>
@@ -152,7 +152,7 @@ const whyTooltails = [
   </section>
 
   <!-- Popular Tools Section -->
-  <section id="tools" class="w-full py-32 bg-canvas-soft border-y border-hairline scroll-mt-16">
+  <section id="tools" class="w-full py-20 bg-canvas-soft border-y border-hairline scroll-mt-16">
     <div class="max-w-[1200px] mx-auto px-6">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-20">
         <div class="max-w-2xl">
