@@ -3,10 +3,10 @@ import Layout from "../layouts/Layout.astro";
 import Card from "../components/ui/Card.astro";
 
 const categories = [
+  "All",
   "Calculators",
   "Date & Time",
   "Generators",
-  "Text Tools",
   "Productivity"
 ];
 
@@ -59,13 +59,13 @@ const tools = [
 
 const whyTooltails = [
   {
-    title: "Fast",
+    title: "Fast Results",
     description: "Get answers instantly without waiting for page reloads. We value your time.",
     icon: "zap"
   },
   {
-    title: "Private",
-    description: "Your information stays private on your device. We don't see or store your data.",
+    title: "Privacy Focused",
+    description: "Your information stays private on your device. All calculations are performed locally in your browser.",
     icon: "shield"
   },
   {
@@ -74,7 +74,7 @@ const whyTooltails = [
     icon: "mobile"
   },
   {
-    title: "Accurate",
+    title: "Accurate Calculations",
     description: "Built with care to ensure your results are mathematically perfect every time.",
     icon: "check-circle"
   }
@@ -82,7 +82,7 @@ const whyTooltails = [
 ---
 
 <Layout 
-  title="Tooltails - Simple Tools for Everyday Tasks" 
+  title="Tooltails - Free Online Tools for Everyday Tasks" 
   description="Calculate ages, track birthdays, compare dates and get answers instantly — all for free. Fast, accurate and easy to use."
 >
   <!-- Hero Section -->
@@ -103,7 +103,7 @@ const whyTooltails = [
         </div>
         
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-ink mb-4 leading-[0.9] max-w-5xl animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100">
-          Simple Tools for <span class="text-link">Everyday</span> Tasks.
+          Free Online Tools for <span class="text-link">Everyday</span> Tasks.
         </h1>
         <p class="text-lg md:text-xl text-body leading-relaxed max-w-2xl mx-auto mb-8 opacity-80 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
           Calculate ages, track birthdays, compare dates and get answers instantly — all for free.
@@ -112,25 +112,36 @@ const whyTooltails = [
         <!-- Category Pills -->
         <div class="flex flex-wrap justify-center gap-2 mb-10 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
           {categories.map(category => (
-            <span class="px-4 py-1.5 rounded-full bg-canvas border border-hairline text-body text-[13px] font-medium hover:border-link/50 hover:text-link transition-all cursor-default shadow-sm">
+            <button 
+              class="category-pill px-4 py-1.5 rounded-full bg-canvas border border-hairline text-body text-[13px] font-medium hover:border-link/50 hover:text-link transition-all cursor-pointer shadow-sm active:scale-95"
+              data-category={category}
+            >
               {category}
-            </span>
+            </button>
           ))}
         </div>
 
-        <div class="flex flex-col items-center gap-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-400">
+        <div class="flex flex-col items-center gap-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-400">
           <div class="flex flex-wrap justify-center gap-6">
             <a href="#tools" class="inline-flex items-center justify-center px-8 h-14 text-base font-bold rounded-pill bg-ink text-canvas hover:bg-link transition-all active:scale-[0.98] shadow-xl shadow-ink/10 group">
               Explore All Tools
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-y-1 transition-transform"><line x1="12" x2="12" y1="5" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
             </a>
-            <a href="/about" class="inline-flex items-center justify-center px-8 h-14 text-base font-bold rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 transition-all active:scale-[0.98]">
-              Learn More
+            <a href="#why" class="inline-flex items-center justify-center px-8 h-14 text-base font-bold rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 transition-all active:scale-[0.98]">
+              Why Tooltails?
             </a>
           </div>
-          <p class="text-sm text-mute font-medium">
-            ✨ No sign-up required. Just open a tool and get started.
-          </p>
+          
+          <div class="flex flex-col items-center gap-3">
+            <p class="text-sm text-ink font-semibold">
+              ✨ No sign-up required. Just open a tool and get started.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 text-[11px] font-bold text-mute uppercase tracking-widest">
+              <span class="flex items-center gap-1.5"><span class="text-link">⚡</span> Fast Results</span>
+              <span class="flex items-center gap-1.5"><span class="text-link">🔒</span> Privacy Focused</span>
+              <span class="flex items-center gap-1.5"><span class="text-link">💯</span> Completely Free</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -170,50 +181,48 @@ const whyTooltails = [
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="tools-grid">
         {tools.map((tool) => (
-          <a href={tool.href} class="group block h-full">
-            <Card elevation="sm" class="h-full group-hover:shadow-2xl group-hover:border-link/40 transition-all duration-500 relative bg-canvas rounded-[2rem] p-10">
+          <a href={tool.href} class="tool-card group block h-full" data-category={tool.tag}>
+            <Card elevation="sm" class="h-full group-hover:shadow-2xl group-hover:border-link/40 transition-all duration-500 relative bg-canvas rounded-[2rem] p-10 flex flex-col">
               {tool.popular && (
                 <div class="absolute top-0 right-0 px-4 py-1.5 bg-link text-canvas text-[10px] font-bold uppercase tracking-[0.2em] rounded-bl-2xl">
                   Popular
                 </div>
               )}
               
-              <div class="flex flex-col h-full">
-                <div class="mb-10 inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-canvas-soft border border-hairline text-link group-hover:bg-link group-hover:text-canvas transition-all duration-500 shadow-sm">
-                  {tool.icon === 'clock' && (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  )}
-                  {tool.icon === 'users' && (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                  )}
-                  {tool.icon === 'gift' && (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect width="20" height="5" x="2" y="7"/><line x1="12" x2="12" y1="22" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-                  )}
-                  {tool.icon === 'calendar' && (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                  )}
-                  {tool.icon === 'forward' && (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
-                  )}
-                </div>
-                
-                <div class="mb-2">
-                  <span class="text-[10px] font-bold text-link uppercase tracking-[0.2em]">{tool.tag}</span>
-                </div>
-                <h3 class="text-3xl font-bold text-ink mb-4 group-hover:text-link transition-colors duration-300">
-                  {tool.title}
-                </h3>
-                
-                <p class="text-body text-base leading-relaxed mb-8 opacity-80">
-                  {tool.description}
-                </p>
-                
-                <div class="mt-auto flex items-center text-xs font-bold text-link uppercase tracking-widest group-hover:translate-x-2 transition-transform">
-                  Launch Tool
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="ml-2"><line x1="5" x2="19" y1="12" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </div>
+              <div class="mb-10 inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-canvas-soft border border-hairline text-link group-hover:bg-link group-hover:text-canvas transition-all duration-500 shadow-sm">
+                {tool.icon === 'clock' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                )}
+                {tool.icon === 'users' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                )}
+                {tool.icon === 'gift' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect width="20" height="5" x="2" y="7"/><line x1="12" x2="12" y1="22" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+                )}
+                {tool.icon === 'calendar' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                )}
+                {tool.icon === 'forward' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
+                )}
+              </div>
+              
+              <div class="mb-2">
+                <span class="text-[10px] font-bold text-link uppercase tracking-[0.2em]">{tool.tag}</span>
+              </div>
+              <h3 class="text-2xl md:text-3xl font-bold text-ink mb-4 group-hover:text-link transition-colors duration-300">
+                {tool.title}
+              </h3>
+              
+              <p class="text-body text-base leading-relaxed mb-8 opacity-80">
+                {tool.description}
+              </p>
+              
+              <div class="mt-auto inline-flex items-center justify-center w-full h-12 rounded-xl bg-canvas-soft border border-hairline text-[13px] font-bold text-ink group-hover:bg-link group-hover:text-canvas group-hover:border-link transition-all duration-300 uppercase tracking-widest">
+                Open Tool
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-x-1 transition-transform"><line x1="5" x2="19" y1="12" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
               </div>
             </Card>
           </a>
@@ -223,7 +232,7 @@ const whyTooltails = [
   </section>
 
   <!-- Why Tooltails Section -->
-  <section class="w-full py-40">
+  <section id="why" class="w-full py-32 md:py-40">
     <div class="max-w-[1200px] mx-auto px-6">
       <div class="text-center mb-24">
         <h2 class="text-4xl md:text-7xl font-bold tracking-tight text-ink mb-8 leading-tight">
@@ -282,4 +291,52 @@ const whyTooltails = [
       </div>
     </div>
   </section>
+
+  <script>
+    const setupFiltering = () => {
+      const pills = document.querySelectorAll('.category-pill');
+      const cards = document.querySelectorAll('.tool-card');
+      const grid = document.getElementById('tools-grid');
+
+      pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          const category = pill.getAttribute('data-category');
+          
+          // Update UI
+          pills.forEach(p => {
+            p.classList.remove('bg-link', 'text-canvas', 'border-link');
+            p.classList.add('bg-canvas', 'text-body', 'border-hairline');
+          });
+          pill.classList.add('bg-link', 'text-canvas', 'border-link');
+          pill.classList.remove('bg-canvas', 'text-body', 'border-hairline');
+
+          // Filter cards
+          cards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            if (category === 'All' || cardCategory === category) {
+              (card as HTMLElement).style.display = 'block';
+            } else {
+              (card as HTMLElement).style.display = 'none';
+            }
+          });
+
+          // Smooth scroll to tools grid if not in view
+          const rect = grid?.getBoundingClientRect();
+          if (rect && (rect.top < 0 || rect.top > window.innerHeight)) {
+            grid?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // Initial state: Set "All" as active
+      const allPill = Array.from(pills).find(p => p.getAttribute('data-category') === 'All');
+      if (allPill) {
+        allPill.classList.add('bg-link', 'text-canvas', 'border-link');
+        allPill.classList.remove('bg-canvas', 'text-body', 'border-hairline');
+      }
+    };
+
+    setupFiltering();
+    document.addEventListener('astro:after-swap', setupFiltering);
+  </script>
 </Layout>

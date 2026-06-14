@@ -34,18 +34,6 @@ const isToolActive = toolItems.some(item => isActive(item.href));
       </a>
       
       <nav class="hidden xl:flex items-center gap-1">
-        <a 
-          href="/" 
-          class:list={[
-            "px-3 py-1.5 text-[13px] font-medium transition-all rounded-full whitespace-nowrap", 
-            isActive("/") 
-              ? "text-link bg-link/10" 
-              : "text-body hover:text-ink hover:bg-canvas-soft-2"
-          ]}
-        >
-          Home
-        </a>
-
         <!-- Tools Dropdown -->
         <div class="relative group" id="tools-dropdown">
           <button 
@@ -109,17 +97,6 @@ const isToolActive = toolItems.some(item => isActive(item.href));
   <!-- Mobile Menu Dropdown -->
   <div id="mobile-menu" class="hidden absolute top-16 left-0 w-full bg-canvas border-b border-hairline shadow-2xl xl:hidden max-h-[calc(100vh-64px)] overflow-y-auto">
     <nav class="flex flex-col px-4 py-4 space-y-1">
-      <a 
-        href="/" 
-        class:list={[
-          "px-4 py-3 text-sm font-medium transition-all rounded-md mobile-link flex items-center justify-between", 
-          isActive("/") ? "text-link bg-link/5" : "text-body hover:text-ink hover:bg-canvas-soft-2"
-        ]}
-      >
-        Home
-        {isActive("/") && <span class="w-1.5 h-1.5 rounded-full bg-link"></span>}
-      </a>
-      
       <!-- Mobile Tools Section -->
       <div class="py-2">
         <div class="px-4 py-2 text-[11px] font-bold text-mute uppercase tracking-widest">
@@ -156,75 +133,6 @@ const isToolActive = toolItems.some(item => isActive(item.href));
     </nav>
   </div>
 </header>
-
-<script>
-  const setupMobileMenu = () => {
-    const btn = document.getElementById('mobile-menu-btn');
-    const menu = document.getElementById('mobile-menu');
-    const menuIcon = document.querySelector('.menu-icon');
-    const closeIcon = document.querySelector('.close-icon');
-    const links = document.querySelectorAll('.mobile-link');
-
-    if (!btn || !menu) return;
-
-    const toggleMenu = (show?: boolean) => {
-      const shouldShow = show !== undefined ? show : menu.classList.contains('hidden');
-      
-      if (shouldShow) {
-        menu.classList.remove('hidden');
-        menuIcon?.classList.add('hidden');
-        closeIcon?.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-      } else {
-        menu.classList.add('hidden');
-        menuIcon?.classList.remove('hidden');
-        closeIcon?.classList.add('hidden');
-        document.body.style.overflow = '';
-      }
-    };
-
-    btn.onclick = (e) => {
-      e.stopPropagation();
-      toggleMenu();
-    };
-
-    links.forEach(link => {
-      (link as HTMLElement).onclick = () => {
-        toggleMenu(false);
-      };
-    });
-
-    if (!(window as any).tooltailsMobileMenuInitialized) {
-      document.addEventListener('click', (e) => {
-        const currentBtn = document.getElementById('mobile-menu-btn');
-        const currentMenu = document.getElementById('mobile-menu');
-        
-        if (!currentBtn || !currentMenu || currentMenu.classList.contains('hidden')) return;
-        
-        if (!currentMenu.contains(e.target as Node) && !currentBtn.contains(e.target as Node)) {
-          currentMenu.classList.add('hidden');
-          document.querySelector('.menu-icon')?.classList.remove('hidden');
-          document.querySelector('.close-icon')?.classList.add('hidden');
-          document.body.style.overflow = '';
-        }
-      });
-      (window as any).tooltailsMobileMenuInitialized = true;
-    }
-  };
-
-  setupMobileMenu();
-  document.addEventListener('astro:after-swap', setupMobileMenu);
-</script>
-
-<style>
-  header {
-    border-bottom-width: 1px;
-  }
-  
-  nav a, button {
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-</style>
 
 <script>
   // State and shared logic defined outside to persist across astro:after-swap if needed,
@@ -303,7 +211,7 @@ const isToolActive = toolItems.some(item => isActive(item.href));
   }
   
   /* Smooth transitions for links */
-  nav a {
+  nav a, button {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 </style>
