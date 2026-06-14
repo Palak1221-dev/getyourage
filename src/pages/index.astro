@@ -2,176 +2,291 @@
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/ui/Card.astro";
 
+const categories = [
+  { name: "All", id: "all" },
+  { name: "Age & Date", id: "date" },
+  { name: "Time", id: "time" },
+];
+
 const tools = [
   {
     title: "Age Calculator",
-    description: "Calculate your exact age in years, months, days, and seconds.",
+    description: "Calculate your exact age in years, months, days, and seconds with precision.",
     href: "/age-calculator",
-    icon: "clock"
+    icon: "clock",
+    category: "date",
+    popular: true
   },
   {
     title: "Age Difference",
-    description: "Find the exact age gap between two people instantly.",
+    description: "Find the exact age gap between two people instantly. Perfect for family and friends.",
     href: "/age-difference",
-    icon: "users"
+    icon: "users",
+    category: "date"
   },
   {
     title: "Birthday Countdown",
-    description: "See how many days are left until your next special day.",
+    description: "Never miss a special day. See exactly how many days, hours, and minutes remain.",
     href: "/birthday-countdown",
-    icon: "gift"
+    icon: "gift",
+    category: "time",
+    popular: true
   },
   {
     title: "Duration Calculator",
-    description: "Calculate the precise time elapsed between any two dates.",
+    description: "Calculate the precise time elapsed between any two dates for work or personal projects.",
     href: "/duration",
-    icon: "calendar"
+    icon: "calendar",
+    category: "date"
   },
   {
     title: "Future Age",
-    description: "Find out exactly how old you will be on any future date.",
+    description: "Planning ahead? Find out exactly how old you will be on any future date.",
     href: "/future-age",
-    icon: "forward"
+    icon: "forward",
+    category: "date"
+  }
+];
+
+const trustPoints = [
+  {
+    title: "Privacy First",
+    description: "No data ever leaves your device. All calculations are 100% client-side.",
+    icon: "shield"
+  },
+  {
+    title: "Zero Cookies",
+    description: "We don't track you. No accounts, no cookies, no intrusive marketing.",
+    icon: "cookie"
+  },
+  {
+    title: "Always Free",
+    description: "Professional tools without the price tag. Free for everyone, forever.",
+    icon: "gift-free"
+  },
+  {
+    title: "Lightning Fast",
+    description: "Built with modern tech for instant results on any device or connection.",
+    icon: "zap"
   }
 ];
 ---
 
 <Layout 
-  title="Tooltails - Free Online Utility Tools for Daily Tasks" 
-  description="A suite of free, fast, and privacy-focused online tools. From precision date calculators to daily utility helpers, Tooltails provides the math you need without the bloat."
+  title="Tooltails | Professional Free Online Utility Tools" 
+  description="Access a suite of precision online tools including age calculators, date duration helpers, and countdowns. Privacy-focused, zero-tracking, and 100% free."
 >
   <!-- Hero Section -->
-  <section class="w-full pt-12 md:pt-20 pb-20 md:pb-32">
-    <div class="max-w-[1200px] mx-auto px-6 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-link/5 border border-link/10 text-link text-xs font-mono mb-8 uppercase tracking-widest animate-in fade-in slide-in-from-top-4 duration-1000">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-link opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-link"></span>
-        </span>
-        100% Free Online Tools
-      </div>
-      
-      <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-ink mb-8 leading-none">
-        Free Online Tools for Everyday Tasks <span class="text-primary">.</span>
-      </h1>
-      <p class="text-xl md:text-2xl text-body leading-relaxed max-w-3xl mx-auto mb-12">
-        Tooltails provides free online calculators, converters, generators and productivity tools designed to help you work faster and smarter.
-      </p>
+  <section class="relative w-full pt-16 md:pt-24 pb-24 md:pb-40 overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[500px] h-[500px] bg-link/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[400px] h-[400px] bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href="#tools" class="inline-flex items-center justify-center px-8 h-12 text-sm font-bold rounded-pill bg-ink text-canvas hover:bg-primary transition-all active:scale-[0.98]">
-          Explore All Tools
-        </a>
-        <a href="/age-calculator" class="inline-flex items-center justify-center px-8 h-12 text-sm font-bold rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 transition-all active:scale-[0.98]">
-          Try Age Calculator
-        </a>
-      </div>
-    </div>
-  </section>
+    <div class="max-w-[1200px] mx-auto px-6 relative z-10">
+      <div class="flex flex-col items-center text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-link/10 border border-link/20 text-link text-xs font-bold mb-8 uppercase tracking-wider animate-in fade-in slide-in-from-top-4 duration-1000">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-link opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-link"></span>
+          </span>
+          Professional Suite • 100% Client-Side
+        </div>
+        
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-ink mb-8 leading-[0.9] max-w-5xl">
+          Precision tools for <span class="text-link">smarter</span> daily tasks.
+        </h1>
+        <p class="text-lg md:text-xl text-body leading-relaxed max-w-2xl mx-auto mb-12 opacity-80">
+          Tooltails is a professional-grade utility platform offering fast, private, and accurate tools. No ads, no tracking—just the results you need.
+        </p>
 
-  <!-- Trust Section -->
-  <section class="w-full py-12 border-t border-hairline bg-canvas">
-    <div class="max-w-[1200px] mx-auto px-6">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div class="flex flex-col items-center text-center gap-2">
-          <div class="p-3 rounded-full bg-link/5 text-link">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          </div>
-          <span class="text-xs font-bold text-ink uppercase tracking-widest">Free Forever</span>
-        </div>
-        <div class="flex flex-col items-center text-center gap-2">
-          <div class="p-3 rounded-full bg-link/5 text-link">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <span class="text-xs font-bold text-ink uppercase tracking-widest">No Sign-up Required</span>
-        </div>
-        <div class="flex flex-col items-center text-center gap-2">
-          <div class="p-3 rounded-full bg-link/5 text-link">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
-          </div>
-          <span class="text-xs font-bold text-ink uppercase tracking-widest">Mobile Friendly</span>
-        </div>
-        <div class="flex flex-col items-center text-center gap-2">
-          <div class="p-3 rounded-full bg-link/5 text-link">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </div>
-          <span class="text-xs font-bold text-ink uppercase tracking-widest">Privacy Focused</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Tools Grid -->
-  <section id="tools" class="w-full py-24 bg-canvas-soft-2/50 border-y border-hairline scroll-mt-16">
-    <div class="max-w-[1200px] mx-auto px-6">
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-        <div class="max-w-xl">
-          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-ink mb-4">
-            Featured Tools
-          </h2>
-          <p class="text-lg text-body">
-            Discover our most-used precision tools and calculators. Every calculation is performed locally in your browser to ensure maximum privacy.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-        {tools.map((tool) => (
-          <a href={tool.href} class="group">
-            <Card elevation="sm" class="h-full group-hover:shadow-2xl group-hover:border-link/30 transition-all duration-500">
-              <div class="flex flex-col h-full">
-                <div class="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-link/5 text-link group-hover:bg-link group-hover:text-canvas transition-colors duration-500">
-                  {tool.icon === 'clock' && (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  )}
-                  {tool.icon === 'users' && (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                  )}
-                  {tool.icon === 'gift' && (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect width="20" height="5" x="2" y="7"/><line x1="12" x2="12" y1="22" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-                  )}
-                  {tool.icon === 'calendar' && (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                  )}
-                  {tool.icon === 'forward' && (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
-                  )}
-                </div>
-                <h3 class="text-xl font-bold text-ink mb-3 group-hover:text-link transition-colors duration-500">
-                  {tool.title}
-                </h3>
-                <p class="text-body text-sm leading-relaxed mb-6">
-                  {tool.description}
-                </p>
-                <div class="mt-auto flex items-center text-xs font-bold text-mute uppercase tracking-widest group-hover:text-link transition-colors duration-500">
-                  Launch Tool &rarr;
-                </div>
-              </div>
-            </Card>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="#tools" class="inline-flex items-center justify-center px-8 h-14 text-base font-bold rounded-pill bg-ink text-canvas hover:bg-link transition-all active:scale-[0.98] shadow-lg shadow-ink/10">
+            Browse All Tools
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ml-2"><line x1="7" x2="17" y1="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
           </a>
+          <a href="/about" class="inline-flex items-center justify-center px-8 h-14 text-base font-bold rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 transition-all active:scale-[0.98]">
+            Why Tooltails?
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Indicators -->
+  <section class="w-full py-16 border-y border-hairline bg-canvas/50 backdrop-blur-sm">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+        {trustPoints.map(point => (
+          <div class="flex flex-col items-start gap-4">
+            <div class="w-10 h-10 rounded-lg bg-link/5 text-link flex items-center justify-center">
+              {point.icon === 'shield' && <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>}
+              {point.icon === 'cookie' && <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5v.01"/><path d="M16 15.5v.01"/><path d="M12 12v.01"/><path d="M11 17v.01"/><path d="M7 14v.01"/></svg>}
+              {point.icon === 'gift-free' && <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect width="20" height="5" x="2" y="7"/><line x1="12" x2="12" y1="22" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>}
+              {point.icon === 'zap' && <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>}
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-ink uppercase tracking-widest mb-1">{point.title}</h3>
+              <p class="text-sm text-body leading-relaxed">{point.description}</p>
+            </div>
+          </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Call to Action -->
-  <section class="w-full py-24">
+  <!-- Tools Catalog -->
+  <section id="tools" class="w-full py-24 md:py-32 scroll-mt-16">
     <div class="max-w-[1200px] mx-auto px-6">
-      <div class="p-12 md:p-20 bg-ink rounded-3xl text-center relative overflow-hidden">
-        <!-- Mesh backdrop inside CTA -->
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-link/20 via-transparent to-transparent"></div>
-        
-        <div class="relative z-10">
-          <h2 class="text-3xl md:text-5xl font-bold tracking-tighter text-canvas mb-6 leading-tight">
-            Built for precision.<br/>Free for everyone.
+      <div class="flex flex-col gap-12">
+        <div class="max-w-2xl">
+          <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-ink mb-6">
+            Tool Catalog
           </h2>
-          <p class="text-lg md:text-xl text-canvas/60 max-w-xl mx-auto mb-10">
-            No ads, no tracking, and no accounts required. Just the most accurate date tools on the web.
+          <p class="text-lg md:text-xl text-body opacity-80">
+            A growing collection of precision utilities. Every tool is built to be fast, reliable, and respectful of your data privacy.
           </p>
-          <div class="flex flex-wrap justify-center gap-4">
-            <a href="/age-calculator" class="inline-flex items-center justify-center px-10 h-14 text-base font-bold rounded-pill bg-canvas text-ink hover:bg-canvas-soft-2 transition-all active:scale-[0.98]">
-              Get Started Now
+        </div>
+
+        <!-- Catalog Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {tools.map((tool) => (
+            <a href={tool.href} class="group block h-full">
+              <Card elevation="sm" class="h-full group-hover:shadow-2xl group-hover:border-link/30 transition-all duration-500 relative overflow-hidden bg-canvas">
+                {tool.popular && (
+                  <div class="absolute top-0 right-0 px-3 py-1 bg-link text-canvas text-[10px] font-bold uppercase tracking-widest rounded-bl-lg">
+                    Popular
+                  </div>
+                )}
+                
+                <div class="flex flex-col h-full">
+                  <div class="mb-8 inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-canvas-soft border border-hairline text-ink group-hover:bg-link group-hover:text-canvas group-hover:border-link transition-all duration-500 shadow-sm">
+                    {tool.icon === 'clock' && (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    )}
+                    {tool.icon === 'users' && (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    )}
+                    {tool.icon === 'gift' && (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect width="20" height="5" x="2" y="7"/><line x1="12" x2="12" y1="22" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+                    )}
+                    {tool.icon === 'calendar' && (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                    )}
+                    {tool.icon === 'forward' && (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
+                    )}
+                  </div>
+                  
+                  <div class="mb-2">
+                    <span class="text-[10px] font-bold text-link uppercase tracking-[0.2em]">
+                      {tool.category} Tool
+                    </span>
+                  </div>
+                  
+                  <h3 class="text-2xl font-bold text-ink mb-4 group-hover:text-link transition-colors duration-500">
+                    {tool.title}
+                  </h3>
+                  
+                  <p class="text-body text-base leading-relaxed mb-8 opacity-80">
+                    {tool.description}
+                  </p>
+                  
+                  <div class="mt-auto flex items-center text-xs font-bold text-ink uppercase tracking-widest group-hover:text-link transition-colors duration-500">
+                    Open Tool
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-x-1 transition-transform"><line x1="5" x2="19" y1="12" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </div>
+                </div>
+              </Card>
             </a>
+          ))}
+          
+          {/* Coming Soon Card */}
+          <Card elevation="none" class="h-full border border-dashed border-hairline-strong/50 bg-transparent flex items-center justify-center p-12 text-center group">
+            <div class="flex flex-col items-center">
+              <div class="w-12 h-12 rounded-full border border-dashed border-hairline-strong/50 flex items-center justify-center text-mute mb-4 group-hover:scale-110 transition-transform">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+              </div>
+              <h3 class="text-lg font-bold text-ink/40 mb-2">More Tools Coming</h3>
+              <p class="text-sm text-body/40">Suggest a tool you'd like to see.</p>
+              <a href="/contact" class="mt-6 text-xs font-bold text-ink/60 hover:text-link transition-colors uppercase tracking-widest">Get in touch &rarr;</a>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section for SEO -->
+  <section class="w-full py-24 bg-canvas-soft">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+        <div class="space-y-8">
+          <h2 class="text-3xl font-bold tracking-tight text-ink">
+            Professional Grade Online Utilities
+          </h2>
+          <div class="space-y-4 text-body leading-relaxed">
+            <p>
+              Tooltails was founded on a simple principle: the most useful tools on the web should be the most respectful of your time and privacy. We've built a suite of utilities that load instantly, require zero account creation, and perform all operations directly in your browser.
+            </p>
+            <p>
+              Whether you're calculating an <a href="/age-calculator" class="text-link hover:underline">exact age</a> for official documents, planning a <a href="/birthday-countdown" class="text-link hover:underline">birthday surprise</a>, or measuring <a href="/duration" class="text-link hover:underline">time duration</a> for a project, our tools provide precision results you can trust.
+            </p>
+          </div>
+          <div class="pt-4">
+            <a href="/about" class="text-ink font-bold border-b-2 border-link pb-1 hover:text-link transition-colors">
+              Learn more about our philosophy
+            </a>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div class="p-8 rounded-2xl bg-canvas border border-hairline shadow-sm">
+            <h4 class="font-bold text-ink mb-3">Privacy First</h4>
+            <p class="text-sm text-body leading-relaxed">No tracking, no cookies, and no cloud-side processing. Your data stays where it belongs: with you.</p>
+          </div>
+          <div class="p-8 rounded-2xl bg-canvas border border-hairline shadow-sm">
+            <h4 class="font-bold text-ink mb-3">Open Source Spirit</h4>
+            <p class="text-sm text-body leading-relaxed">Built with modern web standards and transparency in mind for the global developer community.</p>
+          </div>
+          <div class="p-8 rounded-2xl bg-canvas border border-hairline shadow-sm">
+            <h4 class="font-bold text-ink mb-3">Global Accessibility</h4>
+            <p class="text-sm text-body leading-relaxed">Optimized for every screen size and connection speed, ensuring tools work for everyone, everywhere.</p>
+          </div>
+          <div class="p-8 rounded-2xl bg-canvas border border-hairline shadow-sm">
+            <h4 class="font-bold text-ink mb-3">No Distractions</h4>
+            <p class="text-sm text-body leading-relaxed">No intrusive ads or popups. Focus on the task at hand with a clean, professional interface.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="w-full py-24 md:py-32">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="relative group">
+        <!-- Background decorative blur -->
+        <div class="absolute -inset-1 bg-gradient-to-r from-link to-primary rounded-[40px] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+        
+        <div class="relative p-12 md:p-24 bg-ink rounded-[36px] overflow-hidden">
+          <!-- Subtle mesh backdrop -->
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-link/20 via-transparent to-transparent"></div>
+          
+          <div class="relative z-10 flex flex-col items-center text-center">
+            <h2 class="text-4xl md:text-6xl font-bold tracking-tight text-canvas mb-8 leading-tight">
+              Ready to work <span class="text-link">faster</span>?
+            </h2>
+            <p class="text-xl text-canvas/60 max-w-2xl mx-auto mb-12">
+              Join thousands of users who rely on Tooltails for their daily calculations and utility needs. No signup, no fees, no catch.
+            </p>
+            <div class="flex flex-wrap justify-center gap-6">
+              <a href="/age-calculator" class="inline-flex items-center justify-center px-10 h-16 text-lg font-bold rounded-pill bg-canvas text-ink hover:bg-link hover:text-canvas transition-all active:scale-[0.98] shadow-xl">
+                Try the Age Calculator
+              </a>
+              <a href="/faqs" class="inline-flex items-center justify-center px-10 h-16 text-lg font-bold rounded-pill bg-transparent text-canvas border border-canvas/20 hover:bg-canvas/10 transition-all active:scale-[0.98]">
+                Read FAQs
+              </a>
+            </div>
           </div>
         </div>
       </div>
