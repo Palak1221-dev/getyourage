@@ -71,7 +71,7 @@ const whyTooltails = [
   description="Tooltails offers free online calculators, generators, converters and productivity tools. Fast, accurate and easy to use."
 >
   <!-- Hero Section -->
-  <section class="relative w-full pt-16 md:pt-24 pb-20 md:pb-28 overflow-hidden">
+  <section class="relative w-full pt-16 md:pt-24 pb-20 md:pb-28">
     <!-- Decorative background elements -->
     <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[500px] h-[500px] bg-link/5 rounded-full blur-3xl pointer-events-none"></div>
     <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[400px] h-[400px] bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
@@ -118,7 +118,7 @@ const whyTooltails = [
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {tools.map((tool) => (
           <a href={tool.href} class="group block h-full">
-            <Card elevation="sm" class="h-full group-hover:shadow-xl group-hover:border-link/30 transition-all duration-300 relative overflow-hidden bg-canvas">
+            <Card elevation="sm" class="h-full group-hover:shadow-xl group-hover:border-link/30 transition-all duration-300 relative bg-canvas">
               {tool.popular && (
                 <div class="absolute top-0 right-0 px-3 py-1 bg-link text-canvas text-[10px] font-bold uppercase tracking-widest rounded-bl-lg">
                   Popular
