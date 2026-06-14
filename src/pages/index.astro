@@ -20,7 +20,7 @@ const stats = [
 const tools = [
   {
     title: "Age Calculator",
-    description: "Calculate your exact age in years, months, days, and seconds with precision.",
+    description: "Calculate your exact age for school, work, or just for fun. Find out exactly how many days you've been alive.",
     href: "/age-calculator",
     icon: "clock",
     popular: true,
@@ -28,14 +28,14 @@ const tools = [
   },
   {
     title: "Age Difference",
-    description: "Find the exact age gap between two people instantly. Perfect for family and friends.",
+    description: "Find the age gap between friends, siblings, or partners instantly. Great for family history and curiosity.",
     href: "/age-difference",
     icon: "users",
     tag: "Date & Time"
   },
   {
     title: "Birthday Countdown",
-    description: "Never miss a special day. See exactly how many days, hours, and minutes remain.",
+    description: "Track the days until your next big celebration. Perfect for planning surprises and counting down with kids.",
     href: "/birthday-countdown",
     icon: "gift",
     popular: true,
@@ -43,14 +43,14 @@ const tools = [
   },
   {
     title: "Duration Calculator",
-    description: "Calculate the precise time elapsed between any two dates for work or personal projects.",
+    description: "Measure the exact time between two dates for project planning, travel, or milestone tracking.",
     href: "/duration",
     icon: "calendar",
     tag: "Calculators"
   },
   {
     title: "Future Age",
-    description: "Planning ahead? Find out exactly how old you will be on any future date.",
+    description: "Curious how old you'll be in 2030 or on your next graduation? Find out exactly when you'll reach any age.",
     href: "/future-age",
     icon: "forward",
     tag: "Calculators"
@@ -60,30 +60,30 @@ const tools = [
 const whyTooltails = [
   {
     title: "Fast",
-    description: "Optimized for speed. Get instant results without waiting for page reloads.",
+    description: "Get answers instantly without waiting for page reloads. We value your time.",
     icon: "zap"
   },
   {
     title: "Private",
-    description: "Your data stays on your device. All calculations are performed locally in your browser.",
+    description: "Your information stays private on your device. We don't see or store your data.",
     icon: "shield"
   },
   {
     title: "Mobile Friendly",
-    description: "Our responsive design ensures tools work perfectly on phones, tablets, and desktops.",
+    description: "Our tools work perfectly on your phone, so you can get answers on the go.",
     icon: "mobile"
   },
   {
     title: "Accurate",
-    description: "Precision-engineered algorithms ensure your results are mathematically perfect every time.",
+    description: "Built with care to ensure your results are mathematically perfect every time.",
     icon: "check-circle"
   }
 ];
 ---
 
 <Layout 
-  title="Tooltails - Free Online Tools, Calculators & Generators" 
-  description="Tooltails offers free online calculators, generators, converters and productivity tools. Fast, accurate and easy to use."
+  title="Tooltails - Simple Tools for Everyday Tasks" 
+  description="Calculate ages, track birthdays, compare dates and get answers instantly — all for free. Fast, accurate and easy to use."
 >
   <!-- Hero Section -->
   <section class="relative w-full pt-12 md:pt-16 pb-8 md:pb-12 overflow-hidden">
@@ -103,10 +103,10 @@ const whyTooltails = [
         </div>
         
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-ink mb-4 leading-[0.9] max-w-5xl animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100">
-          Free Online Tools for <span class="text-link">Everyday</span> Tasks.
+          Simple Tools for <span class="text-link">Everyday</span> Tasks.
         </h1>
         <p class="text-lg md:text-xl text-body leading-relaxed max-w-2xl mx-auto mb-8 opacity-80 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
-          Tooltails provides free online calculators, generators, and productivity tools designed to help you work faster and smarter.
+          Calculate ages, track birthdays, compare dates and get answers instantly — all for free.
         </p>
 
         <!-- Category Pills -->
@@ -118,14 +118,19 @@ const whyTooltails = [
           ))}
         </div>
 
-        <div class="flex flex-wrap justify-center gap-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-400">
-          <a href="#tools" class="inline-flex items-center justify-center px-8 h-14 text-base font-bold rounded-pill bg-ink text-canvas hover:bg-link transition-all active:scale-[0.98] shadow-xl shadow-ink/10 group">
-            Explore All Tools
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-y-1 transition-transform"><line x1="12" x2="12" y1="5" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-          </a>
-          <a href="/about" class="inline-flex items-center justify-center px-8 h-14 text-base font-bold rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 transition-all active:scale-[0.98]">
-            Learn More
-          </a>
+        <div class="flex flex-col items-center gap-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-400">
+          <div class="flex flex-wrap justify-center gap-6">
+            <a href="#tools" class="inline-flex items-center justify-center px-8 h-14 text-base font-bold rounded-pill bg-ink text-canvas hover:bg-link transition-all active:scale-[0.98] shadow-xl shadow-ink/10 group">
+              Explore All Tools
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-y-1 transition-transform"><line x1="12" x2="12" y1="5" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+            </a>
+            <a href="/about" class="inline-flex items-center justify-center px-8 h-14 text-base font-bold rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 transition-all active:scale-[0.98]">
+              Learn More
+            </a>
+          </div>
+          <p class="text-sm text-mute font-medium">
+            ✨ No sign-up required. Just open a tool and get started.
+          </p>
         </div>
       </div>
     </div>
