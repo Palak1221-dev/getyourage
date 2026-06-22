@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/word-counter/:path*",
+      "destination": "https://tooltails-word-counter.vercel.app/:path*"
+    }
+  ]
+}
