@@ -14,11 +14,13 @@ const isActive = (path: string) => {
 };
 
 const toolItems = [
+  { href: "/word-counter", label: "Word Counter" },
   { href: "/age-calculator", label: "Age Calculator" },
   { href: "/age-difference", label: "Age Difference Calculator" },
   { href: "/birthday-countdown", label: "Birthday Countdown" },
   { href: "/duration", label: "Duration Calculator" },
-  { href: "/future-age", label: "Future Age Calculator" }
+  { href: "/future-age", label: "Future Age Calculator" },
+  { href: "/pomodoro-timer", label: "Pomodoro Timer" }
 ];
 
 const isToolActive = toolItems.some(item => isActive(item.href));
