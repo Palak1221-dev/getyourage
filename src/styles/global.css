@@ -69,7 +69,7 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply text-ink font-semibold tracking-tight;
+    @apply text-ink font-bold tracking-tight;
   }
 
   /* Dark mode overrides using data attribute */
