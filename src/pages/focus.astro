@@ -119,24 +119,24 @@ const appSchema = {
         <!-- Hidden onboarding tracker for LocalStorage warning insertion -->
         <div id="onboarding-tracker" class="hidden" aria-hidden="true"></div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
           
           <!-- LEFT COLUMN: GOAL & ACTIVITY CONFIGURATION -->
-          <div class="lg:col-span-5 space-y-5 lg:pr-12 lg:border-r lg:border-hairline/60" id="setup-panel">
+          <div class="lg:col-span-5 order-2 lg:order-1 space-y-6 lg:pr-4" id="setup-panel">
             
             <div class="select-none">
-              <h2 class="text-xl font-bold tracking-tight text-ink mb-1">Set your focus</h2>
-              <p class="text-xs text-mute">Define your outcome intention and checkpoints to begin.</p>
+              <h2 class="text-2xl font-extrabold tracking-tight text-ink mb-1">Set your focus</h2>
+              <p class="text-sm text-mute">Define your outcome intention and checkpoints to begin.</p>
             </div>
             
             <!-- Session Goal Input Card (Notion-style, highly inviting & tactile) -->
-            <div class="bg-canvas border border-hairline-strong/30 hover:border-hairline-strong/60 rounded-2xl p-5 shadow-sm space-y-4 focus-within:border-link/50 focus-within:ring-4 focus-within:ring-link/5 transition-all duration-200 select-none group cursor-pointer" onclick="document.getElementById('session-goal').focus()">
+            <div class="bg-gradient-to-b from-canvas to-canvas-soft-2/20 border border-link/25 dark:border-link/15 rounded-2xl p-6 shadow-[0_4px_20px_-2px_rgba(37,99,235,0.02),0_2px_6px_-1px_rgba(37,99,235,0.01)] hover:border-link/40 dark:hover:border-link/30 focus-within:border-link/50 focus-within:ring-4 focus-within:ring-link/5 transition-all duration-200 select-none group cursor-pointer" onclick="document.getElementById('session-goal').focus()">
               <div class="flex items-center justify-between">
-                <div class="flex items-center gap-1.5 text-xs font-semibold text-link">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="shrink-0"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                <div class="flex items-center gap-1.5 text-base font-extrabold text-link tracking-tight">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="shrink-0"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
                   <span>What would you like to accomplish?</span>
                 </div>
-                <span class="text-[10px] text-mute font-mono">1. Intention</span>
+                <span class="text-xs text-mute font-mono">1. Intention</span>
               </div>
               
               <div class="space-y-3 select-text">
@@ -146,8 +146,8 @@ const appSchema = {
                     id="session-goal" 
                     autocomplete="off"
                     spellcheck="true"
-                    class="w-full bg-transparent border-none p-0 text-xl font-bold tracking-tight text-ink placeholder:text-mute/55 focus:outline-none focus:ring-0 focus:border-transparent select-text" 
-                    placeholder="Enter your focus goal (e.g. Design landing layout, study chapter 3…)" 
+                    class="w-full bg-transparent border-none p-0 text-3xl md:text-4xl font-black tracking-tighter text-ink placeholder:text-mute/35 focus:outline-none focus:ring-0 focus:border-transparent select-text" 
+                    placeholder="What is your focus goal?" 
                     aria-label="Enter your session outcome intention"
                   />
                 </div>
@@ -158,8 +158,8 @@ const appSchema = {
                     id="session-goal-why" 
                     autocomplete="off"
                     spellcheck="true"
-                    class="w-full bg-transparent border-none p-0 text-xs md:text-sm text-body/90 placeholder:text-mute/50 focus:outline-none focus:ring-0 focus:border-transparent italic select-text" 
-                    placeholder="Why does this goal matter to you? (optional)" 
+                    class="w-full bg-transparent border-none p-0 text-sm text-body/70 placeholder:text-mute/30 focus:outline-none focus:ring-0 focus:border-transparent italic select-text" 
+                    placeholder="Why does this goal matter?" 
                     aria-label="Enter why this goal matters"
                   />
                 </div>
@@ -168,7 +168,7 @@ const appSchema = {
 
             <!-- Activity Selector -->
             <div class="space-y-2 select-none">
-              <span class="text-xs font-semibold text-mute">Select activity:</span>
+              <span class="text-sm font-bold text-ink">Select activity:</span>
               <div class="flex items-center gap-1.5 flex-wrap">
                 <button type="button" class="activity-btn px-3 py-1.5 text-xs border border-transparent rounded-xl bg-canvas-soft-2/50 hover:bg-canvas-soft-2 text-body hover:text-ink active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 duration-200 cursor-pointer group shadow-[0_1px_2px_rgba(0,0,0,0.01)] flex items-center gap-1.5" data-activity="Coding" aria-label="Select Coding Focus Mode">
                   <span class="opacity-90">💻</span> Coding
@@ -202,9 +202,9 @@ const appSchema = {
               <div class="flex items-center justify-between select-none pb-1">
                 <div class="flex items-center gap-1.5">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-mute/70" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
-                  <span class="text-sm font-semibold tracking-tight text-ink">Break it into smaller steps</span>
+                  <span class="text-lg font-bold text-ink">Break it into smaller steps</span>
                 </div>
-                <span class="text-xs text-mute font-medium">Checkpoints</span>
+                <span class="text-xs text-mute font-bold">Checkpoints</span>
               </div>
 
               <div class="flex gap-2">
@@ -212,14 +212,14 @@ const appSchema = {
                   type="text" 
                   id="milestone-input" 
                   autocomplete="off" 
-                  class="flex-grow h-10 px-3 bg-canvas-soft border border-transparent rounded-xl text-xs text-ink placeholder:text-mute/55 focus:outline-none focus:bg-canvas focus:border-link/30 focus:ring-2 focus:ring-link/5 transition-all duration-200 shadow-[0_1px_2px_rgba(0,0,0,0.02)]" 
+                  class="flex-grow h-10 px-3 bg-canvas-soft border border-transparent rounded-xl text-sm text-ink placeholder:text-mute/45 focus:outline-none focus:bg-canvas focus:border-link/30 focus:ring-2 focus:ring-link/5 transition-all duration-200 shadow-sm" 
                   placeholder="Add a step (e.g. Sketch layouts, write component code…)" 
                   aria-label="Add mini-milestone checkpoint text" 
                 />
                 <button 
                   type="button" 
                   id="add-milestone-btn" 
-                  class="h-10 px-4 bg-gradient-to-b from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 hover:from-blue-400 hover:to-blue-500 active:scale-95 text-xs font-semibold text-white rounded-xl shadow-[0_3px_10px_rgba(37,99,235,0.15)] dark:shadow-[0_3px_10px_rgba(0,0,0,0.3)] border border-blue-600/30 dark:border-blue-500/20 transition-all duration-150 cursor-pointer focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-1 focus-visible:outline-none" 
+                  class="h-10 px-4 bg-gradient-to-b from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 hover:from-blue-400 hover:to-blue-500 active:scale-95 text-sm font-bold text-white rounded-xl shadow-[0_3px_10px_rgba(37,99,235,0.15)] dark:shadow-[0_3px_10px_rgba(0,0,0,0.3)] border border-blue-600/30 dark:border-blue-500/20 transition-all duration-150 cursor-pointer focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-1 focus-visible:outline-none" 
                   aria-label="Add checkpoint to checklist"
                 >
                   Add
@@ -254,7 +254,7 @@ const appSchema = {
           </div>
           
           <!-- ACTIVE FOCUS COMPANION PANEL (Replaces configuration inputs during active session) -->
-          <div class="lg:col-span-5 order-last lg:order-none hidden space-y-8 animate-in fade-in duration-300 text-left lg:pr-12 lg:border-r lg:border-hairline/60" id="active-info-panel">
+          <div class="lg:col-span-5 order-2 lg:order-1 hidden space-y-8 animate-in fade-in duration-300 text-left lg:pr-4" id="active-info-panel">
             <div class="space-y-6">
               
               <div class="flex items-center justify-between border-b border-hairline/60 pb-4 select-none">
@@ -272,7 +272,7 @@ const appSchema = {
               <!-- Checkpoints Checklist -->
               <div class="space-y-4">
                 <div class="flex items-center justify-between select-none border-b border-hairline/60 pb-2">
-                  <h3 class="text-base font-semibold tracking-tight text-ink">Active checkpoints</h3>
+                  <h3 class="text-lg font-bold tracking-tight text-ink">Active checkpoints</h3>
                   <span id="active-checklist-ratio" class="text-xs text-mute">Check off as you ship</span>
                 </div>
                 <ul id="active-milestones-list" class="space-y-2">
@@ -298,9 +298,9 @@ const appSchema = {
           </div>
 
           <!-- RIGHT COLUMN: THE VISUAL TIMER & CONTROLS -->
-          <div id="timer-container-card" class="lg:col-span-7 flex flex-col items-center justify-center p-2 sm:p-4 lg:pl-12 space-y-8 w-full transition-all duration-500 relative">
+          <div id="timer-container-card" class="lg:col-span-7 order-1 lg:order-2 flex flex-col items-center justify-start p-2 sm:p-4 lg:pl-4 w-full transition-all duration-500 relative">
             
-            <div class="relative w-76 h-76 sm:w-88 sm:h-88 md:w-96 md:h-96 flex items-center justify-center select-none">
+            <div class="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 flex items-center justify-center select-none">
               <!-- Radial background glow effect -->
               <div id="timer-active-glow" class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.05),transparent_65%)] pointer-events-none opacity-0 transition-opacity duration-700 ease-out"></div>
               
@@ -315,8 +315,8 @@ const appSchema = {
 
               <!-- Central Countdown Time -->
               <div class="absolute flex flex-col items-center justify-center text-center z-20">
-                <span id="timer-session-label" class="text-xs font-semibold tracking-tight text-mute mb-2">Ready to focus</span>
-                <span id="timer-countdown" class="text-6xl md:text-7xl font-bold font-mono tracking-tight text-ink leading-none tabular-nums">25:00</span>
+                <span id="timer-session-label" class="text-sm font-bold tracking-tight text-mute mb-2">Ready to focus</span>
+                <span id="timer-countdown" class="text-7xl md:text-8xl font-black font-mono tracking-tighter text-ink leading-none tabular-nums">25:00</span>
                 <span id="timer-milestone-ratio" class="text-[10px] font-mono text-mute mt-3 hidden tabular-nums px-2.5 py-0.5 bg-canvas-soft border border-hairline/80 rounded-lg shadow-[0_1px_2px_rgba(0,0,0,0.01)]">0 / 0 Checkpoints</span>
               </div>
             </div>
@@ -341,7 +341,7 @@ const appSchema = {
             </div>
 
             <!-- Today's Progress Section -->
-            <div class="w-full max-w-sm border-t border-hairline/60 pt-5 mt-6 select-none" id="today-progress-section">
+            <div class="w-full max-w-sm mt-6 select-none" id="today-progress-section">
                <div class="flex items-center justify-between text-xs font-semibold text-mute tracking-tight mb-3">
                  <span>Today's progress</span>
                </div>
@@ -370,24 +370,24 @@ const appSchema = {
             </div>
             
             <!-- Session Duration presets -->
-            <div class="mt-8 w-full max-w-sm border-t border-hairline/60 pt-5 space-y-3 select-none" id="timer-presets-section">
+            <div class="mt-8 w-full max-w-sm space-y-2 select-none" id="timer-presets-section">
               <div class="flex items-center justify-between text-xs">
-                <span class="text-xs font-medium text-mute">Duration</span>
+                <span class="text-sm font-bold text-ink">Duration</span>
                 <span class="text-link text-[10px] font-bold">Select preset</span>
               </div>
               
               <div class="grid grid-cols-2 gap-2 mb-2">
                 <button type="button" class="preset-btn py-2.5 px-3 border border-transparent rounded-xl bg-canvas-soft-2/50 text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group border-link text-link" data-focus="25" data-break="5" aria-label="Classic Pomodoro: 25 minutes work focus and 5 minutes rest break">
-                  <div class="text-xs font-bold group-hover:text-link transition-colors duration-150 tabular-nums">25m Sprint</div>
+                  <div class="text-sm font-bold group-hover:text-link transition-colors duration-150 tabular-nums">25m Sprint</div>
                 </button>
                 <button type="button" class="preset-btn py-2.5 px-3 border border-transparent rounded-xl bg-canvas-soft-2/50 text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group" data-focus="50" data-break="10" aria-label="Extended sprint: 50 minutes work focus and 10 minutes rest break">
-                  <div class="text-xs font-bold group-hover:text-link transition-colors duration-150 tabular-nums">50m Double</div>
+                  <div class="text-sm font-bold group-hover:text-link transition-colors duration-150 tabular-nums">50m Double</div>
                 </button>
                 <button type="button" class="preset-btn py-2.5 px-3 border border-transparent rounded-xl bg-canvas-soft-2/50 text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group" data-focus="90" data-break="0" aria-label="Deep Flow sprint: 90 minutes work focus with no rest break">
-                  <div class="text-xs font-bold group-hover:text-link transition-colors duration-150 tabular-nums">90m Flow</div>
+                  <div class="text-sm font-bold group-hover:text-link transition-colors duration-150 tabular-nums">90m Flow</div>
                 </button>
                 <button type="button" class="preset-btn py-2.5 px-3 border border-transparent rounded-xl bg-canvas-soft-2/50 text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group" data-focus="custom" aria-label="Set custom work focus and rest timing block">
-                  <div class="text-xs font-bold group-hover:text-ink transition-colors duration-150">Custom Block</div>
+                  <div class="text-sm font-bold group-hover:text-ink transition-colors duration-150">Custom Block</div>
                 </button>
               </div>
 
@@ -405,19 +405,19 @@ const appSchema = {
             </div>
 
             <!-- Web Audio Ambient Sounds Selector -->
-            <div class="mt-6 w-full max-w-sm border-t border-hairline/60 pt-5 space-y-3 select-none">
+            <div class="mt-8 w-full max-w-sm space-y-2 select-none">
               <div class="flex items-center justify-between text-xs">
-                <span class="text-xs font-medium text-mute">Background noise</span>
+                <span class="text-sm font-bold text-ink">Background noise</span>
                 <span class="text-link text-[10px] font-bold flex items-center gap-0.5">
                   <svg class="h-3 w-3 animate-spin hidden" id="sound-loading-spinner" viewBox="0 0 24 24" aria-hidden="true"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
                   Web Audio Synth
                 </span>
               </div>
               <div class="grid grid-cols-4 gap-1.5 font-mono text-[11px] font-bold">
-                <button type="button" class="sound-btn py-2 border border-transparent bg-canvas-soft-2/50 text-body rounded-xl hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all shadow-[0_1px_2px_rgba(0,0,0,0.01)] border-link text-link" data-sound="mute" aria-label="Mute ambient noise generator">Mute</button>
-                <button type="button" class="sound-btn py-2 border border-transparent bg-canvas-soft-2/50 text-body rounded-xl hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all shadow-[0_1px_2px_rgba(0,0,0,0.01)]" data-sound="brown" aria-label="Play ambient brown noise">Brown</button>
-                <button type="button" class="sound-btn py-2 border border-transparent bg-canvas-soft-2/50 text-body rounded-xl hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all shadow-[0_1px_2px_rgba(0,0,0,0.01)]" data-sound="white" aria-label="Play ambient white noise">White</button>
-                <button type="button" class="sound-btn py-2 border border-transparent bg-canvas-soft-2/50 text-body rounded-xl hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all shadow-[0_1px_2px_rgba(0,0,0,0.01)]" data-sound="rain" aria-label="Play ambient rain sound">Rain</button>
+                <button type="button" class="sound-btn py-2 border border-transparent bg-canvas-soft-2/50 text-body rounded-xl hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all shadow-[0_1px_2px_rgba(0,0,0,0.01)] border-link text-link text-xs font-bold font-mono" data-sound="mute" aria-label="Mute ambient noise generator">Mute</button>
+                <button type="button" class="sound-btn py-2 border border-transparent bg-canvas-soft-2/50 text-body rounded-xl hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all shadow-[0_1px_2px_rgba(0,0,0,0.01)] text-xs font-bold font-mono" data-sound="brown" aria-label="Play ambient brown noise">Brown</button>
+                <button type="button" class="sound-btn py-2 border border-transparent bg-canvas-soft-2/50 text-body rounded-xl hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all shadow-[0_1px_2px_rgba(0,0,0,0.01)] text-xs font-bold font-mono" data-sound="white" aria-label="Play ambient white noise">White</button>
+                <button type="button" class="sound-btn py-2 border border-transparent bg-canvas-soft-2/50 text-body rounded-xl hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all shadow-[0_1px_2px_rgba(0,0,0,0.01)] text-xs font-bold font-mono" data-sound="rain" aria-label="Play ambient rain sound">Rain</button>
               </div>
             </div>
 
@@ -1152,7 +1152,7 @@ const appSchema = {
       <h2 id="immersive-goal-title" class="text-xl md:text-3xl font-extrabold tracking-tight text-ink max-w-lg leading-snug">Writing the dashboard logic</h2>
  
       <!-- Giant Digital Count -->
-      <span id="immersive-countdown" class="text-5xl sm:text-7xl md:text-9xl font-bold font-mono tracking-tight text-ink animate-pulse leading-none tabular-nums">25:00</span>
+      <span id="immersive-countdown" class="text-6xl sm:text-8xl md:text-[10rem] font-black font-mono tracking-tighter text-ink animate-pulse leading-none tabular-nums">25:00</span>
 
       <!-- Checklist interactive breakdown inside fullscreen! -->
       <div class="w-full max-w-md bg-canvas border border-hairline rounded-xl p-5 text-left space-y-3">
