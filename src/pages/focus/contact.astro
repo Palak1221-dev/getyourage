@@ -1,8 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import Card from "../../components/ui/Card.astro";
 import Button from "../../components/ui/Button.astro";
-import Input from "../../components/ui/Input.astro";
 ---
 
 <Layout 
@@ -10,41 +8,93 @@ import Input from "../../components/ui/Input.astro";
   description="Contact support or leave feedback for Tooltails Focus. We would love to hear your suggestions for improving the focus timer."
 >
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
-    <h1 class="text-4xl font-bold text-ink mb-4">Contact Support</h1>
-    <p class="text-lg text-body mb-12">
-      Have a feature request for the Focus Goals Timer, found a bug in the recovery recommendations, or want to share your productivity wins? Send us a message.
+    <h1 class="text-3xl md:text-4xl font-black tracking-tighter text-ink mb-3 select-none leading-none">
+      Contact Focus Support
+    </h1>
+    <p class="text-base text-body mb-10 max-w-xl select-none leading-relaxed">
+      Have a feature suggestion, found a bug in the recovery engine, or want to share your focus streaks? Let us know what you're building.
     </p>
 
-    <Card elevation="lg">
-      <form class="space-y-6">
-        <Input label="Name" type="text" placeholder="Your Name" required />
-        <Input label="Email" type="email" placeholder="your@email.com" required />
+    <!-- Borderless card with soft shadow and padding -->
+    <div class="bg-canvas rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.015)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.22)] p-6 sm:p-10 select-none">
+      <form class="space-y-8">
         
-        <div class="flex flex-col gap-1.5">
-          <label class="text-sm font-medium text-ink">Reason for Contact</label>
-          <select 
-            class="px-3 py-2 bg-canvas border border-hairline rounded-sm text-sm text-ink focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10"
-            required
-          >
-            <option value="" disabled selected>Select a reason...</option>
-            <option value="feedback">General Feedback</option>
-            <option value="bug">Report a Bug</option>
-            <option value="feature">Feature Request</option>
-            <option value="other">Other Inquiry</option>
-          </select>
+        <!-- Name -->
+        <div class="flex flex-col gap-2">
+          <label for="contact-name" class="text-xs font-semibold text-mute uppercase tracking-widest">
+            My name is
+          </label>
+          <input 
+            type="text" 
+            id="contact-name" 
+            placeholder="Your Name" 
+            required 
+            class="w-full h-11 px-4 bg-canvas-soft-2/65 border-0 rounded-lg text-sm text-ink placeholder:text-mute focus:outline-none focus:bg-canvas focus:ring-2 focus:ring-link/20 transition-all select-text shadow-sm"
+          />
         </div>
 
-        <div class="flex flex-col gap-1.5">
-          <label class="text-sm font-medium text-ink">Message</label>
+        <!-- Email -->
+        <div class="flex flex-col gap-2">
+          <label for="contact-email" class="text-xs font-semibold text-mute uppercase tracking-widest">
+            You can reply to me at
+          </label>
+          <input 
+            type="email" 
+            id="contact-email" 
+            placeholder="your@email.com" 
+            required 
+            class="w-full h-11 px-4 bg-canvas-soft-2/65 border-0 rounded-lg text-sm text-ink placeholder:text-mute focus:outline-none focus:bg-canvas focus:ring-2 focus:ring-link/20 transition-all select-text shadow-sm"
+          />
+        </div>
+        
+        <!-- Reason Select -->
+        <div class="flex flex-col gap-2">
+          <label for="contact-reason" class="text-xs font-semibold text-mute uppercase tracking-widest">
+            I am writing regarding
+          </label>
+          <div class="relative">
+            <select 
+              id="contact-reason"
+              class="w-full h-11 px-4 bg-canvas-soft-2/65 border-0 rounded-lg text-sm text-ink focus:outline-none focus:bg-canvas focus:ring-2 focus:ring-link/20 transition-all cursor-pointer shadow-sm appearance-none"
+              required
+            >
+              <option value="" disabled selected>Select an option...</option>
+              <option value="feedback">General Feedback</option>
+              <option value="bug">Reporting a bug</option>
+              <option value="feature">Requesting a feature</option>
+              <option value="other">Other topics</option>
+            </select>
+            <!-- Custom chevron arrow for select dropdown -->
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-mute">
+              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div class="flex flex-col gap-2">
+          <label for="contact-message" class="text-xs font-semibold text-mute uppercase tracking-widest">
+            My message
+          </label>
           <textarea 
-            class="min-h-[150px] px-3 py-2 bg-canvas border border-hairline rounded-sm text-sm text-ink placeholder:text-mute focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10"
-            placeholder="Describe your request in detail..."
+            id="contact-message"
+            class="w-full min-h-[160px] p-4 bg-canvas-soft-2/65 border-0 rounded-lg text-sm text-ink placeholder:text-mute focus:outline-none focus:bg-canvas focus:ring-2 focus:ring-link/20 transition-all select-text shadow-sm"
+            placeholder="Tell us details..."
             required
           ></textarea>
         </div>
 
-        <Button type="submit" class="w-full">Send Message</Button>
+        <!-- Send Button -->
+        <div class="pt-2">
+          <button 
+            type="submit" 
+            class="w-full h-12 bg-link text-white hover:bg-link-hover shadow-lg shadow-link/10 active:scale-[0.98] text-sm font-bold rounded-lg transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+          >
+            Send Message
+          </button>
+        </div>
+
       </form>
-    </Card>
+    </div>
   </div>
 </Layout>
