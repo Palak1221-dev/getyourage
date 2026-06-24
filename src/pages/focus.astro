@@ -62,7 +62,7 @@ const appSchema = {
 
 <Layout 
   title="Focus Goals Timer - Goal-Oriented Productivity Tool | Tooltails" 
-  description="Focus on goals, not just time. A premium, offline-first productivity workspace with goal-planning checklist, recovery recommendations, streaks, and GitHub-style heatmaps."
+  description="Focus on goals, not just time. An offline-first productivity workspace with goal-planning checklist, recovery recommendations, streaks, and GitHub-style heatmaps."
 >
   <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
   <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(appSchema)} />
@@ -74,9 +74,6 @@ const appSchema = {
       <div class="flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-link shrink-0" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
         <span class="text-sm font-semibold tracking-tight text-ink">Tooltails Focus</span>
-      </div>
-      <div class="text-[11px] font-mono text-mute hidden sm:block">
-        Version 2.0.0 // Local-Only
       </div>
     </div>
 
@@ -100,7 +97,7 @@ const appSchema = {
 
         <!-- Mode selector tabs -->
         <div class="flex border border-hairline/80 rounded-xl p-0.75 bg-canvas-soft-2 w-full sm:w-auto overflow-x-auto select-none">
-          <button id="tab-btn-workspace" class="flex-grow sm:flex-none text-center px-3.5 py-1.5 text-xs font-bold rounded-lg bg-canvas-soft text-ink hover:text-link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all duration-150 cursor-pointer" onclick="switchTab('workspace')" aria-label="Open workspace tab">
+          <button id="tab-btn-workspace" class="flex-grow sm:flex-none text-center px-3.5 py-1.5 text-xs font-bold rounded-lg bg-canvas text-link shadow-[0_1px_2px_rgba(0,0,0,0.05)] hover:text-link-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all duration-150 cursor-pointer" onclick="switchTab('workspace')" aria-label="Open workspace tab">
             Timer
           </button>
           <button id="tab-btn-analytics" class="flex-grow sm:flex-none text-center px-3.5 py-1.5 text-xs font-semibold rounded-lg text-body hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all duration-150 cursor-pointer" onclick="switchTab('analytics')" aria-label="Open progress analytics tab">
@@ -122,11 +119,11 @@ const appSchema = {
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-start">
           
           <!-- LEFT COLUMN: GOAL & ACTIVITY CONFIGURATION -->
-          <div class="lg:col-span-7 space-y-8 lg:pr-10 lg:border-r lg:border-hairline/60" id="setup-panel">
+          <div class="lg:col-span-5 space-y-8 lg:pr-12 lg:border-r lg:border-hairline/60" id="setup-panel">
             
             <div class="space-y-6">
               <div class="select-none">
-                <span class="text-[10px] font-mono font-bold text-link uppercase tracking-[0.15em] block mb-1.5">// FOCUS INTENTION</span>
+                <span class="text-[10px] font-mono font-bold text-link uppercase tracking-[0.15em] block mb-1.5">FOCUS GOAL</span>
                 <p class="text-xs text-mute">Define your objective and map out checkpoints below to keep you in flow.</p>
               </div>
               
@@ -210,7 +207,7 @@ const appSchema = {
                   <button 
                     type="button" 
                     id="add-milestone-btn" 
-                    class="h-9 px-4 bg-primary text-canvas hover:opacity-95 active:scale-95 text-xs font-semibold rounded-xl transition-all duration-150 cursor-pointer shadow-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 focus-visible:outline-none" 
+                    class="h-9 px-4 bg-link text-white hover:bg-link-hover active:scale-95 text-xs font-semibold rounded-xl transition-all duration-150 cursor-pointer shadow-md shadow-link/10 focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-1 focus-visible:outline-none" 
                     aria-label="Add checkpoint to checklist"
                   >
                     Add
@@ -233,7 +230,7 @@ const appSchema = {
 
             <!-- Start and Quick Start actions row -->
             <div class="flex flex-col sm:flex-row items-center gap-3 pt-6 border-t border-hairline/60">
-              <button type="button" id="start-session-btn" class="w-full sm:flex-1 h-11 bg-primary text-white hover:bg-primary/90 hover:scale-[1.01] active:scale-98 text-xs font-bold rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 shadow-[0_4px_12px_rgba(23,23,23,0.12)] dark:shadow-[0_4px_12px_rgba(0,0,0,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" aria-label="Start Goal Focus Session">
+              <button type="button" id="start-session-btn" class="w-full sm:flex-1 h-11 bg-link text-white hover:bg-link-hover hover:scale-[1.01] active:scale-98 text-xs font-bold rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(37,99,235,0.25)] dark:shadow-[0_4px_14px_rgba(0,0,0,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-2" aria-label="Start Goal Focus Session">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 Start Focus Session
               </button>
@@ -246,13 +243,13 @@ const appSchema = {
           </div>
 
           <!-- ACTIVE FOCUS COMPANION PANEL (Replaces configuration inputs during active session) -->
-          <div class="lg:col-span-7 order-last lg:order-none hidden space-y-8 animate-in fade-in duration-300 text-left lg:pr-10 lg:border-r lg:border-hairline/60" id="active-info-panel">
+          <div class="lg:col-span-5 order-last lg:order-none hidden space-y-8 animate-in fade-in duration-300 text-left lg:pr-12 lg:border-r lg:border-hairline/60" id="active-info-panel">
             <div class="space-y-6">
               
               <div class="flex items-center justify-between border-b border-hairline/60 pb-4 select-none">
                 <div class="flex items-center gap-2">
                   <span id="active-activity-tag" class="px-2.5 py-1 text-xs font-mono font-bold uppercase rounded-xl tracking-wider bg-link/10 text-link">Activity</span>
-                  <span class="text-mute text-xs font-mono">// Active Flow Block</span>
+                  <span class="text-mute text-xs font-mono">Active Goal Session</span>
                 </div>
                 <span class="text-[10px] font-mono text-link uppercase tracking-wider animate-pulse flex items-center gap-1">
                   <span class="w-1.5 h-1.5 bg-link rounded-full"></span> Live
@@ -276,7 +273,7 @@ const appSchema = {
               <div id="active-why-matters-panel" class="hidden mt-6 p-4 bg-gradient-to-r from-link/[0.04] to-transparent border border-link/15 rounded-2xl text-xs leading-relaxed flex items-start gap-2.5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-link shrink-0 mt-0.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 <div>
-                  <span class="text-[9px] font-mono font-bold text-link uppercase tracking-wider block mb-0.5 select-none">// PURPOSE</span>
+                  <span class="text-[9px] font-mono font-bold text-link uppercase tracking-wider block mb-0.5 select-none">WHY THIS GOAL MATTERS</span>
                   <span id="active-why-matters-text" class="text-body italic">To pass my exam and unlock my dream career</span>
                 </div>
               </div>
@@ -290,23 +287,26 @@ const appSchema = {
           </div>
 
           <!-- RIGHT COLUMN: THE VISUAL TIMER & CONTROLS -->
-          <div id="timer-container-card" class="lg:col-span-5 flex flex-col items-center justify-center p-2 sm:p-4 lg:pl-10 space-y-8 w-full transition-all duration-500 relative">
+          <div id="timer-container-card" class="lg:col-span-7 flex flex-col items-center justify-center p-2 sm:p-4 lg:pl-12 space-y-8 w-full transition-all duration-500 relative">
             
-            <div class="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 flex items-center justify-center select-none">
+            <div class="relative w-76 h-76 sm:w-88 sm:h-88 md:w-96 md:h-96 flex items-center justify-center select-none">
               <!-- Radial background glow effect -->
               <div id="timer-active-glow" class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.05),transparent_65%)] pointer-events-none opacity-0 transition-opacity duration-700 ease-out"></div>
               
+              <!-- Recessed clock dial depth shadow -->
+              <div class="absolute inset-[10%] rounded-full bg-canvas-soft-2/15 dark:bg-canvas-soft-2/5 border border-hairline/30 dark:border-hairline/15 shadow-[inset_0_2px_6px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_4px_16px_rgba(0,0,0,0.4)] pointer-events-none"></div>
+
               <!-- Circular Progress Ring (SVG with clean responsive viewBox) -->
-              <svg viewBox="0 0 100 100" class="w-full h-full transform -rotate-90 animate-fade-in duration-300" aria-hidden="true">
-                <circle cx="50" cy="50" r="40" stroke="var(--color-hairline)" stroke-width="3.5" opacity="0.4" fill="transparent" />
-                <circle id="timer-progress-ring" cx="50" cy="50" r="40" stroke="var(--color-link)" stroke-width="5" stroke-linecap="round" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="0" class="transition-all duration-300 ease-out" />
+              <svg viewBox="0 0 100 100" class="w-full h-full transform -rotate-90 animate-fade-in duration-300 relative z-10" aria-hidden="true">
+                <circle id="timer-progress-bg" cx="50" cy="50" r="40" stroke="var(--color-link)" stroke-width="3" opacity="0.1" class="transition-opacity duration-300" fill="transparent" />
+                <circle id="timer-progress-ring" cx="50" cy="50" r="40" stroke="var(--color-link)" stroke-width="3.5" stroke-linecap="round" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="0" class="transition-all duration-300 ease-out" />
               </svg>
 
               <!-- Central Countdown Time -->
-              <div class="absolute flex flex-col items-center justify-center text-center">
-                <span id="timer-session-label" class="text-[9px] font-mono uppercase tracking-[0.2em] text-mute mb-1.5 font-bold">READY TO FOCUS</span>
-                <span id="timer-countdown" class="text-5xl md:text-6xl font-bold font-mono tracking-tight text-ink leading-none tabular-nums">25:00</span>
-                <span id="timer-milestone-ratio" class="text-[10px] font-mono text-mute mt-2.5 hidden tabular-nums px-2.5 py-0.5 bg-canvas-soft border border-hairline/80 rounded-lg shadow-[0_1px_2px_rgba(0,0,0,0.01)]">0 / 0 Checkpoints</span>
+              <div class="absolute flex flex-col items-center justify-center text-center z-20">
+                <span id="timer-session-label" class="text-[9px] font-mono uppercase tracking-[0.25em] text-mute mb-2 font-bold">READY TO FOCUS</span>
+                <span id="timer-countdown" class="text-6xl md:text-7xl font-bold font-mono tracking-tight text-ink leading-none tabular-nums">25:00</span>
+                <span id="timer-milestone-ratio" class="text-[10px] font-mono text-mute mt-3 hidden tabular-nums px-2.5 py-0.5 bg-canvas-soft border border-hairline/80 rounded-lg shadow-[0_1px_2px_rgba(0,0,0,0.01)]">0 / 0 Checkpoints</span>
               </div>
             </div>
 
@@ -318,22 +318,50 @@ const appSchema = {
               </button>
 
               <!-- Play / Pause primary pill -->
-              <button type="button" id="play-pause-btn" class="px-6 h-11 bg-primary text-white hover:bg-primary/95 hover:scale-[1.01] active:scale-98 text-xs font-semibold rounded-xl shadow-[0_4px_12px_rgba(23,23,23,0.12)] dark:shadow-[0_4px_12px_rgba(0,0,0,0.35)] transition-all duration-200 cursor-pointer flex items-center gap-2 justify-center min-w-[140px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" aria-label="Start or pause focus session timer">
+              <button type="button" id="play-pause-btn" class="px-6 h-11 bg-link text-white hover:bg-link-hover hover:scale-[1.01] active:scale-98 text-xs font-semibold rounded-xl shadow-[0_4px_14px_rgba(37,99,235,0.25)] dark:shadow-[0_4px_14px_rgba(0,0,0,0.45)] transition-all duration-200 cursor-pointer flex items-center gap-2 justify-center min-w-[140px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-2" aria-label="Start or pause focus session timer">
                 <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="hidden" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
                 <span id="play-btn-text">Start Timer</span>
               </button>
-
               <!-- Fullscreen Focus trigger -->
               <button type="button" id="fullscreen-trigger-btn" class="w-10 h-10 border border-hairline/80 bg-canvas rounded-xl flex items-center justify-center hover:bg-canvas-soft-2 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer text-mute hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-2" title="Distraction-Free Mode" aria-label="Toggle full-screen focus workspace mode">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
               </button>
             </div>
 
+            <!-- Today's Progress Section -->
+            <div class="w-full max-w-sm border-t border-hairline/60 pt-5 mt-6 select-none" id="today-progress-section">
+               <div class="flex items-center justify-between text-[10px] font-mono text-mute uppercase tracking-wider mb-3">
+                 <span>TODAY'S PROGRESS</span>
+               </div>
+              
+              <div class="grid grid-cols-3 gap-2">
+                <!-- Focus Time Today -->
+                <div class="bg-canvas border border-hairline/80 rounded-xl p-3 text-center shadow-sm relative overflow-hidden group hover:border-link/30 transition-all duration-200">
+                  <div class="text-[9px] font-mono font-bold text-mute uppercase tracking-wider mb-1">Focus Time</div>
+                  <div id="workspace-today-focus-time" class="text-base font-bold text-ink tracking-tight tabular-nums">0m</div>
+                </div>
+
+                <!-- Current Streak -->
+                <div class="bg-canvas border border-hairline/80 rounded-xl p-3 text-center shadow-sm relative overflow-hidden group hover:border-warning/30 transition-all duration-200">
+                  <div class="text-[9px] font-mono font-bold text-mute uppercase tracking-wider mb-1">Streak</div>
+                  <div id="workspace-today-streak" class="text-base font-bold text-ink tracking-tight tabular-nums flex items-center justify-center gap-1">
+                    <span class="text-warning">🔥</span> 0d
+                  </div>
+                </div>
+
+                <!-- Completion Rate -->
+                <div class="bg-canvas border border-hairline/80 rounded-xl p-3 text-center shadow-sm relative overflow-hidden group hover:border-link/30 transition-all duration-200">
+                  <div class="text-[9px] font-mono font-bold text-mute uppercase tracking-wider mb-1">Completion</div>
+                  <div id="workspace-today-rate" class="text-base font-bold text-ink tracking-tight tabular-nums">0%</div>
+                </div>
+              </div>
+            </div>
+            
             <!-- Session Duration presets -->
             <div class="mt-8 w-full max-w-sm border-t border-hairline/60 pt-5 space-y-3 select-none" id="timer-presets-section">
               <div class="flex items-center justify-between text-xs">
-                <span class="text-mute font-mono tracking-wider text-[10px] uppercase">// DURATION</span>
+                <span class="text-mute font-mono tracking-wider text-[10px] uppercase">DURATION</span>
                 <span class="text-link text-[10px] font-bold">Select preset</span>
               </div>
               
@@ -368,7 +396,7 @@ const appSchema = {
             <!-- Web Audio Ambient Sounds Selector -->
             <div class="mt-6 w-full max-w-sm border-t border-hairline/60 pt-5 space-y-3 select-none">
               <div class="flex items-center justify-between text-xs">
-                <span class="text-mute font-mono tracking-wider text-[10px] uppercase">// BACKGROUND NOISE</span>
+                <span class="text-mute font-mono tracking-wider text-[10px] uppercase">BACKGROUND NOISE</span>
                 <span class="text-link text-[10px] font-bold flex items-center gap-0.5">
                   <svg class="h-3 w-3 animate-spin hidden" id="sound-loading-spinner" viewBox="0 0 24 24" aria-hidden="true"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
                   Web Audio Synth
@@ -549,7 +577,7 @@ const appSchema = {
         </div>
 
         <!-- Focus Forecast & Goal Progress Card -->
-        <div id="analytics-forecast-panel" class="w-full animate-in fade-in duration-300 mt-6"></div>
+        <div id="analytics-forecast-panel" class="w-full animate-in fade-in duration-300"></div>
 
       </div>
 
@@ -582,7 +610,7 @@ const appSchema = {
                   </label>
                   <textarea id="weekly-reflection-text" rows="3" required class="w-full p-4 bg-canvas border border-hairline/80 rounded-2xl text-xs text-ink placeholder:text-mute/40 focus:outline-none focus:ring-2 focus:ring-link/10 focus:border-link/40 transition-all duration-200 shadow-[0_1px_2px_rgba(0,0,0,0.01)]" placeholder="Journal your thoughts, small wins, or energetic blocks here…"></textarea>
                 </div>
-                <button type="submit" class="px-4 py-2 bg-primary text-canvas hover:opacity-95 active:scale-95 text-xs font-semibold rounded-xl transition-all duration-150 cursor-pointer shadow-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 select-none">
+                <button type="submit" class="px-4 py-2 bg-link text-white hover:bg-link-hover active:scale-95 text-xs font-semibold rounded-xl transition-all duration-150 cursor-pointer shadow-md shadow-link/10 focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-1 select-none">
                   Save Reflection Entry
                 </button>
               </form>
@@ -618,50 +646,50 @@ const appSchema = {
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           
-          <!-- 1. Recovery Planner Engine Details -->
+          <!-- 1. Recovery Advisor Details -->
           <div class="border border-hairline/80 rounded-2xl p-6 bg-gradient-to-b from-canvas to-canvas-soft/30 shadow-[0_4px_20px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col justify-between">
             <div class="space-y-4">
               <div class="flex items-center justify-between select-none">
-                <span class="text-xs font-mono font-bold text-rose-500 uppercase tracking-wider">Recovery Planner Engine</span>
-                <span class="text-[10px] font-mono text-mute">Active (Local AI Analyser)</span>
+                <span class="text-xs font-mono font-bold text-rose-500 uppercase tracking-wider">Recovery Advisor</span>
+                <span class="text-[10px] font-mono text-mute">Active</span>
               </div>
-              <h3 class="text-base font-bold text-ink">Burnout Shield & Adaptability Advisor</h3>
+              <h3 class="text-base font-bold text-ink">Maintain Steady Flow & Avoid Burnout</h3>
               <p class="text-xs text-body leading-relaxed">
-                When you experience focus interruptions or fatigue, standard trackers ignore the failure. Our recovery planner detects why you fell short and delivers actionable behavioral corrections before your streak breaks.
+                When you run into distractions or fatigue, our recovery advisor helps you understand what went wrong and gives you friendly, practical steps to get back into flow.
               </p>
               
               <!-- Active/Last recommendation preview -->
               <div class="mt-4 border border-dashed border-rose-500/20 rounded-2xl p-4 bg-rose-500/[0.02]">
-                <div class="text-[10px] font-bold text-rose-500 font-mono mb-1.5 select-none">// LATEST SYSTEM DIAGNOSTIC:</div>
+                <div class="text-[10px] font-bold text-rose-500 font-mono mb-1.5 select-none">LATEST ANALYSIS:</div>
                 <div id="pro-recovery-diagnostic" class="text-xs font-medium text-ink mb-2">No failures recorded recently. You are in good flow!</div>
                 
-                <div class="text-[10px] font-bold text-rose-500 font-mono mb-1.5 select-none">// REC RECOVERY STEP:</div>
+                <div class="text-[10px] font-bold text-rose-500 font-mono mb-1.5 select-none">RECOMMENDED RECOVERY ACTION:</div>
                 <div id="pro-recovery-recommendation" class="text-xs text-body">Keep focus sessions within 45 minutes to avoid cognitive fatigue.</div>
               </div>
             </div>
             
             <div class="pt-4 border-t border-hairline/60 mt-4 flex items-center justify-between text-xs select-none">
-              <span class="text-mute font-mono">Status: Enabled</span>
-              <span class="text-link font-semibold">Active Diagnosis</span>
+              <span class="text-mute font-mono">Status: Active</span>
+              <span class="text-link font-semibold">Active</span>
             </div>
           </div>
 
-          <!-- 2. Goal Planning Engine Details -->
+          <!-- 2. Goal Checkpoint Planner Details -->
           <div class="border border-hairline/80 rounded-2xl p-6 bg-gradient-to-b from-canvas to-canvas-soft/30 shadow-[0_4px_20px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col justify-between">
             <div class="space-y-4">
               <div class="flex items-center justify-between select-none">
-                <span class="text-xs font-mono font-bold text-link uppercase tracking-wider">Goal Planning Engine</span>
-                <span class="text-[10px] font-mono text-mute">Active (Milestone Slicer)</span>
+                <span class="text-xs font-mono font-bold text-link uppercase tracking-wider">Goal Checkpoint Planner</span>
+                <span class="text-[10px] font-mono text-mute">Active</span>
               </div>
-              <h3 class="text-base font-bold text-ink">Micro-Milestone Decomposition</h3>
+              <h3 class="text-base font-bold text-ink">Checkpoints & Goal breakdown</h3>
               <p class="text-xs text-body leading-relaxed">
-                Research shows starting a 90-minute block with a vague goal triggers procrastination. The Goal Planning engine enforces micro-milestone check-ins, tracking the percentage completion of checkpoints as mathematical confidence bounds.
+                Starting a long study or work block with a vague intention makes starting hard. Our Goal Planner helps you break down your goals into smaller, manageable checkpoints, tracking your progress dynamically as you complete each task.
               </p>
               
-              <!-- Mini stats -->
-              <div class="grid grid-cols-2 gap-3 mt-3">
+              <!-- Metrics row -->
+              <div class="grid grid-cols-2 gap-3 pt-2">
                 <div class="bg-canvas-soft border border-hairline/80 rounded-xl p-3 text-center">
-                  <div class="text-[9px] font-mono text-mute uppercase font-semibold mb-1 select-none">Milestones set</div>
+                  <div class="text-[9px] font-mono text-mute uppercase font-semibold mb-1 select-none">Checkpoints set</div>
                   <div class="text-xl font-bold text-ink tabular-nums" id="pro-milestones-total">0</div>
                 </div>
                 <div class="bg-canvas-soft border border-hairline/80 rounded-xl p-3 text-center">
@@ -672,8 +700,8 @@ const appSchema = {
             </div>
             
             <div class="pt-4 border-t border-hairline/60 mt-4 flex items-center justify-between text-xs select-none">
-              <span class="text-mute font-mono">Architecture: In-Memory Engine</span>
-              <span class="text-link font-semibold">Enabled</span>
+              <span class="text-mute font-mono">Storage: Offline</span>
+              <span class="text-link font-semibold">Active</span>
             </div>
           </div>
 
@@ -705,7 +733,7 @@ const appSchema = {
                 <!-- Right: Call to action -->
                 <div class="flex flex-col gap-2.5 bg-canvas-soft border border-hairline/80 rounded-2xl p-4 items-center justify-center text-center">
                   <div class="text-xs font-bold text-ink mb-1 select-none">Generate Local digest</div>
-                  <button type="button" id="generate-report-btn" class="w-full py-2 bg-primary text-canvas hover:opacity-95 text-xs font-semibold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-sm">
+                  <button type="button" id="generate-report-btn" class="w-full py-2 bg-link text-white hover:bg-link-hover hover:scale-[1.01] active:scale-98 text-xs font-semibold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md shadow-link/10">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                     Compile Report
                   </button>
@@ -745,7 +773,7 @@ const appSchema = {
                 <!-- Right: Actions -->
                 <div class="flex flex-col gap-2.5 bg-canvas-soft border border-hairline/80 rounded-2xl p-4 items-center justify-center">
                   <!-- Export Button -->
-                  <button type="button" id="vault-export-btn" class="w-full py-2 bg-primary text-canvas hover:opacity-95 text-xs font-semibold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-sm">
+                  <button type="button" id="vault-export-btn" class="w-full py-2 bg-link text-white hover:bg-link-hover hover:scale-[1.01] active:scale-98 text-xs font-semibold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md shadow-link/10">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                     Export Backup
                   </button>
@@ -768,7 +796,7 @@ const appSchema = {
 
     <!-- Marketing Introduction Section -->
     <div class="max-w-4xl mx-auto text-center mt-24 mb-12 px-2 select-none border-t border-hairline pt-16">
-      <span class="inline-block text-[10px] font-mono tracking-widest text-link uppercase mb-2 font-bold">// About the Tool</span>
+      <span class="inline-block text-[10px] font-mono tracking-widest text-link uppercase mb-2 font-bold">About Tooltails Focus</span>
       <h2 class="text-3xl font-bold tracking-tight text-ink mb-4 text-pretty leading-tight">
         Focus on goals, not just time.
       </h2>
@@ -786,14 +814,14 @@ const appSchema = {
 
     <!-- How it Differs from a Pomodoro Timer -->
     <div class="max-w-4xl mx-auto mb-16 space-y-6 px-2">
-      <h3 class="text-xs font-mono text-mute uppercase tracking-widest text-center select-none font-bold">// How it differs from a Pomodoro Timer</h3>
+      <h3 class="text-xs font-mono text-mute uppercase tracking-widest text-center select-none font-bold">How it differs from a Pomodoro Timer</h3>
       
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
         <!-- Card 1 -->
         <div class="border border-hairline rounded-xl p-4.5 bg-canvas flex flex-col justify-between hover:border-link/30 hover:shadow-sm transition-all duration-250 group relative">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
-              <span class="text-[9px] font-mono font-bold text-link uppercase tracking-wider">// 01 // CORE METRIC</span>
+              <span class="text-[9px] font-mono font-bold text-link uppercase tracking-wider">01. CORE METRIC</span>
               <span class="text-[9px] font-mono text-mute uppercase">Outcomes</span>
             </div>
             <h4 class="text-xs font-bold text-ink tracking-tight">Focus on Outcomes</h4>
@@ -811,7 +839,7 @@ const appSchema = {
         <div class="border border-hairline rounded-xl p-4.5 bg-canvas flex flex-col justify-between hover:border-purple-500/30 hover:shadow-sm transition-all duration-250 group relative">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
-              <span class="text-[9px] font-mono font-bold text-purple-600 uppercase tracking-wider">// 02 // FRICTION REDUCTION</span>
+              <span class="text-[9px] font-mono font-bold text-purple-600 uppercase tracking-wider">02. GOAL CHECKPOINTS</span>
               <span class="text-[9px] font-mono text-mute uppercase">Decomposition</span>
             </div>
             <h4 class="text-xs font-bold text-ink tracking-tight">Goal Checklist</h4>
@@ -829,7 +857,7 @@ const appSchema = {
         <div class="border border-hairline rounded-xl p-4.5 bg-canvas flex flex-col justify-between hover:border-rose-500/30 hover:shadow-sm transition-all duration-250 group relative">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
-              <span class="text-[9px] font-mono font-bold text-rose-500 uppercase tracking-wider">// 03 // ADAPTABILITY</span>
+              <span class="text-[9px] font-mono font-bold text-rose-500 uppercase tracking-wider">03. MINDFUL ADAPTABILITY</span>
               <span class="text-[9px] font-mono text-mute uppercase">Recovery</span>
             </div>
             <h4 class="text-xs font-bold text-ink tracking-tight">Recovery Advice</h4>
@@ -849,7 +877,7 @@ const appSchema = {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-20">
       
       <div>
-        <h2 class="text-xs font-mono uppercase tracking-widest text-link mb-2">// How it works</h2>
+        <h2 class="text-xs font-mono uppercase tracking-widest text-link mb-2">How it works</h2>
         <h3 class="text-2xl font-bold tracking-tight text-ink mb-4">Focus on goals, not just time.</h3>
         <p class="text-sm text-body leading-relaxed mb-4">
           Time-trackers measure compliance. They count the minutes you spend sitting at a screen. But they ignore the most important question: <strong>did you actually accomplish your task?</strong>
@@ -895,7 +923,7 @@ const appSchema = {
       <!-- PREMIUM FEATURE SHOWCASE -->
       <div id="features-showcase" class="max-w-4xl mx-auto mt-20 px-2 space-y-12 scroll-mt-6">
         <div class="text-center space-y-3">
-          <span class="text-[10px] font-mono tracking-widest text-link uppercase font-bold">// Workspace Capabilities</span>
+          <span class="text-[10px] font-mono tracking-widest text-link uppercase font-bold">Workspace Capabilities</span>
           <h2 class="text-2xl font-bold tracking-tight text-ink">Core Features</h2>
           <p class="text-xs text-body leading-relaxed max-w-2xl mx-auto">
             Tooltails Focus includes simple, offline-first tools to help you set clear goals and track your progress over time.
@@ -1052,20 +1080,20 @@ const appSchema = {
 
         <!-- Recovery Advisor Display -->
         <div id="modal-recovery-advisor" class="hidden p-3 bg-rose-500/[0.03] border border-dashed border-rose-500/25 rounded-lg text-xs text-ink leading-relaxed">
-          <div class="text-[9px] font-bold text-rose-500 font-mono mb-1">// RECOVERY PLANNER RECOMMENDATION:</div>
+          <div class="text-[9px] font-bold text-rose-500 font-mono mb-1">RECOVERY PLAN RECOMMENDATION:</div>
           <div id="modal-recovery-text" class="text-body mt-0.5">Let's analyze why it was partial.</div>
         </div>
 
         <!-- Focus Forecast Attributor Section -->
         <div id="outcome-forecast-attribution" class="border border-hairline rounded-lg p-3 bg-canvas-soft-2/50 hidden space-y-2 select-none">
           <div class="flex items-center justify-between">
-            <span class="text-[10px] font-mono font-bold text-link uppercase tracking-wider font-semibold">Focus Forecast Sync</span>
+            <span class="text-[10px] font-mono font-bold text-link uppercase tracking-wider font-semibold">Log Progress to Goal</span>
             <label class="inline-flex items-center gap-1 cursor-pointer">
               <input type="checkbox" id="sync-to-forecast" class="rounded border-hairline text-link focus:ring-link w-3.5 h-3.5 cursor-pointer" />
               <span class="text-[9px] font-mono font-semibold text-ink">Sync Progress</span>
             </label>
           </div>
-          <p class="text-[11px] text-body" id="sync-goal-description">Add progress units to active forecast tracking.</p>
+          <p class="text-[11px] text-body" id="sync-goal-description">Add units to your active goal progress.</p>
           <div class="flex gap-2 items-center">
             <div class="relative flex-grow">
               <input type="number" id="sync-forecast-value" min="0.1" step="any" class="w-full h-8 px-2 bg-canvas border border-hairline rounded text-xs text-ink focus:outline-none focus:ring-2 focus:ring-link/30 shadow-inner" value="1" />
@@ -1079,13 +1107,13 @@ const appSchema = {
         <div id="modal-why-matters-support" class="hidden p-3.5 bg-gradient-to-r from-warning/5 to-transparent border border-warning/20 rounded-lg text-xs leading-relaxed flex items-start gap-2.5">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-warning shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
           <div>
-            <span class="text-[9px] font-mono font-bold text-warning uppercase tracking-wider block mb-0.5">// REMEMBER WHY THIS MATTERS:</span>
+            <span class="text-[9px] font-mono font-bold text-warning uppercase tracking-wider block mb-0.5">REMEMBER WHY THIS MATTERS:</span>
             <span id="modal-why-matters-support-text" class="text-body italic">Why Matters text</span>
             <span class="block text-[10px] text-mute mt-1 leading-relaxed">Setbacks are just a natural part of growth. Be kind to yourself; every block of focus builds self-awareness.</span>
           </div>
         </div>
 
-        <button type="submit" class="w-full h-10 bg-primary text-white hover:bg-ink text-xs font-semibold rounded-lg transition-colors cursor-pointer">
+        <button type="submit" class="w-full h-10 bg-link text-white hover:bg-link-hover text-xs font-semibold rounded-lg transition-colors cursor-pointer shadow-md shadow-link/10">
           Log this step in my growth journey
         </button>
       </form>
@@ -1125,7 +1153,7 @@ const appSchema = {
 
       <!-- Control Buttons -->
       <div class="flex items-center gap-3">
-        <button type="button" id="immersive-play-pause-btn" class="px-5 py-2.5 bg-primary text-white hover:bg-ink text-xs font-medium rounded-full transition-colors cursor-pointer flex items-center gap-1.5">
+        <button type="button" id="immersive-play-pause-btn" class="px-5 py-2.5 bg-link text-white hover:bg-link-hover text-xs font-medium rounded-full transition-colors cursor-pointer flex items-center gap-1.5 shadow-md shadow-link/15">
           <svg id="imm-play-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           <svg id="imm-pause-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="hidden"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
           <span id="imm-play-btn-text">Pause Timer</span>
@@ -1332,12 +1360,12 @@ const appSchema = {
       const btn = document.getElementById(`tab-btn-${t}`);
       const panel = document.getElementById(`tab-${t}`);
       if (t === tab) {
-        btn?.classList.remove('text-body');
-        btn?.classList.add('bg-canvas-soft', 'text-ink');
+        btn?.classList.remove('text-body', 'font-semibold');
+        btn?.classList.add('bg-canvas', 'text-link', 'font-bold', 'shadow-[0_1px_2px_rgba(0,0,0,0.05)]');
         panel?.classList.remove('hidden');
       } else {
-        btn?.classList.add('text-body');
-        btn?.classList.remove('bg-canvas-soft', 'text-ink');
+        btn?.classList.add('text-body', 'font-semibold');
+        btn?.classList.remove('bg-canvas', 'text-link', 'font-bold', 'shadow-[0_1px_2px_rgba(0,0,0,0.05)]');
         panel?.classList.add('hidden');
       }
     });
@@ -2035,8 +2063,8 @@ const appSchema = {
     const ring = document.getElementById('timer-progress-ring') as SVGPathElement;
     if (ring) {
       const maxDash = 251.2; // Circumference of r=40 viewBox coordinate circle
-      const percentDone = (timerDurationSeconds - timerRemainingSeconds) / timerDurationSeconds;
-      const offset = maxDash - (percentDone * maxDash);
+      const percentRemaining = timerDurationSeconds > 0 ? (timerRemainingSeconds / timerDurationSeconds) : 0;
+      const offset = maxDash - (percentRemaining * maxDash);
       ring.style.strokeDashoffset = offset.toString();
     }
 
@@ -2306,7 +2334,7 @@ const appSchema = {
     if (activeTitle) activeTitle.textContent = "Take a break, stretch, grab water!";
     
     const activeList = document.getElementById('active-milestones-list');
-    if (activeList) activeList.innerHTML = `<li class="text-xs text-link font-mono animate-pulse font-semibold">// Rest block active</li>`;
+    if (activeList) activeList.innerHTML = `<li class="text-xs text-link font-mono animate-pulse font-semibold">Rest period active</li>`;
     
     toggleTimer(true);
   }
@@ -2538,7 +2566,7 @@ const appSchema = {
     const tagEl = document.getElementById('immersive-activity-tag');
     if (tagEl) {
       tagEl.textContent = selectedActivity;
-      tagEl.className = "px-3 py-1 text-xs font-mono font-bold uppercase rounded-md tracking-wider " + getActivityColorClass(selectedActivity);
+      tagEl.className = "px-3 py-1 bg-link/10 text-link text-xs font-mono font-bold uppercase rounded-md tracking-wider " + getActivityColorClass(selectedActivity);
     }
 
     renderActiveMilestones();
@@ -2802,6 +2830,28 @@ const appSchema = {
     const rate = totalSessions > 0 ? Math.round((completedSessions / totalSessions) * 100) : 0;
     const globalRate = document.getElementById('global-success-rate');
     if (globalRate) globalRate.textContent = `${rate}%`;
+
+    // Compute Focus Time Today
+    const todayStr = new Date().toDateString();
+    const todaySessions = history.filter(s => new Date(s.timestamp).toDateString() === todayStr);
+    const todaySeconds = todaySessions.reduce((sum, s) => sum + s.timeSpentSeconds, 0);
+    const todayMinutes = Math.round(todaySeconds / 60);
+    let todayFocusFormatted = `${todayMinutes}m`;
+    if (todayMinutes >= 60) {
+      const h = Math.floor(todayMinutes / 60);
+      const m = todayMinutes % 60;
+      todayFocusFormatted = `${h}h ${m}m`;
+    }
+
+    // Update Workspace Today's Progress Elements
+    const wsTodayFocus = document.getElementById('workspace-today-focus-time');
+    if (wsTodayFocus) wsTodayFocus.textContent = todayFocusFormatted;
+
+    const wsTodayStreak = document.getElementById('workspace-today-streak');
+    if (wsTodayStreak) wsTodayStreak.innerHTML = `<span class="text-warning">🔥</span> ${currentStreak}d`;
+
+    const wsTodayRate = document.getElementById('workspace-today-rate');
+    if (wsTodayRate) wsTodayRate.textContent = `${rate}%`;
 
     // Analytics Page values
     const minutesFocused = Math.round(totalSeconds / 60);
@@ -3255,10 +3305,10 @@ const appSchema = {
         <div class="border border-hairline rounded-xl p-5 md:p-6 bg-canvas space-y-4">
           <div class="flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-link" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-            <h3 class="text-lg font-bold text-ink">Initialize Focus Forecast Track</h3>
+            <h3 class="text-lg font-bold text-ink">Track Your Long-Term Goals</h3>
           </div>
           <p class="text-xs text-body leading-relaxed max-w-xl">
-            Predict your path to success. By defining a target quantity and timeline, the forecast engine calculates your velocity and maps out exactly when you will complete your goal based on your real performance.
+            Set a long-term goal with a target value (like reading 300 pages or coding for 50 hours). We'll track your daily velocity and estimate your completion date based on your actual progress.
           </p>
           
           <form id="forecast-setup-form" class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
@@ -3666,7 +3716,7 @@ const appSchema = {
             </div>
             
             <div class="text-[10px] text-mute font-mono pt-3 border-t border-hairline flex items-center justify-between">
-              <span>Engine: Local Linear Projection</span>
+              <span>Tracking: Local Progress</span>
               <span>${activeForecastGoal.logs.length} logged entries</span>
             </div>
           </div>
@@ -3751,7 +3801,7 @@ const appSchema = {
           <div class="flex justify-between items-center text-xs pt-3 border-t border-hairline">
             <span class="text-mute">${verdictText.replace(/<\/?strong>/g, '')}</span>
             <button type="button" class="px-3 h-7 border border-hairline hover:bg-canvas-soft text-[10px] font-medium rounded-lg transition-colors cursor-pointer shrink-0" onclick="window.switchTab('premium')">
-              Manage Forecast & Logs →
+              Manage Goal Progress →
             </button>
           </div>
         </div>
@@ -4256,8 +4306,8 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
                     ${a.svg}
                   </div>
                   ${a.unlocked 
-                    ? `<span class="text-[9px] font-mono font-bold text-link uppercase tracking-wider">// UNLOCKED</span>`
-                    : `<span class="text-[9px] font-mono text-mute uppercase tracking-wider">// LOCKED</span>`
+                    ? `<span class="text-[9px] font-mono font-bold text-link uppercase tracking-wider">UNLOCKED</span>`
+                    : `<span class="text-[9px] font-mono text-mute uppercase tracking-wider">LOCKED</span>`
                   }
                 </div>
                 <div>
@@ -4266,7 +4316,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
                 </div>
               </div>
               <div class="text-[9px] font-mono text-mute border-t border-hairline/60 pt-1.5 mt-1">
-                Req: ${a.condition}
+                Goal: ${a.condition}
               </div>
             </div>
           `).join('')}
@@ -4918,15 +4968,23 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
   :root[data-theme="dark"] .workspace-active-focus {
     box-shadow: 0 0 100px rgba(37, 99, 235, 0.05) inset;
   }
-  .timer-active #timer-progress-ring {
-    filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.4));
+  :root[data-theme="dark"] #timer-progress-bg {
+    opacity: 0.15;
   }
-  .activity-btn.border-link {
+  #timer-progress-ring {
+    transition: filter 0.3s ease, stroke-dashoffset 0.3s ease-out;
+  }
+  .timer-active #timer-progress-ring {
+    filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.45));
+  }
+  .activity-btn.border-link,
+  .preset-btn.border-link {
     border-color: var(--color-link) !important;
     background-color: rgba(37, 99, 235, 0.08) !important;
     color: var(--color-link) !important;
   }
-  :root[data-theme="dark"] .activity-btn.border-link {
+  :root[data-theme="dark"] .activity-btn.border-link,
+  :root[data-theme="dark"] .preset-btn.border-link {
     background-color: rgba(37, 99, 235, 0.15) !important;
   }
 
