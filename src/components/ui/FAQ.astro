@@ -7,9 +7,10 @@ interface FAQItem {
 interface Props {
   items: FAQItem[];
   class?: string;
+  renderSchema?: boolean;
 }
 
-const { items, class: className } = Astro.props;
+const { items, class: className, renderSchema = true } = Astro.props;
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -37,4 +38,4 @@ const faqSchema = {
   </div>
 </div>
 
-<script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+{renderSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />}

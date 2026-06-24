@@ -20,13 +20,13 @@
   --color-link-hover: #1d4ed8;
 
   /* Dark Mode Variables */
-  --color-dark-ink: #fafafa;
-  --color-dark-canvas: #0a0a0a;
-  --color-dark-canvas-soft: #000000;
-  --color-dark-canvas-soft-2: #111111;
-  --color-dark-hairline: #222222;
-  --color-dark-mute: #a1a1a1;
-  --color-dark-body: #888888;
+  --color-dark-ink: #f4f4f5; /* zinc-100 */
+  --color-dark-canvas: #18181b; /* zinc-900 */
+  --color-dark-canvas-soft: #09090b; /* slate-950 */
+  --color-dark-canvas-soft-2: #27272a; /* zinc-800 */
+  --color-dark-hairline: #27272a; /* zinc-800 */
+  --color-dark-mute: #71717a; /* zinc-500 */
+  --color-dark-body: #a1a1aa; /* zinc-400 */
   
   /* Gradient Stops */
   --color-develop-start: #2563eb;
