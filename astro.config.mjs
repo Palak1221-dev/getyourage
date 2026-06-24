@@ -27,6 +27,14 @@ export default defineConfig({
         'https://tooltails.com/word-counter/privacy/',
         'https://tooltails.com/word-counter/terms/',
         'https://tooltails.com/word-counter/word-counter/',
+        'https://tooltails.com/focus/',
+        'https://tooltails.com/focus/privacy/',
+        'https://tooltails.com/focus/terms/',
+        'https://tooltails.com/focus/contact/',
+        'https://tooltails.com/focus/blog/',
+        'https://tooltails.com/focus/blog/goal-oriented-focus-explained/',
+        'https://tooltails.com/focus/blog/recovery-planner-science/',
+        'https://tooltails.com/focus/blog/decomposing-big-milestones/',
       ]
     })
   ],

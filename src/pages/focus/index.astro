@@ -1,6 +1,6 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import FAQ from "../components/ui/FAQ.astro";
+import Layout from "../../layouts/Layout.astro";
+import FAQ from "../../components/ui/FAQ.astro";
 
 // FAQ Items for SEO
 const faqItems = [
@@ -121,304 +121,316 @@ const appSchema = {
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          <!-- LEFT COLUMN: GOAL & ACTIVITY CONFIGURATION -->
-          <div class="lg:col-span-5 order-2 lg:order-1 space-y-8 lg:pr-4" id="setup-panel">
+          <!-- LEFT COLUMN: GOAL CONFIGURATION & ACTIVE INFO -->
+          <div class="lg:col-span-5 order-2 lg:order-1 space-y-8 lg:pr-4">
             
-            <!-- Session Goal Input (Tooltails standard styling) -->
-            <div class="bg-canvas border border-hairline rounded-md p-6 shadow-sm space-y-5 select-none">
-              <div>
-                <label for="session-goal" class="text-base font-bold text-ink mb-1.5 block">
-                  What would you like to accomplish?
-                </label>
-                <input 
-                  type="text" 
-                  id="session-goal" 
-                  autocomplete="off"
-                  spellcheck="true"
-                  class="w-full h-12 px-4 bg-canvas border border-hairline rounded-sm text-lg md:text-xl font-bold tracking-tighter text-ink placeholder:text-mute focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all select-text" 
-                  placeholder="What is your focus goal?" 
-                  aria-label="Enter your session outcome intention"
-                />
-              </div>
+            <!-- SETUP PANEL (Goal Input, Actions, and secondary config) -->
+            <div id="setup-panel" class="space-y-6">
+              
+              <!-- Session Goal Input (Tooltails standard styling) -->
+              <div class="bg-canvas border border-hairline rounded-md p-6 shadow-sm space-y-5 select-none">
+                <div>
+                  <label for="session-goal" class="text-base font-bold text-ink mb-1.5 block">
+                    What would you like to accomplish?
+                  </label>
+                  <input 
+                    type="text" 
+                    id="session-goal" 
+                    autocomplete="off"
+                    spellcheck="true"
+                    class="w-full h-12 px-4 bg-canvas border border-hairline rounded-sm text-lg md:text-xl font-bold tracking-tighter text-ink placeholder:text-mute focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all select-text" 
+                    placeholder="What is your focus goal?" 
+                    aria-label="Enter your session outcome intention"
+                  />
+                </div>
 
-              <div>
-                <label for="session-goal-why" class="text-sm font-medium text-body mb-1.5 block">
-                  Why does this goal matter?
-                </label>
-                <input 
-                  type="text" 
-                  id="session-goal-why" 
-                  autocomplete="off"
-                  spellcheck="true"
-                  class="w-full h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm text-body placeholder:text-mute focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all select-text" 
-                  placeholder="e.g. To pass my exam, finish the dashboard prototype..." 
-                  aria-label="Enter why this goal matters"
-                />
-              </div>
-            </div>
-
-            <!-- Activity Selector (Tooltails Style secondary buttons) -->
-            <div class="space-y-2 select-none">
-              <div class="flex items-center gap-1.5 flex-wrap">
-                <button type="button" class="activity-btn px-3 py-1.5 text-sm border border-hairline rounded-sm bg-canvas text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 duration-200 cursor-pointer group flex items-center gap-1.5 border-link bg-link/5 text-link" data-activity="Coding" aria-label="Select Coding Focus Mode">
-                  <span class="opacity-90">💻</span> Coding
-                </button>
-                <button type="button" class="activity-btn px-3 py-1.5 text-sm border border-hairline rounded-sm bg-canvas text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 duration-200 cursor-pointer group flex items-center gap-1.5" data-activity="Study" aria-label="Select Study Focus Mode">
-                  <span class="opacity-90">📚</span> Study
-                </button>
-                <button type="button" class="activity-btn px-3 py-1.5 text-sm border border-hairline rounded-sm bg-canvas text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 duration-200 cursor-pointer group flex items-center gap-1.5" data-activity="Reading" aria-label="Select Reading Focus Mode">
-                  <span class="opacity-90">📖</span> Reading
-                </button>
-                <button type="button" class="activity-btn px-3 py-1.5 text-sm border border-hairline rounded-sm bg-canvas text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 duration-200 cursor-pointer group flex items-center gap-1.5" data-activity="Writing" aria-label="Select Writing Focus Mode">
-                  <span class="opacity-90">✍️</span> Writing
-                </button>
-                <button type="button" class="activity-btn px-3 py-1.5 text-sm border border-hairline rounded-sm bg-canvas text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 duration-200 cursor-pointer group flex items-center gap-1.5" data-activity="Art" aria-label="Select Art Focus Mode">
-                  <span class="opacity-90">🎨</span> Art
-                </button>
-                <button type="button" class="activity-btn px-3 py-1.5 text-sm border border-hairline rounded-sm bg-canvas text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 duration-200 cursor-pointer group flex items-center gap-1.5" data-activity="Custom" id="act-btn-custom" aria-label="Select Custom Focus Mode">
-                  <span class="opacity-90">⚙️</span> Custom
-                </button>
-              </div>
-            </div>
-
-            <!-- Custom Activity Input -->
-            <input type="text" id="custom-activity-input" autocomplete="off" class="hidden w-full h-10 px-3 bg-canvas border border-hairline/80 rounded-sm text-sm text-ink focus:ring-2 focus:ring-link/10 focus:border-link/40 focus:outline-none transition-all duration-200 shadow-sm" placeholder="Type custom activity (e.g. Design, Yoga, Admin)…" aria-label="Enter custom focus activity text" />
-            <div id="custom-activity-next-panel" class="hidden"></div>
-            
-            <!-- Checkpoints Checklist Section (Spacious and Flat) -->
-            <div class="space-y-4">
-              <div class="flex items-center justify-between select-none pb-1">
-                <div class="flex items-center gap-1.5">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-mute/70" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
-                  <span class="text-2xl font-bold tracking-tighter text-ink mb-1">Checkpoints (optional milestones)</span>
+                <div>
+                  <label for="session-goal-why" class="text-sm font-medium text-body mb-1.5 block">
+                    Why does this goal matter?
+                  </label>
+                  <input 
+                    type="text" 
+                    id="session-goal-why" 
+                    autocomplete="off"
+                    spellcheck="true"
+                    class="w-full h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm text-body placeholder:text-mute focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all select-text" 
+                    placeholder="e.g. To pass my exam, finish the dashboard prototype..." 
+                    aria-label="Enter why this goal matters"
+                  />
                 </div>
               </div>
-              <div class="flex gap-2">
-                <input 
-                  type="text" 
-                  id="milestone-input" 
-                  autocomplete="off" 
-                  class="flex-grow h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm text-ink placeholder:text-mute focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all duration-200 shadow-sm" 
-                  placeholder="Add a step (e.g. Sketch layouts, write component code…)" 
-                  aria-label="Add mini-milestone checkpoint text" 
-                />
-                <button 
-                  type="button" 
-                  id="add-milestone-btn" 
-                  class="h-10 px-4 bg-link text-white hover:bg-link-hover active:scale-95 text-sm font-bold rounded-sm border border-link/25 transition-all duration-150 cursor-pointer focus-visible:ring-2 focus-visible:ring-link focus-visible:outline-none" 
-                  aria-label="Add checkpoint to checklist"
-                >
-                  Add
+
+              <!-- Start and Quick Start actions row -->
+              <div class="flex flex-col sm:flex-row items-center gap-3">
+                <button type="button" id="start-session-btn" class="w-full sm:flex-1 h-12 bg-link text-white hover:bg-link-hover hover:shadow-lg hover:shadow-link/20 active:scale-[0.98] text-base font-bold rounded-sm transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link" aria-label="Start Goal Focus Session">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  Start Focus Session
+                </button>
+                
+                <button type="button" id="quick-start-btn" class="w-full sm:w-auto px-6 h-12 border border-hairline bg-canvas text-ink hover:bg-canvas-soft-2 hover:shadow-sm active:scale-95 transition-all text-base font-bold rounded-sm cursor-pointer flex items-center justify-center gap-1.5" aria-label="Quick Start Focus Session">
+                  ⚡ Quick Start (50m)
                 </button>
               </div>
 
-              <ul id="setup-milestones-list" class="space-y-1">
-                <li class="text-sm text-mute italic py-3 text-left select-none">No checkpoints added yet.</li>
-              </ul>
-            </div>
+              <!-- Divider to push secondary configuration below the fold -->
+              <div class="border-t border-hairline pt-6"></div>
 
-            <!-- Start and Quick Start actions row -->
-            <div class="flex flex-col sm:flex-row items-center gap-3 pt-6 border-t border-hairline/60">
-              <button type="button" id="start-session-btn" class="w-full sm:flex-1 h-12 bg-link text-white hover:bg-link-hover hover:shadow-lg hover:shadow-link/20 active:scale-[0.98] text-base font-bold rounded-sm transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link" aria-label="Start Goal Focus Session">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                Start Focus Session
-              </button>
-              
-              <button type="button" id="quick-start-btn" class="w-full sm:w-auto px-6 h-12 border border-hairline bg-canvas text-ink hover:bg-canvas-soft-2 hover:shadow-sm active:scale-95 transition-all text-base font-bold rounded-sm cursor-pointer flex items-center justify-center gap-1.5" aria-label="Quick Start Focus Session">
-                ⚡ Quick Start (50m)
-              </button>
-            </div>
-            
-          </div>
-          
-          <!-- ACTIVE FOCUS COMPANION PANEL (Replaces configuration inputs during active session) -->
-          <div class="lg:col-span-5 order-2 lg:order-1 hidden space-y-8 animate-in fade-in duration-300 text-left lg:pr-4" id="active-info-panel">
-            <div class="space-y-6">
-              
-              <div class="flex items-center justify-between border-b border-hairline/60 pb-4 select-none">
-                <div class="flex items-center gap-2">
-                  <span id="active-activity-tag" class="px-2.5 py-1 text-sm font-semibold rounded-sm tracking-tight bg-link/10 text-link">Activity</span>
-                  <span class="text-mute text-xs font-mono">Active Goal Session</span>
+              <!-- Activity Selector (Tooltails Style secondary buttons) -->
+              <div class="space-y-2 select-none">
+                <span class="text-xs font-bold text-ink uppercase tracking-wider">Select Activity</span>
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <button type="button" class="activity-btn px-3 py-1.5 text-sm border border-hairline rounded-sm bg-canvas text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 duration-200 cursor-pointer group flex items-center gap-1.5 border-link bg-link/5 text-link" data-activity="Coding" aria-label="Select Coding Focus Mode">
+                    <span class="opacity-90">💻</span> Coding
+                  </button>
+                  <button type="button" class="activity-btn px-3 py-1.5 text-sm border border-hairline rounded-sm bg-canvas text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 duration-200 cursor-pointer group flex items-center gap-1.5" data-activity="Study" aria-label="Select Study Focus Mode">
+                    <span class="opacity-90">📚</span> Study
+                  </button>
+                  <button type="button" class="activity-btn px-3 py-1.5 text-sm border border-hairline rounded-sm bg-canvas text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 duration-200 cursor-pointer group flex items-center gap-1.5" data-activity="Reading" aria-label="Select Reading Focus Mode">
+                    <span class="opacity-90">📖</span> Reading
+                  </button>
+                  <button type="button" class="activity-btn px-3 py-1.5 text-sm border border-hairline rounded-sm bg-canvas text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 duration-200 cursor-pointer group flex items-center gap-1.5" data-activity="Writing" aria-label="Select Writing Focus Mode">
+                    <span class="opacity-90">✍️</span> Writing
+                  </button>
+                  <button type="button" class="activity-btn px-3 py-1.5 text-sm border border-hairline rounded-sm bg-canvas text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 duration-200 cursor-pointer group flex items-center gap-1.5" data-activity="Art" aria-label="Select Art Focus Mode">
+                    <span class="opacity-90">🎨</span> Art
+                  </button>
+                  <button type="button" class="activity-btn px-3 py-1.5 text-sm border border-hairline rounded-sm bg-canvas text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 duration-200 cursor-pointer group flex items-center gap-1.5" data-activity="Custom" id="act-btn-custom" aria-label="Select Custom Focus Mode">
+                    <span class="opacity-90">⚙️</span> Custom
+                  </button>
                 </div>
-                <span class="text-sm font-semibold text-link tracking-tight animate-pulse flex items-center gap-1">
-                  <span class="w-1.5 h-1.5 bg-link rounded-full"></span> Live
-                </span>
               </div>
+
+              <!-- Custom Activity Input -->
+              <input type="text" id="custom-activity-input" autocomplete="off" class="hidden w-full h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm text-ink focus:ring-2 focus:ring-link/10 focus:border-link/40 focus:outline-none transition-all duration-200 shadow-sm" placeholder="Type custom activity (e.g. Design, Yoga, Admin)…" aria-label="Enter custom focus activity text" />
+              <div id="custom-activity-next-panel" class="hidden"></div>
               
-              <h2 id="active-goal-title" class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter text-ink leading-[1.1] mb-2 text-pretty">Goal: Implementing the code structure</h2>
-              
-              <!-- Checkpoints Checklist -->
-              <div class="space-y-4">
-                <div class="flex items-center justify-between select-none border-b border-hairline/60 pb-2">
-                  <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1">Active checkpoints</h3>
-                  <span id="active-checklist-ratio" class="text-sm text-mute">Check off as you ship</span>
+              <!-- Checkpoints Checklist Section (Spacious and Flat) -->
+              <div class="space-y-4 pt-2">
+                <div class="flex items-center justify-between select-none pb-1">
+                  <div class="flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-mute/70" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                    <span class="text-2xl font-bold tracking-tighter text-ink mb-1">Checkpoints (optional milestones)</span>
+                  </div>
                 </div>
-                <ul id="active-milestones-list" class="space-y-2">
-                  <!-- Dynamic checkpoints are rendered here -->
+                <div class="flex gap-2">
+                  <input 
+                    type="text" 
+                    id="milestone-input" 
+                    autocomplete="off" 
+                    class="flex-grow h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm text-ink placeholder:text-mute focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all duration-200 shadow-sm" 
+                    placeholder="Add a step (e.g. Sketch layouts, write component code…)" 
+                    aria-label="Add mini-milestone checkpoint text" 
+                  />
+                  <button 
+                    type="button" 
+                    id="add-milestone-btn" 
+                    class="h-10 px-4 bg-link text-white hover:bg-link-hover active:scale-95 text-sm font-bold rounded-sm border border-link/25 transition-all duration-150 cursor-pointer focus-visible:ring-2 focus-visible:ring-link focus-visible:outline-none" 
+                    aria-label="Add checkpoint to checklist"
+                  >
+                    Add
+                  </button>
+                </div>
+
+                <ul id="setup-milestones-list" class="space-y-1">
+                  <li class="text-sm text-mute italic py-3 text-left select-none">No checkpoints added yet.</li>
                 </ul>
               </div>
 
-              <!-- Why This Matters Card -->
-              <div id="active-why-matters-panel" class="hidden mt-6 p-4 bg-canvas-soft/40 border-l-2 border-link rounded-r-sm text-xs leading-relaxed flex items-start gap-2.5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-link shrink-0" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <div>
-                  <span class="text-xs font-semibold text-link tracking-tight block mb-0.5 select-none">Why this goal matters</span>
-                  <span id="active-why-matters-text" class="text-body italic">To pass my exam and unlock my dream career</span>
+            </div>
+
+            <!-- ACTIVE FOCUS COMPANION PANEL (Replaces configuration inputs during active session) -->
+            <div class="hidden space-y-8 animate-in fade-in duration-300 text-left" id="active-info-panel">
+              <div class="space-y-6">
+                
+                <div class="flex items-center justify-between border-b border-hairline pb-4 select-none">
+                  <div class="flex items-center gap-2">
+                    <span id="active-activity-tag" class="px-2.5 py-1 text-sm font-semibold rounded-sm tracking-tight bg-link/10 text-link">Activity</span>
+                    <span class="text-mute text-xs font-mono">Active Goal Session</span>
+                  </div>
+                  <span class="text-sm font-semibold text-link tracking-tight animate-pulse flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 bg-link rounded-full"></span> Live
+                  </span>
+                </div>
+                
+                <h2 id="active-goal-title" class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter text-ink leading-[1.1] mb-2 text-pretty">Goal: Implementing the code structure</h2>
+                
+                <!-- Checkpoints Checklist -->
+                <div class="space-y-4">
+                  <div class="flex items-center justify-between select-none border-b border-hairline pb-2">
+                    <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1">Active checkpoints</h3>
+                    <span id="active-checklist-ratio" class="text-sm text-mute">Check off as you ship</span>
+                  </div>
+                  <ul id="active-milestones-list" class="space-y-2">
+                    <!-- Dynamic checkpoints are rendered here -->
+                  </ul>
+                </div>
+
+                <!-- Why This Matters Card -->
+                <div id="active-why-matters-panel" class="hidden mt-6 p-4 bg-canvas-soft/40 border-l-2 border-link rounded-r-sm text-xs leading-relaxed flex items-start gap-2.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-link shrink-0" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <div>
+                    <span class="text-xs font-semibold text-link tracking-tight block mb-0.5 select-none">Why this goal matters</span>
+                    <span id="active-why-matters-text" class="text-body italic">To pass my exam and unlock my dream career</span>
+                  </div>
+                </div>
+
+                <!-- Tip banner -->
+                <div class="mt-4 p-4 bg-canvas-soft/40 border-l-2 border-amber-500/60 rounded-r-sm text-sm text-body leading-relaxed flex items-start gap-2.5 select-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" class="text-amber-500 shrink-0 mt-0.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                  <span>Commit to the outcome. If you hit a wall, take a slow breath. Try writing down what blocked you. You are in control of this block.</span>
                 </div>
               </div>
-
-              <!-- Tip banner -->
-              <div class="mt-4 p-4 bg-canvas-soft/40 border-l-2 border-amber-500/60 rounded-r-sm text-sm text-body leading-relaxed flex items-start gap-2.5 select-none">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" class="text-amber-500 shrink-0 mt-0.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                <span>Commit to the outcome. If you hit a wall, take a slow breath. Try writing down what blocked you. You are in control of this block.</span>
-              </div>
             </div>
+
           </div>
 
           <!-- RIGHT COLUMN: THE VISUAL TIMER & CONTROLS -->
-          <div id="timer-container-card" class="lg:col-span-7 order-1 lg:order-2 bg-canvas border border-hairline rounded-md shadow-md flex flex-col items-center justify-start p-6 lg:p-8 w-full transition-all duration-500 relative">
+          <div class="lg:col-span-7 order-1 lg:order-2 space-y-8">
             
-            <div class="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 flex items-center justify-center select-none mb-8 lg:mb-12">
-              <!-- Radial background glow effect -->
-              <div id="timer-active-glow" class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.05),transparent_65%)] pointer-events-none opacity-0 transition-opacity duration-700 ease-out"></div>
+            <!-- Compact Timer Card (Only Countdown & Play/Pause controls) -->
+            <div id="timer-container-card" class="bg-canvas border border-hairline rounded-md shadow-md flex flex-col items-center justify-start p-6 lg:p-8 w-full transition-all duration-500 relative">
               
-              <!-- Recessed clock dial depth shadow -->
-              <div class="absolute inset-[10%] rounded-full bg-canvas-soft-2/15 dark:bg-canvas-soft-2/5 border border-hairline/30 dark:border-hairline/15 shadow-[inset_0_2px_6px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_4px_16px_rgba(0,0,0,0.4)] pointer-events-none"></div>
+              <div class="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 flex items-center justify-center select-none mb-8 lg:mb-12">
+                <!-- Radial background glow effect -->
+                <div id="timer-active-glow" class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.05),transparent_65%)] pointer-events-none opacity-0 transition-opacity duration-700 ease-out"></div>
+                
+                <!-- Recessed clock dial depth shadow -->
+                <div class="absolute inset-[5%] rounded-full bg-canvas-soft-2/15 dark:bg-canvas-soft-2/5 border border-hairline/30 dark:border-hairline/15 shadow-[inset_0_2px_6px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_4px_16px_rgba(0,0,0,0.4)] pointer-events-none"></div>
 
-              <!-- Circular Progress Ring (SVG with clean responsive viewBox) -->
-              <svg viewBox="0 0 100 100" class="w-full h-full transform -rotate-90 animate-fade-in duration-300 relative z-10" aria-hidden="true">
-                <circle id="timer-progress-bg" cx="50" cy="50" r="40" stroke="var(--color-link)" stroke-width="3" opacity="0.1" class="transition-opacity duration-300" fill="transparent" />
-                <circle id="timer-progress-ring" cx="50" cy="50" r="40" stroke="var(--color-link)" stroke-width="3.5" stroke-linecap="round" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="0" class="transition-all duration-300 ease-out" />
-              </svg>
+                <!-- Circular Progress Ring (SVG with clean responsive viewBox) -->
+                <svg viewBox="0 0 100 100" class="w-full h-full transform -rotate-90 animate-fade-in duration-300 relative z-10" aria-hidden="true">
+                  <circle id="timer-progress-bg" cx="50" cy="50" r="45" stroke="var(--color-link)" stroke-width="2.5" opacity="0.08" fill="transparent" />
+                  <circle id="timer-progress-ring" cx="50" cy="50" r="45" stroke="var(--color-link)" stroke-width="3" stroke-linecap="round" fill="transparent" stroke-dasharray="282.74" stroke-dashoffset="0" class="transition-all duration-300 ease-out" />
+                </svg>
 
-              <!-- Central Countdown Time -->
-              <div class="absolute flex flex-col items-center justify-center text-center z-20">
-                <span id="timer-session-label" class="text-base font-bold tracking-tight text-mute mb-2">Ready to focus</span>
-                <span id="timer-countdown" class="text-7xl md:text-8xl font-black font-mono tracking-tighter text-ink leading-none tabular-nums">25:00</span>
-                <span id="timer-milestone-ratio" class="text-xs font-mono text-mute mt-3 hidden tabular-nums px-2.5 py-0.5 bg-canvas-soft border border-hairline/80 rounded-sm shadow-sm">0 / 0 Checkpoints</span>
+                <!-- Central Countdown Time -->
+                <div class="absolute flex flex-col items-center justify-center text-center z-20">
+                  <span id="timer-session-label" class="text-xs font-bold uppercase tracking-widest text-mute mb-2">Ready to focus</span>
+                  <span id="timer-countdown" class="text-6xl md:text-7xl font-black font-mono tracking-tighter text-ink leading-none tabular-nums">25:00</span>
+                  <span id="timer-milestone-ratio" class="text-xs font-mono text-mute mt-3 hidden tabular-nums px-2.5 py-0.5 bg-canvas-soft border border-hairline/80 rounded-sm shadow-sm">0 / 0 Checkpoints</span>
+                </div>
               </div>
+
+              <!-- Controls Panel -->
+              <div class="flex items-center gap-3 mt-6 w-full max-w-sm justify-center">
+                <!-- Skip button (Abort/Next) -->
+                <button type="button" id="skip-btn" class="w-10 h-10 border border-hairline bg-canvas rounded-sm flex items-center justify-center hover:bg-canvas-soft-2 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer text-mute hover:text-ink disabled:opacity-30 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-2" disabled title="Cancel / Skip session" aria-label="Skip current focus session">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+                </button>
+
+                <!-- Play / Pause primary pill -->
+                <button type="button" id="play-pause-btn" class="px-6 h-11 bg-link text-white hover:bg-link-hover hover:shadow-lg hover:shadow-link/20 active:scale-[0.98] text-sm font-bold rounded-sm transition-all duration-200 cursor-pointer flex items-center gap-2 justify-center min-w-[140px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link" aria-label="Start or pause focus session timer">
+                  <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="hidden" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                  <span id="play-btn-text">Start Timer</span>
+                </button>
+                <!-- Fullscreen Focus trigger -->
+                <button type="button" id="fullscreen-trigger-btn" class="w-10 h-10 border border-hairline bg-canvas rounded-sm flex items-center justify-center hover:bg-canvas-soft-2 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer text-mute hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-2" title="Distraction-Free Mode" aria-label="Toggle full-screen focus workspace mode">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                </button>
+              </div>
+
             </div>
 
-            <!-- Controls Panel -->
-            <div class="flex items-center gap-3 mt-6 w-full max-w-sm justify-center">
-              <!-- Skip button (Abort/Next) -->
-              <button type="button" id="skip-btn" class="w-10 h-10 border border-hairline bg-canvas rounded-sm flex items-center justify-center hover:bg-canvas-soft-2 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer text-mute hover:text-ink disabled:opacity-30 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-2" disabled title="Cancel / Skip session" aria-label="Skip current focus session">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
-              </button>
+            <!-- Below-the-fold Timer Settings & Progress Stats -->
+            <div class="space-y-8 border-t border-hairline pt-8">
+              
+              <!-- Timer Settings (Presets & background noise grouped side-by-side) -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 select-none">
+                <!-- Session Duration presets -->
+                <div class="space-y-3" id="timer-presets-section">
+                  <div class="flex items-center justify-between text-sm border-b border-hairline/40 pb-1.5">
+                    <span class="text-xs font-bold text-ink uppercase tracking-wider">Duration preset</span>
+                    <span class="text-link text-xs font-bold">Select preset</span>
+                  </div>
+                  
+                  <div class="grid grid-cols-2 gap-2">
+                    <button type="button" class="preset-btn py-2 px-3 border border-hairline rounded-sm bg-canvas text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group border-link text-link" data-focus="25" data-break="5" aria-label="Classic Pomodoro: 25 minutes work focus and 5 minutes rest break">
+                      <div class="text-sm font-bold group-hover:text-link transition-colors duration-150 tabular-nums">25m Sprint</div>
+                    </button>
+                    <button type="button" class="preset-btn py-2 px-3 border border-hairline rounded-sm bg-canvas text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group" data-focus="50" data-break="10" aria-label="Extended sprint: 50 minutes work focus and 10 minutes rest break">
+                      <div class="text-sm font-bold group-hover:text-link transition-colors duration-150 tabular-nums">50m Double</div>
+                    </button>
+                    <button type="button" class="preset-btn py-2 px-3 border border-hairline rounded-sm bg-canvas text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group" data-focus="90" data-break="0" aria-label="Deep Flow sprint: 90 minutes work focus with no rest break">
+                      <div class="text-sm font-bold group-hover:text-link transition-colors duration-150 tabular-nums">90m Flow</div>
+                    </button>
+                    <button type="button" class="preset-btn py-2 px-3 border border-hairline rounded-sm bg-canvas text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group" data-focus="custom" aria-label="Set custom work focus and rest timing block">
+                      <div class="text-sm font-bold group-hover:text-ink transition-colors duration-150">Custom Block</div>
+                    </button>
+                  </div>
 
-              <!-- Play / Pause primary pill -->
-              <button type="button" id="play-pause-btn" class="px-6 h-11 bg-link text-white hover:bg-link-hover hover:shadow-lg hover:shadow-link/20 active:scale-[0.98] text-sm font-bold rounded-sm transition-all duration-200 cursor-pointer flex items-center gap-2 justify-center min-w-[140px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link" aria-label="Start or pause focus session timer">
-                <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="hidden" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-                <span id="play-btn-text">Start Timer</span>
-              </button>
-              <!-- Fullscreen Focus trigger -->
-              <button type="button" id="fullscreen-trigger-btn" class="w-10 h-10 border border-hairline bg-canvas rounded-sm flex items-center justify-center hover:bg-canvas-soft-2 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer text-mute hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-2" title="Distraction-Free Mode" aria-label="Toggle full-screen focus workspace mode">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-              </button>
-            </div>
+                  <!-- Custom inputs (slider-driven) -->
+                  <div id="custom-presets-panel" class="hidden border border-hairline rounded-sm p-3.5 space-y-3 bg-canvas-soft shadow-inner">
+                    <div class="flex items-center justify-between text-sm">
+                      <span class="text-body font-medium">Focus: <span id="custom-focus-val" class="font-bold text-ink tabular-nums">30m</span></span>
+                      <input type="range" id="custom-focus-slider" min="1" max="180" value="30" class="w-1/2 accent-link" aria-label="Custom work focus minutes slider" />
+                    </div>
+                    <div class="flex items-center justify-between text-sm">
+                      <span class="text-body font-medium">Break: <span id="custom-break-val" class="font-bold text-ink tabular-nums">5m</span></span>
+                      <input type="range" id="custom-break-slider" min="0" max="60" value="5" class="w-1/2 accent-link" aria-label="Custom rest break minutes slider" />
+                    </div>
+                  </div>
+                </div>
 
-            <!-- Timer Settings (Presets & background noise grouped side-by-side, borderless & spacious) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-2xl mt-10 select-none">
-              <!-- Session Duration presets -->
-              <div class="space-y-3" id="timer-presets-section">
-                <div class="flex items-center justify-between text-sm border-b border-hairline/40 pb-1.5">
-                  <span class="text-xs font-bold text-ink uppercase tracking-wider">Duration preset</span>
-                  <span class="text-link text-xs font-bold">Select preset</span>
+                <!-- Web Audio Ambient Sounds Selector -->
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between text-sm border-b border-hairline/40 pb-1.5">
+                    <span class="text-xs font-bold text-ink uppercase tracking-wider">Background sound</span>
+                    <span class="text-link text-xs font-bold flex items-center gap-0.5">
+                      <svg class="h-3 w-3 animate-spin hidden" id="sound-loading-spinner" viewBox="0 0 24 24" aria-hidden="true"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                      Web Audio Synth
+                    </span>
+                  </div>
+                  <div class="grid grid-cols-4 gap-1.5 text-sm font-bold">
+                    <button type="button" class="sound-btn py-2 border rounded-sm bg-canvas hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all text-sm font-medium font-mono border-link text-link" data-sound="mute" aria-label="Mute ambient noise generator">Mute</button>
+                    <button type="button" class="sound-btn py-2 border border-hairline bg-canvas text-body rounded-sm hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all text-sm font-medium font-mono" data-sound="brown" aria-label="Play ambient brown noise">Brown</button>
+                    <button type="button" class="sound-btn py-2 border border-hairline bg-canvas text-body rounded-sm hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all text-sm font-medium font-mono" data-sound="white" aria-label="Play ambient white noise">White</button>
+                    <button type="button" class="sound-btn py-2 border border-hairline bg-canvas text-body rounded-sm hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all text-sm font-medium font-mono" data-sound="rain" aria-label="Play ambient rain sound">Rain</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Today's Progress Section (Separated from Settings) -->
+              <div class="w-full select-none" id="today-progress-section">
+                <div class="flex items-center justify-between text-sm font-bold text-ink tracking-tight mb-3 border-b border-hairline/40 pb-1.5">
+                  <span class="text-xs font-bold text-ink uppercase tracking-wider">Today's progress</span>
                 </div>
                 
-                <div class="grid grid-cols-2 gap-2">
-                  <button type="button" class="preset-btn py-2 px-3 border border-hairline rounded-sm bg-canvas text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group border-link text-link" data-focus="25" data-break="5" aria-label="Classic Pomodoro: 25 minutes work focus and 5 minutes rest break">
-                    <div class="text-sm font-bold group-hover:text-link transition-colors duration-150 tabular-nums">25m Sprint</div>
-                  </button>
-                  <button type="button" class="preset-btn py-2 px-3 border border-hairline rounded-sm bg-canvas text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group" data-focus="50" data-break="10" aria-label="Extended sprint: 50 minutes work focus and 10 minutes rest break">
-                    <div class="text-sm font-bold group-hover:text-link transition-colors duration-150 tabular-nums">50m Double</div>
-                  </button>
-                  <button type="button" class="preset-btn py-2 px-3 border border-hairline rounded-sm bg-canvas text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group" data-focus="90" data-break="0" aria-label="Deep Flow sprint: 90 minutes work focus with no rest break">
-                    <div class="text-sm font-bold group-hover:text-link transition-colors duration-150 tabular-nums">90m Flow</div>
-                  </button>
-                  <button type="button" class="preset-btn py-2 px-3 border border-hairline rounded-sm bg-canvas text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group" data-focus="custom" aria-label="Set custom work focus and rest timing block">
-                    <div class="text-sm font-bold group-hover:text-ink transition-colors duration-150">Custom Block</div>
-                  </button>
-                </div>
-
-                <!-- Custom inputs (slider-driven) -->
-                <div id="custom-presets-panel" class="hidden border border-hairline rounded-sm p-3.5 space-y-3 bg-canvas-soft shadow-inner">
-                  <div class="flex items-center justify-between text-sm">
-                    <span class="text-body font-medium">Focus: <span id="custom-focus-val" class="font-bold text-ink tabular-nums">30m</span></span>
-                    <input type="range" id="custom-focus-slider" min="1" max="180" value="30" class="w-1/2 accent-link" aria-label="Custom work focus minutes slider" />
+                <div class="grid grid-cols-3 gap-3">
+                  <!-- Focus Time Today -->
+                  <div class="bg-canvas-soft border border-hairline rounded-md p-3.5 text-center shadow-sm relative overflow-hidden group hover:bg-canvas-soft-2/70 transition-all duration-200">
+                    <div class="text-[10px] font-mono text-mute uppercase tracking-wider mb-1">Focus time</div>
+                    <div id="workspace-today-focus-time" class="text-base font-bold text-ink tracking-tight tabular-nums">0m</div>
                   </div>
-                  <div class="flex items-center justify-between text-sm">
-                    <span class="text-body font-medium">Break: <span id="custom-break-val" class="font-bold text-ink tabular-nums">5m</span></span>
-                    <input type="range" id="custom-break-slider" min="0" max="60" value="5" class="w-1/2 accent-link" aria-label="Custom rest break minutes slider" />
+
+                  <!-- Current Streak -->
+                  <div class="bg-canvas-soft border border-hairline rounded-md p-3.5 text-center shadow-sm relative overflow-hidden group hover:bg-canvas-soft-2/70 transition-all duration-200">
+                    <div class="text-[10px] font-mono text-mute uppercase tracking-wider mb-1">Streak</div>
+                    <div id="workspace-today-streak" class="text-base font-bold text-ink tracking-tight tabular-nums flex items-center justify-center gap-1">
+                      <span class="text-warning">🔥</span> 0d
+                    </div>
+                  </div>
+
+                  <!-- Completion Rate -->
+                  <div class="bg-canvas-soft border border-hairline rounded-md p-3.5 text-center shadow-sm relative overflow-hidden group hover:bg-canvas-soft-2/70 transition-all duration-200">
+                    <div class="text-[10px] font-mono text-mute uppercase tracking-wider mb-1">Completion</div>
+                    <div id="workspace-today-rate" class="text-base font-bold text-ink tracking-tight tabular-nums">0%</div>
                   </div>
                 </div>
               </div>
 
-              <!-- Web Audio Ambient Sounds Selector -->
-              <div class="space-y-3">
-                <div class="flex items-center justify-between text-sm border-b border-hairline/40 pb-1.5">
-                  <span class="text-xs font-bold text-ink uppercase tracking-wider">Background sound</span>
-                  <span class="text-link text-xs font-bold flex items-center gap-0.5">
-                    <svg class="h-3 w-3 animate-spin hidden" id="sound-loading-spinner" viewBox="0 0 24 24" aria-hidden="true"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
-                    Web Audio Synth
-                  </span>
-                </div>
-                <div class="grid grid-cols-4 gap-1.5 text-sm font-bold">
-                  <button type="button" class="sound-btn py-2 border rounded-sm bg-canvas hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all text-sm font-medium font-mono border-link text-link" data-sound="mute" aria-label="Mute ambient noise generator">Mute</button>
-                  <button type="button" class="sound-btn py-2 border border-hairline bg-canvas text-body rounded-sm hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all text-sm font-medium font-mono" data-sound="brown" aria-label="Play ambient brown noise">Brown</button>
-                  <button type="button" class="sound-btn py-2 border border-hairline bg-canvas text-body rounded-sm hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all text-sm font-medium font-mono" data-sound="white" aria-label="Play ambient white noise">White</button>
-                  <button type="button" class="sound-btn py-2 border border-hairline bg-canvas text-body rounded-sm hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all text-sm font-medium font-mono" data-sound="rain" aria-label="Play ambient rain sound">Rain</button>
-                </div>
+              <!-- Keyboard Shortcuts Hint -->
+              <div id="shortcuts-hint" class="mt-6 text-xs font-mono text-mute select-none text-center hidden animate-in fade-in duration-200">
+                <span class="inline-flex items-center gap-1.5 flex-wrap justify-center border border-hairline/60 rounded-sm px-2.5 py-1.5 bg-canvas">
+                  <span>[Space] Pause/Play</span>
+                  <span class="text-mute/30">•</span>
+                  <span>[F] Fullscreen</span>
+                  <span class="text-mute/30">•</span>
+                  <span>[M] Toggle Audio</span>
+                </span>
               </div>
+
             </div>
-
-            <!-- Today's Progress Section (Separated from Settings, displayed flat at the bottom) -->
-            <div class="w-full max-w-sm mt-12 select-none" id="today-progress-section">
-               <div class="flex items-center justify-between text-sm font-bold text-ink tracking-tight mb-3 border-b border-hairline/40 pb-1.5">
-                 <span class="text-xs font-bold text-ink uppercase tracking-wider">Today's progress</span>
-               </div>
-              
-              <div class="grid grid-cols-3 gap-3">
-                <!-- Focus Time Today -->
-                <div class="bg-canvas-soft border border-hairline rounded-md p-3.5 text-center shadow-sm relative overflow-hidden group hover:bg-canvas-soft-2/70 transition-all duration-200">
-                  <div class="text-[10px] font-mono text-mute uppercase tracking-wider mb-1">Focus time</div>
-                  <div id="workspace-today-focus-time" class="text-base font-bold text-ink tracking-tight tabular-nums">0m</div>
-                </div>
-
-                <!-- Current Streak -->
-                <div class="bg-canvas-soft border border-hairline rounded-md p-3.5 text-center shadow-sm relative overflow-hidden group hover:bg-canvas-soft-2/70 transition-all duration-200">
-                  <div class="text-[10px] font-mono text-mute uppercase tracking-wider mb-1">Streak</div>
-                  <div id="workspace-today-streak" class="text-base font-bold text-ink tracking-tight tabular-nums flex items-center justify-center gap-1">
-                    <span class="text-warning">🔥</span> 0d
-                  </div>
-                </div>
-
-                <!-- Completion Rate -->
-                <div class="bg-canvas-soft border border-hairline rounded-md p-3.5 text-center shadow-sm relative overflow-hidden group hover:bg-canvas-soft-2/70 transition-all duration-200">
-                  <div class="text-[10px] font-mono text-mute uppercase tracking-wider mb-1">Completion</div>
-                  <div id="workspace-today-rate" class="text-base font-bold text-ink tracking-tight tabular-nums">0%</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Keyboard Shortcuts Hint -->
-            <div id="shortcuts-hint" class="mt-6 text-xs font-mono text-mute select-none text-center hidden animate-in fade-in duration-200">
-              <span class="inline-flex items-center gap-1.5 flex-wrap justify-center border border-hairline/60 rounded-sm px-2.5 py-1.5 bg-canvas">
-                <span>[Space] Pause/Play</span>
-                <span class="text-mute/30">•</span>
-                <span>[F] Fullscreen</span>
-                <span class="text-mute/30">•</span>
-                <span>[M] Toggle Audio</span>
-              </span>
-            </div>
-
-          </div>      </div>
-
-          </div>
-
-        </div>
-      </div>
 
       <!-- TAB 2: ANALYTICS & HISTOGRAM HEATMAP -->
       <div id="tab-analytics" class="p-6 md:p-8 lg:p-10 hidden space-y-8">
@@ -2045,7 +2057,7 @@ const appSchema = {
     // SVG Circular Progress
     const ring = document.getElementById('timer-progress-ring') as SVGPathElement;
     if (ring) {
-      const maxDash = 251.2; // Circumference of r=40 viewBox coordinate circle
+      const maxDash = 282.74; // Circumference of r=45 viewBox coordinate circle
       const percentRemaining = timerDurationSeconds > 0 ? (timerRemainingSeconds / timerDurationSeconds) : 0;
       const offset = maxDash - (percentRemaining * maxDash);
       ring.style.strokeDashoffset = offset.toString();

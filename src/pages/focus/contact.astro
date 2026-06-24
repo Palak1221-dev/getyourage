@@ -1,0 +1,50 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Card from "../../components/ui/Card.astro";
+import Button from "../../components/ui/Button.astro";
+import Input from "../../components/ui/Input.astro";
+---
+
+<Layout 
+  title="Contact Support - Tooltails Focus"
+  description="Contact support or leave feedback for Tooltails Focus. We would love to hear your suggestions for improving the focus timer."
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+    <h1 class="text-4xl font-bold text-ink mb-4">Contact Support</h1>
+    <p class="text-lg text-body mb-12">
+      Have a feature request for the Focus Goals Timer, found a bug in the recovery recommendations, or want to share your productivity wins? Send us a message.
+    </p>
+
+    <Card elevation="lg">
+      <form class="space-y-6">
+        <Input label="Name" type="text" placeholder="Your Name" required />
+        <Input label="Email" type="email" placeholder="your@email.com" required />
+        
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-medium text-ink">Reason for Contact</label>
+          <select 
+            class="px-3 py-2 bg-canvas border border-hairline rounded-sm text-sm text-ink focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10"
+            required
+          >
+            <option value="" disabled selected>Select a reason...</option>
+            <option value="feedback">General Feedback</option>
+            <option value="bug">Report a Bug</option>
+            <option value="feature">Feature Request</option>
+            <option value="other">Other Inquiry</option>
+          </select>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-medium text-ink">Message</label>
+          <textarea 
+            class="min-h-[150px] px-3 py-2 bg-canvas border border-hairline rounded-sm text-sm text-ink placeholder:text-mute focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10"
+            placeholder="Describe your request in detail..."
+            required
+          ></textarea>
+        </div>
+
+        <Button type="submit" class="w-full">Send Message</Button>
+      </form>
+    </Card>
+  </div>
+</Layout>

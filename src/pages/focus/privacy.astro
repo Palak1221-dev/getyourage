@@ -1,0 +1,51 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout 
+  title="Privacy Policy - Tooltails Focus"
+  description="Privacy policy for Tooltails Focus. Read how we protect your goal and timer data by keeping all processing 100% local."
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+    <h1 class="text-4xl font-bold text-ink mb-8">Privacy Policy</h1>
+    
+    <div class="prose prose-neutral">
+      <p class="text-lg text-body leading-relaxed mb-6">
+        At Tooltails Focus, your privacy is our core design principle. We believe that your productivity data, goals, and daily progress belong to you and nobody else.
+      </p>
+
+      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">1. Local-First Processing and Storage</h2>
+      <p class="text-body leading-relaxed mb-6">
+        Tooltails Focus is an offline-first, local-only web application. All calculations, goal checklists, current session states, streaks, and focus analytics are processed and stored directly on your device using your browser's <code class="font-mono bg-canvas-soft px-1 rounded">LocalStorage</code>.
+      </p>
+      <p class="text-body leading-relaxed mb-6">
+        This means:
+      </p>
+      <ul class="list-disc pl-6 mb-6 text-body space-y-2">
+        <li>We do not collect, transmit, or store your goals, milestones, or notes on any server.</li>
+        <li>We do not create user accounts or ask for personal details like names or emails to use the timer.</li>
+        <li>If you clear your browser data or LocalStorage, your local history and streak statistics will be reset. We cannot recover this data for you as we never have access to it.</li>
+      </ul>
+
+      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">2. Ambient Sound Generation</h2>
+      <p class="text-body leading-relaxed mb-6">
+        The background ambient sounds (Brown Noise, White Noise, and Rain) are generated dynamically on-the-fly using the HTML5 <code class="font-mono bg-canvas-soft px-1 rounded">Web Audio API</code> inside your web browser. No audio streams are downloaded from external servers, protecting your network activity from third-party tracking.
+      </p>
+
+      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">3. Website Analytics</h2>
+      <p class="text-body leading-relaxed mb-6">
+        To understand overall traffic patterns and performance, we collect basic, aggregated website analytics. We configure these tools to ensure they respect user privacy and do not collect personally identifiable information (PII).
+      </p>
+
+      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">4. Advertising and Cookies</h2>
+      <p class="text-body leading-relaxed mb-6">
+        We serve third-party ads (like Google AdSense) on our homepage and general pages to keep our tools free. These platforms may place cookies to serve relevant ads. You can manage or disable personalized advertising using your Google Ad settings or general browser preferences.
+      </p>
+
+      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">5. Contacting Us</h2>
+      <p class="text-body leading-relaxed mb-6">
+        If you contact us using our support channels or contact form, we will use your provided email address solely to reply to your inquiry. We do not sell or share contact information with third parties.
+      </p>
+    </div>
+  </div>
+</Layout>

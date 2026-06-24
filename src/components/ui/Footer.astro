@@ -1,48 +1,83 @@
 ---
 const currentYear = new Date().getFullYear();
+const isFocusPath = Astro.url.pathname.startsWith('/focus');
 ---
 
 <footer class="bg-canvas border-t border-hairline py-12 md:py-24">
   <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
       <div class="col-span-2 md:col-span-1">
-        <a href="/" class="text-xl font-bold tracking-tighter text-ink mb-4 inline-block">
-          Tooltails<span class="text-primary">.com</span>
+        <a href={isFocusPath ? "/focus" : "/"} class="text-xl font-bold tracking-tighter text-ink mb-4 inline-block">
+          Tooltails<span class="text-primary">{isFocusPath ? " Focus" : ".com"}</span>
         </a>
         <p class="text-sm text-body leading-relaxed max-w-xs">
-          Tooltails is a collection of free online calculators and utility tools designed to simplify everyday tasks.
+          {isFocusPath 
+            ? "Tooltails Focus is an outcome-based productivity timer designed to help you plan, execute, and ship your goals." 
+            : "Tooltails is a collection of free online calculators and utility tools designed to simplify everyday tasks."}
         </p>
       </div>
       
       <div>
-        <h4 class="text-xs font-mono uppercase tracking-widest text-mute mb-4">Popular Tools</h4>
+        <h4 class="text-xs font-mono uppercase tracking-widest text-mute mb-4">
+          {isFocusPath ? "Product" : "Popular Tools"}
+        </h4>
         <ul class="space-y-2">
-          <li><a href="/word-counter" class="text-sm text-body hover:text-ink transition-colors">Word Counter</a></li>
-          <li><a href="/age-calculator" class="text-sm text-body hover:text-ink transition-colors">Age Calculator</a></li>
-          <li><a href="/age-difference" class="text-sm text-body hover:text-ink transition-colors">Age Difference</a></li>
-          <li><a href="/birthday-countdown" class="text-sm text-body hover:text-ink transition-colors">Birthday Countdown</a></li>
-          <li><a href="/duration" class="text-sm text-body hover:text-ink transition-colors">Date Duration</a></li>
-          <li><a href="/future-age" class="text-sm text-body hover:text-ink transition-colors">Future Age</a></li>
-          <li><a href="/pomodoro-timer" class="text-sm text-body hover:text-ink transition-colors">Pomodoro Timer</a></li>
-          <li><a href="/focus" class="text-sm text-body hover:text-ink transition-colors">Focus Goals Timer</a></li>
+          {isFocusPath ? (
+            <>
+              <li><a href="/focus" class="text-sm text-body hover:text-ink transition-colors">Focus Timer</a></li>
+              <li><a href="/" class="text-sm text-body hover:text-ink transition-colors">Tooltails Home</a></li>
+              <li><a href="/age-calculator" class="text-sm text-body hover:text-ink transition-colors">Age Calculator</a></li>
+              <li><a href="/pomodoro-timer" class="text-sm text-body hover:text-ink transition-colors">Pomodoro Timer</a></li>
+            </>
+          ) : (
+            <>
+              <li><a href="/word-counter" class="text-sm text-body hover:text-ink transition-colors">Word Counter</a></li>
+              <li><a href="/age-calculator" class="text-sm text-body hover:text-ink transition-colors">Age Calculator</a></li>
+              <li><a href="/age-difference" class="text-sm text-body hover:text-ink transition-colors">Age Difference</a></li>
+              <li><a href="/birthday-countdown" class="text-sm text-body hover:text-ink transition-colors">Birthday Countdown</a></li>
+              <li><a href="/duration" class="text-sm text-body hover:text-ink transition-colors">Date Duration</a></li>
+              <li><a href="/future-age" class="text-sm text-body hover:text-ink transition-colors">Future Age</a></li>
+              <li><a href="/pomodoro-timer" class="text-sm text-body hover:text-ink transition-colors">Pomodoro Timer</a></li>
+              <li><a href="/focus" class="text-sm text-body hover:text-ink transition-colors">Focus Goals Timer</a></li>
+            </>
+          )}
         </ul>
       </div>
 
       <div>
         <h4 class="text-xs font-mono uppercase tracking-widest text-mute mb-4">Resources</h4>
         <ul class="space-y-2">
-          <li><a href="/blog" class="text-sm text-body hover:text-ink transition-colors">Blog</a></li>
-          <li><a href="/faqs" class="text-sm text-body hover:text-ink transition-colors">FAQs</a></li>
-          <li><a href="/about" class="text-sm text-body hover:text-ink transition-colors">About Us</a></li>
-          <li><a href="/contact" class="text-sm text-body hover:text-ink transition-colors">Contact</a></li>
+          {isFocusPath ? (
+            <>
+              <li><a href="/focus/blog" class="text-sm text-body hover:text-ink transition-colors">Focus Blog</a></li>
+              <li><a href="/focus/contact" class="text-sm text-body hover:text-ink transition-colors">Contact Support</a></li>
+              <li><a href="/about" class="text-sm text-body hover:text-ink transition-colors">About Tooltails</a></li>
+            </>
+          ) : (
+            <>
+              <li><a href="/blog" class="text-sm text-body hover:text-ink transition-colors">Blog</a></li>
+              <li><a href="/faqs" class="text-sm text-body hover:text-ink transition-colors">FAQs</a></li>
+              <li><a href="/about" class="text-sm text-body hover:text-ink transition-colors">About Us</a></li>
+              <li><a href="/contact" class="text-sm text-body hover:text-ink transition-colors">Contact</a></li>
+            </>
+          )}
         </ul>
       </div>
 
       <div>
         <h4 class="text-xs font-mono uppercase tracking-widest text-mute mb-4">Legal</h4>
         <ul class="space-y-2">
-          <li><a href="/privacy" class="text-sm text-body hover:text-ink transition-colors">Privacy Policy</a></li>
-          <li><a href="/terms" class="text-sm text-body hover:text-ink transition-colors">Terms of Service</a></li>
+          {isFocusPath ? (
+            <>
+              <li><a href="/focus/privacy" class="text-sm text-body hover:text-ink transition-colors">Privacy Policy</a></li>
+              <li><a href="/focus/terms" class="text-sm text-body hover:text-ink transition-colors">Terms of Service</a></li>
+            </>
+          ) : (
+            <>
+              <li><a href="/privacy" class="text-sm text-body hover:text-ink transition-colors">Privacy Policy</a></li>
+              <li><a href="/terms" class="text-sm text-body hover:text-ink transition-colors">Terms of Service</a></li>
+            </>
+          )}
         </ul>
       </div>
     </div>
@@ -54,7 +89,7 @@ const currentYear = new Date().getFullYear();
         </p>
         <span class="hidden md:inline text-hairline-strong text-[10px]">•</span>
         <p class="text-[10px] font-medium text-mute uppercase tracking-widest">
-          Free online age calculator • Privacy friendly • No signup required
+          {isFocusPath ? "Outcome-oriented focus timer • Privacy friendly • No signup required" : "Free online age calculator • Privacy friendly • No signup required"}
         </p>
       </div>
       <div class="flex gap-6">
