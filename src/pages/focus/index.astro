@@ -206,7 +206,10 @@ const appSchema = {
                 <!-- Goal shown inside timer when active -->
                 <span id="timer-active-goal" class="text-sm font-medium text-body/70 max-w-[180px] truncate mb-2 hidden"></span>
                 <!-- Session label -->
-                <span id="timer-session-label" class="text-sm font-medium text-mute/70 mb-1">Clear your mind. You've got this.</span>
+                <span id="timer-session-label" class="text-sm font-medium text-mute/70 mb-1 inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 opacity-50"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                  <span id="timer-session-text">Clear your mind. You've got this.</span>
+                </span>
                 <!-- Countdown -->
                 <span id="timer-countdown" class="text-5xl sm:text-6xl md:text-7xl font-normal tracking-tight text-ink leading-none tabular-nums" style="font-variant-numeric: tabular-nums;">
                   25:00
@@ -226,20 +229,20 @@ const appSchema = {
               </button>
 
               <!-- Primary CTA: Play / Pause -->
-              <button type="button" id="play-pause-btn" class="px-8 h-12 bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 hover:shadow-lg hover:shadow-link/20 active:scale-[0.97] text-sm font-semibold rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-2.5 justify-center min-w-[160px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/50">
+              <button type="button" id="play-pause-btn" class="btn-primary px-8 h-12 bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 hover:shadow-lg hover:shadow-link/20 active:scale-[0.97] text-sm font-semibold rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-2.5 justify-center min-w-[160px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/50">
                 <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="hidden" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
                 <span id="play-btn-text">Let's go</span>
               </button>
 
               <!-- Fullscreen trigger -->
-                              <button type="button" id="fullscreen-trigger-btn" class="w-11 h-11 rounded-2xl bg-canvas-soft/60 hover:bg-canvas-soft-2/80 active:scale-95 flex items-center justify-center transition-all duration-200 cursor-pointer text-mute hover:text-ink disabled:opacity-25 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/30" title="Clear your view" aria-label="Toggle distraction-free full-screen mode">
+                              <button type="button" id="fullscreen-trigger-btn" class="control-btn w-11 h-11 rounded-2xl bg-canvas-soft/60 hover:bg-canvas-soft-2/80 active:scale-95 flex items-center justify-center transition-all duration-200 cursor-pointer text-mute hover:text-ink disabled:opacity-25 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/30" title="Clear your view" aria-label="Toggle distraction-free full-screen mode">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
               </button>
 
               <!-- Keyboard Shortcuts Trigger -->
               <div id="shortcuts-hint" class="hidden">
-                <button type="button" id="shortcuts-trigger-btn" class="w-11 h-11 rounded-2xl bg-canvas-soft/60 hover:bg-canvas-soft-2/80 active:scale-95 flex items-center justify-center transition-all duration-200 cursor-pointer text-mute hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/30" title="Keyboard shortcuts" aria-label="Show keyboard shortcuts">
+                <button type="button" id="shortcuts-trigger-btn" class="control-btn w-11 h-11 rounded-2xl bg-canvas-soft/60 hover:bg-canvas-soft-2/80 active:scale-95 flex items-center justify-center transition-all duration-200 cursor-pointer text-mute hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/30" title="Keyboard shortcuts" aria-label="Show keyboard shortcuts">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/><line x1="14" y1="8" x2="14.01" y2="8"/><line x1="18" y1="8" x2="18.01" y2="8"/><line x1="6" y1="12" x2="6.01" y2="12"/><line x1="18" y1="12" x2="18.01" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
                 </button>
               </div>
@@ -294,7 +297,10 @@ const appSchema = {
               </div>
 
               <ul id="setup-milestones-list" class="space-y-1 max-h-[140px] overflow-y-auto scrollbar-thin">
-                <li class="text-sm text-mute/50 italic py-2 text-center select-none">No steps yet. What's the first thing you need to do?</li>
+                <li class="flex items-center justify-center gap-2 text-sm text-mute/60 py-3 text-center select-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 opacity-50"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/><path d="M15 5l3 3"/></svg>
+                  What's your first step?
+                </li>
               </ul>
             </div>
 
@@ -517,7 +523,12 @@ const appSchema = {
               </thead>
               <tbody id="history-table-body" class="text-sm text-ink divide-y divide-hairline">
                 <tr>
-                  <td colspan="6" class="py-8 text-center text-mute italic">Your history is clean for now. Once you finish your first focus session, your progress log will show up here.</td>
+                  <td colspan="6" class="py-10 text-center">
+                    <div class="flex flex-col items-center justify-center gap-2.5 max-w-xs mx-auto">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/40"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                      <p class="text-sm text-mute/60 leading-relaxed">Your progress will show up here after your first session. Go ahead — set a goal and start.</p>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -764,7 +775,7 @@ const appSchema = {
       
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
         <!-- Card 1 -->
-        <div class="border border-hairline rounded-sm p-4.5 bg-canvas flex flex-col justify-between hover:border-link/30 hover:shadow-sm transition-all duration-250 group relative">
+        <div class="border border-hairline rounded-sm p-4.5 bg-canvas flex flex-col justify-between hover:border-link/30 hover:shadow-sm transition-all duration-250 group relative card-lift">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold text-link">01. Core metric</span>
@@ -782,7 +793,7 @@ const appSchema = {
         </div>
         
         <!-- Card 2 -->
-        <div class="border border-hairline rounded-sm p-4.5 bg-canvas flex flex-col justify-between hover:border-purple-500/30 hover:shadow-sm transition-all duration-250 group relative">
+        <div class="border border-hairline rounded-sm p-4.5 bg-canvas flex flex-col justify-between hover:border-purple-500/30 hover:shadow-sm transition-all duration-250 group relative card-lift">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold text-purple-600">02. Goal checkpoints</span>
@@ -800,7 +811,7 @@ const appSchema = {
         </div>
         
         <!-- Card 3 -->
-        <div class="border border-hairline rounded-sm p-4.5 bg-canvas flex flex-col justify-between hover:border-rose-500/30 hover:shadow-sm transition-all duration-250 group relative">
+        <div class="border border-hairline rounded-sm p-4.5 bg-canvas flex flex-col justify-between hover:border-rose-500/30 hover:shadow-sm transition-all duration-250 group relative card-lift">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold text-rose-500">03. Mindful adaptability</span>
@@ -878,7 +889,7 @@ const appSchema = {
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Feature 1: Focus Sessions -->
-          <div class="border border-hairline rounded-sm p-6 bg-canvas hover:border-link/30 hover:shadow-md transition-all duration-250 flex gap-4">
+          <div class="border border-hairline rounded-sm p-6 bg-canvas hover:border-link/30 hover:shadow-md transition-all duration-250 flex gap-4 card-lift">
             <div class="p-3 bg-link/10 text-link rounded-sm h-fit shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
@@ -1365,11 +1376,12 @@ const appSchema = {
 
   function updateCentralTimerLabels() {
     const labelEl = document.getElementById('timer-session-label');
+    const labelTextEl = document.getElementById('timer-session-text');
     const countdownEl = document.getElementById('timer-countdown');
     if (!labelEl || !countdownEl) return;
 
     if (currentSessionMode === 'idle') {
-      labelEl.textContent = 'Take a deep breath';
+      if (labelTextEl) labelTextEl.textContent = 'Clear your mind. You\'ve got this.';
       updateTimerDisplay();
     }
     updateTimerGoalDisplay();
@@ -1723,7 +1735,10 @@ const appSchema = {
     if (!list) return;
 
     if (activeMilestones.length === 0) {
-      list.innerHTML = `<li class="text-xs text-mute italic py-3 text-left select-none">No checkpoints added yet.</li>`;
+      list.innerHTML = `<li class="flex items-center justify-center gap-2 text-sm text-mute/60 py-3 text-left select-none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 opacity-50"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/><path d="M15 5l3 3"/></svg>
+        What's your first step?
+      </li>`;
       return;
     }
 
@@ -1953,7 +1968,10 @@ const appSchema = {
     elements.forEach(list => {
       if (!list) return;
       if (activeMilestones.length === 0) {
-        list.innerHTML = `<li class="text-xs text-mute italic py-1 text-center">No checkpoints set for this session. Just focus on your main goal.</li>`;
+        list.innerHTML = `<li class="flex items-center justify-center gap-2 text-xs text-mute/60 py-2 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 opacity-50"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          No steps for this one — just focus on your main goal.
+        </li>`;
         return;
       }
 
@@ -2041,7 +2059,7 @@ const appSchema = {
       if (playText) playText.textContent = "Pause Session";
       if (immPlayText) immPlayText.textContent = "Pause Timer";
       
-      document.getElementById('timer-session-label').textContent = currentSessionMode === 'focus' ? 'Focusing' : 'Break time';
+      document.getElementById('timer-session-text').textContent = currentSessionMode === 'focus' ? 'Focusing' : 'Break time';
 
       // Start Audio Synth if sound is active
       if (currentAmbientSound !== 'mute') {
@@ -2076,7 +2094,7 @@ const appSchema = {
       if (playText) playText.textContent = "Resume Session";
       if (immPlayText) immPlayText.textContent = "Resume Timer";
       
-      document.getElementById('timer-session-label').textContent = 'Paused';
+      document.getElementById('timer-session-text').textContent = 'Paused';
 
       clearInterval(timerIntervalId);
       stopAmbientSound();
@@ -2213,7 +2231,7 @@ const appSchema = {
     const total = activeMilestones.length;
     const completed = activeMilestones.filter(m => m.completed).length;
     if (ratioText) {
-      ratioText.textContent = total > 0 ? `Completed ${completed} of ${total} Milestones (${Math.round((completed/total)*100)}%)` : "No mini-milestones set.";
+      ratioText.textContent = total > 0 ? `${completed} of ${total} steps done` : "No steps planned — just focus on your main goal.";
     }
 
     // Toggle timer off while modal handles outcomes
@@ -2384,7 +2402,7 @@ const appSchema = {
     timerRemainingSeconds = timerDurationSeconds;
     
     // Shift UI to break view
-    document.getElementById('timer-session-label').textContent = 'Break time';
+    document.getElementById('timer-session-text').textContent = 'Break time';
     document.getElementById('setup-panel')?.classList.add('hidden');
     document.getElementById('active-info-panel')?.classList.remove('hidden');
     document.getElementById('setup-panel-below-fold')?.classList.add('hidden');
@@ -3221,14 +3239,13 @@ const appSchema = {
     if (history.length === 0) {
       tbody.innerHTML = `
         <tr>
-          <td colspan="6" class="py-12 text-center">
-            <div class="flex flex-col items-center justify-center space-y-3.5 max-w-sm mx-auto animate-in fade-in duration-200">
-              <div class="p-3 bg-link/5 rounded-full text-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><polyline points="12 6 12 12 16 14"/></svg>
+          <td colspan="6" class="py-14 text-center">
+            <div class="flex flex-col items-center justify-center space-y-3 max-w-sm mx-auto animate-in fade-in duration-200">
+              <div class="p-3.5 bg-link/5 rounded-full text-link/60">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
               </div>
               <div>
-                <h4 class="text-xs font-bold text-ink tracking-tight">Start your focus timeline</h4>
-                <p class="text-xs text-mute mt-1.5 leading-relaxed">When you finish your first focus session and check off your checkpoints, your log entries will appear here.</p>
+                <p class="text-sm text-mute/60 leading-relaxed">Your first session is waiting. Set a goal, start the timer, and come back here to see your progress.</p>
               </div>
             </div>
           </td>
@@ -3467,7 +3484,7 @@ const appSchema = {
             <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1">Track your long-term goals</h3>
           </div>
           <p class="text-xs text-body leading-relaxed max-w-xl">
-            Set a long-term goal with a target value (like reading 300 pages or coding for 50 hours). We'll track your daily velocity and estimate your completion date based on your actual progress.
+            Working toward something bigger? Set a target — like reading 300 pages, solving 50 problems, or writing for 30 hours. We'll track your pace and show you when you're on track to finish.
           </p>
           
           <form id="forecast-setup-form" class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
@@ -3516,7 +3533,7 @@ const appSchema = {
               <div class="space-y-1 text-left">
                 <h3 class="text-sm font-semibold text-ink">Track a long-term goal</h3>
                 <p class="text-xs text-mute max-w-xl leading-relaxed">
-                  Want to finish a book, write a paper, or practice a new skill? Set a target in the Journal tab, and we'll help you estimate when you'll reach it based on your daily progress.
+                  Reading a book, learning a skill, or writing something big? Set a target in the Journal tab and we'll help you stay on pace.
                 </p>
               </div>
             </div>
@@ -3697,7 +3714,12 @@ const appSchema = {
 
     let logsHTML = "";
     if (activeForecastGoal.logs.length === 0) {
-      logsHTML = `<div class="py-12 text-center text-mute italic">No progress logs recorded yet. Use the Log Progress form on the left or sync from a focus session to add your first completion entry!</div>`;
+      logsHTML = `<div class="py-10 text-center">
+        <div class="flex flex-col items-center justify-center gap-2.5 max-w-xs mx-auto">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/40"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <p class="text-sm text-mute/60 leading-relaxed">Nothing logged yet. Record your first bit of progress and it'll show up here.</p>
+        </div>
+      </div>`;
     } else {
       logsHTML = activeForecastGoal.logs.map((log) => {
         const logDate = new Date(log.timestamp).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
@@ -4036,14 +4058,18 @@ const appSchema = {
 
     if (weeklySessions.length === 0) {
       container.innerHTML = `
-        <div class="bg-canvas border border-hairline p-6 md:p-8 rounded-md shadow-sm space-y-6 animate-in fade-in duration-200">
-          <div class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-mute"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
-            <h3 class="text-base font-semibold tracking-tighter text-ink">Weekly review & insights</h3>
+        <div class="bg-canvas border border-hairline p-7 md:p-8 rounded-md shadow-sm space-y-4 animate-in fade-in duration-200">
+          <div class="flex items-center gap-3">
+            <div class="p-2.5 bg-link/5 rounded-full text-link/60">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <div>
+              <h3 class="text-base font-semibold tracking-tight text-ink">Weekly review</h3>
+              <p class="text-sm text-mute/60 leading-relaxed mt-1 max-w-lg">
+                No sessions logged this week yet. Once you finish a few focus blocks, we'll show you how things are going.
+              </p>
+            </div>
           </div>
-          <p class="text-xs text-mute leading-relaxed max-w-xl">
-            You haven't logged any sessions this week. Once you start tracking your goals, we'll analyze your flow here and give you personalized advice to help you stay consistent.
-          </p>
         </div>
       `;
       return;
@@ -4518,13 +4544,12 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
 
     if (reflections.length === 0) {
       list.innerHTML = `
-        <div class="flex flex-col items-center justify-center p-6 border border-dashed border-hairline rounded-sm text-center space-y-2.5 animate-in fade-in duration-200">
-          <div class="p-2 bg-link/5 rounded-full text-link">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        <div class="flex flex-col items-center justify-center p-8 border border-dashed border-hairline/50 rounded-xl text-center space-y-3 animate-in fade-in duration-200">
+          <div class="p-2.5 bg-link/5 rounded-full text-link/50">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
           </div>
           <div>
-            <h5 class="text-sm font-semibold tracking-tighter text-ink">Write your first entry</h5>
-            <p class="text-[11px] text-mute mt-1 leading-relaxed">How did your week go? Use the box above to write down what went well, what felt tough, or any discoveries about your focus.</p>
+            <p class="text-sm text-mute/60 leading-relaxed max-w-xs">No reflections yet. When you finish a session, jot down how it went — your future self will thank you.</p>
           </div>
         </div>
       `;
@@ -4641,7 +4666,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     const topHrs = (topTime / 3600).toFixed(1);
 
     // Forecast goal details
-    let goalProgressHTML = '<div style="border: 1px solid #ebebeb; border-radius: 10px; padding: 15px; background: #fafafa; font-size: 11px; color: #666; font-style: italic; text-align: center;">No active goal track configured for this period. Start a forecast track in the sanctuary to begin predicting paths.</div>';
+    let goalProgressHTML = '<div style="border: 1px solid #ebebeb; border-radius: 10px; padding: 15px; background: #fafafa; font-size: 12px; color: #888; text-align: center;">Set a long-term goal in the Journal tab and track your progress here over time.</div>';
     if (activeForecastGoal) {
       const currentVal = activeForecastGoal.logs.reduce((sum, log) => sum + log.value, 0);
       const pct = Math.min(100, Math.round((currentVal / activeForecastGoal.target) * 100));
@@ -4729,7 +4754,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
 
     // Reflections list filtering (last 30 days)
     const monthlyReflections = reflections.filter(r => new Date(r.timestamp).getTime() >= thirtyDaysAgo);
-    let reflectionsHTML = '<div style="font-size: 11px; color: #666; font-style: italic; text-align: center; padding: 10px 0;">No journal entries recorded during this growth cycle. Dedicate a brief window in the Sanctuary to capture learnings.</div>';
+    let reflectionsHTML = '<div style="font-size: 12px; color: #888; text-align: center; padding: 10px 0;">No journal entries this month. Reflections help you see how far you have come — write one after your next session.</div>';
     if (monthlyReflections.length > 0) {
       reflectionsHTML = monthlyReflections.map(r => {
         const dateStr = new Date(r.timestamp).toLocaleDateString(undefined, {
