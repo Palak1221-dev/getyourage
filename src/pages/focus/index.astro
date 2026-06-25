@@ -5,20 +5,20 @@ import FAQ from "../../components/ui/FAQ.astro";
 // FAQ Items for SEO
 const faqItems = [
   {
-    question: "How is a Goal-Oriented Focus Timer different from a Pomodoro Timer?",
-    answer: "A traditional Pomodoro timer tracks pure timeboxes (like 25 minutes of work followed by 5 minutes of rest). Tooltails Focus shifts the metric from 'time spent' to 'outcomes achieved'. You define a specific goal, break it down into checkpoints, and track whether you completed, partially completed, or failed the goal. This builds habits around productivity and shipping, rather than just sitting at a desk."
+    question: "What's the difference between this and a regular Pomodoro timer?",
+    answer: "A Pomodoro timer just counts down 25-minute blocks. Tooltails Focus flips the question from 'how long did you sit there?' to 'did you actually get it done?'. You write down a real goal before you start, break it into smaller checkpoints, then log whether you finished, partly finished, or hit a wall. It's less about compliance and more about shipping."
   },
   {
-    question: "What is the Recovery Planner Engine?",
-    answer: "If a focus session is marked as Partial or Failed, our Recovery Planner Engine analyzes the distraction or fatigue factor and generates a scientifically backed recovery recommendation (e.g. reducing timeboxes, screen-free stretches, or breaking goals down further) to help you regain flow without burning out."
+    question: "What happens when I mark a session as Partial or Failed?",
+    answer: "Instead of guilt, you get a recovery plan. The engine looks at what went wrong — distraction, fatigue, or a goal that was too big — and suggests a practical next step. Maybe shorter blocks, a screen break, or breaking your goal down further. The idea is to learn, not to punish."
   },
   {
-    question: "Does my data leave my browser?",
-    answer: "No. Tooltails Focus is 100% privacy-first. All your focus history, streaks, checkpoints, and analytics are persisted locally in your browser's LocalStorage. No accounts, logins, or backend servers are involved."
+    question: "Is my data safe? Do I need an account?",
+    answer: "No accounts, no servers, no cloud. Everything — your sessions, streaks, checkpoints, journal entries — lives in your browser's LocalStorage. You can export a backup anytime, but nothing ever leaves your machine unless you choose to save the file."
   },
   {
-    question: "How does the synthesized ambient sound system work?",
-    answer: "To avoid heavy asset downloads and keep loading speeds instantaneous, we use the Web Audio API to synthesize relaxing Brown Noise, White Noise, and Rain sounds directly in your browser. It works offline and requires no internet connection."
+    question: "How do the ambient sounds work without downloading anything?",
+    answer: "Instead of loading audio files, your browser generates the sounds on the fly using the Web Audio API. Brown noise, white noise, and rain are all synthesized in real time. That means zero downloads, zero buffering, and it all works offline."
   }
 ];
 
@@ -74,17 +74,17 @@ const appSchema = {
 
     <!-- Minimal header -->
     <div class="flex items-center justify-between mb-6 md:mb-8 select-none">
-      <h1 class="text-lg md:text-xl font-semibold tracking-tight text-ink/70">
+      <h1 class="text-xl md:text-2xl font-bold tracking-tight text-ink">
         Focus
       </h1>
       <div class="flex items-center gap-1.5 bg-canvas-soft-2/80 rounded-full p-0.5">
-        <button id="tab-btn-workspace" class="px-3.5 py-1.5 text-xs font-medium rounded-full bg-canvas text-ink shadow-sm focus-visible:outline-none transition-all duration-150 cursor-pointer" onclick="switchTab('workspace')" aria-label="Open workspace tab">
+        <button id="tab-btn-workspace" class="tab-btn px-4 py-1.5 text-sm font-semibold rounded-full bg-canvas text-ink shadow-sm focus-visible:outline-none transition-all duration-150 cursor-pointer" onclick="switchTab('workspace')" aria-label="Open workspace tab">
           Timer
         </button>
-        <button id="tab-btn-analytics" class="px-3.5 py-1.5 text-xs font-medium rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer" onclick="switchTab('analytics')" aria-label="Open progress analytics tab">
+        <button id="tab-btn-analytics" class="tab-btn px-4 py-1.5 text-sm font-semibold rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer" onclick="switchTab('analytics')" aria-label="Open progress analytics tab">
           Progress
         </button>
-        <button id="tab-btn-premium" class="px-3.5 py-1.5 text-xs font-medium rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer" onclick="switchTab('premium')" aria-label="Open growth and coaching tab">
+        <button id="tab-btn-premium" class="tab-btn px-4 py-1.5 text-sm font-semibold rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer" onclick="switchTab('premium')" aria-label="Open growth and coaching tab">
           Journal
         </button>
       </div>
@@ -111,14 +111,14 @@ const appSchema = {
                 autocomplete="off"
                 spellcheck="true"
                 class="w-full h-12 sm:h-14 px-5 bg-canvas-soft/70 rounded-2xl text-base sm:text-lg font-semibold tracking-tight text-ink placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.1)] transition-all duration-300 select-text text-center" 
-                placeholder="What will you create today?" 
-                aria-label="What do you want to finish today?"
+                placeholder="What do you want to make happen?" 
+                aria-label="What do you want to make happen today?"
               />
             </div>
 
             <!-- Activity Selector — larger, pill-style cards -->
             <div class="w-full max-w-lg select-none">
-              <span class="text-xs font-medium text-mute/70 block mb-3">Choose your focus area</span>
+              <span class="text-sm font-medium text-body/70 block mb-3">What kind of work are you doing?</span>
               <div class="flex items-center justify-center gap-2 flex-wrap">
                 <button type="button" class="activity-btn px-4 py-2.5 text-sm rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium shadow-sm" data-activity="Coding" aria-label="Select Coding">
                   <span class="text-base">💻</span> Coding
@@ -142,7 +142,7 @@ const appSchema = {
             </div>
 
             <!-- Custom Activity Input -->
-            <input type="text" id="custom-activity-input" autocomplete="off" class="hidden w-full max-w-xs h-11 px-4 bg-canvas-soft/70 rounded-xl text-sm text-ink text-center focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.1)] transition-all duration-200" placeholder="What are you working on?" aria-label="Enter custom focus activity text" />
+            <input type="text" id="custom-activity-input" autocomplete="off" class="hidden w-full max-w-xs h-11 px-4 bg-canvas-soft/70 rounded-xl text-base text-ink text-center focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.1)] transition-all duration-200"                 placeholder="What are you working on?" aria-label="Describe what you are working on" />
             <div id="custom-activity-next-panel" class="hidden"></div>
 
             <!-- Checkpoints — minimal inline add, unhides below if needed -->
@@ -161,13 +161,13 @@ const appSchema = {
             <!-- Goal title -->
             <h2 id="active-goal-title" class="text-2xl sm:text-3xl font-bold tracking-tight text-ink leading-snug text-pretty max-w-lg"></h2>
             <!-- Why this matters -->
-            <div id="active-why-matters-panel" class="hidden max-w-md text-sm text-body/80 italic leading-relaxed">
+            <div id="active-why-matters-panel" class="hidden max-w-md text-base text-body/80 italic leading-relaxed">
               <span id="active-why-matters-text"></span>
             </div>
             <!-- Current step highlight during active session -->
             <div id="active-current-step-container" class="hidden px-4 py-2 bg-canvas-soft/60 rounded-xl flex items-center justify-center gap-2 select-none">
               <span class="w-1.5 h-1.5 bg-link rounded-full animate-pulse"></span>
-              <span class="text-xs text-mute">Focusing on:</span>
+              <span class="text-sm text-mute">Right now:</span>
               <span id="active-current-step-text" class="text-xs font-semibold text-ink truncate max-w-[180px]"></span>
             </div>
           </div>
@@ -180,9 +180,11 @@ const appSchema = {
             <!-- Soft background glow -->
             <div id="timer-active-glow" class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.04),transparent_70%)] pointer-events-none opacity-0 transition-opacity duration-700 ease-out"></div>
             
-            <div class="relative w-60 h-60 sm:w-72 sm:h-72 md:w-80 md:h-80 flex items-center justify-center select-none mb-4">
-              <!-- Subtle dial shadow -->
-              <div class="absolute inset-[3%] rounded-full bg-gradient-to-b from-canvas-soft/10 to-transparent dark:from-white/[0.02] shadow-[inset_0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_6px_24px_rgba(0,0,0,0.3)] pointer-events-none"></div>
+            <div class="relative w-60 h-60 sm:w-72 sm:h-72 md:w-80 md:h-80 flex items-center justify-center select-none mb-4 timer-dial-wrapper">
+              <!-- Subtle dial shadow — layered for depth -->
+              <div class="absolute inset-[3%] rounded-full bg-gradient-to-b from-canvas-soft/10 to-transparent dark:from-white/[0.02] pointer-events-none timer-dial-shadow"></div>
+              <!-- Bezel ring for premium feel -->
+              <div class="absolute inset-[2.5%] rounded-full border border-hairline/10 pointer-events-none"></div>
 
               <!-- Progress Ring SVG -->
               <svg viewBox="0 0 100 100" class="w-full h-full transform -rotate-90 relative z-10" aria-hidden="true">
@@ -193,30 +195,33 @@ const appSchema = {
                   </linearGradient>
                 </defs>
                 <circle id="timer-progress-bg" cx="50" cy="50" r="45" stroke="currentColor" stroke-width="3" opacity="0.06" fill="transparent" />
-                <circle id="timer-progress-ring" cx="50" cy="50" r="45" stroke="url(#timer-gradient)" stroke-width="4.5" stroke-linecap="round" fill="transparent" stroke-dasharray="282.74" stroke-dashoffset="0" class="transition-all duration-500 ease-out" />
+                <circle id="timer-progress-ring" cx="50" cy="50" r="45" stroke="url(#timer-gradient)" stroke-width="4.5" stroke-linecap="round" fill="transparent" stroke-dasharray="282.74" stroke-dashoffset="0" class="transition-all duration-700 ease-out" />
+                <!-- Glowing dot at the end of the progress arc -->
+                <circle id="timer-progress-dot-glow" cx="50" cy="5" r="7" fill="var(--color-link)" opacity="0.15" class="transition-all duration-700 ease-out" />
+                <circle id="timer-progress-dot" cx="50" cy="5" r="3.5" fill="var(--color-link)" class="transition-all duration-700 ease-out" />
               </svg>
 
               <!-- Center content -->
               <div class="absolute flex flex-col items-center justify-center text-center z-20 px-6 w-full select-none">
                 <!-- Goal shown inside timer when active -->
-                <span id="timer-active-goal" class="text-xs font-medium text-body/70 max-w-[180px] truncate mb-2 hidden"></span>
+                <span id="timer-active-goal" class="text-sm font-medium text-body/70 max-w-[180px] truncate mb-2 hidden"></span>
                 <!-- Session label -->
-                <span id="timer-session-label" class="text-xs font-medium tracking-wide text-mute/60 mb-1">Take a deep breath</span>
+                <span id="timer-session-label" class="text-sm font-medium text-mute/70 mb-1">Clear your mind. You've got this.</span>
                 <!-- Countdown -->
-                <span id="timer-countdown" class="text-5xl sm:text-6xl md:text-7xl font-light tracking-tighter text-ink leading-none tabular-nums" style="font-variant-numeric: tabular-nums;">
+                <span id="timer-countdown" class="text-5xl sm:text-6xl md:text-7xl font-normal tracking-tight text-ink leading-none tabular-nums" style="font-variant-numeric: tabular-nums;">
                   25:00
                 </span>
                 <!-- Next step hint -->
-                <span id="timer-next-step" class="text-xs font-medium text-mute/60 mt-3 hidden max-w-[160px] truncate"></span>
+                <span id="timer-next-step" class="text-sm font-medium text-mute/70 mt-3 hidden max-w-[160px] truncate"></span>
                 <!-- Checkpoint ratio -->
-                <span id="timer-milestone-ratio" class="text-[11px] text-mute/50 mt-2 hidden tabular-nums"></span>
+                <span id="timer-milestone-ratio" class="text-xs text-mute/60 mt-2 hidden tabular-nums"></span>
               </div>
             </div>
 
             <!-- Controls Panel -->
             <div class="flex items-center gap-3 mt-2 w-full max-w-xs justify-center">
               <!-- Skip button -->
-              <button type="button" id="skip-btn" class="w-11 h-11 rounded-2xl bg-canvas-soft/60 hover:bg-canvas-soft-2/80 active:scale-95 flex items-center justify-center transition-all duration-200 cursor-pointer text-mute hover:text-ink disabled:opacity-25 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/30" disabled title="Cancel session" aria-label="Skip current focus session">
+                              <button type="button" id="skip-btn" class="control-btn w-11 h-11 rounded-2xl bg-canvas-soft/60 hover:bg-canvas-soft-2/80 active:scale-95 flex items-center justify-center transition-all duration-200 cursor-pointer text-mute hover:text-ink disabled:opacity-25 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/30" disabled title="End this session" aria-label="End this focus session">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
               </button>
 
@@ -224,11 +229,11 @@ const appSchema = {
               <button type="button" id="play-pause-btn" class="px-8 h-12 bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 hover:shadow-lg hover:shadow-link/20 active:scale-[0.97] text-sm font-semibold rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-2.5 justify-center min-w-[160px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/50">
                 <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="hidden" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-                <span id="play-btn-text">Start focusing</span>
+                <span id="play-btn-text">Let's go</span>
               </button>
 
               <!-- Fullscreen trigger -->
-              <button type="button" id="fullscreen-trigger-btn" class="w-11 h-11 rounded-2xl bg-canvas-soft/60 hover:bg-canvas-soft-2/80 active:scale-95 flex items-center justify-center transition-all duration-200 cursor-pointer text-mute hover:text-ink disabled:opacity-25 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/30" title="Distraction-free mode" aria-label="Toggle full-screen focus workspace mode">
+                              <button type="button" id="fullscreen-trigger-btn" class="w-11 h-11 rounded-2xl bg-canvas-soft/60 hover:bg-canvas-soft-2/80 active:scale-95 flex items-center justify-center transition-all duration-200 cursor-pointer text-mute hover:text-ink disabled:opacity-25 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/30" title="Clear your view" aria-label="Toggle distraction-free full-screen mode">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
               </button>
 
@@ -257,9 +262,9 @@ const appSchema = {
               id="session-goal-why" 
               autocomplete="off"
               spellcheck="true"
-              class="w-full h-11 px-4 bg-canvas-soft/60 rounded-xl text-sm text-body placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.08)] transition-all duration-200 select-text text-center" 
-              placeholder="Why does this matter to you? (optional)" 
-              aria-label="Enter why this goal matters"
+              class="w-full h-11 px-4 bg-canvas-soft/60 rounded-xl text-base text-body placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.08)] transition-all duration-200 select-text text-center" 
+              placeholder="What makes this meaningful to you? (optional)" 
+              aria-label="Tell yourself why this goal matters"
             />
           </div>
 
@@ -268,15 +273,15 @@ const appSchema = {
             
             <!-- Checkpoints (inline, always accessible) -->
             <div class="w-full space-y-3 text-left">
-              <span class="text-xs font-semibold text-mute/70 block">Break your goal into steps</span>
+              <span class="text-sm font-semibold text-body/80 block">Map out your path</span>
               <div class="flex gap-2">
                 <input 
                   type="text" 
                   id="milestone-input" 
                   autocomplete="off" 
-                  class="flex-grow h-10 px-4 bg-canvas-soft/60 rounded-xl text-sm text-ink placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.08)] transition-all duration-200" 
+                  class="flex-grow h-10 px-4 bg-canvas-soft/60 rounded-xl text-base text-ink placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.08)] transition-all duration-200" 
                   placeholder="Add a step…" 
-                  aria-label="Add mini-milestone checkpoint text" 
+                  aria-label="Add a checkpoint to your plan" 
                 />
                 <button 
                   type="button" 
@@ -289,7 +294,7 @@ const appSchema = {
               </div>
 
               <ul id="setup-milestones-list" class="space-y-1 max-h-[140px] overflow-y-auto scrollbar-thin">
-                <li class="text-xs text-mute/50 italic py-2 text-center select-none">No checkpoints added yet.</li>
+                <li class="text-sm text-mute/50 italic py-2 text-center select-none">No steps yet. What's the first thing you need to do?</li>
               </ul>
             </div>
 
@@ -301,7 +306,7 @@ const appSchema = {
               
               <!-- Duration presets -->
               <div class="space-y-3" id="timer-presets-section">
-                <span class="text-xs font-semibold text-mute/70 block">Duration</span>
+                <span class="text-sm font-semibold text-body/80 block">Duration</span>
                 <div class="grid grid-cols-2 gap-1.5">
                   <button type="button" class="preset-btn py-2 px-3 rounded-xl bg-canvas-soft/60 text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-sm group" data-focus="25" data-break="5" aria-label="Classic Pomodoro: 25 minutes work focus and 5 minutes rest break">
                     <span class="group-hover:text-link transition-colors tabular-nums">25m</span>
@@ -332,7 +337,7 @@ const appSchema = {
 
               <!-- Background Sound -->
               <div class="space-y-3">
-                <span class="text-xs font-semibold text-mute/70 block">Sound</span>
+                <span class="text-sm font-semibold text-body/80 block">Sound</span>
                 <div class="grid grid-cols-2 gap-1.5">
                   <button type="button" class="sound-btn py-2 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-sm font-medium" data-sound="mute" aria-label="Mute ambient noise">Mute</button>
                   <button type="button" class="sound-btn py-2 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-sm font-medium" data-sound="brown" aria-label="Play ambient brown noise">Brown</button>
@@ -349,22 +354,22 @@ const appSchema = {
         <!-- Today's Progress Cards Group — more prominent, borderless, soft -->
         <div class="max-w-[640px] mx-auto bg-canvas rounded-2xl px-5 sm:px-8 md:px-10 py-5 sm:py-6 select-none" id="today-progress-section">
           <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-semibold text-mute/60 uppercase tracking-wider">Today</span>
+            <span class="text-sm font-semibold text-body">Today's progress</span>
           </div>
           
           <div class="grid grid-cols-3 gap-2">
             <div class="bg-canvas-soft/30 rounded-xl border border-hairline/15 p-4 text-center">
-              <div class="text-xs text-mute/60 mb-1">Time</div>
+              <div class="text-sm text-mute/70 mb-1">Focus time</div>
               <div id="workspace-today-focus-time" class="text-lg font-semibold text-ink tabular-nums">0m</div>
             </div>
             <div class="bg-canvas-soft/30 rounded-xl border border-hairline/15 p-4 text-center">
-              <div class="text-xs text-mute/60 mb-1">Streak</div>
+              <div class="text-sm text-mute/70 mb-1">Days in a row</div>
               <div id="workspace-today-streak" class="text-lg font-semibold text-ink tabular-nums flex items-center justify-center gap-1">
                 <span class="text-warning">🔥</span> 0d
               </div>
             </div>
             <div class="bg-canvas-soft/30 rounded-xl border border-hairline/15 p-4 text-center">
-              <div class="text-xs text-mute/60 mb-1">Rate</div>
+              <div class="text-sm text-mute/70 mb-1">Success rate</div>
               <div id="workspace-today-rate" class="text-lg font-semibold text-ink tabular-nums">0%</div>
             </div>
           </div>
@@ -377,27 +382,27 @@ const appSchema = {
         <!-- Summary Stats Metrics Grid -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div class="bg-canvas p-5 sm:p-6 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
-            <div class="text-xs font-semibold text-mute mb-2">Total focused time</div>
-            <div class="text-3xl font-bold tracking-tighter text-ink tabular-nums leading-none" id="stat-total-time">0h 00m</div>
-            <div class="text-xs text-mute/80 mt-2">Across all logged sessions</div>
+            <div class="text-sm font-semibold text-body mb-2">Total focused time</div>
+            <div class="text-3xl font-bold tracking-tight text-ink tabular-nums leading-none" id="stat-total-time">0h 00m</div>
+            <div class="text-sm text-mute/80 mt-2">Across all logged sessions</div>
           </div>
           <div class="bg-canvas p-5 sm:p-6 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
-            <div class="text-xs font-semibold text-mute mb-2">Completion rate</div>
-            <div class="text-3xl font-bold tracking-tighter text-ink tabular-nums leading-none" id="stat-completion-rate">0%</div>
-            <div class="text-xs text-mute/80 mt-2">Ratio of Fully Completed goals</div>
+            <div class="text-sm font-semibold text-body mb-2">Completion rate</div>
+            <div class="text-3xl font-bold tracking-tight text-ink tabular-nums leading-none" id="stat-completion-rate">0%</div>
+            <div class="text-sm text-mute/80 mt-2">Ratio of fully completed goals</div>
           </div>
           <div class="bg-canvas p-5 sm:p-6 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
-            <div class="text-xs font-semibold text-mute mb-2">Current streak</div>
-            <div class="text-3xl font-bold tracking-tighter text-ink flex items-center gap-1.5 tabular-nums leading-none" id="stat-streak">
+            <div class="text-sm font-semibold text-body mb-2">Current streak</div>
+            <div class="text-3xl font-bold tracking-tight text-ink flex items-center gap-1.5 tabular-nums leading-none" id="stat-streak">
               <span class="tabular-nums">0</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="text-warning" aria-hidden="true"><path d="M17.687 9.581a5.87 5.87 0 0 0-4.887-2.91V3.25a.75.75 0 0 0-1.28-.53l-8.25 8.25a.75.75 0 0 0 .53 1.28h5.319v5.999a5.87 5.87 0 0 0 4.887 2.911l.248-.005a5.87 5.87 0 0 0 4.887-2.906A5.87 5.87 0 0 0 17.687 9.581Z"/></svg>
             </div>
-            <div class="text-xs text-mute/80 mt-2">Consecutive workdays active</div>
+            <div class="text-sm text-mute/80 mt-2">Consecutive workdays active</div>
           </div>
           <div class="bg-canvas p-5 sm:p-6 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
-            <div class="text-xs font-semibold text-mute mb-2">Total sessions</div>
-            <div class="text-3xl font-bold tracking-tighter text-ink tabular-nums leading-none" id="stat-total-sessions">0</div>
-            <div class="text-xs text-mute/80 mt-2">Includes partial focus blocks</div>
+            <div class="text-sm font-semibold text-body mb-2">Total sessions</div>
+            <div class="text-3xl font-bold tracking-tight text-ink tabular-nums leading-none" id="stat-total-sessions">0</div>
+            <div class="text-sm text-mute/80 mt-2">Includes partial focus blocks</div>
           </div>
         </div>
 
@@ -528,11 +533,11 @@ const appSchema = {
       <div id="tab-premium" class="p-4 md:p-6 lg:p-8 hidden space-y-6">
         
         <div class="max-w-3xl mx-auto text-center space-y-2 mb-6">
-          <span class="inline-block px-2.5 py-0.5 bg-canvas border border-hairline text-body text-xs font-bold rounded-full select-none">
+          <span class="inline-block px-2.5 py-0.5 bg-canvas border border-hairline text-body text-sm font-bold rounded-full select-none">
             Weekly Journal & Insights
           </span>
           <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-ink mb-3 leading-[1.1]">Reflections & reports</h2>
-          <p class="text-sm text-body">Log your reflections and track your long-term focus analytics.</p>
+          <p class="text-base text-body">Log your reflections and track your long-term focus analytics.</p>
         </div>
 
         <!-- Weekly Review & Coaching Advisor -->
@@ -548,10 +553,10 @@ const appSchema = {
               </div>
               <form id="weekly-reflection-form" class="space-y-4">
                 <div class="space-y-2">
-                  <label for="weekly-reflection-text" class="block text-sm font-medium text-body leading-relaxed select-none">
+                  <label for="weekly-reflection-text" class="block text-base font-medium text-body leading-relaxed select-none">
                     What went well this week? What did you discover about your focus, flow, or challenges?
                   </label>
-                  <textarea id="weekly-reflection-text" rows="3" required class="w-full p-4 bg-canvas border border-hairline/60 rounded-xl text-sm text-ink placeholder:text-mute focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all duration-200 shadow-sm" placeholder="Journal your thoughts, small wins, or energetic blocks here…"></textarea>
+                  <textarea id="weekly-reflection-text" rows="3" required class="w-full p-4 bg-canvas border border-hairline/60 rounded-xl text-base text-ink placeholder:text-mute focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all duration-200 shadow-sm" placeholder="Journal your thoughts, small wins, or energetic blocks here…"></textarea>
                 </div>
                 <button type="submit" class="px-4 h-10 bg-link text-white hover:bg-link-hover active:scale-95 text-sm font-bold rounded-lg border-0 transition-all duration-150 cursor-pointer focus-visible:ring-2 focus-visible:ring-link select-none">
                   Save Reflection Entry
@@ -574,10 +579,10 @@ const appSchema = {
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-link shrink-0"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><circle cx="12" cy="12" r="3"/></svg>
                 <h3 class="text-xl font-bold tracking-tight text-ink mb-1">Mindful growth sanctuary</h3>
               </div>
-              <p class="text-sm text-body leading-relaxed">
+              <p class="text-base text-body leading-relaxed">
                 Consistency is not about a streak of perfect days. It is about understanding what draws you off track and showing up with curiosity.
               </p>
-              <p class="text-sm text-body leading-relaxed">
+              <p class="text-base text-body leading-relaxed">
                 Use the weekly review to see where you were in flow and when you were blocked. Dedicate a few minutes to journal your reflections to develop meta-learning habits.
               </p>
             </div>
@@ -593,13 +598,13 @@ const appSchema = {
           <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_12px_40px_rgba(0,0,0,0.02)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.22)] border-0 flex flex-col justify-between">
             <div class="space-y-4">
               <div class="flex items-center justify-between select-none">
-                <span class="text-xs font-bold text-rose-500">Recovery advisor</span>
+                <span class="text-sm font-bold text-rose-500">Recovery advisor</span>
                 <span class="text-xs text-mute">Active</span>
               </div>
               <h3 class="text-xl font-bold tracking-tight text-ink mb-1">Maintain steady flow & avoid burnout</h3>
-              <p class="text-sm text-body leading-relaxed">
-                When you run into distractions or fatigue, our recovery advisor helps you understand what went wrong and gives you friendly, practical steps to get back into flow.
-              </p>
+          <p class="text-base text-body leading-relaxed">
+            When you run into distractions or fatigue, our recovery advisor helps you understand what went wrong and gives you friendly, practical steps to get back into flow.
+          </p>
               
               <!-- Active/Last recommendation preview -->
               <div class="mt-4 border border-dashed border-rose-500/30 rounded-xl p-4 bg-rose-500/[0.02]">
@@ -621,13 +626,13 @@ const appSchema = {
           <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_12px_40px_rgba(0,0,0,0.02)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.22)] border-0 flex flex-col justify-between">
             <div class="space-y-4">
               <div class="flex items-center justify-between select-none">
-                <span class="text-xs font-bold text-link">Goal checkpoint planner</span>
+                <span class="text-sm font-bold text-link">Goal checkpoint planner</span>
                 <span class="text-xs text-mute">Active</span>
               </div>
               <h3 class="text-xl font-bold tracking-tight text-ink mb-1">Checkpoints & goal breakdown</h3>
-              <p class="text-sm text-body leading-relaxed">
-                Starting a long study or work block with a vague intention makes starting hard. Our Goal Planner helps you break down your goals into smaller, manageable checkpoints, tracking your progress dynamically as you complete each task.
-              </p>
+          <p class="text-base text-body leading-relaxed">
+            Starting a long study or work block with a vague intention makes starting hard. Our Goal Planner helps you break down your goals into smaller, manageable checkpoints, tracking your progress dynamically as you complete each task.
+          </p>
               
               <!-- Metrics row -->
               <div class="grid grid-cols-2 gap-3 pt-2">
@@ -653,7 +658,7 @@ const appSchema = {
             <div class="space-y-4">
               <div class="flex items-center justify-between border-b border-hairline/25 pb-3 select-none">
                 <div class="flex items-center gap-2">
-                  <span class="text-xs font-bold text-purple-600">Monthly productivity reports</span>
+                  <span class="text-sm font-bold text-purple-600">Monthly productivity reports</span>
                   <span class="px-1.5 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-600 text-xs font-bold rounded">Pro Preview</span>
                 </div>
                 <span class="text-xs text-mute">Local PDF Synthesizer v1.2</span>
@@ -663,19 +668,19 @@ const appSchema = {
                 <!-- Left: Briefing description -->
                 <div class="md:col-span-2 space-y-2">
                   <h4 class="text-xl font-bold tracking-tight text-ink mb-1">Generate personal performance intelligence digest</h4>
-                  <p class="text-sm text-body leading-relaxed">
+                  <p class="text-base text-body leading-relaxed">
                     Synthesize focus history into a high-fidelity document detailing focus density hours, activity DNA coefficients, success probability forecasts, and distraction recovery matrices.
                   </p>
                   <div class="flex flex-wrap gap-2 pt-1.5 select-none">
-                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[10px] text-mute uppercase tracking-wider">CSV Exports</span>
-                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[10px] text-mute uppercase tracking-wider">Focus Density Curves</span>
-                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[10px] text-mute uppercase tracking-wider">Outcome Correlations</span>
+                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[11px] text-mute font-medium">CSV Exports</span>
+                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[11px] text-mute font-medium">Focus Density Curves</span>
+                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[11px] text-mute font-medium">Outcome Correlations</span>
                   </div>
                 </div>
 
                 <!-- Right: Call to action -->
                 <div class="flex flex-col gap-2.5 bg-canvas-soft/75 rounded-2xl p-5 items-center justify-center text-center border-0">
-                  <div class="text-[10px] font-mono uppercase tracking-wider text-ink font-bold select-none">Generate Local digest</div>
+                  <div class="text-xs font-mono text-ink font-semibold select-none">Generate Local digest</div>
                   <button type="button" id="generate-report-btn" class="w-full h-10 bg-link text-white hover:bg-link-hover active:scale-[0.98] text-sm font-bold rounded-lg border-0 transition-all cursor-pointer flex items-center justify-center gap-1.5">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                     Compile Report
@@ -691,7 +696,7 @@ const appSchema = {
             <div class="space-y-4">
               <div class="flex items-center justify-between border-b border-hairline/25 pb-3 select-none">
                 <div class="flex items-center gap-2">
-                  <span class="text-xs font-bold text-link">Focus vault</span>
+                  <span class="text-sm font-bold text-link">Focus vault</span>
                   <span class="px-1.5 py-0.5 bg-link/10 text-link text-xs font-bold rounded">PRIVACY ENCRYPTED</span>
                 </div>
                 <span class="text-xs font-mono text-mute">Local Backup & Restore Layer</span>
@@ -701,13 +706,13 @@ const appSchema = {
                 <!-- Left: Description -->
                 <div class="md:col-span-2 space-y-2">
                   <h4 class="text-xl font-bold tracking-tight text-ink mb-1">Export and restore your focus history</h4>
-                  <p class="text-sm text-body leading-relaxed">
+                  <p class="text-base text-body leading-relaxed">
                     Protect your growth journey. Export all sessions, goals, streaks, milestones, weekly reflections, and coaching data into a secure JSON backup file. Import your backup on another browser or device to sync your history.
                   </p>
                   <div class="flex flex-wrap gap-2 pt-1.5 select-none">
-                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[10px] text-mute uppercase tracking-wider">No Cloud Accounts</span>
-                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[10px] text-mute uppercase tracking-wider">JSON Serialization</span>
-                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[10px] text-mute uppercase tracking-wider">Local Integrity Verification</span>
+                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[11px] text-mute font-medium">No Cloud Accounts</span>
+                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[11px] text-mute font-medium">JSON Serialization</span>
+                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[11px] text-mute font-medium">Local Integrity Verification</span>
                   </div>
                   <!-- Non-blocking feedback notice -->
                   <div id="vault-status-notice" class="hidden text-xs mt-2 font-medium"></div>
@@ -739,10 +744,10 @@ const appSchema = {
     <div class="max-w-4xl mx-auto text-center mt-24 mb-12 px-2 select-none border-t border-hairline pt-16">
       <span class="inline-block text-sm font-bold text-link mb-2">About Tooltails Focus</span>
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-ink mb-6 text-pretty leading-[1.1]">
-        Focus on goals, not just time.
+        Focus on what matters, not just the clock.
       </h2>
-      <p class="text-base md:text-lg text-body leading-relaxed max-w-[720px] mx-auto text-balance mb-8">
-        Tooltails Focus is a goal-first workspace. Define a clear objective, break it down into checkpoints, and align your attention to ship outcomes instead of just tracking raw seconds.
+          <p class="text-base md:text-lg text-body leading-relaxed max-w-[720px] mx-auto text-balance mb-8">
+        Most timers just count seconds. Tooltails Focus helps you set a real intention, break it into small steps, and actually finish what you start. No accounts, no distractions — just you and your goal.
       </p>
       
       <div class="flex justify-center">
@@ -755,7 +760,7 @@ const appSchema = {
 
     <!-- How it Differs from a Pomodoro Timer -->
     <div class="max-w-4xl mx-auto mb-16 space-y-6 px-2">
-      <h3 class="text-lg font-bold text-ink text-center select-none">How it differs from a Pomodoro timer</h3>
+      <h3 class="text-xl font-bold text-ink text-center select-none">How this is different from a Pomodoro timer</h3>
       
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
         <!-- Card 1 -->
@@ -766,12 +771,12 @@ const appSchema = {
               <span class="text-xs text-mute">Outcomes</span>
             </div>
             <h4 class="text-sm font-bold text-ink">Focus on Outcomes</h4>
-            <p class="text-sm text-body leading-relaxed">
-              Standard timers track only the time you spend sitting. Tooltails Focus anchors your timer to a specific goal so you focus on getting things done.
+            <p class="text-base text-body leading-relaxed">
+              Other timers just track how long you sit there. Tooltails Focus keeps your eyes on the prize — finishing what you set out to do.
             </p>
             <div class="border-t border-hairline/60 pt-2 text-xs space-y-1">
-              <div class="flex justify-between"><span class="text-mute">Traditional Pomodoro:</span> <span class="font-medium text-error">Ticking Duration</span></div>
-              <div class="flex justify-between"><span class="text-mute">Tooltails Focus:</span> <span class="font-bold text-success">Achieved Intention</span></div>
+              <div class="flex justify-between"><span class="text-mute">Pomodoro:</span> <span class="font-medium text-error">Ticks down blindly</span></div>
+              <div class="flex justify-between"><span class="text-mute">Tooltails Focus:</span> <span class="font-bold text-success">Tied to a real goal</span></div>
             </div>
           </div>
         </div>
@@ -784,12 +789,12 @@ const appSchema = {
               <span class="text-xs text-mute">Decomposition</span>
             </div>
             <h4 class="text-sm font-bold text-ink">Goal Checklist</h4>
-            <p class="text-sm text-body leading-relaxed">
-              Large tasks can feel overwhelming. Break your goal down into 2-3 smaller checkpoints to make starting easier and keep your progress steady.
+            <p class="text-base text-body leading-relaxed">
+              Big goals can feel overwhelming. Break yours into 2-3 small checkpoints so you always know what to do next and can see yourself making progress.
             </p>
             <div class="border-t border-hairline/60 pt-2 text-xs space-y-1">
-              <div class="flex justify-between"><span class="text-mute">Traditional Pomodoro:</span> <span class="font-medium text-error">Vague Tasks</span></div>
-              <div class="flex justify-between"><span class="text-mute">Tooltails Focus:</span> <span class="font-bold text-purple-600">Milestone Checklist</span></div>
+              <div class="flex justify-between"><span class="text-mute">Pomodoro:</span> <span class="font-medium text-error">Vague task list</span></div>
+              <div class="flex justify-between"><span class="text-mute">Tooltails Focus:</span> <span class="font-bold text-purple-600">Clear milestone checklist</span></div>
             </div>
           </div>
         </div>
@@ -802,12 +807,12 @@ const appSchema = {
               <span class="text-xs text-mute">Recovery</span>
             </div>
             <h4 class="text-sm font-bold text-ink">Recovery Advice</h4>
-            <p class="text-sm text-body leading-relaxed">
-              Distractions happen. If a session is interrupted, get simple, actionable recommendations (like shorter sessions or screen breaks) to help rebuild your momentum.
+            <p class="text-base text-body leading-relaxed">
+              Distractions happen. If a session gets interrupted, there's no guilt — just a gentle nudge about what went wrong and a practical tip to help you bounce back.
             </p>
             <div class="border-t border-hairline/60 pt-2 text-xs space-y-1">
-              <div class="flex justify-between"><span class="text-mute">Traditional Pomodoro:</span> <span class="font-medium text-error">Guilt on failure</span></div>
-              <div class="flex justify-between"><span class="text-mute">Tooltails Focus:</span> <span class="font-bold text-rose-500">Actionable advice</span></div>
+              <div class="flex justify-between"><span class="text-mute">Pomodoro:</span> <span class="font-medium text-error">Feel bad and move on</span></div>
+              <div class="flex justify-between"><span class="text-mute">Tooltails Focus:</span> <span class="font-bold text-rose-500">Actionable recovery advice</span></div>
             </div>
           </div>
         </div>
@@ -821,10 +826,10 @@ const appSchema = {
         <h2 class="text-sm font-bold text-link mb-2">How it works</h2>
         <h3 class="text-4xl font-bold tracking-tighter text-ink mb-4">Focus on goals, not just time.</h3>
         <p class="text-base text-body leading-relaxed mb-4">
-          Time-trackers measure compliance. They count the minutes you spend sitting at a screen. But they ignore the most important question: <strong>did you actually accomplish your task?</strong>
+          Regular timers measure how long you sit at your desk. But they never ask the real question: <strong>did you actually get it done?</strong>
         </p>
         <p class="text-base text-body leading-relaxed mb-4">
-          Tooltails Focus shifts the focus to outcomes. By writing a defined goal before you start, your mind stays locked onto the objective. Adding checkpoints helps break down the scope, preventing hesitation and procrastination.
+          Tooltails Focus shifts the focus to outcomes. Write down what you want to accomplish before you start, and your mind locks onto the goal instead of the clock. Adding small checkpoints makes even big tasks feel manageable.
         </p>
         <div class="flex items-center gap-6 mt-6">
           <div class="flex flex-col">
@@ -840,23 +845,23 @@ const appSchema = {
       </div>
 
       <div class="flex flex-col justify-center bg-canvas-soft border border-hairline rounded-sm p-6 lg:p-8 space-y-4">
-        <h4 class="text-base font-bold text-ink">How to run a successful focus session:</h4>
-        <ul class="space-y-3.5 text-sm text-body">
+        <h4 class="text-base font-bold text-ink">Here's how to run a great session:</h4>
+          <ul class="space-y-3.5 text-base text-body">
           <li class="flex items-start gap-2.5">
             <span class="flex items-start justify-center w-6 h-6 bg-link/10 rounded-full text-link font-bold text-xs">1</span>
-            <span><strong>Select an activity and enter a specific goal.</strong> Write it clearly (e.g. "Write first draft of Chapter 1", instead of "Work on book").</span>
+            <span><strong>Pick an activity and set a specific goal.</strong> Instead of "work on book", try "write the first draft of Chapter 1". The clearer you are, the easier it is to start.</span>
           </li>
           <li class="flex items-start gap-2.5">
             <span class="flex items-start justify-center w-6 h-6 bg-link/10 rounded-full text-link font-bold text-xs">2</span>
-            <span><strong>Break it down into 2-3 checkpoints.</strong> This gives you a clear path forward and keeps you from stalling.</span>
+            <span><strong>Break it into 2-3 small steps.</strong> A short checklist gives you a clear path forward and stops you from stalling.</span>
           </li>
           <li class="flex items-start gap-2.5">
             <span class="flex items-start justify-center w-6 h-6 bg-link/10 rounded-full text-link font-bold text-xs">3</span>
-            <span><strong>Turn on background noise if needed</strong> to block out ambient distractions, then start the timer.</span>
+            <span><strong>Turn on background sound if you like</strong> to block out noise, then hit start and get into flow.</span>
           </li>
           <li class="flex items-start gap-2.5">
             <span class="flex items-start justify-center w-6 h-6 bg-link/10 rounded-full text-link font-bold text-xs">4</span>
-            <span><strong>Log your progress when done.</strong> Check off completed tasks, and reflect on what went well or what blocked you.</span>
+            <span><strong>Check off what you finished and reflect.</strong> Mark completed steps, log how it went, and learn from every session.</span>
           </li>
         </ul>
       </div>
@@ -866,8 +871,8 @@ const appSchema = {
         <div class="text-center space-y-3">
           <span class="text-sm font-bold text-link">Workspace capabilities</span>
           <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-ink mb-3 leading-[1.1]">Core features</h2>
-          <p class="text-sm text-body leading-relaxed max-w-2xl mx-auto">
-            Tooltails Focus includes simple, offline-first tools to help you set clear goals and track your progress over time.
+          <p class="text-base text-body leading-relaxed max-w-2xl mx-auto">
+            Just the essentials: set a goal, choose your time, and get to work — all offline, all private.
           </p>
         </div>
 
@@ -879,8 +884,8 @@ const appSchema = {
             </div>
             <div class="space-y-2">
               <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1">Customizable focus sessions</h3>
-              <p class="text-sm text-body leading-relaxed">
-                Define your own work and break intervals (e.g., the high-efficiency 50/10 split). Lock out distractions with our dark, distraction-free immersive overlay and block background noise using synthesized ambient noise (brown noise, white noise, rain) generated directly via browser audio nodes.
+              <p class="text-base text-body leading-relaxed">
+                Choose your own work and break lengths — whether that's the classic 25/5, a deep 90-minute sprint, or something in between. Switch on ambient brown noise, white noise, or rain to help you focus, all generated right in your browser without any downloads.
               </p>
             </div>
           </div>
@@ -892,8 +897,8 @@ const appSchema = {
             </div>
             <div class="space-y-2">
               <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1">Micro-goal milestone tracking</h3>
-              <p class="text-sm text-body leading-relaxed">
-                Anchor your focus with a clear, specific intention. Avoid procrastination by decomposing large objectives into 2-3 structured mini-checkpoints. At the end of every block, log whether you completed, partially completed, or failed your target to build tangible outcome momentum.
+              <p class="text-base text-body leading-relaxed">
+                Set a clear intention before you start, then break big tasks into small checkpoints so you always know what's next. When your session ends, mark whether you finished, partly finished, or got stuck — and build real momentum over time.
               </p>
             </div>
           </div>
@@ -905,7 +910,7 @@ const appSchema = {
             </div>
             <div class="space-y-2">
               <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1">Success analytics & forecasting</h3>
-              <p class="text-sm text-body leading-relaxed">
+              <p class="text-base text-body leading-relaxed">
                 Understand your cognitive baseline with rich analytics. Track focus durations, success curves, and completion rates. Our dashboard features a GitHub-style heatmap showing focus density and calculates success rate probability metrics to forecast future workflow success.
               </p>
             </div>
@@ -918,7 +923,7 @@ const appSchema = {
             </div>
             <div class="space-y-2">
               <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1">Cognitive recovery coach</h3>
-              <p class="text-sm text-body leading-relaxed">
+              <p class="text-base text-body leading-relaxed">
                 Interrupted? Don't stress. If a focus block is skipped or marked as failed, our localized Recovery Advisor engine diagnoses the root driver (mental fatigue, ambient noise, task scope) and generates actionable recovery pacing corrections (e.g. screen-free breaks, reducing block size).
               </p>
             </div>
@@ -931,7 +936,7 @@ const appSchema = {
             </div>
             <div class="space-y-2">
               <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1">Monthly performance growth reports</h3>
-              <p class="text-sm text-body leading-relaxed">
+              <p class="text-base text-body leading-relaxed">
                 Compile your locally logged activity data into a beautiful, printable PDF Performance Digest. Get personal growth analytics including focus density curves, streak timelines, achievement milestones, and personalized coaching reflections to guide your habit progression without any account setups.
               </p>
             </div>
@@ -1118,7 +1123,7 @@ const appSchema = {
   <!-- Keyboard Shortcuts Dialog Modal -->
   <dialog id="shortcuts-dialog" class="backdrop:bg-black/40 backdrop:backdrop-blur-sm bg-canvas border border-hairline p-6 rounded-2xl shadow-2xl max-w-sm w-full focus:outline-none select-none text-left">
     <div class="flex items-center justify-between border-b border-hairline pb-3 mb-4">
-      <h3 class="text-xs font-bold text-ink uppercase tracking-widest">Keyboard Shortcuts</h3>
+      <h3 class="text-sm font-bold text-ink">Keyboard Shortcuts</h3>
       <button onclick="document.getElementById('shortcuts-dialog').close()" class="text-mute hover:text-ink transition-colors cursor-pointer focus:outline-none" aria-label="Close shortcuts dialog">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
@@ -1323,12 +1328,12 @@ const appSchema = {
       const btn = document.getElementById(`tab-btn-${t}`);
       const panel = document.getElementById(`tab-${t}`);
       if (t === tab) {
-        btn?.classList.remove('text-body', 'font-medium', 'hover:bg-canvas-soft');
-        btn?.classList.add('bg-canvas', 'text-ink', 'font-bold', 'shadow-sm');
+        btn?.classList.remove('text-body');
+        btn?.classList.add('bg-canvas', 'text-ink', 'shadow-sm');
         panel?.classList.remove('hidden');
       } else {
-        btn?.classList.add('text-body', 'font-medium', 'hover:bg-canvas-soft');
-        btn?.classList.remove('bg-canvas', 'text-ink', 'font-bold', 'shadow-sm');
+        btn?.classList.add('text-body');
+        btn?.classList.remove('bg-canvas', 'text-ink', 'shadow-sm');
         panel?.classList.add('hidden');
       }
     });
@@ -2022,10 +2027,12 @@ const appSchema = {
     const immPauseIcon = document.getElementById('imm-pause-icon');
     const playText = document.getElementById('play-btn-text');
     const immPlayText = document.getElementById('imm-play-btn-text');
+    const timerContainer = document.getElementById('timer-container-card');
 
     isTimerRunning = start;
 
     if (start) {
+      timerContainer?.classList.add('timer-running');
       // Toggle play pause icons
       playIcon?.classList.add('hidden');
       pauseIcon?.classList.remove('hidden');
@@ -2061,6 +2068,7 @@ const appSchema = {
         }
       }, 1000);
     } else {
+      timerContainer?.classList.remove('timer-running');
       playIcon?.classList.remove('hidden');
       pauseIcon?.classList.add('hidden');
       immPlayIcon?.classList.remove('hidden');
@@ -2091,9 +2099,25 @@ const appSchema = {
     const ring = document.getElementById('timer-progress-ring') as SVGPathElement;
     if (ring) {
       const maxDash = 282.74; // Circumference of r=45 viewBox coordinate circle
-      const percentRemaining = timerDurationSeconds > 0 ? (timerRemainingSeconds / timerDurationSeconds) : 0;
-      const offset = maxDash - (percentRemaining * maxDash);
+      const ratio = timerDurationSeconds > 0 ? (timerRemainingSeconds / timerDurationSeconds) : 0;
+      const offset = maxDash - (ratio * maxDash);
       ring.style.strokeDashoffset = offset.toString();
+    }
+
+    // Progress dot position — follows the arc end
+    const dot = document.getElementById('timer-progress-dot');
+    const dotGlow = document.getElementById('timer-progress-dot-glow');
+    if (dot) {
+      const percent = timerDurationSeconds > 0 ? 1 - (timerRemainingSeconds / timerDurationSeconds) : 0;
+      const angle = percent * 2 * Math.PI - Math.PI / 2;
+      const cx = 50 + 45 * Math.cos(angle);
+      const cy = 50 + 45 * Math.sin(angle);
+      dot.setAttribute('cx', cx.toFixed(2));
+      dot.setAttribute('cy', cy.toFixed(2));
+      if (dotGlow) {
+        dotGlow.setAttribute('cx', cx.toFixed(2));
+        dotGlow.setAttribute('cy', cy.toFixed(2));
+      }
     }
 
     // Immersive progress bar
@@ -2128,7 +2152,7 @@ const appSchema = {
     document.getElementById('timer-presets-section')?.classList.remove('hidden');
     document.getElementById('setup-panel-below-fold')?.classList.remove('hidden');
     document.getElementById('tab-workspace')?.classList.remove('workspace-active-focus');
-    document.getElementById('timer-container-card')?.classList.remove('timer-active');
+    document.getElementById('timer-container-card')?.classList.remove('timer-active', 'timer-running');
     document.getElementById('timer-active-glow')?.classList.remove('opacity-100');
     document.getElementById('timer-active-glow')?.classList.add('opacity-0');
     
@@ -5111,12 +5135,90 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
   :root[data-theme="dark"] #timer-progress-bg {
     opacity: 0.2;
   }
+
+  /* ── Living Timer — Depth & Animation ── */
+
+  /* Layered inner shadow for the timer dial */
+  .timer-dial-shadow {
+    box-shadow:
+      inset 0 2px 4px rgba(0,0,0,0.015),
+      inset 0 8px 24px rgba(0,0,0,0.03),
+      inset 0 1px 2px rgba(0,0,0,0.01),
+      0 2px 8px rgba(0,0,0,0.015);
+  }
+  :root[data-theme="dark"] .timer-dial-shadow {
+    box-shadow:
+      inset 0 2px 4px rgba(0,0,0,0.3),
+      inset 0 8px 24px rgba(0,0,0,0.4),
+      inset 0 1px 2px rgba(0,0,0,0.2);
+  }
+
+  /* Progress ring default glow */
   #timer-progress-ring {
     filter: drop-shadow(0 2px 6px rgba(37, 99, 235, 0.12));
-    transition: filter 0.4s ease, stroke-dashoffset 0.5s ease-out;
+    transition: filter 0.6s ease, stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .timer-active #timer-progress-ring {
-    filter: drop-shadow(0 0 16px rgba(37, 99, 235, 0.35));
+    filter: drop-shadow(0 0 18px rgba(37, 99, 235, 0.3));
+  }
+
+  /* Progress dot glow */
+  #timer-progress-dot {
+    filter: drop-shadow(0 0 6px rgba(37, 99, 235, 0.5));
+    transition: cx 0.7s cubic-bezier(0.4, 0, 0.2, 1), cy 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #timer-progress-dot-glow {
+    transition: cx 0.7s cubic-bezier(0.4, 0, 0.2, 1), cy 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .timer-active #timer-progress-dot {
+    filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.7));
+  }
+
+  /* ── Breathing animation for the timer dial ── */
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.018); }
+  }
+  .timer-active .timer-dial-wrapper {
+    animation: breathe 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  /* ── Glow pulse for active radial glow ── */
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+  .timer-active #timer-active-glow {
+    animation: glowPulse 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  /* ── Text breathing — subtle countdown pulse ── */
+  @keyframes textBreath {
+    0%, 100% { opacity: 1; letter-spacing: -0.04em; }
+    50% { opacity: 0.88; letter-spacing: -0.02em; }
+  }
+  .timer-running #timer-countdown {
+    animation: textBreath 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  /* ── Smooth number transitions on the countdown ── */
+  #timer-countdown {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Immersive countdown same treatment */
+  #immersive-countdown {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ── Session label fade transition ── */
+  #timer-session-label {
+    transition: opacity 0.4s ease, transform 0.4s ease;
   }
 
   /* Active state for activity, preset, and sound buttons */
@@ -5131,6 +5233,85 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
   .preset-btn.border-link *,
   .sound-btn.border-link * {
     color: #ffffff !important;
+  }
+
+  /* ── Premium micro-interactions ── */
+
+  /* Card lift on hover — subtle translateY + shadow */
+  .card-lift {
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+  }
+  :root[data-theme="dark"] .card-lift:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  }
+
+  /* Control icon buttons — subtle scale + shadow on hover */
+  .control-btn {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .control-btn:hover {
+    background-color: var(--color-canvas-soft-2);
+    transform: scale(1.05);
+  }
+  .control-btn:active {
+    transform: scale(0.95);
+  }
+
+  /* Primary action buttons — refined hover lift */
+  .btn-primary {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.18);
+  }
+  .btn-primary:active {
+    transform: translateY(0px) scale(0.98);
+  }
+
+  /* Tab buttons — smoother active indicator */
+  .tab-btn {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .tab-btn:hover:not(.bg-canvas) {
+    background-color: var(--color-canvas-soft);
+  }
+
+  /* Input focus — refined ring */
+  .input-premium {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Outcome radio labels — subtle lift on hover + active ring */
+  .outcome-radio-label {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .outcome-radio-label:has(input:checked) {
+    border-color: var(--color-link);
+    background-color: color-mix(in srgb, var(--color-link) 5%, transparent);
+    box-shadow: 0 0 0 1px var(--color-link);
+  }
+  .outcome-radio-label:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+  .outcome-radio-label:active {
+    transform: scale(0.97);
+  }
+
+  /* Modal close button — subtle rotation on hover */
+  .modal-close-btn:hover svg {
+    transform: rotate(90deg);
+  }
+  .modal-close-btn svg {
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* Immersive fade transitions */
@@ -5200,11 +5381,5 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     to {
       transform: rotate(360deg);
     }
-  }
-
-  /* Font smoothing for premium feel */
-  #timer-countdown {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 </style>
