@@ -115,7 +115,7 @@ const appSchema = {
             <div id="setup-panel" class="w-full space-y-5 flex flex-col">
               <!-- Session Goal Input -->
               <div>
-                <label for="session-goal" class="text-xs font-bold text-mute mb-2 block uppercase tracking-wider select-none text-left">
+                <label for="session-goal" class="text-sm font-bold text-ink mb-2 block select-none text-left">
                   What do you want to finish today?
                 </label>
                 <input 
@@ -131,7 +131,7 @@ const appSchema = {
 
               <!-- Activity Selector (Sleek category pills) -->
               <div class="space-y-2 select-none">
-                <span class="text-xs font-bold text-mute uppercase tracking-wider block mb-1 select-none text-left">Choose what you're working on</span>
+                <span class="text-sm font-bold text-ink mb-1 select-none text-left">Choose what you're working on</span>
                 <div class="flex items-center gap-1.5 flex-wrap">
                   <button type="button" class="activity-btn px-3 py-1.5 text-xs rounded-full bg-canvas-soft-2/65 text-body hover:bg-canvas-soft hover:text-ink active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 duration-200 cursor-pointer group flex items-center gap-1 border-link bg-link/5 text-link" data-activity="Coding" aria-label="Select Coding">
                     <span>💻</span> Coding
@@ -161,7 +161,7 @@ const appSchema = {
               <!-- Checkpoints Checklist Section -->
               <div class="w-full space-y-3 border-t border-hairline/45 pt-4 text-left">
                 <div class="flex items-center justify-between select-none pb-0.5">
-                  <span class="text-xs font-bold uppercase tracking-wider text-mute select-none">Break it down into small steps</span>
+                  <span class="text-sm font-bold text-ink select-none">Break it down into small steps</span>
                 </div>
                 <div class="flex gap-2">
                   <input 
@@ -205,7 +205,7 @@ const appSchema = {
               <!-- Checklist of checkpoints -->
               <div class="space-y-2 text-left">
                 <div class="flex items-center justify-between select-none border-b border-hairline pb-1.5">
-                  <h3 class="text-xs font-bold uppercase tracking-wider text-mute">Steps to complete</h3>
+                  <h3 class="text-sm font-bold text-ink">Steps to complete</h3>
                   <span id="active-checklist-ratio" class="text-xs text-mute font-mono">Check them off as you go</span>
                 </div>
                 <ul id="active-milestones-list" class="space-y-1.5 max-h-[160px] overflow-y-auto scrollbar-thin">
@@ -217,7 +217,7 @@ const appSchema = {
               <div id="active-why-matters-panel" class="hidden p-3.5 bg-canvas-soft/40 border-l-2 border-link rounded-r-lg text-xs leading-relaxed flex items-start gap-2.5 shadow-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-link shrink-0 mt-0.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 <div>
-                  <span class="text-[10px] font-bold text-link uppercase tracking-wider block mb-0.5 select-none">Why this is important to you</span>
+                  <span class="text-xs font-bold text-link block mb-0.5 select-none">Why this matters to you</span>
                   <span id="active-why-matters-text" class="text-body italic">Motivation text</span>
                 </div>
               </div>
@@ -301,15 +301,15 @@ const appSchema = {
       </div>
 
       <!-- BELOW THE FOLD SECTION (Checkpoints, Settings, Audio Synth, Streaks & Stats) -->
-      <div class="border-t border-hairline pt-12 mt-20 space-y-16">
+      <div class="border-t border-hairline pt-8 mt-10 space-y-8">
         
         <!-- Checklist and Why this matters section (Setup Panel Part 2 - Hidden during active session) -->
-        <div id="setup-panel-below-fold" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div id="setup-panel-below-fold" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           <!-- Why This Matters Input -->
-          <div class="lg:col-span-6 space-y-4">
-            <div class="bg-canvas rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-6 space-y-4 select-none border border-hairline/60">
-              <label for="session-goal-why" class="text-xs font-semibold text-mute mb- block uppercase tracking-widest select-none">
+          <div class="lg:col-span-6">
+            <div class="bg-canvas rounded-xl border border-hairline/60 p-5 space-y-3 select-none">
+              <label for="session-goal-why" class="text-sm font-bold text-ink block select-none">
                 Why is this important to you? (optional)
               </label>
               <input 
@@ -325,91 +325,81 @@ const appSchema = {
           </div>
 
           <!-- Settings panel options: Presets and Sounds -->
-          <div class="lg:col-span-6 space-y-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 select-none">
+          <div class="lg:col-span-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 select-none">
               
               <!-- Session Duration presets -->
-              <div class="space-y-4" id="timer-presets-section">
-                <div class="flex items-center justify-between text-sm border-b border-hairline/25 pb-1.5">
-                  <span class="text-xs font-semibold text-mute uppercase tracking-widest select-none">Set focus duration</span>
-                  <span class="text-link text-xs font-bold">Select preset</span>
-                </div>
+              <div class="space-y-3" id="timer-presets-section">
+                <span class="text-sm font-bold text-ink block">Focus duration</span>
                 
-                <div class="grid grid-cols-2 gap-2">
-                  <button type="button" class="preset-btn py-2.5 px-3 border border-hairline/60 rounded-xl bg-canvas text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group border-link text-link" data-focus="25" data-break="5" aria-label="Classic Pomodoro: 25 minutes work focus and 5 minutes rest break">
+                <div class="grid grid-cols-2 gap-1.5">
+                  <button type="button" class="preset-btn py-2 px-3 border border-hairline/60 rounded-lg bg-canvas text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group border-link text-link" data-focus="25" data-break="5" aria-label="Classic Pomodoro: 25 minutes work focus and 5 minutes rest break">
                     <div class="text-sm font-bold group-hover:text-link transition-colors duration-150 tabular-nums">25m Sprint</div>
                   </button>
-                  <button type="button" class="preset-btn py-2.5 px-3 border border-hairline/60 rounded-xl bg-canvas text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group" data-focus="50" data-break="10" aria-label="Extended sprint: 50 minutes work focus and 10 minutes rest break">
+                  <button type="button" class="preset-btn py-2 px-3 border border-hairline/60 rounded-lg bg-canvas text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group" data-focus="50" data-break="10" aria-label="Extended sprint: 50 minutes work focus and 10 minutes rest break">
                     <div class="text-sm font-bold group-hover:text-link transition-colors duration-150 tabular-nums">50m Double</div>
                   </button>
-                  <button type="button" class="preset-btn py-2.5 px-3 border border-hairline/60 rounded-xl bg-canvas text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group" data-focus="90" data-break="0" aria-label="Deep Flow sprint: 90 minutes work focus with no rest break">
+                  <button type="button" class="preset-btn py-2 px-3 border border-hairline/60 rounded-lg bg-canvas text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group" data-focus="90" data-break="0" aria-label="Deep Flow sprint: 90 minutes work focus with no rest break">
                     <div class="text-sm font-bold group-hover:text-link transition-colors duration-150 tabular-nums">90m Flow</div>
                   </button>
-                  <button type="button" class="preset-btn py-2.5 px-3 border border-hairline/60 rounded-xl bg-canvas text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group" data-focus="custom" aria-label="Set custom work focus and rest timing block">
+                  <button type="button" class="preset-btn py-2 px-3 border border-hairline/60 rounded-lg bg-canvas text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/20 duration-200 cursor-pointer shadow-sm group" data-focus="custom" aria-label="Set custom work focus and rest timing block">
                     <div class="text-sm font-bold group-hover:text-ink transition-colors duration-150">Custom Block</div>
                   </button>
                 </div>
 
                 <!-- Custom inputs (slider-driven) -->
-                <div id="custom-presets-panel" class="hidden border-0 rounded-xl p-4 space-y-3 bg-canvas-soft shadow-inner">
+                <div id="custom-presets-panel" class="hidden rounded-lg p-3 space-y-2 bg-canvas-soft shadow-inner">
                   <div class="flex items-center justify-between text-sm">
-                    <span class="text-body font-medium">Focus: <span id="custom-focus-val" class="font-bold text-ink tabular-nums">30m</span></span>
+                    <span class="text-body">Focus: <span id="custom-focus-val" class="font-bold text-ink tabular-nums">30m</span></span>
                     <input type="range" id="custom-focus-slider" min="1" max="180" value="30" class="w-1/2 accent-link" aria-label="Custom work focus minutes slider" />
                   </div>
                   <div class="flex items-center justify-between text-sm">
-                    <span class="text-body font-medium">Break: <span id="custom-break-val" class="font-bold text-ink tabular-nums">5m</span></span>
+                    <span class="text-body">Break: <span id="custom-break-val" class="font-bold text-ink tabular-nums">5m</span></span>
                     <input type="range" id="custom-break-slider" min="0" max="60" value="5" class="w-1/2 accent-link" aria-label="Custom rest break minutes slider" />
                   </div>
                 </div>
               </div>
 
               <!-- Web Audio Ambient Sounds Selector -->
-              <div class="space-y-4">
-                <div class="flex items-center justify-between text-sm border-b border-hairline/25 pb-1.5">
-                  <span class="text-xs font-semibold text-mute uppercase tracking-widest select-none">Ambient environment</span>
-                  <span class="text-link text-xs font-bold flex items-center gap-0.5">
-                    <svg class="h-3 w-3 animate-spin hidden" id="sound-loading-spinner" viewBox="0 0 24 24" aria-hidden="true"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
-                    Web Audio Synth
-                  </span>
-                </div>
-                <div class="grid grid-cols-4 gap-1.5 text-sm font-bold">
-                  <button type="button" class="sound-btn py-2.5 border rounded-xl bg-canvas hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all text-sm font-medium font-mono border-link text-link" data-sound="mute" aria-label="Mute ambient noise generator">Mute</button>
-                  <button type="button" class="sound-btn py-2.5 border border-hairline/60 bg-canvas text-body rounded-xl hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all text-sm font-medium font-mono" data-sound="brown" aria-label="Play ambient brown noise">Brown</button>
-                  <button type="button" class="sound-btn py-2.5 border border-hairline/60 bg-canvas text-body rounded-xl hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all text-sm font-medium font-mono" data-sound="white" aria-label="Play ambient white noise">White</button>
-                  <button type="button" class="sound-btn py-2.5 border border-hairline/60 bg-canvas text-body rounded-xl hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all text-sm font-medium font-mono" data-sound="rain" aria-label="Play ambient rain sound">Rain</button>
+              <div class="space-y-3">
+                <span class="text-sm font-bold text-ink block">Background sound</span>
+                <div class="grid grid-cols-4 gap-1">
+                  <button type="button" class="sound-btn py-2 border rounded-lg bg-canvas hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all text-sm font-medium font-mono border-link text-link" data-sound="mute" aria-label="Mute ambient noise generator">Mute</button>
+                  <button type="button" class="sound-btn py-2 border border-hairline/60 bg-canvas text-body rounded-lg hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all text-sm font-medium font-mono" data-sound="brown" aria-label="Play ambient brown noise">Brown</button>
+                  <button type="button" class="sound-btn py-2 border border-hairline/60 bg-canvas text-body rounded-lg hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all text-sm font-medium font-mono" data-sound="white" aria-label="Play ambient white noise">White</button>
+                  <button type="button" class="sound-btn py-2 border border-hairline/60 bg-canvas text-body rounded-lg hover:bg-canvas-soft-2 hover:text-ink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/25 transition-all text-sm font-medium font-mono" data-sound="rain" aria-label="Play ambient rain sound">Rain</button>
                 </div>
               </div>
 
             </div>
           </div>
-        </div>  </div>
         </div>
 
         <!-- Today's Progress Cards Group -->
-        <div class="w-full select-none pt-12 border-t border-hairline/60" id="today-progress-section">
-          <div class="flex items-center justify-between text-sm font-bold text-ink tracking-tight mb-6 pb-2 border-b border-hairline/44">
-            <span class="text-xs font-semibold text-mute uppercase tracking-widest select-none">Today's progress</span>
+        <div class="w-full select-none pt-8" id="today-progress-section">
+          <div class="flex items-center justify-between mb-4 pb-2 border-b border-hairline/44">
+            <span class="text-sm font-bold text-ink select-none">Today's progress</span>
           </div>
           
-          <div class="grid grid-cols-3 gap-6">
+          <div class="grid grid-cols-3 gap-4">
             <!-- Focus Time Today -->
-            <div class="bg-canvas rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-5 text-center relative overflow-hidden group hover:bg-canvas-soft-2/20 transition-all duration-200 border-0">
-              <div class="text-[10px] font-mono text-mute uppercase tracking-wider mb-2.5">Time focusing</div>
-              <div id="workspace-today-focus-time" class="text-lg font-bold text-ink tracking-tight tabular-nums">0m</div>
+            <div class="bg-canvas rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-4 text-center border-0">
+              <div class="text-xs font-medium text-mute mb-1.5">Time focusing</div>
+              <div id="workspace-today-focus-time" class="text-2xl font-bold text-ink tracking-tight tabular-nums">0m</div>
             </div>
 
             <!-- Current Streak -->
-            <div class="bg-canvas rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-5 text-center relative overflow-hidden group hover:bg-canvas-soft-2/20 transition-all duration-200 border-0">
-              <div class="text-[10px] font-mono text-mute uppercase tracking-wider mb-2.5">Focus streak</div>
-              <div id="workspace-today-streak" class="text-lg font-bold text-ink tracking-tight tabular-nums flex items-center justify-center gap-1">
+            <div class="bg-canvas rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-4 text-center border-0">
+              <div class="text-xs font-medium text-mute mb-1.5">Focus streak</div>
+              <div id="workspace-today-streak" class="text-2xl font-bold text-ink tracking-tight tabular-nums flex items-center justify-center gap-1">
                 <span class="text-warning">🔥</span> 0d
               </div>
             </div>
 
             <!-- Completion Rate -->
-            <div class="bg-canvas rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-5 text-center relative overflow-hidden group hover:bg-canvas-soft-2/20 transition-all duration-200 border-0">
-              <div class="text-[10px] font-mono text-mute uppercase tracking-wider mb-2.5">Goals finished</div>
-              <div id="workspace-today-rate" class="text-lg font-bold text-ink tracking-tight tabular-nums">0%</div>
+            <div class="bg-canvas rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-4 text-center border-0">
+              <div class="text-xs font-medium text-mute mb-1.5">Goals finished</div>
+              <div id="workspace-today-rate" class="text-2xl font-bold text-ink tracking-tight tabular-nums">0%</div>
             </div>
           </div>
         </div>
@@ -421,17 +411,17 @@ const appSchema = {
         <!-- Summary Stats Metrics Grid -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div class="bg-canvas p-5 sm:p-6 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
-            <div class="text-[10px] font-mono text-mute uppercase tracking-wider mb-2.5">Total focused time</div>
+            <div class="text-xs font-semibold text-mute mb-2">Total focused time</div>
             <div class="text-3xl font-bold tracking-tighter text-ink tabular-nums leading-none" id="stat-total-time">0h 00m</div>
             <div class="text-xs text-mute/80 mt-2">Across all logged sessions</div>
           </div>
           <div class="bg-canvas p-5 sm:p-6 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
-            <div class="text-[10px] font-mono text-mute uppercase tracking-wider mb-2.5">Completion rate</div>
+            <div class="text-xs font-semibold text-mute mb-2">Completion rate</div>
             <div class="text-3xl font-bold tracking-tighter text-ink tabular-nums leading-none" id="stat-completion-rate">0%</div>
             <div class="text-xs text-mute/80 mt-2">Ratio of Fully Completed goals</div>
           </div>
           <div class="bg-canvas p-5 sm:p-6 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
-            <div class="text-[10px] font-mono text-mute uppercase tracking-wider mb-2.5">Current streak</div>
+            <div class="text-xs font-semibold text-mute mb-2">Current streak</div>
             <div class="text-3xl font-bold tracking-tighter text-ink flex items-center gap-1.5 tabular-nums leading-none" id="stat-streak">
               <span class="tabular-nums">0</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="text-warning" aria-hidden="true"><path d="M17.687 9.581a5.87 5.87 0 0 0-4.887-2.91V3.25a.75.75 0 0 0-1.28-.53l-8.25 8.25a.75.75 0 0 0 .53 1.28h5.319v5.999a5.87 5.87 0 0 0 4.887 2.911l.248-.005a5.87 5.87 0 0 0 4.887-2.906A5.87 5.87 0 0 0 17.687 9.581Z"/></svg>
@@ -439,7 +429,7 @@ const appSchema = {
             <div class="text-xs text-mute/80 mt-2">Consecutive workdays active</div>
           </div>
           <div class="bg-canvas p-5 sm:p-6 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
-            <div class="text-[10px] font-mono text-mute uppercase tracking-wider mb-2.5">Total sessions</div>
+            <div class="text-xs font-semibold text-mute mb-2">Total sessions</div>
             <div class="text-3xl font-bold tracking-tighter text-ink tabular-nums leading-none" id="stat-total-sessions">0</div>
             <div class="text-xs text-mute/80 mt-2">Includes partial focus blocks</div>
           </div>
@@ -572,7 +562,7 @@ const appSchema = {
       <div id="tab-premium" class="p-4 md:p-6 lg:p-8 hidden space-y-6">
         
         <div class="max-w-3xl mx-auto text-center space-y-2 mb-6">
-          <span class="inline-block px-2.5 py-0.5 bg-canvas border border-hairline text-body text-xs font-mono font-bold rounded-full select-none">
+          <span class="inline-block px-2.5 py-0.5 bg-canvas border border-hairline text-body text-xs font-bold rounded-full select-none">
             Weekly Journal & Insights
           </span>
           <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-ink mb-3 leading-[1.1]">Reflections & reports</h2>
@@ -637,8 +627,8 @@ const appSchema = {
           <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_12px_40px_rgba(0,0,0,0.02)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.22)] border-0 flex flex-col justify-between">
             <div class="space-y-4">
               <div class="flex items-center justify-between select-none">
-                <span class="text-xs font-mono uppercase tracking-wider text-rose-500 font-bold">Recovery advisor</span>
-                <span class="text-xs font-mono text-mute">Active</span>
+                <span class="text-xs font-bold text-rose-500">Recovery advisor</span>
+                <span class="text-xs text-mute">Active</span>
               </div>
               <h3 class="text-xl font-bold tracking-tight text-ink mb-1">Maintain steady flow & avoid burnout</h3>
               <p class="text-sm text-body leading-relaxed">
@@ -665,8 +655,8 @@ const appSchema = {
           <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_12px_40px_rgba(0,0,0,0.02)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.22)] border-0 flex flex-col justify-between">
             <div class="space-y-4">
               <div class="flex items-center justify-between select-none">
-                <span class="text-xs font-mono uppercase tracking-wider text-link font-bold">Goal checkpoint planner</span>
-                <span class="text-xs font-mono text-mute">Active</span>
+                <span class="text-xs font-bold text-link">Goal checkpoint planner</span>
+                <span class="text-xs text-mute">Active</span>
               </div>
               <h3 class="text-xl font-bold tracking-tight text-ink mb-1">Checkpoints & goal breakdown</h3>
               <p class="text-sm text-body leading-relaxed">
@@ -676,18 +666,18 @@ const appSchema = {
               <!-- Metrics row -->
               <div class="grid grid-cols-2 gap-3 pt-2">
                 <div class="bg-canvas-soft/75 rounded-xl p-3 text-center border-0">
-                  <div class="text-[10px] font-mono text-mute mb-1 uppercase tracking-wider select-none">Checkpoints set</div>
+                  <div class="text-xs font-medium text-mute mb-1 select-none">Checkpoints set</div>
                   <div class="text-2xl font-bold text-ink tabular-nums" id="pro-milestones-total">0</div>
                 </div>
                 <div class="bg-canvas-soft/75 rounded-xl p-3 text-center border-0">
-                  <div class="text-[10px] font-mono text-mute mb-1 uppercase tracking-wider select-none">Checkoff rate</div>
+                  <div class="text-xs font-medium text-mute mb-1 select-none">Checkoff rate</div>
                   <div class="text-2xl font-bold text-ink tabular-nums" id="pro-milestones-rate">0%</div>
                 </div>
               </div>
             </div>
             
             <div class="pt-4 border-t border-hairline/25 mt-4 flex items-center justify-between text-xs select-none">
-              <span class="text-mute font-mono">Storage: Offline</span>
+              <span class="text-mute">Storage: Offline</span>
               <span class="text-link font-semibold">Active</span>
             </div>
           </div>
@@ -697,10 +687,10 @@ const appSchema = {
             <div class="space-y-4">
               <div class="flex items-center justify-between border-b border-hairline/25 pb-3 select-none">
                 <div class="flex items-center gap-2">
-                  <span class="text-xs font-mono uppercase tracking-wider text-purple-600 font-bold">Monthly productivity reports</span>
+                  <span class="text-xs font-bold text-purple-600">Monthly productivity reports</span>
                   <span class="px-1.5 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-600 text-xs font-bold rounded">Pro Preview</span>
                 </div>
-                <span class="text-xs font-mono text-mute">Local PDF Synthesizer v1.2</span>
+                <span class="text-xs text-mute">Local PDF Synthesizer v1.2</span>
               </div>
 
               <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
@@ -735,7 +725,7 @@ const appSchema = {
             <div class="space-y-4">
               <div class="flex items-center justify-between border-b border-hairline/25 pb-3 select-none">
                 <div class="flex items-center gap-2">
-                  <span class="text-xs font-mono uppercase tracking-wider text-link font-bold">Focus vault</span>
+                  <span class="text-xs font-bold text-link">Focus vault</span>
                   <span class="px-1.5 py-0.5 bg-link/10 text-link text-xs font-bold rounded">PRIVACY ENCRYPTED</span>
                 </div>
                 <span class="text-xs font-mono text-mute">Local Backup & Restore Layer</span>
@@ -781,7 +771,7 @@ const appSchema = {
 
     <!-- Marketing Introduction Section -->
     <div class="max-w-4xl mx-auto text-center mt-24 mb-12 px-2 select-none border-t border-hairline pt-16">
-      <span class="inline-block text-sm font-bold uppercase tracking-wider text-link mb-2">About Tooltails Focus</span>
+      <span class="inline-block text-sm font-bold text-link mb-2">About Tooltails Focus</span>
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-ink mb-6 text-pretty leading-[1.1]">
         Focus on goals, not just time.
       </h2>
@@ -799,7 +789,7 @@ const appSchema = {
 
     <!-- How it Differs from a Pomodoro Timer -->
     <div class="max-w-4xl mx-auto mb-16 space-y-6 px-2">
-      <h3 class="text-base font-bold text-mute text-center select-none">How it differs from a Pomodoro timer</h3>
+      <h3 class="text-lg font-bold text-ink text-center select-none">How it differs from a Pomodoro timer</h3>
       
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
         <!-- Card 1 -->
@@ -862,7 +852,7 @@ const appSchema = {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-20">
       
       <div>
-        <h2 class="text-sm font-bold uppercase tracking-wider text-link mb-2">How it works</h2>
+        <h2 class="text-sm font-bold text-link mb-2">How it works</h2>
         <h3 class="text-4xl font-bold tracking-tighter text-ink mb-4">Focus on goals, not just time.</h3>
         <p class="text-base text-body leading-relaxed mb-4">
           Time-trackers measure compliance. They count the minutes you spend sitting at a screen. But they ignore the most important question: <strong>did you actually accomplish your task?</strong>
@@ -908,7 +898,7 @@ const appSchema = {
       <!-- PREMIUM FEATURE SHOWCASE -->
       <div id="features-showcase" class="max-w-4xl mx-auto mt-20 px-2 space-y-12 scroll-mt-6">
         <div class="text-center space-y-3">
-          <span class="text-sm font-bold uppercase tracking-wider text-link">Workspace capabilities</span>
+          <span class="text-sm font-bold text-link">Workspace capabilities</span>
           <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-ink mb-3 leading-[1.1]">Core features</h2>
           <p class="text-sm text-body leading-relaxed max-w-2xl mx-auto">
             Tooltails Focus includes simple, offline-first tools to help you set clear goals and track your progress over time.
@@ -1296,6 +1286,7 @@ const appSchema = {
   let reflections: WeeklyReflection[] = [];
 
   // Web Audio Context Synthesizer state
+  const isWebAudioSupported = typeof window !== 'undefined' && !!(window.AudioContext || (window as any).webkitAudioContext);
   let audioCtx: AudioContext | null = null;
   let activeSoundNode: AudioWorkletNode | ScriptProcessorNode | OscillatorNode | AudioBufferSourceNode | null = null;
   let activeGainNode: GainNode | null = null;
@@ -2209,6 +2200,10 @@ const appSchema = {
     document.title = "Focus Goals Timer - Goal-Oriented Productivity Tool | Tooltails";
 
     stopAmbientSound();
+    if (audioCtx) {
+      audioCtx.close().catch(() => {});
+      audioCtx = null;
+    }
     exitImmersiveMode();
 
     // Hide keyboard shortcut hint
@@ -2450,15 +2445,59 @@ const appSchema = {
   }
 
   // WEB AUDIO ambient noise system
+  let soundButtonsRegistered = false;
   function setupSoundButtons() {
+    if (soundButtonsRegistered) return;
+    soundButtonsRegistered = true;
     const soundBtns = document.querySelectorAll('.sound-btn');
     const summaryBtns = document.querySelectorAll('.summary-sound-btn');
+
+    if (!isWebAudioSupported) {
+      const loadingSpinner = document.getElementById('sound-loading-spinner');
+      if (loadingSpinner && loadingSpinner.parentElement) {
+        const labelSpan = loadingSpinner.parentElement;
+        labelSpan.innerHTML = '';
+        labelSpan.appendChild(loadingSpinner);
+        labelSpan.appendChild(document.createTextNode(' Web Audio Synth (Unsupported)'));
+        labelSpan.classList.remove('text-link');
+        labelSpan.classList.add('text-mute');
+      }
+
+      soundBtns.forEach(btn => {
+        const sound = btn.getAttribute('data-sound');
+        if (sound !== 'mute') {
+          btn.setAttribute('disabled', 'true');
+          btn.classList.add('opacity-40', 'cursor-not-allowed', 'pointer-events-none');
+        }
+      });
+
+      summaryBtns.forEach(btn => {
+        const sound = btn.getAttribute('data-sound-sync');
+        if (sound !== 'mute') {
+          btn.setAttribute('disabled', 'true');
+          btn.classList.add('opacity-40', 'cursor-not-allowed', 'pointer-events-none');
+        }
+      });
+
+      const immSoundBtn = document.getElementById('immersive-sound-btn');
+      if (immSoundBtn) {
+        immSoundBtn.setAttribute('disabled', 'true');
+        immSoundBtn.classList.add('opacity-40', 'cursor-not-allowed', 'pointer-events-none');
+      }
+    }
 
     soundBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
         const target = e.currentTarget as HTMLElement;
         const sound = target.getAttribute('data-sound') as any;
         
+        if (!isWebAudioSupported && sound !== 'mute') return;
+
+        // Skip redundant restarts if this sound is already the active sound
+        if (sound === currentAmbientSound && activeSoundNode) {
+          return;
+        }
+
         soundBtns.forEach(b => b.classList.remove('border-link', 'text-link'));
         target.classList.add('border-link', 'text-link');
 
@@ -2489,6 +2528,8 @@ const appSchema = {
         const target = e.currentTarget as HTMLElement;
         const sound = target.getAttribute('data-sound-sync');
         
+        if (!isWebAudioSupported && sound !== 'mute') return;
+
         // Forward click to corresponding primary sound button
         const actualBtn = document.querySelector(`.sound-btn[data-sound="${sound}"]`) as HTMLElement;
         actualBtn?.click();
@@ -2498,6 +2539,8 @@ const appSchema = {
     // Immersive sound toggle inside fullscreen
     const immSoundBtn = document.getElementById('immersive-sound-btn');
     immSoundBtn?.addEventListener('click', () => {
+      if (!isWebAudioSupported) return;
+
       const soundStates: ('mute' | 'brown' | 'white' | 'rain')[] = ['mute', 'brown', 'white', 'rain'];
       let currIdx = soundStates.indexOf(currentAmbientSound);
       let nextIdx = (currIdx + 1) % soundStates.length;
@@ -2507,19 +2550,51 @@ const appSchema = {
       const matchingBtn = document.querySelector(`.sound-btn[data-sound="${nextSound}"]`) as HTMLElement;
       if (matchingBtn) matchingBtn.click();
     });
+
+    // Resume AudioContext on user interaction to handle browser autoplay policies
+    const resumeAudioCtxOnGesture = () => {
+      if (isWebAudioSupported && audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume().catch(err => {
+          console.warn("Failed to resume AudioContext on user gesture:", err);
+        });
+      }
+    };
+    
+    document.addEventListener('click', resumeAudioCtxOnGesture, { capture: true, passive: true });
+    document.addEventListener('keydown', resumeAudioCtxOnGesture, { capture: true, passive: true });
+    document.addEventListener('touchstart', resumeAudioCtxOnGesture, { capture: true, passive: true });
+
+    // Handle background tab suspension
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && isTimerRunning && currentAmbientSound !== 'mute') {
+        if (isWebAudioSupported && audioCtx) {
+          if (audioCtx.state === 'suspended') {
+            audioCtx.resume().catch(err => {
+              console.warn("Failed to resume AudioContext on tab visibility change:", err);
+            });
+          } else if (audioCtx.state === 'interrupted' || audioCtx.state === 'closed') {
+            // Browser destroyed the context — recreate and restart
+            playAmbientSound(currentAmbientSound);
+          }
+        }
+      }
+    });
   }
 
   function playAmbientSound(type: 'mute' | 'white' | 'brown' | 'rain') {
     stopAmbientSound();
-    if (type === 'mute') return;
+    if (type === 'mute' || !isWebAudioSupported) return;
 
     try {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      if (!audioCtx || audioCtx.state === 'closed' || audioCtx.state === 'interrupted') {
+        const AudioCtxClass = window.AudioContext || (window as any).webkitAudioContext;
+        audioCtx = new AudioCtxClass();
       }
 
       if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
+        audioCtx.resume().catch(err => {
+          console.warn("Failed to resume AudioContext during play:", err);
+        });
       }
 
       const spinner = document.getElementById('sound-loading-spinner');
@@ -2533,13 +2608,25 @@ const appSchema = {
         for (let i = 0; i < bufferSize; i++) {
           output[i] = Math.random() * 2 - 1;
         }
-      } else if (type === 'brown' || type === 'rain') {
+      } else if (type === 'brown') {
         let lastOut = 0.0;
         for (let i = 0; i < bufferSize; i++) {
           const white = Math.random() * 2 - 1;
-          output[i] = (lastOut + (0.02 * white)) / 1.02;
-          lastOut = output[i];
-          output[i] *= 3.5; // Gain adjustment
+          lastOut = (lastOut + (0.02 * white)) / 1.02;
+          output[i] = lastOut * 3.5;
+        }
+      } else if (type === 'rain') {
+        let lastOut = 0.0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          // Pink-ish filter base
+          lastOut = (lastOut + (0.12 * white)) / 1.12;
+          output[i] = lastOut * 2.5;
+
+          // Rare click/crackle impulses for rain droplets
+          if (Math.random() < 0.0008) {
+            output[i] += (Math.random() * 0.4 - 0.2);
+          }
         }
       }
 
@@ -2551,7 +2638,7 @@ const appSchema = {
       if (type === 'rain') {
         const filter = audioCtx.createBiquadFilter();
         filter.type = 'lowpass';
-        filter.frequency.value = 1000;
+        filter.frequency.value = 1200;
         
         activeGainNode = audioCtx.createGain();
         activeGainNode.gain.value = 0.65;
@@ -2572,6 +2659,8 @@ const appSchema = {
       spinner?.classList.add('hidden');
     } catch (e) {
       console.error("Synthesizer audio failed to compile", e);
+      const spinner = document.getElementById('sound-loading-spinner');
+      spinner?.classList.add('hidden');
     }
   }
 
@@ -2590,14 +2679,16 @@ const appSchema = {
 
   // Synthesize completing notification tones
   function playNotificationSynth() {
+    if (!isWebAudioSupported) return;
     try {
-      const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const ctxClass = window.AudioContext || (window as any).webkitAudioContext;
+      const ctx = new ctxClass();
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
 
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(440, ctx.currentTime); // A4
-      osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.3); // A5
+      osc.frequency.setValueAtTime(440, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.3);
 
       gain.gain.setValueAtTime(0.5, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
@@ -2606,6 +2697,10 @@ const appSchema = {
       gain.connect(ctx.destination);
       osc.start();
       osc.stop(ctx.currentTime + 0.5);
+      // Close context after playback to prevent orphan AudioContext leak
+      setTimeout(() => {
+        ctx.close().catch(() => {});
+      }, 1000);
     } catch (e) {
       console.warn("Synthesizer tone failed to play", e);
     }
@@ -4088,27 +4183,27 @@ const appSchema = {
         <!-- Stats Grid -->
         <div class="grid grid-cols-2 md:grid-cols-6 gap-3">
           <div class="bg-canvas-soft border border-hairline rounded-sm p-3.5 text-center space-y-1">
-            <div class="text-[11px] text-mute">Focus hours</div>
-            <div class="text-base font-bold text-ink">${focusHoursText}</div>
+                  <div class="text-xs font-medium text-mute">Focus hours</div>
+                  <div class="text-base font-bold text-ink">${focusHoursText}</div>
           </div>
           <div class="bg-canvas-soft border border-hairline rounded-sm p-3.5 text-center space-y-1">
-            <div class="text-xs text-mute">Completion rate</div>
-            <div class="text-base font-bold text-ink">${weeklyCompletionRate}%</div>
+                  <div class="text-xs font-medium text-mute">Completion rate</div>
+                  <div class="text-base font-bold text-ink">${weeklyCompletionRate}%</div>
           </div>
           <div class="bg-canvas-soft border border-hairline rounded-sm p-3.5 text-center space-y-1">
-            <div class="text-[11px] text-mute">Best activity</div>
-            <div class="text-base font-bold text-ink truncate" title="${bestAct}">${bestAct}</div>
+                  <div class="text-xs font-medium text-mute">Best activity</div>
+                  <div class="text-base font-bold text-ink truncate" title="${bestAct}">${bestAct}</div>
           </div>
           <div class="bg-canvas-soft border border-hairline rounded-sm p-3.5 text-center space-y-1">
-            <div class="text-[11px] text-mute">Most missed</div>
+            <div class="text-xs font-medium text-mute">Most missed</div>
             <div class="text-base font-bold text-ink truncate" title="${missedAct}">${missedAct}</div>
           </div>
           <div class="bg-canvas-soft border border-hairline rounded-sm p-3.5 text-center space-y-1">
-            <div class="text-[11px] text-mute">Days active</div>
+            <div class="text-xs font-medium text-mute">Days active</div>
             <div class="text-base font-bold text-ink">${weeklyStreak} / 7</div>
           </div>
           <div class="bg-canvas-soft border border-hairline rounded-sm p-3.5 text-center space-y-1">
-            <div class="text-[11px] text-mute">Avg duration</div>
+            <div class="text-xs font-medium text-mute">Avg duration</div>
             <div class="text-base font-bold text-ink">${avgDuration}m</div>
           </div>
         </div>
