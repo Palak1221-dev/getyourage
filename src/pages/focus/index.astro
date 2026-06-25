@@ -372,30 +372,105 @@ const appSchema = {
 <!-- TAB 2: ANALYTICS & HISTOGRAM HEATMAP -->
       <div id="tab-analytics" class="p-6 md:p-8 lg:p-10 hidden space-y-8">
         
-        <!-- Summary Stats Metrics Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div class="bg-canvas p-4 sm:p-5 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
-            <div class="text-sm font-semibold text-body mb-1">Total focused time</div>
-            <div class="text-3xl font-bold tracking-tight text-ink tabular-nums leading-none" id="stat-total-time">0h 00m</div>
-            <div class="text-sm text-mute/80 mt-1">Across all logged sessions</div>
-          </div>
-          <div class="bg-canvas p-4 sm:p-5 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
-            <div class="text-sm font-semibold text-body mb-2">Completion rate</div>
-            <div class="text-3xl font-bold tracking-tight text-ink tabular-nums leading-none" id="stat-completion-rate">0%</div>
-            <div class="text-sm text-mute/80 mt-1">Ratio of fully completed goals</div>
-          </div>
-          <div class="bg-canvas p-4 sm:p-5 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
-            <div class="text-sm font-semibold text-body mb-2">Current streak</div>
-            <div class="text-3xl font-bold tracking-tight text-ink flex items-center gap-1.5 tabular-nums leading-none" id="stat-streak">
-              <span class="tabular-nums">0</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="text-warning" aria-hidden="true"><path d="M17.687 9.581a5.87 5.87 0 0 0-4.887-2.91V3.25a.75.75 0 0 0-1.28-.53l-8.25 8.25a.75.75 0 0 0 .53 1.28h5.319v5.999a5.87 5.87 0 0 0 4.887 2.911l.248-.005a5.87 5.87 0 0 0 4.887-2.906A5.87 5.87 0 0 0 17.687 9.581Z"/></svg>
+        <!-- Dashboard Metrics Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          <div class="group bg-canvas p-4 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 hover:border-hairline-strong/60 hover:shadow-[0_8px_25px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_8px_25px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all duration-300 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] relative overflow-hidden">
+            <div class="absolute top-0 left-3 right-3 h-[3px] rounded-b-full bg-gradient-to-r from-transparent via-link/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="text-[11px] font-semibold text-mute/70 mb-1.5 flex items-center gap-1.5">
+              <span class="w-[18px] h-[18px] rounded-md bg-link/10 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </span>
+              Today's focus
             </div>
-            <div class="text-sm text-mute/80 mt-1">Consecutive workdays active</div>
+            <div class="text-[28px] font-bold tracking-tight text-ink tabular-nums leading-none" id="stat-today-focus">0m</div>
+            <div class="text-[11px] text-mute/50 mt-1.5 font-medium">Minutes focused today</div>
           </div>
-          <div class="bg-canvas p-4 sm:p-5 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
-            <div class="text-sm font-semibold text-body mb-2">Total sessions</div>
-            <div class="text-3xl font-bold tracking-tight text-ink tabular-nums leading-none" id="stat-total-sessions">0</div>
-            <div class="text-sm text-mute/80 mt-1">Includes partial focus blocks</div>
+          <div class="group bg-canvas p-4 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 hover:border-hairline-strong/60 hover:shadow-[0_8px_25px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_8px_25px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all duration-300 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] relative overflow-hidden">
+            <div class="absolute top-0 left-3 right-3 h-[3px] rounded-b-full bg-gradient-to-r from-transparent via-mute/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="text-[11px] font-semibold text-mute/70 mb-1.5 flex items-center gap-1.5">
+              <span class="w-[18px] h-[18px] rounded-md bg-mute/10 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/60"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+              </span>
+              Sessions
+            </div>
+            <div class="text-[28px] font-bold tracking-tight text-ink tabular-nums leading-none" id="stat-total-sessions">0</div>
+            <div class="text-[11px] text-mute/50 mt-1.5 font-medium">Total sessions logged</div>
+          </div>
+          <div class="group bg-canvas p-4 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 hover:border-hairline-strong/60 hover:shadow-[0_8px_25px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_8px_25px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all duration-300 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] relative overflow-hidden">
+            <div class="absolute top-0 left-3 right-3 h-[3px] rounded-b-full bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="text-[11px] font-semibold text-mute/70 mb-1.5 flex items-center gap-1.5">
+              <span class="w-[18px] h-[18px] rounded-md bg-emerald-500/10 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-emerald-500"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              Goals done
+            </div>
+            <div class="text-[28px] font-bold tracking-tight text-ink tabular-nums leading-none" id="stat-goals-completed">0</div>
+            <div class="text-[11px] text-mute/50 mt-1.5 font-medium">Completed sessions</div>
+          </div>
+          <div class="group bg-canvas p-4 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 hover:border-hairline-strong/60 hover:shadow-[0_8px_25px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_8px_25px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all duration-300 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] relative overflow-hidden">
+            <div class="absolute top-0 left-3 right-3 h-[3px] rounded-b-full bg-gradient-to-r from-transparent via-warning/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="text-[11px] font-semibold text-mute/70 mb-1.5 flex items-center gap-1.5">
+              <span class="w-[18px] h-[18px] rounded-md bg-warning/10 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-warning"><path d="M17.687 9.581a5.87 5.87 0 0 0-4.887-2.91V3.25a.75.75 0 0 0-1.28-.53l-8.25 8.25a.75.75 0 0 0 .53 1.28h5.319v5.999a5.87 5.87 0 0 0 4.887 2.911l.248-.005a5.87 5.87 0 0 0 4.887-2.906A5.87 5.87 0 0 0 17.687 9.581Z"/></svg>
+              </span>
+              Streak
+            </div>
+            <div class="text-[28px] font-bold tracking-tight text-ink flex items-center gap-1.5 tabular-nums leading-none" id="stat-streak">
+              <span class="tabular-nums">0</span><span class="text-sm text-mute/50 font-normal">days</span>
+            </div>
+            <div class="text-[11px] text-mute/50 mt-1.5 font-medium">Consecutive workdays</div>
+          </div>
+          <div class="group bg-canvas p-4 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 hover:border-hairline-strong/60 hover:shadow-[0_8px_25px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_8px_25px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all duration-300 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] relative overflow-hidden">
+            <div class="absolute top-0 left-3 right-3 h-[3px] rounded-b-full bg-gradient-to-r from-transparent via-mute/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="text-[11px] font-semibold text-mute/70 mb-1.5 flex items-center gap-1.5">
+              <span class="w-[18px] h-[18px] rounded-md bg-mute/10 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/60"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              </span>
+              Avg session
+            </div>
+            <div class="text-[28px] font-bold tracking-tight text-ink tabular-nums leading-none" id="stat-avg-session">0m</div>
+            <div class="text-[11px] text-mute/50 mt-1.5 font-medium">Per completed session</div>
+          </div>
+          <div class="group bg-canvas p-4 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 hover:border-hairline-strong/60 hover:shadow-[0_8px_25px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_8px_25px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all duration-300 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] relative overflow-hidden">
+            <div class="absolute top-0 left-3 right-3 h-[3px] rounded-b-full bg-gradient-to-r from-transparent via-mute/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="text-[11px] font-semibold text-mute/70 mb-1.5 flex items-center gap-1.5">
+              <span class="w-[18px] h-[18px] rounded-md bg-mute/10 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/60"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+              </span>
+              Top activity
+            </div>
+            <div class="text-[28px] font-bold tracking-tight text-ink truncate tabular-nums leading-none" id="stat-top-activity">—</div>
+            <div class="text-[11px] text-mute/50 mt-1.5 font-medium">Most logged activity</div>
+          </div>
+        </div>
+
+        <!-- Smart Insights -->
+        <div id="insights-panel" class="w-full animate-in fade-in duration-300"></div>
+
+        <!-- Weekly Focus Chart -->
+        <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] space-y-5">
+          <div class="flex items-center justify-between select-none">
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg font-bold tracking-tight text-ink">Weekly focus chart</h3>
+                <span class="px-1.5 py-0.5 bg-canvas-soft text-mute/70 text-[10px] font-bold rounded">7 days</span>
+              </div>
+              <p class="text-xs text-mute/60 mt-0.5">Your daily focus time over the last 7 days</p>
+            </div>
+            <div class="flex items-center gap-3 text-[11px] font-medium">
+              <span class="flex items-center gap-1.5 text-link/70">
+                <span class="w-2 h-2 rounded-full bg-link/60 ring-1 ring-inset ring-link/20"></span> Completed
+              </span>
+              <span class="flex items-center gap-1.5 text-warning/70">
+                <span class="w-2 h-2 rounded-full bg-warning/60 ring-1 ring-inset ring-warning/20"></span> Partial
+              </span>
+              <span class="flex items-center gap-1.5 text-error/70">
+                <span class="w-2 h-2 rounded-full bg-error/60 ring-1 ring-inset ring-error/20"></span> Failed
+              </span>
+            </div>
+          </div>
+          <div class="overflow-x-auto pb-1" id="weekly-chart-container">
+            <svg width="100%" height="200" viewBox="0 0 700 200" class="select-none" id="weekly-chart-svg"></svg>
           </div>
         </div>
 
@@ -409,13 +484,16 @@ const appSchema = {
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           <!-- Heatmap Panel -->
-          <div class="lg:col-span-8 bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_12px_40px_rgba(0,0,0,0.02)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.22)] border-0 space-y-4">
+          <div class="lg:col-span-8 bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] space-y-5">
             <div class="flex items-center justify-between select-none">
               <div>
-                <h3 class="text-xl font-bold tracking-tight text-ink mb-1">Focus activity heatmap</h3>
-                <p class="text-xs text-mute">Your activity levels across the last 16 weeks</p>
+                <div class="flex items-center gap-2">
+                  <h3 class="text-lg font-bold tracking-tight text-ink">Focus activity heatmap</h3>
+                  <span class="px-1.5 py-0.5 bg-canvas-soft text-mute/70 text-[10px] font-bold rounded">16 weeks</span>
+                </div>
+                <p class="text-xs text-mute/60 mt-0.5">Your activity levels across the last 16 weeks</p>
               </div>
-              <div class="flex items-center gap-1.5 text-[10px] font-mono text-mute">
+              <div class="flex items-center gap-1.5 text-[10px] font-mono text-mute/70">
                 <span>Less</span>
                 <span class="w-2.5 h-2.5 bg-canvas border border-hairline/60 rounded-[2px]"></span>
                 <span class="w-2.5 h-2.5 bg-blue-100 dark:bg-blue-900/30 rounded-[2px]"></span>
@@ -427,93 +505,102 @@ const appSchema = {
             </div>
             
             <!-- Heatmap Container -->
-            <div class="overflow-x-auto pb-2 scrollbar-thin">
-              <div class="min-w-[620px] flex gap-2 justify-center py-2 select-none" id="heatmap-grid-container">
+            <div class="overflow-x-auto pb-1 scrollbar-thin">
+              <div class="min-w-[620px] flex gap-[3px] justify-center py-1 select-none" id="heatmap-grid-container">
                 <!-- Javascript will render contribution grid of 16 columns (weeks), 7 rows (days) -->
               </div>
             </div>
           </div>
 
           <!-- Outcome breakdown donut chart -->
-          <div class="lg:col-span-4 bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_12px_40px_rgba(0,0,0,0.02)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.22)] border-0 flex flex-col justify-between min-h-[295px]">
+          <div class="lg:col-span-4 bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] flex flex-col justify-between min-h-[295px]">
             <div>
-              <h3 class="text-xl font-bold tracking-tight text-ink mb-1">Outcome distribution</h3>
-              <p class="text-xs text-mute">Tracking goal accomplishment rates</p>
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg font-bold tracking-tight text-ink">Outcome distribution</h3>
+                <span class="px-1.5 py-0.5 bg-canvas-soft text-mute/70 text-[10px] font-bold rounded">Ratio</span>
+              </div>
+              <p class="text-xs text-mute/60 mt-0.5">Tracking goal accomplishment rates</p>
             </div>
             
             <!-- SVG Donut Chart -->
-            <div class="flex items-center justify-center my-3 relative">
-              <svg width="150" height="150" viewBox="0 0 100 100" class="transform -rotate-90">
+            <div class="flex items-center justify-center my-4 relative">
+              <svg width="160" height="160" viewBox="0 0 100 100" class="transform -rotate-90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.05)]">
                 <!-- Base Circle -->
-                <circle cx="50" cy="50" r="40" stroke="var(--color-hairline)" stroke-width="12" fill="transparent" />
+                <circle cx="50" cy="50" r="40" stroke="var(--color-hairline)" stroke-width="10" fill="transparent" />
                 <!-- Completed segments -->
-                <circle id="donut-completed" cx="50" cy="50" r="40" stroke="var(--color-link)" stroke-width="12" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="251.2" />
+                <circle id="donut-completed" cx="50" cy="50" r="40" stroke="var(--color-link)" stroke-width="10" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-linecap="round" />
                 <!-- Partial segment -->
-                <circle id="donut-partial" cx="50" cy="50" r="40" stroke="var(--color-warning)" stroke-width="12" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="251.2" />
+                <circle id="donut-partial" cx="50" cy="50" r="40" stroke="var(--color-warning)" stroke-width="10" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-linecap="round" />
                 <!-- Failed segment -->
-                <circle id="donut-failed" cx="50" cy="50" r="40" stroke="var(--color-error)" stroke-width="12" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="251.2" />
+                <circle id="donut-failed" cx="50" cy="50" r="40" stroke="var(--color-error)" stroke-width="10" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-linecap="round" />
               </svg>
               <!-- Center percentages indicator -->
-              <div class="absolute text-center flex flex-col items-center">
-                <span class="text-xs text-mute font-medium" id="donut-center-label">goals</span>
-                <span class="text-xl font-bold text-ink" id="donut-center-percentage">0%</span>
+              <div class="absolute text-center flex flex-col items-center select-none">
+                <span class="text-[9px] text-mute/50 font-semibold tracking-[0.12em] uppercase" id="donut-center-label">goals</span>
+                <span class="text-2xl font-extrabold tracking-tight text-ink tabular-nums leading-none mt-0.5 bg-gradient-to-b from-ink via-ink to-ink/70 bg-clip-text text-transparent" id="donut-center-percentage">0%</span>
+                <span class="text-[9px] text-mute/40 font-medium mt-0.5 hidden" id="donut-center-sub">completion</span>
               </div>
             </div>
 
             <!-- Outcomes legend -->
-            <div class="grid grid-cols-3 gap-1 text-center text-xs font-bold border-t border-hairline pt-3 mt-2">
-              <div class="text-link">
-                <div>Completed</div>
-                <div class="text-ink font-mono font-bold text-xs" id="legend-completed-val">0%</div>
+            <div class="grid grid-cols-3 gap-0 text-center text-[11px] font-semibold border-t border-hairline/50 pt-3.5 mt-1">
+              <div class="text-link/80">
+                <div class="mb-0.5">Completed</div>
+                <div class="text-ink font-bold font-mono text-sm" id="legend-completed-val">0%</div>
               </div>
-              <div class="text-warning">
-                <div>Partial</div>
-                <div class="text-ink font-mono font-bold text-xs" id="legend-partial-val">0%</div>
+              <div class="text-warning/80">
+                <div class="mb-0.5">Partial</div>
+                <div class="text-ink font-bold font-mono text-sm" id="legend-partial-val">0%</div>
               </div>
-              <div class="text-error">
-                <div>Failed</div>
-                <div class="text-ink font-mono font-bold text-xs" id="legend-failed-val">0%</div>
+              <div class="text-error/80">
+                <div class="mb-0.5">Failed</div>
+                <div class="text-ink font-bold font-mono text-sm" id="legend-failed-val">0%</div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- History Log Section -->
-        <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.02)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.25)] border-0">
-          <div class="flex items-center justify-between border-b border-hairline/25 pb-4 mb-4 select-none">
+        <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02]">
+          <div class="flex items-center justify-between border-b border-hairline/30 pb-4 mb-5 select-none">
             <div>
-              <h3 class="text-xl font-bold tracking-tight text-ink mb-1">Focus history log</h3>
-              <p class="text-xs text-mute">Details of your completed focus sprints</p>
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg font-bold tracking-tight text-ink">Focus history log</h3>
+                <span class="px-1.5 py-0.5 bg-canvas-soft text-mute/70 text-[10px] font-bold rounded" id="history-count-badge">0 sessions</span>
+              </div>
+              <p class="text-xs text-mute/60 mt-0.5">Details of your completed focus sprints</p>
             </div>
-            <!-- Test Seeding Option for visual impact -->
             <div class="flex items-center gap-2">
-              <button type="button" id="seed-mock-btn" class="px-3 py-1.5 border border-dashed border-hairline/60 rounded-xl text-xs font-bold text-body hover:text-ink cursor-pointer hover:bg-canvas-soft transition-all">
+              <button type="button" id="seed-mock-btn" class="px-3 py-1.5 border border-dashed border-hairline/60 rounded-xl text-[11px] font-bold text-body hover:text-ink cursor-pointer hover:bg-canvas-soft hover:border-hairline-strong/40 transition-all">
                 Pre-seed Demo Data
               </button>
-              <button type="button" id="clear-history-btn" class="px-3 py-1.5 border border-error/20 rounded-xl text-xs font-bold text-error hover:bg-error-soft/20 cursor-pointer transition-all">
+              <button type="button" id="clear-history-btn" class="px-3 py-1.5 border border-error/15 rounded-xl text-[11px] font-bold text-error hover:bg-error/5 cursor-pointer transition-all">
                 Wipe History
               </button>
             </div>
           </div>
 
-          <div class="overflow-x-auto">
+          <div class="-mx-1">
             <table class="w-full text-left border-collapse">
               <thead>
-                <tr class="border-b border-hairline text-sm font-semibold text-mute">
-                  <th class="py-2.5 px-3">Date</th>
-                  <th class="py-2.5 px-3">Activity</th>
-                  <th class="py-2.5 px-3">Goal objective</th>
-                  <th class="py-2.5 px-3 text-center">Outcome</th>
-                  <th class="py-2.5 px-3">Duration</th>
-                  <th class="py-2.5 px-3 text-right">Action</th>
+                <tr class="text-[11px] font-semibold text-mute/60 tracking-wide uppercase">
+                  <th class="py-2.5 px-4 font-medium">Date</th>
+                  <th class="py-2.5 px-4 font-medium">Activity</th>
+                  <th class="py-2.5 px-4 font-medium">Goal objective</th>
+                  <th class="py-2.5 px-4 text-center font-medium">Outcome</th>
+                  <th class="py-2.5 px-4 font-medium">Duration</th>
+                  <th class="py-2.5 px-4 text-right font-medium">Action</th>
                 </tr>
               </thead>
-              <tbody id="history-table-body" class="text-sm text-ink divide-y divide-hairline">
+              <tbody id="history-table-body" class="text-sm text-ink">
                 <tr>
-                  <td colspan="6" class="py-10 text-center">
-                    <div class="flex flex-col items-center justify-center gap-2.5 max-w-xs mx-auto">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/40"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                      <p class="text-sm text-mute/60 leading-relaxed">Your progress will show up here after your first session. Go ahead — set a goal and start.</p>
+                  <td colspan="6" class="py-14 text-center">
+                    <div class="flex flex-col items-center justify-center gap-4 max-w-xs mx-auto">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/20"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/><path d="M12 2a10 10 0 0 1 7.07 2.93"/><path d="M12 22a10 10 0 0 0 7.07-2.93"/></svg>
+                      <div class="space-y-1">
+                        <p class="text-sm font-semibold text-mute/60">Your history is a blank canvas</p>
+                        <p class="text-xs text-mute/40 leading-relaxed">Every great focus session starts with a single goal. Set one above, hit start, and your first entry will appear here.</p>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -527,216 +614,184 @@ const appSchema = {
 
       </div>
 
-      <!-- TAB 3: REPORTS & PRO ARCHITECTURE (GOAL PLANNER / RECOVERY PLANNER / MONTHLY REPORT) -->
-      <div id="tab-premium" class="p-4 md:p-6 lg:p-8 hidden space-y-6">
+      <!-- TAB 3: JOURNAL & REFLECTION SPACE -->
+      <div id="tab-premium" class="p-4 md:p-6 lg:p-8 hidden space-y-8">
         
-        <div class="max-w-3xl mx-auto text-center space-y-2 mb-6">
-          <span class="inline-block px-2.5 py-0.5 bg-canvas border border-hairline text-body text-sm font-bold rounded-full select-none">
-            Weekly Journal & Insights
+        <div class="text-center space-y-3 mb-2">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-b from-link/8 to-link/5 text-link text-[11px] font-bold rounded-full select-none ring-1 ring-inset ring-link/12">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7.5V3.75a.75.75 0 0 1 1.5 0V7.5m-1.5 0V21m-6-9h6"/><path d="M3.75 10.5h16.5a.75.75 0 0 1 .75.75v9a.75.75 0 0 1-.75.75H3.75a.75.75 0 0 1-.75-.75v-9a.75.75 0 0 1 .75-.75Z"/></svg>
+            Daily Reflection
           </span>
-          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-ink mb-3 leading-[1.1]">Reflections & reports</h2>
-          <p class="text-base text-body">Log your reflections and track your long-term focus analytics.</p>
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-ink mb-2 leading-[1.1]">Journal & reflections</h2>
+          <p class="text-sm text-mute/60">Capture your daily flow, wins, and growth moments</p>
+        </div>
+
+        <!-- Main Journal Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- LEFT: Today's Journal Form -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] space-y-6">
+              
+              <div class="flex items-center justify-between border-b border-hairline/30 pb-4 select-none">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-xl bg-link/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-link shrink-0"><path d="M12 7.5V3.75a.75.75 0 0 1 1.5 0V7.5m-1.5 0V21m-6-9h6"/><path d="M3.75 10.5h16.5a.75.75 0 0 1 .75.75v9a.75.75 0 0 1-.75.75H3.75a.75.75 0 0 1-.75-.75v-9a.75.75 0 0 1 .75-.75Z"/></svg>
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold tracking-tight text-ink">Today's reflection</h3>
+                    <span id="journal-today-date" class="text-[11px] font-mono text-mute/60"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Today's session summary -->
+              <div id="journal-today-sessions" class="text-sm bg-canvas-soft/40 rounded-xl p-4 border border-hairline/30 ring-1 ring-inset ring-black/[0.01] dark:ring-white/[0.01]">
+                <div class="flex items-center gap-2.5 text-mute/50">
+                  <div class="w-7 h-7 rounded-lg bg-canvas border border-hairline/40 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-link/40 animate-pulse"></span>
+                    <span class="text-xs text-mute/40">Checking today's focus activity...</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Daily notes -->
+              <div class="space-y-2">
+                <label for="journal-daily-notes" class="text-[13px] font-semibold text-body flex items-center gap-1.5 select-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-mute/60 shrink-0"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                  Daily notes
+                </label>
+                <textarea id="journal-daily-notes" rows="3" class="w-full p-3.5 bg-canvas border border-hairline/40 hover:border-hairline-strong/40 rounded-xl text-sm text-ink placeholder:text-mute/40 focus:outline-none focus:border-link/50 focus:ring-[3px] focus:ring-link/8 focus:shadow-[0_0_0_1px_rgba(37,99,235,0.12)] transition-all duration-200 shadow-sm resize-none" placeholder="How did your focus sessions go today? What's on your mind?"></textarea>
+              </div>
+
+              <!-- Wins & Distractions row -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <label for="journal-wins" class="text-[13px] font-semibold text-body flex items-center gap-1.5 select-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-500 shrink-0"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 7 7 7 7"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 17 7 17 7"/><path d="M4 22h16"/><path d="M10 22V8h4v14"/><path d="M8 22V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v18"/></svg>
+                    Wins today
+                  </label>
+                  <textarea id="journal-wins" rows="2" class="w-full p-3.5 bg-canvas border border-hairline/40 hover:border-hairline-strong/40 rounded-xl text-sm text-ink placeholder:text-mute/40 focus:outline-none focus:border-link/50 focus:ring-[3px] focus:ring-link/8 focus:shadow-[0_0_0_1px_rgba(37,99,235,0.12)] transition-all duration-200 shadow-sm resize-none" placeholder="What went well?"></textarea>
+                </div>
+                <div class="space-y-2">
+                  <label for="journal-distractions" class="text-[13px] font-semibold text-body flex items-center gap-1.5 select-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-rose-400 shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    Distractions encountered
+                  </label>
+                  <textarea id="journal-distractions" rows="2" class="w-full p-3.5 bg-canvas border border-hairline/40 hover:border-hairline-strong/40 rounded-xl text-sm text-ink placeholder:text-mute/40 focus:outline-none focus:border-link/50 focus:ring-[3px] focus:ring-link/8 focus:shadow-[0_0_0_1px_rgba(37,99,235,0.12)] transition-all duration-200 shadow-sm resize-none" placeholder="What pulled your focus away?"></textarea>
+                </div>
+              </div>
+
+              <!-- Mood before / after -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <label class="text-[13px] font-semibold text-body flex items-center gap-1.5 select-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-mute/60 shrink-0"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    Mood before
+                  </label>
+                  <div class="flex gap-1.5" id="journal-mood-before" data-mood="2">
+                    <button type="button" data-value="0" class="mood-btn w-9 h-9 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Terrible">😢</button>
+                    <button type="button" data-value="1" class="mood-btn w-9 h-9 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Not great">😕</button>
+                    <button type="button" data-value="2" class="mood-btn w-9 h-9 flex items-center justify-center rounded-xl text-lg border border-link/50 bg-link/8 text-ink font-semibold ring-1 ring-link/20 scale-110 transition-all duration-150 cursor-pointer" title="Okay">😐</button>
+                    <button type="button" data-value="3" class="mood-btn w-9 h-9 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Good">😊</button>
+                    <button type="button" data-value="4" class="mood-btn w-9 h-9 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Amazing">🤩</button>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <label class="text-[13px] font-semibold text-body flex items-center gap-1.5 select-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-mute/60 shrink-0"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg>
+                    Mood after
+                  </label>
+                  <div class="flex gap-1.5" id="journal-mood-after" data-mood="2">
+                    <button type="button" data-value="0" class="mood-btn w-9 h-9 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Terrible">😢</button>
+                    <button type="button" data-value="1" class="mood-btn w-9 h-9 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Not great">😕</button>
+                    <button type="button" data-value="2" class="mood-btn w-9 h-9 flex items-center justify-center rounded-xl text-lg border border-link/50 bg-link/8 text-ink font-semibold ring-1 ring-link/20 scale-110 transition-all duration-150 cursor-pointer" title="Okay">😐</button>
+                    <button type="button" data-value="3" class="mood-btn w-9 h-9 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Good">😊</button>
+                    <button type="button" data-value="4" class="mood-btn w-9 h-9 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Amazing">🤩</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Lessons learned -->
+              <div class="space-y-2">
+                <label for="journal-lessons" class="text-[13px] font-semibold text-body flex items-center gap-1.5 select-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-mute/60 shrink-0"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                  Lessons learned
+                </label>
+                <textarea id="journal-lessons" rows="2" class="w-full p-3.5 bg-canvas border border-hairline/40 hover:border-hairline-strong/40 rounded-xl text-sm text-ink placeholder:text-mute/40 focus:outline-none focus:border-link/50 focus:ring-[3px] focus:ring-link/8 focus:shadow-[0_0_0_1px_rgba(37,99,235,0.12)] transition-all duration-200 shadow-sm resize-none" placeholder="What will you do differently next time?"></textarea>
+              </div>
+
+              <!-- Save button -->
+              <button id="journal-save-btn" class="w-full h-11 bg-link text-white hover:bg-link-hover active:scale-[0.98] text-sm font-bold rounded-xl border-0 transition-all duration-150 cursor-pointer flex items-center justify-center gap-2 select-none shadow-[0_1px_3px_rgba(0,0,0,0.1)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Save Today's Reflection
+              </button>
+              <div id="journal-save-feedback" class="text-xs text-center text-emerald-500 font-medium hidden transition-all animate-in fade-in duration-200">Saved!</div>
+            </div>
+          </div>
+
+          <!-- RIGHT: Past Entries -->
+          <div class="lg:col-span-5 space-y-6">
+            <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] space-y-4">
+              
+              <div class="relative">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-mute/50 pointer-events-none" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="journal-search-input" placeholder="Search past entries..." class="w-full h-10 pl-10 pr-3.5 bg-canvas border border-hairline/40 hover:border-hairline-strong/40 rounded-xl text-sm text-ink placeholder:text-mute/40 focus:outline-none focus:border-link/50 focus:ring-[3px] focus:ring-link/8 focus:shadow-[0_0_0_1px_rgba(37,99,235,0.12)] transition-all duration-200" />
+              </div>
+
+              <div class="flex items-center justify-between border-b border-hairline/20 pb-3">
+                <h3 class="text-base font-bold text-ink">Past entries</h3>
+                <span id="journal-entries-count" class="text-[11px] text-mute/60 font-medium"></span>
+              </div>
+
+              <div id="journal-entries-list" class="space-y-2.5 max-h-[520px] overflow-y-auto pr-1">
+                <!-- Dynamic journal entries rendered here -->
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Weekly Review & Coaching Advisor -->
         <div id="analytics-weekly-review-panel" class="w-full animate-in fade-in duration-300"></div>
 
-        <!-- Weekly Reflection System -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div class="lg:col-span-7 space-y-6">
-            <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.02)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.25)] border-0 space-y-6">
-              <div class="flex items-center gap-2 border-b border-hairline/25 pb-4 select-none">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-mute/60 shrink-0"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-                <h3 class="text-xl font-bold tracking-tight text-ink mb-1">Weekly reflection journal</h3>
-              </div>
-              <form id="weekly-reflection-form" class="space-y-4">
-                <div class="space-y-2">
-                  <label for="weekly-reflection-text" class="block text-base font-medium text-body leading-relaxed select-none">
-                    What went well this week? What did you discover about your focus, flow, or challenges?
-                  </label>
-                  <textarea id="weekly-reflection-text" rows="3" required class="w-full p-4 bg-canvas border border-hairline/60 rounded-xl text-base text-ink placeholder:text-mute focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all duration-200 shadow-sm" placeholder="Journal your thoughts, small wins, or energetic blocks here…"></textarea>
-                </div>
-                <button type="submit" class="px-4 h-10 bg-link text-white hover:bg-link-hover active:scale-95 text-sm font-bold rounded-lg border-0 transition-all duration-150 cursor-pointer focus-visible:ring-2 focus-visible:ring-link select-none">
-                  Save Reflection Entry
-                </button>
-              </form>
-              
-              <!-- Reflections List -->
-              <div class="space-y-3 pt-2">
-                <h4 class="text-base font-bold text-mute select-none">Past journal entries</h4>
-                <div id="weekly-reflections-list" class="space-y-3 max-h-[300px] overflow-y-auto pr-1">
-                  <!-- Dynamic reflections are rendered here -->
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="lg:col-span-5 space-y-6">
-            <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.02)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.25)] border-0 space-y-4">
-              <div class="flex items-center gap-2 select-none">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-mute/60 shrink-0"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><circle cx="12" cy="12" r="3"/></svg>
-                <h3 class="text-xl font-bold tracking-tight text-ink mb-1">Mindful growth sanctuary</h3>
-              </div>
-              <p class="text-base text-body leading-relaxed">
-                Consistency is not about a streak of perfect days. It is about understanding what draws you off track and showing up with curiosity.
-              </p>
-              <p class="text-base text-body leading-relaxed">
-                Use the weekly review to see where you were in flow and when you were blocked. Dedicate a few minutes to journal your reflections to develop meta-learning habits.
-              </p>
-            </div>
-          </div>
-        </div>
-
         <!-- Focus Forecast Engine Section -->
         <div id="forecast-engine-panel" class="w-full animate-in fade-in duration-300"></div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          
-          <!-- 1. Recovery Advisor Details -->
-          <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_12px_40px_rgba(0,0,0,0.02)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.22)] border-0 flex flex-col justify-between">
-            <div class="space-y-4">
-              <div class="flex items-center justify-between select-none">
-                <span class="text-sm font-bold text-rose-500">Recovery advisor</span>
-                <span class="text-xs text-mute">Active</span>
+        <!-- Focus Vault (Backup & Restore) -->
+        <details class="group bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02]">
+          <summary class="flex items-center justify-between cursor-pointer select-none list-none">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-xl bg-canvas-soft flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-mute/60 shrink-0"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               </div>
-              <h3 class="text-xl font-bold tracking-tight text-ink mb-1">Maintain steady flow & avoid burnout</h3>
-          <p class="text-base text-body leading-relaxed">
-            When you run into distractions or fatigue, our recovery advisor helps you understand what went wrong and gives you friendly, practical steps to get back into flow.
-          </p>
-              
-              <!-- Active/Last recommendation preview -->
-              <div class="mt-4 border border-dashed border-rose-500/30 rounded-xl p-4 bg-rose-500/[0.02]">
-                <div class="text-xs font-semibold text-rose-500 mb-1.5 select-none">Latest analysis:</div>
-                <div id="pro-recovery-diagnostic" class="text-xs font-medium text-ink mb-2">No failures recorded recently. You are in good flow!</div>
-                
-                <div class="text-xs font-semibold text-rose-500 mb-1.5 select-none">Recommended recovery action:</div>
-                <div id="pro-recovery-recommendation" class="text-xs text-body">Keep focus sessions within 45 minutes to avoid cognitive fatigue.</div>
+              <div>
+                <span class="text-sm font-bold text-ink">Focus vault</span>
+                <span class="block text-[10px] text-mute/50 font-medium">Export & restore your data</span>
               </div>
             </div>
-            
-            <div class="pt-4 border-t border-hairline/25 mt-4 flex items-center justify-between text-xs select-none">
-              <span class="text-mute font-mono">Status: Active</span>
-              <span class="text-mute/70 font-semibold">Active</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-mute/40 transition-transform duration-200 group-open:rotate-180"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="mt-5 pt-5 border-t border-hairline/30 space-y-4">
+            <p class="text-sm text-mute/70 leading-relaxed">
+              Export all sessions, goals, streaks, milestones, and journal entries into a secure JSON backup file. Import your backup on another browser or device.
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <button type="button" id="vault-export-btn" class="h-10 px-5 bg-link text-white hover:bg-link-hover active:scale-[0.98] text-sm font-bold rounded-xl border-0 transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-[0_1px_3px_rgba(0,0,0,0.1)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Export Backup
+              </button>
+              <label class="h-10 px-5 border border-hairline/50 bg-canvas text-ink hover:bg-canvas-soft-2 active:scale-[0.98] text-sm font-bold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 select-none shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Import Backup
+                <input type="file" id="vault-import-input" accept=".json" class="hidden" />
+              </label>
             </div>
+            <div id="vault-status-notice" class="hidden text-xs mt-1 font-medium"></div>
           </div>
-
-          <!-- 2. Goal Checkpoint Planner Details -->
-          <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_12px_40px_rgba(0,0,0,0.02)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.22)] border-0 flex flex-col justify-between">
-            <div class="space-y-4">
-              <div class="flex items-center justify-between select-none">
-                <span class="text-sm font-bold text-body/80">Goal checkpoint planner</span>
-                <span class="text-xs text-mute">Active</span>
-              </div>
-              <h3 class="text-xl font-bold tracking-tight text-ink mb-1">Checkpoints & goal breakdown</h3>
-          <p class="text-base text-body leading-relaxed">
-            Starting a long study or work block with a vague intention makes starting hard. Our Goal Planner helps you break down your goals into smaller, manageable checkpoints, tracking your progress dynamically as you complete each task.
-          </p>
-              
-              <!-- Metrics row -->
-              <div class="grid grid-cols-2 gap-3 pt-2">
-                <div class="bg-canvas-soft/75 rounded-xl p-3 text-center border-0">
-                  <div class="text-xs font-medium text-mute mb-1 select-none">Checkpoints set</div>
-                  <div class="text-2xl font-bold text-ink tabular-nums" id="pro-milestones-total">0</div>
-                </div>
-                <div class="bg-canvas-soft/75 rounded-xl p-3 text-center border-0">
-                  <div class="text-xs font-medium text-mute mb-1 select-none">Checkoff rate</div>
-                  <div class="text-2xl font-bold text-ink tabular-nums" id="pro-milestones-rate">0%</div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="pt-4 border-t border-hairline/25 mt-4 flex items-center justify-between text-xs select-none">
-              <span class="text-mute">Storage: Offline</span>
-              <span class="text-mute/70 font-semibold">Active</span>
-            </div>
-          </div>
-
-          <!-- 3. Monthly Productivity Reports -->
-          <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.02)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.25)] border-0 flex flex-col justify-between md:col-span-2">
-            <div class="space-y-4">
-              <div class="flex items-center justify-between border-b border-hairline/25 pb-3 select-none">
-                <div class="flex items-center gap-2">
-                  <span class="text-sm font-bold text-purple-600">Monthly productivity reports</span>
-                  <span class="px-1.5 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-600 text-xs font-bold rounded">Pro Preview</span>
-                </div>
-                <span class="text-xs text-mute">Local PDF Synthesizer v1.2</span>
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                <!-- Left: Briefing description -->
-                <div class="md:col-span-2 space-y-2">
-                  <h4 class="text-xl font-bold tracking-tight text-ink mb-1">Generate personal performance intelligence digest</h4>
-                  <p class="text-base text-body leading-relaxed">
-                    Synthesize focus history into a high-fidelity document detailing focus density hours, activity DNA coefficients, success probability forecasts, and distraction recovery matrices.
-                  </p>
-                  <div class="flex flex-wrap gap-2 pt-1.5 select-none">
-                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[11px] text-mute font-medium">CSV Exports</span>
-                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[11px] text-mute font-medium">Focus Density Curves</span>
-                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[11px] text-mute font-medium">Outcome Correlations</span>
-                  </div>
-                </div>
-
-                <!-- Right: Call to action -->
-                <div class="flex flex-col gap-2.5 bg-canvas-soft/75 rounded-2xl p-5 items-center justify-center text-center border-0">
-                  <div class="text-xs font-mono text-ink font-semibold select-none">Generate Local digest</div>
-                  <button type="button" id="generate-report-btn" class="w-full h-10 bg-link text-white hover:bg-link-hover active:scale-[0.98] text-sm font-bold rounded-lg border-0 transition-all cursor-pointer flex items-center justify-center gap-1.5">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Compile Report
-                  </button>
-                  <div class="text-[10px] font-mono text-mute mt-1 select-none">Extracts direct from LocalStorage</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 4. Focus Vault (Backup & Restore) -->
-          <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.02)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.25)] border-0 flex flex-col justify-between md:col-span-2">
-            <div class="space-y-4">
-              <div class="flex items-center justify-between border-b border-hairline/25 pb-3 select-none">
-                <div class="flex items-center gap-2">
-                  <span class="text-sm font-bold text-body/80">Focus vault</span>
-                  <span class="px-1.5 py-0.5 bg-hairline/40 text-mute/70 text-xs font-bold rounded">PRIVACY ENCRYPTED</span>
-                </div>
-                <span class="text-xs font-mono text-mute">Local Backup & Restore Layer</span>
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                <!-- Left: Description -->
-                <div class="md:col-span-2 space-y-2">
-                  <h4 class="text-xl font-bold tracking-tight text-ink mb-1">Export and restore your focus history</h4>
-                  <p class="text-base text-body leading-relaxed">
-                    Protect your growth journey. Export all sessions, goals, streaks, milestones, weekly reflections, and coaching data into a secure JSON backup file. Import your backup on another browser or device to sync your history.
-                  </p>
-                  <div class="flex flex-wrap gap-2 pt-1.5 select-none">
-                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[11px] text-mute font-medium">No Cloud Accounts</span>
-                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[11px] text-mute font-medium">JSON Serialization</span>
-                    <span class="px-2.5 py-1 bg-canvas-soft/80 rounded-md font-mono text-[11px] text-mute font-medium">Local Integrity Verification</span>
-                  </div>
-                  <!-- Non-blocking feedback notice -->
-                  <div id="vault-status-notice" class="hidden text-xs mt-2 font-medium"></div>
-                </div>
-
-                <!-- Right: Actions -->
-                <div class="flex flex-col gap-2.5 bg-canvas-soft/75 rounded-2xl p-5 items-center justify-center border-0">
-                  <!-- Export Button -->
-                  <button type="button" id="vault-export-btn" class="w-full h-10 bg-link text-white hover:bg-link-hover active:scale-[0.98] text-sm font-bold rounded-lg border-0 transition-all cursor-pointer flex items-center justify-center gap-1.5">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                    Export Backup
-                  </button>
-
-                  <!-- Import Button (Wraps file input) -->
-                  <label class="w-full h-10 border border-hairline/60 bg-canvas text-ink hover:bg-canvas-soft-2 active:scale-[0.98] text-sm font-bold rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1.5 text-center relative select-none shadow-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Import Backup
-                    <input type="file" id="vault-import-input" accept=".json" class="hidden" />
-                  </label>
-                  
-                  <div class="text-[10px] font-mono text-mute text-center select-none">Export is offline & local-only</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </details>
 
     <!-- Marketing Introduction Section -->
     <div class="max-w-6xl mx-auto text-center mt-24 mb-12 px-2 select-none border-t border-hairline pt-16">
@@ -1254,6 +1309,19 @@ const appSchema = {
   }
   let reflections: WeeklyReflection[] = [];
 
+  interface JournalEntry {
+    id: string;
+    date: string;
+    updatedAt: string;
+    dailyNotes: string;
+    wins: string;
+    distractions: string;
+    moodBefore: number;
+    moodAfter: number;
+    lessons: string;
+  }
+  let journalEntries: JournalEntry[] = [];
+
   // Web Audio Context Synthesizer state
   const isWebAudioSupported = typeof window !== 'undefined' && !!(window.AudioContext || (window as any).webkitAudioContext);
   let audioCtx: AudioContext | null = null;
@@ -1290,10 +1358,10 @@ const appSchema = {
     setupFocusVault();
     setupHistoryHelpers();
     
-    // Load and render reflections
-    loadReflections();
-    renderReflections();
-    setupWeeklyReflectionForm();
+    // Load and render journal
+    loadJournal();
+    renderJournalEntries();
+    setupJournalForm();
     
     // Load and render Focus Forecast goal tracking & Weekly Review
     loadForecastGoal();
@@ -1341,6 +1409,7 @@ const appSchema = {
       renderHistoryTable();
       renderHeatmap();
       renderOutcomeDonutChart();
+      renderWeeklyChart();
       renderGrowthJourney();
       renderAchievements();
       renderForecastEngine();
@@ -1350,7 +1419,8 @@ const appSchema = {
     if (tab === 'premium') {
       renderForecastEngine();
       renderWeeklyReview();
-      renderReflections();
+      renderJournalEntries((document.getElementById('journal-search-input') as HTMLInputElement)?.value || '');
+      renderTodaySessionsSummary();
     }
   };
 
@@ -2860,14 +2930,16 @@ const appSchema = {
         const historyData = SafeStorage.getItem('tooltails-focus-history') || '[]';
         const forecastData = SafeStorage.getItem('tooltails-focus-forecast') || 'null';
         const reflectionsData = SafeStorage.getItem('tooltails-focus-reflections') || '[]';
+        const journalData = SafeStorage.getItem('tooltails-focus-daily-journal') || '[]';
 
         const backupPayload = {
-          version: "1.0",
+          version: "1.1",
           timestamp: new Date().toISOString(),
           data: {
             history: JSON.parse(historyData),
             forecast: JSON.parse(forecastData),
-            reflections: JSON.parse(reflectionsData)
+            reflections: JSON.parse(reflectionsData),
+            journal: JSON.parse(journalData)
           }
         };
 
@@ -2944,6 +3016,10 @@ const appSchema = {
             SafeStorage.setItem('tooltails-focus-reflections', JSON.stringify(data.reflections));
             reflections = data.reflections;
           }
+          if (data.journal) {
+            SafeStorage.setItem('tooltails-focus-daily-journal', JSON.stringify(data.journal));
+            journalEntries = data.journal;
+          }
 
           // Re-render UI & recalculate dashboards
           updateDashboardStats();
@@ -2955,6 +3031,8 @@ const appSchema = {
           
           loadReflections();
           renderReflections();
+          loadJournal();
+          renderJournalEntries();
           
           loadForecastGoal();
           renderForecastEngine();
@@ -3017,26 +3095,46 @@ const appSchema = {
     const wsTodayRate = document.getElementById('workspace-today-rate');
     if (wsTodayRate) wsTodayRate.textContent = `${rate}%`;
 
-    // Analytics Page values
-    const minutesFocused = Math.round(totalSeconds / 60);
-    const h = Math.floor(minutesFocused / 60);
-    const m = minutesFocused % 60;
-    
-    const timeEl = document.getElementById('stat-total-time');
-    if (timeEl) timeEl.textContent = `${h}h ${m.toString().padStart(2, '0')}m`;
-
-    const rateEl = document.getElementById('stat-completion-rate');
-    if (rateEl) rateEl.textContent = `${rate}%`;
-
+    // Dashboard card values
     const streakEl = document.getElementById('stat-streak');
-    if (streakEl) streakEl.querySelector('span').textContent = currentStreak.toString();
+    if (streakEl) {
+      const span = streakEl.querySelector('span');
+      if (span) span.textContent = currentStreak.toString();
+    }
 
     const totalEl = document.getElementById('stat-total-sessions');
     if (totalEl) totalEl.textContent = totalSessions.toString();
 
+    const todayFocusEl = document.getElementById('stat-today-focus');
+    if (todayFocusEl) todayFocusEl.textContent = todayFocusFormatted;
+
+    const goalsDoneEl = document.getElementById('stat-goals-completed');
+    if (goalsDoneEl) goalsDoneEl.textContent = completedSessions.toString();
+
+    // Average session length
+    const avgSeconds = totalSessions > 0 ? totalSeconds / totalSessions : 0;
+    const avgMinutes = Math.round(avgSeconds / 60);
+    const avgEl = document.getElementById('stat-avg-session');
+    if (avgEl) avgEl.textContent = avgMinutes > 0 ? `${avgMinutes}m` : '0m';
+
+    // Most used activity
+    let topActivity = '—';
+    if (totalSessions > 0) {
+      const activityCount = new Map<string, number>();
+      history.forEach(s => activityCount.set(s.activity, (activityCount.get(s.activity) || 0) + 1));
+      let maxCount = 0;
+      activityCount.forEach((count, activity) => {
+        if (count > maxCount) { maxCount = count; topActivity = activity; }
+      });
+    }
+    const topActEl = document.getElementById('stat-top-activity');
+    if (topActEl) topActEl.textContent = topActivity;
+
     // SEO / Hero statistics
+    const totalMinutes = Math.round(totalSeconds / 60);
+    const heroHours = Math.floor(totalMinutes / 60);
     const heroH = document.getElementById('hero-total-hours');
-    if (heroH) heroH.textContent = `${h}h`;
+    if (heroH) heroH.textContent = `${heroHours}h`;
     
     const heroRate = document.getElementById('hero-success-rate');
     if (heroRate) heroRate.textContent = `${rate}%`;
@@ -3055,6 +3153,139 @@ const appSchema = {
     // Refresh growth stages and badges
     renderGrowthJourney();
     renderAchievements();
+    renderWeeklyChart();
+    renderTodaySessionsSummary();
+    renderQuickInsights();
+  }
+
+  function renderQuickInsights() {
+    const container = document.getElementById('insights-panel');
+    if (!container) return;
+
+    if (history.length === 0) {
+      container.innerHTML = '';
+      return;
+    }
+
+    // 1. Best focus hour (hour with most completed focus minutes)
+    let bestHour = -1;
+    let bestHourMin = 0;
+    const hourTotals: Record<number, number> = {};
+    history.forEach(s => {
+      const h = new Date(s.timestamp).getHours();
+      hourTotals[h] = (hourTotals[h] || 0) + s.timeSpentSeconds;
+    });
+    Object.keys(hourTotals).forEach(h => {
+      const mins = Math.round(hourTotals[parseInt(h)] / 60);
+      if (mins > bestHourMin) { bestHourMin = mins; bestHour = parseInt(h); }
+    });
+    const bestHourLabel = bestHour >= 0
+      ? `${bestHour % 12 || 12}${bestHour < 12 ? 'am' : 'pm'}`
+      : '—';
+
+    // 2. Most productive activity (by completion rate, min 2 sessions)
+    const activityStatsMap: Record<string, { total: number; completed: number }> = {};
+    history.forEach(s => {
+      if (!activityStatsMap[s.activity]) activityStatsMap[s.activity] = { total: 0, completed: 0 };
+      activityStatsMap[s.activity].total++;
+      if (s.outcome === 'Completed') activityStatsMap[s.activity].completed++;
+    });
+    let bestActInsight = '—';
+    let bestActRate = 0;
+    Object.keys(activityStatsMap).forEach(a => {
+      const stats = activityStatsMap[a];
+      if (stats.total >= 2) {
+        const rate = stats.completed / stats.total;
+        if (rate > bestActRate) { bestActRate = rate; bestActInsight = a; }
+      }
+    });
+    const bestActPct = bestActRate > 0 ? Math.round(bestActRate * 100) : 0;
+
+    // 3. Longest streak ever (iterate sorted dates)
+    const activeDates = Array.from(new Set(
+      history.filter(s => s.outcome === 'Completed' || s.outcome === 'Partial')
+        .map(s => s.timestamp.substring(0, 10))
+    )).sort();
+    let longestStreak = 0;
+    let currentRun = 0;
+    for (let i = 0; i < activeDates.length; i++) {
+      if (i === 0) { currentRun = 1; }
+      else {
+        const prev = new Date(activeDates[i - 1]);
+        const curr = new Date(activeDates[i]);
+        const diffDays = Math.round((curr.getTime() - prev.getTime()) / 86400000);
+        if (diffDays === 1) currentRun++;
+        else { longestStreak = Math.max(longestStreak, currentRun); currentRun = 1; }
+      }
+    }
+    longestStreak = Math.max(longestStreak, currentRun);
+
+    // 4. Weekly focus time
+    const oneWeekAgo = Date.now() - 7 * 86400000;
+    const weekSessions = history.filter(s => new Date(s.timestamp).getTime() >= oneWeekAgo);
+    const weekSec = weekSessions.reduce((sum, s) => sum + s.timeSpentSeconds, 0);
+    const weekHours = Math.floor(weekSec / 3600);
+    const weekMins = Math.floor((weekSec % 3600) / 60);
+    const weekTimeText = weekHours > 0 ? `${weekHours}h ${weekMins}m` : `${weekMins}m`;
+
+    // 5. Deep session count
+    const deepSessions = history.filter(s => s.outcome === 'Completed' && s.durationMinutes >= 50).length;
+
+    container.innerHTML = `
+      <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] space-y-5">
+        <div class="flex items-center gap-2 select-none">
+          <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-link/10 to-link/5 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold tracking-tight text-ink">Smart insights</h3>
+            <p class="text-[11px] text-mute/50">Derived from ${history.length} session${history.length !== 1 ? 's' : ''}</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+          <div class="bg-canvas-soft/40 rounded-2xl p-3.5 border border-hairline/15 space-y-1.5">
+            <div class="flex items-center gap-1.5 text-[11px] text-mute/60">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Best focus hour
+            </div>
+            <div class="text-sm font-bold text-ink tabular-nums">${bestHourLabel}</div>
+            <div class="text-[10px] text-mute/50 leading-tight">${bestHourMin > 0 ? `${bestHourMin} min of focus logged at this hour` : 'No data yet'}</div>
+          </div>
+          <div class="bg-canvas-soft/40 rounded-2xl p-3.5 border border-hairline/15 space-y-1.5">
+            <div class="flex items-center gap-1.5 text-[11px] text-mute/60">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+              Best activity rate
+            </div>
+            <div class="text-sm font-bold text-ink truncate" title="${bestActInsight}">${bestActInsight}</div>
+            <div class="text-[10px] text-mute/50 leading-tight">${bestActPct > 0 ? `${bestActPct}% completion rate` : 'Need 2+ sessions per activity'}</div>
+          </div>
+          <div class="bg-canvas-soft/40 rounded-2xl p-3.5 border border-hairline/15 space-y-1.5">
+            <div class="flex items-center gap-1.5 text-[11px] text-mute/60">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M17.687 9.581a5.87 5.87 0 0 0-4.887-2.91V3.25a.75.75 0 0 0-1.28-.53l-8.25 8.25a.75.75 0 0 0 .53 1.28h5.319v5.999a5.87 5.87 0 0 0 4.887 2.911l.248-.005a5.87 5.87 0 0 0 4.887-2.906A5.87 5.87 0 0 0 17.687 9.581Z"/></svg>
+              Longest streak
+            </div>
+            <div class="text-sm font-bold text-ink tabular-nums">${longestStreak > 0 ? `${longestStreak} day${longestStreak !== 1 ? 's' : ''}` : '—'}</div>
+            <div class="text-[10px] text-mute/50 leading-tight">${longestStreak > 0 ? 'Consecutive days with a session' : 'Complete a session tomorrow to start'}</div>
+          </div>
+          <div class="bg-canvas-soft/40 rounded-2xl p-3.5 border border-hairline/15 space-y-1.5">
+            <div class="flex items-center gap-1.5 text-[11px] text-mute/60">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+              Time this week
+            </div>
+            <div class="text-sm font-bold text-ink tabular-nums">${weekTimeText}</div>
+            <div class="text-[10px] text-mute/50 leading-tight">${weekSessions.length} session${weekSessions.length !== 1 ? 's' : ''} ${weekSessions.length > 0 ? 'in the last 7 days' : 'this week'}</div>
+          </div>
+          <div class="bg-canvas-soft/40 rounded-2xl p-3.5 border border-hairline/15 space-y-1.5">
+            <div class="flex items-center gap-1.5 text-[11px] text-mute/60">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              Deep sessions
+            </div>
+            <div class="text-sm font-bold text-ink tabular-nums">${deepSessions}</div>
+            <div class="text-[10px] text-mute/50 leading-tight">${deepSessions > 0 ? 'Sessions lasting 50+ minutes' : 'Try a longer block for deep flow'}</div>
+          </div>
+        </div>
+      </div>
+    `;
   }
 
   function calculateDailyStreak(sessions: FocusSession[]): number {
@@ -3218,6 +3449,69 @@ const appSchema = {
     document.getElementById('legend-failed-val').textContent = `${Math.round(fPercent * 100)}%`;
   }
 
+  // WEEKLY FOCUS CHART (SVG bar chart for 7 days)
+  function renderWeeklyChart() {
+    const svg = document.getElementById('weekly-chart-svg');
+    if (!svg) return;
+
+    const days: { label: string; completed: number; partial: number; failed: number; total: number }[] = [];
+    const now = new Date();
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(now);
+      d.setDate(now.getDate() - i);
+      const dateStr = d.toISOString().substring(0, 10);
+      const daySessions = history.filter(s => s.timestamp.substring(0, 10) === dateStr);
+      const completed = daySessions.filter(s => s.outcome === 'Completed').reduce((sum, s) => sum + s.timeSpentSeconds, 0);
+      const partial = daySessions.filter(s => s.outcome === 'Partial').reduce((sum, s) => sum + s.timeSpentSeconds, 0);
+      const failed = daySessions.filter(s => s.outcome === 'Failed').reduce((sum, s) => sum + s.timeSpentSeconds, 0);
+      const total = completed + partial + failed;
+      const label = d.toLocaleDateString(undefined, { weekday: 'short' });
+      days.push({ label, completed, partial, failed, total });
+    }
+
+    const maxVal = Math.max(...days.map(d => d.total), 1);
+    const barWidth = 52;
+    const barGap = 28;
+    const chartHeight = 150;
+    const baseY = 170;
+    const startX = 50;
+
+    // Grid line
+    let grid = '';
+    for (let g = 0; g <= 4; g++) {
+      const gy = baseY - (g / 4) * chartHeight;
+      grid += `<line x1="${startX - 10}" y1="${gy}" x2="${startX + 7 * (barWidth + barGap) + 10}" y2="${gy}" stroke="var(--color-hairline)" stroke-width="1" opacity="0.3"/>`;
+    }
+
+    let bars = '';
+    days.forEach((day, i) => {
+      const x = startX + i * (barWidth + barGap);
+      const cH = maxVal > 0 ? (day.completed / maxVal) * chartHeight : 0;
+      const pH = maxVal > 0 ? (day.partial / maxVal) * chartHeight : 0;
+      const fH = maxVal > 0 ? (day.failed / maxVal) * chartHeight : 0;
+      const totalH = cH + pH + fH;
+
+      const minutes = Math.round(day.total / 60);
+      const labelY = baseY + 16;
+      const isToday = i === 6;
+
+      bars += `
+        <g class="group">
+          <rect x="${x}" y="${baseY - totalH}" width="${barWidth}" height="${totalH || 2}" rx="6" fill="var(--color-hairline)" opacity="0.08"/>
+          ${cH > 0 ? `<rect x="${x}" y="${baseY - cH}" width="${barWidth}" height="${cH}" rx="4" fill="var(--color-link)" opacity="0.75"/>
+            <rect x="${x}" y="${baseY - cH}" width="${barWidth}" height="${Math.min(cH, 4)}" rx="2" fill="var(--color-link)" opacity="0.3"/>` : ''}
+          ${pH > 0 ? `<rect x="${x}" y="${baseY - cH - pH}" width="${barWidth}" height="${pH}" rx="3" fill="var(--color-warning)" opacity="0.55"/>` : ''}
+          ${fH > 0 ? `<rect x="${x}" y="${baseY - totalH}" width="${barWidth}" height="${fH}" rx="3" fill="var(--color-error)" opacity="0.35"/>` : ''}
+          <text x="${x + barWidth / 2}" y="${labelY}" text-anchor="middle" fill="var(--color-mute)" font-size="10" font-family="system-ui" font-weight="${isToday ? '600' : '400'}">${day.label}</text>
+          <text x="${x + barWidth / 2}" y="${labelY + 14}" text-anchor="middle" fill="var(--color-ink)" font-size="10" font-weight="600" font-family="system-ui" class="tabular-nums" opacity="${totalH > 0 ? '1' : '0.3'}">${minutes}m</text>
+          ${isToday ? `<line x1="${x - 4}" y1="${baseY - totalH - 6}" x2="${x + barWidth + 4}" y2="${baseY - totalH - 6}" stroke="var(--color-link)" stroke-width="2" stroke-linecap="round" opacity="0.3"/>` : ''}
+          <rect x="${x}" y="${baseY - totalH}" width="${barWidth}" height="${totalH || 2}" rx="6" fill="transparent" class="cursor-pointer"/>
+        </g>`;
+    });
+
+    svg.innerHTML = grid + bars;
+  }
+
   // HISTORY LOG VIEW TABLE
   function renderHistoryTable() {
     const tbody = document.getElementById('history-table-body');
@@ -3227,12 +3521,11 @@ const appSchema = {
       tbody.innerHTML = `
         <tr>
           <td colspan="6" class="py-14 text-center">
-            <div class="flex flex-col items-center justify-center space-y-3 max-w-sm mx-auto animate-in fade-in duration-200">
-              <div class="p-3.5 bg-canvas-soft-2 text-mute/50">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-              </div>
-              <div>
-                <p class="text-sm text-mute/60 leading-relaxed">Your first session is waiting. Set a goal, start the timer, and come back here to see your progress.</p>
+            <div class="flex flex-col items-center justify-center gap-4 max-w-xs mx-auto animate-in fade-in duration-200">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/20"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              <div class="space-y-1">
+                <p class="text-sm font-semibold text-mute/60">Ready for your first session?</p>
+                <p class="text-xs text-mute/40 leading-relaxed">Set a meaningful goal, start the timer, and build momentum. Every session you complete adds a story to your history.</p>
               </div>
             </div>
           </td>
@@ -3241,33 +3534,37 @@ const appSchema = {
       return;
     }
 
+    // Update count badge
+    const badge = document.getElementById('history-count-badge');
+    if (badge) badge.textContent = `${history.length} session${history.length !== 1 ? 's' : ''}`;
+
     tbody.innerHTML = history.map((s, idx) => {
       const date = new Date(s.timestamp).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
       
       let outcomeBadge = '';
       if (s.outcome === 'Completed') {
-        outcomeBadge = `<span class="px-2 py-0.5 bg-hairline/50 text-mute/70 text-xs font-bold rounded">Completed</span>`;
+        outcomeBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 bg-gradient-to-b from-emerald-500/12 to-emerald-500/8 text-emerald-600 dark:text-emerald-400 text-[11px] font-bold rounded-full ring-1 ring-inset ring-emerald-500/15"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><polyline points="20 6 9 17 4 12"/></svg>Completed</span>`;
       } else if (s.outcome === 'Partial') {
-        outcomeBadge = `<span class="px-2 py-0.5 bg-warning/10 text-warning text-xs font-bold rounded">Partial</span>`;
+        outcomeBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 bg-gradient-to-b from-warning/12 to-warning/8 text-warning text-[11px] font-bold rounded-full ring-1 ring-inset ring-warning/15"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Partial</span>`;
       } else {
-        outcomeBadge = `<span class="px-2 py-0.5 bg-error/10 text-error text-xs font-bold rounded">Failed</span>`;
+        outcomeBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 bg-gradient-to-b from-error/12 to-error/8 text-error text-[11px] font-bold rounded-full ring-1 ring-inset ring-error/15"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Failed</span>`;
       }
 
       return `
-        <tr class="hover:bg-canvas-soft-2/50 group border-b border-hairline">
-          <td class="py-3 px-3 font-medium text-mute font-mono text-[11px]">${date}</td>
-          <td class="py-3 px-3">
-            <span class="px-2 py-0.5 text-xs font-semibold rounded ${getActivityColorClass(s.activity)}">${s.activity}</span>
+        <tr class="hover:bg-canvas-soft/50 group border-b border-hairline/20 transition-all duration-150">
+          <td class="py-3.5 px-4 font-medium text-mute font-mono text-[11px]">${date}</td>
+          <td class="py-3.5 px-4">
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-semibold rounded-full bg-canvas-soft/70 border border-hairline/20 ${getActivityColorClass(s.activity)}">${s.activity}</span>
           </td>
-          <td class="py-3 px-3 max-w-xs md:max-w-sm truncate" title="${s.goal}">
-            <div class="font-medium text-ink truncate">${s.goal}</div>
-            ${s.notes ? `<div class="text-xs text-mute italic truncate mt-0.5">"${s.notes}"</div>` : ''}
+          <td class="py-3.5 px-4 max-w-[200px] truncate" title="${s.goal}">
+            <div class="font-medium text-ink text-xs truncate">${s.goal}</div>
+            ${s.notes ? `<div class="text-[11px] text-mute/50 truncate mt-0.5 italic">${s.notes}</div>` : ''}
           </td>
-          <td class="py-3 px-3 text-center">${outcomeBadge}</td>
-          <td class="py-3 px-3 font-mono text-[11px] text-mute">${s.durationMinutes} min</td>
-          <td class="py-3 px-3 text-right">
-            <button type="button" class="text-mute hover:text-error opacity-100 sm:opacity-0 group-hover:opacity-100 transition-all cursor-pointer delete-history-row-btn p-1" data-index="${idx}" aria-label="Delete history entry">
-              Delete
+          <td class="py-3.5 px-4 text-center">${outcomeBadge}</td>
+          <td class="py-3.5 px-4 font-mono text-[11px] text-mute/60">${s.durationMinutes} min</td>
+          <td class="py-3.5 px-4 text-right">
+            <button type="button" class="w-7 h-7 rounded-lg text-mute/40 hover:text-error hover:bg-error/5 opacity-0 group-hover:opacity-100 transition-all duration-200 cursor-pointer delete-history-row-btn flex items-center justify-center" data-index="${idx}" aria-label="Delete history entry">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
             </button>
           </td>
         </tr>
@@ -3377,6 +3674,7 @@ const appSchema = {
     renderHistoryTable();
     renderHeatmap();
     renderOutcomeDonutChart();
+    renderWeeklyChart();
     updateDashboardStats();
 
     // Trigger positive notification
@@ -3385,7 +3683,7 @@ const appSchema = {
 
   function downloadHistoryCSV() {
     if (history.length === 0) {
-      alert("No data available to download. Log some sessions first.");
+      alert("Your focus story hasn't been written yet. Complete a few sessions first, then come back to export your progress.");
       return;
     }
 
@@ -3465,7 +3763,7 @@ const appSchema = {
       const thirtyDaysLater = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().substring(0, 10);
 
       container.innerHTML = `
-        <div class="bg-canvas border border-hairline p-6 md:p-8 rounded-md shadow-sm space-y-6">
+        <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] space-y-6">
           <div class="flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-mute/60" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
             <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1">Track your long-term goals</h3>
@@ -3512,7 +3810,7 @@ const appSchema = {
       // Render promo card in analytics tab
       if (analyticsContainer) {
         analyticsContainer.innerHTML = `
-          <div class="border border-hairline rounded-md p-6 md:p-8 bg-canvas flex flex-col md:flex-row items-center justify-between gap-5 select-none animate-in fade-in duration-200">
+          <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] flex flex-col md:flex-row items-center justify-between gap-5 select-none animate-in fade-in duration-200">
             <div class="flex items-start gap-4">
               <div class="p-3 bg-canvas-soft-2 rounded-full text-mute/60 shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
@@ -3702,9 +4000,12 @@ const appSchema = {
     let logsHTML = "";
     if (activeForecastGoal.logs.length === 0) {
       logsHTML = `<div class="py-10 text-center">
-        <div class="flex flex-col items-center justify-center gap-2.5 max-w-xs mx-auto">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/40"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          <p class="text-sm text-mute/60 leading-relaxed">Nothing logged yet. Record your first bit of progress and it'll show up here.</p>
+        <div class="flex flex-col items-center justify-center gap-3 max-w-xs mx-auto">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/20"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <div class="space-y-0.5">
+            <p class="text-sm font-semibold text-mute/60">Your goal log is empty</p>
+            <p class="text-xs text-mute/40 leading-relaxed">Log your first bit of progress above to start tracking your pace. Even small steps count.</p>
+          </div>
         </div>
       </div>`;
     } else {
@@ -3728,9 +4029,9 @@ const appSchema = {
 
     // Render workspace view in premium tab
     container.innerHTML = `
-      <div class="bg-canvas border border-hairline p-6 md:p-8 rounded-md shadow-sm space-y-6">
+      <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] space-y-6">
         <!-- Header: Title, Deadline, Status, and Reset -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-hairline pb-5">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-hairline/30 pb-5">
           <div class="space-y-1">
             <div class="flex items-center gap-2 flex-wrap">
               <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1" id="goal-display-title">${activeForecastGoal.title}</h3>
@@ -3755,28 +4056,28 @@ const appSchema = {
         <!-- Main Stats Grid -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <!-- Progress Summary -->
-          <div class="bg-canvas-soft border border-hairline rounded-sm p-3.5 text-center space-y-1">
+          <div class="bg-canvas rounded-2xl border border-hairline/15 p-3.5 text-center space-y-1">
             <div class="text-[11px] text-mute">Total progress</div>
             <div class="text-xl font-bold text-ink">${currentProgress} / ${activeForecastGoal.targetValue}</div>
             <div class="text-xs text-mute font-medium">${pctComplete}% Completed</div>
           </div>
           
           <!-- Current Velocity -->
-          <div class="bg-canvas-soft border border-hairline rounded-sm p-3.5 text-center space-y-1">
+          <div class="bg-canvas rounded-2xl border border-hairline/15 p-3.5 text-center space-y-1">
             <div class="text-[11px] text-mute">Current velocity</div>
             <div class="text-xl font-bold text-ink">${currentPace.toFixed(1)} <span class="text-xs font-normal text-body">${activeForecastGoal.unit}/day</span></div>
             <div class="text-xs text-mute font-medium">Over last ${daysElapsed} day${daysElapsed !== 1 ? 's' : ''}</div>
           </div>
 
           <!-- Required Velocity -->
-          <div class="bg-canvas-soft border border-hairline rounded-sm p-3.5 text-center space-y-1">
+          <div class="bg-canvas rounded-2xl border border-hairline/15 p-3.5 text-center space-y-1">
             <div class="text-[11px] text-mute">Required velocity</div>
             <div class="text-xl font-bold text-ink">${requiredPace.toFixed(1)} <span class="text-xs font-normal text-body">${activeForecastGoal.unit}/day</span></div>
             <div class="text-xs text-mute font-medium">${requiredPaceText}</div>
           </div>
 
           <!-- Forecasted Date -->
-          <div class="bg-canvas-soft border border-hairline rounded-sm p-3.5 text-center space-y-1">
+          <div class="bg-canvas rounded-2xl border border-hairline/15 p-3.5 text-center space-y-1">
             <div class="text-[11px] text-mute">Forecasted completion</div>
             <div class="text-xl font-bold text-ink">${forecastedDateStr}</div>
             <div class="text-[10px] ${forecastLabelColor} font-medium">${forecastRelativeText}</div>
@@ -3784,7 +4085,7 @@ const appSchema = {
         </div>
 
         <!-- Linear Schedule Timeline Visualizer -->
-        <div class="bg-canvas-soft-2/20 rounded-sm p-4 md:p-5 space-y-4">
+        <div class="bg-canvas-soft/30 rounded-2xl p-4 md:p-5 space-y-4">
           <div class="flex items-center justify-between text-xs">
             <span class="font-bold text-ink">Schedule Alignment Timeline</span>
             <span class="text-mute font-mono text-xs">${scheduleVarianceText}</span>
@@ -3842,7 +4143,7 @@ const appSchema = {
         <!-- Bottom section: Quick Progress Logger & History Log List -->
         <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
           <!-- Log Progress Form (Col span 2) -->
-          <div class="md:col-span-2 bg-canvas border border-hairline p-5 md:p-6 rounded-md shadow-sm space-y-5">
+          <div class="md:col-span-2 bg-canvas p-5 md:p-6 rounded-2xl border border-hairline/30 shadow-sm space-y-5">
             <h4 class="text-sm font-semibold tracking-tighter text-ink">Log progress manual entry</h4>
             <form id="forecast-log-form" class="space-y-3">
               <div class="space-y-1.5">
@@ -3874,7 +4175,7 @@ const appSchema = {
           </div>
 
           <!-- History log timeline (Col span 3) -->
-          <div class="md:col-span-3 bg-canvas border border-hairline p-5 md:p-6 rounded-md shadow-sm flex flex-col justify-between">
+          <div class="md:col-span-3 bg-canvas p-5 md:p-6 rounded-2xl border border-hairline/30 shadow-sm flex flex-col justify-between">
             <div class="space-y-3">
               <h4 class="text-sm font-semibold tracking-tighter text-ink">Progress log history</h4>
               
@@ -3895,11 +4196,11 @@ const appSchema = {
     // Render summary widget in analytics tab
     if (analyticsContainer) {
       analyticsContainer.innerHTML = `
-        <div class="bg-canvas border border-hairline p-6 md:p-8 rounded-md shadow-sm space-y-6">
+        <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] space-y-6">
           <div class="flex items-center justify-between gap-3 flex-wrap">
             <div>
               <h3 class="text-sm font-semibold text-ink">Active Forecast Goal Progress</h3>
-              <p class="text-xs text-mute">${activeForecastGoal.title} (${daysRemainingText})</p>
+              <p class="text-xs text-mute/60">${activeForecastGoal.title} (${daysRemainingText})</p>
             </div>
             <span class="${statusColorClasses} px-2.5 py-0.5 text-xs font-semibold rounded-full flex items-center gap-1>
               <span class="w-1 h-1 rounded-full ${statusDotClasses}"></span>
@@ -3920,19 +4221,19 @@ const appSchema = {
 
           <!-- Stats Grid -->
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <div class="bg-canvas-soft border border-hairline rounded-sm p-2.5">
+            <div class="bg-canvas rounded-2xl border border-hairline/15 p-2.5">
               <div class="text-[11px] text-mute">Current velocity</div>
               <div class="text-sm font-bold text-ink">${currentPace.toFixed(1)} ${activeForecastGoal.unit}/day</div>
             </div>
-            <div class="bg-canvas-soft border border-hairline rounded-sm p-2.5">
+            <div class="bg-canvas rounded-2xl border border-hairline/15 p-2.5">
               <div class="text-[11px] text-mute">Required velocity</div>
               <div class="text-sm font-bold text-ink">${requiredPace.toFixed(1)} ${activeForecastGoal.unit}/day</div>
             </div>
-            <div class="bg-canvas-soft border border-hairline rounded-sm p-2.5">
+            <div class="bg-canvas rounded-2xl border border-hairline/15 p-2.5">
               <div class="text-[11px] text-mute">Forecasted date</div>
               <div class="text-sm font-bold text-ink">${forecastedDateStr}</div>
             </div>
-            <div class="bg-canvas-soft border border-hairline rounded-sm p-2.5">
+            <div class="bg-canvas rounded-2xl border border-hairline/15 p-2.5">
               <div class="text-[11px] text-mute">Schedule match</div>
               <div class="text-[11px] font-bold ${scheduleVariance >= 0 ? 'text-emerald-500' : 'text-rose-500'} truncate">${scheduleVarianceText}</div>
             </div>
@@ -4045,16 +4346,14 @@ const appSchema = {
 
     if (weeklySessions.length === 0) {
       container.innerHTML = `
-        <div class="bg-canvas border border-hairline p-7 md:p-8 rounded-md shadow-sm space-y-4 animate-in fade-in duration-200">
-          <div class="flex items-center gap-3">
-            <div class="p-2.5 bg-canvas-soft-2 rounded-full text-mute/50">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        <div class="bg-canvas p-7 md:p-8 rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] animate-in fade-in duration-200">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl bg-canvas-soft-2 border border-hairline/30 flex items-center justify-center shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/40"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
             </div>
-            <div>
-              <h3 class="text-base font-semibold tracking-tight text-ink">Weekly review</h3>
-              <p class="text-sm text-mute/60 leading-relaxed mt-1 max-w-lg">
-                No sessions logged this week yet. Once you finish a few focus blocks, we'll show you how things are going.
-              </p>
+            <div class="space-y-1">
+              <h3 class="text-sm font-semibold text-mute/60">This week is a clean slate</h3>
+              <p class="text-xs text-mute/40 leading-relaxed max-w-md">Every session you complete this week will show up here with your progress, peak focus times, and a personalized review. Start your first one to unlock insights.</p>
             </div>
           </div>
         </div>
@@ -4167,9 +4466,9 @@ const appSchema = {
     `).join("");
 
     container.innerHTML = `
-      <div class="bg-canvas border border-hairline p-6 md:p-8 rounded-md shadow-sm space-y-6">
+      <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] space-y-6">
         <!-- Header -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-hairline pb-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-hairline/30 pb-4">
           <div>
             <div class="flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-mute/60" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -4185,36 +4484,36 @@ const appSchema = {
 
         <!-- Stats Grid -->
         <div class="grid grid-cols-2 md:grid-cols-6 gap-3">
-          <div class="bg-canvas-soft border border-hairline rounded-sm p-3.5 text-center space-y-1">
+          <div class="bg-canvas rounded-2xl border border-hairline/15 p-3.5 text-center space-y-1">
                   <div class="text-xs font-medium text-mute">Focus hours</div>
                   <div class="text-base font-bold text-ink">${focusHoursText}</div>
           </div>
-          <div class="bg-canvas-soft border border-hairline rounded-sm p-3.5 text-center space-y-1">
+          <div class="bg-canvas rounded-2xl border border-hairline/15 p-3.5 text-center space-y-1">
                   <div class="text-xs font-medium text-mute">Completion rate</div>
                   <div class="text-base font-bold text-ink">${weeklyCompletionRate}%</div>
           </div>
-          <div class="bg-canvas-soft border border-hairline rounded-sm p-3.5 text-center space-y-1">
+          <div class="bg-canvas rounded-2xl border border-hairline/15 p-3.5 text-center space-y-1">
                   <div class="text-xs font-medium text-mute">Best activity</div>
                   <div class="text-base font-bold text-ink truncate" title="${bestAct}">${bestAct}</div>
           </div>
-          <div class="bg-canvas-soft border border-hairline rounded-sm p-3.5 text-center space-y-1">
+          <div class="bg-canvas rounded-2xl border border-hairline/15 p-3.5 text-center space-y-1">
             <div class="text-xs font-medium text-mute">Most missed</div>
             <div class="text-base font-bold text-ink truncate" title="${missedAct}">${missedAct}</div>
           </div>
-          <div class="bg-canvas-soft border border-hairline rounded-sm p-3.5 text-center space-y-1">
+          <div class="bg-canvas rounded-2xl border border-hairline/15 p-3.5 text-center space-y-1">
             <div class="text-xs font-medium text-mute">Days active</div>
             <div class="text-base font-bold text-ink">${weeklyStreak} / 7</div>
           </div>
-          <div class="bg-canvas-soft border border-hairline rounded-sm p-3.5 text-center space-y-1">
+          <div class="bg-canvas rounded-2xl border border-hairline/15 p-3.5 text-center space-y-1">
             <div class="text-xs font-medium text-mute">Avg duration</div>
             <div class="text-base font-bold text-ink">${avgDuration}m</div>
           </div>
         </div>
 
         <!-- Coaching Advice Panel -->
-        <div class="border border-hairline rounded-sm p-4 bg-canvas-soft-2/20 space-y-3.5">
+        <div class="rounded-2xl p-4 bg-canvas-soft/40 border border-hairline/20 space-y-3.5">
           <div class="text-sm font-semibold tracking-tighter text-ink flex items-center gap-1.5">
-            <span class="inline-block w-1.5 h-1.5 bg-mute/50 rounded-full animate-pulse"></span>
+            <span class="inline-block w-1.5 h-1.5 bg-mute/40 rounded-full animate-pulse"></span>
             Behavioral Diagnostics & Insights
           </div>
           
@@ -4346,36 +4645,37 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     const pct = nextStage === 'Infinity' ? 100 : Math.min(100, Math.round((progressInStage / rangeInStage) * 100));
 
     container.innerHTML = `
-      <div class="bg-canvas border border-hairline p-6 md:p-8 rounded-md shadow-sm space-y-6">
-        <div class="flex items-center justify-between border-b border-hairline pb-4">
+      <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] space-y-6">
+        <div class="flex items-center justify-between border-b border-hairline/30 pb-4">
           <div>
             <h3 class="text-base font-semibold tracking-tighter text-ink">Your growth journey</h3>
-            <p class="text-xs text-mute">Nourish your focus to grow your digital sanctuary.</p>
+            <p class="text-xs text-mute/60">Nourish your focus to grow your digital sanctuary.</p>
           </div>
-          <span class="px-2.5 py-1 bg-canvas-soft-2 text-mute/70 text-xs font-semibold rounded-md">
+          <span class="px-2.5 py-1 bg-canvas-soft-2 text-mute/70 text-xs font-semibold rounded-xl">
             Stage: ${stage}
           </span>
         </div>
 
         <div class="flex flex-col md:flex-row items-center gap-5 pt-2">
           <!-- Big Stage Icon -->
-          <div class="w-16 h-16 rounded-md bg-canvas-soft border border-hairline flex items-center justify-center shrink-0 shadow-sm">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-canvas-soft to-canvas-soft border border-hairline/30 flex items-center justify-center shrink-0 shadow-sm relative">
+            <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/5 to-transparent opacity-50"></div>
             ${iconSvg}
           </div>
           <!-- Info & Progress bar -->
           <div class="flex-grow space-y-2.5 w-full text-left">
             <div class="flex items-center justify-between text-xs">
               <span class="font-bold text-ink">Current Stage: ${stage}</span>
-              <span class="font-mono text-mute">
+              <span class="font-mono text-mute/60">
                 ${nextStage === 'Infinity' ? 'Forest Fully Grown' : `${completedCount} / ${requiredForNext} Completed Sessions`}
               </span>
             </div>
-            <p class="text-sm text-body leading-relaxed">${description}</p>
+            <p class="text-sm text-body/80 leading-relaxed">${description}</p>
             
             ${nextStage !== 'Infinity' ? `
             <div class="space-y-1">
-              <div class="w-full h-2 bg-hairline rounded-full overflow-hidden">
-                <div class="h-full bg-link transition-all duration-500" style="width: ${pct}%"></div>
+              <div class="w-full h-2 bg-hairline/60 rounded-full overflow-hidden shadow-[inset_0_1px_2px_rgba(0,0,0,0.04)]">
+                <div class="h-full bg-gradient-to-r from-link via-blue-400 to-link rounded-full transition-all duration-700 ease-out shadow-[0_0_8px_rgba(37,99,235,0.2)]" style="width: ${pct}%"></div>
               </div>
               <div class="flex justify-between text-xs font-mono text-mute">
                 <span>${stage} (${minForStage})</span>
@@ -4454,11 +4754,11 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     const unlockedCount = achievements.filter(a => a.unlocked).length;
 
     container.innerHTML = `
-      <div class="bg-canvas border border-hairline p-6 md:p-8 rounded-md shadow-sm space-y-6">
-        <div class="flex items-center justify-between border-b border-hairline pb-4">
+      <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] space-y-6">
+        <div class="flex items-center justify-between border-b border-hairline/30 pb-4">
           <div>
             <h3 class="text-base font-semibold tracking-tighter text-ink">Achievements & badges</h3>
-            <p class="text-xs text-mute">Unlock rewards through consistent mindful work.</p>
+            <p class="text-xs text-mute/60">Unlock rewards through consistent mindful work.</p>
           </div>
           <span class="text-xs font-mono font-bold text-mute/70">
             ${unlockedCount} / ${achievements.length} Unlocked
@@ -4467,28 +4767,28 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-2">
           ${achievements.map(a => `
-            <div class="p-3 border rounded-sm flex flex-col justify-between h-36 transition-all text-left ${
+            <div class="p-3 border rounded-2xl flex flex-col justify-between min-h-[150px] transition-all duration-300 text-left ${
               a.unlocked 
-                ? 'bg-canvas border-hairline hover:bg-canvas-soft shadow-sm text-ink'
-                : 'opacity-45 hover:opacity-60 bg-canvas border-hairline border-dashed text-mute select-none'
+                ? 'bg-gradient-to-b from-canvas to-canvas border-hairline/40 hover:bg-canvas-soft hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 shadow-sm text-ink'
+                : 'opacity-40 hover:opacity-70 bg-canvas border-hairline/15 border-dashed text-mute select-none hover:shadow-sm'
             }">
               <div class="space-y-2">
                 <div class="flex items-center justify-between">
-                  <div class="p-1.5 bg-canvas border border-hairline rounded-sm shadow-sm">
+                  <div class="p-1.5 bg-gradient-to-br from-canvas-soft to-canvas border border-hairline/15 rounded-xl shadow-sm">
                     ${a.svg}
                   </div>
                   ${a.unlocked 
-                    ? `<span class="text-xs font-semibold text-mute/70">Unlocked</span>`
-                    : `<span class="text-xs font-semibold text-mute">Locked</span>`
+                    ? `<span class="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded-full ring-1 ring-inset ring-emerald-500/15">Unlocked</span>`
+                    : `<span class="text-[10px] font-semibold text-mute/40 px-1.5 py-0.5">Locked</span>`
                   }
                 </div>
                 <div>
-                  <h4 class="text-xs font-bold text-ink leading-snug">${a.name}</h4>
+                  <h4 class="text-xs font-bold text-ink leading-snug ${a.unlocked ? '' : 'text-mute/60'}">${a.name}</h4>
                   <p class="text-xs text-mute leading-relaxed mt-0.5">${a.desc}</p>
                 </div>
               </div>
-              <div class="text-xs font-mono text-mute border-t border-hairline/60 pt-1.5 mt-1">
-                Goal: ${a.condition}
+              <div class="text-[10px] font-mono text-mute/50 border-t border-hairline/30 pt-1.5 mt-1">
+                ${a.condition}
               </div>
             </div>
           `).join('')}
@@ -4531,12 +4831,11 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
 
     if (reflections.length === 0) {
       list.innerHTML = `
-        <div class="flex flex-col items-center justify-center p-8 border border-dashed border-hairline/50 rounded-xl text-center space-y-3 animate-in fade-in duration-200">
-          <div class="p-2.5 bg-canvas-soft-2 rounded-full text-mute/50">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-          </div>
-          <div>
-            <p class="text-sm text-mute/60 leading-relaxed max-w-xs">No reflections yet. When you finish a session, jot down how it went — your future self will thank you.</p>
+        <div class="flex flex-col items-center justify-center p-8 border border-dashed border-hairline/30 rounded-xl text-center space-y-4 animate-in fade-in duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/20"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          <div class="space-y-1">
+            <p class="text-sm font-semibold text-mute/60">Your reflection space is ready</p>
+            <p class="text-xs text-mute/40 leading-relaxed max-w-xs">After each session, take a moment to reflect on what worked and what you learned. Small insights compound into big growth.</p>
           </div>
         </div>
       `;
@@ -4592,6 +4891,264 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
         textarea.value = '';
       }
     });
+  }
+
+  // DAILY JOURNAL SYSTEM
+  function loadJournal() {
+    try {
+      const stored = SafeStorage.getItem('tooltails-focus-daily-journal');
+      journalEntries = stored ? JSON.parse(stored) : [];
+    } catch (e) {
+      if (isDev) console.error('Failed to parse journal entries', e);
+      journalEntries = [];
+    }
+  }
+
+  function saveJournalToStorage() {
+    SafeStorage.setItem('tooltails-focus-daily-journal', JSON.stringify(journalEntries));
+  }
+
+  function getTodayEntry(): JournalEntry | undefined {
+    const today = new Date().toISOString().substring(0, 10);
+    return journalEntries.find(e => e.date === today);
+  }
+
+  function upsertJournalEntry(data: { dailyNotes: string; wins: string; distractions: string; moodBefore: number; moodAfter: number; lessons: string }) {
+    const today = new Date().toISOString().substring(0, 10);
+    const existing = getTodayEntry();
+    if (existing) {
+      existing.dailyNotes = data.dailyNotes;
+      existing.wins = data.wins;
+      existing.distractions = data.distractions;
+      existing.moodBefore = data.moodBefore;
+      existing.moodAfter = data.moodAfter;
+      existing.lessons = data.lessons;
+      existing.updatedAt = new Date().toISOString();
+    } else {
+      const entry: JournalEntry = {
+        id: Math.random().toString(36).substr(2, 9),
+        date: today,
+        updatedAt: new Date().toISOString(),
+        ...data
+      };
+      journalEntries.unshift(entry);
+    }
+    saveJournalToStorage();
+  }
+
+  function renderJournalEntries(filter = '') {
+    const list = document.getElementById('journal-entries-list');
+    const countEl = document.getElementById('journal-entries-count');
+    if (!list) return;
+
+    const today = new Date().toISOString().substring(0, 10);
+    let entries = journalEntries.filter(e => e.date !== today);
+
+    if (filter) {
+      const q = filter.toLowerCase();
+      entries = entries.filter(e =>
+        e.dailyNotes.toLowerCase().includes(q) ||
+        e.wins.toLowerCase().includes(q) ||
+        e.distractions.toLowerCase().includes(q) ||
+        e.lessons.toLowerCase().includes(q)
+      );
+    }
+
+    if (countEl) countEl.textContent = `${entries.length} entr${entries.length !== 1 ? 'ies' : 'y'}`;
+
+    if (entries.length === 0) {
+      list.innerHTML = `
+        <div class="flex flex-col items-center justify-center p-8 border border-dashed border-hairline/30 rounded-xl text-center space-y-4 animate-in fade-in duration-200">
+          ${filter ? `
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/20"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <div class="space-y-1">
+              <p class="text-sm font-semibold text-mute/60">No entries match your search</p>
+              <p class="text-xs text-mute/40 leading-relaxed">Try a different keyword or browse all entries.</p>
+            </div>
+          ` : `
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/20"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/><path d="M2 3h6a4 4 0 0 1 4 4v14"/></svg>
+            <div class="space-y-1">
+              <p class="text-sm font-semibold text-mute/60">Your journal is ready for your first entry</p>
+              <p class="text-xs text-mute/40 leading-relaxed">Fill in your wins, notes, and mood above, then save. Each entry helps you track your growth over time.</p>
+            </div>
+          `}
+        </div>`;
+      return;
+    }
+
+    const moodEmojis = ['😢', '😕', '😐', '😊', '🤩'];
+
+    list.innerHTML = entries.map(e => {
+      const dateStr = new Date(e.date + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+      const preview = (e.dailyNotes || e.wins || e.lessons || '').substring(0, 100);
+      const moodDelta = e.moodAfter - e.moodBefore;
+      const moodTrend = moodDelta > 0 ? 'text-emerald-500' : moodDelta < 0 ? 'text-rose-400' : 'text-mute/40';
+      const moodArrow = moodDelta > 0 ? '↑' : moodDelta < 0 ? '↓' : '→';
+      return `
+        <div class="pl-4 relative group text-left">
+          <div class="absolute left-0 top-3 bottom-3 w-[3px] rounded-full bg-gradient-to-b from-link/15 via-link/10 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="p-3.5 bg-canvas border border-hairline/30 hover:border-hairline-strong/50 rounded-xl text-sm text-ink space-y-2 transition-all duration-200 hover:shadow-[0_2px_12px_rgba(0,0,0,0.05)] hover:-translate-y-0.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono text-mute/50">${dateStr}</span>
+              <div class="flex items-center gap-1.5">
+                <span class="text-xs font-medium text-mute/40 flex items-center gap-1" title="Mood before → after">${moodEmojis[e.moodBefore]}<span class="${moodTrend} text-[10px] font-bold">${moodArrow}</span>${moodEmojis[e.moodAfter]}</span>
+                <button type="button" class="w-6 h-6 rounded-lg text-mute/30 hover:text-error hover:bg-error/5 opacity-0 group-hover:opacity-100 transition-all duration-200 cursor-pointer delete-journal-btn shrink-0 flex items-center justify-center" data-id="${e.id}" aria-label="Delete entry">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+            </div>
+            ${preview ? `<p class="text-body/80 leading-relaxed text-xs">${preview}${preview.length >= 100 ? '…' : ''}</p>` : ''}
+            <div class="flex flex-wrap gap-1">
+              ${e.wins ? `<span class="text-[10px] px-2 py-0.5 bg-gradient-to-b from-emerald-500/10 to-emerald-500/5 text-emerald-600 dark:text-emerald-400 rounded-full font-medium ring-1 ring-inset ring-emerald-500/12">🏆 Win</span>` : ''}
+              ${e.distractions ? `<span class="text-[10px] px-2 py-0.5 bg-gradient-to-b from-rose-500/10 to-rose-500/5 text-rose-500 rounded-full font-medium ring-1 ring-inset ring-rose-500/12">🌀 Distraction</span>` : ''}
+              ${e.lessons ? `<span class="text-[10px] px-2 py-0.5 bg-gradient-to-b from-purple-500/10 to-purple-500/5 text-purple-500 rounded-full font-medium ring-1 ring-inset ring-purple-500/12">💡 Lesson</span>` : ''}
+              ${e.dailyNotes ? `<span class="text-[10px] px-2 py-0.5 bg-gradient-to-b from-link/10 to-link/5 text-link rounded-full font-medium ring-1 ring-inset ring-link/12">📝 Notes</span>` : ''}
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+
+    list.querySelectorAll('.delete-journal-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = (e.currentTarget as HTMLElement).getAttribute('data-id');
+        if (id && confirm('Delete this journal entry?')) {
+          journalEntries = journalEntries.filter(je => je.id !== id);
+          saveJournalToStorage();
+          renderJournalEntries((document.getElementById('journal-search-input') as HTMLInputElement)?.value || '');
+        }
+      });
+    });
+  }
+
+  function setupJournalForm() {
+    // Populate today's date
+    const dateEl = document.getElementById('journal-today-date');
+    if (dateEl) {
+      dateEl.textContent = new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+    }
+
+    // Load today's entry if exists
+    const todayEntry = getTodayEntry();
+    if (todayEntry) {
+      const getVal = (id: string) => (document.getElementById(id) as HTMLTextAreaElement);
+      const notes = getVal('journal-daily-notes');
+      const wins = getVal('journal-wins');
+      const dist = getVal('journal-distractions');
+      const less = getVal('journal-lessons');
+      if (notes) notes.value = todayEntry.dailyNotes;
+      if (wins) wins.value = todayEntry.wins;
+      if (dist) dist.value = todayEntry.distractions;
+      if (less) less.value = todayEntry.lessons;
+      const moodBefore = document.getElementById('journal-mood-before');
+      const moodAfter = document.getElementById('journal-mood-after');
+      if (moodBefore) moodBefore.setAttribute('data-mood', todayEntry.moodBefore.toString());
+      if (moodAfter) moodAfter.setAttribute('data-mood', todayEntry.moodAfter.toString());
+    }
+
+    // Render today's sessions
+    renderTodaySessionsSummary();
+
+    // Setup mood pickers
+    document.querySelectorAll('#journal-mood-before .mood-btn, #journal-mood-after .mood-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLElement;
+        const parent = target.parentElement;
+        if (!parent) return;
+        const value = target.getAttribute('data-value');
+        parent.setAttribute('data-mood', value || '2');
+        parent.querySelectorAll('.mood-btn').forEach(b => {
+          b.classList.remove('border-link/50', 'bg-link/8', 'text-ink', 'font-semibold', 'ring-1', 'ring-link/20', 'scale-110');
+          b.classList.add('border-hairline/50');
+        });
+        target.classList.remove('border-hairline/50');
+        target.classList.add('border-link/50', 'bg-link/8', 'text-ink', 'font-semibold', 'ring-1', 'ring-link/20', 'scale-110');
+      });
+    });
+
+    // Save button
+    const saveBtn = document.getElementById('journal-save-btn');
+    if (saveBtn) {
+      const newBtn = saveBtn.cloneNode(true);
+      saveBtn.parentNode?.replaceChild(newBtn, saveBtn);
+      newBtn.addEventListener('click', () => {
+        const getVal = (id: string) => ((document.getElementById(id) as HTMLTextAreaElement)?.value || '').trim();
+        const dailyNotes = getVal('journal-daily-notes');
+        const wins = getVal('journal-wins');
+        const distractions = getVal('journal-distractions');
+        const lessons = getVal('journal-lessons');
+        const moodBefore = parseInt(document.getElementById('journal-mood-before')?.getAttribute('data-mood') || '2');
+        const moodAfter = parseInt(document.getElementById('journal-mood-after')?.getAttribute('data-mood') || '2');
+
+        upsertJournalEntry({ dailyNotes, wins, distractions, moodBefore, moodAfter, lessons });
+
+        // Feedback
+        const feedback = document.getElementById('journal-save-feedback');
+        if (feedback) {
+          feedback.classList.remove('hidden');
+          setTimeout(() => feedback.classList.add('hidden'), 2000);
+        }
+
+        renderJournalEntries((document.getElementById('journal-search-input') as HTMLInputElement)?.value || '');
+      });
+    }
+
+    // Search input
+    const searchInput = document.getElementById('journal-search-input');
+    if (searchInput) {
+      const newSearch = searchInput.cloneNode(true);
+      searchInput.parentNode?.replaceChild(newSearch, searchInput);
+      newSearch.addEventListener('input', (e) => {
+        renderJournalEntries((e.currentTarget as HTMLInputElement).value);
+      });
+    }
+  }
+
+  function renderTodaySessionsSummary() {
+    const el = document.getElementById('journal-today-sessions');
+    if (!el) return;
+    const todayStr = new Date().toISOString().substring(0, 10);
+    const todaySessions = history.filter(s => s.timestamp.substring(0, 10) === todayStr);
+    if (todaySessions.length === 0) {
+      el.innerHTML = `
+        <div class="flex items-start gap-3 text-sm">
+          <div class="w-8 h-8 rounded-xl bg-canvas-soft-2 border border-hairline/30 flex items-center justify-center shrink-0 mt-0.5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-mute/40"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="space-y-0.5">
+            <p class="text-sm font-medium text-mute/60">No focus sessions yet today</p>
+            <p class="text-xs text-mute/40 leading-relaxed">Pick a goal, set your timer, and start your first session. Your progress will show up here once you complete one.</p>
+          </div>
+        </div>`;
+      return;
+    }
+    const totalMin = Math.round(todaySessions.reduce((s, ses) => s + ses.timeSpentSeconds, 0) / 60);
+    const completed = todaySessions.filter(s => s.outcome === 'Completed').length;
+    const partial = todaySessions.filter(s => s.outcome === 'Partial').length;
+    const failed = todaySessions.filter(s => s.outcome === 'Failed').length;
+    el.innerHTML = `
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5 text-sm">
+          <span class="w-7 h-7 rounded-lg bg-link/10 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-link"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </span>
+          <div>
+            <span class="font-bold text-ink">${todaySessions.length} session${todaySessions.length !== 1 ? 's' : ''}</span>
+            <span class="text-mute/50 mx-1">·</span>
+            <span class="text-mute/70 font-medium">${totalMin}m focused</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 text-xs">
+          <span class="text-link font-semibold flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><polyline points="20 6 9 17 4 12"/></svg>${completed} done</span>
+          ${partial > 0 ? `<span class="text-warning font-semibold flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>${partial} partial</span>` : ''}
+          ${failed > 0 ? `<span class="text-error font-semibold flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>${failed} missed</span>` : ''}
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-1.5 mt-3">
+        ${todaySessions.map(s => {
+          const outcomeColors: Record<string, string> = { Completed: 'bg-link/8 text-link border-link/15', Partial: 'bg-warning/8 text-warning border-warning/15', Failed: 'bg-error/8 text-error border-error/15' };
+          return `<span class="text-[10px] px-2.5 py-0.5 rounded-full border font-medium ${outcomeColors[s.outcome] || 'border-hairline text-mute'}">${s.activity} · ${s.durationMinutes}m</span>`;
+        }).join('')}
+      </div>`;
   }
 
   // MONTHLY GROWTH PDF REPORT COMPILER
