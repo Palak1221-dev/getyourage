@@ -1,0 +1,12 @@
+node_modules/
+.astro/
+dist/
+.git/
+.venv/
+.vercel/
+coverage/
+.cache/
+.vscode/
+.idea/
+__pycache__/
+*.pyc
