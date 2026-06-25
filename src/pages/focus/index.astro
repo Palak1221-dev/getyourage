@@ -67,13 +67,13 @@ const appSchema = {
   <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
   <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(appSchema)} />
   <!-- Main View Container -->
-  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 py-3 md:py-6 relative">
+  <div class="max-w-[1440px] mx-auto px-3 sm:px-4 py-2 md:py-4 relative">
     
     <span id="global-streak-value" class="hidden">0</span>
     <span id="global-success-rate" class="hidden">0%</span>
 
     <!-- Minimal header -->
-    <div class="flex items-center justify-between mb-6 md:mb-8 select-none">
+    <div class="flex items-center justify-between mb-4 md:mb-5 select-none">
       <h1 class="text-xl md:text-2xl font-bold tracking-tight text-ink">
         Focus
       </h1>
@@ -97,318 +97,308 @@ const appSchema = {
       <!-- Hidden onboarding tracker for LocalStorage warning insertion -->
       <div id="onboarding-tracker" class="hidden" aria-hidden="true"></div>
 
-      <!-- FOCUS WORKSPACE — centered vertical flow: Goal → Activity → Timer → CTA -->
-      <div id="focus-workspace-container" class="max-w-[640px] mx-auto bg-canvas rounded-2xl transition-all duration-500">
-        <div class="flex flex-col items-center text-center px-5 sm:px-8 md:px-10 pt-6 sm:pt-8 pb-3 md:pb-4">
+      <!-- FOCUS WORKSPACE — two-column grid: Setup + Details on left, Timer + Today's Progress on right -->
+      <div id="focus-workspace-container" class="max-w-[1320px] mx-auto bg-canvas rounded-2xl transition-all duration-500">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12 px-4 sm:px-6 lg:px-10 pt-3 sm:pt-4 lg:pt-6 pb-1 md:pb-2">
           
-          <!-- SETUP PANEL (shown in setup mode) -->
-          <div id="setup-panel" class="w-full space-y-6 flex flex-col items-center">
-            <!-- Session Goal Input — large, inviting, borderless -->
-            <div class="w-full max-w-lg">
-              <input 
-                type="text" 
-                id="session-goal" 
-                autocomplete="off"
-                spellcheck="true"
-                class="w-full h-12 sm:h-14 px-5 bg-canvas-soft/70 rounded-2xl text-base sm:text-lg font-semibold tracking-tight text-ink placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.1)] transition-all duration-300 select-text text-center" 
-                placeholder="What do you want to make happen?" 
-                aria-label="What do you want to make happen today?"
-              />
-            </div>
+          <!-- LEFT COLUMN: Setup (goal, activity, active info) + Details (why, checkpoints, duration, sound) -->
+          <div class="flex flex-col space-y-3 lg:space-y-5 min-w-0">
 
-            <!-- Activity Selector — larger, pill-style cards -->
-            <div class="w-full max-w-lg select-none">
-              <span class="text-sm font-medium text-body/70 block mb-3">What kind of work are you doing?</span>
-              <div class="flex items-center justify-center gap-2 flex-wrap">
-                <button type="button" class="activity-btn px-4 py-2.5 text-sm rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium shadow-sm" data-activity="Coding" aria-label="Select Coding">
-                  <span class="text-base">💻</span> Coding
-                </button>
-                <button type="button" class="activity-btn px-4 py-2.5 text-sm rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium shadow-sm" data-activity="Study" aria-label="Select Study">
-                  <span class="text-base">📚</span> Study
-                </button>
-                <button type="button" class="activity-btn px-4 py-2.5 text-sm rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium shadow-sm" data-activity="Reading" aria-label="Select Reading">
-                  <span class="text-base">📖</span> Reading
-                </button>
-                <button type="button" class="activity-btn px-4 py-2.5 text-sm rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium shadow-sm" data-activity="Writing" aria-label="Select Writing">
-                  <span class="text-base">✍️</span> Writing
-                </button>
-                <button type="button" class="activity-btn px-4 py-2.5 text-sm rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium shadow-sm" data-activity="Art" aria-label="Select Art">
-                  <span class="text-base">🎨</span> Art
-                </button>
-                <button type="button" class="activity-btn px-4 py-2.5 text-sm rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium shadow-sm" data-activity="Custom" id="act-btn-custom" aria-label="Select Custom">
-                  <span class="text-base">⚙️</span> Custom
-                </button>
-              </div>
-            </div>
-
-            <!-- Custom Activity Input -->
-            <input type="text" id="custom-activity-input" autocomplete="off" class="hidden w-full max-w-xs h-11 px-4 bg-canvas-soft/70 rounded-xl text-base text-ink text-center focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.1)] transition-all duration-200"                 placeholder="What are you working on?" aria-label="Describe what you are working on" />
-            <div id="custom-activity-next-panel" class="hidden"></div>
-
-            <!-- Checkpoints — minimal inline add, unhides below if needed -->
-            <div class="hidden" id="setup-milestones-compact">
-              <!-- populated via JS if milestones exist -->
-            </div>
-
-            <!-- Single Start Action Button (kept hidden for JS event binding) -->
-            <button type="button" id="start-session-btn" class="hidden" aria-label="Start Goal Focus Session"></button>
-          </div>
-
-          <!-- ACTIVE FOCUS PANEL (shown during session) -->
-          <div id="active-info-panel" class="hidden w-full space-y-3 flex flex-col items-center">
-            <!-- Activity tag chip -->
-            <span id="active-activity-tag" class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-link/10 text-link"></span>
-            <!-- Goal title -->
-            <h2 id="active-goal-title" class="text-2xl sm:text-3xl font-bold tracking-tight text-ink leading-snug text-pretty max-w-lg"></h2>
-            <!-- Why this matters -->
-            <div id="active-why-matters-panel" class="hidden max-w-md text-base text-body/80 italic leading-relaxed">
-              <span id="active-why-matters-text"></span>
-            </div>
-            <!-- Current step highlight during active session -->
-            <div id="active-current-step-container" class="hidden px-4 py-2 bg-canvas-soft/60 rounded-xl flex items-center justify-center gap-2 select-none">
-              <span class="w-1.5 h-1.5 bg-link rounded-full animate-pulse"></span>
-              <span class="text-sm text-mute">Right now:</span>
-              <span id="active-current-step-text" class="text-xs font-semibold text-ink truncate max-w-[180px]"></span>
-            </div>
-          </div>
-
-          <!-- Divider (shown only when setup has content) -->
-          <div class="w-full h-px bg-hairline/15 my-3"></div>
-
-          <!-- THE TIMER — emotional center of the experience -->
-          <div id="timer-container-card" class="w-full flex flex-col items-center justify-center relative transition-all duration-500">
-            <!-- Soft background glow -->
-            <div id="timer-active-glow" class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.04),transparent_70%)] pointer-events-none opacity-0 transition-opacity duration-700 ease-out"></div>
-            
-            <div class="relative w-60 h-60 sm:w-72 sm:h-72 md:w-80 md:h-80 flex items-center justify-center select-none mb-4 timer-dial-wrapper">
-              <!-- Subtle dial shadow — layered for depth -->
-              <div class="absolute inset-[3%] rounded-full bg-gradient-to-b from-canvas-soft/10 to-transparent dark:from-white/[0.02] pointer-events-none timer-dial-shadow"></div>
-              <!-- Bezel ring for premium feel -->
-              <div class="absolute inset-[2.5%] rounded-full border border-hairline/10 pointer-events-none"></div>
-
-              <!-- Progress Ring SVG -->
-              <svg viewBox="0 0 100 100" class="w-full h-full transform -rotate-90 relative z-10" aria-hidden="true">
-                <defs>
-                  <linearGradient id="timer-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="var(--color-link)" />
-                    <stop offset="100%" stop-color="var(--color-link)" stop-opacity="0.6" />
-                  </linearGradient>
-                </defs>
-                <circle id="timer-progress-bg" cx="50" cy="50" r="45" stroke="currentColor" stroke-width="3" opacity="0.06" fill="transparent" />
-                <circle id="timer-progress-ring" cx="50" cy="50" r="45" stroke="url(#timer-gradient)" stroke-width="4.5" stroke-linecap="round" fill="transparent" stroke-dasharray="282.74" stroke-dashoffset="0" class="transition-all duration-700 ease-out" />
-                <!-- Glowing dot at the end of the progress arc -->
-                <circle id="timer-progress-dot-glow" cx="50" cy="5" r="7" fill="var(--color-link)" opacity="0.15" class="transition-all duration-700 ease-out" />
-                <circle id="timer-progress-dot" cx="50" cy="5" r="3.5" fill="var(--color-link)" class="transition-all duration-700 ease-out" />
-              </svg>
-
-              <!-- Center content -->
-              <div class="absolute flex flex-col items-center justify-center text-center z-20 px-6 w-full select-none">
-                <!-- Goal shown inside timer when active -->
-                <span id="timer-active-goal" class="text-sm font-medium text-body/70 max-w-[180px] truncate mb-2 hidden"></span>
-                <!-- Session label -->
-                <span id="timer-session-label" class="text-sm font-medium text-mute/70 mb-1 inline-flex items-center gap-1.5">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 opacity-50"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                  <span id="timer-session-text">Clear your mind. You've got this.</span>
-                </span>
-                <!-- Countdown -->
-                <span id="timer-countdown" class="text-5xl sm:text-6xl md:text-7xl font-normal tracking-tight text-ink leading-none tabular-nums" style="font-variant-numeric: tabular-nums;">
-                  25:00
-                </span>
-                <!-- Next step hint -->
-                <span id="timer-next-step" class="text-sm font-medium text-mute/70 mt-3 hidden max-w-[160px] truncate"></span>
-                <!-- Checkpoint ratio -->
-                <span id="timer-milestone-ratio" class="text-xs text-mute/60 mt-2 hidden tabular-nums"></span>
-              </div>
-            </div>
-
-            <!-- Controls Panel -->
-            <div class="flex items-center gap-3 mt-2 w-full max-w-xs justify-center">
-              <!-- Skip button -->
-                              <button type="button" id="skip-btn" class="control-btn w-11 h-11 rounded-2xl bg-canvas-soft/60 hover:bg-canvas-soft-2/80 active:scale-95 flex items-center justify-center transition-all duration-200 cursor-pointer text-mute hover:text-ink disabled:opacity-25 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/30" disabled title="End this session" aria-label="End this focus session">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
-              </button>
-
-              <!-- Primary CTA: Play / Pause -->
-              <button type="button" id="play-pause-btn" class="btn-primary px-8 h-12 bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 hover:shadow-lg hover:shadow-link/20 active:scale-[0.97] text-sm font-semibold rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-2.5 justify-center min-w-[160px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/50">
-                <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="hidden" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-                <span id="play-btn-text">Let's go</span>
-              </button>
-
-              <!-- Fullscreen trigger -->
-                              <button type="button" id="fullscreen-trigger-btn" class="control-btn w-11 h-11 rounded-2xl bg-canvas-soft/60 hover:bg-canvas-soft-2/80 active:scale-95 flex items-center justify-center transition-all duration-200 cursor-pointer text-mute hover:text-ink disabled:opacity-25 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/30" title="Clear your view" aria-label="Toggle distraction-free full-screen mode">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-              </button>
-
-              <!-- Keyboard Shortcuts Trigger -->
-              <div id="shortcuts-hint" class="hidden">
-                <button type="button" id="shortcuts-trigger-btn" class="control-btn w-11 h-11 rounded-2xl bg-canvas-soft/60 hover:bg-canvas-soft-2/80 active:scale-95 flex items-center justify-center transition-all duration-200 cursor-pointer text-mute hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/30" title="Keyboard shortcuts" aria-label="Show keyboard shortcuts">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/><line x1="14" y1="8" x2="14.01" y2="8"/><line x1="18" y1="8" x2="18.01" y2="8"/><line x1="6" y1="12" x2="6.01" y2="12"/><line x1="18" y1="12" x2="18.01" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- BELOW THE FOLD SECTION (Checkpoints, Settings, Sound, Stats) -->
-      <div class="mt-2 space-y-5">
-        
-        <!-- Checklist and Why this matters section (Setup Panel Part 2 - Hidden during active session) -->
-        <div id="setup-panel-below-fold" class="max-w-[640px] mx-auto bg-canvas rounded-2xl px-5 sm:px-8 md:px-10 py-5 sm:py-6 space-y-5">
-          
-          <!-- Why This Matters Input — inline subtle card -->
-          <div class="w-full">
-            <input 
-              type="text" 
-              id="session-goal-why" 
-              autocomplete="off"
-              spellcheck="true"
-              class="w-full h-11 px-4 bg-canvas-soft/60 rounded-xl text-base text-body placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.08)] transition-all duration-200 select-text text-center" 
-              placeholder="What makes this meaningful to you? (optional)" 
-              aria-label="Tell yourself why this goal matters"
-            />
-          </div>
-
-          <!-- Settings: Duration + Sound + Checkpoints in one cohesive card -->
-          <div class="space-y-5 select-none">
-            
-            <!-- Checkpoints (inline, always accessible) -->
-            <div class="w-full space-y-3 text-left">
-              <span class="text-sm font-semibold text-body/80 block">Map out your path</span>
-              <div class="flex gap-2">
+            <!-- SETUP PANEL (shown in setup mode) -->
+            <div id="setup-panel" class="w-full space-y-3 flex flex-col items-center">
+              <!-- Session Goal Input — large, inviting, borderless -->
+              <div class="w-full">
                 <input 
                   type="text" 
-                  id="milestone-input" 
-                  autocomplete="off" 
-                  class="flex-grow h-10 px-4 bg-canvas-soft/60 rounded-xl text-base text-ink placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.08)] transition-all duration-200" 
-                  placeholder="Add a step…" 
-                  aria-label="Add a checkpoint to your plan" 
+                  id="session-goal" 
+                  autocomplete="off"
+                  spellcheck="true"
+                  class="w-full h-11 sm:h-12 lg:h-14 px-5 lg:px-6 bg-canvas-soft/70 rounded-2xl text-base sm:text-lg lg:text-xl font-semibold tracking-tight text-ink placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(0,0,0,0.05)] transition-all duration-300 select-text text-center md:text-left"
+                  placeholder="What do you want to make happen?" 
+                  aria-label="What do you want to make happen today?"
                 />
-                <button 
-                  type="button" 
-                  id="add-milestone-btn" 
-                  class="h-10 px-4 bg-link text-white hover:bg-link-hover active:scale-95 text-xs font-semibold rounded-xl border-0 transition-all duration-150 cursor-pointer focus-visible:ring-2 focus-visible:ring-link/50 focus-visible:outline-none" 
-                  aria-label="Add checkpoint to checklist"
-                >
-                  Add
-                </button>
               </div>
 
-              <ul id="setup-milestones-list" class="space-y-1 max-h-[140px] overflow-y-auto scrollbar-thin">
-                <li class="flex items-center justify-center gap-2 text-sm text-mute/60 py-3 text-center select-none">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 opacity-50"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/><path d="M15 5l3 3"/></svg>
-                  What's your first step?
-                </li>
-              </ul>
+              <!-- Activity Selector — larger, pill-style cards -->
+              <div class="w-full select-none">
+                  <span class="text-sm lg:text-base font-medium text-body/70 block mb-2 text-center md:text-left">What kind of work are you doing?</span>
+                <div class="flex items-center justify-center md:justify-start gap-2 lg:gap-2.5 flex-wrap">
+                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium shadow-sm" data-activity="Coding" aria-label="Select Coding">
+                    <span class="text-base">💻</span> Coding
+                  </button>
+                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1 border border-transparent font-medium shadow-sm" data-activity="Study" aria-label="Select Study">
+                    <span class="text-base">📚</span> Study
+                  </button>
+                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1 border border-transparent font-medium shadow-sm" data-activity="Reading" aria-label="Select Reading">
+                    <span class="text-base">📖</span> Reading
+                  </button>
+                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1 border border-transparent font-medium shadow-sm" data-activity="Writing" aria-label="Select Writing">
+                    <span class="text-base">✍️</span> Writing
+                  </button>
+                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1 border border-transparent font-medium shadow-sm" data-activity="Art" aria-label="Select Art">
+                    <span class="text-base">🎨</span> Art
+                  </button>
+                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1 border border-transparent font-medium shadow-sm" data-activity="Custom" id="act-btn-custom" aria-label="Select Custom">
+                    <span class="text-base">⚙️</span> Custom
+                  </button>
+                </div>
+              </div>
+
+              <!-- Custom Activity Input -->
+              <input type="text" id="custom-activity-input" autocomplete="off" class="hidden w-full max-w-xs h-11 px-4 bg-canvas-soft/70 rounded-xl text-base text-ink text-center focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(0,0,0,0.05)] transition-all duration-200" placeholder="What are you working on?" aria-label="Describe what you are working on" />
+              <div id="custom-activity-next-panel" class="hidden"></div>
+
+              <!-- Checkpoints — minimal inline add, unhides below if needed -->
+              <div class="hidden" id="setup-milestones-compact">
+                <!-- populated via JS if milestones exist -->
+              </div>
+
+              <!-- Single Start Action Button (kept hidden for JS event binding) -->
+              <button type="button" id="start-session-btn" class="hidden" aria-label="Start Goal Focus Session"></button>
             </div>
 
-            <!-- Divider -->
-            <div class="h-px bg-hairline/15"></div>
+            <!-- ACTIVE FOCUS PANEL (shown during session) -->
+            <div id="active-info-panel" class="hidden w-full space-y-2 flex flex-col items-center">
+              <!-- Activity tag chip -->
+              <span id="active-activity-tag" class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-canvas-soft-2 text-mute/70 self-start"></span>
+              <!-- Goal title -->
+              <h2 id="active-goal-title" class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-ink leading-snug text-pretty w-full text-left"></h2>
+              <!-- Why this matters -->
+              <div id="active-why-matters-panel" class="hidden w-full text-base text-body/80 italic leading-relaxed">
+                <span id="active-why-matters-text"></span>
+              </div>
+              <!-- Current step highlight during active session -->
+              <div id="active-current-step-container" class="hidden w-full px-4 py-2 bg-canvas-soft/60 rounded-2xl flex items-center gap-2 select-none">
+                <span class="w-1.5 h-1.5 bg-body/50 rounded-full animate-pulse"></span>
+                <span class="text-sm text-mute">Right now:</span>
+                <span id="active-current-step-text" class="text-xs font-semibold text-ink truncate max-w-[180px]"></span>
+              </div>
+            </div>
 
-            <!-- Session Duration presets + Sound -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Divider (shown only when setup has content) -->
+            <div class="w-full h-px bg-hairline/15 my-1.5"></div>
+
+            <!-- DETAILS PANEL (Why, Checkpoints, Duration, Sound — inside the workspace grid) -->
+            <div id="setup-panel-below-fold" class="w-full space-y-3 select-none">
+
+              <!-- Why This Matters Input — inline subtle card -->
+              <div class="w-full">
+                <input 
+                  type="text" 
+                  id="session-goal-why" 
+                  autocomplete="off"
+                  spellcheck="true"
+                  class="w-full h-11 sm:h-12 lg:h-14 px-5 lg:px-6 bg-canvas-soft/70 rounded-2xl text-base sm:text-lg lg:text-xl font-semibold tracking-tight text-ink placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(0,0,0,0.05)] transition-all duration-300 select-text text-center md:text-left" 
+                  placeholder="What makes this meaningful to you? (optional)" 
+                  aria-label="Tell yourself why this goal matters"
+                />
+              </div>
+
+              <!-- Checkpoints + Duration/Sound in a unified row -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+                
+                <!-- Checkpoints (left side on md+) -->
+                <div class="space-y-2">
+                  <span class="text-sm font-semibold text-body/80 block">Map out your path</span>
+                  <div class="flex gap-2">
+                  <input 
+                    type="text" 
+                    id="milestone-input" 
+                    autocomplete="off" 
+                    class="flex-grow h-11 sm:h-12 lg:h-14 px-5 lg:px-6 bg-canvas-soft/70 rounded-2xl text-base sm:text-lg lg:text-xl font-semibold tracking-tight text-ink placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(0,0,0,0.05)] transition-all duration-300" 
+                    placeholder="Add a step…" 
+                    aria-label="Add a checkpoint to your plan" 
+                  />
+                  <button 
+                    type="button" 
+                    id="add-milestone-btn" 
+                    class="h-11 sm:h-12 lg:h-14 px-5 lg:px-6 bg-link text-white hover:bg-link-hover active:scale-95 text-sm lg:text-base font-semibold rounded-2xl border-0 transition-all duration-150 cursor-pointer focus-visible:ring-2 focus-visible:ring-link/50 focus-visible:outline-none" 
+                    aria-label="Add checkpoint to checklist"
+                  >
+                    Add step
+                  </button>
+                  </div>
+
+                  <ul id="setup-milestones-list" class="space-y-1 max-h-[140px] overflow-y-auto scrollbar-thin">
+                    <li class="flex items-center gap-2 text-sm text-mute/60 py-2 select-none">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 opacity-50"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/><path d="M15 5l3 3"/></svg>
+                      What's your first step?
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Duration presets + Sound (right side on md+) -->
+                <div class="space-y-2">
+                  <span class="text-sm font-semibold text-body/80 block">Duration &amp; Sound</span>
+                  <div class="grid grid-cols-2 gap-2">
+                    <button type="button" class="preset-btn py-1.5 lg:py-2 px-3 lg:px-4 rounded-2xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-sm lg:text-base group" data-focus="25" data-break="5" aria-label="Classic Pomodoro: 25 minutes work focus and 5 minutes rest break">
+                      <span class="group-hover:text-link transition-colors tabular-nums">25m</span>
+                    </button>
+                    <button type="button" class="preset-btn py-1.5 lg:py-2 px-3 lg:px-4 rounded-2xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-sm lg:text-base group" data-focus="50" data-break="10" aria-label="Extended sprint: 50 minutes work focus and 10 minutes rest break">
+                      <span class="group-hover:text-link transition-colors tabular-nums">50m</span>
+                    </button>
+                    <button type="button" class="preset-btn py-1.5 lg:py-2 px-3 lg:px-4 rounded-2xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-sm lg:text-base group" data-focus="90" data-break="0" aria-label="Deep Flow sprint: 90 minutes work focus with no rest break">
+                      <span class="group-hover:text-link transition-colors tabular-nums">90m</span>
+                    </button>
+                    <button type="button" class="preset-btn py-1.5 lg:py-2 px-3 lg:px-4 rounded-2xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-sm lg:text-base group" data-focus="custom" aria-label="Set custom work focus and rest timing block">
+                      <span class="group-hover:text-ink transition-colors">Custom</span>
+                    </button>
+                    <button type="button" class="sound-btn py-1.5 lg:py-2 px-3 lg:px-4 rounded-2xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-sm lg:text-base font-medium" data-sound="mute" aria-label="Mute ambient noise">Mute</button>
+                    <button type="button" class="sound-btn py-1.5 lg:py-2 px-3 lg:px-4 rounded-2xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-sm lg:text-base font-medium" data-sound="brown" aria-label="Play ambient brown noise">Brown</button>
+                    <button type="button" class="sound-btn py-1.5 lg:py-2 px-3 lg:px-4 rounded-2xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-sm lg:text-base font-medium" data-sound="white" aria-label="Play ambient white noise">White</button>
+                    <button type="button" class="sound-btn py-1.5 lg:py-2 px-3 lg:px-4 rounded-2xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-sm lg:text-base font-medium" data-sound="rain" aria-label="Play ambient rain sound">Rain</button>
+                  </div>
+
+                  <!-- Custom slider inputs -->
+                  <div id="custom-presets-panel" class="hidden rounded-xl p-3 space-y-2 bg-canvas-soft/40">
+                    <div class="flex items-center justify-between text-sm">
+                      <span class="text-mute">Focus: <span id="custom-focus-val" class="font-semibold text-ink tabular-nums">30m</span></span>
+                      <input type="range" id="custom-focus-slider" min="1" max="180" value="30" class="w-1/2 accent-link" aria-label="Custom work focus minutes slider" />
+                    </div>
+                    <div class="flex items-center justify-between text-sm">
+                      <span class="text-mute">Break: <span id="custom-break-val" class="font-semibold text-ink tabular-nums">5m</span></span>
+                      <input type="range" id="custom-break-slider" min="0" max="60" value="5" class="w-1/2 accent-link" aria-label="Custom rest break minutes slider" />
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: Timer + Today's Progress -->
+          <div class="flex flex-col space-y-3 lg:space-y-6 md:sticky md:top-4 md:self-start min-w-0">
+
+            <!-- THE TIMER — emotional center of the experience -->
+            <div id="timer-container-card" class="w-full flex flex-col items-center justify-center relative transition-all duration-500">
+              <!-- Soft background glow -->
+              <div id="timer-active-glow" class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.04),transparent_70%)] pointer-events-none opacity-0 transition-opacity duration-700 ease-out"></div>
               
-              <!-- Duration presets -->
-              <div class="space-y-3" id="timer-presets-section">
-                <span class="text-sm font-semibold text-body/80 block">Duration</span>
-                <div class="grid grid-cols-2 gap-1.5">
-                  <button type="button" class="preset-btn py-2 px-3 rounded-xl bg-canvas-soft/60 text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-sm group" data-focus="25" data-break="5" aria-label="Classic Pomodoro: 25 minutes work focus and 5 minutes rest break">
-                    <span class="group-hover:text-link transition-colors tabular-nums">25m</span>
-                  </button>
-                  <button type="button" class="preset-btn py-2 px-3 rounded-xl bg-canvas-soft/60 text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-sm group" data-focus="50" data-break="10" aria-label="Extended sprint: 50 minutes work focus and 10 minutes rest break">
-                    <span class="group-hover:text-link transition-colors tabular-nums">50m</span>
-                  </button>
-                  <button type="button" class="preset-btn py-2 px-3 rounded-xl bg-canvas-soft/60 text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-sm group" data-focus="90" data-break="0" aria-label="Deep Flow sprint: 90 minutes work focus with no rest break">
-                    <span class="group-hover:text-link transition-colors tabular-nums">90m</span>
-                  </button>
-                  <button type="button" class="preset-btn py-2 px-3 rounded-xl bg-canvas-soft/60 text-body text-center hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-sm group" data-focus="custom" aria-label="Set custom work focus and rest timing block">
-                    <span class="group-hover:text-ink transition-colors">Custom</span>
-                  </button>
-                </div>
+              <div class="relative w-60 h-60 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-[420px] lg:h-[420px] flex items-center justify-center select-none mb-2 timer-dial-wrapper">
+                <!-- Subtle dial shadow — layered for depth -->
+                <div class="absolute inset-[3%] rounded-full bg-gradient-to-b from-canvas-soft/10 to-transparent dark:from-white/[0.02] pointer-events-none timer-dial-shadow"></div>
+                <!-- Bezel ring for premium feel -->
+                <div class="absolute inset-[2.5%] rounded-full border border-hairline/10 pointer-events-none"></div>
 
-                <!-- Custom slider inputs -->
-                <div id="custom-presets-panel" class="hidden rounded-xl p-3 space-y-2 bg-canvas-soft/40">
-                  <div class="flex items-center justify-between text-sm">
-                    <span class="text-mute">Focus: <span id="custom-focus-val" class="font-semibold text-ink tabular-nums">30m</span></span>
-                    <input type="range" id="custom-focus-slider" min="1" max="180" value="30" class="w-1/2 accent-link" aria-label="Custom work focus minutes slider" />
-                  </div>
-                  <div class="flex items-center justify-between text-sm">
-                    <span class="text-mute">Break: <span id="custom-break-val" class="font-semibold text-ink tabular-nums">5m</span></span>
-                    <input type="range" id="custom-break-slider" min="0" max="60" value="5" class="w-1/2 accent-link" aria-label="Custom rest break minutes slider" />
-                  </div>
+                <!-- Progress Ring SVG -->
+                <svg viewBox="0 0 100 100" class="w-full h-full transform -rotate-90 relative z-10" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="timer-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="var(--color-link)" />
+                      <stop offset="100%" stop-color="var(--color-link)" stop-opacity="0.6" />
+                    </linearGradient>
+                  </defs>
+                  <circle id="timer-progress-bg" cx="50" cy="50" r="45" stroke="currentColor" stroke-width="3" opacity="0.06" fill="transparent" />
+                  <circle id="timer-progress-ring" cx="50" cy="50" r="45" stroke="url(#timer-gradient)" stroke-width="4.5" stroke-linecap="round" fill="transparent" stroke-dasharray="282.74" stroke-dashoffset="0" class="transition-all duration-700 ease-out" />
+                  <!-- Glowing dot at the end of the progress arc -->
+                  <circle id="timer-progress-dot-glow" cx="50" cy="5" r="7" fill="var(--color-link)" opacity="0.15" class="transition-all duration-700 ease-out" />
+                  <circle id="timer-progress-dot" cx="50" cy="5" r="3.5" fill="var(--color-link)" class="transition-all duration-700 ease-out" />
+                </svg>
+
+                <!-- Center content -->
+                <div class="absolute flex flex-col items-center justify-center text-center z-20 px-6 w-full select-none">
+                  <!-- Goal shown inside timer when active -->
+                  <span id="timer-active-goal" class="text-sm lg:text-base font-medium text-body/70 max-w-[200px] lg:max-w-[280px] truncate mb-2 hidden"></span>
+                  <!-- Session label -->
+                  <span id="timer-session-label" class="text-sm lg:text-base font-medium text-mute/70 mb-1 inline-flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 opacity-50"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    <span id="timer-session-text">Clear your mind. You've got this.</span>
+                  </span>
+                  <!-- Countdown -->
+                  <span id="timer-countdown" class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-normal tracking-tight text-ink leading-none tabular-nums" style="font-variant-numeric: tabular-nums;">
+                    25:00
+                  </span>
+                  <!-- Next step hint -->
+                  <span id="timer-next-step" class="text-sm lg:text-base font-medium text-mute/70 mt-3 hidden max-w-[180px] lg:max-w-[240px] truncate"></span>
+                  <!-- Checkpoint ratio -->
+                  <span id="timer-milestone-ratio" class="text-xs text-mute/60 mt-2 hidden tabular-nums"></span>
                 </div>
               </div>
 
-              <!-- Background Sound -->
-              <div class="space-y-3">
-                <span class="text-sm font-semibold text-body/80 block">Sound</span>
-                <div class="grid grid-cols-2 gap-1.5">
-                  <button type="button" class="sound-btn py-2 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-sm font-medium" data-sound="mute" aria-label="Mute ambient noise">Mute</button>
-                  <button type="button" class="sound-btn py-2 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-sm font-medium" data-sound="brown" aria-label="Play ambient brown noise">Brown</button>
-                  <button type="button" class="sound-btn py-2 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-sm font-medium" data-sound="white" aria-label="Play ambient white noise">White</button>
-                  <button type="button" class="sound-btn py-2 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-sm font-medium" data-sound="rain" aria-label="Play ambient rain sound">Rain</button>
+              <!-- Controls Panel -->
+              <div class="flex items-center gap-2 lg:gap-3 mt-1 w-full max-w-xs justify-center">
+                <!-- Skip button -->
+                <button type="button" id="skip-btn" class="control-btn w-11 h-11 lg:w-12 lg:h-12 rounded-2xl bg-canvas-soft/60 hover:bg-canvas-soft-2/80 active:scale-95 flex items-center justify-center transition-all duration-200 cursor-pointer text-mute hover:text-ink disabled:opacity-25 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/30" disabled title="End this session" aria-label="End this focus session">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+                </button>
+
+                <!-- Primary CTA: Play / Pause -->
+                <button type="button" id="play-pause-btn" class="btn-primary px-8 lg:px-10 h-11 lg:h-12 bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 hover:shadow-lg hover:shadow-link/20 active:scale-[0.97] text-sm lg:text-base font-semibold rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-2.5 lg:gap-3 justify-center min-w-[160px] lg:min-w-[180px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/50">
+                  <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="hidden" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                  <span id="play-btn-text">Let's go</span>
+                </button>
+
+                <!-- Fullscreen trigger -->
+                <button type="button" id="fullscreen-trigger-btn" class="control-btn w-11 h-11 lg:w-12 lg:h-12 rounded-2xl bg-canvas-soft/60 hover:bg-canvas-soft-2/80 active:scale-95 flex items-center justify-center transition-all duration-200 cursor-pointer text-mute hover:text-ink disabled:opacity-25 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/30" title="Clear your view" aria-label="Toggle distraction-free full-screen mode">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                </button>
+
+                <!-- Keyboard Shortcuts Trigger -->
+                <div id="shortcuts-hint" class="hidden">
+                  <button type="button" id="shortcuts-trigger-btn" class="control-btn w-11 h-11 lg:w-12 lg:h-12 rounded-2xl bg-canvas-soft/60 hover:bg-canvas-soft-2/80 active:scale-95 flex items-center justify-center transition-all duration-200 cursor-pointer text-mute hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/30" title="Keyboard shortcuts" aria-label="Show keyboard shortcuts">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/><line x1="14" y1="8" x2="14.01" y2="8"/><line x1="18" y1="8" x2="18.01" y2="8"/><line x1="6" y1="12" x2="6.01" y2="12"/><line x1="18" y1="12" x2="18.01" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
+                  </button>
                 </div>
               </div>
-
             </div>
+
+            <!-- Today's Progress inside the workspace grid -->
+            <div class="select-none" id="today-progress-section">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-sm lg:text-base font-semibold text-body">Today's progress</span>
+              </div>
+              
+              <div class="grid grid-cols-3 gap-3">
+                <div class="bg-canvas-soft/30 rounded-2xl border border-hairline/15 p-4 lg:p-5 text-center">
+                  <div class="text-xs lg:text-sm text-mute/70 mb-1">Focus time</div>
+                  <div id="workspace-today-focus-time" class="text-lg lg:text-xl font-semibold text-ink tabular-nums">0m</div>
+                </div>
+                <div class="bg-canvas-soft/30 rounded-2xl border border-hairline/15 p-4 lg:p-5 text-center">
+                  <div class="text-xs lg:text-sm text-mute/70 mb-1">Days in a row</div>
+                  <div id="workspace-today-streak" class="text-lg lg:text-xl font-semibold text-ink tabular-nums flex items-center justify-center gap-1">
+                    <span class="text-warning">🔥</span> 0d
+                  </div>
+                </div>
+                <div class="bg-canvas-soft/30 rounded-2xl border border-hairline/15 p-4 lg:p-5 text-center">
+                  <div class="text-xs lg:text-sm text-mute/70 mb-1">Success rate</div>
+                  <div id="workspace-today-rate" class="text-lg lg:text-xl font-semibold text-ink tabular-nums">0%</div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
         </div>
-
-        <!-- Today's Progress Cards Group — more prominent, borderless, soft -->
-        <div class="max-w-[640px] mx-auto bg-canvas rounded-2xl px-5 sm:px-8 md:px-10 py-5 sm:py-6 select-none" id="today-progress-section">
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-sm font-semibold text-body">Today's progress</span>
-          </div>
-          
-          <div class="grid grid-cols-3 gap-2">
-            <div class="bg-canvas-soft/30 rounded-xl border border-hairline/15 p-4 text-center">
-              <div class="text-sm text-mute/70 mb-1">Focus time</div>
-              <div id="workspace-today-focus-time" class="text-lg font-semibold text-ink tabular-nums">0m</div>
-            </div>
-            <div class="bg-canvas-soft/30 rounded-xl border border-hairline/15 p-4 text-center">
-              <div class="text-sm text-mute/70 mb-1">Days in a row</div>
-              <div id="workspace-today-streak" class="text-lg font-semibold text-ink tabular-nums flex items-center justify-center gap-1">
-                <span class="text-warning">🔥</span> 0d
-              </div>
-            </div>
-            <div class="bg-canvas-soft/30 rounded-xl border border-hairline/15 p-4 text-center">
-              <div class="text-sm text-mute/70 mb-1">Success rate</div>
-              <div id="workspace-today-rate" class="text-lg font-semibold text-ink tabular-nums">0%</div>
-            </div>
-          </div>
-        </div>
-
       </div>
 <!-- TAB 2: ANALYTICS & HISTOGRAM HEATMAP -->
       <div id="tab-analytics" class="p-6 md:p-8 lg:p-10 hidden space-y-8">
         
         <!-- Summary Stats Metrics Grid -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div class="bg-canvas p-5 sm:p-6 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
-            <div class="text-sm font-semibold text-body mb-2">Total focused time</div>
+          <div class="bg-canvas p-4 sm:p-5 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
+            <div class="text-sm font-semibold text-body mb-1">Total focused time</div>
             <div class="text-3xl font-bold tracking-tight text-ink tabular-nums leading-none" id="stat-total-time">0h 00m</div>
-            <div class="text-sm text-mute/80 mt-2">Across all logged sessions</div>
+            <div class="text-sm text-mute/80 mt-1">Across all logged sessions</div>
           </div>
-          <div class="bg-canvas p-5 sm:p-6 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
+          <div class="bg-canvas p-4 sm:p-5 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
             <div class="text-sm font-semibold text-body mb-2">Completion rate</div>
             <div class="text-3xl font-bold tracking-tight text-ink tabular-nums leading-none" id="stat-completion-rate">0%</div>
-            <div class="text-sm text-mute/80 mt-2">Ratio of fully completed goals</div>
+            <div class="text-sm text-mute/80 mt-1">Ratio of fully completed goals</div>
           </div>
-          <div class="bg-canvas p-5 sm:p-6 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
+          <div class="bg-canvas p-4 sm:p-5 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
             <div class="text-sm font-semibold text-body mb-2">Current streak</div>
             <div class="text-3xl font-bold tracking-tight text-ink flex items-center gap-1.5 tabular-nums leading-none" id="stat-streak">
               <span class="tabular-nums">0</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="text-warning" aria-hidden="true"><path d="M17.687 9.581a5.87 5.87 0 0 0-4.887-2.91V3.25a.75.75 0 0 0-1.28-.53l-8.25 8.25a.75.75 0 0 0 .53 1.28h5.319v5.999a5.87 5.87 0 0 0 4.887 2.911l.248-.005a5.87 5.87 0 0 0 4.887-2.906A5.87 5.87 0 0 0 17.687 9.581Z"/></svg>
             </div>
-            <div class="text-sm text-mute/80 mt-2">Consecutive workdays active</div>
+            <div class="text-sm text-mute/80 mt-1">Consecutive workdays active</div>
           </div>
-          <div class="bg-canvas p-5 sm:p-6 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
+          <div class="bg-canvas p-4 sm:p-5 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.015)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-0 transition-all">
             <div class="text-sm font-semibold text-body mb-2">Total sessions</div>
             <div class="text-3xl font-bold tracking-tight text-ink tabular-nums leading-none" id="stat-total-sessions">0</div>
-            <div class="text-sm text-mute/80 mt-2">Includes partial focus blocks</div>
+            <div class="text-sm text-mute/80 mt-1">Includes partial focus blocks</div>
           </div>
         </div>
 
@@ -559,7 +549,7 @@ const appSchema = {
           <div class="lg:col-span-7 space-y-6">
             <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.02)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.25)] border-0 space-y-6">
               <div class="flex items-center gap-2 border-b border-hairline/25 pb-4 select-none">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-link shrink-0"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-mute/60 shrink-0"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                 <h3 class="text-xl font-bold tracking-tight text-ink mb-1">Weekly reflection journal</h3>
               </div>
               <form id="weekly-reflection-form" class="space-y-4">
@@ -587,7 +577,7 @@ const appSchema = {
           <div class="lg:col-span-5 space-y-6">
             <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.02)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.25)] border-0 space-y-4">
               <div class="flex items-center gap-2 select-none">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-link shrink-0"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-mute/60 shrink-0"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><circle cx="12" cy="12" r="3"/></svg>
                 <h3 class="text-xl font-bold tracking-tight text-ink mb-1">Mindful growth sanctuary</h3>
               </div>
               <p class="text-base text-body leading-relaxed">
@@ -629,7 +619,7 @@ const appSchema = {
             
             <div class="pt-4 border-t border-hairline/25 mt-4 flex items-center justify-between text-xs select-none">
               <span class="text-mute font-mono">Status: Active</span>
-              <span class="text-link font-semibold">Active</span>
+              <span class="text-mute/70 font-semibold">Active</span>
             </div>
           </div>
 
@@ -637,7 +627,7 @@ const appSchema = {
           <div class="bg-canvas p-6 md:p-8 rounded-3xl shadow-[0_12px_40px_rgba(0,0,0,0.02)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.22)] border-0 flex flex-col justify-between">
             <div class="space-y-4">
               <div class="flex items-center justify-between select-none">
-                <span class="text-sm font-bold text-link">Goal checkpoint planner</span>
+                <span class="text-sm font-bold text-body/80">Goal checkpoint planner</span>
                 <span class="text-xs text-mute">Active</span>
               </div>
               <h3 class="text-xl font-bold tracking-tight text-ink mb-1">Checkpoints & goal breakdown</h3>
@@ -660,7 +650,7 @@ const appSchema = {
             
             <div class="pt-4 border-t border-hairline/25 mt-4 flex items-center justify-between text-xs select-none">
               <span class="text-mute">Storage: Offline</span>
-              <span class="text-link font-semibold">Active</span>
+              <span class="text-mute/70 font-semibold">Active</span>
             </div>
           </div>
 
@@ -707,8 +697,8 @@ const appSchema = {
             <div class="space-y-4">
               <div class="flex items-center justify-between border-b border-hairline/25 pb-3 select-none">
                 <div class="flex items-center gap-2">
-                  <span class="text-sm font-bold text-link">Focus vault</span>
-                  <span class="px-1.5 py-0.5 bg-link/10 text-link text-xs font-bold rounded">PRIVACY ENCRYPTED</span>
+                  <span class="text-sm font-bold text-body/80">Focus vault</span>
+                  <span class="px-1.5 py-0.5 bg-hairline/40 text-mute/70 text-xs font-bold rounded">PRIVACY ENCRYPTED</span>
                 </div>
                 <span class="text-xs font-mono text-mute">Local Backup & Restore Layer</span>
               </div>
@@ -752,8 +742,8 @@ const appSchema = {
         </div>
 
     <!-- Marketing Introduction Section -->
-    <div class="max-w-4xl mx-auto text-center mt-24 mb-12 px-2 select-none border-t border-hairline pt-16">
-      <span class="inline-block text-sm font-bold text-link mb-2">About Tooltails Focus</span>
+    <div class="max-w-6xl mx-auto text-center mt-24 mb-12 px-2 select-none border-t border-hairline pt-16">
+      <span class="inline-block text-sm font-bold text-body/80 mb-2">About Tooltails Focus</span>
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-ink mb-6 text-pretty leading-[1.1]">
         Focus on what matters, not just the clock.
       </h2>
@@ -770,15 +760,15 @@ const appSchema = {
     </div>
 
     <!-- How it Differs from a Pomodoro Timer -->
-    <div class="max-w-4xl mx-auto mb-16 space-y-6 px-2">
+    <div class="max-w-6xl mx-auto mb-16 space-y-6 px-2">
       <h3 class="text-xl font-bold text-ink text-center select-none">How this is different from a Pomodoro timer</h3>
       
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
         <!-- Card 1 -->
-        <div class="border border-hairline rounded-sm p-4.5 bg-canvas flex flex-col justify-between hover:border-link/30 hover:shadow-sm transition-all duration-250 group relative card-lift">
+        <div class="border border-hairline rounded-sm p-4.5 bg-canvas flex flex-col justify-between hover:border-hairline hover:shadow-sm transition-all duration-250 group relative card-lift">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-link">01. Core metric</span>
+              <span class="text-xs font-bold text-body/80">01. Core metric</span>
               <span class="text-xs text-mute">Outcomes</span>
             </div>
             <h4 class="text-sm font-bold text-ink">Focus on Outcomes</h4>
@@ -834,7 +824,7 @@ const appSchema = {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-20">
       
       <div>
-        <h2 class="text-sm font-bold text-link mb-2">How it works</h2>
+        <h2 class="text-sm font-bold text-body/80 mb-2">How it works</h2>
         <h3 class="text-4xl font-bold tracking-tighter text-ink mb-4">Focus on goals, not just time.</h3>
         <p class="text-base text-body leading-relaxed mb-4">
           Regular timers measure how long you sit at your desk. But they never ask the real question: <strong>did you actually get it done?</strong>
@@ -859,28 +849,28 @@ const appSchema = {
         <h4 class="text-base font-bold text-ink">Here's how to run a great session:</h4>
           <ul class="space-y-3.5 text-base text-body">
           <li class="flex items-start gap-2.5">
-            <span class="flex items-start justify-center w-6 h-6 bg-link/10 rounded-full text-link font-bold text-xs">1</span>
+            <span class="flex items-start justify-center w-6 h-6 bg-canvas-soft-2 rounded-full text-mute/60 font-bold text-xs">1</span>
             <span><strong>Pick an activity and set a specific goal.</strong> Instead of "work on book", try "write the first draft of Chapter 1". The clearer you are, the easier it is to start.</span>
           </li>
           <li class="flex items-start gap-2.5">
-            <span class="flex items-start justify-center w-6 h-6 bg-link/10 rounded-full text-link font-bold text-xs">2</span>
+            <span class="flex items-start justify-center w-6 h-6 bg-canvas-soft-2 rounded-full text-mute/60 font-bold text-xs">2</span>
             <span><strong>Break it into 2-3 small steps.</strong> A short checklist gives you a clear path forward and stops you from stalling.</span>
           </li>
           <li class="flex items-start gap-2.5">
-            <span class="flex items-start justify-center w-6 h-6 bg-link/10 rounded-full text-link font-bold text-xs">3</span>
+            <span class="flex items-start justify-center w-6 h-6 bg-canvas-soft-2 rounded-full text-mute/60 font-bold text-xs">3</span>
             <span><strong>Turn on background sound if you like</strong> to block out noise, then hit start and get into flow.</span>
           </li>
           <li class="flex items-start gap-2.5">
-            <span class="flex items-start justify-center w-6 h-6 bg-link/10 rounded-full text-link font-bold text-xs">4</span>
+            <span class="flex items-start justify-center w-6 h-6 bg-canvas-soft-2 rounded-full text-mute/60 font-bold text-xs">4</span>
             <span><strong>Check off what you finished and reflect.</strong> Mark completed steps, log how it went, and learn from every session.</span>
           </li>
         </ul>
       </div>
 
       <!-- PREMIUM FEATURE SHOWCASE -->
-      <div id="features-showcase" class="max-w-4xl mx-auto mt-20 px-2 space-y-12 scroll-mt-6">
+      <div id="features-showcase" class="max-w-6xl mx-auto mt-20 px-2 space-y-12 scroll-mt-6">
         <div class="text-center space-y-3">
-          <span class="text-sm font-bold text-link">Workspace capabilities</span>
+          <span class="text-sm font-bold text-body/80">Workspace capabilities</span>
           <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-ink mb-3 leading-[1.1]">Core features</h2>
           <p class="text-base text-body leading-relaxed max-w-2xl mx-auto">
             Just the essentials: set a goal, choose your time, and get to work — all offline, all private.
@@ -889,8 +879,8 @@ const appSchema = {
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Feature 1: Focus Sessions -->
-          <div class="border border-hairline rounded-sm p-6 bg-canvas hover:border-link/30 hover:shadow-md transition-all duration-250 flex gap-4 card-lift">
-            <div class="p-3 bg-link/10 text-link rounded-sm h-fit shrink-0">
+          <div class="border border-hairline rounded-sm p-6 bg-canvas hover:border-hairline hover:shadow-md transition-all duration-250 flex gap-4 card-lift">
+            <div class="p-3 bg-canvas-soft-2 text-mute/60 rounded-sm h-fit shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
             <div class="space-y-2">
@@ -958,7 +948,7 @@ const appSchema = {
     </div>
 
     <!-- FAQ SECTION -->
-    <div class="max-w-4xl mx-auto mt-16">
+    <div class="max-w-6xl mx-auto mt-16">
       <FAQ items={faqItems} renderSchema={false} />
     </div>
 
@@ -971,7 +961,7 @@ const appSchema = {
       <div class="p-5 border-b border-hairline flex items-center justify-between bg-canvas-soft-2/50">
         <div>
           <h2 class="text-base font-bold text-ink flex items-center gap-1.5">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-link"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-mute/60"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
             Celebrate Your Progress
           </h2>
           <p class="text-xs text-mute font-mono mt-0.5">Reflect on your flow and growth</p>
@@ -1044,7 +1034,7 @@ const appSchema = {
         <!-- Focus Forecast Attributor Section -->
         <div id="outcome-forecast-attribution" class="border border-hairline rounded-sm p-3 bg-canvas-soft-2/50 hidden space-y-2 select-none">
           <div class="flex items-center justify-between">
-            <span class="text-sm font-bold text-link tracking-tight">Log progress to goal</span>
+            <span class="text-sm font-bold text-body/80 tracking-tight">Log progress to goal</span>
             <label class="inline-flex items-center gap-1 cursor-pointer">
               <input type="checkbox" id="sync-to-forecast" class="rounded border-hairline text-link focus:ring-link w-3.5 h-3.5 cursor-pointer" />
               <span class="text-xs font-mono font-bold text-ink">Sync Progress</span>
@@ -1092,7 +1082,7 @@ const appSchema = {
       </div>
  
       <!-- Activity Tag -->
-      <span id="immersive-activity-tag" class="px-3 py-1 bg-link/10 text-link text-sm font-semibold rounded-md tracking-tight">Coding</span>
+      <span id="immersive-activity-tag" class="px-3 py-1 bg-canvas-soft-2 text-mute/70 text-sm font-semibold rounded-md tracking-tight">Coding</span>
  
       <!-- Active Goal -->
       <h2 id="immersive-goal-title" class="text-2xl md:text-3xl font-bold tracking-tighter text-ink max-w-lg leading-snug">Writing the dashboard logic</h2>
@@ -1951,7 +1941,7 @@ const appSchema = {
 
   function getActivityColorClass(act: string): string {
     switch (act) {
-      case 'Coding': return 'bg-link/10 text-link';
+      case 'Coding': return 'bg-teal-500/10 text-teal-600 dark:text-teal-400';
       case 'Study': return 'bg-purple-500/10 text-purple-600 dark:text-purple-400';
       case 'Reading': return 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400';
       case 'Writing': return 'bg-amber-500/10 text-amber-600 dark:text-amber-400';
@@ -2411,7 +2401,7 @@ const appSchema = {
     if (activeTitle) activeTitle.textContent = "Take a break, stretch, grab water!";
     
     const activeList = document.getElementById('active-milestones-list');
-    if (activeList) activeList.innerHTML = `<li class="text-xs text-link font-mono animate-pulse font-semibold">Rest period active</li>`;
+    if (activeList) activeList.innerHTML = `<li class="text-xs text-mute/70 font-mono animate-pulse font-semibold">Rest period active</li>`;
     
     toggleTimer(true);
   }
@@ -2743,7 +2733,7 @@ const appSchema = {
     const tagEl = document.getElementById('immersive-activity-tag');
     if (tagEl) {
       tagEl.textContent = selectedActivity;
-      tagEl.className = "px-3 py-1 bg-link/10 text-link text-xs font-semibold rounded-md tracking-tight " + getActivityColorClass(selectedActivity);
+      tagEl.className = "px-3 py-1 text-xs font-semibold rounded-md tracking-tight " + getActivityColorClass(selectedActivity);
     }
 
     renderActiveMilestones();
@@ -3241,7 +3231,7 @@ const appSchema = {
         <tr>
           <td colspan="6" class="py-14 text-center">
             <div class="flex flex-col items-center justify-center space-y-3 max-w-sm mx-auto animate-in fade-in duration-200">
-              <div class="p-3.5 bg-link/5 rounded-full text-link/60">
+              <div class="p-3.5 bg-canvas-soft-2 text-mute/50">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
               </div>
               <div>
@@ -3259,7 +3249,7 @@ const appSchema = {
       
       let outcomeBadge = '';
       if (s.outcome === 'Completed') {
-        outcomeBadge = `<span class="px-2 py-0.5 bg-link/10 text-link text-xs font-bold rounded">Completed</span>`;
+        outcomeBadge = `<span class="px-2 py-0.5 bg-hairline/50 text-mute/70 text-xs font-bold rounded">Completed</span>`;
       } else if (s.outcome === 'Partial') {
         outcomeBadge = `<span class="px-2 py-0.5 bg-warning/10 text-warning text-xs font-bold rounded">Partial</span>`;
       } else {
@@ -3480,7 +3470,7 @@ const appSchema = {
       container.innerHTML = `
         <div class="bg-canvas border border-hairline p-6 md:p-8 rounded-md shadow-sm space-y-6">
           <div class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-link" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-mute/60" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
             <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1">Track your long-term goals</h3>
           </div>
           <p class="text-xs text-body leading-relaxed max-w-xl">
@@ -3527,7 +3517,7 @@ const appSchema = {
         analyticsContainer.innerHTML = `
           <div class="border border-hairline rounded-md p-6 md:p-8 bg-canvas flex flex-col md:flex-row items-center justify-between gap-5 select-none animate-in fade-in duration-200">
             <div class="flex items-start gap-4">
-              <div class="p-3 bg-link/5 rounded-full text-link shrink-0">
+              <div class="p-3 bg-canvas-soft-2 rounded-full text-mute/60 shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
               </div>
               <div class="space-y-1 text-left">
@@ -3845,7 +3835,7 @@ const appSchema = {
           </div>
           
           <div class="pt-4 border-t border-hairline text-xs text-body leading-relaxed flex items-start gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-link shrink-0 mt-0.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-mute/50 shrink-0 mt-0.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
             <p id="forecast-verdict-summary">
               ${verdictText}
             </p>
@@ -4060,7 +4050,7 @@ const appSchema = {
       container.innerHTML = `
         <div class="bg-canvas border border-hairline p-7 md:p-8 rounded-md shadow-sm space-y-4 animate-in fade-in duration-200">
           <div class="flex items-center gap-3">
-            <div class="p-2.5 bg-link/5 rounded-full text-link/60">
+            <div class="p-2.5 bg-canvas-soft-2 rounded-full text-mute/50">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
             </div>
             <div>
@@ -4174,7 +4164,7 @@ const appSchema = {
 
     const coachingInsightsHTML = insights.map((insight, idx) => `
       <div class="py-2.5 flex items-start gap-2.5 ${idx > 0 ? 'border-t border-hairline' : ''}">
-        <span class="w-1.5 h-1.5 rounded-full bg-link shrink-0 mt-1.5"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-mute/40 shrink-0 mt-1.5"></span>
         <div class="text-body">${insight}</div>
       </div>
     `).join("");
@@ -4185,7 +4175,7 @@ const appSchema = {
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-hairline pb-4">
           <div>
             <div class="flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-link" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-mute/60" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               <h3 class="text-lg font-semibold tracking-tighter text-ink">Weekly review & coaching advisor</h3>
             </div>
             <p class="text-xs text-mute">Diagnostics and behavioral alignment from the last 7 days of focus blocks.</p>
@@ -4227,7 +4217,7 @@ const appSchema = {
         <!-- Coaching Advice Panel -->
         <div class="border border-hairline rounded-sm p-4 bg-canvas-soft-2/20 space-y-3.5">
           <div class="text-sm font-semibold tracking-tighter text-ink flex items-center gap-1.5">
-            <span class="inline-block w-1.5 h-1.5 bg-link rounded-full animate-pulse"></span>
+            <span class="inline-block w-1.5 h-1.5 bg-mute/50 rounded-full animate-pulse"></span>
             Behavioral Diagnostics & Insights
           </div>
           
@@ -4365,7 +4355,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
             <h3 class="text-base font-semibold tracking-tighter text-ink">Your growth journey</h3>
             <p class="text-xs text-mute">Nourish your focus to grow your digital sanctuary.</p>
           </div>
-          <span class="px-2.5 py-1 bg-link/10 text-link text-xs font-semibold rounded-md">
+          <span class="px-2.5 py-1 bg-canvas-soft-2 text-mute/70 text-xs font-semibold rounded-md">
             Stage: ${stage}
           </span>
         </div>
@@ -4473,7 +4463,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
             <h3 class="text-base font-semibold tracking-tighter text-ink">Achievements & badges</h3>
             <p class="text-xs text-mute">Unlock rewards through consistent mindful work.</p>
           </div>
-          <span class="text-xs font-mono font-bold text-link">
+          <span class="text-xs font-mono font-bold text-mute/70">
             ${unlockedCount} / ${achievements.length} Unlocked
           </span>
         </div>
@@ -4482,7 +4472,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
           ${achievements.map(a => `
             <div class="p-3 border rounded-sm flex flex-col justify-between h-36 transition-all text-left ${
               a.unlocked 
-                ? 'bg-gradient-to-br from-link/[0.02] to-transparent border-link/25 hover:border-link/40 shadow-sm text-ink'
+                ? 'bg-canvas border-hairline hover:bg-canvas-soft shadow-sm text-ink'
                 : 'opacity-45 hover:opacity-60 bg-canvas border-hairline border-dashed text-mute select-none'
             }">
               <div class="space-y-2">
@@ -4491,7 +4481,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
                     ${a.svg}
                   </div>
                   ${a.unlocked 
-                    ? `<span class="text-xs font-semibold text-link">Unlocked</span>`
+                    ? `<span class="text-xs font-semibold text-mute/70">Unlocked</span>`
                     : `<span class="text-xs font-semibold text-mute">Locked</span>`
                   }
                 </div>
@@ -4545,7 +4535,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     if (reflections.length === 0) {
       list.innerHTML = `
         <div class="flex flex-col items-center justify-center p-8 border border-dashed border-hairline/50 rounded-xl text-center space-y-3 animate-in fade-in duration-200">
-          <div class="p-2.5 bg-link/5 rounded-full text-link/50">
+          <div class="p-2.5 bg-canvas-soft-2 rounded-full text-mute/50">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
           </div>
           <div>
