@@ -100,9 +100,9 @@ const appSchema = {
       <!-- Hidden onboarding tracker for LocalStorage warning insertion -->
       <div id="onboarding-tracker" class="hidden" aria-hidden="true"></div>
 
-      <!-- FOCUS WORKSPACE — two-column: Goal → Activity → Details → Start on left, Timer → Duration & Sound → Today on right -->
-      <div id="focus-workspace-container" class="settings-card max-w-[1400px] mx-auto bg-canvas rounded-2xl shadow-raised transition-all duration-500">
-        <div class="workspace-grid gap-x-8 lg:gap-x-12 gap-y-3 lg:gap-y-6 px-4 sm:px-6 lg:px-10 pt-3 sm:pt-5 pb-4 sm:pb-0">
+      <!-- FOCUS WORKSPACE — premium two-column grid -->
+      <div id="focus-workspace-container" class="settings-card max-w-[1400px] mx-auto bg-canvas rounded-2xl border border-hairline/60 shadow-sm transition-all duration-500">
+        <div class="workspace-grid gap-4 lg:gap-5 px-6 lg:px-8 pt-6 lg:pt-8 pb-4">
 
           <!-- GOAL (order-1 mobile, left-col desktop) -->
           <div class="grid-area-goal w-full">
@@ -112,7 +112,7 @@ const appSchema = {
               id="session-goal" 
               autocomplete="off"
               spellcheck="true"
-              class="w-full h-12 sm:h-14 px-5 bg-canvas-soft/70 rounded-2xl text-base sm:text-lg font-semibold tracking-tight text-ink placeholder:text-mute/40 focus:outline-none focus:bg-canvas-soft/90 focus:ring-2 focus:ring-link/10 transition-all duration-200 select-text text-center md:text-left"
+              class="w-full h-12 px-5 bg-canvas-soft/70 rounded-2xl text-base font-semibold tracking-tight text-ink placeholder:text-mute/40 focus:outline-none focus:bg-canvas-soft/90 focus:ring-2 focus:ring-link/10 transition-all duration-200 select-text text-center md:text-left"
               placeholder="What do you want to make happen?" 
               aria-label="What do you want to make happen today?"
             />
@@ -126,8 +126,8 @@ const appSchema = {
               id="session-goal-why" 
               autocomplete="off"
               spellcheck="true"
-              class="w-full h-12 sm:h-14 px-5 bg-canvas-soft/70 rounded-2xl text-base sm:text-lg font-semibold tracking-tight text-ink placeholder:text-mute/40 focus:outline-none focus:bg-canvas-soft/90 focus:ring-2 focus:ring-link/10 transition-all duration-200 select-text text-center md:text-left" 
-              placeholder="What makes this meaningful to you? (optional)" 
+              class="w-full h-12 px-5 bg-canvas-soft/70 rounded-2xl text-base font-semibold tracking-tight text-ink placeholder:text-mute/40 focus:outline-none focus:bg-canvas-soft/90 focus:ring-2 focus:ring-link/10 transition-all duration-200 select-text text-center md:text-left" 
+              placeholder="What makes this meaningful? (optional)" 
               aria-label="Tell yourself why this goal matters"
             />
           </div>
@@ -140,21 +140,21 @@ const appSchema = {
                 type="text" 
                 id="milestone-input" 
                 autocomplete="off" 
-                class="flex-grow h-12 sm:h-14 px-5 bg-canvas-soft/70 rounded-2xl text-base sm:text-lg font-semibold tracking-tight text-ink placeholder:text-mute/40 focus:outline-none focus:bg-canvas-soft/90 focus:ring-2 focus:ring-link/10 transition-all duration-200" 
+                class="flex-grow h-12 px-5 bg-canvas-soft/70 rounded-2xl text-base font-semibold tracking-tight text-ink placeholder:text-mute/40 focus:outline-none focus:bg-canvas-soft/90 focus:ring-2 focus:ring-link/10 transition-all duration-200" 
                 placeholder="Add a step…" 
                 aria-label="Add a checkpoint to your plan" 
               />
               <button 
                 type="button" 
                 id="add-milestone-btn" 
-                class="h-12 sm:h-14 px-5 bg-link text-white hover:bg-link-hover active:scale-95 text-sm font-semibold rounded-2xl border-0 transition-all duration-150 cursor-pointer focus-visible:ring-2 focus-visible:ring-link/50 focus-visible:outline-none" 
+                class="h-12 px-5 bg-link text-white hover:bg-link-hover active:scale-95 text-sm font-semibold rounded-2xl border-0 transition-all duration-150 cursor-pointer focus-visible:ring-2 focus-visible:ring-link/50 focus-visible:outline-none" 
                 aria-label="Add checkpoint to checklist"
               >
                 Add step
               </button>
             </div>
 
-            <ul id="setup-milestones-list" class="space-y-0.5 max-h-[120px] overflow-y-auto scrollbar-thin">
+            <ul id="setup-milestones-list" class="space-y-0.5 max-h-[100px] overflow-y-auto scrollbar-thin">
               <li class="flex items-center gap-2 text-sm text-mute/60 py-2 select-none">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 opacity-50"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/><path d="M15 5l3 3"/></svg>
                 What's your first step?
@@ -164,8 +164,8 @@ const appSchema = {
 
           <!-- ACTIVITY (order-4 mobile, left-col desktop) -->
           <div class="grid-area-activity w-full select-none">
-            <span class="label-group-heading block mb-1 text-center md:text-left">Activity</span>
-                <div class="flex items-center justify-center md:justify-start gap-2 lg:gap-3 flex-wrap">
+            <span class="label-group-heading block mb-2 text-center md:text-left">Activity</span>
+            <div class="flex items-center justify-center md:justify-start gap-2 lg:gap-3 flex-wrap">
               <button type="button" class="activity-btn px-4 lg:px-5 py-3 sm:py-2 min-h-[44px] text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-2 border border-transparent font-medium shadow-sm whitespace-nowrap" data-activity="Coding" aria-pressed="true" aria-label="Select Coding">
                 <span class="text-base">💻</span> Coding
               </button>
@@ -196,13 +196,13 @@ const appSchema = {
             </div>
           </div>
 
-          <!-- TIMER + CONTROLS + DURATION/SOUND + TODAY (order-5 mobile, right-col desktop) -->
+          <!-- TIMER + TODAY STATS (order-5 mobile, right-col desktop) -->
           <div id="timer-container-card" class="grid-area-timer w-full flex flex-col items-center justify-start relative transition-all duration-500 md:sticky md:top-4 md:self-start">
 
             <!-- Soft background glow -->
             <div id="timer-active-glow" class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.04),transparent_70%)] pointer-events-none opacity-0 transition-opacity duration-700 ease-out"></div>
             
-            <div class="relative w-full max-w-[340px] aspect-square flex items-center justify-center select-none mb-6 timer-dial-wrapper">
+            <div class="relative w-full max-w-[260px] aspect-square flex items-center justify-center select-none mb-4 timer-dial-wrapper">
               <!-- Subtle dial shadow — layered for depth -->
               <div class="absolute inset-[3%] rounded-full bg-gradient-to-b from-canvas-soft/10 to-transparent dark:from-white/[0.02] pointer-events-none timer-dial-shadow"></div>
               <!-- Bezel ring for premium feel -->
@@ -226,33 +226,33 @@ const appSchema = {
               <!-- Center content -->
               <div class="absolute flex flex-col items-center justify-center text-center z-20 px-6 w-full select-none">
                 <!-- Activity pill (shown when session is active) -->
-                <span id="timer-active-category" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-canvas-soft-2 text-mute text-xs font-medium mb-3"></span>
+                <span id="timer-active-category" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-canvas-soft-2 text-mute text-xs font-medium mb-2"></span>
                 <!-- Goal shown inside timer when active -->
-                <span id="timer-active-goal" class="text-xs lg:text-sm font-medium text-body/60 max-w-[180px] lg:max-w-[240px] truncate mb-2"></span>
+                <span id="timer-active-goal" class="text-xs font-medium text-body/60 max-w-[160px] truncate mb-1.5"></span>
                 <!-- Session label -->
-                <span id="timer-session-label" class="text-xs font-semibold text-mute/50 tracking-wider uppercase mb-3 inline-flex items-center gap-1.5">
+                <span id="timer-session-label" class="text-[10px] font-semibold text-mute/50 tracking-wider uppercase mb-2.5 inline-flex items-center gap-1.5">
                   <span id="timer-session-text">Clear your mind. You've got this.</span>
                 </span>
                 <!-- Countdown -->
-                <span id="timer-countdown" aria-live="polite" aria-atomic="true" class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-ink leading-none tabular-nums" style="font-variant-numeric: tabular-nums;">
+                <span id="timer-countdown" aria-live="polite" aria-atomic="true" class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-ink leading-none tabular-nums" style="font-variant-numeric: tabular-nums;">
                   25:00
                 </span>
                 <!-- Next step hint -->
-                <span id="timer-next-step" class="text-xs lg:text-sm font-medium text-mute/70 mt-3 hidden max-w-[180px] lg:max-w-[240px] truncate"></span>
+                <span id="timer-next-step" class="text-xs font-medium text-mute/70 mt-2 hidden max-w-[160px] truncate"></span>
                 <!-- Checkpoint ratio -->
-                <span id="timer-milestone-ratio" class="text-xs text-mute/60 mt-1 tabular-nums"></span>
+                <span id="timer-milestone-ratio" class="text-[10px] text-mute/60 mt-0.5 tabular-nums"></span>
               </div>
             </div>
 
             <!-- Controls Panel -->
-            <div class="flex items-center gap-3 mt-2 w-full sm:max-w-sm justify-center flex-nowrap">
+            <div class="flex items-center gap-2.5 mt-1 w-full max-w-xs justify-center">
               <!-- Skip button -->
               <button type="button" id="skip-btn" class="control-btn w-11 h-11 rounded-2xl bg-canvas-soft/60 hover:bg-canvas-soft-2/80 active:scale-95 flex items-center justify-center transition-all duration-200 cursor-pointer text-mute hover:text-ink disabled:opacity-25 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/30" disabled title="End this session" aria-label="End this focus session">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
               </button>
 
               <!-- Primary CTA: Play / Pause -->
-              <button type="button" id="play-pause-btn" aria-pressed="false" class="btn-primary px-8 h-11 bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 hover:shadow-lg hover:shadow-link/20 active:scale-[0.97] text-sm font-bold rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-2.5 justify-center min-w-[150px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/50">
+              <button type="button" id="play-pause-btn" aria-pressed="false" class="btn-primary px-8 h-11 bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 hover:shadow-lg hover:shadow-link/20 active:scale-[0.97] text-sm font-bold rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-2.5 justify-center min-w-[140px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/50">
                 <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="hidden" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
                 <span id="play-btn-text">I'm ready</span>
@@ -271,73 +271,35 @@ const appSchema = {
               </div>
             </div>
 
-            <!-- Duration & Sound — integrated section -->
-            <div id="timer-presets-section" class="w-full mt-8 space-y-5">
-              <div class="flex items-center justify-between px-1">
-                <span class="label-group-heading text-xs">Duration</span>
-                <span class="label-group-heading text-xs">Sound</span>
-              </div>
-              <div class="grid grid-cols-4 gap-1.5 max-w-[280px] sm:max-w-[300px] mx-auto">
-                <button type="button" class="preset-btn py-2.5 min-h-[44px] rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="25" data-break="5" aria-pressed="false" aria-label="Classic Pomodoro: 25 minutes work focus and 5 minutes rest break">
-                  <span class="group-hover:text-link transition-colors">25m</span>
-                </button>
-                <button type="button" class="preset-btn py-2.5 min-h-[44px] rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="50" data-break="10" aria-pressed="false" aria-label="Extended sprint: 50 minutes work focus and 10 minutes rest break">
-                  <span class="group-hover:text-link transition-colors">50m</span>
-                </button>
-                <button type="button" class="preset-btn py-2.5 min-h-[44px] rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="90" data-break="0" aria-pressed="false" aria-label="Deep Flow sprint: 90 minutes work focus with no rest break">
-                  <span class="group-hover:text-link transition-colors">90m</span>
-                </button>
-                <button type="button" class="preset-btn py-2.5 min-h-[44px] rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="custom" aria-pressed="false" aria-label="Set custom work focus and rest timing block">
-                  <span class="group-hover:text-ink transition-colors">Custom</span>
-                </button>
-              </div>
-              <div class="grid grid-cols-4 gap-1 max-w-[280px] sm:max-w-[300px] mx-auto">
-                <button type="button" class="sound-btn py-2.5 min-h-[44px] rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-xs font-medium flex items-center justify-center" data-sound="mute" aria-pressed="false" aria-label="Mute ambient noise">Mute</button>
-                <button type="button" class="sound-btn py-2.5 min-h-[44px] rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-xs font-medium flex items-center justify-center" data-sound="brown" aria-pressed="false" aria-label="Play ambient brown noise">Brown</button>
-                <button type="button" class="sound-btn py-2.5 min-h-[44px] rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-xs font-medium flex items-center justify-center" data-sound="white" aria-pressed="false" aria-label="Play ambient white noise">White</button>
-                <button type="button" class="sound-btn py-2.5 min-h-[44px] rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-xs font-medium flex items-center justify-center" data-sound="rain" aria-pressed="false" aria-label="Play ambient rain sound">Rain</button>
-              </div>
-
-              <!-- Custom slider inputs -->
-              <div id="custom-presets-panel" class="hidden max-w-[280px] sm:max-w-[340px] mx-auto rounded-xl p-2.5 space-y-1.5 bg-canvas-soft/40">
-                <div class="flex items-center justify-between text-xs">
-                  <span class="text-mute">Focus: <span id="custom-focus-val" class="font-semibold text-ink tabular-nums">30m</span></span>
-                  <input type="range" id="custom-focus-slider" min="1" max="180" value="30" class="w-1/2 accent-link" aria-label="Custom work focus minutes slider" />
-                </div>
-                <div class="flex items-center justify-between text-xs">
-                  <span class="text-mute">Break: <span id="custom-break-val" class="font-semibold text-ink tabular-nums">5m</span></span>
-                  <input type="range" id="custom-break-slider" min="0" max="60" value="5" class="w-1/2 accent-link" aria-label="Custom rest break minutes slider" />
-                </div>
-              </div>
-            </div>
-
-            <!-- Today's Progress — integrated section -->
-            <div class="w-full mt-6 pt-5 border-t border-hairline/10">
-              <span class="label-group-heading text-xs block text-center mb-3">Today</span>
-              <div class="grid grid-cols-3 gap-4">
+            <!-- Today's Progress — directly below timer controls -->
+            <div class="w-full mt-4 pt-4 border-t border-hairline/10">
+              <div class="grid grid-cols-3 gap-3">
                 <div class="text-center">
-                  <div class="label-group-heading text-[10px] mb-1">Focus time</div>
-                  <div id="workspace-today-focus-time" class="text-base font-bold text-ink tabular-nums">0m</div>
+                  <div class="label-group-heading text-[10px] mb-0.5">Focus time</div>
+                  <div id="workspace-today-focus-time" class="text-sm font-bold text-ink tabular-nums">0m</div>
                 </div>
                 <div class="text-center">
-                  <div class="label-group-heading text-[10px] mb-1">Streak</div>
-                  <div id="workspace-today-streak" class="text-base font-bold text-ink tabular-nums flex items-center justify-center gap-1">
+                  <div class="label-group-heading text-[10px] mb-0.5">Streak</div>
+                  <div id="workspace-today-streak" class="text-sm font-bold text-ink tabular-nums flex items-center justify-center gap-1">
                     <span class="text-warning text-sm">🔥</span> 0d
                   </div>
                 </div>
                 <div class="text-center">
-                  <div class="label-group-heading text-[10px] mb-1">Success rate</div>
-                  <div id="workspace-today-rate" class="text-base font-bold text-ink tabular-nums">0%</div>
+                  <div class="label-group-heading text-[10px] mb-0.5">Success rate</div>
+                  <div id="workspace-today-rate" class="text-sm font-bold text-ink tabular-nums">0%</div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- START FOCUS (order-6 mobile, left-col desktop) -->
-          <button type="button" id="start-session-btn" class="grid-area-start w-full sm:max-w-xs mx-auto py-3.5 bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 hover:shadow-lg hover:shadow-link/20 active:scale-[0.98] text-sm font-bold tracking-wide rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-2.5 justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/50" aria-label="Start Goal Focus Session">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            Start Focus
-          </button>
+          <!-- START FOCUS + TIP (order-6 mobile, left-col desktop) -->
+          <div class="grid-area-start w-full space-y-2.5">
+            <button type="button" id="start-session-btn" class="w-full py-3 bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 hover:shadow-lg hover:shadow-link/20 active:scale-[0.98] text-sm font-bold tracking-wide rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-2 justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/50" aria-label="Start Goal Focus Session">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Start Focus
+            </button>
+            <p class="text-[11px] text-mute/50 text-center md:text-left leading-relaxed">Write what you want to accomplish, set a few checkpoints, then begin.</p>
+          </div>
 
           <!-- ACTIVE INFO PANEL — Session Details (order-7 mobile, left-col desktop) -->
           <div id="active-info-panel" class="grid-area-details hidden w-full space-y-2 flex flex-col items-center">
@@ -356,6 +318,49 @@ const appSchema = {
           <!-- KEPT FOR JS COMPATIBILITY (order-8 mobile, left-col desktop) -->
           <div id="setup-panel-below-fold" class="grid-area-helper hidden"></div>
 
+        </div>
+
+        <!-- Bottom toolbar: Duration + Sound (full width, outside grid) -->
+        <div id="timer-presets-section" class="border-t border-hairline/20 px-6 lg:px-8 py-3.5">
+          <div class="flex items-center justify-between max-w-[600px] mx-auto">
+            <div class="flex items-center gap-6">
+              <span class="label-group-heading text-[10px]">Duration</span>
+              <div class="flex gap-1.5">
+                <button type="button" class="preset-btn py-2 min-h-[36px] px-3 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-[11px] flex items-center justify-center group" data-focus="25" data-break="5" aria-pressed="false" aria-label="Classic Pomodoro: 25 minutes work focus and 5 minutes rest break">
+                  <span class="group-hover:text-link transition-colors">25m</span>
+                </button>
+                <button type="button" class="preset-btn py-2 min-h-[36px] px-3 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-[11px] flex items-center justify-center group" data-focus="50" data-break="10" aria-pressed="false" aria-label="Extended sprint: 50 minutes work focus and 10 minutes rest break">
+                  <span class="group-hover:text-link transition-colors">50m</span>
+                </button>
+                <button type="button" class="preset-btn py-2 min-h-[36px] px-3 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-[11px] flex items-center justify-center group" data-focus="90" data-break="0" aria-pressed="false" aria-label="Deep Flow sprint: 90 minutes work focus with no rest break">
+                  <span class="group-hover:text-link transition-colors">90m</span>
+                </button>
+                <button type="button" class="preset-btn py-2 min-h-[36px] px-3 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-[11px] flex items-center justify-center group" data-focus="custom" aria-pressed="false" aria-label="Set custom work focus and rest timing block">
+                  <span class="group-hover:text-ink transition-colors">Custom</span>
+                </button>
+              </div>
+            </div>
+            <div class="flex items-center gap-6">
+              <span class="label-group-heading text-[10px]">Sound</span>
+              <div class="flex gap-1.5">
+                <button type="button" class="sound-btn py-2 min-h-[36px] px-3 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-[11px] font-medium flex items-center justify-center" data-sound="mute" aria-pressed="false" aria-label="Mute ambient noise">Mute</button>
+                <button type="button" class="sound-btn py-2 min-h-[36px] px-3 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-[11px] font-medium flex items-center justify-center" data-sound="brown" aria-pressed="false" aria-label="Play ambient brown noise">Brown</button>
+                <button type="button" class="sound-btn py-2 min-h-[36px] px-3 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-[11px] font-medium flex items-center justify-center" data-sound="white" aria-pressed="false" aria-label="Play ambient white noise">White</button>
+                <button type="button" class="sound-btn py-2 min-h-[36px] px-3 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-[11px] font-medium flex items-center justify-center" data-sound="rain" aria-pressed="false" aria-label="Play ambient rain sound">Rain</button>
+              </div>
+            </div>
+          </div>
+          <!-- Custom slider inputs -->
+          <div id="custom-presets-panel" class="hidden max-w-[280px] sm:max-w-[340px] mx-auto mt-2 rounded-xl p-2.5 space-y-1.5 bg-canvas-soft/40">
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-mute">Focus: <span id="custom-focus-val" class="font-semibold text-ink tabular-nums">30m</span></span>
+              <input type="range" id="custom-focus-slider" min="1" max="180" value="30" class="w-1/2 accent-link" aria-label="Custom work focus minutes slider" />
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-mute">Break: <span id="custom-break-val" class="font-semibold text-ink tabular-nums">5m</span></span>
+              <input type="range" id="custom-break-slider" min="0" max="60" value="5" class="w-1/2 accent-link" aria-label="Custom rest break minutes slider" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -6559,7 +6564,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     border-radius: 20px;
   }
 
-  /* ── Workspace grid — mobile-first, reordered for mobile flow ── */
+  /* ── Workspace grid — mobile-first ── */
   .workspace-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -6571,8 +6576,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
       "timer"
       "start"
       "details"
-      "helper"
-      "today";
+      "helper";
   }
   .grid-area-goal     { grid-area: goal; }
   .grid-area-why      { grid-area: why; }
@@ -6582,11 +6586,10 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
   .grid-area-start    { grid-area: start; }
   .grid-area-details  { grid-area: details; }
   .grid-area-helper   { grid-area: helper; }
-  .grid-area-today    { grid-area: today; }
 
   @media (min-width: 768px) {
     .workspace-grid {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 3fr 2fr;
       grid-template-rows: auto;
       grid-template-areas:
         "goal    timer"
@@ -6595,8 +6598,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
         "activity timer"
         "start   timer"
         "details timer"
-        "helper  timer"
-        "today   today";
+        "helper  timer";
     }
     .workspace-grid > * {
       min-width: 0;
