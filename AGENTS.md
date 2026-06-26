@@ -1,3 +1,58 @@
+## Session Summary (Jun 26, 2026)
+
+### What We Did
+
+1. **Mobile responsive fixes** — reduced workspace grid padding (`px-6→px-4`), timer dial center padding, play button sizing, history table `overflow-x-auto`, toast width/position, today-progress card padding.
+
+2. **Workspace layout reorder (`grid-template-areas`)** — restructured from 2-column grid to named grid areas: mobile order is Goal → Why → Checklist → Activity → Timer → Start Focus → Details → Today. Desktop keeps timer sticky in the right column. Removed left/right column wrapper divs.
+
+3. **Timer dial fluid sizing** — replaced fixed `w-64/72/80/380` with `w-full max-w-[380px] aspect-square` so it scales proportionally to available width.
+
+4. **Touch usability (44px targets)** — bumped activity buttons, duration/sound presets, tab buttons, mood buttons (`w-9→w-11`), celebration/modal buttons, delete buttons (`w-7→w-11`), seed/wipe history, quick-log presets, immersive exit. Increased spacing gaps proportionally.
+
+5. **Typography optimization** — reduced page title (`text-2xl→text-xl`), journal heading (`text-3xl→text-2xl`), timer labels/ratios/stats descriptions/badge labels/chart legend (`text-[10/11px]→text-xs`). Added `whitespace-nowrap` to activity buttons.
+
+6. **Mobile spacing reduction** — tightened grid gaps, header margin, container padding, duration card padding, today section spacing, checklist `max-h`, countdown `text-5xl→text-4xl`, analytics/journal cards (`p-6→p-4`).
+
+7. **Form mobile-friendliness**:
+   - Removed `max-w-xs` from custom activity input (was overflowing on 320px)
+   - Outcome radio labels: `p-3→p-2 sm:p-3`, font `text-sm→text-xs sm:text-sm` (prevented text wrap in 77px columns)
+   - Sync forecast attribution: inputs stack vertically `flex-col sm:flex-row` with `w-full sm:w-2/3`
+
+8. **Mobile card improvements** (across 4 pages):
+   - **Primary cards** (12 in focus page): `p-6→p-4 sm:p-6 md:p-8`, `rounded-3xl→rounded-2xl sm:rounded-3xl`
+   - **Workspace grid cards**: `rounded-3xl→rounded-2xl sm:rounded-3xl` (already had `p-4`)
+   - **Dashboard like-cards** (5 feature cards): `p-6→p-4 sm:p-6`
+   - **Empty state cards** (2): `p-8→p-4 sm:p-6`, `space-y-4→space-y-3`
+   - **Sub-cards** (forecast log/entry): `p-5→p-4 md:p-6`
+   - **Homepage tool cards**: `p-10→p-6 sm:p-10`, `rounded-[2rem]→rounded-2xl sm:rounded-[2rem]`
+   - **Homepage hero cards**: `p-12→p-6 sm:p-12`, `rounded-[2.5rem]→rounded-2xl sm:rounded-[2.5rem]`
+   - **Age-calculator cards**: `p-8→p-6 sm:p-8`, `rounded-lg→rounded-xl sm:rounded-lg`
+   - **404 card**: `p-6→p-4 sm:p-6`
+
+9. **Complete mobile UX audit** — fixed 50+ issues across 5 files:
+   - **Overflow**: duration/sound presets `max-w-[300px]→280px`, custom presets `340px→280px`, heatmap `min-w-[620px]→300px sm:620px`
+   - **Touch targets (44px)**: 23 `h-10` elements → `h-11` (inputs, selects, buttons); 4 `p-1` buttons → `min-h-[44px] min-w-[44px]`; checkbox `14px→20px` with `min-h-11` label; homepage category pills `min-h-[44px]`; all `Button` component `md` size `h-10→h-11`, `sm` size `h-8→h-10`
+   - **Pomodoro timer**: timer circle `w-64 h-64` → `w-full max-w-[256px] aspect-square` (was overflowing card by 48px); mode tabs `py-2`→`py-3 min-h-11`; Done/Prefs/Clear buttons + toggle labels `min-h-11`; recent-task tags `py-1 text-[11px]`→`py-2 min-h-11 text-xs`
+   - **Heading overflows**: age-calculator `text-4xl→text-2xl sm:text-3xl`; pomodoro `text-4xl→text-3xl sm:text-4xl`; contact `text-3xl→text-2xl sm:text-3xl`
+   - **Forecast timeline**: 3 `whitespace-nowrap` labels added `max-w-[100/120px] sm:max-w-none truncate sm:overflow-visible` to prevent overflow at edge pins
+   - **CTA card**: homepage CTA `p-16→p-8 sm:p-16 md:p-32` to avoid cramping heading into 144px
+
+### Key Decisions & Patterns
+- `aspect-square` + `max-w-[380px]` for fluid timer scaling (replaces 5 breakpoint sizes)
+- `min-h-[44px]` pattern for touch targets while preserving visual padding proportions
+- `grid-template-areas` CSS for mobile layout reorder (no content duplication)
+- `flex-col sm:flex-row` for tight flex rows that overflow on 320px
+- `p-2 sm:p-3` / `text-xs sm:text-sm` pattern for grid items that squeeze below 80px on mobile
+- `p-4 sm:p-6 md:p-8` as standard responsive card padding (more compact on mobile than `p-6 md:p-8`)
+- `rounded-2xl sm:rounded-3xl` for standard card border-radius (16px mobile, 24px desktop)
+
+### Files Modified
+- `src/pages/focus/index.astro` — main focus page (~6600-line file)
+- `src/pages/index.astro` — homepage tool/hero cards
+- `src/pages/age-calculator.astro` — feature cards
+- `src/pages/404.astro` — not-found card
+
 ## Session Summary (Jun 25, 2026)
 
 ### What We Did

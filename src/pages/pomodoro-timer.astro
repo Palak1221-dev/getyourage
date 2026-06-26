@@ -72,7 +72,7 @@ const appSchema = {
   <section class="w-full pt-4 lg:pt-8 pb-6">
     <div class="max-w-[1200px] mx-auto px-6">
       <div class="text-center lg:text-left mb-8">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-ink mb-3 leading-[1.1]">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-ink mb-3 leading-[1.1]">
           Pomodoro Timer
         </h1>
         <p class="text-base md:text-lg text-body leading-relaxed max-w-2xl">
@@ -90,21 +90,21 @@ const appSchema = {
             <div class="flex justify-center gap-1 p-1 bg-canvas-soft-2 rounded-full max-w-sm mx-auto mb-8 border border-hairline">
               <button 
                 id="mode-pomodoro" 
-                class="flex-1 py-2 px-4 rounded-full text-xs font-semibold transition-all cursor-pointer bg-link text-white shadow-sm"
+                class="flex-1 py-3 px-4 min-h-11 rounded-full text-xs font-semibold transition-all cursor-pointer bg-link text-white shadow-sm"
                 aria-label="Switch to Pomodoro focus session"
               >
                 Pomodoro
               </button>
               <button 
                 id="mode-short" 
-                class="flex-1 py-2 px-4 rounded-full text-xs font-semibold text-body hover:text-ink hover:bg-canvas-soft transition-all cursor-pointer"
+                class="flex-1 py-3 px-4 min-h-11 rounded-full text-xs font-semibold text-body hover:text-ink hover:bg-canvas-soft transition-all cursor-pointer"
                 aria-label="Switch to short break"
               >
                 Short Break
               </button>
               <button 
                 id="mode-long" 
-                class="flex-1 py-2 px-4 rounded-full text-xs font-semibold text-body hover:text-ink hover:bg-canvas-soft transition-all cursor-pointer"
+                class="flex-1 py-3 px-4 min-h-11 rounded-full text-xs font-semibold text-body hover:text-ink hover:bg-canvas-soft transition-all cursor-pointer"
                 aria-label="Switch to long break"
               >
                 Long Break
@@ -112,7 +112,7 @@ const appSchema = {
             </div>
 
             <!-- Timer Circle Ring -->
-            <div class="relative w-64 h-64 md:w-72 md:h-72 mx-auto flex items-center justify-center mb-8">
+            <div class="relative w-full max-w-[256px] md:max-w-[288px] aspect-square mx-auto flex items-center justify-center mb-8">
               <svg class="w-full h-full transform -rotate-90" viewBox="0 0 256 256">
                 <!-- Background Circle -->
                 <circle 
@@ -190,7 +190,7 @@ const appSchema = {
                 </div>
                 <button 
                   id="btn-complete-task" 
-                  class="text-xs font-semibold text-link hover:text-link-hover cursor-pointer border border-link/20 bg-canvas hover:bg-link/5 px-2.5 py-1 rounded-sm"
+                  class="min-h-11 px-4 py-2.5 text-xs font-semibold text-link hover:text-link-hover cursor-pointer border border-link/20 bg-canvas hover:bg-link/5 rounded-sm"
                   aria-label="Mark task as complete"
                 >
                   Done
@@ -222,7 +222,7 @@ const appSchema = {
               <h3 class="text-sm font-bold text-ink uppercase tracking-wider">Preferences</h3>
               <button 
                 id="btn-toggle-settings" 
-                class="flex items-center gap-1.5 text-xs text-body hover:text-ink font-semibold cursor-pointer"
+                class="flex items-center gap-1.5 min-h-11 px-3 py-2 text-xs text-body hover:text-ink font-semibold cursor-pointer"
                 aria-expanded="false"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -239,7 +239,7 @@ const appSchema = {
                   <span class="block text-xs font-semibold text-ink">Sound Chime</span>
                   <span class="text-[10px] text-mute">Audio alert at interval end</span>
                 </div>
-                <label class="relative inline-flex items-center cursor-pointer select-none">
+                <label class="relative min-h-11 py-3 inline-flex items-center cursor-pointer select-none">
                   <input type="checkbox" id="toggle-sound" class="sr-only peer" checked />
                   <div class="w-10 h-6 bg-canvas-soft-2 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-hairline after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-link border border-hairline"></div>
                 </label>
@@ -251,7 +251,7 @@ const appSchema = {
                   <span class="block text-xs font-semibold text-ink">Tab Alerts</span>
                   <span class="text-[10px] text-mute">Browser desktop notifications</span>
                 </div>
-                <label class="relative inline-flex items-center cursor-pointer select-none">
+                <label class="relative min-h-11 py-3 inline-flex items-center cursor-pointer select-none">
                   <input type="checkbox" id="toggle-notifications" class="sr-only peer" />
                   <div class="w-10 h-6 bg-canvas-soft-2 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-hairline after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-link border border-hairline"></div>
                 </label>
@@ -263,7 +263,7 @@ const appSchema = {
                   <span class="block text-xs font-semibold text-ink">Auto-Start</span>
                   <span class="text-[10px] text-mute">Automatically start next timer</span>
                 </div>
-                <label class="relative inline-flex items-center cursor-pointer select-none">
+                <label class="relative min-h-11 py-3 inline-flex items-center cursor-pointer select-none">
                   <input type="checkbox" id="toggle-autostart" class="sr-only peer" />
                   <div class="w-10 h-6 bg-canvas-soft-2 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-hairline after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-link border border-hairline"></div>
                 </label>
@@ -365,7 +365,7 @@ const appSchema = {
               <h3 class="text-xs font-bold text-ink uppercase tracking-wider">Session History</h3>
               <button 
                 id="btn-clear-history" 
-                class="hidden text-[10px] font-bold text-red-600 hover:text-red-500 uppercase tracking-widest cursor-pointer"
+                class="hidden min-h-11 px-3 py-2 text-xs font-bold text-red-600 hover:text-red-500 uppercase tracking-widest cursor-pointer"
                 aria-label="Clear session history"
               >
                 Clear
@@ -853,7 +853,7 @@ const appSchema = {
         recentTasksList.innerHTML = '';
         recent.forEach((task: string) => {
           const tagBtn = document.createElement('button');
-          tagBtn.className = 'px-2.5 py-1 text-[11px] font-semibold bg-canvas-soft-2 border border-hairline rounded-sm hover:border-link/30 hover:text-link text-body transition-all cursor-pointer truncate max-w-[120px]';
+          tagBtn.className = 'px-3 py-2 min-h-11 text-xs font-semibold bg-canvas-soft-2 border border-hairline rounded-sm hover:border-link/30 hover:text-link text-body transition-all cursor-pointer truncate max-w-[120px]';
           tagBtn.textContent = task;
           tagBtn.title = task;
           tagBtn.type = 'button';
