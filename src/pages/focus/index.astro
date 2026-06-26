@@ -103,67 +103,122 @@ const appSchema = {
       <!-- FIRST-RUN EXPERIENCE -->
       <div id="first-run-experience" class="hidden max-w-[1400px] mx-auto bg-canvas rounded-2xl border border-hairline/60 shadow-sm mb-6 p-6 lg:p-8 space-y-6">
         <div class="text-center space-y-2">
-          <span class="text-xs font-semibold text-link uppercase tracking-wider">Welcome to Tooltails Focus</span>
-          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">Ready for your first session?</h2>
-          <p class="text-sm text-body/70 max-w-lg mx-auto">Pick an example or choose a template. You can always change it.</p>
+          <div class="flex items-center justify-center gap-2">
+            <span class="text-xs font-semibold text-link uppercase tracking-wider">Premium Goal-Orientated Focus</span>
+            <div class="w-1.5 h-1.5 rounded-full bg-emerald-500/60 animate-pulse"></div>
+          </div>
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">Welcome to premium focus</h2>
+          <p class="text-sm text-body/70 max-w-lg mx-auto">Choose a mission, set your path, and transform intentions into results. Everything saves locally — no accounts, no servers, just you and your goals.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <button type="button" class="first-run-example text-left p-4 rounded-2xl border border-hairline/60 bg-canvas-soft/30 hover:border-link/30 hover:bg-link/[0.02] motion-safe:hover:-translate-y-0.5 motion-safe:transition-all motion-safe:duration-200 cursor-pointer group" data-goal="Write the introduction for my blog post" data-activity="Writing">
-            <span class="text-lg mb-1 block">✍️</span>
-            <span class="text-sm font-semibold text-ink block">Write the introduction for my blog post</span>
-            <span class="text-xs text-mute/60 mt-1 block">Writing · ~30 min</span>
+          <button type="button" class="first-run-example group text-left p-5 rounded-2xl border border-hairline/60 bg-canvas-soft/30 hover:border-link/30 hover:bg-link/[0.02] motion-safe:hover:-translate-y-2 motion-safe:transition-all motion-safe:duration-500 cursor-pointer relative overflow-hidden" data-goal="Launch a new SaaS product with user feedback integration" data-activity="Coding">
+            <div class="absolute top-0 right-0 w-20 h-20 bg-link/10 rounded-full -mr-10 -mt-10 opacity-0 group-hover:opacity-100 motion-safe:transition-all motion-safe:duration-700"></div>
+            <span class="text-2xl mb-2 block group-hover:scale-110 motion-safe:transition-transform">🚀</span>
+            <span class="text-sm font-semibold text-ink block">Launch a new SaaS product with user feedback integration</span>
+            <span class="text-xs text-mute/60 mt-1 block">Coding · ~90 min</span>
           </button>
-          <button type="button" class="first-run-example text-left p-4 rounded-2xl border border-hairline/60 bg-canvas-soft/30 hover:border-link/30 hover:bg-link/[0.02] motion-safe:hover:-translate-y-0.5 motion-safe:transition-all motion-safe:duration-200 cursor-pointer group" data-goal="Complete the React authentication module" data-activity="Coding">
-            <span class="text-lg mb-1 block">💻</span>
-            <span class="text-sm font-semibold text-ink block">Complete the React authentication module</span>
-            <span class="text-xs text-mute/60 mt-1 block">Coding · ~60 min</span>
-          </button>
-          <button type="button" class="first-run-example text-left p-4 rounded-2xl border border-hairline/60 bg-canvas-soft/30 hover:border-link/30 hover:bg-link/[0.02] motion-safe:hover:-translate-y-0.5 motion-safe:transition-all motion-safe:duration-200 cursor-pointer group" data-goal="Read 30 pages of Deep Work and take notes" data-activity="Reading">
-            <span class="text-lg mb-1 block">📖</span>
-            <span class="text-sm font-semibold text-ink block">Read 30 pages of Deep Work and take notes</span>
+          <button type="button" class="first-run-example group text-left p-5 rounded-2xl border border-hairline/60 bg-canvas-soft/30 hover:border-link/30 hover:bg-link/[0.02] motion-safe:hover:-translate-y-2 motion-safe:transition-all motion-safe:duration-500 cursor-pointer relative overflow-hidden" data-goal="Complete and publish "Atomic Habits" summary chapter 3" data-activity="Reading">
+            <div class="absolute top-0 right-0 w-20 h-20 bg-emerald-500/10 rounded-full -mr-10 -mt-10 opacity-0 group-hover:opacity-100 motion-safe:transition-all motion-safe:duration-700"></div>
+            <span class="text-2xl mb-2 block group-hover:scale-110 motion-safe:transition-transform">📖</span>
+            <span class="text-sm font-semibold text-ink block">Complete and publish "Atomic Habits" summary chapter 3</span>
             <span class="text-xs text-mute/60 mt-1 block">Reading · ~45 min</span>
+          </button>
+          <button type="button" class="first-run-example group text-left p-5 rounded-2xl border border-hairline/60 bg-canvas-soft/30 hover:border-link/30 hover:bg-link/[0.02] motion-safe:hover:-translate-y-2 motion-safe:transition-all motion-safe:duration-500 cursor-pointer relative overflow-hidden" data-goal="Draft whitepaper on climate tech investment thesis" data-activity="Writing">
+            <div class="absolute top-0 right-0 w-20 h-20 bg-warning/10 rounded-full -mr-10 -mt-10 opacity-0 group-hover:opacity-100 motion-safe:transition-all motion-safe:duration-700"></div>
+            <span class="text-2xl mb-2 block group-hover:scale-110 motion-safe:transition-transform">📝</span>
+            <span class="text-sm font-semibold text-ink block">Draft whitepaper on climate tech investment thesis</span>
+            <span class="text-xs text-mute/60 mt-1 block">Writing · ~75 min</span>
           </button>
         </div>
 
         <div class="flex items-center gap-3">
           <span class="h-px flex-1 bg-hairline/60"></span>
-          <span class="text-xs text-mute/40 font-medium">or choose a template</span>
+          <span class="text-xs text-mute/40 font-medium">or jump-start with a template</span>
           <span class="h-px flex-1 bg-hairline/60"></span>
         </div>
 
-        <div class="flex flex-wrap items-center justify-center gap-2.5">
-          <button type="button" class="first-run-template px-5 h-10 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Study"><span class="text-base">📚</span> Study</button>
-          <button type="button" class="first-run-template px-5 h-10 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Coding"><span class="text-base">💻</span> Coding</button>
-          <button type="button" class="first-run-template px-5 h-10 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Reading"><span class="text-base">📖</span> Reading</button>
-          <button type="button" class="first-run-template px-5 h-10 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Writing"><span class="text-base">✍️</span> Writing</button>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <button type="button" class="first-run-template group relative px-6 h-12 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-link/5 hover:border-link/40 hover:scale-[1.03] motion-safe:transition-all motion-safe:duration-300 cursor-pointer flex items-center gap-2 overflow-hidden" data-template="Study">
+            <div class="absolute inset-0 bg-link/5 translate-y-full group-hover:translate-y-0 motion-safe:transition-transform motion-safe:duration-300"></div>
+            <span class="text-base group-hover:scale-110 motion-safe:transition-transform relative z-10">📚</span>
+            <span class="relative z-10">Study</span>
+          </button>
+          <button type="button" class="first-run-template group relative px-6 h-12 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-link/5 hover:border-link/40 hover:scale-[1.03] motion-safe:transition-all motion-safe:duration-300 cursor-pointer flex items-center gap-2 overflow-hidden" data-template="Coding">
+            <div class="absolute inset-0 bg-link/5 translate-y-full group-hover:translate-y-0 motion-safe:transition-transform motion-safe:duration-300"></div>
+            <span class="text-base group-hover:scale-110 motion-safe:transition-transform relative z-10">💻</span>
+            <span class="relative z-10">Coding</span>
+          </button>
+          <button type="button" class="first-run-template group relative px-6 h-12 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-link/5 hover:border-link/40 hover:scale-[1.03] motion-safe:transition-all motion-safe:duration-300 cursor-pointer flex items-center gap-2 overflow-hidden" data-template="Reading">
+            <div class="absolute inset-0 bg-link/5 translate-y-full group-hover:translate-y-0 motion-safe:transition-transform motion-safe:duration-300"></div>
+            <span class="text-base group-hover:scale-110 motion-safe:transition-transform relative z-10">📖</span>
+            <span class="relative z-10">Reading</span>
+          </button>
+          <button type="button" class="first-run-template group relative px-6 h-12 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-link/5 hover:border-link/40 hover:scale-[1.03] motion-safe:transition-all motion-safe:duration-300 cursor-pointer flex items-center gap-2 overflow-hidden" data-template="Writing">
+            <div class="absolute inset-0 bg-link/5 translate-y-full group-hover:translate-y-0 motion-safe:transition-transform motion-safe:duration-300"></div>
+            <span class="text-base group-hover:scale-110 motion-safe:transition-transform relative z-10">✍️</span>
+            <span class="relative z-10">Writing</span>
+          </button>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
-          <div class="text-center space-y-1.5">
-            <div class="w-8 h-8 rounded-full bg-link/10 flex items-center justify-center mx-auto"><span class="text-sm font-bold text-link">1</span></div>
-            <span class="text-xs font-semibold text-ink block">Set a goal</span>
-            <span class="text-[11px] text-mute/60 leading-tight block">Write what you want to accomplish</span>
+        <!-- PREMIUM HOW IT WORKS - Interactive 3-step guide with micro-animations -->
+        <div class="bg-gradient-to-br from-canvas-soft/50 to-canvas/50 rounded-xl p-6 space-y-4 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-link/5 rounded-full -mr-16 -mt-16 animate-pulse-slow"></div>
+          
+          <div class="text-center relative z-10">
+            <span class="text-xs font-semibold text-link uppercase tracking-wider">Transform Any Goal</span>
+            <h3 class="text-lg font-bold text-ink mt-1">3 Simple Steps to Mastery</h3>
           </div>
-          <div class="text-center space-y-1.5">
-            <div class="w-8 h-8 rounded-full bg-link/10 flex items-center justify-center mx-auto"><span class="text-sm font-bold text-link">2</span></div>
-            <span class="text-xs font-semibold text-ink block">Add checkpoints</span>
-            <span class="text-[11px] text-mute/60 leading-tight block">Break it into small steps</span>
-          </div>
-          <div class="text-center space-y-1.5">
-            <div class="w-8 h-8 rounded-full bg-link/10 flex items-center justify-center mx-auto"><span class="text-sm font-bold text-link">3</span></div>
-            <span class="text-xs font-semibold text-ink block">Choose your time</span>
-            <span class="text-[11px] text-mute/60 leading-tight block">Pick a duration that fits</span>
-          </div>
-          <div class="text-center space-y-1.5">
-            <div class="w-8 h-8 rounded-full bg-link/10 flex items-center justify-center mx-auto"><span class="text-sm font-bold text-link">4</span></div>
-            <span class="text-xs font-semibold text-ink block">Start &amp; reflect</span>
-            <span class="text-[11px] text-mute/60 leading-tight block">Hit start, then log how it went</span>
+          
+          <div class="grid grid-cols-3 gap-4 relative z-10">
+            <div class="text-center space-y-3 group">
+              <div class="relative">
+                <div class="w-12 h-12 rounded-full bg-link/10 flex items-center justify-center mx-auto group-hover:bg-link/20 motion-safe:transition-all motion-safe:duration-300">
+                  <span class="text-lg font-bold text-link group-hover:scale-110 motion-safe:transition-transform">1</span>
+                </div>
+                <div class="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-500/60 animate-pulse" style="animation-delay: 0s"></div>
+              </div>
+              <div class="space-y-1">
+                <span class="text-sm font-semibold text-ink group-hover:text-link motion-safe:transition-colors">Define Your Mission</span>
+                <p class="text-[11px] text-mute/60 leading-relaxed">Write what success looks like. Be specific, be ambitious.</p>
+              </div>
+            </div>
+            
+            <div class="text-center space-y-3 group">
+              <div class="relative">
+                <div class="w-12 h-12 rounded-full bg-link/10 flex items-center justify-center mx-auto group-hover:bg-link/20 motion-safe:transition-all motion-safe:duration-300">
+                  <span class="text-lg font-bold text-link group-hover:scale-110 motion-safe:transition-transform">2</span>
+                </div>
+                <div class="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-500/60 animate-pulse" style="animation-delay: 0.2s"></div>
+              </div>
+              <div class="space-y-1">
+                <span class="text-sm font-semibold text-ink group-hover:text-link motion-safe:transition-colors">Break Down</span>
+                <p class="text-[11px] text-mute/60 leading-relaxed">Micro-checkpoints that make the impossible manageable.</p>
+              </div>
+            </div>
+            
+            <div class="text-center space-y-3 group">
+              <div class="relative">
+                <div class="w-12 h-12 rounded-full bg-link/10 flex items-center justify-center mx-auto group-hover:bg-link/20 motion-safe:transition-all motion-safe:duration-300">
+                  <span class="text-lg font-bold text-link group-hover:scale-110 motion-safe:transition-transform">3</span>
+                </div>
+                <div class="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-500/60 animate-pulse" style="animation-delay: 0.4s"></div>
+              </div>
+              <div class="space-y-1">
+                <span class="text-sm font-semibold text-ink group-hover:text-link motion-safe:transition-colors">Focus & Refine</span>
+                <p class="text-[11px] text-mute/60 leading-relaxed">Work smart, learn fast, improve continuously.</p>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="text-center">
-          <button type="button" id="first-run-skip" class="text-xs text-mute/50 hover:text-mute/80 motion-safe:transition-colors motion-safe:duration-200 cursor-pointer underline underline-offset-2">Skip — I know what I'm doing</button>
+          <button type="button" id="first-run-skip" class="group text-xs text-mute/50 hover:text-mute/80 motion-safe:transition-colors motion-safe:duration-200 cursor-pointer underline underline-offset-2 inline-flex items-center gap-1">
+            Skip — I know what I'm doing
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 motion-safe:transition-transform">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -1634,15 +1689,30 @@ const appSchema = {
   let isTimerRunning = false;
   let currentSessionMode: 'focus' | 'break' | 'idle' = 'idle';
   let focusMessageIndex = 0;
+  let phaseMessageIndex = 0;
+  const focusPhases = [
+    "You're just getting started... These first 5 minutes are the foundation.",
+    "You're in the zone! What's next on your path? Bring your curiosity.",
+    "Halfway through your block. You're doing better than you think.",
+    "You're getting warm! Focus beats perfection every time.",
+    "Just minutes left. Push through — your future thanks you.",
+    "Almost there. That final sprint is almost in sight.",
+    "You made it! Take a moment to celebrate the effort.",
+    "Closing up shop. Great job today.",
+    "Good deep work. When you're ready, remember: progress is permanent.",
+    "Today isn't over until you say goodbye to this moment.",
+  ];
   const focusMessages = [
-    "You're exactly where you need to be right now.",
-    'Each minute of focus is a brick in your foundation.',
-    'Be proud of yourself for showing up today.',
-    'Your future self is cheering you on — keep going.',
-    'This is your time. Protect it like it matters.',
-    'You don\'t need to be perfect. You just need to begin.',
-    'Every small step is still a step forward.',
-    'Trust yourself — you\'ve handled harder things than this.',
+    "Your focus is building like a muscle. Feel that momentum?",
+    "You're channeling energy into what matters most.",
+    "This is your distraction-free hour. Don't give it away.",
+    "Every second counts. Your consistency is your superpower.",
+    "Deep work feels good. You can tell your brain knows it.",
+    "You're in the flow state. Don't break it unless you need a break.",
+    "Your goals are calling. Answer with action.",
+    "This is you, undistracted, getting things done.",
+    "Your attention is your most valuable resource today.",
+    "You're showing up. That's more than most people do.",
   ];
   function warnBeforeUnload(e: BeforeUnloadEvent) {
     e.preventDefault();
@@ -1658,6 +1728,9 @@ const appSchema = {
   let activeMilestones: Milestone[] = [];
   let configuredFocusMinutes = 25;
   let configuredBreakMinutes = 5;
+  
+  // Session phase tracking for dynamic messages
+  let currentSessionPhase = 0;
 
   interface WeeklyReflection {
     id: string;
@@ -2496,19 +2569,42 @@ const appSchema = {
       timerExpectedEndTimestamp = Date.now() + timerRemainingSeconds * 1000;
 
       let focusMessageTick = 0;
+      let phaseMessageTick = 0;
+      let milestoneCelebrationCountdown = 0;
       timerIntervalId = setInterval(() => {
         const diffMs = timerExpectedEndTimestamp - Date.now();
         timerRemainingSeconds = Math.max(0, Math.ceil(diffMs / 1000));
         
         updateTimerDisplay();
 
-        // Rotate encouraging message every ~15 seconds during focus
+        // Dynamic motivational messages based on time elapsed
         if (currentSessionMode === 'focus') {
           focusMessageTick++;
-          if (focusMessageTick % 15 === 0) {
+          phaseMessageTick++;
+          
+          // Phase transitions every 20% of session
+          if (phaseMessageTick >= 3 && currentSessionPhase !== Math.floor(phaseMessageTick / 3)) {
+            currentSessionPhase = Math.floor(phaseMessageTick / 3);
+            const phaseMessage = focusPhases[currentSessionPhase] || "You're doing great!";
+            document.getElementById('timer-session-text').textContent = phaseMessage;
+          }
+          
+          // Rotating encouraging messages every ~20 seconds (more frequent)
+          if (focusMessageTick % 20 === 0) {
             focusMessageIndex = (focusMessageIndex + 1) % focusMessages.length;
             document.getElementById('timer-session-text').textContent = focusMessages[focusMessageIndex];
           }
+          
+      // Show milestone celebration countdown
+      const hasMilestones = activeMilestones.length > 0;
+      if (hasMilestones && activeMilestones.some(m => m.completed)) {
+        const completedMilestones = activeMilestones.filter(m => m.completed).length;
+        const totalMilestones = activeMilestones.length;
+        if (completedMilestones > milestoneCelebrationCountdown) {
+          milestoneCelebrationCountdown = completedMilestones;
+          showMilestoneCelebration(completedMilestones);
+        }
+      }
         }
 
         if (timerRemainingSeconds <= 0) {
@@ -2541,12 +2637,35 @@ const appSchema = {
     const seconds = timerRemainingSeconds % 60;
     const formatted = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     
-    // Page outputs
-    document.getElementById('timer-countdown').textContent = formatted;
-    document.getElementById('immersive-countdown').textContent = formatted;
-    
-    // Browser tab title
-    document.title = `[${formatted}] ${selectedActivity} | Focus Goals Timer`;
+      // Page outputs with premium transitions
+      const countdownEl = document.getElementById('timer-countdown');
+      const immersiveCountdownEl = document.getElementById('immersive-countdown');
+      if (countdownEl) countdownEl.textContent = formatted;
+      if (immersiveCountdownEl) {
+        immersiveCountdownEl.textContent = formatted;
+        immersiveCountdownEl.classList.add('animate-pulse-scale');
+        setTimeout(() => immersiveCountdownEl.classList.remove('animate-pulse-scale'), 300);
+      }
+      
+      // Browser tab title with smooth transition
+      const newTitle = `[${formatted}] ${selectedActivity} | Focus Goals Timer`;
+      document.title = newTitle;
+      
+      // Update milestone status if shown in immersive mode
+      const immersiveMilestonesContainer = document.getElementById('immersive-milestones-list');
+      if (immersiveMilestonesContainer && hasMilestones && activeMilestones.length > 0) {
+        const active = activeMilestones.filter(m => !m.completed);
+        const completed = activeMilestones.filter(m => m.completed);
+        const milestoneText = active.length > 0 ? `Next: ${active[0].text}` : 'Goal complete!';
+        immersiveMilestonesContainer.textContent = milestoneText;
+      }
+      
+      // Update immersive progress bar with smooth animation
+      const immersiveProgressBar = document.getElementById('immersive-progress-bar');
+      if (immersiveProgressBar && timerDurationSeconds > 0) {
+        const percent = ((timerDurationSeconds - timerRemainingSeconds) / timerDurationSeconds) * 100;
+        immersiveProgressBar.style.width = `${percent}%`;
+      }
 
     // SVG Circular Progress
     const ring = document.getElementById('timer-progress-ring') as SVGPathElement;
@@ -2580,7 +2699,23 @@ const appSchema = {
       bar.style.width = `${percent}%`;
     }
   }
-
+  
+  function showMilestoneCelebration(completedCount: number) {
+    // Create floating milestone celebration
+    const celebration = document.createElement('div');
+    celebration.className = 'absolute top-2 right-2 z-50 pointer-events-none';
+    celebration.innerHTML = `
+      <div class="bg-emerald-500/20 backdrop-blur-sm border border-emerald-500/30 rounded-2xl px-3 py-2 animate-in slide-in-from-top-4 fade-in duration-500">
+        <div class="flex items-center gap-2">
+          <span class="text-emerald-500 font-bold">✓</span>
+          <span class="text-emerald-700 text-xs font-semibold">${completedCount} milestone${completedCount > 1 ? 's' : ''} completed</span>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(celebration);
+    setTimeout(() => { celebration.remove(); }, 3000);
+  }
+  
   function triggerTimerCompletion() {
     playNotificationSynth();
     
@@ -3705,6 +3840,126 @@ const appSchema = {
     // 5. Deep session count
     const deepSessions = history.filter(s => s.outcome === 'Completed' && s.durationMinutes >= 50).length;
 
+    // 6. Achievement System
+    const achievements = calculateAchievements(history, journalEntries);
+    const unlockedAchievements = achievements.filter(a => a.unlocked);
+    const totalPossible = achievements.length;
+    const achievementProgress = totalPossible > 0 ? (unlockedAchievements.length / totalPossible) * 100 : 0;
+
+    // Show achievements in analytics tab
+    const achievementsContainer = document.getElementById('analytics-achievements-panel');
+    if (achievementsContainer) {
+      achievementsContainer.innerHTML = `
+        <div class="bg-canvas p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl shadow-raised border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] space-y-6">
+          <div class="flex items-center justify-between border-b border-hairline/30 pb-4 select-none">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-warning/10 to-warning/5 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-warning"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 7 7 7 7"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 17 7 17 7"/><path d="M4 22h16"/><path d="M10 22V8h4v14"/><path d="M8 22V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v18"/></svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold tracking-tight text-ink">Focus Achievements</h3>
+                <p class="text-sm text-mute/60">Badges earned through focused work and consistency</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-3xl font-extrabold text-ink tabular-nums">${unlockedAchievements.length}/${totalPossible}</div>
+              <div class="text-xs text-mute/60">Achievement points</div>
+            </div>
+          </div>
+
+          <!-- Achievement Progress Bar -->
+          ${totalPossible > 0 ? `
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-xs font-medium">
+                <span class="text-mute/60">Overall Progress</span>
+                <span class="text-ink font-mono tabular-nums">${Math.round(achievementProgress)}%</span>
+              </div>
+              <div class="w-full h-2 bg-hairline rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-warning to-warning/60 transition-all duration-500 ease-out" style="width: ${achievementProgress}%"></div>
+              </div>
+            </div>
+          ` : ''}
+
+          <!-- Achievement Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            ${achievements.map(achievement => `
+              <div class="achievement-card group relative p-5 rounded-2xl border transition-all duration-300 ${achievement.unlocked ? 'bg-gradient-to-br from-warning/5 to-transparent border-warning/30 shadow-raised shadow-warning/5' : 'bg-canvas border-hairline/20 opacity-60 grayscale'} ${!achievement.unlocked ? 'hover:opacity-80 hover:grayscale-0' : 'hover:-translate-y-1 hover:shadow-lg'} cursor-pointer" onclick="${!achievement.unlocked ? `showAchievementTooltip('${achievement.id}', event)` : ''}">
+                
+                <!-- Achievement Icon -->
+                <div class="relative mb-4">
+                  <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto ${achievement.unlocked ? 'bg-warning/10 text-warning' : 'bg-canvas text-mute/40'}">
+                    ${achievement.icon}
+                  </div>
+                  ${achievement.unlocked && achievement.special ? '
+                    <div class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-warning border-2 border-canvas shadow-sm">
+                      <span class="text-[10px] font-bold text-white flex items-center justify-center">★</span>
+                    </div>
+                  ' : ''}
+                </div>
+
+                <!-- Achievement Title -->
+                <h4 class="text-sm font-bold text-ink mb-1 text-center ${!achievement.unlocked ? 'line-clamp-2' : ''}">${achievement.title}</h4>
+
+                <!-- Achievement Description -->
+                <p class="text-xs text-mute/60 mb-4 leading-relaxed text-center ${!achievement.unlocked ? 'line-clamp-3' : ''}">${achievement.description}</p>
+
+                <!-- Progress for locked achievements -->
+                ${!achievement.unlocked ? `
+                  <div class="mt-auto space-y-2">
+                    <div class="flex items-center justify-between text-xs">
+                      <span class="text-mute/40">Progress</span>
+                      <span class="text-ink font-mono tabular-nums">${achievement.progress}%</span>
+                    </div>
+                    <div class="w-full h-1.5 bg-hairline rounded-full overflow-hidden">
+                      <div class="h-full bg-gradient-to-r from-mute/40 to-mute/20 transition-all duration-500 ease-out" style="width: ${achievement.progress}%"></div>
+                    </div>
+                  </div>
+                ` : `
+                  <!-- Unlocked details -->
+                  <div class="mt-auto">
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-[10px] text-emerald-600 font-semibold uppercase tracking-wider">Unlocked</span>
+                      <span class="text-[10px] text-mute/40 font-mono" id="achievement-unlock-date-${achievement.id}">${formatDateShort(new Date(achievement.unlockedAt))}</span>
+                    </div>
+                    ${achievement.details ? `
+                      <div class="text-[11px] text-mute/60 space-y-1">
+                        ${achievement.details.map(detail => `
+                          <div class="flex items-center gap-1.5">
+                            <span class="text-emerald-500">✓</span>
+                            <span>${detail}</span>
+                          </div>
+                        `).join('')}
+                      </div>
+                    ` : ''}
+                  </div>
+                `}
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Achievement Legend -->
+          <div class="pt-4 border-t border-hairline/30">
+            <div class="flex items-center justify-center gap-6 text-xs">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-warning/30 border border-warning/60"></div>
+                <span class="text-mute/60">Unlocked</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-hairline border border-mute/30"></div>
+                <span class="text-mute/60">Locked</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-warning border-2 border-canvas shadow-sm">
+                  <span class="text-[8px] font-bold text-white flex items-center justify-center">★</span>
+                </div>
+                <span class="text-mute/60">Special</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
     container.innerHTML = `
       <div class="bg-canvas p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15)] border border-hairline/40 ring-1 ring-inset ring-black/[0.02] dark:ring-white/[0.02] space-y-5">
         <div class="flex items-center gap-2 select-none">
@@ -3747,7 +4002,7 @@ const appSchema = {
               Time this week
             </div>
             <div class="text-sm font-bold text-ink tabular-nums">${weekTimeText}</div>
-            <div class="text-[10px] text-mute/50 leading-tight">${weekSessions.length} session${weekSessions.length !== 1 ? 's' : ''} ${weekSessions.length > 0 ? 'in the last 7 days' : 'this week'}</div>
+            <div class="text-[10px] text-mute/50 leading-tight">${weekSessions.length} session${weekSessions.length !== 1 ? 's' : ''} in the last 7 days</div>
           </div>
           <div class="insight-card bg-canvas-soft/40 rounded-2xl p-3.5 border border-hairline/15 space-y-1.5">
             <div class="flex items-center gap-1.5 text-[11px] text-mute/60">
