@@ -923,8 +923,8 @@ const appSchema = {
         </ul>
       </div>
 
-      <!-- PREMIUM FEATURE SHOWCASE -->
-      <div id="features-showcase" class="max-w-6xl mx-auto mt-20 px-2 space-y-12 scroll-mt-6">
+      <!-- PREMIUM FEATURE SHOWCASE — grouped by category -->
+      <div id="features-showcase" class="max-w-6xl mx-auto mt-20 px-2 scroll-mt-6 space-y-16 md:space-y-20">
         <div class="text-center space-y-3">
           <span class="text-sm font-bold text-body/80">Workspace capabilities</span>
           <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-ink mb-3 leading-[1.1]">Core features</h2>
@@ -933,69 +933,185 @@ const appSchema = {
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Feature 1: Focus Sessions -->
-          <div class="border border-hairline rounded-sm p-4 sm:p-6 bg-canvas hover:border-hairline hover:shadow-md transition-all duration-250 flex gap-4 card-lift">
-            <div class="p-3 bg-canvas-soft-2 text-mute/60 rounded-sm h-fit shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <!-- 🎯 Focus & Planning -->
+        <div>
+          <div class="text-center md:text-left max-w-2xl mb-6 md:mb-8">
+            <h3 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">🎯 Focus &amp; Planning</h3>
+            <p class="text-sm text-body/70 mt-1.5 leading-relaxed">Set intentions, break down work, and enter your flow state with customizable sessions and ambient sound.</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">Goal setting</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">Write a clear intention before every session. Define what you want to accomplish and why it matters — turning abstract ambition into a concrete target.</p>
             </div>
-            <div class="space-y-2">
-              <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1">Customizable focus sessions</h3>
-              <p class="text-base text-body leading-relaxed">
-                Choose your own work and break lengths — whether that's the classic 25/5, a deep 90-minute sprint, or something in between. Switch on ambient brown noise, white noise, or rain to help you focus, all generated right in your browser without any downloads.
-              </p>
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">Focus timer</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">Choose your own work and break lengths — 25/5, 90-minute deep sprints, or fully custom intervals. The timer keeps you honest without the pressure.</p>
+            </div>
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">Micro-goal milestone tracking</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">Break big tasks into small checkpoints. Check them off as you go so you always know what's next — and build momentum one step at a time.</p>
+            </div>
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">Ambient sounds</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">Brown noise, white noise, or rain — synthesized in your browser with no downloads. Find your focus frequency and tune out the world.</p>
+            </div>
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">Custom focus sessions</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">Save your preferred work/break combinations. Switch between Classic, Extended, and Deep Flow with one click — or dial in a fully custom duration.</p>
             </div>
           </div>
+        </div>
 
-          <!-- Feature 2: Goal Tracking -->
-          <div class="border border-hairline rounded-sm p-4 sm:p-6 bg-canvas hover:border-purple-500/30 hover:shadow-md transition-all duration-250 flex gap-4">
-            <div class="p-3 bg-purple-500/10 text-purple-600 dark:text-purple-400 rounded-sm h-fit shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        <!-- 📊 Insights & Analytics -->
+        <div>
+          <div class="text-center md:text-left max-w-2xl mb-6 md:mb-8">
+            <h3 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">📊 Insights &amp; Analytics</h3>
+            <p class="text-sm text-body/70 mt-1.5 leading-relaxed">Track your progress, understand your patterns, and let data guide your growth.</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">Daily statistics</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">At-a-glance view of today's focus time, completion rate, and current streak. Know where you stand without digging through menus.</p>
             </div>
-            <div class="space-y-2">
-              <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1">Micro-goal milestone tracking</h3>
-              <p class="text-base text-body leading-relaxed">
-                Set a clear intention before you start, then break big tasks into small checkpoints so you always know what's next. When your session ends, mark whether you finished, partly finished, or got stuck — and build real momentum over time.
-              </p>
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">Progress dashboard</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">Rich analytics showing focus duration curves, success rates, and completion trends. A full command center for your productivity data.</p>
+            </div>
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">Focus heatmap</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">A GitHub-style heatmap of your focus history. Spot patterns, identify dry spells, and celebrate streaks at a glance.</p>
+            </div>
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">Recovery coach</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">When a session goes sideways, get a calm diagnosis and a practical next step. Fatigue? Distraction? Scope too big? The coach adapts to you.</p>
+            </div>
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">Weekly review</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">A structured weekly reflection prompt that helps you assess what worked, what didn't, and what to adjust. Continuous improvement, not judgment.</p>
+            </div>
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">Forecasting</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">Set long-term outcome goals and track progress with projections. See if you're on pace and adjust before it's too late.</p>
+            </div>
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">Achievements</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">Unlock milestone badges as you build consistency. From your first completed session to a 30-day streak — small celebrations for real progress.</p>
             </div>
           </div>
+        </div>
 
-          <!-- Feature 3: Forecasting -->
-          <div class="border border-hairline rounded-sm p-4 sm:p-6 bg-canvas hover:border-emerald-500/30 hover:shadow-md transition-all duration-250 flex gap-4">
-            <div class="p-3 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-sm h-fit shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-            </div>
-            <div class="space-y-2">
-              <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1">Success analytics & forecasting</h3>
-              <p class="text-base text-body leading-relaxed">
-                Understand your cognitive baseline with rich analytics. Track focus durations, success curves, and completion rates. Our dashboard features a GitHub-style heatmap showing focus density and calculates success rate probability metrics to forecast future workflow success.
-              </p>
-            </div>
+        <!-- 📝 Journal & Reports -->
+        <div>
+          <div class="text-center md:text-left max-w-2xl mb-6 md:mb-8">
+            <h3 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">📝 Journal &amp; Reports</h3>
+            <p class="text-sm text-body/70 mt-1.5 leading-relaxed">Reflect, review, and keep a lasting record of your focus journey.</p>
           </div>
-
-          <!-- Feature 4: Recovery Planning -->
-          <div class="border border-hairline rounded-sm p-4 sm:p-6 bg-canvas hover:border-rose-500/30 hover:shadow-md transition-all duration-250 flex gap-4">
-            <div class="p-3 bg-rose-500/10 text-rose-600 dark:text-rose-400 rounded-sm h-fit shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/><path d="M15 5l3 3"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">Session journal</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">Log daily reflections, wins, and distractions right after each session. Build a personal narrative around your productivity, not just numbers.</p>
             </div>
-            <div class="space-y-2">
-              <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1">Cognitive recovery coach</h3>
-              <p class="text-base text-body leading-relaxed">
-                Interrupted? Don't stress. If a focus block is skipped or marked as failed, our localized Recovery Advisor engine diagnoses the root driver (mental fatigue, ambient noise, task scope) and generates actionable recovery pacing corrections (e.g. screen-free breaks, reducing block size).
-              </p>
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">Reflection notes</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">Capture how you felt, what you learned, and what you'd do differently. Reflection turns experience into insight.</p>
             </div>
-          </div>
-
-          <!-- Feature 5: Growth Reports -->
-          <div class="border border-hairline rounded-sm p-4 sm:p-6 bg-canvas hover:border-amber-500/30 hover:shadow-md transition-all duration-250 flex gap-4 md:col-span-2">
-            <div class="p-3 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-sm h-fit shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">Monthly reports</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">Compile your activity into a beautiful, printable PDF Performance Digest. Focus density curves, streak timelines, and coaching reflections.</p>
             </div>
-            <div class="space-y-2">
-              <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1">Monthly performance growth reports</h3>
-              <p class="text-base text-body leading-relaxed">
-                Compile your locally logged activity data into a beautiful, printable PDF Performance Digest. Get personal growth analytics including focus density curves, streak timelines, achievement milestones, and personalized coaching reflections to guide your habit progression without any account setups.
-              </p>
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">Export &amp; backup</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">Download a complete backup of your data anytime. Everything stays local until you choose to save — no cloud, no accounts, no risk.</p>
+            </div>
+            <div class="flex flex-col p-5 rounded-2xl border border-hairline/60 bg-canvas shadow-sm hover:border-hairline-strong/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-xl bg-link/10 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-link"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <h4 class="text-sm font-bold text-ink">History</h4>
+              </div>
+              <p class="text-xs text-body/70 leading-relaxed flex-1">Browse your complete session history with outcomes, durations, and notes. Every session tells a story — review yours anytime.</p>
             </div>
           </div>
         </div>
@@ -1169,59 +1285,42 @@ const appSchema = {
   </div>
 
   <!-- IMMERSIVE FULL-SCREEN DISTRACTION-FREE VIEW OVERLAY -->
-  <div id="immersive-overlay" class="fixed inset-0 bg-canvas/98 z-[9999] hidden flex flex-col items-center justify-start md:justify-center p-4 md:p-12 pt-20 md:pt-12 select-none overflow-y-auto">
+  <div id="immersive-overlay" class="fixed inset-0 bg-canvas z-[9999] immersive-hidden flex flex-col items-center justify-center p-6 select-none overflow-y-auto transition-all duration-500 ease-out will-change-transform">
     <!-- Close / Exit button -->
-        <button type="button" id="immersive-exit-btn" class="absolute top-6 right-6 min-h-[44px] min-w-[44px] px-3 border border-hairline rounded-full hover:bg-canvas-soft-2 cursor-pointer transition-colors text-mute hover:text-ink flex items-center justify-center gap-1.5 text-xs font-mono">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      Exit Focus Mode [ESC]
+    <button type="button" id="immersive-exit-btn" class="absolute top-5 right-5 min-h-[44px] min-w-[44px] px-3 border border-hairline/60 rounded-full hover:bg-canvas-soft-2 cursor-pointer transition-all duration-200 text-mute hover:text-ink flex items-center justify-center gap-1.5 text-xs font-mono">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      Exit [ESC]
     </button>
- 
-    <div class="w-full max-w-xl text-center space-y-8 flex flex-col items-center">
-      <!-- Immersive progress bar -->
-      <div class="w-48 h-1 bg-hairline rounded-full overflow-hidden">
-        <div id="immersive-progress-bar" class="h-full bg-link w-0 transition-all duration-300"></div>
-      </div>
- 
+
+    <div class="w-full max-w-2xl mx-auto flex flex-col items-center text-center">
       <!-- Activity Tag -->
-      <span id="immersive-activity-tag" class="px-3 py-1 bg-canvas-soft-2 text-mute/70 text-sm font-semibold rounded-md tracking-tight">Coding</span>
- 
-      <!-- Active Goal -->
-      <h2 id="immersive-goal-title" class="text-2xl md:text-3xl font-bold tracking-tighter text-ink max-w-lg leading-snug">Writing the dashboard logic</h2>
- 
-      <!-- Giant Digital Count -->
-      <span id="immersive-countdown" class="text-6xl sm:text-8xl md:text-[10rem] font-black font-mono tracking-tighter text-ink animate-pulse leading-none tabular-nums">25:00</span>
+      <span id="immersive-activity-tag" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-canvas-soft-2 text-mute text-sm font-medium"></span>
 
-      <!-- Checklist interactive breakdown inside fullscreen! -->
-      <div class="w-full max-w-md bg-canvas border border-hairline rounded-sm p-5 text-left space-y-3">
-        <h3 class="text-sm font-semibold text-mute tracking-tight text-center">Your milestones (click to complete)</h3>
-        <ul id="immersive-milestones-list" class="space-y-2">
-          <!-- Dynamically populated checklist -->
-        </ul>
+      <!-- Giant Countdown (20% bigger) -->
+      <span id="immersive-countdown" class="text-8xl sm:text-9xl md:text-[12rem] font-black font-mono tracking-tighter text-ink leading-none tabular-nums mt-6" style="font-variant-numeric: tabular-nums;">25:00</span>
+
+      <!-- Current milestone (prominent) -->
+      <div class="w-full max-w-md mt-10">
+        <h3 class="text-xs font-semibold text-mute/50 uppercase tracking-wider mb-3">Current step</h3>
+        <ul id="immersive-milestones-list" class="space-y-2"></ul>
       </div>
 
-      <!-- Control Buttons -->
-      <div class="flex items-center gap-3">
-        <button type="button" id="immersive-play-pause-btn" class="px-5 py-2.5 bg-link text-white hover:bg-link-hover hover:shadow-lg hover:shadow-link/20 text-sm font-bold rounded-full border border-link/25 transition-all cursor-pointer flex items-center gap-1.5">
-          <svg id="imm-play-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          <svg id="imm-pause-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="hidden"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+      <!-- Pause/Resume button -->
+      <div class="mt-10">
+        <button type="button" id="immersive-play-pause-btn" class="h-11 px-6 bg-link text-white hover:bg-link-hover hover:shadow-lg hover:shadow-link/20 active:scale-[0.97] text-sm font-bold rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-2.5">
+          <svg id="imm-play-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <svg id="imm-pause-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="hidden"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
           <span id="imm-play-btn-text">Pause Timer</span>
         </button>
-        <button type="button" id="immersive-sound-btn" aria-pressed="false" class="px-5 py-2.5 border border-hairline bg-canvas text-body hover:text-ink text-sm font-medium rounded-full cursor-pointer flex items-center gap-1.5">
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/></svg>
-          Sound: <span id="immersive-sound-status">Off</span>
-        </button>
       </div>
+    </div>
 
-      <!-- Fullscreen Shortcuts Hint -->
-      <div class="text-xs font-mono text-mute select-none mt-4">
-        <span class="inline-flex items-center gap-1.5 flex-wrap justify-center opacity-60">
-          <span>[Space] Pause/Play</span>
-          <span>•</span>
-          <span>[Esc] Exit Fullscreen</span>
-          <span>•</span>
-          <span>[M] Toggle Sound</span>
-        </span>
-      </div>
+    <!-- Hidden JS-compatibility elements (functionality preserved, visually hidden) -->
+    <div class="hidden" aria-hidden="true">
+      <div id="immersive-progress-bar" class="h-full bg-link w-0"></div>
+      <h2 id="immersive-goal-title"></h2>
+      <button id="immersive-sound-btn"><span id="immersive-sound-status">Off</span></button>
+    </div>
   <!-- Keyboard Shortcuts Dialog Modal -->
   <dialog id="shortcuts-dialog" class="backdrop:bg-black/40 backdrop:backdrop-blur-sm bg-canvas border border-hairline p-6 rounded-2xl shadow-2xl max-w-sm w-full focus:outline-none select-none text-left">
     <div class="flex items-center justify-between border-b border-hairline pb-3 mb-4">
@@ -3097,7 +3196,7 @@ const appSchema = {
     const overlay = document.getElementById('immersive-overlay');
     if (!overlay) return;
 
-    overlay.classList.remove('hidden');
+    overlay.classList.remove('immersive-hidden');
     document.body.style.overflow = 'hidden';
 
     // Set immersive strings
@@ -3106,7 +3205,7 @@ const appSchema = {
     const tagEl = document.getElementById('immersive-activity-tag');
     if (tagEl) {
       tagEl.textContent = selectedActivity;
-      tagEl.className = "px-3 py-1 text-xs font-semibold rounded-md tracking-tight " + getActivityColorClass(selectedActivity);
+      tagEl.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-canvas-soft-2 text-mute text-sm font-medium";
     }
 
     renderActiveMilestones();
@@ -3117,7 +3216,7 @@ const appSchema = {
     const overlay = document.getElementById('immersive-overlay');
     if (!overlay) return;
 
-    overlay.classList.add('hidden');
+    overlay.classList.add('immersive-hidden');
     document.body.style.overflow = '';
   }
 
@@ -3138,13 +3237,11 @@ const appSchema = {
         return;
       }
 
-      // Space = Pause/Resume
+      // Space = Pause/Resume (same as clicking the play-pause button)
       if (e.code === 'Space') {
-        if (currentSessionMode !== 'idle') {
-          e.preventDefault(); // Prevent page scrolling
-          const playPauseBtn = document.getElementById('play-pause-btn');
-          playPauseBtn?.click();
-        }
+        e.preventDefault(); // Prevent scrolling and focused button activation
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        playPauseBtn?.click();
       }
 
       // F = Fullscreen
@@ -6635,5 +6732,16 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     .grid-area-details {
       align-self: start;
     }
+  }
+
+  /* ── Immersive overlay entrance/exit with fade + scale ── */
+  #immersive-overlay {
+    transform: scale(1);
+    opacity: 1;
+  }
+  #immersive-overlay.immersive-hidden {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
   }
 </style>
