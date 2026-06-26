@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import ThemeToggle from "../../components/ui/ThemeToggle.astro";
 import FAQ from "../../components/ui/FAQ.astro";
 
 // FAQ Items for SEO
@@ -73,33 +74,36 @@ const appSchema = {
     <span id="global-success-rate" class="hidden">0%</span>
 
     <!-- Minimal header -->
-    <div class="flex items-center justify-between mb-4 md:mb-5 select-none">
-      <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-ink">
-        Focus
-      </h1>
-      <div class="flex items-center gap-1.5 bg-canvas-soft-2/80 rounded-full p-0.5">
-        <button id="tab-btn-workspace" class="tab-btn px-4 py-1.5 text-sm font-semibold rounded-full bg-canvas text-ink shadow-sm focus-visible:outline-none transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('workspace')" aria-label="Open workspace tab">
+      <div class="flex items-center justify-between mb-4 md:mb-5 select-none">
+        <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-ink">
+          Focus
+        </h1>
+        <div class="flex items-center gap-2">
+          <ThemeToggle />
+          <div class="flex items-center gap-1.5 bg-canvas-soft-2/80 rounded-full p-0.5">
+        <button id="tab-btn-workspace" role="tab" aria-selected="true" aria-controls="tab-workspace" class="tab-btn px-4 py-1.5 text-sm font-semibold rounded-full bg-canvas text-ink shadow-sm focus-visible:outline-none transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('workspace')" aria-label="Open workspace tab">
           Timer
         </button>
-        <button id="tab-btn-analytics" class="tab-btn px-4 py-1.5 text-sm font-semibold rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('analytics')" aria-label="Open progress analytics tab">
+        <button id="tab-btn-analytics" role="tab" aria-selected="false" aria-controls="tab-analytics" class="tab-btn px-4 py-1.5 text-sm font-semibold rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('analytics')" aria-label="Open progress analytics tab">
           Progress
         </button>
-        <button id="tab-btn-premium" class="tab-btn px-4 py-1.5 text-sm font-semibold rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('premium')" aria-label="Open growth and coaching tab">
+        <button id="tab-btn-premium" role="tab" aria-selected="false" aria-controls="tab-premium" class="tab-btn px-4 py-1.5 text-sm font-semibold rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('premium')" aria-label="Open growth and coaching tab">
           Journal
         </button>
+      </div>
       </div>
     </div>
 
     <!-- APP CONTENT BODY -->
     
     <!-- TAB 1: WORKSPACE -->
-    <div id="tab-workspace" class="transition-all duration-500">
+    <div id="tab-workspace" role="tabpanel" aria-labelledby="tab-btn-workspace" class="transition-all duration-500">
       <!-- Hidden onboarding tracker for LocalStorage warning insertion -->
       <div id="onboarding-tracker" class="hidden" aria-hidden="true"></div>
 
       <!-- FOCUS WORKSPACE — two-column: Goal → Activity → Details → Start on left, Timer → Duration & Sound → Today on right -->
       <div id="focus-workspace-container" class="settings-card max-w-[1400px] mx-auto bg-canvas rounded-2xl shadow-raised transition-all duration-500">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 px-6 sm:px-8 lg:px-10 pt-4 sm:pt-5 pb-0 md:pb-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 px-6 sm:px-8 lg:px-10 pt-4 sm:pt-5 pb-0">
           
           <!-- LEFT COLUMN: Goal → Why Matters → Checkpoints → Activity → Start Focus -->
           <div class="flex flex-col space-y-4 lg:space-y-5 min-w-0">
@@ -113,7 +117,7 @@ const appSchema = {
                   id="session-goal" 
                   autocomplete="off"
                   spellcheck="true"
-                  class="w-full h-11 sm:h-12 px-5 bg-canvas-soft/70 rounded-2xl text-base sm:text-lg font-semibold tracking-tight text-ink placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(0,0,0,0.05)] transition-all duration-300 select-text text-center md:text-left"
+                  class="w-full h-11 sm:h-12 px-5 bg-canvas-soft/70 rounded-2xl text-base sm:text-lg font-semibold tracking-tight text-ink placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(0,0,0,0.05)] transition-all duration-200 select-text text-center md:text-left"
                   placeholder="What do you want to make happen?" 
                   aria-label="What do you want to make happen today?"
                 />
@@ -126,7 +130,7 @@ const appSchema = {
                   id="session-goal-why" 
                   autocomplete="off"
                   spellcheck="true"
-                  class="w-full h-11 sm:h-12 px-5 bg-canvas-soft/70 rounded-2xl text-base sm:text-lg font-semibold tracking-tight text-ink placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(0,0,0,0.05)] transition-all duration-300 select-text text-center md:text-left" 
+                  class="w-full h-11 sm:h-12 px-5 bg-canvas-soft/70 rounded-2xl text-base sm:text-lg font-semibold tracking-tight text-ink placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(0,0,0,0.05)] transition-all duration-200 select-text text-center md:text-left" 
                   placeholder="What makes this meaningful to you? (optional)" 
                   aria-label="Tell yourself why this goal matters"
                 />
@@ -140,7 +144,7 @@ const appSchema = {
                     type="text" 
                     id="milestone-input" 
                     autocomplete="off" 
-                    class="flex-grow h-11 sm:h-12 px-5 bg-canvas-soft/70 rounded-2xl text-base sm:text-lg font-semibold tracking-tight text-ink placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(0,0,0,0.05)] transition-all duration-300" 
+                    class="flex-grow h-11 sm:h-12 px-5 bg-canvas-soft/70 rounded-2xl text-base sm:text-lg font-semibold tracking-tight text-ink placeholder:text-mute/50 focus:outline-none focus:bg-canvas-soft/90 focus:shadow-[0_0_0_3px_rgba(0,0,0,0.05)] transition-all duration-200" 
                     placeholder="Add a step…" 
                     aria-label="Add a checkpoint to your plan" 
                   />
@@ -166,22 +170,22 @@ const appSchema = {
               <div class="w-full select-none">
                   <span class="label-group-heading block mb-1.5 text-center md:text-left">Activity</span>
                 <div class="flex items-center justify-center md:justify-start gap-1.5 lg:gap-2 flex-wrap">
-                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium shadow-sm" data-activity="Coding" aria-label="Select Coding">
+                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium shadow-sm" data-activity="Coding" aria-pressed="true" aria-label="Select Coding">
                     <span class="text-base">💻</span> Coding
                   </button>
-                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1 border border-transparent font-medium shadow-sm" data-activity="Study" aria-label="Select Study">
+                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1 border border-transparent font-medium shadow-sm" data-activity="Study" aria-pressed="false" aria-label="Select Study">
                     <span class="text-base">📚</span> Study
                   </button>
-                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1 border border-transparent font-medium shadow-sm" data-activity="Reading" aria-label="Select Reading">
+                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1 border border-transparent font-medium shadow-sm" data-activity="Reading" aria-pressed="false" aria-label="Select Reading">
                     <span class="text-base">📖</span> Reading
                   </button>
-                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1 border border-transparent font-medium shadow-sm" data-activity="Writing" aria-label="Select Writing">
+                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1 border border-transparent font-medium shadow-sm" data-activity="Writing" aria-pressed="false" aria-label="Select Writing">
                     <span class="text-base">✍️</span> Writing
                   </button>
-                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1 border border-transparent font-medium shadow-sm" data-activity="Art" aria-label="Select Art">
+                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1 border border-transparent font-medium shadow-sm" data-activity="Art" aria-pressed="false" aria-label="Select Art">
                     <span class="text-base">🎨</span> Art
                   </button>
-                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1 border border-transparent font-medium shadow-sm" data-activity="Custom" id="act-btn-custom" aria-label="Select Custom">
+                  <button type="button" class="activity-btn px-4 lg:px-5 py-1.5 lg:py-2 text-sm lg:text-base rounded-2xl bg-canvas-soft text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1 border border-transparent font-medium shadow-sm" data-activity="Custom" id="act-btn-custom" aria-pressed="false" aria-label="Select Custom">
                     <span class="text-base">⚙️</span> Custom
                   </button>
                 </div>
@@ -249,7 +253,7 @@ const appSchema = {
                     </linearGradient>
                   </defs>
                   <circle id="timer-progress-bg" cx="50" cy="50" r="45" stroke="currentColor" stroke-width="3" opacity="0.06" fill="transparent" />
-                  <circle id="timer-progress-ring" cx="50" cy="50" r="45" stroke="url(#timer-gradient)" stroke-width="4.5" stroke-linecap="round" fill="transparent" stroke-dasharray="282.74" stroke-dashoffset="0" class="transition-all duration-700 ease-out" />
+                  <circle id="timer-progress-ring" cx="50" cy="50" r="45" stroke="url(#timer-gradient)" stroke-width="4.5" stroke-linecap="round" fill="transparent" stroke-dasharray="282.74" stroke-dashoffset="0" />
                   <!-- Glowing dot at the end of the progress arc -->
                   <circle id="timer-progress-dot-glow" cx="50" cy="5" r="7" fill="var(--color-link)" opacity="0.15" class="transition-all duration-700 ease-out" />
                   <circle id="timer-progress-dot" cx="50" cy="5" r="3.5" fill="var(--color-link)" class="transition-all duration-700 ease-out" />
@@ -258,20 +262,20 @@ const appSchema = {
                 <!-- Center content -->
                 <div class="absolute flex flex-col items-center justify-center text-center z-20 px-6 w-full select-none">
                   <!-- Goal shown inside timer when active -->
-                  <span id="timer-active-goal" class="text-sm lg:text-base font-medium text-body/70 max-w-[200px] lg:max-w-[280px] truncate mb-2 hidden"></span>
+                  <span id="timer-active-goal" class="text-xs lg:text-sm font-medium text-body/70 max-w-[200px] lg:max-w-[280px] truncate mb-1.5"></span>
                   <!-- Session label -->
-                  <span id="timer-session-label" class="text-xs lg:text-sm font-semibold text-mute/50 tracking-wide uppercase mb-2 inline-flex items-center gap-1.5">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 opacity-50"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                  <span id="timer-session-label" class="text-[10px] lg:text-xs font-semibold text-mute/50 tracking-wider uppercase mb-1.5 inline-flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 opacity-50"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                     <span id="timer-session-text">Clear your mind. You've got this.</span>
                   </span>
                   <!-- Countdown -->
-                  <span id="timer-countdown" class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-ink leading-none tabular-nums" style="font-variant-numeric: tabular-nums;">
-                    25:00
-                  </span>
+<span id="timer-countdown" aria-live="polite" aria-atomic="true" class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-ink leading-none tabular-nums" style="font-variant-numeric: tabular-nums;">
+  25:00
+</span>
                   <!-- Next step hint -->
-                  <span id="timer-next-step" class="text-sm lg:text-base font-medium text-mute/70 mt-3 hidden max-w-[180px] lg:max-w-[240px] truncate"></span>
+                  <span id="timer-next-step" class="text-xs lg:text-sm font-medium text-mute/70 mt-2 hidden max-w-[180px] lg:max-w-[240px] truncate"></span>
                   <!-- Checkpoint ratio -->
-                  <span id="timer-milestone-ratio" class="text-xs text-mute/60 mt-2 hidden tabular-nums"></span>
+                  <span id="timer-milestone-ratio" class="text-[10px] text-mute/60 mt-1.5 tabular-nums"></span>
                 </div>
               </div>
 
@@ -283,10 +287,10 @@ const appSchema = {
                 </button>
 
                 <!-- Primary CTA: Play / Pause -->
-                <button type="button" id="play-pause-btn" class="btn-primary px-10 lg:px-12 h-12 lg:h-13 bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 hover:shadow-lg hover:shadow-link/20 active:scale-[0.97] text-sm lg:text-base font-bold rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-2.5 lg:gap-3 justify-center min-w-[170px] lg:min-w-[190px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/50">
+                <button type="button" id="play-pause-btn" aria-pressed="false" class="btn-primary px-10 lg:px-12 h-12 lg:h-13 bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 hover:shadow-lg hover:shadow-link/20 active:scale-[0.97] text-sm lg:text-base font-bold rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-2.5 lg:gap-3 justify-center min-w-[170px] lg:min-w-[190px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/50">
                   <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                   <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="hidden" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-                  <span id="play-btn-text">Let's go</span>
+                  <span id="play-btn-text">I'm ready</span>
                 </button>
 
                 <!-- Fullscreen trigger -->
@@ -309,24 +313,24 @@ const appSchema = {
                   <span class="label-group-heading">Sound</span>
                 </div>
                 <div class="grid grid-cols-4 gap-1 max-w-[300px] mx-auto">
-                  <button type="button" class="preset-btn py-1 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-xs group" data-focus="25" data-break="5" aria-label="Classic Pomodoro: 25 minutes work focus and 5 minutes rest break">
+                  <button type="button" class="preset-btn py-1 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-xs group" data-focus="25" data-break="5" aria-pressed="false" aria-label="Classic Pomodoro: 25 minutes work focus and 5 minutes rest break">
                     <span class="group-hover:text-link transition-colors">25m</span>
                   </button>
-                  <button type="button" class="preset-btn py-1 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-xs group" data-focus="50" data-break="10" aria-label="Extended sprint: 50 minutes work focus and 10 minutes rest break">
+                  <button type="button" class="preset-btn py-1 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-xs group" data-focus="50" data-break="10" aria-pressed="false" aria-label="Extended sprint: 50 minutes work focus and 10 minutes rest break">
                     <span class="group-hover:text-link transition-colors">50m</span>
                   </button>
-                  <button type="button" class="preset-btn py-1 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-xs group" data-focus="90" data-break="0" aria-label="Deep Flow sprint: 90 minutes work focus with no rest break">
+                  <button type="button" class="preset-btn py-1 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-xs group" data-focus="90" data-break="0" aria-pressed="false" aria-label="Deep Flow sprint: 90 minutes work focus with no rest break">
                     <span class="group-hover:text-link transition-colors">90m</span>
                   </button>
-                  <button type="button" class="preset-btn py-1 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-xs group" data-focus="custom" aria-label="Set custom work focus and rest timing block">
+                  <button type="button" class="preset-btn py-1 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all duration-200 cursor-pointer font-medium text-xs group" data-focus="custom" aria-pressed="false" aria-label="Set custom work focus and rest timing block">
                     <span class="group-hover:text-ink transition-colors">Custom</span>
                   </button>
                 </div>
                 <div class="grid grid-cols-4 gap-1 max-w-[300px] mx-auto mt-1">
-                  <button type="button" class="sound-btn py-1 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-xs font-medium" data-sound="mute" aria-label="Mute ambient noise">Mute</button>
-                  <button type="button" class="sound-btn py-1 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-xs font-medium" data-sound="brown" aria-label="Play ambient brown noise">Brown</button>
-                  <button type="button" class="sound-btn py-1 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-xs font-medium" data-sound="white" aria-label="Play ambient white noise">White</button>
-                  <button type="button" class="sound-btn py-1 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-xs font-medium" data-sound="rain" aria-label="Play ambient rain sound">Rain</button>
+                  <button type="button" class="sound-btn py-1 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-xs font-medium" data-sound="mute" aria-pressed="false" aria-label="Mute ambient noise">Mute</button>
+                  <button type="button" class="sound-btn py-1 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-xs font-medium" data-sound="brown" aria-pressed="false" aria-label="Play ambient brown noise">Brown</button>
+                  <button type="button" class="sound-btn py-1 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-xs font-medium" data-sound="white" aria-pressed="false" aria-label="Play ambient white noise">White</button>
+                  <button type="button" class="sound-btn py-1 rounded-xl bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-[0.98] transition-all cursor-pointer text-xs font-medium" data-sound="rain" aria-pressed="false" aria-label="Play ambient rain sound">Rain</button>
                 </div>
 
                 <!-- Custom slider inputs -->
@@ -346,35 +350,36 @@ const appSchema = {
           </div>
 
         </div>
-      </div>
 
-      <!-- Today's Progress — final summary below the workspace -->
-      <div class="select-none max-w-[1400px] mx-auto" id="today-progress-section">
-        <div class="flex items-center justify-between mb-3">
-          <span class="label-group-heading">Today</span>
-        </div>
-        
-        <div class="grid grid-cols-3 gap-3">
-          <div class="progress-card bg-canvas rounded-2xl border border-hairline/15 p-4 text-center group cursor-default">
-            <div class="label-group-heading mb-1">Focus time</div>
-            <div id="workspace-today-focus-time" class="text-lg font-bold text-ink tabular-nums">0m</div>
-          </div>
-          <div class="progress-card bg-canvas rounded-2xl border border-hairline/15 p-4 text-center group cursor-default">
-            <div class="label-group-heading mb-1">Streak</div>
-            <div id="workspace-today-streak" class="text-lg font-bold text-ink tabular-nums flex items-center justify-center gap-1">
-              <span class="text-warning text-sm">🔥</span> 0d
+        <!-- Today's Progress — grouped inside workspace card -->
+        <div class="select-none px-6 sm:px-8 lg:px-10 pb-6 sm:pb-8" id="today-progress-section">
+          <div class="border-t border-hairline/20 pt-5 mt-2">
+            <div class="flex items-center justify-between mb-3">
+              <span class="label-group-heading">Today</span>
             </div>
-          </div>
-          <div class="progress-card bg-canvas rounded-2xl border border-hairline/15 p-4 text-center group cursor-default">
-            <div class="label-group-heading mb-1">Success rate</div>
-            <div id="workspace-today-rate" class="text-lg font-bold text-ink tabular-nums">0%</div>
+            <div class="grid grid-cols-3 gap-3">
+              <div class="progress-card bg-canvas rounded-2xl border border-hairline/15 p-4 text-center group cursor-default">
+                <div class="label-group-heading mb-1">Focus time</div>
+                <div id="workspace-today-focus-time" class="text-lg font-bold text-ink tabular-nums">0m</div>
+              </div>
+              <div class="progress-card bg-canvas rounded-2xl border border-hairline/15 p-4 text-center group cursor-default">
+                <div class="label-group-heading mb-1">Streak</div>
+                <div id="workspace-today-streak" class="text-lg font-bold text-ink tabular-nums flex items-center justify-center gap-1">
+                  <span class="text-warning text-sm">🔥</span> 0d
+                </div>
+              </div>
+              <div class="progress-card bg-canvas rounded-2xl border border-hairline/15 p-4 text-center group cursor-default">
+                <div class="label-group-heading mb-1">Success rate</div>
+                <div id="workspace-today-rate" class="text-lg font-bold text-ink tabular-nums">0%</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
 <!-- TAB 2: ANALYTICS & HISTOGRAM HEATMAP -->
-      <div id="tab-analytics" class="p-6 md:p-8 lg:p-10 hidden space-y-8">
+      <div id="tab-analytics" role="tabpanel" aria-labelledby="tab-btn-analytics" class="p-6 md:p-8 lg:p-10 hidden space-y-8">
         
         <!-- Dashboard Metrics Cards -->
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
@@ -619,7 +624,7 @@ const appSchema = {
       </div>
 
       <!-- TAB 3: JOURNAL & REFLECTION SPACE -->
-      <div id="tab-premium" class="p-4 md:p-6 lg:p-8 hidden space-y-8">
+      <div id="tab-premium" role="tabpanel" aria-labelledby="tab-btn-premium" class="p-4 md:p-6 lg:p-8 hidden space-y-8">
         
         <div class="text-center space-y-3 mb-2">
           <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-b from-link/8 to-link/5 text-link text-[10px] font-bold tracking-wider uppercase rounded-full select-none ring-1 ring-inset ring-link/12">
@@ -1012,18 +1017,18 @@ const appSchema = {
   </div>
 
   <!-- OUTCOME DISPOSAL MODAL DIALOG (Triggered when session finishes or is skipped/completed) -->
-  <div id="outcome-modal" class="fixed inset-0 bg-canvas/80 backdrop-blur-sm z-[9999] hidden flex items-center justify-center p-4">
+  <div id="outcome-modal" role="dialog" aria-modal="true" aria-labelledby="outcome-modal-title" class="fixed inset-0 bg-canvas/80 backdrop-blur-sm z-[9999] hidden flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-canvas border border-hairline/40 rounded-2xl shadow-elevated overflow-hidden animate-in fade-in zoom-in-95 duration-200">
       
       <div class="p-5 border-b border-hairline flex items-center justify-between bg-canvas-soft-2/50">
         <div>
-          <h2 class="text-base font-bold text-ink flex items-center gap-1.5">
+            <h2 id="outcome-modal-title" class="text-base font-bold text-ink flex items-center gap-1.5">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-mute/60"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
-            Celebrate Your Progress
+            How did it go?
           </h2>
-          <p class="text-xs text-mute font-mono mt-0.5">Reflect on your flow and growth</p>
+          <p class="text-xs text-mute mt-0.5">Take a moment to reflect</p>
         </div>
-        <button type="button" id="modal-close-x-btn" class="p-1 text-mute hover:text-ink rounded hover:bg-canvas-soft-2 active:scale-90 cursor-pointer">
+        <button type="button" id="modal-close-x-btn" aria-label="Close outcome dialog" class="p-1 text-mute hover:text-ink rounded hover:bg-canvas-soft-2 active:scale-90 cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
       </div>
@@ -1031,9 +1036,9 @@ const appSchema = {
       <form id="outcome-form" class="p-5 space-y-4">
         <!-- Goal display -->
         <div class="p-3 bg-canvas-soft border border-hairline rounded-sm text-sm">
-          <div class="text-mute text-sm mb-1">Your intention for this session:</div>
+          <div class="text-mute text-sm mb-1">What you set out to do:</div>
           <div class="font-bold text-ink" id="modal-goal-text">Initialize focus layout</div>
-          <div class="text-mute text-sm mt-1.5" id="modal-milestone-ratio">Completed 0 / 0 checkpoints</div>
+          <div class="text-mute text-sm mt-1.5" id="modal-milestone-ratio">0 of 0 checkpoints</div>
         </div>
 
         <!-- Outcome Radios -->
@@ -1084,8 +1089,8 @@ const appSchema = {
 
         <!-- Recovery Advisor Display -->
         <div id="modal-recovery-advisor" class="hidden p-3 bg-rose-500/[0.03] border border-dashed border-rose-500/25 rounded-sm text-xs text-ink leading-relaxed">
-          <div class="text-sm font-semibold text-rose-500 mb-1">Recovery plan recommendation:</div>
-          <div id="modal-recovery-text" class="text-body mt-0.5">Let's analyze why it was partial.</div>
+          <div class="text-sm font-semibold text-rose-500 mb-1">A gentle nudge from your coach:</div>
+          <div id="modal-recovery-text" class="text-body mt-0.5">Looking at what happened...</div>
         </div>
 
         <!-- Focus Forecast Attributor Section -->
@@ -1111,16 +1116,61 @@ const appSchema = {
         <div id="modal-why-matters-support" class="hidden p-3.5 bg-gradient-to-r from-warning/5 to-transparent border border-warning/20 rounded-sm text-xs leading-relaxed flex items-start gap-2.5">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-warning shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
           <div>
-            <span class="text-sm font-bold text-warning tracking-tight block mb-0.5">Remember why this matters:</span>
+            <span class="text-sm font-bold text-warning tracking-tight block mb-0.5">Don't lose sight of your 'why':</span>
             <span id="modal-why-matters-support-text" class="text-body italic">Why Matters text</span>
-            <span class="block text-xs text-mute mt-1 leading-relaxed">Setbacks are just a natural part of growth. Be kind to yourself; every block of focus builds self-awareness.</span>
+            <span class="block text-xs text-mute mt-1 leading-relaxed">Every stumble is part of the climb. Be kind to yourself — each block of focus, no matter the outcome, builds the self-awareness that leads to lasting change.</span>
           </div>
         </div>
 
         <button type="submit" class="w-full h-11 bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 active:scale-[0.98] text-sm font-bold tracking-wide rounded-xl border-0 transition-all cursor-pointer shadow-elevated">
-          Log this step in my growth journey
+          Save this reflection
         </button>
       </form>
+    </div>
+  </div>
+
+  <!-- CELEBRATION SUMMARY OVERLAY (shown after completing a session) -->
+  <div id="celebration-overlay" class="fixed inset-0 bg-canvas/80 backdrop-blur-sm z-[9999] hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-sm bg-canvas border border-hairline/40 rounded-2xl shadow-elevated overflow-hidden animate-in fade-in zoom-in-95 duration-200 text-center">
+      <div class="pt-8 pb-2 px-6">
+        <div id="celebration-emoji" class="text-5xl mb-3 select-none">🎉</div>
+        <h2 id="celebration-heading" class="text-lg font-extrabold text-ink tracking-tight">Session Complete!</h2>
+        <p id="celebration-subhead" class="text-sm text-body mt-1">Great work. Here's what you accomplished:</p>
+      </div>
+      <div class="px-6 py-4 space-y-2.5">
+        <div class="flex items-center justify-between px-4 py-2.5 bg-canvas-soft rounded-xl">
+          <span class="text-sm text-mute">Time focused</span>
+          <span id="celebration-time" class="text-sm font-bold text-ink tabular-nums">25 min</span>
+        </div>
+        <div class="flex items-center justify-between px-4 py-2.5 bg-canvas-soft rounded-xl">
+          <span class="text-sm text-mute">Goal</span>
+          <span id="celebration-goal" class="text-sm font-bold text-ink truncate max-w-[180px]">This moment is yours</span>
+        </div>
+        <div class="flex items-center justify-between px-4 py-2.5 bg-canvas-soft rounded-xl">
+          <span class="text-sm text-mute">Checkpoints</span>
+          <span id="celebration-checkpoints" class="text-sm font-bold text-ink">0 of 0</span>
+        </div>
+        <div class="flex items-center justify-between px-4 py-2.5 bg-canvas-soft rounded-xl">
+          <span class="text-sm text-mute">Streak</span>
+          <span id="celebration-streak" class="text-sm font-bold text-ink">—</span>
+        </div>
+      </div>
+      <div id="celebration-coaching" class="px-6 pb-2">
+        <div class="p-3 bg-gradient-to-r from-link/[0.03] to-transparent border border-link/10 rounded-xl text-xs text-body leading-relaxed text-left">
+          <span id="celebration-coaching-text">Keep showing up — every session builds momentum.</span>
+        </div>
+      </div>
+      <div class="px-6 pb-6 pt-3 space-y-2">
+        <button type="button" id="celebration-start-another" class="w-full h-11 bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 active:scale-[0.98] text-sm font-bold tracking-wide rounded-xl border-0 transition-all cursor-pointer shadow-elevated">
+          Start another session
+        </button>
+        <button type="button" id="celebration-take-break" class="w-full h-10 border border-hairline hover:bg-canvas-soft hover:border-hairline-strong active:scale-[0.98] text-sm font-semibold rounded-xl transition-all cursor-pointer text-body hidden">
+          Take a break
+        </button>
+        <button type="button" id="celebration-done" class="w-full h-9 text-xs text-mute hover:text-body hover:underline transition-all cursor-pointer">
+          I'm done for now
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1162,7 +1212,7 @@ const appSchema = {
           <svg id="imm-pause-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="hidden"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
           <span id="imm-play-btn-text">Pause Timer</span>
         </button>
-        <button type="button" id="immersive-sound-btn" class="px-5 py-2.5 border border-hairline bg-canvas text-body hover:text-ink text-sm font-medium rounded-full cursor-pointer flex items-center gap-1.5">
+        <button type="button" id="immersive-sound-btn" aria-pressed="false" class="px-5 py-2.5 border border-hairline bg-canvas text-body hover:text-ink text-sm font-medium rounded-full cursor-pointer flex items-center gap-1.5">
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/></svg>
           Sound: <span id="immersive-sound-status">Off</span>
         </button>
@@ -1228,6 +1278,13 @@ const appSchema = {
   const isDev = import.meta.env.DEV;
   let storageNotificationShown = false;
 
+  /** Trigger the content-fade-in animation on a container after innerHTML update */
+  function animateContent(el: HTMLElement) {
+    el.classList.remove('content-fade-in');
+    el.offsetWidth;
+    el.classList.add('content-fade-in');
+  }
+
   function showStorageWarning() {
     if (storageNotificationShown) return;
     storageNotificationShown = true;
@@ -1286,6 +1343,123 @@ const appSchema = {
     }
   };
 
+  // TOOLTAILS MODAL SYSTEM — Promise-based alert/confirm/toast with Tooltails styling
+  const TooltailsModal = {
+    _toastContainer: null as HTMLElement | null,
+
+    _getToastContainer(): HTMLElement {
+      if (!this._toastContainer) {
+        this._toastContainer = document.createElement('div');
+        this._toastContainer.id = 'tooltails-toast-container';
+        this._toastContainer.className = 'fixed bottom-6 right-6 z-[99999] flex flex-col gap-2 pointer-events-none';
+        document.body.appendChild(this._toastContainer);
+      }
+      return this._toastContainer;
+    },
+
+    _buildModal(message: string, type: 'alert' | 'confirm', destructive: boolean): string {
+      const title = type === 'confirm' ? 'Confirm' : 'Tooltails Focus';
+      const confirmLabel = destructive ? 'Delete' : 'Confirm';
+      const confirmBtn = destructive
+        ? 'px-4 h-9 bg-red-500 text-white hover:bg-red-600 active:scale-[0.98] text-xs font-bold rounded-lg border border-red-500/25 transition-all cursor-pointer'
+        : 'px-4 h-9 bg-link text-white hover:bg-link-hover hover:shadow-lg hover:shadow-link/20 active:scale-[0.98] text-xs font-bold rounded-lg border border-link/25 transition-all cursor-pointer';
+      return `<div id="tooltails-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="tooltails-modal-title" class="fixed inset-0 z-[99999] bg-canvas/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+  <div id="tooltails-modal-card" class="w-full max-w-sm bg-canvas border border-hairline/40 rounded-2xl shadow-elevated overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+    <div class="p-4 border-b border-hairline flex items-center justify-between bg-canvas-soft-2/50">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-xl bg-canvas border border-hairline/40 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-mute/60"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </div>
+        <h3 id="tooltails-modal-title" class="text-sm font-bold text-ink">${title}</h3>
+      </div>
+    </div>
+    <div class="p-5 space-y-4">
+      <p class="text-sm text-body leading-relaxed">${message}</p>
+      <div class="flex items-center justify-end gap-2 pt-1">
+        ${type === 'confirm' ? '<button type="button" id="tooltails-modal-cancel" class="px-4 h-9 border border-hairline hover:bg-canvas-soft hover:border-hairline-strong active:scale-[0.98] text-xs font-semibold rounded-lg transition-all cursor-pointer text-body">Cancel</button>' : ''}
+        <button type="button" id="tooltails-modal-ok" class="${confirmBtn}">${type === 'confirm' ? confirmLabel : 'OK'}</button>
+      </div>
+    </div>
+  </div>
+</div>`;
+    },
+
+    _focusTrap(e: KeyboardEvent, card: HTMLElement): void {
+      const focusable = card.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.key === 'Tab') {
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
+      }
+    },
+
+    alert(message: string): Promise<void> {
+      return new Promise(resolve => {
+        const existing = document.getElementById('tooltails-modal-overlay');
+        if (existing) existing.remove();
+        const root = document.createElement('div');
+        root.innerHTML = this._buildModal(message, 'alert', false);
+        document.body.appendChild(root);
+        const overlay = document.getElementById('tooltails-modal-overlay') as HTMLElement;
+        const okBtn = document.getElementById('tooltails-modal-ok') as HTMLButtonElement;
+        const card = document.getElementById('tooltails-modal-card') as HTMLElement;
+        const dismiss = () => { overlay?.remove(); resolve(); };
+        okBtn?.addEventListener('click', dismiss);
+        overlay?.addEventListener('click', (e: MouseEvent) => { if (e.target === overlay) dismiss(); });
+        const keyHandler = (e: KeyboardEvent) => {
+          if (e.key === 'Escape') dismiss();
+          if (card) this._focusTrap(e, card);
+        };
+        document.addEventListener('keydown', keyHandler);
+        setTimeout(() => okBtn?.focus(), 50);
+      });
+    },
+
+    confirm(message: string, options?: { destructive?: boolean }): Promise<boolean> {
+      return new Promise(resolve => {
+        const existing = document.getElementById('tooltails-modal-overlay');
+        if (existing) existing.remove();
+        const root = document.createElement('div');
+        root.innerHTML = this._buildModal(message, 'confirm', options?.destructive ?? false);
+        document.body.appendChild(root);
+        const overlay = document.getElementById('tooltails-modal-overlay') as HTMLElement;
+        const okBtn = document.getElementById('tooltails-modal-ok') as HTMLButtonElement;
+        const cancelBtn = document.getElementById('tooltails-modal-cancel') as HTMLButtonElement;
+        const card = document.getElementById('tooltails-modal-card') as HTMLElement;
+        const dismiss = (result: boolean) => { overlay?.remove(); resolve(result); };
+        okBtn?.addEventListener('click', () => dismiss(true));
+        cancelBtn?.addEventListener('click', () => dismiss(false));
+        overlay?.addEventListener('click', (e: MouseEvent) => { if (e.target === overlay) dismiss(false); });
+        const keyHandler = (e: KeyboardEvent) => {
+          if (e.key === 'Escape') dismiss(false);
+          if (e.key === 'Enter') dismiss(true);
+          if (card) this._focusTrap(e, card);
+        };
+        document.addEventListener('keydown', keyHandler);
+        setTimeout(() => cancelBtn?.focus(), 50);
+      });
+    },
+
+    toast(message: string, duration: number = 4000): void {
+      const container = this._getToastContainer();
+      const toast = document.createElement('div');
+      toast.className = 'pointer-events-auto animate-in slide-in-from-right-4 fade-in duration-300 bg-canvas border border-hairline/40 rounded-2xl shadow-elevated px-4 py-3 flex items-center gap-3 max-w-sm transition-all';
+      toast.innerHTML = `<span class="text-xs text-body font-medium flex-1">${message}</span>
+  <button type="button" class="shrink-0 p-1 text-mute hover:text-ink rounded hover:bg-canvas-soft-2 transition-colors cursor-pointer">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>`;
+      container.appendChild(toast);
+      const closeBtn = toast.querySelector('button');
+      closeBtn?.addEventListener('click', () => { toast.remove(); });
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-x-4');
+        setTimeout(() => toast.remove(), 300);
+      }, duration);
+    }
+  };
+
   // CORE APP STATES
   let activeTab: 'workspace' | 'analytics' | 'premium' = 'workspace';
   let history: FocusSession[] = [];
@@ -1296,6 +1470,21 @@ const appSchema = {
   let timerIntervalId: any = null;
   let isTimerRunning = false;
   let currentSessionMode: 'focus' | 'break' | 'idle' = 'idle';
+  let focusMessageIndex = 0;
+  const focusMessages = [
+    "You're exactly where you need to be right now.",
+    'Each minute of focus is a brick in your foundation.',
+    'Be proud of yourself for showing up today.',
+    'Your future self is cheering you on — keep going.',
+    'This is your time. Protect it like it matters.',
+    'You don\'t need to be perfect. You just need to begin.',
+    'Every small step is still a step forward.',
+    'Trust yourself — you\'ve handled harder things than this.',
+  ];
+  function warnBeforeUnload(e: BeforeUnloadEvent) {
+    e.preventDefault();
+    e.returnValue = '';
+  }
   let timerSessionStartTimestamp = 0;
   let timerExpectedEndTimestamp = 0;
   
@@ -1399,6 +1588,7 @@ const appSchema = {
       const btn = document.getElementById(`tab-btn-${t}`);
       const panel = document.getElementById(`tab-${t}`);
       if (t === tab) {
+        btn?.setAttribute('aria-selected', 'true');
         btn?.classList.remove('text-body');
         btn?.classList.add('bg-canvas', 'text-ink', 'shadow-sm');
         panel?.classList.remove('hidden');
@@ -1407,6 +1597,7 @@ const appSchema = {
         void (panel as HTMLElement)?.offsetWidth;
         panel?.classList.add('tab-panel-enter');
       } else {
+        btn?.setAttribute('aria-selected', 'false');
         btn?.classList.add('text-body');
         btn?.classList.remove('bg-canvas', 'text-ink', 'shadow-sm');
         panel?.classList.add('hidden');
@@ -1475,14 +1666,9 @@ const appSchema = {
       }
     }
 
-    // 2. Show active goal text
+    // 2. Show active goal text — always visible while focusing
     if (timerGoalEl) {
-      if (goalText) {
-        timerGoalEl.textContent = goalText;
-        timerGoalEl.classList.remove('hidden');
-      } else {
-        timerGoalEl.classList.add('hidden');
-      }
+      timerGoalEl.textContent = goalText || selectedActivity || 'This moment is yours';
     }
 
     // 3. Show Next Step (first incomplete milestone)
@@ -1549,8 +1735,8 @@ const appSchema = {
         const target = e.currentTarget as HTMLElement;
         const act = target.getAttribute('data-activity') || 'Custom';
         
-        actBtns.forEach(b => b.classList.remove('border-link', 'bg-link/5'));
-        target.classList.add('border-link', 'bg-link/5');
+        actBtns.forEach(b => { b.classList.remove('border-link', 'bg-link/5'); b.setAttribute('aria-pressed', 'false'); });
+        target.setAttribute('aria-pressed', 'true');
 
         if (act === 'Custom') {
           customInput.classList.remove('hidden');
@@ -1585,8 +1771,8 @@ const appSchema = {
         const focusVal = target.getAttribute('data-focus');
         const breakVal = target.getAttribute('data-break');
 
-        presetBtns.forEach(b => b.classList.remove('border-link', 'bg-link/5'));
-        target.classList.add('border-link', 'bg-link/5');
+        presetBtns.forEach(b => { b.classList.remove('border-link', 'bg-link/5'); b.setAttribute('aria-pressed', 'false'); });
+        target.setAttribute('aria-pressed', 'true');
 
         if (focusVal === 'custom') {
           customPanel?.classList.remove('hidden');
@@ -1721,8 +1907,9 @@ const appSchema = {
     document.querySelectorAll('.activity-btn').forEach(btn => {
       const act = btn.getAttribute('data-activity');
       if (act === activity) {
-        document.querySelectorAll('.activity-btn').forEach(b => b.classList.remove('border-link', 'bg-link/5'));
+        document.querySelectorAll('.activity-btn').forEach(b => { b.classList.remove('border-link', 'bg-link/5'); b.setAttribute('aria-pressed', 'false'); });
         btn.classList.add('border-link', 'bg-link/5');
+        btn.setAttribute('aria-pressed', 'true');
       }
     });
 
@@ -1732,8 +1919,9 @@ const appSchema = {
     presetBtns.forEach(b => {
       const focusVal = b.getAttribute('data-focus');
       if (focusVal === String(recDuration)) {
-        presetBtns.forEach(btn => btn.classList.remove('border-link', 'bg-link/5'));
+        presetBtns.forEach(btn => { btn.classList.remove('border-link', 'bg-link/5'); btn.setAttribute('aria-pressed', 'false'); });
         b.classList.add('border-link', 'bg-link/5');
+        b.setAttribute('aria-pressed', 'true');
         customPanel?.classList.add('hidden');
         document.getElementById('step-3-next-btn')?.classList.remove('hidden');
       }
@@ -1820,6 +2008,7 @@ const appSchema = {
         </button>
       </li>
     `).join('');
+    animateContent(list);
 
     // Attach deletes
     list.querySelectorAll('.delete-milestone-btn').forEach(btn => {
@@ -1907,6 +2096,7 @@ const appSchema = {
       // Setup active views
       document.getElementById('setup-panel')?.classList.add('hidden');
       document.getElementById('active-info-panel')?.classList.remove('hidden');
+      document.getElementById('active-info-panel')?.classList.add('panel-enter');
       document.getElementById('timer-presets-section')?.classList.add('hidden');
       document.getElementById('setup-panel-below-fold')?.classList.add('hidden');
       document.getElementById('tab-workspace')?.classList.add('workspace-active-focus');
@@ -1966,6 +2156,7 @@ const appSchema = {
       // Setup active views
       document.getElementById('setup-panel')?.classList.add('hidden');
       document.getElementById('active-info-panel')?.classList.remove('hidden');
+      document.getElementById('active-info-panel')?.classList.add('panel-enter');
       document.getElementById('timer-presets-section')?.classList.add('hidden');
       document.getElementById('setup-panel-below-fold')?.classList.add('hidden');
       document.getElementById('tab-workspace')?.classList.add('workspace-active-focus');
@@ -2037,19 +2228,25 @@ const appSchema = {
       if (activeMilestones.length === 0) {
         list.innerHTML = `<li class="flex items-center justify-center gap-2 text-xs text-mute/60 py-2 text-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 opacity-50"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-          No steps for this one — just focus on your main goal.
+          Focus on your main goal without distraction
         </li>`;
+        animateContent(list);
         return;
       }
 
-      list.innerHTML = activeMilestones.map((m, idx) => `
-        <li class="flex items-center gap-3 px-3 py-2 bg-canvas border border-transparent rounded-sm transition-all duration-200 select-none hover:bg-canvas-soft-2/50 group ${m.completed ? 'opacity-50' : 'shadow-[0_1px_2px_rgba(0,0,0,0.01)]'}">
+      const activeIdx = activeMilestones.findIndex(m => !m.completed);
+
+      list.innerHTML = activeMilestones.map((m, idx) => {
+        const isActive = idx === activeIdx;
+        return `
+        <li class="flex items-center gap-3 px-3 py-2 bg-canvas border rounded-sm transition-all duration-200 select-none group ${m.completed ? 'opacity-50 border-transparent' : isActive ? 'border-link/25 bg-link/[0.02] shadow-[0_1px_3px_rgba(37,99,235,0.08)]' : 'border-transparent shadow-[0_1px_2px_rgba(0,0,0,0.01)]'}">
           <label class="flex items-center gap-2.5 text-xs text-ink cursor-pointer w-full font-medium">
             <input type="checkbox" class="milestone-checkbox rounded border-hairline accent-link w-4 h-4 cursor-pointer focus:ring-2 focus:ring-link/10 transition-all" data-index="${idx}" ${m.completed ? 'checked' : ''} />
-            <span class="transition-all ${m.completed ? 'line-through text-mute italic' : 'text-ink'}">${m.text}</span>
+            <span class="transition-all ${m.completed ? 'line-through text-mute italic' : isActive ? 'font-semibold text-ink' : 'text-ink'}">${m.text}</span>
           </label>
-        </li>
-      `).join('');
+        </li>`;
+      }).join('');
+      animateContent(list);
 
       // Add checked triggers
       list.querySelectorAll('.milestone-checkbox').forEach(cb => {
@@ -2057,31 +2254,9 @@ const appSchema = {
           const target = e.target as HTMLInputElement;
           const index = parseInt(target.getAttribute('data-index') || '0');
           activeMilestones[index].completed = target.checked;
-          
-          // Sync all checkbox elements (immersive vs normal)
-          document.querySelectorAll(`.milestone-checkbox[data-index="${index}"]`).forEach(c => {
-            (c as HTMLInputElement).checked = target.checked;
-            const textSpan = c.nextElementSibling;
-            const parentLi = c.closest('li');
-            if (textSpan) {
-              if (target.checked) {
-                textSpan.classList.add('line-through', 'text-mute', 'italic');
-              } else {
-                textSpan.classList.remove('line-through', 'text-mute', 'italic');
-              }
-            }
-            if (parentLi) {
-              if (target.checked) {
-                parentLi.classList.add('opacity-50');
-                parentLi.classList.remove('shadow-[0_1px_2px_rgba(0,0,0,0.01)]');
-              } else {
-                parentLi.classList.remove('opacity-50');
-                parentLi.classList.add('shadow-[0_1px_2px_rgba(0,0,0,0.01)]');
-              }
-            }
-          });
 
-          updateMilestoneRatioIndicator();
+          // Re-render both lists to reflect active state change
+          renderActiveMilestones();
         });
       });
     });
@@ -2093,11 +2268,16 @@ const appSchema = {
     const total = activeMilestones.length;
     const completed = activeMilestones.filter(m => m.completed).length;
     const ratioEl = document.getElementById('timer-milestone-ratio');
-    
-    if (ratioEl && total > 0) {
+    if (!ratioEl) return;
+
+    if (currentSessionMode !== 'idle') {
       ratioEl.classList.remove('hidden');
-      ratioEl.textContent = `${completed} / ${total} Checkpoints`;
-    } else if (ratioEl) {
+      if (total > 0) {
+        ratioEl.textContent = `${completed} of ${total} checkpoints completed`;
+      } else {
+        ratioEl.textContent = "You're in a focus flow right now";
+      }
+    } else {
       ratioEl.classList.add('hidden');
     }
     updateTimerGoalDisplay();
@@ -2117,16 +2297,26 @@ const appSchema = {
     isTimerRunning = start;
 
     if (start) {
+      window.addEventListener('beforeunload', warnBeforeUnload);
+      playPauseBtn?.setAttribute('aria-pressed', 'true');
+      immPlayPauseBtn?.setAttribute('aria-pressed', 'true');
       timerContainer?.classList.add('timer-running');
       // Toggle play pause icons
       playIcon?.classList.add('hidden');
-      pauseIcon?.classList.remove('hidden');
       immPlayIcon?.classList.add('hidden');
+      pauseIcon?.classList.remove('hidden');
+      pauseIcon?.classList.add('icon-swap');
       immPauseIcon?.classList.remove('hidden');
-      if (playText) playText.textContent = "Pause Session";
-      if (immPlayText) immPlayText.textContent = "Pause Timer";
+      immPauseIcon?.classList.add('icon-swap');
+      if (playText) playText.textContent = "Pause — I'll be right back";
+      if (immPlayText) immPlayText.textContent = "Pause for a moment";
       
-      document.getElementById('timer-session-text').textContent = currentSessionMode === 'focus' ? 'Focusing' : 'Break time';
+      if (currentSessionMode === 'focus') {
+        focusMessageIndex = 0;
+        document.getElementById('timer-session-text').textContent = focusMessages[0];
+      } else {
+        document.getElementById('timer-session-text').textContent = 'Recharge — you\'ve earned this break';
+      }
 
       // Start Audio Synth if sound is active
       if (currentAmbientSound !== 'mute') {
@@ -2141,11 +2331,21 @@ const appSchema = {
       // Expected end time is now + remaining duration
       timerExpectedEndTimestamp = Date.now() + timerRemainingSeconds * 1000;
 
+      let focusMessageTick = 0;
       timerIntervalId = setInterval(() => {
         const diffMs = timerExpectedEndTimestamp - Date.now();
         timerRemainingSeconds = Math.max(0, Math.ceil(diffMs / 1000));
         
         updateTimerDisplay();
+
+        // Rotate encouraging message every ~15 seconds during focus
+        if (currentSessionMode === 'focus') {
+          focusMessageTick++;
+          if (focusMessageTick % 15 === 0) {
+            focusMessageIndex = (focusMessageIndex + 1) % focusMessages.length;
+            document.getElementById('timer-session-text').textContent = focusMessages[focusMessageIndex];
+          }
+        }
 
         if (timerRemainingSeconds <= 0) {
           clearInterval(timerIntervalId);
@@ -2153,15 +2353,19 @@ const appSchema = {
         }
       }, 1000);
     } else {
+      playPauseBtn?.setAttribute('aria-pressed', 'false');
+      immPlayPauseBtn?.setAttribute('aria-pressed', 'false');
       timerContainer?.classList.remove('timer-running');
-      playIcon?.classList.remove('hidden');
       pauseIcon?.classList.add('hidden');
-      immPlayIcon?.classList.remove('hidden');
       immPauseIcon?.classList.add('hidden');
-      if (playText) playText.textContent = "Resume Session";
-      if (immPlayText) immPlayText.textContent = "Resume Timer";
+      playIcon?.classList.remove('hidden');
+      playIcon?.classList.add('icon-swap');
+      immPlayIcon?.classList.remove('hidden');
+      immPlayIcon?.classList.add('icon-swap');
+      if (playText) playText.textContent = "Ready to dive back in";
+      if (immPlayText) immPlayText.textContent = "Let's keep going";
       
-      document.getElementById('timer-session-text').textContent = 'Paused';
+      document.getElementById('timer-session-text').textContent = 'Paused — pick up where you left off';
 
       clearInterval(timerIntervalId);
       stopAmbientSound();
@@ -2221,7 +2425,7 @@ const appSchema = {
       openOutcomeModal();
     } else if (currentSessionMode === 'break') {
       // Break done -> return to focus setup or next
-      alert("Your break is complete. Start a new focus session when you're ready.");
+      TooltailsModal.toast("Break's over — whenever you feel ready, start your next session.", 5000);
       resetTimerToIdle();
     }
   }
@@ -2229,13 +2433,17 @@ const appSchema = {
   function resetTimerToIdle() {
     clearInterval(timerIntervalId);
     isTimerRunning = false;
+    window.removeEventListener('beforeunload', warnBeforeUnload);
     currentSessionMode = 'idle';
     
     // Restore UI panels
     document.getElementById('setup-panel')?.classList.remove('hidden');
+    document.getElementById('setup-panel')?.classList.add('panel-enter');
     document.getElementById('active-info-panel')?.classList.add('hidden');
     document.getElementById('timer-presets-section')?.classList.remove('hidden');
+    document.getElementById('timer-presets-section')?.classList.add('panel-enter');
     document.getElementById('setup-panel-below-fold')?.classList.remove('hidden');
+    document.getElementById('setup-panel-below-fold')?.classList.add('panel-enter');
     document.getElementById('tab-workspace')?.classList.remove('workspace-active-focus');
     document.getElementById('timer-container-card')?.classList.remove('timer-active', 'timer-running');
     document.getElementById('timer-active-glow')?.classList.remove('opacity-100');
@@ -2264,7 +2472,7 @@ const appSchema = {
     fsBtn?.removeAttribute('disabled');
     
     if (document.getElementById('play-btn-text')) {
-      document.getElementById('play-btn-text').textContent = "Start Timer";
+      document.getElementById('play-btn-text').textContent = "Ready for another round?";
     }
     
     timerDurationSeconds = configuredFocusMinutes * 60;
@@ -2298,7 +2506,7 @@ const appSchema = {
     const total = activeMilestones.length;
     const completed = activeMilestones.filter(m => m.completed).length;
     if (ratioText) {
-      ratioText.textContent = total > 0 ? `${completed} of ${total} steps done` : "No steps planned — just focus on your main goal.";
+      ratioText.textContent = total > 0 ? `${completed} of ${total} steps done` : "You showed up with a clear intention — that's what matters.";
     }
 
     // Toggle timer off while modal handles outcomes
@@ -2344,10 +2552,12 @@ const appSchema = {
 
     // Close button aborts session completely with no log
     closeBtn?.addEventListener('click', () => {
-      if (confirm("Would you like to close this timer without saving? Your progress for this block won't be recorded in your journal.")) {
-        document.getElementById('outcome-modal')?.classList.add('hidden');
-        resetTimerToIdle();
-      }
+      TooltailsModal.confirm("Are you sure you want to close without saving? Any progress in this block won't be recorded.").then(confirmed => {
+        if (confirmed) {
+          document.getElementById('outcome-modal')?.classList.add('hidden');
+          resetTimerToIdle();
+        }
+      });
     });
 
     // Toggle context panels based on outcome Selection
@@ -2396,7 +2606,7 @@ const appSchema = {
       
       const outcome = (document.querySelector('input[name="outcome"]:checked') as HTMLInputElement)?.value as any;
       if (!outcome) {
-        alert("Please select a session outcome.");
+        TooltailsModal.toast("Please select a session outcome.", 3000);
         return;
       }
 
@@ -2447,20 +2657,109 @@ const appSchema = {
         }
       }
 
-      // Close modal & exit Focus state
+      // Close modal & show session summary for every outcome
       document.getElementById('outcome-modal')?.classList.add('hidden');
       (document.getElementById('reflection-notes') as HTMLTextAreaElement).value = '';
-      
-      // If we finished a focus box, ask if they want to run a rest block
-      if (outcome === 'Completed' && configuredBreakMinutes > 0) {
-        if (confirm(`Wonderful job! Your session was logged. Would you like to take a restorative ${configuredBreakMinutes}-minute rest break now to recharge?`)) {
-          startBreakBlock();
-          return;
-        }
-      }
-
-      resetTimerToIdle();
+      showCelebrationSummary(outcome);
     });
+  }
+
+  function showCelebrationSummary(outcome: string) {
+    const overlay = document.getElementById('celebration-overlay');
+    if (!overlay) return;
+
+    // ── Stats ──
+    const minutes = Math.floor((timerDurationSeconds - timerRemainingSeconds) / 60);
+    const secs = (timerDurationSeconds - timerRemainingSeconds) % 60;
+    const timeStr = minutes > 0 ? `${minutes} min${secs > 0 ? ` ${secs}s` : ''}` : `${secs}s`;
+    document.getElementById('celebration-time').textContent = timeStr;
+    document.getElementById('celebration-goal').textContent = activeGoal || 'This moment is yours';
+    const total = activeMilestones.length;
+    const completed = activeMilestones.filter(m => m.completed).length;
+    document.getElementById('celebration-checkpoints').textContent = total > 0 ? `${completed} of ${total}` : '—';
+
+    // ── Streak ──
+    const streak = calculateDailyStreak(history);
+    const streakEl = document.getElementById('celebration-streak');
+    if (streakEl) {
+      if (streak > 0) {
+        streakEl.textContent = `🔥 ${streak} day${streak > 1 ? 's' : ''}`;
+      } else {
+        streakEl.textContent = 'Start your streak!';
+      }
+    }
+
+    // ── Outcome-specific emoji, heading, subhead, coaching ──
+    let emoji: string, heading: string, subhead: string, coaching: string;
+
+    switch (outcome) {
+      case 'Completed':
+        emoji = '🎉';
+        heading = 'Nailed it!';
+        subhead = 'You showed up and delivered. Here\'s your win:';
+        if (streak > 1) {
+          coaching = `You're on a <strong>${streak}-day streak</strong> — that's real momentum. Every session compounds. ${activeWhyMatters ? `Remember why you started: "${activeWhyMatters}"` : 'Keep this energy going into your next block.'}`;
+        } else if (completed === total && total > 0) {
+          coaching = `All ${total} checkpoints done. You set out to achieve something and you followed through. That's what growth looks like.`;
+        } else {
+          coaching = `You completed this session with intention. Every finished sprint builds confidence and sharpens your focus. Well done.`;
+        }
+        break;
+      case 'Partial':
+        emoji = '💪';
+        heading = 'Progress made!';
+        if (total > 0) {
+          subhead = `${completed} of ${total} checkpoints done — you moved forward.`;
+        } else {
+          subhead = 'You put in the time and showed up. That counts.';
+        }
+        if (streak > 1) {
+          coaching = `Your <strong>${streak}-day streak</strong> is still alive because you showed up. Not every session is 100% — consistency beats perfection. ${activeWhyMatters ? `Keep "${activeWhyMatters}" close to heart.` : 'Reset, refocus, and try the next one.'}`;
+        } else if (completed > 0) {
+          coaching = `You got ${completed} of ${total} steps done. That's forward motion. Progress isn't always linear — the key is to keep showing up.`;
+        } else {
+          coaching = `Sometimes the win is just starting. Take a breath, note what distracted you, and come back with a sharper plan.`;
+        }
+        break;
+      case 'Failed':
+      default:
+        emoji = '🌱';
+        heading = 'You tried — that matters.';
+        subhead = 'Not every session is a victory lap, but every attempt teaches you something.';
+        if (streak > 1) {
+          coaching = `Your <strong>${streak}-day streak</strong> is paused, not erased. The habit you've built doesn't disappear overnight. Rest, reflect, and restart fresh. Growth isn't linear.`;
+        } else {
+          coaching = `This is just one data point, not your entire story. ${activeWhyMatters ? `Remember why "${activeWhyMatters}" matters to you. ` : ''}Even the most focused people have off days. Reset and try again.`;
+        }
+        break;
+    }
+
+    document.getElementById('celebration-emoji').textContent = emoji;
+    document.getElementById('celebration-heading').textContent = heading;
+    document.getElementById('celebration-subhead').textContent = subhead;
+    document.getElementById('celebration-coaching-text').innerHTML = coaching;
+
+    overlay.classList.remove('hidden');
+
+    const breakBtn = document.getElementById('celebration-take-break');
+    if (configuredBreakMinutes > 0) {
+      breakBtn.classList.remove('hidden');
+      breakBtn.textContent = `Take a ${configuredBreakMinutes}-minute break`;
+    } else {
+      breakBtn.classList.add('hidden');
+    }
+    document.getElementById('celebration-start-another').onclick = () => {
+      overlay.classList.add('hidden');
+      resetTimerToIdle();
+    };
+    breakBtn.onclick = () => {
+      overlay.classList.add('hidden');
+      startBreakBlock();
+    };
+    document.getElementById('celebration-done').onclick = () => {
+      overlay.classList.add('hidden');
+      resetTimerToIdle();
+    };
   }
 
   function startBreakBlock() {
@@ -2469,16 +2768,17 @@ const appSchema = {
     timerRemainingSeconds = timerDurationSeconds;
     
     // Shift UI to break view
-    document.getElementById('timer-session-text').textContent = 'Break time';
+    document.getElementById('timer-session-text').textContent = 'Recharge — you\'ve earned this break';
     document.getElementById('setup-panel')?.classList.add('hidden');
     document.getElementById('active-info-panel')?.classList.remove('hidden');
+    document.getElementById('active-info-panel')?.classList.add('panel-enter');
     document.getElementById('setup-panel-below-fold')?.classList.add('hidden');
     
     const activeTitle = document.getElementById('active-goal-title');
-    if (activeTitle) activeTitle.textContent = "Take a break, stretch, grab water!";
+    if (activeTitle) activeTitle.textContent = "Step away, stretch, and give your mind a rest.";
     
     const activeList = document.getElementById('active-milestones-list');
-    if (activeList) activeList.innerHTML = `<li class="text-xs text-mute/70 font-mono animate-pulse font-semibold">Rest period active</li>`;
+    if (activeList) activeList.innerHTML = `<li class="text-xs text-mute/70 font-mono animate-pulse font-semibold">You're recharging — rest is part of the rhythm</li>`;
     
     toggleTimer(true);
   }
@@ -2493,19 +2793,19 @@ const appSchema = {
     let recommendation = "";
     switch (reason) {
       case 'distraction':
-        recommendation = "<strong>Action Plan:</strong> Trigger-isolation mode. Lock away your smartphone, close non-relevant browser tabs, and start your next session in 15-minute intervals. Keep a blank sheet of paper next to you. If a distracting thought pops up, write it down on paper and return to work.";
+        recommendation = "It happens to all of us. Try putting your phone in another room and closing tabs that aren't needed. Your next session could be a short 15-minute block — just enough to rebuild focus. <em>You've got the awareness to catch distractions, and that's already a win.</em>";
         break;
       case 'fatigue':
-        recommendation = "<strong>Action Plan:</strong> Take a complete screen-free rest now. Stretch for 3 minutes, wash your face with cool water, and hydrate. Do not check social media. When you restart, select a lighter activity (like Reading/Refining) rather than high-intensity generation.";
+        recommendation = "Your brain needs a real break. Step away from the screen, stretch, splash some water on your face, and drink a glass of water. When you come back, try a lighter activity — reading or reflecting instead of creating. <em>Rest isn't weakness — it's how you stay strong for the long run.</em>";
         break;
       case 'goal-too-large':
-        recommendation = "<strong>Action Plan:</strong> Scope Reduction. Your outcome was too ambitious for this timebox. Take a 5-minute break. Before you resume, write down 3 tiny milestones using our planning board. Your ONLY goal for the next block is to complete checkpoint 1.";
+        recommendation = "Your ambition is admirable — but big goals need small first steps. Take a short break, then pick just one tiny milestone you can finish in the next block. The only goal that matters right now is completing that first step. <em>Progress beats perfection, every time.</em>";
         break;
       case 'interruption':
-        recommendation = "<strong>Action Plan:</strong> Interrupt buffer. External interruptions are unpredictable. Accept the partial progress. Buffer your next slot by setting an outcome that doesn't rely on uninterrupted flow, or move to a quieter workspace if possible.";
+        recommendation = "Life happens, and that's okay. You still made progress, and that counts. For your next block, try setting a smaller goal that works even with interruptions — or find a quieter spot if you can. <em>What matters is that you came back.</em>";
         break;
       default:
-        recommendation = "<strong>Action Plan:</strong> Focus alignment. Take a 5-minute break. Try scaling down your next timer session to 25 minutes and make your goal highly granular.";
+        recommendation = "Every session teaches you something. Take 5 minutes to reset, then try a shorter block with a simpler goal. <em>You're building a habit, and habits take time. Be patient with yourself.</em>";
         break;
     }
 
@@ -2573,8 +2873,8 @@ const appSchema = {
           return;
         }
 
-        soundBtns.forEach(b => b.classList.remove('border-link', 'text-link'));
-        target.classList.add('border-link', 'text-link');
+        soundBtns.forEach(b => { b.classList.remove('border-link', 'text-link'); b.setAttribute('aria-pressed', 'false'); });
+        target.setAttribute('aria-pressed', 'true');
 
         currentAmbientSound = sound;
         if (sound !== 'mute') {
@@ -2590,6 +2890,8 @@ const appSchema = {
 
         const statusEl = document.getElementById('immersive-sound-status');
         if (statusEl) statusEl.textContent = sound.charAt(0).toUpperCase() + sound.slice(1);
+        const immSoundBtn = document.getElementById('immersive-sound-btn');
+        if (immSoundBtn) immSoundBtn.setAttribute('aria-pressed', sound !== 'mute' ? 'true' : 'false');
 
         if (isTimerRunning) {
           playAmbientSound(sound);
@@ -3259,7 +3561,7 @@ const appSchema = {
               Best focus hour
             </div>
             <div class="text-sm font-bold text-ink tabular-nums">${bestHourLabel}</div>
-            <div class="text-[10px] text-mute/50 leading-tight">${bestHourMin > 0 ? `${bestHourMin} min of focus logged at this hour` : 'No data yet'}</div>
+            <div class="text-[10px] text-mute/50 leading-tight">${bestHourMin > 0 ? `${bestHourMin} min of focus logged at this hour` : 'Complete a session and your best hour will appear here'}</div>
           </div>
           <div class="insight-card bg-canvas-soft/40 rounded-2xl p-3.5 border border-hairline/15 space-y-1.5">
             <div class="flex items-center gap-1.5 text-[11px] text-mute/60">
@@ -3267,7 +3569,7 @@ const appSchema = {
               Best activity rate
             </div>
             <div class="text-sm font-bold text-ink truncate" title="${bestActInsight}">${bestActInsight}</div>
-            <div class="text-[10px] text-mute/50 leading-tight">${bestActPct > 0 ? `${bestActPct}% completion rate` : 'Need 2+ sessions per activity'}</div>
+            <div class="text-[10px] text-mute/50 leading-tight">${bestActPct > 0 ? `${bestActPct}% completion rate` : 'Complete 2+ sessions in an activity to see your rate'}</div>
           </div>
           <div class="insight-card bg-canvas-soft/40 rounded-2xl p-3.5 border border-hairline/15 space-y-1.5">
             <div class="flex items-center gap-1.5 text-[11px] text-mute/60">
@@ -3275,7 +3577,7 @@ const appSchema = {
               Longest streak
             </div>
             <div class="text-sm font-bold text-ink tabular-nums">${longestStreak > 0 ? `${longestStreak} day${longestStreak !== 1 ? 's' : ''}` : '—'}</div>
-            <div class="text-[10px] text-mute/50 leading-tight">${longestStreak > 0 ? 'Consecutive days with a session' : 'Complete a session tomorrow to start'}</div>
+            <div class="text-[10px] text-mute/50 leading-tight">${longestStreak > 0 ? 'Consecutive days with a session' : 'Focus today and come back tomorrow to start a streak'}</div>
           </div>
           <div class="insight-card bg-canvas-soft/40 rounded-2xl p-3.5 border border-hairline/15 space-y-1.5">
             <div class="flex items-center gap-1.5 text-[11px] text-mute/60">
@@ -3393,6 +3695,7 @@ const appSchema = {
     }
 
     container.innerHTML = html;
+    animateContent(container);
   }
 
   // OUTCOME DONUT CHART (SVG dynamic offset mapping)
@@ -3410,7 +3713,7 @@ const appSchema = {
       fDonut.style.strokeDashoffset = '251.2';
       
       document.getElementById('donut-center-percentage').textContent = "0%";
-      document.getElementById('donut-center-label').textContent = "Empty";
+      document.getElementById('donut-center-label').textContent = "Start a session";
       
       document.getElementById('legend-completed-val').textContent = "0%";
       document.getElementById('legend-partial-val').textContent = "0%";
@@ -3541,6 +3844,7 @@ const appSchema = {
           </td>
         </tr>
       `;
+      animateContent(tbody);
       return;
     }
 
@@ -3580,18 +3884,21 @@ const appSchema = {
         </tr>
       `;
     }).join('');
+    animateContent(tbody);
 
     // Attach row deletes
     tbody.querySelectorAll('.delete-history-row-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const index = parseInt((e.currentTarget as HTMLElement).getAttribute('data-index') || '0');
-        if (confirm("Delete this focus log entry?")) {
-          history.splice(index, 1);
-          saveHistory();
-          renderHistoryTable();
-          renderHeatmap();
-          renderOutcomeDonutChart();
-        }
+        TooltailsModal.confirm("Delete this focus log entry?", { destructive: true }).then(confirmed => {
+          if (confirmed) {
+            history.splice(index, 1);
+            saveHistory();
+            renderHistoryTable();
+            renderHeatmap();
+            renderOutcomeDonutChart();
+          }
+        });
       });
     });
   }
@@ -3603,20 +3910,24 @@ const appSchema = {
     const reportBtn = document.getElementById('generate-report-btn');
 
     seedBtn?.addEventListener('click', () => {
-      if (confirm("This will seed mock demonstration logs from the last 30 days to preview the heatmap and charts. Proceed?")) {
-        seedMockData();
-      }
+      TooltailsModal.confirm("This will seed mock demonstration logs from the last 30 days to preview the heatmap and charts. Proceed?").then(confirmed => {
+        if (confirmed) {
+          seedMockData();
+        }
+      });
     });
 
     clearBtn?.addEventListener('click', () => {
-      if (confirm("Permanently wipe all focus history and streaks?")) {
-        history = [];
-        saveHistory();
-        renderHistoryTable();
-        renderHeatmap();
-        renderOutcomeDonutChart();
-        updateDashboardStats();
-      }
+      TooltailsModal.confirm("Permanently wipe all focus history and streaks?", { destructive: true }).then(confirmed => {
+        if (confirmed) {
+          history = [];
+          saveHistory();
+          renderHistoryTable();
+          renderHeatmap();
+          renderOutcomeDonutChart();
+          updateDashboardStats();
+        }
+      });
     });
 
     reportBtn?.addEventListener('click', () => {
@@ -3688,12 +3999,12 @@ const appSchema = {
     updateDashboardStats();
 
     // Trigger positive notification
-    alert("Mock focus records seeded. Heatmap, completion charts, and diagnostic analytics are now updated!");
+    TooltailsModal.toast("Mock focus records seeded! Charts and analytics updated.", 5000);
   }
 
   function downloadHistoryCSV() {
     if (history.length === 0) {
-      alert("Your focus story hasn't been written yet. Complete a few sessions first, then come back to export your progress.");
+      TooltailsModal.alert("Your focus story hasn't been written yet. Complete a few sessions first, then come back to export your progress.");
       return;
     }
 
@@ -3816,6 +4127,7 @@ const appSchema = {
           </form>
         </div>
       `;
+      animateContent(container);
 
       // Render promo card in analytics tab
       if (analyticsContainer) {
@@ -3828,7 +4140,7 @@ const appSchema = {
               <div class="space-y-1 text-left">
                 <h3 class="text-sm font-semibold text-ink">Track a long-term goal</h3>
                 <p class="text-xs text-mute max-w-xl leading-relaxed">
-                  Reading a book, learning a skill, or writing something big? Set a target in the Journal tab and we'll help you stay on pace.
+                  Working toward something bigger? Set a target in the Journal tab and we'll help you stay on pace.
                 </p>
               </div>
             </div>
@@ -3837,6 +4149,7 @@ const appSchema = {
             </button>
           </div>
         `;
+        animateContent(analyticsContainer);
       }
 
       // Set up form submission handler
@@ -3850,7 +4163,7 @@ const appSchema = {
         const endVal = (document.getElementById('forecast-end-date') as HTMLInputElement).value;
         
         if (new Date(endVal) < new Date(startVal)) {
-          alert("Deadline cannot be before the start date!");
+          TooltailsModal.toast("Deadline cannot be before the start date!", 4000);
           return;
         }
 
@@ -4013,8 +4326,8 @@ const appSchema = {
         <div class="flex flex-col items-center justify-center gap-3 max-w-xs mx-auto">
           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/20"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
           <div class="space-y-0.5">
-            <p class="text-sm font-semibold text-mute/60">Your goal log is empty</p>
-            <p class="text-xs text-mute/40 leading-relaxed">Log your first bit of progress above to start tracking your pace. Even small steps count.</p>
+            <p class="text-sm font-semibold text-mute/60">Ready to log your first step</p>
+            <p class="text-xs text-mute/40 leading-relaxed">Add a progress entry above to see your pace. Every data point brings you closer to your goal.</p>
           </div>
         </div>
       </div>`;
@@ -4202,6 +4515,7 @@ const appSchema = {
         </div>
       </div>
     `;
+    animateContent(container);
 
     // Render summary widget in analytics tab
     if (analyticsContainer) {
@@ -4212,7 +4526,7 @@ const appSchema = {
               <h3 class="text-sm font-semibold text-ink">Active Forecast Goal Progress</h3>
               <p class="text-xs text-mute/60">${activeForecastGoal.title} (${daysRemainingText})</p>
             </div>
-            <span class="${statusColorClasses} px-2.5 py-0.5 text-xs font-semibold rounded-full flex items-center gap-1>
+            <span class="${statusColorClasses} px-2.5 py-0.5 text-xs font-semibold rounded-full flex items-center gap-1">
               <span class="w-1 h-1 rounded-full ${statusDotClasses}"></span>
               ${statusText === 'Completed' ? 'Completed' : statusText + ' Schedule'}
             </span>
@@ -4285,16 +4599,19 @@ const appSchema = {
           </div>
         </div>
       `;
+      animateContent(analyticsContainer);
     }
 
     // Hook up reset button
     const resetBtn = document.getElementById('reset-forecast-btn');
     resetBtn?.addEventListener('click', () => {
-      if (confirm("Reset current forecast goal and wipe its history logs? This cannot be undone.")) {
-        activeForecastGoal = null;
-        saveForecastGoal();
-        renderForecastEngine();
-      }
+      TooltailsModal.confirm("Reset current forecast goal and wipe its history logs? This cannot be undone.", { destructive: true }).then(confirmed => {
+        if (confirmed) {
+          activeForecastGoal = null;
+          saveForecastGoal();
+          renderForecastEngine();
+        }
+      });
     });
 
     // Hook up log form submit
@@ -4335,10 +4652,14 @@ const appSchema = {
         if (!activeForecastGoal) return;
         const btnEl = e.currentTarget as HTMLElement;
         const logId = btnEl.getAttribute('data-id');
-        if (logId && confirm("Delete this progress log entry?")) {
-          activeForecastGoal.logs = activeForecastGoal.logs.filter(log => log.id !== logId);
-          saveForecastGoal();
-          renderForecastEngine();
+        if (logId) {
+          TooltailsModal.confirm("Delete this progress log entry?", { destructive: true }).then(confirmed => {
+            if (confirmed) {
+              activeForecastGoal.logs = activeForecastGoal.logs.filter(log => log.id !== logId);
+              saveForecastGoal();
+              renderForecastEngine();
+            }
+          });
         }
       });
     });
@@ -4362,12 +4683,13 @@ const appSchema = {
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/40"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
             </div>
             <div class="space-y-1">
-              <h3 class="text-sm font-semibold text-mute/60">This week is a clean slate</h3>
-              <p class="text-xs text-mute/40 leading-relaxed max-w-md">Every session you complete this week will show up here with your progress, peak focus times, and a personalized review. Start your first one to unlock insights.</p>
+              <h3 class="text-sm font-semibold text-mute/60">Your week is waiting</h3>
+              <p class="text-xs text-mute/40 leading-relaxed max-w-md">Complete your first session and this space fills with your progress, peak times, and a personalized review. Every session builds a clearer picture of your growth.</p>
             </div>
-          </div>
         </div>
-      `;
+      </div>
+    `;
+      animateContent(container);
       return;
     }
 
@@ -4533,6 +4855,7 @@ const appSchema = {
         </div>
       </div>
     `;
+    animateContent(container);
 
     // Hook up export button
     const exportBtn = document.getElementById('export-weekly-review-btn');
@@ -4585,20 +4908,20 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
 
   // FLOATING CELEBRATION EMOJIS
   function triggerCelebration() {
-    const emojis = ['🎉', '🌟', '✨', '🌱', '🏆', '🙌', '🔥', '💪', '🎯'];
+    const emojis = ['🎉', '🌟', '✨', '🌱', '🏆', '🙌', '🔥', '💪', '🎯', '⭐', '💫'];
     const container = document.body;
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 60; i++) {
       const emojiEl = document.createElement('div');
       emojiEl.className = 'floating-celebration-emoji';
       emojiEl.textContent = emojis[Math.floor(Math.random() * emojis.length)];
       emojiEl.style.left = `${Math.random() * 100}vw`;
       emojiEl.style.bottom = `-50px`;
-      emojiEl.style.fontSize = `${Math.random() * 20 + 20}px`;
-      emojiEl.style.animationDelay = `${Math.random() * 1.5}s`;
-      emojiEl.style.animationDuration = `${Math.random() * 2 + 2.5}s`;
+      emojiEl.style.fontSize = `${Math.random() * 24 + 18}px`;
+      emojiEl.style.animationDelay = `${Math.random() * 2}s`;
+      emojiEl.style.animationDuration = `${Math.random() * 2.5 + 2.5}s`;
       container.appendChild(emojiEl);
       // Remove element after animation completes
-      setTimeout(() => emojiEl.remove(), 4000);
+      setTimeout(() => emojiEl.remove(), 5500);
     }
   }
 
@@ -4699,6 +5022,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
         </div>
       </div>
     `;
+    animateContent(container);
   }
 
   // FOCUS ACHIEVEMENTS & BADGES
@@ -4805,6 +5129,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
         </div>
       </div>
     `;
+    animateContent(container);
   }
 
   // WEEKLY REFLECTIONS STORAGE & RENDER
@@ -4844,11 +5169,12 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
         <div class="flex flex-col items-center justify-center p-8 border border-dashed border-hairline/30 rounded-xl text-center space-y-4 animate-in fade-in duration-200">
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/20"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
           <div class="space-y-1">
-            <p class="text-sm font-semibold text-mute/60">Your reflection space is ready</p>
-            <p class="text-xs text-mute/40 leading-relaxed max-w-xs">After each session, take a moment to reflect on what worked and what you learned. Small insights compound into big growth.</p>
+            <p class="text-sm font-semibold text-mute/60">Your first reflection starts here</p>
+            <p class="text-xs text-mute/40 leading-relaxed max-w-xs">Complete a session and take a moment to reflect on what worked. Small insights compound into big growth over time.</p>
           </div>
         </div>
       `;
+      animateContent(list);
       return;
     }
 
@@ -4872,13 +5198,18 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
         </div>
       `;
     }).join('');
+    animateContent(list);
 
     // Attach deletes
     list.querySelectorAll('.delete-reflection-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const id = (e.currentTarget as HTMLElement).getAttribute('data-id');
-        if (id && confirm("Delete this reflection entry?")) {
-          deleteReflection(id);
+        if (id) {
+          TooltailsModal.confirm("Delete this reflection entry?", { destructive: true }).then(confirmed => {
+            if (confirmed) {
+              deleteReflection(id);
+            }
+          });
         }
       });
     });
@@ -4973,16 +5304,17 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/20"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             <div class="space-y-1">
               <p class="text-sm font-semibold text-mute/60">No entries match your search</p>
-              <p class="text-xs text-mute/40 leading-relaxed">Try a different keyword or browse all entries.</p>
+              <p class="text-xs text-mute/40 leading-relaxed">Try different keywords or clear your search to browse all entries.</p>
             </div>
           ` : `
             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/20"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/><path d="M2 3h6a4 4 0 0 1 4 4v14"/></svg>
             <div class="space-y-1">
-              <p class="text-sm font-semibold text-mute/60">Your journal is ready for your first entry</p>
-              <p class="text-xs text-mute/40 leading-relaxed">Fill in your wins, notes, and mood above, then save. Each entry helps you track your growth over time.</p>
+              <p class="text-sm font-semibold text-mute/60">Your first entry is waiting</p>
+              <p class="text-xs text-mute/40 leading-relaxed">After a session, jot down your wins and lessons above. Each entry becomes a thread in your growth story.</p>
             </div>
           `}
         </div>`;
+      animateContent(list);
       return;
     }
 
@@ -5017,14 +5349,19 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
           </div>
         </div>`;
     }).join('');
+    animateContent(list);
 
     list.querySelectorAll('.delete-journal-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const id = (e.currentTarget as HTMLElement).getAttribute('data-id');
-        if (id && confirm('Delete this journal entry?')) {
-          journalEntries = journalEntries.filter(je => je.id !== id);
-          saveJournalToStorage();
-          renderJournalEntries((document.getElementById('journal-search-input') as HTMLInputElement)?.value || '');
+        if (id) {
+          TooltailsModal.confirm("Delete this journal entry?", { destructive: true }).then(confirmed => {
+            if (confirmed) {
+              journalEntries = journalEntries.filter(je => je.id !== id);
+              saveJournalToStorage();
+              renderJournalEntries((document.getElementById('journal-search-input') as HTMLInputElement)?.value || '');
+            }
+          });
         }
       });
     });
@@ -5125,10 +5462,11 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-mute/40"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
           <div class="space-y-0.5">
-            <p class="text-sm font-medium text-mute/60">No focus sessions yet today</p>
-            <p class="text-xs text-mute/40 leading-relaxed">Pick a goal, set your timer, and start your first session. Your progress will show up here once you complete one.</p>
+            <p class="text-sm font-medium text-mute/60">Today is full of possibility</p>
+            <p class="text-xs text-mute/40 leading-relaxed">Set a goal, start the timer, and take the first step. Your completed sessions will appear here.</p>
           </div>
         </div>`;
+      animateContent(el);
       return;
     }
     const totalMin = Math.round(todaySessions.reduce((s, ses) => s + ses.timeSpentSeconds, 0) / 60);
@@ -5159,6 +5497,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
           return `<span class="text-[10px] px-2.5 py-0.5 rounded-full border font-medium ${outcomeColors[s.outcome] || 'border-hairline text-mute'}">${s.activity} · ${s.durationMinutes}m</span>`;
         }).join('')}
       </div>`;
+    animateContent(el);
   }
 
   // MONTHLY GROWTH PDF REPORT COMPILER
@@ -5223,12 +5562,12 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     let goalProgressHTML = '<div style="border: 1px solid #ebebeb; border-radius: 10px; padding: 15px; background: #fafafa; font-size: 12px; color: #888; text-align: center;">Set a long-term goal in the Journal tab and track your progress here over time.</div>';
     if (activeForecastGoal) {
       const currentVal = activeForecastGoal.logs.reduce((sum, log) => sum + log.value, 0);
-      const pct = Math.min(100, Math.round((currentVal / activeForecastGoal.target) * 100));
+      const pct = Math.min(100, Math.round((currentVal / activeForecastGoal.targetValue) * 100));
       
       // Calculate pace
       const daysElapsed = Math.max(1, Math.round((Date.now() - new Date(activeForecastGoal.startDate).getTime()) / (1000 * 60 * 60 * 24)));
       const pace = currentVal / daysElapsed;
-      const remainingTarget = Math.max(0, activeForecastGoal.target - currentVal);
+      const remainingTarget = Math.max(0, activeForecastGoal.targetValue - currentVal);
       const remainingDays = Math.max(1, Math.round((new Date(activeForecastGoal.endDate).getTime() - Date.now()) / (1000 * 60 * 60 * 24)));
       const requiredPace = remainingTarget / remainingDays;
 
@@ -5249,7 +5588,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
             <span class="${badgeClass}" style="font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 3px;">${statusBadge}</span>
           </div>
           <div style="font-size: 11px; color: #333; margin-bottom: 6px;">
-            Progress: <strong>${currentVal.toFixed(1)}</strong> of <strong>${activeForecastGoal.target.toFixed(1)} ${activeForecastGoal.unit}</strong> (${pct}%)
+            Progress: <strong>${currentVal.toFixed(1)}</strong> of <strong>${activeForecastGoal.targetValue.toFixed(1)} ${activeForecastGoal.unit}</strong> (${pct}%)
           </div>
           <div class="progress-bar-outer">
             <div class="progress-bar-inner" style="width: ${pct}%;"></div>
@@ -5377,7 +5716,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     // Open print window
     const printWindow = window.open("", "_blank");
     if (!printWindow) {
-      alert("Popup blocker blocked the report compiling window. Please enable popups for this site and try again.");
+      TooltailsModal.alert("Popup blocker blocked the report compiling window. Please enable popups for this site and try again.");
       return;
     }
 
@@ -5704,9 +6043,79 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     }
     return Math.max(maxStreak, currentStreak);
   }
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js', { scope: '/focus/' }).catch(() => {});
+  }
 </script>
 
 <style>
+  /* ── Universal focus ring for keyboard navigation ── */
+  *:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-canvas), 0 0 0 4px rgba(37, 99, 235, 0.35);
+    border-radius: inherit;
+  }
+
+  /* ── Premium input focus ring ── */
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: rgba(37, 99, 235, 0.35) !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  /* ── Stealth scrollbar for consistent UX ── */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: var(--color-hairline);
+    border-radius: 2px;
+  }
+
+  /* ── Smooth panel transitions ── */
+
+  /* Fade + slight slide up when a panel becomes visible */
+  .panel-enter {
+    animation: panelEnter 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  @keyframes panelEnter {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Icon fade + scale rotation (play/pause, etc.) */
+  .icon-swap {
+    animation: iconSwap 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  @keyframes iconSwap {
+    from { opacity: 0; transform: scale(0.7) rotate(-8deg); }
+    to   { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+
+  /* Subtle pulse for stat number updates */
+  .stat-pulse {
+    animation: statPulse 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @keyframes statPulse {
+    0%   { transform: scale(1); }
+    35%  { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  /* Fade-in for innerHTML‑replaced content inside panels */
+  .content-fade-in {
+    animation: contentFadeIn 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  @keyframes contentFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
   /* Active Focus Glow — subtle depth when session is live */
   .workspace-active-focus {
     transition: all 0.5s ease;
@@ -5732,57 +6141,48 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
       inset 0 1px 2px rgba(0,0,0,0.2);
   }
 
-  /* Progress ring default glow */
+  /* Progress ring — smooth movement + subtle default glow */
   #timer-progress-ring {
-    filter: drop-shadow(0 2px 6px rgba(37, 99, 235, 0.12));
-    transition: filter 0.6s ease, stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 2px 6px rgba(37, 99, 235, 0.1));
+    transition: filter 0.8s ease, stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .timer-active #timer-progress-ring {
-    filter: drop-shadow(0 0 18px rgba(37, 99, 235, 0.3));
+    filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.2));
   }
 
-  /* Progress dot glow */
+  /* Progress dot — follows the arc smoothly */
   #timer-progress-dot {
-    filter: drop-shadow(0 0 6px rgba(37, 99, 235, 0.5));
-    transition: cx 0.7s cubic-bezier(0.4, 0, 0.2, 1), cy 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.4));
+    transition: cx 1.5s cubic-bezier(0.4, 0, 0.2, 1), cy 1.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
   #timer-progress-dot-glow {
-    transition: cx 0.7s cubic-bezier(0.4, 0, 0.2, 1), cy 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: cx 1.5s cubic-bezier(0.4, 0, 0.2, 1), cy 1.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .timer-active #timer-progress-dot {
-    filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.7));
+    filter: drop-shadow(0 0 12px rgba(37, 99, 235, 0.6));
   }
 
-  /* ── Breathing animation for the timer dial ── */
+  /* ── Gentle breathing for the timer dial ── */
   @keyframes breathe {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.018); }
+    50% { transform: scale(1.012); }
   }
   .timer-active .timer-dial-wrapper {
-    animation: breathe 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: breathe 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
 
-  /* ── Glow pulse for active radial glow ── */
+  /* ── Subtle glow pulse (gentle, not flashy) ── */
   @keyframes glowPulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.8; }
+    0%, 100% { opacity: 0.25; }
+    50% { opacity: 0.55; }
   }
   .timer-active #timer-active-glow {
-    animation: glowPulse 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  }
-
-  /* ── Text breathing — subtle countdown pulse ── */
-  @keyframes textBreath {
-    0%, 100% { opacity: 1; letter-spacing: -0.04em; }
-    50% { opacity: 0.88; letter-spacing: -0.02em; }
-  }
-  .timer-running #timer-countdown {
-    animation: textBreath 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: glowPulse 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
 
   /* ── Smooth number transitions on the countdown ── */
   #timer-countdown {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: color 0.3s ease;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-variant-numeric: tabular-nums;
@@ -5818,16 +6218,52 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
 
   /* Card lift on hover — subtle translateY + shadow */
   .card-lift {
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .card-lift:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+    border-color: var(--color-hairline-strong);
   }
   :root[data-theme="dark"] .card-lift:hover {
     box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    border-color: var(--color-hairline-strong);
+  }
+
+  /* ── History row delete btn hover ── */
+  .delete-history-row-btn {
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+  }
+  .delete-history-row-btn:hover {
+    transform: scale(1.15);
+  }
+  .delete-history-row-btn:active {
+    transform: scale(0.92);
+  }
+
+  /* ── Journal entry delete ── */
+  .delete-journal-btn {
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+  }
+  .delete-journal-btn:hover {
+    transform: scale(1.15);
+  }
+  .delete-journal-btn:active {
+    transform: scale(0.92);
+  }
+
+  /* ── Milestone delete ── */
+  .delete-milestone-btn {
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+  }
+  .delete-milestone-btn:hover {
+    transform: scale(1.2);
+    color: var(--color-error);
+  }
+  .delete-milestone-btn:active {
+    transform: scale(0.9);
   }
 
   /* Control icon buttons — subtle scale + shadow on hover */
@@ -6003,10 +6439,10 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
 
   @keyframes containerGlow {
     0%, 100% { box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.08); }
-    50% { box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15), 0 0 30px rgba(37, 99, 235, 0.04); }
+    50% { box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1), 0 0 24px rgba(37, 99, 235, 0.03); }
   }
   .timer-active #timer-container-card {
-    animation: containerGlow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: containerGlow 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
 
   /* ── Staggered entrance for dynamic content ── */
@@ -6049,12 +6485,52 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     box-shadow: 0 4px 16px rgba(0,0,0,0.2);
   }
 
-  /* ── Settings/control group hover ── */
+  /* ── Settings/control group hover with lift ── */
   .settings-card {
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
   }
   .settings-card:hover {
+    transform: translateY(-1px);
     border-color: var(--color-hairline-strong);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+
+  /* ── Preset duration buttons ── */
+  .preset-btn {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .preset-btn:hover {
+    border-color: var(--color-hairline-strong);
+    background-color: var(--color-canvas-soft-2);
+  }
+  .preset-btn:active {
+    transform: scale(0.97);
+  }
+
+  /* ── Sound buttons ── */
+  .sound-btn {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .sound-btn:hover {
+    border-color: var(--color-hairline-strong);
+    background-color: var(--color-canvas-soft-2);
+  }
+  .sound-btn:active {
+    transform: scale(0.97);
+  }
+
+  /* ── Quick‑log preset buttons ── */
+  .quick-log-btn {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .quick-log-btn:hover {
+    border-color: var(--color-link) !important;
+    background-color: color-mix(in srgb, var(--color-link) 5%, transparent);
+  }
+  .quick-log-btn:active {
+    transform: scale(0.97);
   }
 
   /* ── Refined elevation/shadow system ── */
@@ -6081,10 +6557,16 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
   .label-group-heading {
     font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-mute);
-    opacity: 0.55;
+    opacity: 0.6;
+  }
+
+  /* Custom size for control buttons (52px — between 12 and 14) */
+  @media (min-width: 1024px) {
+    .lg\:w-13 { width: 52px; }
+    .lg\:h-13 { height: 52px; }
   }
 
   /* ── Softer card radii consistency ── */
