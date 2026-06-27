@@ -153,6 +153,7 @@ const websiteSchema = {
           <div class="absolute flex flex-col items-center justify-center select-none">
             <span id="timer-display" class="text-5xl md:text-6xl font-extrabold tracking-tighter text-ink tabular-nums leading-none">25:00</span>
             <span id="timer-status-text" class="text-[10px] font-mono text-mute uppercase tracking-[0.2em] mt-2">Focus Time</span>
+            <span id="timer-phase" class="text-[10px] font-medium text-link/70 mt-1.5 opacity-0 transition-all duration-500">One session at a time.</span>
           </div>
         </div>
 
@@ -170,6 +171,14 @@ const websiteSchema = {
           </button>
         </div>
 
+        <!-- Today's Intention -->
+        <div id="intention-card" class="hidden border-t border-hairline pt-4 pb-3 max-w-md mx-auto">
+          <div class="bg-canvas-soft rounded-xl border border-hairline p-3.5">
+            <span class="text-[9px] font-mono text-mute uppercase tracking-wider block mb-1">Today's Intention</span>
+            <p id="intention-text" class="text-sm font-semibold text-ink leading-snug">Finish what matters most.</p>
+          </div>
+        </div>
+
         <!-- Task -->
         <div class="border-t border-hairline pt-4 max-w-md mx-auto">
           <div id="active-task-container" class="hidden flex items-center justify-between p-3 bg-link/5 rounded-xl border border-link/10 animate-in fade-in duration-300">
@@ -183,7 +192,7 @@ const websiteSchema = {
             <button id="btn-complete-task" class="min-h-11 px-3 py-2 text-xs font-semibold text-link hover:text-link-hover cursor-pointer border border-link/20 bg-canvas hover:bg-link/5 rounded-lg shrink-0 ml-2">Done</button>
           </div>
           <div id="task-input-container" class="space-y-2">
-            <Input id="task-input" label="What are you working on?" placeholder="e.g. Study DSA, Write blog post, Read documentation..." />
+            <Input id="task-input" label="What are you working on?" placeholder="What's the one thing you'll finish next?" />
             <div id="recent-tasks-container" class="hidden">
               <span class="text-[10px] text-mute block mb-1 font-medium">Recent tasks:</span>
               <div id="recent-tasks-list" class="flex flex-wrap gap-1.5"></div>
@@ -232,57 +241,85 @@ const websiteSchema = {
         </div>
       </div>
 
-      <!-- RIGHT: STATS DASHBOARD -->
+      <!-- RIGHT: EMOTIONAL DASHBOARD -->
       <div class="space-y-3">
-        <div class="grid grid-cols-2 gap-3">
-          <div class="bg-canvas rounded-2xl border border-hairline/60 card-shadow p-4">
-            <span class="text-[9px] font-mono text-mute uppercase tracking-wider block mb-1">Sessions Today</span>
-            <div class="flex items-baseline gap-1">
-              <span id="stat-sessions" class="text-2xl font-extrabold text-ink tracking-tight">0</span>
-              <span id="stat-goal-total" class="text-xs font-medium text-mute">/ 4</span>
+
+        <!-- Today's Wins -->
+        <div class="bg-canvas rounded-2xl border border-hairline/60 card-shadow p-4">
+          <span class="text-[9px] font-mono text-mute uppercase tracking-wider block mb-3 flex items-center gap-1.5">
+            <svg class="w-3 h-3 text-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Today's Wins
+          </span>
+          <div class="grid grid-cols-3 gap-2">
+            <div class="text-center">
+              <span id="stat-sessions" class="text-xl font-extrabold text-ink tracking-tight block">0</span>
+              <span id="stat-goal-total" class="text-[9px] text-mute">/ <span id="stat-goal-number">4</span> sessions</span>
+            </div>
+            <div class="text-center">
+              <span id="stat-total-time" class="text-xl font-extrabold text-ink tracking-tight block">0</span>
+              <span class="text-[9px] text-mute">min focused</span>
+            </div>
+            <div class="text-center">
+              <span id="stat-focus-score" class="text-xl font-extrabold text-ink tracking-tight block">0</span>
+              <span id="focus-score-label" class="text-[9px] text-mute">pts</span>
             </div>
           </div>
-          <div class="bg-canvas rounded-2xl border border-hairline/60 card-shadow p-4">
-            <span class="text-[9px] font-mono text-mute uppercase tracking-wider block mb-1">Focus Time</span>
-            <div class="flex items-baseline gap-1">
-              <span id="stat-total-time" class="text-2xl font-extrabold text-ink tracking-tight">0</span>
-              <span class="text-xs font-medium text-mute">min</span>
+          <div class="mt-2">
+            <div class="w-full bg-hairline/60 h-1 rounded-full overflow-hidden">
+              <div id="stat-goal-bar" class="bg-link h-full transition-all duration-500 rounded-full" style="width: 0%"></div>
             </div>
-          </div>
-          <div class="bg-canvas rounded-2xl border border-hairline/60 card-shadow p-4">
-            <span class="text-[9px] font-mono text-mute uppercase tracking-wider block mb-1">Current Streak</span>
-            <div class="flex items-baseline gap-1">
-              <span id="stat-streak" class="text-2xl font-extrabold text-ink tracking-tight">0</span>
-              <span class="text-xs font-medium text-mute">days</span>
-            </div>
-          </div>
-          <div class="bg-canvas rounded-2xl border border-hairline/60 card-shadow p-4">
-            <span class="text-[9px] font-mono text-mute uppercase tracking-wider block mb-1">Productivity</span>
-            <div class="flex items-baseline gap-1">
-              <span id="stat-focus-score" class="text-2xl font-extrabold text-ink tracking-tight">0</span>
-              <span class="text-xs font-medium text-mute">pts</span>
-            </div>
-            <span id="focus-score-label" class="text-[9px] font-semibold text-mute block mt-0.5">Getting Started</span>
+            <span id="stat-goal-percentage" class="text-[8px] text-mute mt-0.5 block">0% of daily goal</span>
           </div>
         </div>
 
-        <!-- Goal Progress -->
-        <div class="bg-canvas rounded-2xl border border-hairline/60 card-shadow p-4" id="progress">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[9px] font-mono text-mute uppercase tracking-wider">Goal Progress</span>
-            <span id="stat-goal-percentage" class="text-[9px] font-bold text-link">0%</span>
+        <!-- Momentum -->
+        <div class="bg-canvas rounded-2xl border border-hairline/60 card-shadow p-4">
+          <span class="text-[9px] font-mono text-mute uppercase tracking-wider block mb-3 flex items-center gap-1.5">
+            <svg class="w-3 h-3 text-orange-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+            Momentum
+          </span>
+          <div class="grid grid-cols-3 gap-2">
+            <div class="text-center">
+              <span id="stat-streak" class="text-xl font-extrabold text-ink tracking-tight block">0</span>
+              <span class="text-[9px] text-mute">day streak</span>
+            </div>
+            <div class="text-center">
+              <span id="stat-longest-streak" class="text-xl font-extrabold text-ink tracking-tight block">0</span>
+              <span class="text-[9px] text-mute">best streak</span>
+            </div>
+            <div class="text-center">
+              <span id="weekly-consistency" class="text-xl font-extrabold text-ink tracking-tight block">0%</span>
+              <span class="text-[9px] text-mute">this week</span>
+            </div>
           </div>
-          <div class="w-full bg-hairline h-1.5 rounded-full overflow-hidden mb-2">
-            <div id="stat-goal-bar" class="bg-link h-full transition-all duration-500 rounded-full" style="width: 0%"></div>
+        </div>
+
+        <!-- Focus Journey -->
+        <div class="bg-canvas rounded-2xl border border-hairline/60 card-shadow p-4">
+          <span class="text-[9px] font-mono text-mute uppercase tracking-wider block mb-3 flex items-center gap-1.5">
+            <svg class="w-3 h-3 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+            Focus Journey
+          </span>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="text-center">
+              <span id="total-sessions-all" class="text-xl font-extrabold text-ink tracking-tight block">0</span>
+              <span class="text-[9px] text-mute">total sessions</span>
+            </div>
+            <div class="text-center">
+              <span id="total-hours-all" class="text-xl font-extrabold text-ink tracking-tight block">0</span>
+              <span class="text-[9px] text-mute">hours focused</span>
+            </div>
           </div>
-          <div id="goal-dots-container" class="flex items-center gap-1.5 mb-2"></div>
-          <div class="flex items-center justify-between border-t border-hairline pt-2 text-[9px] font-semibold text-mute">
-            <span class="flex items-center gap-1">
-              <svg class="text-orange-500 fill-orange-500" width="8" height="8" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-              Longest: <span id="stat-longest-streak" class="text-ink font-bold">0</span> days
-            </span>
-            <span class="text-link">Keep going!</span>
-          </div>
+          <div id="milestone-text" class="text-[9px] text-link font-semibold text-center mt-2 hidden"></div>
+        </div>
+
+        <!-- Insights -->
+        <div id="insights-card" class="bg-canvas-soft rounded-2xl border border-hairline/60 card-shadow p-4">
+          <span class="text-[9px] font-mono text-mute uppercase tracking-wider block mb-2 flex items-center gap-1.5">
+            <svg class="w-3 h-3 text-purple-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            Insights
+          </span>
+          <p id="insight-text" class="text-xs text-body leading-relaxed">Complete your first session to unlock personalized insights.</p>
         </div>
 
         <!-- Session History -->
@@ -292,15 +329,18 @@ const websiteSchema = {
             <button id="btn-clear-history" class="hidden min-h-11 px-2 py-1.5 text-[9px] font-bold text-red-600 hover:text-red-500 uppercase tracking-widest cursor-pointer">Clear</button>
           </div>
           <div id="history-empty" class="py-6 px-3 text-center border border-dashed border-hairline rounded-xl bg-canvas-soft">
-            <div class="w-9 h-9 rounded-full bg-canvas-soft-2 border border-hairline mx-auto flex items-center justify-center text-mute mb-2">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <div class="w-8 h-8 rounded-full bg-canvas-soft-2 border border-hairline mx-auto flex items-center justify-center text-mute mb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
-            <p class="text-xs font-semibold text-ink">No completed sessions today</p>
-            <p class="text-[10px] text-mute mt-0.5 mb-3">Complete focus blocks to see your productivity log.</p>
+            <p class="text-xs font-semibold text-ink">Your focus journey starts today</p>
+            <p class="text-[10px] text-mute mt-0.5 mb-3">Every expert starts with a single focused session.</p>
             <a href="#task-input" class="inline-flex items-center gap-1 px-3 py-1.5 text-[10px] font-semibold bg-link text-white rounded-lg hover:bg-link-hover transition-colors">Start your first session</a>
           </div>
           <div id="history-list" class="space-y-1.5 max-h-48 overflow-y-auto hidden pr-0.5"></div>
         </div>
+
+        <!-- Goal Dots -->
+        <div id="goal-dots-container" class="hidden flex items-center gap-1.5 flex-wrap"></div>
       </div>
 
     </div>
@@ -512,6 +552,15 @@ const websiteSchema = {
   const dashScore = document.getElementById('dash-score');
   const dashCompletion = document.getElementById('dash-completion');
   const dashBestStreak = document.getElementById('dash-best-streak');
+  const timerPhase = document.getElementById('timer-phase');
+  const intentionCard = document.getElementById('intention-card');
+  const intentionText = document.getElementById('intention-text');
+  const statGoalNumber = document.getElementById('stat-goal-number');
+  const weeklyConsistency = document.getElementById('weekly-consistency');
+  const totalSessionsAll = document.getElementById('total-sessions-all');
+  const totalHoursAll = document.getElementById('total-hours-all');
+  const milestoneText = document.getElementById('milestone-text');
+  const insightText = document.getElementById('insight-text');
 
   const getTodayString = () => {
     const d = new Date();
@@ -562,6 +611,106 @@ const websiteSchema = {
         console.error('Desktop notification failed:', err);
       }
     }
+  };
+
+  const PHASES = [
+    { threshold: 0.8, message: 'Just starting. Breathe.', emoji: '🌱' },
+    { threshold: 0.6, message: 'First sparks — you\'ve got this.', emoji: '✨' },
+    { threshold: 0.4, message: 'Building momentum. Stay with it.', emoji: '🔥' },
+    { threshold: 0.2, message: 'Halfway there. Keep pushing.', emoji: '💪' },
+    { threshold: 0.01, message: 'Final stretch — finish strong!', emoji: '🚀' },
+  ];
+
+  const updatePhase = (progress: number) => {
+    if (!timerPhase) return;
+    const phase = PHASES.find(p => progress >= p.threshold) || PHASES[PHASES.length - 1];
+    const completed = progress <= 0.01;
+    timerPhase.textContent = completed ? 'Session complete — well done!' : `${phase.emoji} ${phase.message}`;
+    timerPhase.className = `text-[10px] font-medium mt-1.5 transition-all duration-500 ${
+      completed ? 'text-green-500 font-semibold' : 'text-link/70'
+    }`;
+    if (timerPhase.classList.contains('opacity-0')) {
+      timerPhase.classList.remove('opacity-0');
+    }
+  };
+
+  const updateIntentionCard = () => {
+    if (!intentionCard || !intentionText) return;
+    const task = taskInput ? taskInput.value.trim() : '';
+    if (task) {
+      intentionText.textContent = task;
+      intentionCard.classList.remove('hidden');
+    } else {
+      intentionText.textContent = 'Set a focus intention for this session';
+      intentionCard.classList.remove('hidden');
+    }
+  };
+
+  const calculateWeeklyConsistency = () => {
+    const historyJson = localStorage.getItem('pomodoro_history') || '[]';
+    let history = [];
+    try { history = JSON.parse(historyJson); } catch (e) { history = []; }
+    const now = new Date();
+    const dayOfWeek = now.getDay();
+    const mondayOffset = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    const monday = new Date(now);
+    monday.setDate(now.getDate() - mondayOffset);
+    monday.setHours(0, 0, 0, 0);
+    const daysWithSessions = new Set<string>();
+    history.forEach((s: any) => {
+      const sessionDate = new Date(s.date + ' ' + (s.time || ''));
+      if (sessionDate >= monday && sessionDate <= now) {
+        daysWithSessions.add(sessionDate.toDateString());
+      }
+    });
+    const daysElapsed = Math.max(1, dayOfWeek === 0 ? 7 : dayOfWeek);
+    const ratio = Math.min(1, daysWithSessions.size / daysElapsed);
+    return Math.round(ratio * 100);
+  };
+
+  const getMilestoneCount = () => {
+    const total = parseInt(localStorage.getItem('pomodoro_total_sessions') || '0');
+    return Math.floor(total / 10);
+  };
+
+  const updateFocusJourney = () => {
+    const total = parseInt(localStorage.getItem('pomodoro_total_sessions') || '0');
+    const totalMins = parseInt(localStorage.getItem('pomodoro_total_minutes') || '0');
+    const hours = Math.round(totalMins / 60);
+    if (totalSessionsAll) totalSessionsAll.textContent = total.toString();
+    if (totalHoursAll) totalHoursAll.textContent = hours.toString();
+    const milestones = getMilestoneCount();
+    if (milestoneText) {
+      if (milestones > 0) {
+        milestoneText.classList.remove('hidden');
+        const msgs = [
+          `${milestones * 10} sessions — building a habit.`,
+          `${milestones * 10} sessions — you're showing up.`,
+          `${milestones * 10} sessions — consistency creates mastery.`,
+        ];
+        milestoneText.textContent = msgs[(milestones - 1) % msgs.length];
+      } else {
+        milestoneText.classList.add('hidden');
+      }
+    }
+  };
+
+  const generateInsight = () => {
+    if (!insightText) return;
+    const total = parseInt(localStorage.getItem('pomodoro_total_sessions') || '0');
+    if (total === 0) {
+      insightText.textContent = 'Complete your first session to unlock personalized insights.';
+      return;
+    }
+    const streak = parseInt(localStorage.getItem('pomodoro_streak_current') || '0');
+    const consistency = calculateWeeklyConsistency();
+    const insights: string[] = [];
+    if (streak >= 7) insights.push(`You're on a ${streak}-day streak! Consistency is your superpower.`);
+    else if (streak >= 3) insights.push(`${streak}-day streak — you're building momentum. Keep it going!`);
+    else if (total >= 1) insights.push(`You've completed ${total} session${total > 1 ? 's' : ''}. Every expert starts somewhere.`);
+    if (consistency >= 80) insights.push(`This week: ${consistency}% consistency — outstanding work.`);
+    else if (consistency >= 50) insights.push(`This week: ${consistency}% consistency. Showing up is half the battle.`);
+    insightText.textContent = insights.length > 0 ? insights.join(' ') : 'Keep showing up — your insights will grow with you.';
   };
 
   const getModeDurationSeconds = (mode: 'pomodoro' | 'short' | 'long') => {
@@ -653,6 +802,7 @@ const websiteSchema = {
 
     if (statSessions) statSessions.textContent = sessions.toString();
     if (statGoalTotal) statGoalTotal.textContent = `/ ${goal}`;
+    if (statGoalNumber) statGoalNumber.textContent = goal.toString();
     if (statStreak) statStreak.textContent = streak.toString();
     if (statLongestStreak) statLongestStreak.textContent = longest.toString();
     if (statTotalTime) statTotalTime.textContent = minutes.toLocaleString();
@@ -694,6 +844,10 @@ const websiteSchema = {
       focusScoreLabel.textContent = label;
       focusScoreLabel.className = `text-[9px] font-semibold block mt-0.5 ${labelColor}`;
     }
+    if (weeklyConsistency) weeklyConsistency.textContent = `${calculateWeeklyConsistency()}%`;
+    updateFocusJourney();
+    generateInsight();
+    updateIntentionCard();
   };
 
   const saveSessionToHistory = (taskName: string, minutes: number, mode: 'pomodoro' | 'short' | 'long') => {
@@ -840,9 +994,17 @@ const websiteSchema = {
         taskInputContainer?.classList.add('hidden');
         activeTaskContainer?.classList.remove('hidden');
       }
+      updateIntentionCard();
     }
     timerInterval = window.setInterval(() => {
-      if (timeLeft > 0) { timeLeft--; updateTimerDisplay(); }
+      if (timeLeft > 0) {
+        timeLeft--;
+        updateTimerDisplay();
+        if (currentMode === 'pomodoro') {
+          const progress = timeLeft / totalDuration;
+          updatePhase(progress);
+        }
+      }
       else { handleTimerCompletion(); }
     }, 1000);
   };
@@ -881,6 +1043,12 @@ const websiteSchema = {
       if (currentMode === 'pomodoro') {
         incrementDailyStats('pomodoro', durationMins);
         saveSessionToHistory(currentTask, durationMins, 'pomodoro');
+        const totalSessions = parseInt(localStorage.getItem('pomodoro_total_sessions') || '0') + 1;
+        const totalMinutes = parseInt(localStorage.getItem('pomodoro_total_minutes') || '0') + durationMins;
+        localStorage.setItem('pomodoro_total_sessions', totalSessions.toString());
+        localStorage.setItem('pomodoro_total_minutes', totalMinutes.toString());
+        updateFocusJourney();
+        generateInsight();
         triggerNotification("Focus Session Completed!", `Great job! Your ${durationMins}-minute focus session is complete.`);
       } else {
         incrementDailyStats(currentMode, durationMins);
@@ -969,6 +1137,7 @@ const websiteSchema = {
     else localStorage.setItem('pomodoro_notifications_enabled', 'false');
   });
   toggleAutostart?.addEventListener('change', () => { localStorage.setItem('pomodoro_autostart_enabled', String(toggleAutostart.checked)); });
+  taskInput?.addEventListener('input', updateIntentionCard);
   window.addEventListener('keydown', (e) => {
     if (e.code === 'Space' && document.activeElement !== taskInput && document.activeElement?.tagName !== 'INPUT') {
       e.preventDefault();
@@ -989,6 +1158,10 @@ const websiteSchema = {
     updateAnalytics();
     updateHistoryUI();
     updateRecentTasksUI();
+    updateFocusJourney();
+    generateInsight();
+    updateIntentionCard();
+    if (weeklyConsistency) weeklyConsistency.textContent = `${calculateWeeklyConsistency()}%`;
   };
   initApp();
 </script>
