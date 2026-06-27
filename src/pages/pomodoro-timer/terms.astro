@@ -1,5 +1,6 @@
 ---
-import LegalLayout from "../../components/legal/LegalLayout.astro";
+import Layout from "../../layouts/Layout.astro";
+import PomodoroHeader from "../../components/pomodoro/PomodoroHeader.astro";
 
 const sections = [
   { id: "acceptance", title: "Acceptance" },
@@ -11,130 +12,220 @@ const sections = [
   { id: "changes", title: "Changes" },
   { id: "contact", title: "Contact" },
 ];
+
+const summaryItems = [
+  { text: "Free to use for everyone, no registration needed" },
+  { text: "Use the tool responsibly" },
+  { text: "Your session data stays on your device" },
+  { text: "No warranties - the timer is provided as-is" },
+  { text: "Service may evolve with new features" },
+];
+
+const faqItems = [
+  { question: "Do I need to pay for the Pomodoro Timer?", answer: "No. All features including session tracking, streaks, custom durations, and analytics are completely free. No payment or account required." },
+  { question: "Can you see my session history?", answer: "No. All session data is stored in your browser's localStorage and never transmitted to our servers." },
+  { question: "What if I lose my streak data?", answer: "Since data is stored locally, clearing your browser cache or switching devices will reset your history. We recommend not relying on the timer for critical record-keeping." },
+  { question: "Can I use the timer for work?", answer: "Yes. The Pomodoro Timer is free for personal and professional use. We do not offer commercial licenses or enterprise features." },
+  { question: "Does the timer work offline?", answer: "Yes. After the initial page load, all timer functionality works without an internet connection." },
+];
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Terms of Service - Tooltails Pomodoro",
+  description: "The terms for using Tooltails Pomodoro Timer. Free, local, and transparent.",
+  url: Astro.url.origin + "/pomodoro-timer/terms",
+  mainEntityOfPage: { "@type": "WebPage", "@id": Astro.url.origin + "/pomodoro-timer/terms" },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com" },
+    { "@type": "ListItem", "position": 2, "name": "Pomodoro Timer", "item": "https://tooltails.com/pomodoro-timer" },
+    { "@type": "ListItem", "position": 3, "name": "Terms", "item": "https://tooltails.com/pomodoro-timer/terms" },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: { "@type": "Answer", text: faq.answer },
+  })),
+};
 ---
 
-<LegalLayout
-  type="terms"
-  siteTitle="Tooltails Pomodoro"
-  pageTitle="Terms of Service"
-  pageDescription="The terms for using Tooltails Pomodoro Timer. Free, local, and transparent."
-  lastUpdated="June 27, 2026"
-  {sections}
-  summaryItems={[
-    { text: "Free to use for everyone, no registration needed" },
-    { text: "Use the tool responsibly" },
-    { text: "Your session data stays on your device" },
-    { text: "No warranties - the timer is provided as-is" },
-    { text: "Service may evolve with new features" },
-  ]}
-  faqItems={[
-    { question: "Do I need to pay for the Pomodoro Timer?", answer: "No. All features including session tracking, streaks, custom durations, and analytics are completely free. No payment or account required." },
-    { question: "Can you see my session history?", answer: "No. All session data is stored in your browser's localStorage and never transmitted to our servers." },
-    { question: "What if I lose my streak data?", answer: "Since data is stored locally, clearing your browser cache or switching devices will reset your history. We recommend not relying on the timer for critical record-keeping." },
-    { question: "Can I use the timer for work?", answer: "Yes. The Pomodoro Timer is free for personal and professional use. We do not offer commercial licenses or enterprise features." },
-    { question: "Does the timer work offline?", answer: "Yes. After the initial page load, all timer functionality works without an internet connection." },
-  ]}
-  productName="Tooltails Pomodoro"
-  productUrl="/pomodoro-timer"
-  backPath="/pomodoro-timer"
-  breadcrumbItems={[
-    { name: "Tooltails", item: "https://tooltails.com" },
-    { name: "Pomodoro Timer", item: "https://tooltails.com/pomodoro-timer" },
-    { name: "Terms", item: "https://tooltails.com/pomodoro-timer/terms" },
-  ]}
+<Layout
+  title="Terms of Service - Tooltails Pomodoro"
+  description="The terms for using Tooltails Pomodoro Timer. Free, local, and transparent."
 >
-  <div class="space-y-10 divide-y divide-hairline/50">
-    <section id="acceptance" class="pt-0">
-      <p class="text-body leading-relaxed">
-        By using Tooltails Pomodoro Timer, you agree to these terms. If you do not agree, please do not use the tool. These terms supplement the main Tooltails Terms of Service.
-      </p>
-    </section>
+  <PomodoroHeader />
 
-    <section id="use-of-services" class="pt-10">
-      <h2 class="text-xl font-bold text-ink mb-4">Use of Services</h2>
-      <p class="text-body leading-relaxed mb-4">
-        Tooltails Pomodoro Timer is a free productivity tool for time management. You agree to use it responsibly:
-      </p>
-      <ul class="space-y-2 text-body">
-        <li class="flex items-start gap-2">
-          <span class="text-link mt-0.5">-</span>
-          <span>Do not use the timer for any unlawful purpose.</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-link mt-0.5">-</span>
-          <span>Do not attempt to exploit, reverse engineer, or disrupt the application.</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-link mt-0.5">-</span>
-          <span>Do not use the timer to store or transmit harmful content.</span>
-        </li>
-      </ul>
-    </section>
-
-    <section id="local-data" class="pt-10">
-      <h2 class="text-xl font-bold text-ink mb-4">Local Data</h2>
-      <p class="text-body leading-relaxed">
-        The Pomodoro Timer stores all user data in your browser's localStorage. This includes session history, streaks, preferences, and task history. Because this data never reaches our servers, we cannot:
-      </p>
-      <ul class="space-y-2 text-body mt-4">
-        <li class="flex items-start gap-2">
-          <span class="text-link mt-0.5">-</span>
-          <span>Access or view your session history</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-link mt-0.5">-</span>
-          <span>Back up or restore your data</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-link mt-0.5">-</span>
-          <span>Recover data lost due to browser clearing or device changes</span>
-        </li>
-      </ul>
-      <p class="text-body leading-relaxed mt-4">
-        You acknowledge these limitations by using the tool.
-      </p>
-    </section>
-
-    <section id="intellectual-property" class="pt-10">
-      <h2 class="text-xl font-bold text-ink mb-4">Intellectual Property</h2>
-      <p class="text-body leading-relaxed">
-        The Pomodoro Timer application, including its design, code, and branding, is owned by Tooltails. You may not copy, modify, or redistribute the application without permission.
-      </p>
-      <p class="text-body leading-relaxed mt-4">
-        The tasks and session data you generate within the application belong to you.
-      </p>
-    </section>
-
-    <section id="disclaimers" class="pt-10">
-      <h2 class="text-xl font-bold text-ink mb-4">Disclaimers</h2>
-      <div class="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/30 rounded-xl p-5">
-        <p class="text-sm text-amber-800 dark:text-amber-200 leading-relaxed">
-          Tooltails Pomodoro Timer is provided "as is" and "as available." We do not warrant that the timer will be uninterrupted, error-free, or meet your productivity expectations.
-        </p>
+  <div class="min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
+      <div class="mb-8">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-link/10 text-link mb-3">Terms of Service</span>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-ink mb-3">Terms of Service</h1>
+        <p class="text-base md:text-lg text-body max-w-2xl leading-relaxed">The terms for using Tooltails Pomodoro Timer. Free, local, and transparent.</p>
+        <div class="flex items-center gap-3 mt-3 text-xs sm:text-sm text-mute">
+          <span>Last updated: June 27, 2026</span>
+          <span class="w-1 h-1 rounded-full bg-hairline" aria-hidden="true"></span>
+          <span>3 min read</span>
+        </div>
       </div>
-    </section>
 
-    <section id="limitation-of-liability" class="pt-10">
-      <h2 class="text-xl font-bold text-ink mb-4">Limitation of Liability</h2>
-      <div class="bg-canvas-soft rounded-xl border border-hairline p-5">
-        <p class="text-sm text-body leading-relaxed">
-          Tooltails shall not be liable for any damages arising from your use of the Pomodoro Timer, including data loss, lost productivity, or missed deadlines resulting from browser behavior, device failure, or application downtime.
-        </p>
+      <div class="bg-canvas rounded-2xl border border-hairline card-shadow p-6 md:p-8 mb-10 md:mb-12">
+        <h2 class="text-sm font-semibold text-mute uppercase tracking-wider mb-4">Terms at a glance</h2>
+        <ul class="space-y-3">
+          {summaryItems.map((item) => (
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-link shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              <span class="text-sm sm:text-base text-body">{item.text}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-    </section>
 
-    <section id="changes" class="pt-10">
-      <h2 class="text-xl font-bold text-ink mb-4">Changes</h2>
-      <p class="text-body leading-relaxed">
-        We may update these terms as the Pomodoro Timer evolves. Changes take effect immediately upon posting. Continued use after updates constitutes acceptance of the revised terms.
-      </p>
-    </section>
+      <div class="lg:grid lg:grid-cols-[220px_1fr] lg:gap-10 xl:gap-16">
+        <nav class="lg:sticky lg:top-24 lg:self-start lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto mb-6 lg:mb-0" aria-label="Section navigation">
+          <h3 class="text-xs font-semibold text-mute uppercase tracking-wider mb-3 hidden lg:block">On this page</h3>
+          <div class="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0 -mx-4 px-4 lg:mx-0 lg:px-0 scrollbar-none">
+            {sections.map((s) => (
+              <a href={"#" + s.id} class="toc-link text-sm text-body/70 hover:text-link whitespace-nowrap lg:whitespace-normal py-1.5 px-2.5 lg:px-3 rounded-lg transition-colors hover:bg-link/5 shrink-0">{s.title}</a>
+            ))}
+          </div>
+        </nav>
 
-    <section id="contact" class="pt-10">
-      <h2 class="text-xl font-bold text-ink mb-4">Contact</h2>
-      <p class="text-body leading-relaxed">
-        Questions about these terms? Reach out through our <a href="/pomodoro-timer/contact" class="text-link hover:text-link-hover underline underline-offset-2">contact page</a>.
-      </p>
-    </section>
+        <div class="min-w-0">
+          <div class="space-y-10 divide-y divide-hairline/50">
+            <section id="acceptance" class="pt-0">
+              <p class="text-body leading-relaxed">By using Tooltails Pomodoro Timer, you agree to these terms. If you do not agree, please do not use the tool. These terms supplement the main Tooltails Terms of Service.</p>
+            </section>
+            <section id="use-of-services" class="pt-10">
+              <h2 class="text-xl font-bold text-ink mb-4">Use of Services</h2>
+              <p class="text-body leading-relaxed mb-4">Tooltails Pomodoro Timer is a free productivity tool for time management. You agree to use it responsibly:</p>
+              <ul class="space-y-2 text-body">
+                <li class="flex items-start gap-2"><span class="text-link mt-0.5">-</span><span>Do not use the timer for any unlawful purpose.</span></li>
+                <li class="flex items-start gap-2"><span class="text-link mt-0.5">-</span><span>Do not attempt to exploit, reverse engineer, or disrupt the application.</span></li>
+                <li class="flex items-start gap-2"><span class="text-link mt-0.5">-</span><span>Do not use the timer to store or transmit harmful content.</span></li>
+              </ul>
+            </section>
+            <section id="local-data" class="pt-10">
+              <h2 class="text-xl font-bold text-ink mb-4">Local Data</h2>
+              <p class="text-body leading-relaxed">The Pomodoro Timer stores all user data in your browser's localStorage. This includes session history, streaks, preferences, and task history. Because this data never reaches our servers, we cannot:</p>
+              <ul class="space-y-2 text-body mt-4">
+                <li class="flex items-start gap-2"><span class="text-link mt-0.5">-</span><span>Access or view your session history</span></li>
+                <li class="flex items-start gap-2"><span class="text-link mt-0.5">-</span><span>Back up or restore your data</span></li>
+                <li class="flex items-start gap-2"><span class="text-link mt-0.5">-</span><span>Recover data lost due to browser clearing or device changes</span></li>
+              </ul>
+              <p class="text-body leading-relaxed mt-4">You acknowledge these limitations by using the tool.</p>
+            </section>
+            <section id="intellectual-property" class="pt-10">
+              <h2 class="text-xl font-bold text-ink mb-4">Intellectual Property</h2>
+              <p class="text-body leading-relaxed">The Pomodoro Timer application, including its design, code, and branding, is owned by Tooltails. You may not copy, modify, or redistribute the application without permission.</p>
+              <p class="text-body leading-relaxed mt-4">The tasks and session data you generate within the application belong to you.</p>
+            </section>
+            <section id="disclaimers" class="pt-10">
+              <h2 class="text-xl font-bold text-ink mb-4">Disclaimers</h2>
+              <div class="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/30 rounded-xl p-5">
+                <p class="text-sm text-amber-800 dark:text-amber-200 leading-relaxed">Tooltails Pomodoro Timer is provided "as is" and "as available." We do not warrant that the timer will be uninterrupted, error-free, or meet your productivity expectations.</p>
+              </div>
+            </section>
+            <section id="limitation-of-liability" class="pt-10">
+              <h2 class="text-xl font-bold text-ink mb-4">Limitation of Liability</h2>
+              <div class="bg-canvas-soft rounded-xl border border-hairline p-5">
+                <p class="text-sm text-body leading-relaxed">Tooltails shall not be liable for any damages arising from your use of the Pomodoro Timer, including data loss, lost productivity, or missed deadlines resulting from browser behavior, device failure, or application downtime.</p>
+              </div>
+            </section>
+            <section id="changes" class="pt-10">
+              <h2 class="text-xl font-bold text-ink mb-4">Changes</h2>
+              <p class="text-body leading-relaxed">We may update these terms as the Pomodoro Timer evolves. Changes take effect immediately upon posting. Continued use after updates constitutes acceptance of the revised terms.</p>
+            </section>
+            <section id="contact" class="pt-10">
+              <h2 class="text-xl font-bold text-ink mb-4">Contact</h2>
+              <p class="text-body leading-relaxed">Questions about these terms? Reach out through our <a href="/pomodoro-timer/contact" class="text-link hover:text-link-hover underline underline-offset-2">contact page</a>.</p>
+            </section>
+          </div>
+
+          <!-- FAQ -->
+          <div class="mt-16 pt-12 border-t border-hairline" id="faq">
+            <h2 class="text-2xl font-bold text-ink mb-8">Frequently asked questions</h2>
+            <div class="space-y-3">
+              {faqItems.map((faq) => (
+                <details class="group bg-canvas rounded-xl border border-hairline card-shadow overflow-hidden">
+                  <summary class="flex items-center justify-between gap-4 px-5 py-4 cursor-pointer text-sm font-medium text-ink hover:text-link transition-colors list-none">
+                    {faq.question}
+                    <svg class="w-4 h-4 text-mute shrink-0 transition-transform duration-200 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+                  </summary>
+                  <div class="px-5 pb-4 pt-0"><p class="text-sm text-body leading-relaxed">{faq.answer}</p></div>
+                </details>
+              ))}
+            </div>
+          </div>
+
+          <!-- Contact Card -->
+          <div class="mt-10 bg-canvas rounded-2xl border border-hairline card-shadow p-6 md:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-sm font-semibold text-ink mb-1">Still have questions?</h3>
+              <p class="text-sm text-mute">We are happy to help. Reach out to our team.</p>
+            </div>
+            <a href="/pomodoro-timer/contact" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-link text-white text-sm font-medium hover:bg-link-hover transition-colors shrink-0">
+              Contact us
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+            </a>
+          </div>
+
+          <div class="mt-8">
+            <a href="/pomodoro-timer" class="inline-flex items-center gap-1.5 text-sm text-link hover:text-link-hover transition-colors font-medium">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
+              Back to Pomodoro Timer
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</LegalLayout>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(webPageSchema)} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+
+  <script is:inline>
+    (function() {
+      var links = document.querySelectorAll('.toc-link');
+      var sections = [];
+      links.forEach(function(link) {
+        var id = link.getAttribute('href').slice(1);
+        var el = document.getElementById(id);
+        if (el) sections.push({ el: el, link: link });
+      });
+      links.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          var target = document.getElementById(this.getAttribute('href').slice(1));
+          if (target) {
+            e.preventDefault();
+            var top = target.getBoundingClientRect().top + window.scrollY - 100;
+            window.scrollTo({ top: top, behavior: 'smooth' });
+            history.pushState(null, '', this.getAttribute('href'));
+          }
+        });
+      });
+      if (sections.length > 0 && 'IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              links.forEach(function(l) { l.classList.remove('text-link', 'bg-link/10'); l.classList.add('text-body/70'); });
+              var activeLink = document.querySelector('.toc-link[href="#' + entry.target.id + '"]');
+              if (activeLink) { activeLink.classList.remove('text-body/70'); activeLink.classList.add('text-link', 'bg-link/10'); }
+            }
+          });
+        }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+        sections.forEach(function(s) { observer.observe(s.el); });
+      }
+    })();
+  </script>
+</Layout>

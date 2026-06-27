@@ -1,0 +1,43 @@
+---
+const pathname = Astro.url.pathname;
+
+const links = [
+  { href: "/pomodoro-timer", label: "Timer" },
+  { href: "/pomodoro-timer#progress", label: "Progress" },
+  { href: "/pomodoro-timer/blog", label: "Blog" },
+  { href: "/pomodoro-timer/contact", label: "Contact" },
+  { href: "/pomodoro-timer/privacy", label: "Privacy" },
+  { href: "/pomodoro-timer/terms", label: "Terms" },
+];
+---
+
+<nav aria-label="Pomodoro Timer navigation" class="w-full border-b border-hairline bg-canvas/80 backdrop-blur-md sticky top-0 z-40">
+  <div class="max-w-[1600px] mx-auto px-4 sm:px-6 flex items-center justify-between h-12">
+    <a href="/pomodoro-timer" class="flex items-center gap-2 text-sm font-bold text-ink hover:text-link transition-colors shrink-0">
+      <svg class="w-4 h-4 text-link shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+      Pomodoro
+    </a>
+    <div class="flex items-center gap-0.5 overflow-x-auto scrollbar-none -mr-2 pr-2">
+      {links.map((link) => {
+        const isActive = pathname === link.href || (link.href !== "/pomodoro-timer" && link.href !== "/pomodoro-timer#progress" && pathname.startsWith(link.href)) || (link.href === "/pomodoro-timer" && pathname === "/pomodoro-timer");
+        const isExact = link.href === "/pomodoro-timer" || link.href.startsWith("#");
+        const isActiveLink = isExact ? pathname === link.href : pathname.startsWith(link.href);
+        return (
+          <a
+            href={link.href}
+            class={`whitespace-nowrap px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold rounded-full transition-colors ${
+              isActiveLink
+                ? "bg-link/10 text-link"
+                : "text-body/70 hover:text-ink hover:bg-canvas-soft"
+            }`}
+          >
+            {link.label}
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</nav>
