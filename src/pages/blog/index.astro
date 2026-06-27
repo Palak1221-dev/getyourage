@@ -59,15 +59,4 @@ const breadcrumbSchema = {
   </div>
   <script type="application/ld+json" is:inline set:html={JSON.stringify(collectionSchema)} />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Blog - Tooltails.com",
-    "description": "Insights, tips, and fun facts about age, time, and life milestones.",
-    "url": Astro.url.origin + "/blog",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": Astro.url.origin + "/blog"
-    }
-  })} />
 </Layout>

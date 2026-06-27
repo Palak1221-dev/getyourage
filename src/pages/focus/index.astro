@@ -81,7 +81,7 @@ const appSchema = {
           Focus
         </h1>
         <div class="flex items-center gap-2">
-          <div class="flex items-center gap-1.5 bg-canvas-soft-2/80 rounded-full p-0.5">
+          <div role="tablist" class="flex items-center gap-1.5 bg-canvas-soft-2/80 rounded-full p-0.5">
         <button id="tab-btn-workspace" role="tab" aria-selected="true" aria-controls="tab-workspace" class="tab-btn px-4 py-2 sm:py-1.5 min-h-[44px] text-sm font-semibold rounded-full bg-canvas text-ink shadow-sm focus-visible:outline-none transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('workspace')" aria-label="Open workspace tab">
           Timer
         </button>
@@ -321,7 +321,7 @@ const appSchema = {
               </button>
 
               <!-- Primary CTA: Play / Pause -->
-              <button type="button" id="play-pause-btn" aria-pressed="false" class="btn-primary px-8 h-11 bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 hover:shadow-lg hover:shadow-link/20 active:scale-[0.97] text-sm font-bold rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-2.5 justify-center min-w-[140px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/50">
+              <button type="button" id="play-pause-btn" aria-pressed="false" aria-label="Start focus session" class="btn-primary px-8 h-11 bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 hover:shadow-lg hover:shadow-link/20 active:scale-[0.97] text-sm font-bold rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-2.5 justify-center min-w-[140px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/50">
                 <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="hidden" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
                 <span id="play-btn-text">I'm ready</span>
@@ -643,9 +643,7 @@ const appSchema = {
               <p class="text-xs text-mute/60 mt-0.5">Details of your completed focus sessions</p>
             </div>
             <div class="flex items-center gap-2">
-              <button type="button" id="seed-mock-btn" class="px-3 py-2.5 min-h-[44px] border border-dashed border-hairline/60 rounded-xl text-xs font-bold text-body hover:text-ink cursor-pointer hover:bg-canvas-soft hover:border-hairline-strong/40 active:scale-[0.97] transition-all">
-                Pre-seed Demo Data
-              </button>
+
               <button type="button" id="clear-history-btn" class="px-3 py-2.5 min-h-[44px] border border-error/15 rounded-xl text-xs font-bold text-error hover:bg-error/5 active:scale-[0.97] cursor-pointer transition-all">
                 Wipe History
               </button>
@@ -1327,7 +1325,7 @@ const appSchema = {
   </div>
 
   <!-- CELEBRATION SUMMARY OVERLAY (shown after completing a session) -->
-  <div id="celebration-overlay" class="fixed inset-0 bg-canvas/80 backdrop-blur-sm z-[9999] hidden flex items-center justify-center p-4">
+  <div id="celebration-overlay" role="dialog" aria-modal="true" aria-labelledby="celebration-heading" class="fixed inset-0 bg-canvas/80 backdrop-blur-sm z-[9999] hidden flex items-center justify-center p-4">
     <div class="w-full max-w-sm bg-canvas border border-hairline/40 rounded-2xl shadow-elevated overflow-hidden animate-in fade-in zoom-in-95 duration-200 text-center">
       <div class="pt-8 pb-2 px-6">
         <div id="celebration-emoji" class="text-5xl mb-3 select-none">😕</div>
@@ -1409,10 +1407,10 @@ const appSchema = {
       <button id="immersive-sound-btn"><span id="immersive-sound-status">Off</span></button>
     </div>
   <!-- Keyboard Shortcuts Dialog Modal -->
-  <dialog id="shortcuts-dialog" class="backdrop:bg-black/40 backdrop:backdrop-blur-sm bg-canvas border border-hairline p-6 rounded-2xl shadow-2xl max-w-sm w-full focus:outline-none select-none text-left">
+  <dialog id="shortcuts-dialog" aria-labelledby="shortcuts-heading" class="backdrop:bg-black/40 backdrop:backdrop-blur-sm bg-canvas border border-hairline p-6 rounded-2xl shadow-2xl max-w-sm w-full focus-visible:outline-none select-none text-left">
     <div class="flex items-center justify-between border-b border-hairline pb-3 mb-4">
-      <h3 class="text-sm font-bold text-ink">Keyboard Shortcuts</h3>
-      <button onclick="document.getElementById('shortcuts-dialog').close()" class="p-2 text-mute hover:text-ink transition-colors cursor-pointer focus:outline-none" aria-label="Close shortcuts dialog">
+      <h3 id="shortcuts-heading" class="text-sm font-bold text-ink">Keyboard Shortcuts</h3>
+      <button onclick="document.getElementById('shortcuts-dialog').close()" class="p-2 text-mute hover:text-ink transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/40 rounded-lg" aria-label="Close shortcuts dialog">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
@@ -2873,6 +2871,7 @@ const appSchema = {
       const failedReason = outcome !== 'Completed' ? failedSelect.value : undefined;
       const spent = timerDurationSeconds - timerRemainingSeconds;
 
+      if (typeof gtag !== 'undefined') gtag('event', 'outcome_logged', { outcome });
       // Add entry to history
       const newSession: FocusSession = {
         id: Math.random().toString(36).substr(2, 9),
@@ -3071,11 +3070,7 @@ const appSchema = {
     recText.innerHTML = recommendation;
     panel.classList.remove('hidden');
 
-    // Update Pro advisory tab values
-    const proDiag = document.getElementById('pro-recovery-diagnostic');
-    const proRec = document.getElementById('pro-recovery-recommendation');
-    if (proDiag) proDiag.textContent = `${outcome} outcome: caused by ${reason}`;
-    if (proRec) proRec.innerHTML = recommendation;
+
   }
 
   // WEB AUDIO ambient noise system
@@ -4436,6 +4431,7 @@ const appSchema = {
         
         saveForecastGoal();
         renderForecastEngine();
+        if (typeof gtag !== 'undefined') gtag('event', 'forecast_goal_created', { title, targetValue: target, unit });
       });
       return;
     }
@@ -4890,6 +4886,7 @@ const appSchema = {
       activeForecastGoal.logs.unshift(newLog);
       saveForecastGoal();
       renderForecastEngine();
+      if (typeof gtag !== 'undefined') gtag('event', 'forecast_progress_logged', { value: val });
     });
 
     // Hook up quick log buttons
@@ -5487,6 +5484,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
       if (content) {
         saveReflection(content);
         textarea.value = '';
+        if (typeof gtag !== 'undefined') gtag('event', 'reflection_saved');
       }
     });
   }
@@ -6192,7 +6190,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
               <div class="stat-value">${longestStreak} days</div>
             </div>
             <div class="stat-card">
-              <div class="stat-label">Total Sprints Run</div>
+              <div class="stat-label">Total Sessions Run</div>
               <div class="stat-value">${monthlySessions.length}</div>
             </div>
           </div>
