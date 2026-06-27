@@ -1,58 +1,166 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import LegalLayout from "../../components/legal/LegalLayout.astro";
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com" },
-    { "@type": "ListItem", "position": 2, "name": "Pomodoro Timer", "item": "https://tooltails.com/pomodoro-timer" },
-    { "@type": "ListItem", "position": 3, "name": "Privacy", "item": "https://tooltails.com/pomodoro-timer/privacy" }
-  ]
-};
+const sections = [
+  { id: "overview", title: "Overview" },
+  { id: "information-we-collect", title: "Information We Collect" },
+  { id: "how-we-use", title: "How We Use Information" },
+  { id: "analytics-cookies", title: "Analytics & Cookies" },
+  { id: "data-storage", title: "Data Storage" },
+  { id: "third-party", title: "Third-Party Services" },
+  { id: "security", title: "Security" },
+  { id: "your-rights", title: "Your Rights" },
+  { id: "contact", title: "Contact" },
+];
 ---
 
-<Layout
-  title="Privacy Policy - Tooltails Pomodoro"
-  description="Privacy policy for Tooltails Pomodoro Timer. All timer data, session history, and preferences are stored locally in your browser."
+<LegalLayout
+  type="privacy"
+  siteTitle="Tooltails Pomodoro"
+  pageTitle="Privacy Policy"
+  pageDescription="How Tooltails Pomodoro Timer handles your session data. It stays local, stays private."
+  lastUpdated="June 27, 2026"
+  {sections}
+  summaryItems={[
+    { text: "All session data stored in your browser only" },
+    { text: "No account, login, or email required" },
+    { text: "No personal data sold or shared" },
+    { text: "Analytics used in aggregate for product improvement" },
+    { text: "You remain in full control of your information" },
+  ]}
+  faqItems={[
+    { question: "Is my Pomodoro session history stored on your servers?", answer: "No. All session history, streaks, preferences, and task data are stored in your browser's localStorage. We never receive this data." },
+    { question: "Does the Pomodoro Timer collect personal information?", answer: "No. The timer does not ask for or collect names, emails, or any personal identifiers. Analytics data is anonymized and aggregated." },
+    { question: "What happens if I clear my browser data?", answer: "Clearing localStorage will erase your session history, streaks, and settings. This data cannot be recovered as we do not store it." },
+    { question: "Can I use the timer offline?", answer: "Yes. After the initial page load, the Pomodoro Timer works fully offline. All features including session tracking and streaks function without an internet connection." },
+    { question: "What third-party services does the timer use?", answer: "The Pomodoro page loads Google Analytics (GA4) and Microsoft Clarity for aggregated usage analytics, same as the rest of Tooltails. No timer-specific data is transmitted to these services." },
+  ]}
+  productName="Tooltails Pomodoro"
+  productUrl="/pomodoro-timer"
+  backPath="/pomodoro-timer"
+  breadcrumbItems={[
+    { name: "Tooltails", item: "https://tooltails.com" },
+    { name: "Pomodoro Timer", item: "https://tooltails.com/pomodoro-timer" },
+    { name: "Privacy", item: "https://tooltails.com/pomodoro-timer/privacy" },
+  ]}
 >
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
-    <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tighter text-ink mb-8">Privacy Policy</h1>
-    <div class="prose prose-neutral max-w-none prose-headings:text-ink prose-p:text-body prose-a:text-link prose-strong:text-ink">
-      <p>Your privacy is important to us. The Tooltails Pomodoro Timer is designed to be privacy-first and offline-capable.</p>
+  <div class="space-y-10 divide-y divide-hairline/50">
+    <section id="overview" class="pt-0">
+      <p class="text-body leading-relaxed">
+        Tooltails Pomodoro Timer is a privacy-first productivity tool. Every session you complete, every streak you build, and every preference you set stays on your device. We built it that way on purpose.
+      </p>
+      <p class="text-body leading-relaxed mt-4">
+        This policy covers what data the Pomodoro Timer accesses and how it is used. It supplements the main Tooltails Privacy Policy.
+      </p>
+    </section>
 
-      <h2>Data Storage</h2>
-      <p>All timer data is stored locally in your browser using localStorage. This includes:</p>
-      <ul>
-        <li>Session history and completion data</li>
-        <li>Daily streaks and productivity scores</li>
-        <li>Timer duration preferences</li>
-        <li>Sound and notification settings</li>
-        <li>Recent task history</li>
+    <section id="information-we-collect" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Information We Collect</h2>
+      <div class="space-y-4">
+        <div class="bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800/30 rounded-xl p-5">
+          <h3 class="text-sm font-semibold text-green-800 dark:text-green-200 mb-2">Not collected</h3>
+          <ul class="space-y-1.5 text-sm text-green-700 dark:text-green-300">
+            <li>- Session timestamps or completion logs</li>
+            <li>- Task names or descriptions</li>
+            <li>- Daily streaks or productivity scores</li>
+            <li>- Personal identifiers or contact information</li>
+          </ul>
+        </div>
+        <div class="bg-canvas-soft rounded-xl border border-hairline p-5">
+          <h3 class="text-sm font-semibold text-ink mb-2">Collected (aggregated analytics)</h3>
+          <ul class="space-y-1.5 text-sm text-body">
+            <li>- Page views and session duration</li>
+            <li>- Browser type and device category</li>
+            <li>- Country-level location data</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-we-use" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">How We Use Information</h2>
+      <p class="text-body leading-relaxed">
+        Analytics data helps us understand how the Pomodoro Timer is used, identify bugs, and prioritize feature development. No productivity data or personal information is used for advertising, profiling, or any unrelated purpose.
+      </p>
+    </section>
+
+    <section id="analytics-cookies" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Analytics & Cookies</h2>
+      <p class="text-body leading-relaxed">
+        The Pomodoro page uses Google Analytics 4 and Microsoft Clarity for aggregated usage insights. These services may set cookies to distinguish unique visitors. We do not set any first-party cookies.
+      </p>
+      <div class="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/30 rounded-xl p-5 mt-4">
+        <p class="text-sm text-amber-800 dark:text-amber-200 leading-relaxed">
+          Blocking analytics cookies will not affect the Pomodoro Timer's functionality. You can manage cookie preferences through your browser settings.
+        </p>
+      </div>
+    </section>
+
+    <section id="data-storage" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Data Storage</h2>
+      <p class="text-body leading-relaxed mb-4">
+        The Pomodoro Timer uses your browser's localStorage for all persistent data:
+      </p>
+      <ul class="space-y-2 text-body mb-4">
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Session history and completion records</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Daily streaks and productivity scores</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Timer duration and sound preferences</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Recent task history</span>
+        </li>
       </ul>
-      <p>No data is ever sent to our servers. Your focus data stays on your device.</p>
+      <p class="text-body leading-relaxed">
+        This data remains on your device. Clearing localStorage will erase all Pomodoro data, and we cannot recover it.
+      </p>
+    </section>
 
-      <h2>Analytics</h2>
-      <p>We use Google Analytics (GA4) and Microsoft Clarity to understand aggregate usage patterns. These services collect anonymized data such as page views, session duration, and browser type. No personal identification data is collected through the timer itself.</p>
+    <section id="third-party" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Third-Party Services</h2>
+      <p class="text-body leading-relaxed">
+        The Pomodoro Timer integrates Google Analytics 4 and Microsoft Clarity for traffic analysis. No timer-specific data is shared with these or any other third parties.
+      </p>
+    </section>
 
-      <h2>Third-Party Services</h2>
-      <p>Google Analytics and Microsoft Clarity are the only third-party services integrated into this site. They are loaded on all Tooltails pages including the Pomodoro Timer.</p>
+    <section id="security" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Security</h2>
+      <p class="text-body leading-relaxed">
+        All Tooltails pages are served over HTTPS. Since your timer data stays in your browser, the primary risk is local device access. Avoid using the timer on shared devices if you are concerned about local data privacy.
+      </p>
+    </section>
 
-      <h2>Cookies</h2>
-      <p>We do not set any cookies directly. Google Analytics and Microsoft Clarity may set their own cookies for analytics purposes.</p>
+    <section id="your-rights" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Your Rights</h2>
+      <ul class="space-y-2 text-body">
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span><strong class="text-ink">Delete your data.</strong> Clear browser localStorage to remove all timer history and preferences.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span><strong class="text-ink">Opt out of analytics.</strong> Block analytics scripts via browser settings or extensions.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span><strong class="text-ink">Know what is collected.</strong> This policy provides full transparency on data access.</span>
+        </li>
+      </ul>
+    </section>
 
-      <h2>Contact</h2>
-      <p>If you have privacy concerns, please <a href="/pomodoro-timer/contact">contact us</a>.</p>
-
-      <h2>Changes</h2>
-      <p>This policy may be updated occasionally. Continued use of the Pomodoro Timer after changes constitutes acceptance of the updated policy.</p>
-      <p>Last updated: June 2026</p>
-    </div>
-
-    <div class="mt-12 pt-8 border-t border-hairline">
-      <a href="/pomodoro-timer" class="text-sm font-medium text-link hover:underline">&larr; Back to Pomodoro Timer</a>
-    </div>
+    <section id="contact" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Contact</h2>
+      <p class="text-body leading-relaxed">
+        Questions about Pomodoro privacy? Reach out through our <a href="/pomodoro-timer/contact" class="text-link hover:text-link-hover underline underline-offset-2">contact page</a>.
+      </p>
+    </section>
   </div>
-
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
-</Layout>
+</LegalLayout>

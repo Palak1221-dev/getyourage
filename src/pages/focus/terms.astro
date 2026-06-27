@@ -1,53 +1,140 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import LegalLayout from "../../components/legal/LegalLayout.astro";
+
+const sections = [
+  { id: "acceptance", title: "Acceptance" },
+  { id: "use-of-services", title: "Use of Services" },
+  { id: "local-data", title: "Local Data" },
+  { id: "intellectual-property", title: "Intellectual Property" },
+  { id: "disclaimers", title: "Disclaimers" },
+  { id: "limitation-of-liability", title: "Limitation of Liability" },
+  { id: "changes", title: "Changes" },
+  { id: "contact", title: "Contact" },
+];
 ---
 
-<Layout 
-  title="Terms of Service - Tooltails Focus"
-  description="Terms of Service for Tooltails Focus. Read our terms regarding usage, browser compatibility, and local-first data."
+<LegalLayout
+  type="terms"
+  siteTitle="Tooltails Focus"
+  pageTitle="Terms of Service"
+  pageDescription="The terms governing your use of Tooltails Focus. Local-first, transparent, and straightforward."
+  lastUpdated="June 27, 2026"
+  {sections}
+  summaryItems={[
+    { text: "Free to use for personal productivity" },
+    { text: "Use the tool responsibly" },
+    { text: "Your goals and data stay on your device" },
+    { text: "No warranties - the tool is provided as-is" },
+    { text: "Service may evolve with updates" },
+  ]}
+  faqItems={[
+    { question: "Do I need an account to use Focus?", answer: "No. Tooltails Focus does not require registration, login, or any personal information." },
+    { question: "Can you see my goals and journal entries?", answer: "No. Everything is stored in your browser's localStorage and never transmitted to our servers." },
+    { question: "What if I lose my data?", answer: "Since data is stored locally, clearing your browser cache or switching devices will erase it. We recommend not relying on Focus for critical information you cannot afford to lose." },
+    { question: "Is Focus suitable for commercial use?", answer: "Focus is provided for personal productivity. Commercial use within a team or organization is permitted, but we do not offer multi-user sync, collaboration, or enterprise support." },
+    { question: "Can I use Focus offline?", answer: "Yes. Focus works offline after the initial page load. localStorage data persists even without an internet connection." },
+  ]}
+  productName="Tooltails Focus"
+  productUrl="/focus"
+  backPath="/focus"
+  breadcrumbItems={[
+    { name: "Tooltails", item: "https://tooltails.com" },
+    { name: "Focus", item: "https://tooltails.com/focus" },
+    { name: "Terms", item: "https://tooltails.com/focus/terms" },
+  ]}
 >
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
-    <h1 class="text-4xl font-bold text-ink mb-8">Terms of Service</h1>
-    
-    <div class="prose prose-neutral">
-      <p class="text-lg text-body leading-relaxed mb-6">
-        Welcome to Tooltails Focus. By using this timer and productivity tool, you agree to comply with and be bound by the following Terms of Service.
+  <div class="space-y-10 divide-y divide-hairline/50">
+    <section id="acceptance" class="pt-0">
+      <p class="text-body leading-relaxed">
+        By using Tooltails Focus, you agree to these terms. If you do not agree, please do not use the tool. These terms apply specifically to the Focus Timer application and supplement the main Tooltails Terms of Service.
       </p>
+    </section>
 
-      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">1. Use of the App</h2>
-      <p class="text-body leading-relaxed mb-6">
-        Tooltails Focus is a productivity tool provided for personal use. It focuses on helping you plan outcomes, track time, and log progress. You agree to use the application in accordance with standard browser rules and not to exploit or disrupt our services.
+    <section id="use-of-services" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Use of Services</h2>
+      <p class="text-body leading-relaxed mb-4">
+        Tooltails Focus is designed for personal productivity and goal tracking. You agree to use it responsibly:
       </p>
-
-      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">2. Local Data Persistence and Liability</h2>
-      <p class="text-body leading-relaxed mb-6">
-        Because Tooltails Focus stores data in your browser's <code class="font-mono bg-canvas-soft px-1 rounded">LocalStorage</code>, we have no capability to backup, restore, sync, or secure your goal logs or streak metrics.
-      </p>
-      <p class="text-body leading-relaxed mb-6">
-        You acknowledge that:
-      </p>
-      <ul class="list-disc pl-6 mb-6 text-body space-y-2">
-        <li>Clearing your browser cache, using private/incognito modes, or swapping devices may result in loss of your productivity data.</li>
-        <li>We are not responsible for any data loss, lost streaks, or interrupted workflows caused by browser configurations, software updates, or device failures.</li>
+      <ul class="space-y-2 text-body">
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Do not use Focus for any unlawful purpose.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Do not attempt to exploit, reverse engineer, or disrupt the application.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Do not use Focus to store or transmit malicious content.</span>
+        </li>
       </ul>
+    </section>
 
-      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">3. Disclaimer of Warranties</h2>
-      <p class="text-body leading-relaxed mb-6">
-        Tooltails Focus is provided "as is" and "as available". We do not represent or warrant that the timer, the recovery recommendations, or the audio generation will be uninterrupted, error-free, or meet all your expectations. While the sound synthesizer is designed using professional audio synthesis models, its frequency performance depends entirely on your system's soundcard and speaker setup.
+    <section id="local-data" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Local Data</h2>
+      <p class="text-body leading-relaxed">
+        Focus stores all user data in your browser's localStorage. This includes goals, session history, streaks, mood logs, and application preferences. Because this data never reaches our servers, we cannot:
       </p>
+      <ul class="space-y-2 text-body mt-4">
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Access, view, or read your goals and journal entries</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Back up or restore your data</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Recover data lost due to browser clearing, incognito mode, or device changes</span>
+        </li>
+      </ul>
+      <p class="text-body leading-relaxed mt-4">
+        You acknowledge and accept these limitations by using the tool.
+      </p>
+    </section>
 
-      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">4. Updates and Changes</h2>
-      <p class="text-body leading-relaxed mb-6">
-        We reserve the right to modify, enhance, or discontinue parts of Tooltails Focus at any time. Any changes to these terms will be updated on this page. Your continued use of the application indicates your acceptance of any revised terms.
+    <section id="intellectual-property" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Intellectual Property</h2>
+      <p class="text-body leading-relaxed">
+        The Focus Timer application, including its design, code, and branding, is owned by Tooltails. You may not copy, modify, or redistribute the application without permission.
       </p>
-    </div>
+      <p class="text-body leading-relaxed mt-4">
+        The goals, notes, and reflections you create within the application belong to you.
+      </p>
+    </section>
+
+    <section id="disclaimers" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Disclaimers</h2>
+      <div class="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/30 rounded-xl p-5">
+        <p class="text-sm text-amber-800 dark:text-amber-200 leading-relaxed">
+          Tooltails Focus is provided "as is" and "as available." We do not warrant that the timer, sound generation, or productivity features will be uninterrupted, error-free, or meet your specific productivity goals.
+        </p>
+      </div>
+    </section>
+
+    <section id="limitation-of-liability" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Limitation of Liability</h2>
+      <div class="bg-canvas-soft rounded-xl border border-hairline p-5">
+        <p class="text-sm text-body leading-relaxed">
+          Tooltails shall not be liable for any damages arising from your use of the Focus Timer, including data loss, lost productivity, or missed deadlines resulting from browser behavior, device failure, or application downtime.
+        </p>
+      </div>
+    </section>
+
+    <section id="changes" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Changes</h2>
+      <p class="text-body leading-relaxed">
+        We may update these terms as the Focus Timer evolves. Changes take effect immediately upon posting. Continued use after updates constitutes acceptance of the revised terms.
+      </p>
+    </section>
+
+    <section id="contact" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Contact</h2>
+      <p class="text-body leading-relaxed">
+        Questions about these terms? Reach out through our <a href="/focus/contact" class="text-link hover:text-link-hover underline underline-offset-2">contact page</a>.
+      </p>
+    </section>
   </div>
-
-  <script type="application/ld+json" is:inline set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Terms of Service - Tooltails Focus",
-    "url": Astro.url.origin + "/focus/terms",
-    "mainEntityOfPage": { "@type": "WebPage", "@id": Astro.url.origin + "/focus/terms" }
-  })} />
-</Layout>
+</LegalLayout>

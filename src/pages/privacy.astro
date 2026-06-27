@@ -1,49 +1,246 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import LegalLayout from "../components/legal/LegalLayout.astro";
+
+const sections = [
+  { id: "overview", title: "Overview" },
+  { id: "information-we-collect", title: "Information We Collect" },
+  { id: "how-we-use", title: "How We Use Information" },
+  { id: "analytics-cookies", title: "Analytics & Cookies" },
+  { id: "advertisements", title: "Advertisements" },
+  { id: "data-storage", title: "Data Storage" },
+  { id: "third-party", title: "Third-Party Services" },
+  { id: "security", title: "Security" },
+  { id: "your-rights", title: "Your Rights" },
+  { id: "contact", title: "Contact" },
+];
 ---
 
-<Layout title="Privacy Policy - Tooltails.com" description="Your privacy is our top priority. All age and date calculations happen locally in your browser. Read our full privacy policy.">
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
-    <h1 class="text-4xl font-bold text-ink mb-8">Privacy Policy</h1>
-    <div class="prose prose-neutral">
-      <p class="text-lg text-body leading-relaxed mb-6">
-        At Tooltails.com, your privacy is our top priority. This policy outlines how we handle your data.
+<LegalLayout
+  type="privacy"
+  siteTitle="Tooltails"
+  pageTitle="Privacy Policy"
+  pageDescription="How Tooltails handles your data. All calculations run locally on your device.\u2002No personal information is collected or stored."
+  lastUpdated="June 27, 2026"
+  {sections}
+  summaryItems={[
+    { text: "No account required to use our tools" },
+    { text: "No personal data collected or sold" },
+    { text: "Calculations run locally in your browser" },
+    { text: "Analytics used in aggregate only to improve the product" },
+    { text: "You control how your data is used" },
+  ]}
+  faqItems={[
+    { question: "Does Tooltails collect my date of birth?", answer: "No. All calculations run locally in your browser using JavaScript. Your date of birth never leaves your device." },
+    { question: "Can I use Tooltails without cookies?", answer: "Yes. Our core tools do not require cookies. Analytics and advertising partners may set their own cookies, which you can block via browser settings." },
+    { question: "How do I opt out of personalized ads?", answer: "Visit Google's Ads Settings at myadcenter.google.com or the Digital Advertising Alliance at youradchoices.com to manage your preferences." },
+    { question: "Do you share my data with third parties?", answer: "We do not sell, trade, or transfer your personal information. Third-party services like Google Analytics and AdSense have their own privacy policies governing data they collect." },
+    { question: "Where is my data stored?", answer: "Your data stays on your device. For tools like the Age Calculator, no data is transmitted. For tools using localStorage (Focus, Pomodoro), data remains in your browser." },
+  ]}
+  productName="Tooltails"
+  productUrl=""
+  backPath="/"
+  breadcrumbItems={[
+    { name: "Tooltails", item: "https://tooltails.com" },
+    { name: "Privacy", item: "https://tooltails.com/privacy" },
+  ]}
+>
+  <div class="space-y-10 divide-y divide-hairline/50">
+    <section id="overview" class="pt-0">
+      <p class="text-body leading-relaxed">
+        Tooltails provides free online utility tools for age calculation, date math, and productivity tracking. We built this service with a simple principle: your data belongs to you.
       </p>
-      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">No Data Collection</h2>
-      <p class="text-body leading-relaxed mb-6">
-        All calculations performed on Tooltails.com happen locally in your web browser. We do not store, collect, or transmit any personal data, including your date of birth, to our servers.
+      <p class="text-body leading-relaxed mt-4">
+        This policy describes what information we access, how it is used, and the controls available to you. It applies to all pages and tools on tooltails.com, including Tooltails Focus and Tooltails Pomodoro Timer.
       </p>
-      </p>
-      
-      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">Analytics and Tracking Technologies</h2>
-      <p class="text-body leading-relaxed mb-6">
-        We use basic analytics tools to understand website traffic and improve user experience. These tools may use cookies, but they are configured to respect your privacy and do not collect personally identifiable information.
-      </p>
+    </section>
 
-      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">Google AdSense and Advertising Cookies</h2>
-      <p class="text-body leading-relaxed mb-6">
-        We use Google AdSense to display advertisements. Third-party vendors, including Google, use cookies to serve ads based on your prior visits to this website or other websites on the internet.
-      </p>
-      <p class="text-body leading-relaxed mb-6">
-        Google's use of advertising cookies enables it and its partners to serve ads to you based on your visit to our site and/or other sites across the internet. This allows us to keep our calculators 100% free to use.
-      </p>
+    <section id="information-we-collect" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Information We Collect</h2>
+      <p class="text-body leading-relaxed mb-4">We intentionally limit data collection. Here is what we access:</p>
+      <div class="bg-canvas-soft rounded-xl border border-hairline p-5 mb-4">
+        <h3 class="text-sm font-semibold text-ink mb-3">Automatically collected (analytics)</h3>
+        <ul class="space-y-2 text-sm text-body">
+          <li class="flex items-start gap-2">
+            <span class="text-mute mt-0.5">-</span>
+            <span>Page URL and referring domain</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-mute mt-0.5">-</span>
+            <span>Browser type and device category</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-mute mt-0.5">-</span>
+            <span>Approximate geographic region (country-level)</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-mute mt-0.5">-</span>
+            <span>Session duration and interaction events</span>
+          </li>
+        </ul>
+      </div>
+      <div class="bg-canvas-soft rounded-xl border border-hairline p-5">
+        <h3 class="text-sm font-semibold text-ink mb-3">Not collected</h3>
+        <ul class="space-y-2 text-sm text-body">
+          <li class="flex items-start gap-2">
+            <span class="text-link mt-0.5">-</span>
+            <span>Names, email addresses, or phone numbers</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-link mt-0.5">-</span>
+            <span>Dates of birth or personal identifiers</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-link mt-0.5">-</span>
+            <span>Passwords or account credentials</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-link mt-0.5">-</span>
+            <span>Payment or financial information</span>
+          </li>
+        </ul>
+      </div>
+    </section>
 
-      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">Personalized Advertising & Opt-Out</h2>
-      <p class="text-body leading-relaxed mb-6">
-        You have control over how your data is used for personalized advertising. You can opt out of personalized advertising by visiting Google's <a href="https://myadcenter.google.com/" target="_blank" rel="noopener noreferrer" class="text-link hover:text-link-hover">Ads Settings</a>. Alternatively, you can opt out of a third-party vendor's use of cookies for personalized advertising by visiting <a href="https://youradchoices.com/" target="_blank" rel="noopener noreferrer" class="text-link hover:text-link-hover">www.aboutads.info</a>.
+    <section id="how-we-use" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">How We Use Information</h2>
+      <p class="text-body leading-relaxed mb-4">The limited data we access serves two purposes:</p>
+      <ul class="space-y-3 text-body">
+        <li class="flex items-start gap-3">
+          <span class="flex w-6 h-6 rounded-full bg-link/10 text-link items-center justify-center text-xs font-bold shrink-0 mt-0.5">1</span>
+          <span><strong class="text-ink">Improve the product.</strong> Analytics help us understand which tools people use and how the site performs, so we can fix bugs and prioritize features.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="flex w-6 h-6 rounded-full bg-link/10 text-link items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span>
+          <span><strong class="text-ink">Keep the service free.</strong> Non-personalized and personalized ads help cover infrastructure costs. You can opt out of personalization at any time.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="analytics-cookies" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Analytics & Cookies</h2>
+      <p class="text-body leading-relaxed mb-4">
+        We use Google Analytics 4 (GA4) and Microsoft Clarity to understand aggregate usage patterns. These services may place cookies on your browser to distinguish between unique visitors.
       </p>
-    </div>
+      <div class="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/30 rounded-xl p-5 mb-4">
+        <p class="text-sm text-amber-800 dark:text-amber-200 font-medium mb-1">Cookies and your control</p>
+        <p class="text-sm text-amber-700 dark:text-amber-300 leading-relaxed">
+          You can block or delete cookies through your browser settings. Blocking cookies will not affect the functionality of our calculation tools, but may affect analytics accuracy and ad personalization.
+        </p>
+      </div>
+      <p class="text-body leading-relaxed">
+        We do not set any first-party cookies directly. Our analytics and advertising partners may set their own cookies in accordance with their respective privacy policies.
+      </p>
+    </section>
+
+    <section id="advertisements" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Advertisements</h2>
+      <p class="text-body leading-relaxed mb-4">
+        We use Google AdSense to display advertisements on select pages. AdSense may use cookies and web beacons to serve ads based on your prior visits to this site and other sites across the internet.
+      </p>
+      <p class="text-body leading-relaxed">
+        You can opt out of personalized advertising by visiting Google's Ads Settings at <a href="https://myadcenter.google.com" target="_blank" rel="noopener noreferrer" class="text-link hover:text-link-hover underline underline-offset-2">myadcenter.google.com</a> or the Digital Advertising Alliance at <a href="https://youradchoices.com" target="_blank" rel="noopener noreferrer" class="text-link hover:text-link-hover underline underline-offset-2">youradchoices.com</a>.
+      </p>
+    </section>
+
+    <section id="data-storage" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Data Storage</h2>
+      <p class="text-body leading-relaxed mb-4">
+        Where and how your data lives depends on the tool you are using:
+      </p>
+      <div class="overflow-hidden rounded-xl border border-hairline">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-canvas-soft">
+              <th class="text-left px-4 py-3 font-medium text-mute">Tool</th>
+              <th class="text-left px-4 py-3 font-medium text-mute">Storage location</th>
+              <th class="text-left px-4 py-3 font-medium text-mute">Data transmitted</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline">
+            <tr>
+              <td class="px-4 py-3 text-ink font-medium">Age Calculator</td>
+              <td class="px-4 py-3 text-body">In-memory (discarded on navigation)</td>
+              <td class="px-4 py-3 text-body">None</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-ink font-medium">Focus Timer</td>
+              <td class="px-4 py-3 text-body">Browser localStorage</td>
+              <td class="px-4 py-3 text-body">None</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-ink font-medium">Pomodoro Timer</td>
+              <td class="px-4 py-3 text-body">Browser localStorage</td>
+              <td class="px-4 py-3 text-body">None</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-ink font-medium">Word Counter</td>
+              <td class="px-4 py-3 text-body">In-memory (discarded on navigation)</td>
+              <td class="px-4 py-3 text-body">None</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="third-party" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Third-Party Services</h2>
+      <p class="text-body leading-relaxed mb-4">
+        Our site integrates with the following third-party services:
+      </p>
+      <ul class="space-y-3 text-body">
+        <li class="flex items-start gap-3">
+          <span class="flex w-6 h-6 rounded-full bg-canvas-soft-2 items-center justify-center text-xs font-bold text-mute shrink-0 mt-0.5">G</span>
+          <span><strong class="text-ink">Google Analytics (GA4)</strong> - Aggregated traffic analysis and event tracking.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="flex w-6 h-6 rounded-full bg-canvas-soft-2 items-center justify-center text-xs font-bold text-mute shrink-0 mt-0.5">C</span>
+          <span><strong class="text-ink">Microsoft Clarity</strong> - Session replay and heatmap analysis for UX improvement.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="flex w-6 h-6 rounded-full bg-canvas-soft-2 items-center justify-center text-xs font-bold text-mute shrink-0 mt-0.5">A</span>
+          <span><strong class="text-ink">Google AdSense</strong> - Advertisement delivery and personalization.</span>
+        </li>
+      </ul>
+      <p class="text-body leading-relaxed mt-4">
+        Each service operates under its own privacy policy. We encourage you to review their policies for complete transparency.
+      </p>
+    </section>
+
+    <section id="security" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Security</h2>
+      <p class="text-body leading-relaxed">
+        We serve the entire site over HTTPS to encrypt data in transit. Since we do not collect or store personal data on our servers, the primary security consideration is your local browser environment. We recommend keeping your browser and operating system updated to protect against local vulnerabilities.
+      </p>
+    </section>
+
+    <section id="your-rights" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Your Rights</h2>
+      <p class="text-body leading-relaxed mb-4">Depending on your location, you may have the following rights regarding your data:</p>
+      <ul class="space-y-2 text-body">
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span><strong class="text-ink">Right to know.</strong> This policy describes what data is accessed and why.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span><strong class="text-ink">Right to opt out.</strong> You can disable analytics cookies and personalized ads via browser settings.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span><strong class="text-ink">Right to delete.</strong> Clear your browser's localStorage and cookies to remove any locally stored data.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span><strong class="text-ink">Right to access.</strong> Contact us with questions about data practices.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="contact" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Contact</h2>
+      <p class="text-body leading-relaxed">
+        If you have questions about this policy or our data practices, reach out through our <a href="/contact" class="text-link hover:text-link-hover underline underline-offset-2">contact page</a>.
+      </p>
+    </section>
   </div>
-
-  <script type="application/ld+json" is:inline set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Privacy Policy - Tooltails.com",
-    "description": "Your privacy is our top priority. All age and date calculations happen locally in your browser.",
-    "url": Astro.url.origin + "/privacy",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": Astro.url.origin + "/privacy"
-    }
-  })} />
-</Layout>
+</LegalLayout>

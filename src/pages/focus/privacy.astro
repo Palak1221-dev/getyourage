@@ -1,59 +1,174 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import LegalLayout from "../../components/legal/LegalLayout.astro";
+
+const sections = [
+  { id: "overview", title: "Overview" },
+  { id: "information-we-collect", title: "Information We Collect" },
+  { id: "how-we-use", title: "How We Use Information" },
+  { id: "analytics-cookies", title: "Analytics & Cookies" },
+  { id: "data-storage", title: "Data Storage" },
+  { id: "third-party", title: "Third-Party Services" },
+  { id: "security", title: "Security" },
+  { id: "your-rights", title: "Your Rights" },
+  { id: "contact", title: "Contact" },
+];
 ---
 
-<Layout 
-  title="Privacy Policy - Tooltails Focus"
-  description="Privacy policy for Tooltails Focus. Read how we protect your goal and timer data by keeping all processing 100% local."
+<LegalLayout
+  type="privacy"
+  siteTitle="Tooltails Focus"
+  pageTitle="Privacy Policy"
+  pageDescription="How Tooltails Focus handles your productivity data. Everything stays on your device."
+  lastUpdated="June 27, 2026"
+  {sections}
+  summaryItems={[
+    { text: "All timer and goal data stays in your browser" },
+    { text: "No account or registration required" },
+    { text: "No personal data sold or shared" },
+    { text: "Ambient sounds generated locally via Web Audio API" },
+    { text: "Analytics used in aggregate only" },
+  ]}
+  faqItems={[
+    { question: "Is my Focus data backed up on Tooltails servers?", answer: "No. All goals, session history, streaks, and analytics are stored in your browser's localStorage. We never receive or store this data. Clearing your browser data will erase it." },
+    { question: "Can you see what goals I set?", answer: "No. The Focus Timer is a local-first application. Your goals, milestones, and reflections never leave your device." },
+    { question: "What happens if I switch browsers or clear my data?", answer: "Your data is tied to the browser and device you use. Switching browsers, using incognito mode, or clearing localStorage will reset your history. We cannot recover it." },
+    { question: "Does Focus use any tracking?", answer: "The Focus page itself loads Google Analytics (GA4) and Microsoft Clarity for aggregated analytics, same as the rest of Tooltails. No timer-specific data is transmitted." },
+    { question: "How are the ambient sounds generated?", answer: "Brown noise, white noise, and rain sounds are generated in real time using the Web Audio API in your browser. No audio files are downloaded from external servers." },
+  ]}
+  productName="Tooltails Focus"
+  productUrl="/focus"
+  backPath="/focus"
+  breadcrumbItems={[
+    { name: "Tooltails", item: "https://tooltails.com" },
+    { name: "Focus", item: "https://tooltails.com/focus" },
+    { name: "Privacy", item: "https://tooltails.com/focus/privacy" },
+  ]}
 >
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
-    <h1 class="text-4xl font-bold text-ink mb-8">Privacy Policy</h1>
-    
-    <div class="prose prose-neutral">
-      <p class="text-lg text-body leading-relaxed mb-6">
-        At Tooltails Focus, your privacy is our core design principle. We believe that your productivity data, goals, and daily progress belong to you and nobody else.
+  <div class="space-y-10 divide-y divide-hairline/50">
+    <section id="overview" class="pt-0">
+      <p class="text-body leading-relaxed">
+        Tooltails Focus is a local-first productivity tool. It was designed around a straightforward premise: your goals, focus sessions, and progress data belong entirely to you.
       </p>
+      <p class="text-body leading-relaxed mt-4">
+        This policy explains what data the application accesses, how it is used, and what stays under your control.
+      </p>
+    </section>
 
-      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">1. Local-First Processing and Storage</h2>
-      <p class="text-body leading-relaxed mb-6">
-        Tooltails Focus is an offline-first, local-only web application. All calculations, goal checklists, current session states, streaks, and focus analytics are processed and stored directly on your device using your browser's <code class="font-mono bg-canvas-soft px-1 rounded">LocalStorage</code>.
+    <section id="information-we-collect" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Information We Collect</h2>
+      <div class="space-y-4">
+        <div class="bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800/30 rounded-xl p-5">
+          <h3 class="text-sm font-semibold text-green-800 dark:text-green-200 mb-2">Not collected (by design)</h3>
+          <ul class="space-y-1.5 text-sm text-green-700 dark:text-green-300">
+            <li>- Goal titles, descriptions, or milestones</li>
+            <li>- Session timestamps or duration data</li>
+            <li>- Mood logs or journal entries</li>
+            <li>- Streak counts or productivity scores</li>
+            <li>- Personal identifiers or contact information</li>
+          </ul>
+        </div>
+        <div class="bg-canvas-soft rounded-xl border border-hairline p-5">
+          <h3 class="text-sm font-semibold text-ink mb-2">Collected (aggregated analytics only)</h3>
+          <ul class="space-y-1.5 text-sm text-body">
+            <li>- Page view counts and session duration</li>
+            <li>- Browser and device type</li>
+            <li>- Country-level location data</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-we-use" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">How We Use Information</h2>
+      <p class="text-body leading-relaxed">
+        Analytics data helps us understand how the Focus Timer is used and identify areas for improvement. For example, if many users attempt a particular feature and miss it, we can adjust the interface.
       </p>
-      <p class="text-body leading-relaxed mb-6">
-        This means:
+      <p class="text-body leading-relaxed mt-4">
+        No personal or productivity data is used for advertising, profiling, or any purpose beyond aggregate product analytics.
       </p>
-      <ul class="list-disc pl-6 mb-6 text-body space-y-2">
-        <li>We do not collect, transmit, or store your goals, milestones, or notes on any server.</li>
-        <li>We do not create user accounts or ask for personal details like names or emails to use the timer.</li>
-        <li>If you clear your browser data or LocalStorage, your local history and streak statistics will be reset. We cannot recover this data for you as we never have access to it.</li>
+    </section>
+
+    <section id="analytics-cookies" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Analytics & Cookies</h2>
+      <p class="text-body leading-relaxed">
+        The Focus page uses the same analytics stack as the rest of Tooltails: Google Analytics 4 and Microsoft Clarity. These services may set cookies to distinguish unique visitors. We do not set any first-party cookies.
+      </p>
+      <div class="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/30 rounded-xl p-5 mt-4">
+        <p class="text-sm text-amber-800 dark:text-amber-200 leading-relaxed">
+          You can block analytics cookies through your browser settings without affecting the Focus Timer's core functionality.
+        </p>
+      </div>
+    </section>
+
+    <section id="data-storage" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Data Storage</h2>
+      <p class="text-body leading-relaxed mb-4">
+        Focus Timer uses your browser's localStorage for data persistence. This includes:
+      </p>
+      <ul class="space-y-2 text-body mb-4">
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Current and past goals with milestones</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Session history and completion data</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Streak counters and daily progress</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Mood logs and journal entries</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Application preferences (sounds, durations)</span>
+        </li>
       </ul>
-
-      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">2. Ambient Sound Generation</h2>
-      <p class="text-body leading-relaxed mb-6">
-        The background ambient sounds (Brown Noise, White Noise, and Rain) are generated dynamically on-the-fly using the HTML5 <code class="font-mono bg-canvas-soft px-1 rounded">Web Audio API</code> inside your web browser. No audio streams are downloaded from external servers, protecting your network activity from third-party tracking.
+      <p class="text-body leading-relaxed">
+        This data never leaves your device. Clearing your browser's localStorage will reset all Focus data. We cannot recover it.
       </p>
+    </section>
 
-      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">3. Website Analytics</h2>
-      <p class="text-body leading-relaxed mb-6">
-        To understand overall traffic patterns and performance, we collect basic, aggregated website analytics. We configure these tools to ensure they respect user privacy and do not collect personally identifiable information (PII).
+    <section id="third-party" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Third-Party Services</h2>
+      <p class="text-body leading-relaxed">
+        The Focus page integrates the same third-party services as the main Tooltails site: Google Analytics 4 for traffic analysis and Microsoft Clarity for session insights. No Focus-specific data is shared with these services.
       </p>
+    </section>
 
-      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">4. Advertising and Cookies</h2>
-      <p class="text-body leading-relaxed mb-6">
-        We serve third-party ads (like Google AdSense) on our homepage and general pages to keep our tools free. These platforms may place cookies to serve relevant ads. You can manage or disable personalized advertising using your Google Ad settings or general browser preferences.
+    <section id="security" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Security</h2>
+      <p class="text-body leading-relaxed">
+        All Tooltails pages are served over HTTPS. Since your Focus data is stored locally and never transmitted, the primary security consideration is your local browser environment. Keep your browser updated and avoid using Focus on shared devices if you are concerned about local data privacy.
       </p>
+    </section>
 
-      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">5. Contacting Us</h2>
-      <p class="text-body leading-relaxed mb-6">
-        If you contact us using our support channels or contact form, we will use your provided email address solely to reply to your inquiry. We do not sell or share contact information with third parties.
+    <section id="your-rights" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Your Rights</h2>
+      <ul class="space-y-2 text-body">
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span><strong class="text-ink">Delete your data.</strong> Clear your browser's localStorage to remove all Focus data.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span><strong class="text-ink">Opt out of analytics.</strong> Use browser settings or extensions to block analytics scripts.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span><strong class="text-ink">Know what is collected.</strong> This policy describes every category of data access.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="contact" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Contact</h2>
+      <p class="text-body leading-relaxed">
+        Questions about Focus privacy? Reach out through our <a href="/focus/contact" class="text-link hover:text-link-hover underline underline-offset-2">contact page</a>.
       </p>
-    </div>
+    </section>
   </div>
-
-  <script type="application/ld+json" is:inline set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Privacy Policy - Tooltails Focus",
-    "url": Astro.url.origin + "/focus/privacy",
-    "mainEntityOfPage": { "@type": "WebPage", "@id": Astro.url.origin + "/focus/privacy" }
-  })} />
-</Layout>
+</LegalLayout>

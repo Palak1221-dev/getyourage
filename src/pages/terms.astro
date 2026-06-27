@@ -1,38 +1,135 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import LegalLayout from "../components/legal/LegalLayout.astro";
+
+const sections = [
+  { id: "acceptance", title: "Acceptance" },
+  { id: "use-of-services", title: "Use of Services" },
+  { id: "user-content", title: "User Content" },
+  { id: "intellectual-property", title: "Intellectual Property" },
+  { id: "disclaimers", title: "Disclaimers" },
+  { id: "limitation-of-liability", title: "Limitation of Liability" },
+  { id: "changes", title: "Changes" },
+  { id: "contact", title: "Contact" },
+];
 ---
 
-<Layout title="Terms of Service - Tooltails.com" description="Terms of Service for Tooltails.com. By using our age calculators and date tools, you agree to these terms.">
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
-    <h1 class="text-4xl font-bold text-ink mb-8">Terms of Service</h1>
-    <div class="prose prose-neutral">
-      <p class="text-lg text-body leading-relaxed mb-6">
-        Welcome to Tooltails.com. By accessing or using our utility tools, you agree to be bound by these Terms of Service.
+<LegalLayout
+  type="terms"
+  siteTitle="Tooltails"
+  pageTitle="Terms of Service"
+  pageDescription="The rules and guidelines for using Tooltails tools. Free to use, no hidden strings."
+  lastUpdated="June 27, 2026"
+  {sections}
+  summaryItems={[
+    { text: "All tools are free to use with no registration required" },
+    { text: "Use the service responsibly and lawfully" },
+    { text: "The service is provided as-is with no warranties" },
+    { text: "Your content and data remain yours" },
+    { text: "The service may evolve over time" },
+  ]}
+  faqItems={[
+    { question: "Do I need to create an account to use Tooltails?", answer: "No. All tools are available without registration. We do not require any personal information to use the age calculator, word counter, or productivity timers." },
+    { question: "Can I use Tooltails for commercial purposes?", answer: "Yes. The tools are free for personal and commercial use. You may not, however, scrape, reverse engineer, or redistribute the tools themselves." },
+    { question: "What happens if the site goes down?", answer: "We strive for high availability but cannot guarantee uninterrupted access. We are not liable for any losses resulting from downtime." },
+    { question: "Will the terms change in the future?", answer: "We may update these terms to reflect changes in the service or legal requirements. Continued use after updates means you accept the revised terms." },
+    { question: "What about data loss in tools that use localStorage?", answer: "Tools like Focus and Pomodoro store data in your browser's localStorage. Clearing your browser data or using a different device will erase that data. We cannot recover it." },
+  ]}
+  productName="Tooltails"
+  productUrl=""
+  backPath="/"
+  breadcrumbItems={[
+    { name: "Tooltails", item: "https://tooltails.com" },
+    { name: "Terms", item: "https://tooltails.com/terms" },
+  ]}
+>
+  <div class="space-y-10 divide-y divide-hairline/50">
+    <section id="acceptance" class="pt-0">
+      <p class="text-body leading-relaxed">
+        By accessing or using any tool on tooltails.com, you confirm that you have read, understood, and agree to these terms. If you do not agree, please discontinue use of the service.
       </p>
-      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">Use of Service</h2>
-      <p class="text-body leading-relaxed mb-6">
-        Our age and date calculation tools are provided for general informational purposes only. While we strive for maximum precision and accuracy, we cannot guarantee that the results will be 100% error-free in all edge cases or historical calendar shifts.
+      <p class="text-body leading-relaxed mt-4">
+        These terms apply to all pages and sub-products including Tooltails Focus and Tooltails Pomodoro Timer. Separate terms may apply to third-party services integrated into the site.
       </p>
-      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">Privacy</h2>
-      <p class="text-body leading-relaxed mb-6">
-        Your privacy is important to us. As stated in our Privacy Policy, all calculations are performed locally in your browser. We do not transmit or store your personal dates of birth on our servers.
-      </p>
-      <h2 class="text-2xl font-bold text-ink mt-12 mb-4">Disclaimer of Warranties</h2>
-      <p class="text-body leading-relaxed mb-6">
-        The service is provided on an "as is" and "as available" basis without any warranties of any kind. We do not accept liability for any decisions made based on the calculations provided by this website.
-      </p>
-    </div>
-  </div>
+    </section>
 
-  <script type="application/ld+json" is:inline set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Terms of Service - Tooltails.com",
-    "description": "Terms of Service for Tooltails.com.",
-    "url": Astro.url.origin + "/terms",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": Astro.url.origin + "/terms"
-    }
-  })} />
-</Layout>
+    <section id="use-of-services" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Use of Services</h2>
+      <p class="text-body leading-relaxed mb-4">
+        Tooltails provides free utility tools for personal and commercial use. You agree to use them in accordance with these guidelines:
+      </p>
+      <ul class="space-y-2 text-body">
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Do not use the tools for any unlawful purpose.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Do not attempt to overload, disrupt, or reverse engineer the service.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Do not scrape or systematically extract content without permission.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-link mt-0.5">-</span>
+          <span>Do not use the service to distribute malware or harmful code.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="user-content" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">User Content</h2>
+      <p class="text-body leading-relaxed">
+        Tools like the Focus Timer and Pomodoro Timer allow you to enter goals, tasks, and notes. This content is stored locally in your browser and is never transmitted to our servers. You retain full ownership and responsibility for any content you enter.
+      </p>
+      <p class="text-body leading-relaxed mt-4">
+        Because we do not receive or store this data, we cannot access, moderate, or recover it. You are solely responsible for maintaining backups of any important information.
+      </p>
+    </section>
+
+    <section id="intellectual-property" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Intellectual Property</h2>
+      <p class="text-body leading-relaxed">
+        The Tooltails brand, design, code, and content are owned by Tooltails. You may not reproduce, modify, distribute, or create derivative works without explicit permission.
+      </p>
+      <p class="text-body leading-relaxed mt-4">
+        This does not restrict your use of the tools themselves. The calculations, results, and content you generate using our tools belong to you.
+      </p>
+    </section>
+
+    <section id="disclaimers" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Disclaimers</h2>
+      <div class="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/30 rounded-xl p-5 mb-4">
+        <p class="text-sm text-amber-800 dark:text-amber-200 leading-relaxed">
+          Tooltails is provided on an "as is" and "as available" basis. We make no representations or warranties of any kind, express or implied, regarding the operation or availability of the service.
+        </p>
+      </div>
+      <p class="text-body leading-relaxed">
+        Age calculations, date math, and productivity metrics are provided for informational purposes. While we strive for accuracy, we do not guarantee that results are error-free or suitable for any specific purpose. You use the tools at your own discretion.
+      </p>
+    </section>
+
+    <section id="limitation-of-liability" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Limitation of Liability</h2>
+      <div class="bg-canvas-soft rounded-xl border border-hairline p-5">
+        <p class="text-sm text-body leading-relaxed">
+          Tooltails shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the service. This includes, but is not limited to, data loss, lost productivity, or missed deadlines resulting from tool usage, downtime, or calculation errors.
+        </p>
+      </div>
+    </section>
+
+    <section id="changes" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Changes</h2>
+      <p class="text-body leading-relaxed">
+        We may update these terms periodically. Changes take effect immediately upon posting. Continued use of the service after changes are posted constitutes acceptance of the updated terms. We will update the "Last updated" date at the top of this page when changes are made.
+      </p>
+    </section>
+
+    <section id="contact" class="pt-10">
+      <h2 class="text-xl font-bold text-ink mb-4">Contact</h2>
+      <p class="text-body leading-relaxed">
+        Questions about these terms? Reach out through our <a href="/contact" class="text-link hover:text-link-hover underline underline-offset-2">contact page</a>.
+      </p>
+    </section>
+  </div>
+</LegalLayout>
