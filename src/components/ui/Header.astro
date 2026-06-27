@@ -26,7 +26,7 @@ const toolItems = [
 const isToolActive = toolItems.some(item => isActive(item.href));
 ---
 
-<header class="sticky top-0 z-50 w-full bg-canvas/80 backdrop-blur-md border-b border-hairline h-16 transition-all duration-300">
+<header class="sticky top-0 z-50 w-full bg-canvas/80 backdrop-blur-md border-b border-hairline h-14 transition-all duration-300">
   <div class="max-w-[1440px] mx-auto h-full px-4 md:px-6 lg:px-8 flex items-center justify-between">
     <div class="flex items-center gap-4 lg:gap-8">
       <a href="/" class="flex items-center gap-2 group shrink-0">
@@ -110,7 +110,7 @@ const isToolActive = toolItems.some(item => isActive(item.href));
   </div>
 
   <!-- Mobile Menu Dropdown -->
-  <div id="mobile-menu" class="hidden absolute top-16 left-0 w-full bg-canvas border-b border-hairline shadow-2xl xl:hidden max-h-[calc(100vh-64px)] overflow-y-auto" style="overscroll-behavior: contain" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div id="mobile-menu" class="hidden absolute top-14 left-0 w-full bg-canvas border-b border-hairline shadow-2xl xl:hidden max-h-[calc(100vh-56px)] overflow-y-auto" style="overscroll-behavior: contain" role="dialog" aria-modal="true" aria-label="Navigation menu">
     <nav aria-label="Mobile navigation" class="flex flex-col px-4 py-4 space-y-1">
       <!-- Mobile Tools Section -->
       <div class="py-2">
