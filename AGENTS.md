@@ -1,4 +1,29 @@
-## Session Summary (Jun 27, 2026)
+## Session Summary (Jun 27, 2026) — Part 2
+
+### What We Did
+
+1. **Replaced HTML entities with actual Unicode characters** — 73x `&#x2014;` → `—` (em dash), 5x `&amp;` → `&` across the entire focus page. These were rendering literally in JS contexts (`textContent` assignments, frontmatter strings).
+
+2. **Replaced mood selector emojis and labels** with new emotional states:
+   - 🎯 Terrible → 😞 Drained
+   - 🎉 Not great → 😐 Okay
+   - 🎊 Okay → 🙂 Productive
+   - 🏆 Good → 😄 Great
+   - 🤩 Amazing → 🚀 Peak Flow
+   - Updated both HTML buttons (before/after, 10 total) and the `moodEmojis` JS array
+
+3. **Verified no encoding issues remain** — 0 mojibake patterns, 0 HTML entities, 0 unknown non-ASCII sequences across all Focus files (`index.astro`, `contact.astro`, `privacy.astro`, `terms.astro`). All non-ASCII are correct Unicode emoji or punctuation.
+
+4. **Build passes** — `npx astro build` completes with 0 errors (34 pages in 9.29s).
+
+### Mechanics
+- Used Python byte-level replacement scripts (`fix_entities.py`, `fix_moods2.py`) for reliable matching
+- File saved as UTF-8 with no BOM
+
+### Files Modified
+- `src/pages/focus/index.astro`
+
+## Session Summary (Jun 27, 2026) — Part 1
 
 ### What We Did
 
