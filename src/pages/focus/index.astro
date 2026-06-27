@@ -106,25 +106,25 @@ const appSchema = {
       <div id="first-run-experience" class="hidden max-w-[1400px] mx-auto bg-canvas rounded-2xl border border-hairline/60 shadow-sm mb-6 p-6 lg:p-8 space-y-6">
         <div class="text-center space-y-2">
           <span class="text-xs font-semibold text-link uppercase tracking-wider">Welcome to Tooltails Focus</span>
-          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">Ready for your first session?</h2>
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">Set a goal. Focus. Make progress.</h2>
           <p class="text-sm text-body/70 max-w-lg mx-auto">Pick an example or choose a template. You can always change it.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <button type="button" class="first-run-example text-left p-4 rounded-2xl border border-hairline/60 bg-canvas-soft/30 hover:border-link/30 hover:bg-link/[0.02] motion-safe:hover:-translate-y-0.5 motion-safe:transition-all motion-safe:duration-200 cursor-pointer group" data-goal="Write the introduction for my blog post" data-activity="Writing">
+          <button type="button" class="first-run-example text-left p-4 rounded-2xl border border-hairline/60 bg-canvas-soft/30 hover:border-link/30 hover:bg-link/[0.02] motion-safe:hover:-translate-y-0.5 motion-safe:transition-all motion-safe:duration-200 cursor-pointer group" data-goal="Draft a blog outline" data-activity="Writing">
             <span class="text-lg mb-1 block">✍️</span>
-            <span class="text-sm font-semibold text-ink block">Write the introduction for my blog post</span>
+            <span class="text-sm font-semibold text-ink block">Draft a blog outline</span>
             <span class="text-xs text-mute/60 mt-1 block">Writing · ~30 min</span>
           </button>
-          <button type="button" class="first-run-example text-left p-4 rounded-2xl border border-hairline/60 bg-canvas-soft/30 hover:border-link/30 hover:bg-link/[0.02] motion-safe:hover:-translate-y-0.5 motion-safe:transition-all motion-safe:duration-200 cursor-pointer group" data-goal="Complete the React authentication module" data-activity="Coding">
-            <span class="text-lg mb-1 block">💻</span>
-            <span class="text-sm font-semibold text-ink block">Complete the React authentication module</span>
-            <span class="text-xs text-mute/60 mt-1 block">Coding · ~60 min</span>
+          <button type="button" class="first-run-example text-left p-4 rounded-2xl border border-hairline/60 bg-canvas-soft/30 hover:border-link/30 hover:bg-link/[0.02] motion-safe:hover:-translate-y-0.5 motion-safe:transition-all motion-safe:duration-200 cursor-pointer group" data-goal="Finish chapter 3 notes" data-activity="Study">
+            <span class="text-lg mb-1 block">📚</span>
+            <span class="text-sm font-semibold text-ink block">Finish chapter 3 notes</span>
+            <span class="text-xs text-mute/60 mt-1 block">Study · ~40 min</span>
           </button>
-          <button type="button" class="first-run-example text-left p-4 rounded-2xl border border-hairline/60 bg-canvas-soft/30 hover:border-link/30 hover:bg-link/[0.02] motion-safe:hover:-translate-y-0.5 motion-safe:transition-all motion-safe:duration-200 cursor-pointer group" data-goal="Read 30 pages of Deep Work and take notes" data-activity="Reading">
+          <button type="button" class="first-run-example text-left p-4 rounded-2xl border border-hairline/60 bg-canvas-soft/30 hover:border-link/30 hover:bg-link/[0.02] motion-safe:hover:-translate-y-0.5 motion-safe:transition-all motion-safe:duration-200 cursor-pointer group" data-goal="Review meeting notes & plan tomorrow priorities" data-activity="Reading">
             <span class="text-lg mb-1 block">📖</span>
-            <span class="text-sm font-semibold text-ink block">Read 30 pages of Deep Work and take notes</span>
-            <span class="text-xs text-mute/60 mt-1 block">Reading · ~45 min</span>
+            <span class="text-sm font-semibold text-ink block">Review meeting notes & plan tomorrow priorities</span>
+            <span class="text-xs text-mute/60 mt-1 block">Planning · ~25 min</span>
           </button>
         </div>
 
@@ -136,9 +136,9 @@ const appSchema = {
 
         <div class="flex flex-wrap items-center justify-center gap-2.5">
           <button type="button" class="first-run-template px-5 h-11 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Study"><span class="text-base">📚</span> Study</button>
-          <button type="button" class="first-run-template px-5 h-11 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Coding"><span class="text-base">💻</span> Coding</button>
-          <button type="button" class="first-run-template px-5 h-11 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Reading"><span class="text-base">📖</span> Reading</button>
           <button type="button" class="first-run-template px-5 h-11 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Writing"><span class="text-base">✍️</span> Writing</button>
+          <button type="button" class="first-run-template px-5 h-11 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Reading"><span class="text-base">📖</span> Reading</button>
+          <button type="button" class="first-run-template px-5 h-11 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Coding"><span class="text-base">💻</span> Coding</button>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
@@ -235,10 +235,10 @@ const appSchema = {
           <div class="grid-area-activity w-full select-none">
             <span class="text-xs font-semibold text-mute/80 block mb-1.5 text-center md:text-left">Activity</span>
             <div class="flex items-center justify-center md:justify-start gap-2 lg:gap-3 flex-wrap">
-              <button type="button" class="activity-btn px-4 lg:px-5 py-3 sm:py-2 min-h-[44px] text-sm lg:text-base rounded-2xl bg-canvas-soft/80 text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-2 border border-transparent font-medium whitespace-nowrap" data-activity="Coding" aria-pressed="true" aria-label="Select Coding">
+              <button type="button" class="activity-btn px-4 lg:px-5 py-3 sm:py-2 min-h-[44px] text-sm lg:text-base rounded-2xl bg-canvas-soft/80 text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-2 border border-transparent font-medium whitespace-nowrap" data-activity="Coding" aria-pressed="false" aria-label="Select Coding">
                 <span class="text-base">💻</span> Coding
               </button>
-              <button type="button" class="activity-btn px-4 lg:px-5 py-3 sm:py-2 min-h-[44px] text-sm lg:text-base rounded-2xl bg-canvas-soft/80 text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium whitespace-nowrap" data-activity="Study" aria-pressed="false" aria-label="Select Study">
+              <button type="button" class="activity-btn px-4 lg:px-5 py-3 sm:py-2 min-h-[44px] text-sm lg:text-base rounded-2xl bg-canvas-soft/80 text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium whitespace-nowrap" data-activity="Study" aria-pressed="true" aria-label="Select Study">
                 <span class="text-base">📚</span> Study
               </button>
               <button type="button" class="activity-btn px-4 lg:px-5 py-3 sm:py-2 min-h-[44px] text-sm lg:text-base rounded-2xl bg-canvas-soft/80 text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium whitespace-nowrap" data-activity="Reading" aria-pressed="false" aria-label="Select Reading">
@@ -405,10 +405,10 @@ const appSchema = {
                 <button type="button" class="preset-btn h-11 min-w-[48px] px-3 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="25" data-break="5" aria-pressed="false" aria-label="Classic Pomodoro: 25 minutes work focus and 5 minutes rest break">
                   <span class="group-hover:text-link transition-colors">25m</span>
                 </button>
-                <button type="button" class="preset-btn h-11 min-w-[48px] px-3 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="50" data-break="10" aria-pressed="false" aria-label="Extended sprint: 50 minutes work focus and 10 minutes rest break">
+                <button type="button" class="preset-btn h-11 min-w-[48px] px-3 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="50" data-break="10" aria-pressed="false" aria-label="Extended session: 50 minutes work focus and 10 minutes rest break">
                   <span class="group-hover:text-link transition-colors">50m</span>
                 </button>
-                <button type="button" class="preset-btn h-11 min-w-[48px] px-3 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="90" data-break="0" aria-pressed="false" aria-label="Deep Flow sprint: 90 minutes work focus with no rest break">
+                <button type="button" class="preset-btn h-11 min-w-[48px] px-3 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="90" data-break="0" aria-pressed="false" aria-label="Deep Flow session: 90 minutes work focus with no rest break">
                   <span class="group-hover:text-link transition-colors">90m</span>
                 </button>
                 <button type="button" class="preset-btn h-11 min-w-[56px] px-3 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="custom" aria-pressed="false" aria-label="Set custom work focus and rest timing block">
@@ -640,7 +640,7 @@ const appSchema = {
                 <h3 class="text-sm font-bold tracking-tight text-ink">Session history</h3>
                 <span class="px-1.5 py-0.5 bg-canvas-soft text-mute/70 text-[10px] font-bold rounded" id="history-count-badge">0 sessions</span>
               </div>
-              <p class="text-xs text-mute/60 mt-0.5">Details of your completed focus sprints</p>
+              <p class="text-xs text-mute/60 mt-0.5">Details of your completed focus sessions</p>
             </div>
             <div class="flex items-center gap-2">
               <button type="button" id="seed-mock-btn" class="px-3 py-2.5 min-h-[44px] border border-dashed border-hairline/60 rounded-xl text-xs font-bold text-body hover:text-ink cursor-pointer hover:bg-canvas-soft hover:border-hairline-strong/40 active:scale-[0.97] transition-all">
@@ -1677,7 +1677,7 @@ const appSchema = {
   let timerExpectedEndTimestamp = 0;
   
   // Session Configuration Data
-  let selectedActivity = 'Coding';
+  let selectedActivity = 'Study';
   let activeGoal = '';
   let activeWhyMatters = '';
   let activeMilestones: Milestone[] = [];
@@ -1811,7 +1811,7 @@ const appSchema = {
     renderAchievements();
     
     // Set default preset styling
-    selectActivity('Coding');
+    selectActivity('Study');
     selectPreset(25, 5);
     
     // Initialize Onboarding Wizard Step 1
@@ -2381,7 +2381,7 @@ const appSchema = {
     });
 
     startSessionBtn?.addEventListener('click', () => {
-      activeGoal = goalInput?.value.trim() || `Focus sprint: ${selectedActivity}`;
+      activeGoal = goalInput?.value.trim() || `Focus session: ${selectedActivity}`;
       
       const goalWhyInput = document.getElementById('session-goal-why') as HTMLInputElement;
       activeWhyMatters = goalWhyInput?.value.trim() || '';
@@ -2638,7 +2638,7 @@ const appSchema = {
     document.getElementById('immersive-countdown').textContent = formatted;
     
     // Browser tab title
-    document.title = `[${formatted}] ${selectedActivity} | Focus Goals Timer`;
+    // Removed live timer from tab title for a stable, professional label
 
     // SVG Circular Progress
     const ring = document.getElementById('timer-progress-ring') as SVGPathElement;
@@ -2739,7 +2739,7 @@ const appSchema = {
     updateTimerDisplay();
     
     // Restore Title
-    document.title = "Focus Goals Timer - Goal-Oriented Productivity Tool | Tooltails";
+    document.title = "Focus Timer with Goal Planning | Tooltails";
 
     stopAmbientSound();
     if (audioCtx) {
@@ -2961,7 +2961,7 @@ const appSchema = {
         } else if (completed === total && total > 0) {
           coaching = `All ${total} checkpoints done. You set out to achieve something and you followed through. That's what growth looks like.`;
         } else {
-          coaching = `You completed this session with intention. Every finished sprint builds confidence and sharpens your focus. Well done.`;
+          coaching = `You completed this session with intention. Every finished session builds confidence and sharpens your focus. Well done.`;
         }
         break;
       case 'Partial':
@@ -4094,7 +4094,7 @@ const appSchema = {
             <div class="flex flex-col items-center justify-center gap-4 max-w-xs mx-auto animate-in fade-in duration-200">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-mute/20"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
               <div class="space-y-1">
-                <p class="text-sm font-semibold text-mute/60">Ready for your first session?</p>
+                <p class="text-sm font-semibold text-mute/60">Set a goal. Focus. Make progress.</p>
                 <p class="text-xs text-mute/40 leading-relaxed">Set a meaningful goal, start the timer, and build momentum. Every session you complete adds a story to your history.</p>
               </div>
             </div>
@@ -5002,7 +5002,7 @@ const appSchema = {
     if (weeklyCompletionRate >= 85) {
       insights.push(`<strong>Flow Mastery (Rate: ${weeklyCompletionRate}%):</strong> Excellent focus match! Your session completion rate is exceptional, indicating high productivity and accurate goal scope estimation. Keep this rhythm.`);
     } else if (weeklyCompletionRate < 60) {
-      insights.push(`<strong>Scope Realignment (Rate: ${weeklyCompletionRate}%):</strong> You are completing less than 60% of your focus sprints. Your outcomes might be too ambitious for individual blocks. Try planning smaller milestones (<15m each) before starting.`);
+      insights.push(`<strong>Scope Realignment (Rate: ${weeklyCompletionRate}%):</strong> You are completing less than 60% of your focus blocks. Your outcomes might be too ambitious for individual blocks. Try planning smaller milestones (<15m each) before starting.`);
     } else {
       insights.push(`<strong>Standard Consistency (Rate: ${weeklyCompletionRate}%):</strong> Steady progress. You are maintaining a healthy completion rate. Focus on eliminating external distractions to push past 80% next week.`);
     }
@@ -5010,7 +5010,7 @@ const appSchema = {
     // Rule 2: Workload check
     const focusHours = totalSec / 3600;
     if (focusHours >= 15) {
-      insights.push(`<strong>High Workload (${focusHours.toFixed(1)}h):</strong> You have completed over 15 hours of deep focus this week. To prevent burnout and maintain creative flow, ensure you take a full screen-free rest break between sprints.`);
+      insights.push(`<strong>High Workload (${focusHours.toFixed(1)}h):</strong> You have completed over 15 hours of deep focus this week. To prevent burnout and maintain creative flow, ensure you take a full screen-free rest break between sessions.`);
     } else if (focusHours < 4) {
       insights.push(`<strong>Low Flow Engagement (${focusHours.toFixed(1)}h):</strong> Focus hours are under 4 hours this week. Start with just one 25-minute Pomodoro session tomorrow morning to build up momentum without pressure.`);
     }
@@ -5193,7 +5193,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     let requiredForNext = 1;
     let currentInStage = completedCount;
     let minForStage = 0;
-    let description = 'Every journey begins with a single seed. Plant your intention and start your first focus sprint.';
+    let description = 'Every journey begins with a single seed. Plant your intention and start your first focus block.';
     let iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="text-emerald-600 dark:text-emerald-400"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>`;
 
     if (completedCount >= 30) {
@@ -5303,7 +5303,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
       {
         id: 'first-spark',
         name: 'First Spark',
-        desc: 'Complete your first focused outcome sprint.',
+        desc: 'Complete your first focused session.',
         unlocked: completedCount >= 1,
         condition: '1 completed focus block',
         svg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="${completedCount >= 1 ? 'text-amber-500 animate-pulse' : 'text-mute'}"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>`
@@ -5321,7 +5321,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
         name: 'Deep Flow Diver',
         desc: 'Complete an extended focus session (50m+).',
         unlocked: hasDeepSession,
-        condition: '50m+ sprint outcome',
+        condition: '50m+ focus block',
         svg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="${hasDeepSession ? 'text-blue-500' : 'text-mute'}"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`
       },
       {
@@ -5337,7 +5337,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
         name: 'Consistent Creator',
         desc: 'Complete 10 total outcomes to reinforce your flow habit.',
         unlocked: completedCount >= 10,
-        condition: '10 completed sprints',
+        condition: '10 completed sessions',
         svg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="${completedCount >= 10 ? 'text-emerald-500' : 'text-mute'}"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`
       }
     ];
@@ -5959,9 +5959,9 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     } else if (topReason === 'goal-too-large') {
       recoveryAdvice = "Objective scope creep is introducing friction. Leverage the Milestone Decomposer inside onboarding Step 2. Never start a timer without defining precisely 2 or 3 tiny sub-tasks that lead to the session's overall intention.";
     } else if (topReason === 'interruption') {
-      recoveryAdvice = "External environmental fractures are breaking your focus blocks. Try shifting your high-priority sprints to early morning hours or declare a physical visual signal (like headphone use) to mitigate external interruptions.";
+      recoveryAdvice = "External environmental fractures are breaking your focus blocks. Try shifting your high-priority sessions to early morning hours or declare a physical visual signal (like headphone use) to mitigate external interruptions.";
     } else {
-      recoveryAdvice = "Maintain a sustainable rhythm. Ensure you rest between sprints. Avoid consecutive focus cycles exceeding 90 minutes without a restorative screen-free recovery window.";
+      recoveryAdvice = "Maintain a sustainable rhythm. Ensure you rest between sessions. Avoid consecutive focus blocks exceeding 90 minutes without a restorative screen-free recovery window.";
     }
 
     const coachingText = `

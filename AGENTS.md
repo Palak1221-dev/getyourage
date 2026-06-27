@@ -1,4 +1,4 @@
-## Session Summary (Jun 27, 2026) — Part 2
+## Session Summary (Jun 27, 2026) — Part 3
 
 ### What We Did
 
@@ -14,14 +14,32 @@
 
 3. **Verified no encoding issues remain** — 0 mojibake patterns, 0 HTML entities, 0 unknown non-ASCII sequences across all Focus files (`index.astro`, `contact.astro`, `privacy.astro`, `terms.astro`). All non-ASCII are correct Unicode emoji or punctuation.
 
-4. **Build passes** — `npx astro build` completes with 0 errors (34 pages in 9.29s).
-
 ### Mechanics
 - Used Python byte-level replacement scripts (`fix_entities.py`, `fix_moods2.py`) for reliable matching
 - File saved as UTF-8 with no BOM
 
 ### Files Modified
 - `src/pages/focus/index.astro`
+
+## Session Summary (Jun 27, 2026) — Part 2
+
+### What We Did
+
+1. **Made Focus page more general-purpose** — replaced dev-centric defaults and language:
+   - **Default activity**: Coding → Study (JS var `selectedActivity`, `selectActivity()` call, and `aria-pressed` on HTML buttons)
+   - **First-run examples**: "Complete the React auth module" → "Finish chapter 3 notes", "Write blog introduction" → "Draft a blog outline", "Read 30 pages of Deep Work" → "Review meeting notes & plan tomorrow priorities"
+   - **Template order**: Coding moved to last (Study → Writing → Reading → Coding)
+   - **First-run headline**: "Ready for your first session?" → "Set a goal. Focus. Make progress."
+   - **Achievement text**: "focused outcome sprint" → "focused session"
+   - **Growth journey**: "focus sprint" → "focus block"
+2. **Stabilized browser tab title** — removed live timer (`[25:00] Coding | Focus...`) from `document.title` updates; restored title now reads "Focus Timer with Goal Planning | Tooltails"
+3. **Removed developer-specific language** across empty states, insights, coaching, and recovery advice:
+   - "sprint" → "session" or "focus block" (12 replacements across labels, insights, achievements, recovery text)
+   - All occurrences of "sprint" in user-facing text eliminated
+4. **Build passes** — `npx astro build` completes with 0 errors (34 pages in 9.15s)
+
+### Files Modified
+- `src/pages/focus/index.astro` — all positioning, defaults, and messaging changes
 
 ## Session Summary (Jun 27, 2026) — Part 1
 
