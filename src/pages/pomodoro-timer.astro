@@ -96,6 +96,14 @@ const webPageSchema = {
   "description": "Stay focused, build streaks, measure productivity, and turn work sessions into completed goals with the Tooltails Pomodoro Timer. Free, no login required.",
   "url": "https://tooltails.com/pomodoro-timer"
 };
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Tooltails Pomodoro",
+  "url": "https://tooltails.com/pomodoro-timer",
+  "description": "Free Pomodoro Timer with task tracking, daily streaks, focus analytics, session history, and productivity scoring."
+};
 ---
 
 <Layout
@@ -104,6 +112,24 @@ const webPageSchema = {
   image="/og-image.png"
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+
+  <!-- ============ POMODORO NAVIGATION ============ -->
+  <nav aria-label="Pomodoro Timer navigation" class="w-full border-b border-hairline bg-canvas/80 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 flex items-center justify-between h-12">
+      <a href="/pomodoro-timer" class="flex items-center gap-2 text-sm font-bold text-ink hover:text-link transition-colors">
+        <svg class="w-4 h-4 text-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Pomodoro
+      </a>
+      <div class="flex items-center gap-1">
+        <a href="/pomodoro-timer" class="px-3 py-1.5 text-xs font-semibold text-ink bg-canvas-soft-2 rounded-full transition-colors">Timer</a>
+        <a href="/pomodoro-timer/blog" class="px-3 py-1.5 text-xs font-semibold text-body hover:text-ink hover:bg-canvas-soft rounded-full transition-colors">Blog</a>
+        <a href="/pomodoro-timer/contact" class="px-3 py-1.5 text-xs font-semibold text-body hover:text-ink hover:bg-canvas-soft rounded-full transition-colors">Contact</a>
+        <a href="/pomodoro-timer/privacy" class="px-3 py-1.5 text-xs font-semibold text-body hover:text-ink hover:bg-canvas-soft rounded-full transition-colors">Privacy</a>
+        <a href="/pomodoro-timer/terms" class="px-3 py-1.5 text-xs font-semibold text-body hover:text-ink hover:bg-canvas-soft rounded-full transition-colors">Terms</a>
+      </div>
+    </div>
+  </nav>
 
   <!-- ============ HERO ============ -->
   <section class="w-full pt-8 lg:pt-12 pb-4">
@@ -513,17 +539,17 @@ const webPageSchema = {
       <!-- Related Tools -->
       <div class="w-full py-12 border-y border-hairline mt-12">
         <div class="text-center">
-          <h2 class="text-2xl font-bold text-ink mb-8">Explore More Productivity Tools</h2>
+          <h2 class="text-2xl font-bold text-ink mb-8">Explore Pomodoro Resources</h2>
           <div class="flex flex-col sm:flex-row justify-center gap-3">
+            <a href="/pomodoro-timer/blog" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+              <svg class="w-4 h-4 mr-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              Pomodoro Blog
+            </a>
+            <a href="/pomodoro-timer/contact" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+              Contact Support
+            </a>
             <a href="/focus" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
               Focus Goals Timer
-            </a>
-            <a href="/focus/blog" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
-              <svg class="w-4 h-4 mr-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-              Productivity Blog
-            </a>
-            <a href="/blog" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
-              All Blog Posts
             </a>
           </div>
         </div>
@@ -534,6 +560,7 @@ const webPageSchema = {
   <!-- Structured Data -->
   <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(appSchema)} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(websiteSchema)} />
 </Layout>
 
 <!-- Client Side Scripting -->

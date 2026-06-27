@@ -1,0 +1,58 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com" },
+    { "@type": "ListItem", "position": 2, "name": "Pomodoro Timer", "item": "https://tooltails.com/pomodoro-timer" },
+    { "@type": "ListItem", "position": 3, "name": "Privacy", "item": "https://tooltails.com/pomodoro-timer/privacy" }
+  ]
+};
+---
+
+<Layout
+  title="Privacy Policy - Tooltails Pomodoro"
+  description="Privacy policy for Tooltails Pomodoro Timer. All timer data, session history, and preferences are stored locally in your browser."
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tighter text-ink mb-8">Privacy Policy</h1>
+    <div class="prose prose-neutral max-w-none prose-headings:text-ink prose-p:text-body prose-a:text-link prose-strong:text-ink">
+      <p>Your privacy is important to us. The Tooltails Pomodoro Timer is designed to be privacy-first and offline-capable.</p>
+
+      <h2>Data Storage</h2>
+      <p>All timer data is stored locally in your browser using localStorage. This includes:</p>
+      <ul>
+        <li>Session history and completion data</li>
+        <li>Daily streaks and productivity scores</li>
+        <li>Timer duration preferences</li>
+        <li>Sound and notification settings</li>
+        <li>Recent task history</li>
+      </ul>
+      <p>No data is ever sent to our servers. Your focus data stays on your device.</p>
+
+      <h2>Analytics</h2>
+      <p>We use Google Analytics (GA4) and Microsoft Clarity to understand aggregate usage patterns. These services collect anonymized data such as page views, session duration, and browser type. No personal identification data is collected through the timer itself.</p>
+
+      <h2>Third-Party Services</h2>
+      <p>Google Analytics and Microsoft Clarity are the only third-party services integrated into this site. They are loaded on all Tooltails pages including the Pomodoro Timer.</p>
+
+      <h2>Cookies</h2>
+      <p>We do not set any cookies directly. Google Analytics and Microsoft Clarity may set their own cookies for analytics purposes.</p>
+
+      <h2>Contact</h2>
+      <p>If you have privacy concerns, please <a href="/pomodoro-timer/contact">contact us</a>.</p>
+
+      <h2>Changes</h2>
+      <p>This policy may be updated occasionally. Continued use of the Pomodoro Timer after changes constitutes acceptance of the updated policy.</p>
+      <p>Last updated: June 2026</p>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-hairline">
+      <a href="/pomodoro-timer" class="text-sm font-medium text-link hover:underline">&larr; Back to Pomodoro Timer</a>
+    </div>
+  </div>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
+</Layout>
