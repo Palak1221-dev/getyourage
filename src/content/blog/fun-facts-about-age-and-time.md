@@ -24,7 +24,7 @@ With over 8 billion people on Earth, you share your exact birthday (month and da
 The longest verified human lifespan belongs to Jeanne Calment of France, who lived to be 122 years and 164 days old. If you want to see how many days that is, plug her lifespan into our duration calculator!
 
 ## Why Track Your Exact Age?
-Tracking your exact age helps ground you in the present moment. By understanding how many days and weeks you've lived, you can foster a sense of gratitude for the time you have. Try checking your granular life statistics today using our suite of age calculators. If you want to optimize your daily writing tasks or count words, characters, and reading time for articles, you can also use our [Word Counter](/word-counter).
+Tracking your exact age helps ground you in the present moment. By understanding how many days and weeks you've lived, you can foster a sense of gratitude for the time you have. Try checking your granular life statistics today using our suite of age calculators. If you want to optimize your daily writing tasks or track reading time for articles, you can also use our [Pomodoro Timer](/pomodoro-timer).
 
 ## Frequently Asked Questions
 

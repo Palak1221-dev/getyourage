@@ -24,7 +24,9 @@ People born on February 29th (Leaplings) face a unique challenge. Since their ac
 
 ## Calculating With Precision
 
-Because of these rules, building an accurate age calculator requires complex conditional logic. Our [Exact Age Calculator](/) automatically processes all leap year rules. It relies on standard Unix epoch time to guarantee that every single day—including February 29th—is accurately counted in your total days, weeks, and seconds lived.
+Because of these rules, building an accurate age calculator requires complex conditional logic. Our [Exact Age Calculator](/age-calculator) automatically processes all leap year rules. It relies on standard Unix epoch time to guarantee that every single day—including February 29th—is accurately counted in your total days, weeks, and seconds lived.
+
+Explore more time-related tools like our [Age Difference Calculator](/age-difference) to compare birth dates, or the [Date Duration Calculator](/duration) for precise interval calculations between any two dates.
 
 ## Frequently Asked Questions
 

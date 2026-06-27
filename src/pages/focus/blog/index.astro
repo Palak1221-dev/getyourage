@@ -6,6 +6,32 @@ import Card from "../../../components/ui/Card.astro";
 const posts = await getCollection('focus-blog');
 // Sort posts by date (newest first)
 const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Focus & Flow Blog - Tooltails",
+  "description": "Insights, productivity guides, and science-backed recovery tips to help you optimize focus, defeat procrastination, and ship your goals.",
+  "url": Astro.url.origin + "/focus/blog",
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": sortedPosts.map((post, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "url": Astro.url.origin + "/focus/blog/" + post.id
+    }))
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com" },
+    { "@type": "ListItem", "position": 2, "name": "Focus Timer", "item": "https://tooltails.com/focus" },
+    { "@type": "ListItem", "position": 3, "name": "Blog", "item": "https://tooltails.com/focus/blog" }
+  ]
+};
 ---
 
 <Layout 
@@ -43,4 +69,6 @@ const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
       ))}
     </div>
   </div>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(collectionSchema)} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
 </Layout>

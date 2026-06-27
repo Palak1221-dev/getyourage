@@ -48,4 +48,12 @@ import Layout from "../../layouts/Layout.astro";
       </p>
     </div>
   </div>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Privacy Policy - Tooltails Focus",
+    "url": Astro.url.origin + "/focus/privacy",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": Astro.url.origin + "/focus/privacy" }
+  })} />
 </Layout>

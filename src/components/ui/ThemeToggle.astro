@@ -3,7 +3,7 @@
 
 <button
   id="theme-toggle"
-  class="relative inline-flex h-9 w-9 items-center justify-center rounded-md border border-hairline bg-canvas transition-colors hover:bg-canvas-soft-2 focus:outline-none z-50"
+  class="relative inline-flex h-9 w-9 items-center justify-center rounded-md border border-hairline bg-canvas transition-colors hover:bg-canvas-soft-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/40 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas z-50"
   aria-label="Toggle theme"
 >
   <!-- Sun Icon (visible in dark mode) -->
@@ -16,6 +16,7 @@
     stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
+    aria-hidden="true"
   >
     <circle cx="12" cy="12" r="4"></circle>
     <path d="M12 2v2"></path>
@@ -37,6 +38,7 @@
     stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
+    aria-hidden="true"
   >
     <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
   </svg>

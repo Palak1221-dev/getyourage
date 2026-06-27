@@ -11,11 +11,11 @@ const faqItems = [
   },
   {
     question: "What happens when I mark a session as Partial or Failed?",
-    answer: "Instead of guilt, you get a recovery plan. The engine looks at what went wrong — distraction, fatigue, or a goal that was too big — and suggests a practical next step. Maybe shorter blocks, a screen break, or breaking your goal down further. The idea is to learn, not to punish."
+    answer: "Instead of guilt, you get a recovery plan. The engine looks at what went wrong &#x2014; distraction, fatigue, or a goal that was too big &#x2014; and suggests a practical next step. Maybe shorter blocks, a screen break, or breaking your goal down further. The idea is to learn, not to punish."
   },
   {
     question: "Is my data safe? Do I need an account?",
-    answer: "No accounts, no servers, no cloud. Everything — your sessions, streaks, checkpoints, journal entries — lives in your browser's LocalStorage. You can export a backup anytime, but nothing ever leaves your machine unless you choose to save the file."
+    answer: "No accounts, no servers, no cloud. Everything &#x2014; your sessions, streaks, checkpoints, journal entries &#x2014; lives in your browser's LocalStorage. You can export a backup anytime, but nothing ever leaves your machine unless you choose to save the file."
   },
   {
     question: "How do the ambient sounds work without downloading anything?",
@@ -42,8 +42,8 @@ const appSchema = {
   "name": "Tooltails Focus",
   "operatingSystem": "Web",
   "applicationCategory": "ProductivityApplication",
-  "description": "Focus on goals, not just time. A premium, offline-first productivity workspace with goal-planning checklist, recovery recommendations, streaks, and GitHub-style heatmaps.",
-  "url": "https://tooltails.com/focus",
+  "description": "An offline-first focus workspace with goal planning, checkpoint tracking, completion analytics, ambient sounds, and streak heatmaps &#x2014; all in your browser.",
+  "url": Astro.url.origin + "/focus",
   "featureList": [
     "Goal-Oriented Focus Timer (Intention over raw seconds)",
     "Checkpoint Decomposer (Milestone checklist)",
@@ -53,6 +53,7 @@ const appSchema = {
     "Personal Growth & Weekly Reflection Diagnostics"
   ],
   "browserRequirements": "Requires JavaScript. Requires HTML5.",
+  "image": Astro.url.origin + "/og-image.png",
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -62,8 +63,9 @@ const appSchema = {
 ---
 
 <Layout 
-  title="Focus Goals Timer - Goal-Oriented Productivity Tool | Tooltails" 
-  description="Focus on goals, not just time. An offline-first productivity workspace with goal-planning checklist, recovery recommendations, streaks, and GitHub-style heatmaps."
+  title="Focus Timer with Goal Planning &#x2014; Tooltails Focus" 
+  description="An offline-first focus workspace: set a goal, break it into checkpoints, and track your completion rate. Includes ambient sounds, streak tracking, and heatmap analytics &#x2014; all in your browser."
+  image="/og-focus.png"
 >
   <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
   <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(appSchema)} />
@@ -80,13 +82,13 @@ const appSchema = {
         </h1>
         <div class="flex items-center gap-2">
           <div class="flex items-center gap-1.5 bg-canvas-soft-2/80 rounded-full p-0.5">
-        <button id="tab-btn-workspace" role="tab" aria-selected="true" aria-controls="tab-workspace" class="tab-btn px-4 py-2 sm:py-1.5 text-sm font-semibold rounded-full bg-canvas text-ink shadow-sm focus-visible:outline-none transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('workspace')" aria-label="Open workspace tab">
+        <button id="tab-btn-workspace" role="tab" aria-selected="true" aria-controls="tab-workspace" class="tab-btn px-4 py-2 sm:py-1.5 min-h-[44px] text-sm font-semibold rounded-full bg-canvas text-ink shadow-sm focus-visible:outline-none transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('workspace')" aria-label="Open workspace tab">
           Timer
         </button>
-        <button id="tab-btn-analytics" role="tab" aria-selected="false" aria-controls="tab-analytics" class="tab-btn px-4 py-2 sm:py-1.5 text-sm font-semibold rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('analytics')" aria-label="Open progress analytics tab">
+        <button id="tab-btn-analytics" role="tab" aria-selected="false" aria-controls="tab-analytics" class="tab-btn px-4 py-2 sm:py-1.5 min-h-[44px] text-sm font-semibold rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('analytics')" aria-label="Open progress analytics tab">
           Progress
         </button>
-        <button id="tab-btn-premium" role="tab" aria-selected="false" aria-controls="tab-premium" class="tab-btn px-4 py-2 sm:py-1.5 text-sm font-semibold rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('premium')" aria-label="Open growth and coaching tab">
+        <button id="tab-btn-premium" role="tab" aria-selected="false" aria-controls="tab-premium" class="tab-btn px-4 py-2 sm:py-1.5 min-h-[44px] text-sm font-semibold rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('premium')" aria-label="Open growth and coaching tab">
           Journal
         </button>
       </div>
@@ -110,19 +112,19 @@ const appSchema = {
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <button type="button" class="first-run-example text-left p-4 rounded-2xl border border-hairline/60 bg-canvas-soft/30 hover:border-link/30 hover:bg-link/[0.02] motion-safe:hover:-translate-y-0.5 motion-safe:transition-all motion-safe:duration-200 cursor-pointer group" data-goal="Write the introduction for my blog post" data-activity="Writing">
-            <span class="text-lg mb-1 block">✍️</span>
+            <span class="text-lg mb-1 block">âœï¸</span>
             <span class="text-sm font-semibold text-ink block">Write the introduction for my blog post</span>
-            <span class="text-xs text-mute/60 mt-1 block">Writing · ~30 min</span>
+            <span class="text-xs text-mute/60 mt-1 block">Writing Â· ~30 min</span>
           </button>
           <button type="button" class="first-run-example text-left p-4 rounded-2xl border border-hairline/60 bg-canvas-soft/30 hover:border-link/30 hover:bg-link/[0.02] motion-safe:hover:-translate-y-0.5 motion-safe:transition-all motion-safe:duration-200 cursor-pointer group" data-goal="Complete the React authentication module" data-activity="Coding">
-            <span class="text-lg mb-1 block">💻</span>
+            <span class="text-lg mb-1 block">ðŸ’»</span>
             <span class="text-sm font-semibold text-ink block">Complete the React authentication module</span>
-            <span class="text-xs text-mute/60 mt-1 block">Coding · ~60 min</span>
+            <span class="text-xs text-mute/60 mt-1 block">Coding Â· ~60 min</span>
           </button>
           <button type="button" class="first-run-example text-left p-4 rounded-2xl border border-hairline/60 bg-canvas-soft/30 hover:border-link/30 hover:bg-link/[0.02] motion-safe:hover:-translate-y-0.5 motion-safe:transition-all motion-safe:duration-200 cursor-pointer group" data-goal="Read 30 pages of Deep Work and take notes" data-activity="Reading">
-            <span class="text-lg mb-1 block">📖</span>
+            <span class="text-lg mb-1 block">ðŸ“–</span>
             <span class="text-sm font-semibold text-ink block">Read 30 pages of Deep Work and take notes</span>
-            <span class="text-xs text-mute/60 mt-1 block">Reading · ~45 min</span>
+            <span class="text-xs text-mute/60 mt-1 block">Reading Â· ~45 min</span>
           </button>
         </div>
 
@@ -133,10 +135,10 @@ const appSchema = {
         </div>
 
         <div class="flex flex-wrap items-center justify-center gap-2.5">
-          <button type="button" class="first-run-template px-5 h-10 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Study"><span class="text-base">📚</span> Study</button>
-          <button type="button" class="first-run-template px-5 h-10 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Coding"><span class="text-base">💻</span> Coding</button>
-          <button type="button" class="first-run-template px-5 h-10 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Reading"><span class="text-base">📖</span> Reading</button>
-          <button type="button" class="first-run-template px-5 h-10 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Writing"><span class="text-base">✍️</span> Writing</button>
+          <button type="button" class="first-run-template px-5 h-11 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Study"><span class="text-base">ðŸ“š</span> Study</button>
+          <button type="button" class="first-run-template px-5 h-11 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Coding"><span class="text-base">ðŸ’»</span> Coding</button>
+          <button type="button" class="first-run-template px-5 h-11 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Reading"><span class="text-base">ðŸ“–</span> Reading</button>
+          <button type="button" class="first-run-template px-5 h-11 rounded-2xl border border-hairline/60 text-sm font-semibold text-ink bg-canvas hover:bg-canvas-soft hover:border-link/30 motion-safe:transition-all motion-safe:duration-200 cursor-pointer" data-template="Writing"><span class="text-base">âœï¸</span> Writing</button>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
@@ -163,13 +165,13 @@ const appSchema = {
         </div>
 
         <div class="text-center">
-          <button type="button" id="first-run-skip" class="text-xs text-mute/50 hover:text-mute/80 motion-safe:transition-colors motion-safe:duration-200 cursor-pointer underline underline-offset-2">Skip — I know what I'm doing</button>
+          <button type="button" id="first-run-skip" class="text-xs text-mute/50 hover:text-mute/80 motion-safe:transition-colors motion-safe:duration-200 cursor-pointer underline underline-offset-2">Skip &#x2014; I know what I'm doing</button>
         </div>
       </div>
 
-      <!-- FOCUS WORKSPACE — premium two-column grid -->
+      <!-- FOCUS WORKSPACE &#x2014; premium two-column grid -->
       <div id="focus-workspace-container" class="settings-card max-w-[1400px] mx-auto bg-canvas rounded-2xl border border-hairline/60 shadow-sm transition-all duration-500">
-        <div class="workspace-grid gap-2 lg:gap-3 px-6 lg:px-8 pt-5 lg:pt-5 pb-3">
+        <div class="workspace-grid gap-2 lg:gap-3 px-4 lg:px-6 pt-5 lg:pt-5 pb-3">
 
           <!-- GOAL (order-1 mobile, left-col desktop) -->
           <div class="grid-area-goal w-full">
@@ -179,7 +181,7 @@ const appSchema = {
               id="session-goal" 
               autocomplete="off"
               spellcheck="true"
-              class="w-full h-[36px] px-4 bg-canvas-soft/70 rounded-2xl text-base font-semibold tracking-tight text-ink placeholder:text-mute/40 focus:outline-none focus:bg-canvas-soft/90 focus:ring-2 focus:ring-link/10 transition-all duration-200 select-text text-center md:text-left"
+              class="w-full h-11 px-4 bg-canvas-soft/70 rounded-2xl text-base font-semibold tracking-tight text-ink placeholder:text-mute/40 focus:outline-none focus:bg-canvas-soft/90 focus:ring-2 focus:ring-link/10 transition-all duration-200 select-text text-center md:text-left"
               placeholder="What do you want to make happen?" 
               aria-label="What do you want to make happen today?"
             />
@@ -193,7 +195,7 @@ const appSchema = {
               id="session-goal-why" 
               autocomplete="off"
               spellcheck="true"
-              class="w-full h-[36px] px-4 bg-canvas-soft/70 rounded-2xl text-base font-semibold tracking-tight text-ink placeholder:text-mute/40 focus:outline-none focus:bg-canvas-soft/90 focus:ring-2 focus:ring-link/10 transition-all duration-200 select-text text-center md:text-left" 
+              class="w-full h-11 px-4 bg-canvas-soft/70 rounded-2xl text-base font-semibold tracking-tight text-ink placeholder:text-mute/40 focus:outline-none focus:bg-canvas-soft/90 focus:ring-2 focus:ring-link/10 transition-all duration-200 select-text text-center md:text-left" 
               placeholder="What makes this meaningful? (optional)" 
               aria-label="Tell yourself why this goal matters"
             />
@@ -207,14 +209,14 @@ const appSchema = {
                 type="text" 
                 id="milestone-input" 
                 autocomplete="off" 
-                class="flex-grow h-[36px] px-4 bg-canvas-soft/70 rounded-2xl text-base font-semibold tracking-tight text-ink placeholder:text-mute/40 focus:outline-none focus:bg-canvas-soft/90 focus:ring-2 focus:ring-link/10 transition-all duration-200" 
-                placeholder="Add a step…" 
+                class="flex-grow h-11 px-4 bg-canvas-soft/70 rounded-2xl text-base font-semibold tracking-tight text-ink placeholder:text-mute/40 focus:outline-none focus:bg-canvas-soft/90 focus:ring-2 focus:ring-link/10 transition-all duration-200" 
+                placeholder="Add a stepâ€¦" 
                 aria-label="Add a checkpoint to your plan" 
               />
               <button 
                 type="button" 
                 id="add-milestone-btn" 
-                class="h-[36px] px-4 bg-link text-white hover:bg-link-hover active:scale-95 text-sm font-semibold rounded-2xl border-0 transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-link/50 focus-visible:outline-none" 
+                class="h-11 px-4 bg-link text-white hover:bg-link-hover active:scale-95 text-sm font-semibold rounded-2xl border-0 transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-link/50 focus-visible:outline-none" 
                 aria-label="Add checkpoint to checklist"
               >
                 Add step
@@ -234,30 +236,30 @@ const appSchema = {
             <span class="text-xs font-semibold text-mute/80 block mb-1.5 text-center md:text-left">Activity</span>
             <div class="flex items-center justify-center md:justify-start gap-2 lg:gap-3 flex-wrap">
               <button type="button" class="activity-btn px-4 lg:px-5 py-3 sm:py-2 min-h-[44px] text-sm lg:text-base rounded-2xl bg-canvas-soft/80 text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-2 border border-transparent font-medium whitespace-nowrap" data-activity="Coding" aria-pressed="true" aria-label="Select Coding">
-                <span class="text-base">💻</span> Coding
+                <span class="text-base">ðŸ’»</span> Coding
               </button>
               <button type="button" class="activity-btn px-4 lg:px-5 py-3 sm:py-2 min-h-[44px] text-sm lg:text-base rounded-2xl bg-canvas-soft/80 text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium whitespace-nowrap" data-activity="Study" aria-pressed="false" aria-label="Select Study">
-                <span class="text-base">📚</span> Study
+                <span class="text-base">ðŸ“š</span> Study
               </button>
               <button type="button" class="activity-btn px-4 lg:px-5 py-3 sm:py-2 min-h-[44px] text-sm lg:text-base rounded-2xl bg-canvas-soft/80 text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium whitespace-nowrap" data-activity="Reading" aria-pressed="false" aria-label="Select Reading">
-                <span class="text-base">📖</span> Reading
+                <span class="text-base">ðŸ“–</span> Reading
               </button>
               <button type="button" class="activity-btn px-4 lg:px-5 py-3 sm:py-2 min-h-[44px] text-sm lg:text-base rounded-2xl bg-canvas-soft/80 text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium whitespace-nowrap" data-activity="Writing" aria-pressed="false" aria-label="Select Writing">
-                <span class="text-base">✍️</span> Writing
+                <span class="text-base">âœï¸</span> Writing
               </button>
               <button type="button" class="activity-btn px-4 lg:px-5 py-3 sm:py-2 min-h-[44px] text-sm lg:text-base rounded-2xl bg-canvas-soft/80 text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium whitespace-nowrap" data-activity="Art" aria-pressed="false" aria-label="Select Art">
-                <span class="text-base">🎨</span> Art
+                <span class="text-base">ðŸŽ¨</span> Art
               </button>
               <button type="button" class="activity-btn px-4 lg:px-5 py-3 sm:py-2 min-h-[44px] text-sm lg:text-base rounded-2xl bg-canvas-soft/80 text-body hover:bg-canvas-soft-2 hover:text-ink active:scale-[0.97] transition-all duration-200 cursor-pointer flex items-center gap-1.5 border border-transparent font-medium whitespace-nowrap" data-activity="Custom" id="act-btn-custom" aria-pressed="false" aria-label="Select Custom">
-                <span class="text-base">⚙️</span> Custom
+                <span class="text-base">âš™ï¸</span> Custom
               </button>
             </div>
 
             <!-- Custom Activity Input -->
-            <input type="text" id="custom-activity-input" autocomplete="off" class="hidden w-full h-[36px] px-4 bg-canvas-soft/70 rounded-2xl text-base text-ink text-center focus:outline-none focus:bg-canvas-soft/90 focus:ring-2 focus:ring-link/10 transition-all duration-200" placeholder="What are you working on?" aria-label="Describe what you are working on" />
+            <input type="text" id="custom-activity-input" autocomplete="off" class="hidden w-full h-11 px-4 bg-canvas-soft/70 rounded-2xl text-base text-ink text-center focus:outline-none focus:bg-canvas-soft/90 focus:ring-2 focus:ring-link/10 transition-all duration-200" placeholder="What are you working on?" aria-label="Describe what you are working on" />
             <div id="custom-activity-next-panel" class="hidden"></div>
 
-            <!-- Checkpoints — minimal inline add, unhides below if needed -->
+            <!-- Checkpoints &#x2014; minimal inline add, unhides below if needed -->
             <div class="hidden" id="setup-milestones-compact">
               <!-- populated via JS if milestones exist -->
             </div>
@@ -270,7 +272,7 @@ const appSchema = {
             <div id="timer-active-glow" class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.04),transparent_70%)] pointer-events-none opacity-0 transition-opacity duration-700 ease-out"></div>
             
             <div class="relative w-full max-w-[290px] aspect-square flex items-center justify-center select-none mb-2 timer-dial-wrapper">
-              <!-- Subtle dial shadow — layered for depth -->
+              <!-- Subtle dial shadow &#x2014; layered for depth -->
               <div class="absolute inset-[3%] rounded-full bg-gradient-to-b from-canvas-soft/10 to-transparent dark:from-white/[0.02] pointer-events-none timer-dial-shadow"></div>
               <!-- Bezel ring for premium feel -->
               <div class="absolute inset-[2.5%] rounded-full border border-hairline/10 pointer-events-none"></div>
@@ -290,9 +292,9 @@ const appSchema = {
                 <circle id="timer-progress-dot" cx="50" cy="5" r="3.5" fill="var(--color-link)" class="transition-all duration-700 ease-out" />
               </svg>
 
-              <!-- Center content: Activity badge → Status → Countdown → Goal label → Next step -->
+              <!-- Center content: Activity badge â†’ Status â†’ Countdown â†’ Goal label â†’ Next step -->
               <div class="absolute flex flex-col items-center justify-center text-center z-20 px-6 w-full select-none">
-                <!-- Activity pill (kept for JS compatibility — hidden; activity shown in left column) -->
+                <!-- Activity pill (kept for JS compatibility &#x2014; hidden; activity shown in left column) -->
                 <span id="timer-active-category" class="hidden"></span>
                 <!-- Session status -->
                 <span id="timer-session-text" class="text-xs font-medium text-body/80 mb-2">Clear your mind. You've got this.</span>
@@ -338,7 +340,7 @@ const appSchema = {
               </div>
             </div>
 
-            <!-- Today's Progress — premium mini cards -->
+            <!-- Today's Progress &#x2014; premium mini cards -->
             <div class="w-full mt-2 pt-2 border-t border-hairline/10">
               <div class="grid grid-cols-3 gap-2">
                 <div class="rounded-xl border border-hairline/40 bg-canvas-soft/30 p-3 text-center">
@@ -350,7 +352,7 @@ const appSchema = {
                 </div>
                 <div class="rounded-xl border border-hairline/40 bg-canvas-soft/30 p-3 text-center">
                   <div class="flex items-center justify-center gap-1.5 mb-1">
-                    <span class="text-sm">🔥</span>
+                    <span class="text-sm">ðŸ”¥</span>
                     <span class="text-[10px] font-semibold text-mute/70 uppercase tracking-wider">Streak</span>
                   </div>
                   <div id="workspace-today-streak" class="text-base font-bold text-ink tabular-nums">0d</div>
@@ -368,14 +370,14 @@ const appSchema = {
 
           <!-- START FOCUS + TIP (order-6 mobile, left-col desktop) -->
           <div class="grid-area-start w-full space-y-1.5">
-            <button type="button" id="start-session-btn" class="w-full py-2.5 bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 hover:shadow-lg hover:shadow-link/20 active:scale-[0.98] text-sm font-bold tracking-wide rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-2 justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/50" aria-label="Start Goal Focus Session">
+            <button type="button" id="start-session-btn" class="w-full py-3 min-h-[44px] bg-gradient-to-b from-link to-link/90 text-white hover:from-link-hover hover:to-link-hover/90 hover:shadow-lg hover:shadow-link/20 active:scale-[0.98] text-sm font-bold tracking-wide rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-2 justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/50" aria-label="Start Goal Focus Session">
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
               Start Focus
             </button>
             <p class="text-[11px] text-mute/50 text-center md:text-left leading-relaxed">Write what you want to accomplish, set a few checkpoints, then begin.</p>
           </div>
 
-          <!-- ACTIVE INFO PANEL — Session Details (order-7 mobile, left-col desktop) -->
+          <!-- ACTIVE INFO PANEL &#x2014; Session Details (order-7 mobile, left-col desktop) -->
           <div id="active-info-panel" class="grid-area-details hidden w-full space-y-2 flex flex-col items-center">
             <span id="active-activity-tag" class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-canvas-soft-2 text-mute/70 self-start"></span>
             <h2 id="active-goal-title" class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-ink leading-snug text-pretty w-full text-left"></h2>
@@ -400,16 +402,16 @@ const appSchema = {
             <div class="flex items-center gap-2.5">
               <span class="text-sm font-medium text-mute/70">Duration</span>
               <div class="flex gap-1">
-                <button type="button" class="preset-btn h-8 min-w-[48px] px-2.5 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="25" data-break="5" aria-pressed="false" aria-label="Classic Pomodoro: 25 minutes work focus and 5 minutes rest break">
+                <button type="button" class="preset-btn h-11 min-w-[48px] px-3 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="25" data-break="5" aria-pressed="false" aria-label="Classic Pomodoro: 25 minutes work focus and 5 minutes rest break">
                   <span class="group-hover:text-link transition-colors">25m</span>
                 </button>
-                <button type="button" class="preset-btn h-8 min-w-[48px] px-2.5 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="50" data-break="10" aria-pressed="false" aria-label="Extended sprint: 50 minutes work focus and 10 minutes rest break">
+                <button type="button" class="preset-btn h-11 min-w-[48px] px-3 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="50" data-break="10" aria-pressed="false" aria-label="Extended sprint: 50 minutes work focus and 10 minutes rest break">
                   <span class="group-hover:text-link transition-colors">50m</span>
                 </button>
-                <button type="button" class="preset-btn h-8 min-w-[48px] px-2.5 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="90" data-break="0" aria-pressed="false" aria-label="Deep Flow sprint: 90 minutes work focus with no rest break">
+                <button type="button" class="preset-btn h-11 min-w-[48px] px-3 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="90" data-break="0" aria-pressed="false" aria-label="Deep Flow sprint: 90 minutes work focus with no rest break">
                   <span class="group-hover:text-link transition-colors">90m</span>
                 </button>
-                <button type="button" class="preset-btn h-8 min-w-[56px] px-2.5 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="custom" aria-pressed="false" aria-label="Set custom work focus and rest timing block">
+                <button type="button" class="preset-btn h-11 min-w-[56px] px-3 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer font-medium text-xs flex items-center justify-center group" data-focus="custom" aria-pressed="false" aria-label="Set custom work focus and rest timing block">
                   <span class="group-hover:text-ink transition-colors">Custom</span>
                 </button>
               </div>
@@ -417,15 +419,15 @@ const appSchema = {
             <div class="flex items-center gap-2.5">
               <span class="text-sm font-medium text-mute/70">Sound</span>
               <div class="flex gap-1">
-                <button type="button" class="sound-btn h-8 min-w-[48px] px-2.5 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer text-xs font-medium flex items-center justify-center" data-sound="mute" aria-pressed="false" aria-label="Mute ambient noise">Mute</button>
-                <button type="button" class="sound-btn h-8 min-w-[52px] px-2.5 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer text-xs font-medium flex items-center justify-center" data-sound="brown" aria-pressed="false" aria-label="Play ambient brown noise">Brown</button>
-                <button type="button" class="sound-btn h-8 min-w-[52px] px-2.5 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer text-xs font-medium flex items-center justify-center" data-sound="white" aria-pressed="false" aria-label="Play ambient white noise">White</button>
-                <button type="button" class="sound-btn h-8 min-w-[48px] px-2.5 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer text-xs font-medium flex items-center justify-center" data-sound="rain" aria-pressed="false" aria-label="Play ambient rain sound">Rain</button>
+                <button type="button" class="sound-btn h-11 min-w-[48px] px-3 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer text-xs font-medium flex items-center justify-center" data-sound="mute" aria-pressed="false" aria-label="Mute ambient noise">Mute</button>
+                <button type="button" class="sound-btn h-11 min-w-[52px] px-3 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer text-xs font-medium flex items-center justify-center" data-sound="brown" aria-pressed="false" aria-label="Play ambient brown noise">Brown</button>
+                <button type="button" class="sound-btn h-11 min-w-[52px] px-3 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer text-xs font-medium flex items-center justify-center" data-sound="white" aria-pressed="false" aria-label="Play ambient white noise">White</button>
+                <button type="button" class="sound-btn h-11 min-w-[48px] px-3 rounded-lg bg-canvas-soft/60 text-body hover:bg-canvas-soft-2 active:scale-95 transition-all duration-200 cursor-pointer text-xs font-medium flex items-center justify-center" data-sound="rain" aria-pressed="false" aria-label="Play ambient rain sound">Rain</button>
               </div>
             </div>
           </div>
           <!-- Custom slider inputs -->
-          <div id="custom-presets-panel" class="hidden max-w-[280px] sm:max-w-[340px] mx-auto mt-2 rounded-xl p-2.5 space-y-2 bg-canvas-soft/50 border border-hairline/30">
+          <div id="custom-presets-panel" class="hidden max-w-[260px] sm:max-w-[340px] mx-auto mt-2 rounded-xl p-2.5 space-y-2 bg-canvas-soft/50 border border-hairline/30">
             <div class="flex items-center justify-between text-xs">
               <span class="text-mute">Focus: <span id="custom-focus-val" class="font-semibold text-ink tabular-nums">30m</span></span>
               <input type="range" id="custom-focus-slider" min="1" max="180" value="30" class="w-1/2 accent-link" aria-label="Custom work focus minutes slider" />
@@ -509,7 +511,7 @@ const appSchema = {
               </span>
               Top activity
             </div>
-            <div class="text-[28px] font-bold tracking-tight text-ink truncate tabular-nums leading-none" id="stat-top-activity">—</div>
+            <div class="text-[28px] font-bold tracking-tight text-ink truncate tabular-nums leading-none" id="stat-top-activity">&#x2014;</div>
             <div class="text-xs text-mute/50 mt-1.5 font-medium">Most logged activity</div>
           </div>
         </div>
@@ -763,11 +765,11 @@ const appSchema = {
                     Mood before
                   </label>
                   <div class="flex gap-2.5" id="journal-mood-before" data-mood="2">
-                    <button type="button" data-value="0" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Terrible">😢</button>
-                    <button type="button" data-value="1" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Not great">😕</button>
-                    <button type="button" data-value="2" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-link/50 bg-link/8 text-ink font-semibold ring-1 ring-link/20 scale-110 transition-all duration-150 cursor-pointer" title="Okay">😐</button>
-                    <button type="button" data-value="3" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Good">😊</button>
-                    <button type="button" data-value="4" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Amazing">🤩</button>
+                    <button type="button" data-value="0" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Terrible">ðŸ˜¢</button>
+                    <button type="button" data-value="1" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Not great">ðŸ˜•</button>
+                    <button type="button" data-value="2" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-link/50 bg-link/8 text-ink font-semibold ring-1 ring-link/20 scale-110 transition-all duration-150 cursor-pointer" title="Okay">ðŸ˜</button>
+                    <button type="button" data-value="3" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Good">ðŸ˜Š</button>
+                    <button type="button" data-value="4" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Amazing">ðŸ¤©</button>
                   </div>
                 </div>
                 <div class="space-y-2">
@@ -776,11 +778,11 @@ const appSchema = {
                     Mood after
                   </label>
                   <div class="flex gap-2.5" id="journal-mood-after" data-mood="2">
-                    <button type="button" data-value="0" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Terrible">😢</button>
-                    <button type="button" data-value="1" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Not great">😕</button>
-                    <button type="button" data-value="2" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-link/50 bg-link/8 text-ink font-semibold ring-1 ring-link/20 scale-110 transition-all duration-150 cursor-pointer" title="Okay">😐</button>
-                    <button type="button" data-value="3" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Good">😊</button>
-                    <button type="button" data-value="4" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Amazing">🤩</button>
+                    <button type="button" data-value="0" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Terrible">ðŸ˜¢</button>
+                    <button type="button" data-value="1" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Not great">ðŸ˜•</button>
+                    <button type="button" data-value="2" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-link/50 bg-link/8 text-ink font-semibold ring-1 ring-link/20 scale-110 transition-all duration-150 cursor-pointer" title="Okay">ðŸ˜</button>
+                    <button type="button" data-value="3" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Good">ðŸ˜Š</button>
+                    <button type="button" data-value="4" class="mood-btn w-11 h-11 flex items-center justify-center rounded-xl text-lg border border-hairline/50 hover:border-link/40 hover:bg-link/5 hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer" title="Amazing">ðŸ¤©</button>
                   </div>
                 </div>
               </div>
@@ -871,7 +873,7 @@ const appSchema = {
         Focus on what matters, not just the clock.
       </h2>
           <p class="text-base md:text-lg text-body leading-relaxed max-w-[720px] mx-auto text-balance mb-8">
-        Most timers just count seconds. Tooltails Focus helps you set a real intention, break it into small steps, and actually finish what you start. No accounts, no distractions — just you and your goal.
+        Most timers just count seconds. Tooltails Focus helps you set a real intention, break it into small steps, and actually finish what you start. No accounts, no distractions &#x2014; just you and your goal.
       </p>
       
       <div class="flex justify-center">
@@ -896,7 +898,7 @@ const appSchema = {
             </div>
             <h4 class="text-sm font-bold text-ink">Focus on Outcomes</h4>
             <p class="text-base text-body leading-relaxed">
-              Other timers just track how long you sit there. Tooltails Focus keeps your eyes on the prize — finishing what you set out to do.
+              Other timers just track how long you sit there. Tooltails Focus keeps your eyes on the prize &#x2014; finishing what you set out to do.
             </p>
             <div class="border-t border-hairline/60 pt-2 text-xs space-y-1">
               <div class="flex justify-between"><span class="text-mute">Pomodoro:</span> <span class="font-medium text-error">Ticks down blindly</span></div>
@@ -932,7 +934,7 @@ const appSchema = {
             </div>
             <h4 class="text-sm font-bold text-ink">Recovery Advice</h4>
             <p class="text-base text-body leading-relaxed">
-              Distractions happen. If a session gets interrupted, there's no guilt — just a gentle nudge about what went wrong and a practical tip to help you bounce back.
+              Distractions happen. If a session gets interrupted, there's no guilt &#x2014; just a gentle nudge about what went wrong and a practical tip to help you bounce back.
             </p>
             <div class="border-t border-hairline/60 pt-2 text-xs space-y-1">
               <div class="flex justify-between"><span class="text-mute">Pomodoro:</span> <span class="font-medium text-error">Feel bad and move on</span></div>
@@ -990,21 +992,21 @@ const appSchema = {
         </ul>
       </div>
 
-      <!-- PREMIUM FEATURE SHOWCASE — grouped by category -->
+      <!-- PREMIUM FEATURE SHOWCASE &#x2014; grouped by category -->
       <div id="features-showcase" class="md:col-span-2 mt-16 scroll-mt-6 space-y-20 md:space-y-24">
         <div class="text-center space-y-2">
           <span class="text-xs font-semibold text-mute/70 uppercase tracking-wider">Workspace capabilities</span>
           <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-ink leading-[1.1]">Core features</h2>
           <p class="text-sm text-body/70 leading-relaxed max-w-xl mx-auto">
-            Just the essentials: set a goal, choose your time, and get to work — all offline, all private.
+            Just the essentials: set a goal, choose your time, and get to work &#x2014; all offline, all private.
           </p>
         </div>
 
-        <!-- 🎯 Focus & Planning -->
+        <!-- ðŸŽ¯ Focus & Planning -->
         <div>
           <div class="mb-6 md:mb-8">
             <div class="w-8 h-1 bg-link rounded-full mb-4"></div>
-            <h3 class="text-4xl md:text-5xl font-bold tracking-tight text-ink">🎯 Focus &amp; Planning</h3>
+            <h3 class="text-4xl md:text-5xl font-bold tracking-tight text-ink">ðŸŽ¯ Focus &amp; Planning</h3>
             <p class="text-lg text-body/80 mt-3 leading-7">Set intentions, break down work, and enter your flow state with customizable sessions and ambient sound.</p>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-8 gap-y-6">
@@ -1042,7 +1044,7 @@ const appSchema = {
                 </div>
                 <h4 class="text-xl font-bold text-ink">Ambient sounds</h4>
               </div>
-              <p class="text-base text-body/80 leading-7 flex-1">Brown noise, rain, or white noise — synthesized in your browser. Find your frequency and tune out the world.</p>
+              <p class="text-base text-body/80 leading-7 flex-1">Brown noise, rain, or white noise &#x2014; synthesized in your browser. Find your frequency and tune out the world.</p>
             </div>
             <div class="flex flex-col p-8 rounded-[20px] border border-hairline/60 bg-canvas hover:border-hairline-strong/50 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_12px_30px_-10px_rgba(0,0,0,0.13)] motion-safe:transition-all motion-safe:duration-200 group">
               <div class="flex items-center gap-5 mb-5">
@@ -1056,11 +1058,11 @@ const appSchema = {
           </div>
         </div>
 
-        <!-- 📊 Insights & Analytics -->
+        <!-- ðŸ“Š Insights & Analytics -->
         <div>
           <div class="mb-6 md:mb-8">
             <div class="w-8 h-1 bg-link rounded-full mb-4"></div>
-            <h3 class="text-4xl md:text-5xl font-bold tracking-tight text-ink">📊 Insights &amp; Analytics</h3>
+            <h3 class="text-4xl md:text-5xl font-bold tracking-tight text-ink">ðŸ“Š Insights &amp; Analytics</h3>
             <p class="text-lg text-body/80 mt-3 leading-7">Track your progress, understand your patterns, and let data guide your growth.</p>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-8 gap-y-6">
@@ -1071,7 +1073,7 @@ const appSchema = {
                 </div>
                 <h4 class="text-xl font-bold text-ink">Daily stats</h4>
               </div>
-              <p class="text-base text-body/80 leading-7 flex-1">Focus time, completion rate, and streak — all at a glance. No digging required.</p>
+              <p class="text-base text-body/80 leading-7 flex-1">Focus time, completion rate, and streak &#x2014; all at a glance. No digging required.</p>
             </div>
             <div class="flex flex-col p-8 rounded-[20px] border border-hairline/60 bg-canvas hover:border-hairline-strong/50 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_12px_30px_-10px_rgba(0,0,0,0.13)] motion-safe:transition-all motion-safe:duration-200 group">
               <div class="flex items-center gap-5 mb-5">
@@ -1098,7 +1100,7 @@ const appSchema = {
                 </div>
                 <h4 class="text-xl font-bold text-ink">Recovery coach</h4>
               </div>
-              <p class="text-base text-body/80 leading-7 flex-1">When a session goes sideways, get a calm diagnosis and a practical next step — tailored to what went wrong.</p>
+              <p class="text-base text-body/80 leading-7 flex-1">When a session goes sideways, get a calm diagnosis and a practical next step &#x2014; tailored to what went wrong.</p>
             </div>
             <div class="flex flex-col p-8 rounded-[20px] border border-hairline/60 bg-canvas hover:border-hairline-strong/50 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_12px_30px_-10px_rgba(0,0,0,0.13)] motion-safe:transition-all motion-safe:duration-200 group">
               <div class="flex items-center gap-5 mb-5">
@@ -1107,7 +1109,7 @@ const appSchema = {
                 </div>
                 <h4 class="text-xl font-bold text-ink">Weekly review</h4>
               </div>
-              <p class="text-base text-body/80 leading-7 flex-1">A structured check-in on what worked, what didn't, and what to adjust next — no judgment, just progress.</p>
+              <p class="text-base text-body/80 leading-7 flex-1">A structured check-in on what worked, what didn't, and what to adjust next &#x2014; no judgment, just progress.</p>
             </div>
             <div class="flex flex-col p-8 rounded-[20px] border border-hairline/60 bg-canvas hover:border-hairline-strong/50 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_12px_30px_-10px_rgba(0,0,0,0.13)] motion-safe:transition-all motion-safe:duration-200 group">
               <div class="flex items-center gap-5 mb-5">
@@ -1130,11 +1132,11 @@ const appSchema = {
           </div>
         </div>
 
-        <!-- 📝 Journal & Reports -->
+        <!-- ðŸ“ Journal & Reports -->
         <div>
           <div class="mb-6 md:mb-8">
             <div class="w-8 h-1 bg-link rounded-full mb-4"></div>
-            <h3 class="text-4xl md:text-5xl font-bold tracking-tight text-ink">📝 Journal &amp; Reports</h3>
+            <h3 class="text-4xl md:text-5xl font-bold tracking-tight text-ink">ðŸ“ Journal &amp; Reports</h3>
             <p class="text-lg text-body/80 mt-3 leading-7">Reflect, review, and keep a lasting record of your focus journey.</p>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-8 gap-y-6">
@@ -1163,7 +1165,7 @@ const appSchema = {
                 </div>
                 <h4 class="text-xl font-bold text-ink">Monthly reports</h4>
               </div>
-              <p class="text-base text-body/80 leading-7 flex-1">A printable PDF digest of your month — density curves, streak timelines, and coaching insights.</p>
+              <p class="text-base text-body/80 leading-7 flex-1">A printable PDF digest of your month &#x2014; density curves, streak timelines, and coaching insights.</p>
             </div>
             <div class="flex flex-col p-8 rounded-[20px] border border-hairline/60 bg-canvas hover:border-hairline-strong/50 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_12px_30px_-10px_rgba(0,0,0,0.13)] motion-safe:transition-all motion-safe:duration-200 group">
               <div class="flex items-center gap-5 mb-5">
@@ -1172,7 +1174,7 @@ const appSchema = {
                 </div>
                 <h4 class="text-xl font-bold text-ink">Export &amp; backup</h4>
               </div>
-              <p class="text-base text-body/80 leading-7 flex-1">Download your complete data anytime. Everything stays local — no cloud, no accounts, no risk.</p>
+              <p class="text-base text-body/80 leading-7 flex-1">Download your complete data anytime. Everything stays local &#x2014; no cloud, no accounts, no risk.</p>
             </div>
             <div class="flex flex-col p-8 rounded-[20px] border border-hairline/60 bg-canvas hover:border-hairline-strong/50 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_12px_30px_-10px_rgba(0,0,0,0.13)] motion-safe:transition-all motion-safe:duration-200 group">
               <div class="flex items-center gap-5 mb-5">
@@ -1192,6 +1194,21 @@ const appSchema = {
     <!-- FAQ SECTION -->
     <div class="max-w-4xl mx-auto mt-16">
       <FAQ items={faqItems} renderSchema={false} />
+    </div>
+
+    <!-- Related Tools -->
+    <div class="w-full mt-16 pt-16 border-t border-hairline">
+      <div class="max-w-[1200px] mx-auto text-center">
+        <h2 class="text-2xl font-bold text-ink mb-12">Try our other productivity tools</h2>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="/pomodoro-timer" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+            Pomodoro Timer
+          </a>
+          <a href="/age-calculator" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+            Exact Age Calculator
+          </a>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -1227,21 +1244,21 @@ const appSchema = {
           
             <div class="grid grid-cols-3 gap-2">
             <!-- Completed -->
-            <label class="outcome-radio-label flex flex-col items-center justify-center p-2 sm:p-3 border border-hairline/40 rounded-xl bg-canvas text-ink text-center hover:bg-canvas-soft-2 cursor-pointer active:scale-95 transition-all">
+            <label class="outcome-radio-label flex flex-col items-center justify-center p-3 border border-hairline/40 rounded-xl bg-canvas text-ink text-center hover:bg-canvas-soft-2 cursor-pointer active:scale-95 transition-all">
               <input type="radio" name="outcome" value="Completed" required class="sr-only" />
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-link mb-1"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
               <span class="text-xs sm:text-sm font-bold">Completed</span>
             </label>
             
             <!-- Partial -->
-            <label class="outcome-radio-label flex flex-col items-center justify-center p-2 sm:p-3 border border-hairline/40 rounded-xl bg-canvas text-ink text-center hover:bg-canvas-soft-2 cursor-pointer active:scale-95 transition-all">
+            <label class="outcome-radio-label flex flex-col items-center justify-center p-3 border border-hairline/40 rounded-xl bg-canvas text-ink text-center hover:bg-canvas-soft-2 cursor-pointer active:scale-95 transition-all">
               <input type="radio" name="outcome" value="Partial" class="sr-only" />
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-warning mb-1"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
               <span class="text-xs sm:text-sm font-bold">Partial</span>
             </label>
             
             <!-- Failed -->
-            <label class="outcome-radio-label flex flex-col items-center justify-center p-2 sm:p-3 border border-hairline/40 rounded-xl bg-canvas text-ink text-center hover:bg-canvas-soft-2 cursor-pointer active:scale-95 transition-all">
+            <label class="outcome-radio-label flex flex-col items-center justify-center p-3 border border-hairline/40 rounded-xl bg-canvas text-ink text-center hover:bg-canvas-soft-2 cursor-pointer active:scale-95 transition-all">
               <input type="radio" name="outcome" value="Failed" class="sr-only" />
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-error mb-1"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
               <span class="text-xs sm:text-sm font-bold">Failed</span>
@@ -1264,7 +1281,7 @@ const appSchema = {
         <!-- Reflection notes -->
         <div class="space-y-1.5">
           <label for="reflection-notes" class="block text-sm font-semibold text-mute tracking-tight">Write down any thoughts, small wins, or feelings about this session (optional)</label>
-          <textarea id="reflection-notes" rows="2" class="w-full p-3 bg-canvas-soft border border-transparent rounded-sm text-sm text-ink placeholder:text-mute/45 focus:outline-none focus:bg-canvas focus:border-link/30 focus:ring-2 focus:ring-link/5 transition-all duration-200 shadow-sm" placeholder="Share any thoughts on your energy, insights, or gentle wins…"></textarea>
+          <textarea id="reflection-notes" rows="2" class="w-full p-3 bg-canvas-soft border border-transparent rounded-sm text-sm text-ink placeholder:text-mute/45 focus:outline-none focus:bg-canvas focus:border-link/30 focus:ring-2 focus:ring-link/5 transition-all duration-200 shadow-sm" placeholder="Share any thoughts on your energy, insights, or gentle winsâ€¦"></textarea>
         </div>
 
         <!-- Recovery Advisor Display -->
@@ -1278,7 +1295,7 @@ const appSchema = {
           <div class="flex items-center justify-between">
             <span class="text-sm font-bold text-body/80 tracking-tight">Log progress to goal</span>
             <label class="inline-flex items-center gap-1.5 min-h-11 cursor-pointer px-3 py-2 -mx-3 -my-2">
-              <input type="checkbox" id="sync-to-forecast" class="rounded border-hairline text-link focus:ring-link w-5 h-5 cursor-pointer" />
+              <input type="checkbox" id="sync-to-forecast" class="rounded border-hairline text-link focus:ring-link w-6 h-6 cursor-pointer" />
               <span class="text-xs font-mono font-bold text-ink">Sync Progress</span>
             </label>
           </div>
@@ -1288,7 +1305,7 @@ const appSchema = {
               <input type="number" id="sync-forecast-value" min="0.1" step="any" class="w-full h-11 px-2 bg-canvas-soft border border-transparent rounded-sm text-sm text-ink focus:outline-none focus:bg-canvas focus:border-link/30 focus:ring-2 focus:ring-link/5 transition-all duration-200 shadow-sm" value="1" />
               <span id="sync-forecast-unit" class="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-mute font-mono font-semibold">units</span>
             </div>
-            <input type="text" id="sync-forecast-notes" autocomplete="off" class="w-full sm:w-2/3 h-11 px-2 bg-canvas-soft border border-transparent rounded-sm text-sm text-ink focus:outline-none focus:bg-canvas focus:border-link/30 focus:ring-2 focus:ring-link/5 transition-all duration-200 shadow-sm" placeholder="Log comments…" />
+            <input type="text" id="sync-forecast-notes" autocomplete="off" class="w-full sm:w-2/3 h-11 px-2 bg-canvas-soft border border-transparent rounded-sm text-sm text-ink focus:outline-none focus:bg-canvas focus:border-link/30 focus:ring-2 focus:ring-link/5 transition-all duration-200 shadow-sm" placeholder="Log commentsâ€¦" />
           </div>
         </div>
 
@@ -1298,7 +1315,7 @@ const appSchema = {
           <div>
             <span class="text-sm font-bold text-warning tracking-tight block mb-0.5">Don't lose sight of your 'why':</span>
             <span id="modal-why-matters-support-text" class="text-body italic">Why Matters text</span>
-            <span class="block text-xs text-mute mt-1 leading-relaxed">Every stumble is part of the climb. Be kind to yourself — each block of focus, no matter the outcome, builds the self-awareness that leads to lasting change.</span>
+            <span class="block text-xs text-mute mt-1 leading-relaxed">Every stumble is part of the climb. Be kind to yourself &#x2014; each block of focus, no matter the outcome, builds the self-awareness that leads to lasting change.</span>
           </div>
         </div>
 
@@ -1313,7 +1330,7 @@ const appSchema = {
   <div id="celebration-overlay" class="fixed inset-0 bg-canvas/80 backdrop-blur-sm z-[9999] hidden flex items-center justify-center p-4">
     <div class="w-full max-w-sm bg-canvas border border-hairline/40 rounded-2xl shadow-elevated overflow-hidden animate-in fade-in zoom-in-95 duration-200 text-center">
       <div class="pt-8 pb-2 px-6">
-        <div id="celebration-emoji" class="text-5xl mb-3 select-none">🎉</div>
+        <div id="celebration-emoji" class="text-5xl mb-3 select-none">ðŸŽ‰</div>
         <h2 id="celebration-heading" class="text-lg font-extrabold text-ink tracking-tight">Session Complete!</h2>
         <p id="celebration-subhead" class="text-sm text-body mt-1">Great work. Here's what you accomplished:</p>
       </div>
@@ -1332,12 +1349,12 @@ const appSchema = {
         </div>
         <div class="flex items-center justify-between px-4 py-2.5 bg-canvas-soft rounded-xl">
           <span class="text-sm text-mute">Streak</span>
-          <span id="celebration-streak" class="text-sm font-bold text-ink">—</span>
+          <span id="celebration-streak" class="text-sm font-bold text-ink">&#x2014;</span>
         </div>
       </div>
       <div id="celebration-coaching" class="px-6 pb-2">
         <div class="p-3 bg-gradient-to-r from-link/[0.03] to-transparent border border-link/10 rounded-xl text-xs text-body leading-relaxed text-left">
-          <span id="celebration-coaching-text">Keep showing up — every session builds momentum.</span>
+          <span id="celebration-coaching-text">Keep showing up &#x2014; every session builds momentum.</span>
         </div>
       </div>
       <div class="px-6 pb-6 pt-3 space-y-2">
@@ -1415,6 +1432,14 @@ const appSchema = {
     </div>
   </dialog>
 
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com" },
+      { "@type": "ListItem", "position": 2, "name": "Focus Timer", "item": "https://tooltails.com/focus" }
+    ]
+  })} />
 </Layout>
 
 <script>
@@ -1506,7 +1531,7 @@ const appSchema = {
     }
   };
 
-  // TOOLTAILS MODAL SYSTEM — Promise-based alert/confirm/toast with Tooltails styling
+  // TOOLTAILS MODAL SYSTEM &#x2014; Promise-based alert/confirm/toast with Tooltails styling
   const TooltailsModal = {
     _toastContainer: null as HTMLElement | null,
 
@@ -1638,11 +1663,11 @@ const appSchema = {
     "You're exactly where you need to be right now.",
     'Each minute of focus is a brick in your foundation.',
     'Be proud of yourself for showing up today.',
-    'Your future self is cheering you on — keep going.',
+    'Your future self is cheering you on &#x2014; keep going.',
     'This is your time. Protect it like it matters.',
     'You don\'t need to be perfect. You just need to begin.',
     'Every small step is still a step forward.',
-    'Trust yourself — you\'ve handled harder things than this.',
+    'Trust yourself &#x2014; you\'ve handled harder things than this.',
   ];
   function warnBeforeUnload(e: BeforeUnloadEvent) {
     e.preventDefault();
@@ -1699,6 +1724,57 @@ const appSchema = {
 
   // ONBOARDING WIZARD SYSTEM STATE
   let onboardingCurrentStep = 1;
+
+  // FIRST-RUN EXPERIENCE
+  const firstRunTemplates: Record<string, { goal: string; activity: string }> = {
+    Study: { goal: 'Review Chapter 5 and summarize key concepts', activity: 'Study' },
+    Coding: { goal: 'Build the user authentication flow', activity: 'Coding' },
+    Reading: { goal: 'Read 20 pages and capture key insights', activity: 'Reading' },
+    Writing: { goal: 'Draft the first section of the proposal', activity: 'Writing' },
+  };
+
+  function setupFirstRun() {
+    const el = document.getElementById('first-run-experience');
+    if (!el) return;
+
+    const hasSeen = localStorage.getItem('tt-first-run');
+    if (hasSeen) { el.remove(); return; }
+
+    el.classList.remove('hidden');
+
+    el.querySelectorAll('.first-run-example').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const goal = (btn as HTMLElement).getAttribute('data-goal') || '';
+        const activity = (btn as HTMLElement).getAttribute('data-activity') || 'Custom';
+        const input = document.getElementById('session-goal') as HTMLInputElement;
+        if (input) { input.value = goal; input.dispatchEvent(new Event('input', { bubbles: true })); }
+        selectActivity(activity);
+        dismissFirstRun(el);
+      });
+    });
+
+    el.querySelectorAll('.first-run-template').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = (btn as HTMLElement).getAttribute('data-template') || '';
+        const t = firstRunTemplates[key];
+        if (t) {
+          const input = document.getElementById('session-goal') as HTMLInputElement;
+          if (input) { input.value = t.goal; input.dispatchEvent(new Event('input', { bubbles: true })); }
+          selectActivity(t.activity);
+        }
+        dismissFirstRun(el);
+      });
+    });
+
+    document.getElementById('first-run-skip')?.addEventListener('click', () => dismissFirstRun(el));
+  }
+
+  function dismissFirstRun(el: HTMLElement) {
+    localStorage.setItem('tt-first-run', '1');
+    el.style.transform = 'translateY(-8px)';
+    el.style.opacity = '0';
+    setTimeout(() => el.remove(), 350);
+  }
 
   function initApp() {
     loadHistory();
@@ -1778,6 +1854,7 @@ const appSchema = {
       renderGrowthJourney();
       renderAchievements();
       renderForecastEngine();
+      if (typeof gtag !== 'undefined') { gtag('event', 'tab_progress_opened', {}); }
     }
     
     // Refresh Focus Forecast Engine if opening premium
@@ -1786,6 +1863,7 @@ const appSchema = {
       renderWeeklyReview();
       renderJournalEntries((document.getElementById('journal-search-input') as HTMLInputElement)?.value || '');
       renderTodaySessionsSummary();
+      if (typeof gtag !== 'undefined') { gtag('event', 'tab_journal_opened', {}); }
     }
   };
 
@@ -1830,7 +1908,7 @@ const appSchema = {
       }
     }
 
-    // 2. Show active goal text — always visible while focusing
+    // 2. Show active goal text &#x2014; always visible while focusing
     if (timerGoalEl) {
       timerGoalEl.textContent = goalText || selectedActivity || 'This moment is yours';
     }
@@ -2123,6 +2201,7 @@ const appSchema = {
       input.value = '';
       
       renderSetupMilestones();
+      if (typeof gtag !== 'undefined') { gtag('event', 'checkpoint_added', { total_checkpoints: activeMilestones.length }); }
     });
 
     input?.addEventListener('keydown', (e) => {
@@ -2298,6 +2377,7 @@ const appSchema = {
       document.getElementById('shortcuts-hint')?.classList.remove('hidden');
 
       toggleTimer(true);
+      if (typeof gtag !== 'undefined') { gtag('event', 'goal_created', { activity: selectedActivity, source: 'quick_start' }); }
     });
 
     startSessionBtn?.addEventListener('click', () => {
@@ -2355,6 +2435,7 @@ const appSchema = {
       document.getElementById('shortcuts-hint')?.classList.remove('hidden');
 
       toggleTimer(true);
+      if (typeof gtag !== 'undefined') { gtag('event', 'goal_created', { activity: selectedActivity, source: 'manual', has_why: (activeWhyMatters.length > 0).toString() }); }
     });
 
     playPauseBtn?.addEventListener('click', () => {
@@ -2472,14 +2553,14 @@ const appSchema = {
       pauseIcon?.classList.add('icon-swap');
       immPauseIcon?.classList.remove('hidden');
       immPauseIcon?.classList.add('icon-swap');
-      if (playText) playText.textContent = "Pause — I'll be right back";
+      if (playText) playText.textContent = "Pause &#x2014; I'll be right back";
       if (immPlayText) immPlayText.textContent = "Pause for a moment";
       
       if (currentSessionMode === 'focus') {
         focusMessageIndex = 0;
         document.getElementById('timer-session-text').textContent = focusMessages[0];
       } else {
-        document.getElementById('timer-session-text').textContent = 'Recharge — you\'ve earned this break';
+        document.getElementById('timer-session-text').textContent = 'Recharge &#x2014; you\'ve earned this break';
       }
 
       // Start Audio Synth if sound is active
@@ -2490,6 +2571,13 @@ const appSchema = {
       // If we are starting a new timer run, record the session start
       if (timerRemainingSeconds === timerDurationSeconds) {
         timerSessionStartTimestamp = Date.now();
+        if (currentSessionMode === 'focus' && typeof gtag !== 'undefined') {
+          gtag('event', 'focus_start', { activity: selectedActivity, duration_minutes: configuredFocusMinutes });
+        }
+      } else {
+        if (currentSessionMode === 'focus' && typeof gtag !== 'undefined') {
+          gtag('event', 'focus_resume', { activity: selectedActivity });
+        }
       }
 
       // Expected end time is now + remaining duration
@@ -2529,10 +2617,14 @@ const appSchema = {
       if (playText) playText.textContent = "Ready to dive back in";
       if (immPlayText) immPlayText.textContent = "Let's keep going";
       
-      document.getElementById('timer-session-text').textContent = 'Paused — pick up where you left off';
+      document.getElementById('timer-session-text').textContent = 'Paused &#x2014; pick up where you left off';
 
       clearInterval(timerIntervalId);
       stopAmbientSound();
+
+      if (currentSessionMode === 'focus' && timerRemainingSeconds > 0 && typeof gtag !== 'undefined') {
+        gtag('event', 'focus_pause', { activity: selectedActivity });
+      }
     }
   }
 
@@ -2557,7 +2649,7 @@ const appSchema = {
       ring.style.strokeDashoffset = offset.toString();
     }
 
-    // Progress dot position — follows the arc end
+    // Progress dot position &#x2014; follows the arc end
     const dot = document.getElementById('timer-progress-dot');
     const dotGlow = document.getElementById('timer-progress-dot-glow');
     if (dot) {
@@ -2585,11 +2677,14 @@ const appSchema = {
     playNotificationSynth();
     
     if (currentSessionMode === 'focus') {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'focus_complete', { activity: selectedActivity, duration_minutes: configuredFocusMinutes });
+      }
       // Focus done -> prompt evaluation
       openOutcomeModal();
     } else if (currentSessionMode === 'break') {
       // Break done -> return to focus setup or next
-      TooltailsModal.toast("Break's over — whenever you feel ready, start your next session.", 5000);
+      TooltailsModal.toast("Break's over &#x2014; whenever you feel ready, start your next session.", 5000);
       resetTimerToIdle();
     }
   }
@@ -2670,7 +2765,7 @@ const appSchema = {
     const total = activeMilestones.length;
     const completed = activeMilestones.filter(m => m.completed).length;
     if (ratioText) {
-      ratioText.textContent = total > 0 ? `${completed} of ${total} steps done` : "You showed up with a clear intention — that's what matters.";
+      ratioText.textContent = total > 0 ? `${completed} of ${total} steps done` : "You showed up with a clear intention &#x2014; that's what matters.";
     }
 
     // Toggle timer off while modal handles outcomes
@@ -2832,7 +2927,7 @@ const appSchema = {
     const overlay = document.getElementById('celebration-overlay');
     if (!overlay) return;
 
-    // ── Stats ──
+    // â”€â”€ Stats â”€â”€
     const minutes = Math.floor((timerDurationSeconds - timerRemainingSeconds) / 60);
     const secs = (timerDurationSeconds - timerRemainingSeconds) % 60;
     const timeStr = minutes > 0 ? `${minutes} min${secs > 0 ? ` ${secs}s` : ''}` : `${secs}s`;
@@ -2840,29 +2935,29 @@ const appSchema = {
     document.getElementById('celebration-goal').textContent = activeGoal || 'This moment is yours';
     const total = activeMilestones.length;
     const completed = activeMilestones.filter(m => m.completed).length;
-    document.getElementById('celebration-checkpoints').textContent = total > 0 ? `${completed} of ${total}` : '—';
+    document.getElementById('celebration-checkpoints').textContent = total > 0 ? `${completed} of ${total}` : '&#x2014;';
 
-    // ── Streak ──
+    // â”€â”€ Streak â”€â”€
     const streak = calculateDailyStreak(history);
     const streakEl = document.getElementById('celebration-streak');
     if (streakEl) {
       if (streak > 0) {
-        streakEl.textContent = `🔥 ${streak} day${streak > 1 ? 's' : ''}`;
+        streakEl.textContent = `ðŸ”¥ ${streak} day${streak > 1 ? 's' : ''}`;
       } else {
         streakEl.textContent = 'Start your streak!';
       }
     }
 
-    // ── Outcome-specific emoji, heading, subhead, coaching ──
+    // â”€â”€ Outcome-specific emoji, heading, subhead, coaching â”€â”€
     let emoji: string, heading: string, subhead: string, coaching: string;
 
     switch (outcome) {
       case 'Completed':
-        emoji = '🎉';
+        emoji = 'ðŸŽ‰';
         heading = 'Nailed it!';
         subhead = 'You showed up and delivered. Here\'s your win:';
         if (streak > 1) {
-          coaching = `You're on a <strong>${streak}-day streak</strong> — that's real momentum. Every session compounds. ${activeWhyMatters ? `Remember why you started: "${activeWhyMatters}"` : 'Keep this energy going into your next block.'}`;
+          coaching = `You're on a <strong>${streak}-day streak</strong> &#x2014; that's real momentum. Every session compounds. ${activeWhyMatters ? `Remember why you started: "${activeWhyMatters}"` : 'Keep this energy going into your next block.'}`;
         } else if (completed === total && total > 0) {
           coaching = `All ${total} checkpoints done. You set out to achieve something and you followed through. That's what growth looks like.`;
         } else {
@@ -2870,25 +2965,25 @@ const appSchema = {
         }
         break;
       case 'Partial':
-        emoji = '💪';
+        emoji = 'ðŸ’ª';
         heading = 'Progress made!';
         if (total > 0) {
-          subhead = `${completed} of ${total} checkpoints done — you moved forward.`;
+          subhead = `${completed} of ${total} checkpoints done &#x2014; you moved forward.`;
         } else {
           subhead = 'You put in the time and showed up. That counts.';
         }
         if (streak > 1) {
-          coaching = `Your <strong>${streak}-day streak</strong> is still alive because you showed up. Not every session is 100% — consistency beats perfection. ${activeWhyMatters ? `Keep "${activeWhyMatters}" close to heart.` : 'Reset, refocus, and try the next one.'}`;
+          coaching = `Your <strong>${streak}-day streak</strong> is still alive because you showed up. Not every session is 100% &#x2014; consistency beats perfection. ${activeWhyMatters ? `Keep "${activeWhyMatters}" close to heart.` : 'Reset, refocus, and try the next one.'}`;
         } else if (completed > 0) {
-          coaching = `You got ${completed} of ${total} steps done. That's forward motion. Progress isn't always linear — the key is to keep showing up.`;
+          coaching = `You got ${completed} of ${total} steps done. That's forward motion. Progress isn't always linear &#x2014; the key is to keep showing up.`;
         } else {
           coaching = `Sometimes the win is just starting. Take a breath, note what distracted you, and come back with a sharper plan.`;
         }
         break;
       case 'Failed':
       default:
-        emoji = '🌱';
-        heading = 'You tried — that matters.';
+        emoji = 'ðŸŒ±';
+        heading = 'You tried &#x2014; that matters.';
         subhead = 'Not every session is a victory lap, but every attempt teaches you something.';
         if (streak > 1) {
           coaching = `Your <strong>${streak}-day streak</strong> is paused, not erased. The habit you've built doesn't disappear overnight. Rest, reflect, and restart fresh. Growth isn't linear.`;
@@ -2932,7 +3027,7 @@ const appSchema = {
     timerRemainingSeconds = timerDurationSeconds;
     
     // Shift UI to break view
-    document.getElementById('timer-session-text').textContent = 'Recharge — you\'ve earned this break';
+    document.getElementById('timer-session-text').textContent = 'Recharge &#x2014; you\'ve earned this break';
     document.getElementById('setup-panel')?.classList.add('hidden');
     document.getElementById('active-info-panel')?.classList.remove('hidden');
     document.getElementById('active-info-panel')?.classList.add('panel-enter');
@@ -2942,7 +3037,7 @@ const appSchema = {
     if (activeTitle) activeTitle.textContent = "Step away, stretch, and give your mind a rest.";
     
     const activeList = document.getElementById('active-milestones-list');
-    if (activeList) activeList.innerHTML = `<li class="text-xs text-mute/70 font-mono animate-pulse font-semibold">You're recharging — rest is part of the rhythm</li>`;
+    if (activeList) activeList.innerHTML = `<li class="text-xs text-mute/70 font-mono animate-pulse font-semibold">You're recharging &#x2014; rest is part of the rhythm</li>`;
     
     toggleTimer(true);
   }
@@ -2957,16 +3052,16 @@ const appSchema = {
     let recommendation = "";
     switch (reason) {
       case 'distraction':
-        recommendation = "It happens to all of us. Try putting your phone in another room and closing tabs that aren't needed. Your next session could be a short 15-minute block — just enough to rebuild focus. <em>You've got the awareness to catch distractions, and that's already a win.</em>";
+        recommendation = "It happens to all of us. Try putting your phone in another room and closing tabs that aren't needed. Your next session could be a short 15-minute block &#x2014; just enough to rebuild focus. <em>You've got the awareness to catch distractions, and that's already a win.</em>";
         break;
       case 'fatigue':
-        recommendation = "Your brain needs a real break. Step away from the screen, stretch, splash some water on your face, and drink a glass of water. When you come back, try a lighter activity — reading or reflecting instead of creating. <em>Rest isn't weakness — it's how you stay strong for the long run.</em>";
+        recommendation = "Your brain needs a real break. Step away from the screen, stretch, splash some water on your face, and drink a glass of water. When you come back, try a lighter activity &#x2014; reading or reflecting instead of creating. <em>Rest isn't weakness &#x2014; it's how you stay strong for the long run.</em>";
         break;
       case 'goal-too-large':
-        recommendation = "Your ambition is admirable — but big goals need small first steps. Take a short break, then pick just one tiny milestone you can finish in the next block. The only goal that matters right now is completing that first step. <em>Progress beats perfection, every time.</em>";
+        recommendation = "Your ambition is admirable &#x2014; but big goals need small first steps. Take a short break, then pick just one tiny milestone you can finish in the next block. The only goal that matters right now is completing that first step. <em>Progress beats perfection, every time.</em>";
         break;
       case 'interruption':
-        recommendation = "Life happens, and that's okay. You still made progress, and that counts. For your next block, try setting a smaller goal that works even with interruptions — or find a quieter spot if you can. <em>What matters is that you came back.</em>";
+        recommendation = "Life happens, and that's okay. You still made progress, and that counts. For your next block, try setting a smaller goal that works even with interruptions &#x2014; or find a quieter spot if you can. <em>What matters is that you came back.</em>";
         break;
       default:
         recommendation = "Every session teaches you something. Take 5 minutes to reset, then try a shorter block with a simpler goal. <em>You're building a habit, and habits take time. Be patient with yourself.</em>";
@@ -3114,7 +3209,7 @@ const appSchema = {
               console.warn("Failed to resume AudioContext on tab visibility change:", err);
             });
           } else if (audioCtx.state === 'interrupted' || audioCtx.state === 'closed') {
-            // Browser destroyed the context — recreate and restart
+            // Browser destroyed the context &#x2014; recreate and restart
             playAmbientSound(currentAmbientSound);
           }
         }
@@ -3564,7 +3659,7 @@ const appSchema = {
     if (wsTodayFocus) wsTodayFocus.textContent = todayFocusFormatted;
 
     const wsTodayStreak = document.getElementById('workspace-today-streak');
-    if (wsTodayStreak) wsTodayStreak.innerHTML = `<span class="text-warning">🔥</span> ${currentStreak}d`;
+    if (wsTodayStreak) wsTodayStreak.innerHTML = `<span class="text-warning">ðŸ”¥</span> ${currentStreak}d`;
 
     const wsTodayRate = document.getElementById('workspace-today-rate');
     if (wsTodayRate) wsTodayRate.textContent = `${rate}%`;
@@ -3592,7 +3687,7 @@ const appSchema = {
     if (avgEl) avgEl.textContent = avgMinutes > 0 ? `${avgMinutes}m` : '0m';
 
     // Most used activity
-    let topActivity = '—';
+    let topActivity = '&#x2014;';
     if (totalSessions > 0) {
       const activityCount = new Map<string, number>();
       history.forEach(s => activityCount.set(s.activity, (activityCount.get(s.activity) || 0) + 1));
@@ -3655,7 +3750,7 @@ const appSchema = {
     });
     const bestHourLabel = bestHour >= 0
       ? `${bestHour % 12 || 12}${bestHour < 12 ? 'am' : 'pm'}`
-      : '—';
+      : '&#x2014;';
 
     // 2. Most productive activity (by completion rate, min 2 sessions)
     const activityStatsMap: Record<string, { total: number; completed: number }> = {};
@@ -3664,7 +3759,7 @@ const appSchema = {
       activityStatsMap[s.activity].total++;
       if (s.outcome === 'Completed') activityStatsMap[s.activity].completed++;
     });
-    let bestActInsight = '—';
+    let bestActInsight = '&#x2014;';
     let bestActRate = 0;
     Object.keys(activityStatsMap).forEach(a => {
       const stats = activityStatsMap[a];
@@ -3738,7 +3833,7 @@ const appSchema = {
               <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M17.687 9.581a5.87 5.87 0 0 0-4.887-2.91V3.25a.75.75 0 0 0-1.28-.53l-8.25 8.25a.75.75 0 0 0 .53 1.28h5.319v5.999a5.87 5.87 0 0 0 4.887 2.911l.248-.005a5.87 5.87 0 0 0 4.887-2.906A5.87 5.87 0 0 0 17.687 9.581Z"/></svg>
               Longest streak
             </div>
-            <div class="text-sm font-bold text-ink tabular-nums">${longestStreak > 0 ? `${longestStreak} day${longestStreak !== 1 ? 's' : ''}` : '—'}</div>
+            <div class="text-sm font-bold text-ink tabular-nums">${longestStreak > 0 ? `${longestStreak} day${longestStreak !== 1 ? 's' : ''}` : '&#x2014;'}</div>
             <div class="text-[10px] text-mute/50 leading-tight">${longestStreak > 0 ? 'Consecutive days with a session' : 'Focus today and come back tomorrow to start a streak'}</div>
           </div>
           <div class="insight-card bg-canvas-soft/40 rounded-2xl p-3.5 border border-hairline/15 space-y-1.5">
@@ -4252,7 +4347,7 @@ const appSchema = {
             <h3 class="text-2xl font-bold tracking-tighter text-ink mb-1">Track your long-term goals</h3>
           </div>
           <p class="text-xs text-body leading-relaxed max-w-xl">
-            Working toward something bigger? Set a target — like reading 300 pages, solving 50 problems, or writing for 30 hours. We'll track your pace and show you when you're on track to finish.
+            Working toward something bigger? Set a target &#x2014; like reading 300 pages, solving 50 problems, or writing for 30 hours. We'll track your pace and show you when you're on track to finish.
           </p>
           
           <form id="forecast-setup-form" class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
@@ -4527,7 +4622,7 @@ const appSchema = {
             </div>
             <p class="text-xs text-mute flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-mute" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              Timeframe: ${formatDate(activeForecastGoal.startDate)} to ${formatDate(activeForecastGoal.endDate)} (${daysTotal} days total) • ${daysRemainingText}
+              Timeframe: ${formatDate(activeForecastGoal.startDate)} to ${formatDate(activeForecastGoal.endDate)} (${daysTotal} days total) â€¢ ${daysRemainingText}
             </p>
           </div>
           <div class="flex items-center gap-3">
@@ -4756,7 +4851,7 @@ const appSchema = {
           <div class="flex justify-between items-center text-xs pt-3 border-t border-hairline">
             <span class="text-mute">${verdictText.replace(/<\/?strong>/g, '')}</span>
             <button type="button" class="px-3 h-11 border border-hairline hover:bg-canvas-soft text-xs font-medium rounded-sm transition-colors cursor-pointer shrink-0" onclick="window.switchTab('premium')">
-              Manage Goal Progress →
+              Manage Goal Progress â†’
             </button>
           </div>
         </div>
@@ -5070,7 +5165,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
 
   // FLOATING CELEBRATION EMOJIS
   function triggerCelebration() {
-    const emojis = ['🎉', '🌟', '✨', '🌱', '🏆', '🙌', '🔥', '💪', '🎯', '⭐', '💫'];
+    const emojis = ['ðŸŽ‰', 'ðŸŒŸ', 'âœ¨', 'ðŸŒ±', 'ðŸ†', 'ðŸ™Œ', 'ðŸ”¥', 'ðŸ’ª', 'ðŸŽ¯', 'â­', 'ðŸ’«'];
     const container = document.body;
     for (let i = 0; i < 60; i++) {
       const emojiEl = document.createElement('div');
@@ -5480,14 +5575,14 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
       return;
     }
 
-    const moodEmojis = ['😢', '😕', '😐', '😊', '🤩'];
+    const moodEmojis = ['ðŸ˜¢', 'ðŸ˜•', 'ðŸ˜', 'ðŸ˜Š', 'ðŸ¤©'];
 
     list.innerHTML = entries.map(e => {
       const dateStr = new Date(e.date + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
       const preview = (e.dailyNotes || e.wins || e.lessons || '').substring(0, 100);
       const moodDelta = e.moodAfter - e.moodBefore;
       const moodTrend = moodDelta > 0 ? 'text-emerald-500' : moodDelta < 0 ? 'text-rose-400' : 'text-mute/40';
-      const moodArrow = moodDelta > 0 ? '↑' : moodDelta < 0 ? '↓' : '→';
+      const moodArrow = moodDelta > 0 ? 'â†‘' : moodDelta < 0 ? 'â†“' : 'â†’';
       return `
           <div class="journal-entry-card pl-4 relative group text-left">
           <div class="absolute left-0 top-3 bottom-3 w-[3px] rounded-full bg-gradient-to-b from-link/15 via-link/10 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -5495,18 +5590,18 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-mono text-mute/50">${dateStr}</span>
               <div class="flex items-center gap-1.5">
-                <span class="text-xs font-medium text-mute/40 flex items-center gap-1" title="Mood before → after">${moodEmojis[e.moodBefore]}<span class="${moodTrend} text-[10px] font-bold">${moodArrow}</span>${moodEmojis[e.moodAfter]}</span>
+                <span class="text-xs font-medium text-mute/40 flex items-center gap-1" title="Mood before â†’ after">${moodEmojis[e.moodBefore]}<span class="${moodTrend} text-[10px] font-bold">${moodArrow}</span>${moodEmojis[e.moodAfter]}</span>
                 <button type="button" class="w-11 h-11 rounded-lg text-mute/30 hover:text-error hover:bg-error/5 opacity-0 group-hover:opacity-100 transition-all duration-200 cursor-pointer delete-journal-btn shrink-0 flex items-center justify-center" data-id="${e.id}" aria-label="Delete entry">
                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
               </div>
             </div>
-            ${preview ? `<p class="text-body/80 leading-relaxed text-xs">${preview}${preview.length >= 100 ? '…' : ''}</p>` : ''}
+            ${preview ? `<p class="text-body/80 leading-relaxed text-xs">${preview}${preview.length >= 100 ? 'â€¦' : ''}</p>` : ''}
             <div class="flex flex-wrap gap-1">
-              ${e.wins ? `<span class="text-[10px] px-2 py-0.5 bg-gradient-to-b from-emerald-500/10 to-emerald-500/5 text-emerald-600 dark:text-emerald-400 rounded-full font-medium ring-1 ring-inset ring-emerald-500/12">🏆 Win</span>` : ''}
-              ${e.distractions ? `<span class="text-[10px] px-2 py-0.5 bg-gradient-to-b from-rose-500/10 to-rose-500/5 text-rose-500 rounded-full font-medium ring-1 ring-inset ring-rose-500/12">🌀 Distraction</span>` : ''}
-              ${e.lessons ? `<span class="text-[10px] px-2 py-0.5 bg-gradient-to-b from-purple-500/10 to-purple-500/5 text-purple-500 rounded-full font-medium ring-1 ring-inset ring-purple-500/12">💡 Lesson</span>` : ''}
-              ${e.dailyNotes ? `<span class="text-[10px] px-2 py-0.5 bg-gradient-to-b from-link/10 to-link/5 text-link rounded-full font-medium ring-1 ring-inset ring-link/12">📝 Notes</span>` : ''}
+              ${e.wins ? `<span class="text-[10px] px-2 py-0.5 bg-gradient-to-b from-emerald-500/10 to-emerald-500/5 text-emerald-600 dark:text-emerald-400 rounded-full font-medium ring-1 ring-inset ring-emerald-500/12">ðŸ† Win</span>` : ''}
+              ${e.distractions ? `<span class="text-[10px] px-2 py-0.5 bg-gradient-to-b from-rose-500/10 to-rose-500/5 text-rose-500 rounded-full font-medium ring-1 ring-inset ring-rose-500/12">ðŸŒ€ Distraction</span>` : ''}
+              ${e.lessons ? `<span class="text-[10px] px-2 py-0.5 bg-gradient-to-b from-purple-500/10 to-purple-500/5 text-purple-500 rounded-full font-medium ring-1 ring-inset ring-purple-500/12">ðŸ’¡ Lesson</span>` : ''}
+              ${e.dailyNotes ? `<span class="text-[10px] px-2 py-0.5 bg-gradient-to-b from-link/10 to-link/5 text-link rounded-full font-medium ring-1 ring-inset ring-link/12">ðŸ“ Notes</span>` : ''}
             </div>
           </div>
         </div>`;
@@ -5589,6 +5684,9 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
         const moodAfter = parseInt(document.getElementById('journal-mood-after')?.getAttribute('data-mood') || '2');
 
         upsertJournalEntry({ dailyNotes, wins, distractions, moodBefore, moodAfter, lessons });
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'journal_saved', { has_notes: (dailyNotes.length > 0).toString(), has_wins: (wins.length > 0).toString(), has_lessons: (lessons.length > 0).toString() });
+        }
 
         // Feedback
         const feedback = document.getElementById('journal-save-feedback');
@@ -5643,7 +5741,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
           </span>
           <div>
             <span class="font-bold text-ink">${todaySessions.length} session${todaySessions.length !== 1 ? 's' : ''}</span>
-            <span class="text-mute/50 mx-1">·</span>
+            <span class="text-mute/50 mx-1">Â·</span>
             <span class="text-mute/70 font-medium">${totalMin}m focused</span>
           </div>
         </div>
@@ -5656,7 +5754,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
       <div class="flex flex-wrap gap-1.5 mt-3">
         ${todaySessions.map(s => {
           const outcomeColors: Record<string, string> = { Completed: 'bg-link/8 text-link border-link/15', Partial: 'bg-warning/8 text-warning border-warning/15', Failed: 'bg-error/8 text-error border-error/15' };
-          return `<span class="text-[10px] px-2.5 py-0.5 rounded-full border font-medium ${outcomeColors[s.outcome] || 'border-hairline text-mute'}">${s.activity} · ${s.durationMinutes}m</span>`;
+          return `<span class="text-[10px] px-2.5 py-0.5 rounded-full border font-medium ${outcomeColors[s.outcome] || 'border-hairline text-mute'}">${s.activity} Â· ${s.durationMinutes}m</span>`;
         }).join('')}
       </div>`;
     animateContent(el);
@@ -5809,7 +5907,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
 
     // Reflections list filtering (last 30 days)
     const monthlyReflections = reflections.filter(r => new Date(r.timestamp).getTime() >= thirtyDaysAgo);
-    let reflectionsHTML = '<div style="font-size: 12px; color: #888; text-align: center; padding: 10px 0;">No journal entries this month. Reflections help you see how far you have come — write one after your next session.</div>';
+    let reflectionsHTML = '<div style="font-size: 12px; color: #888; text-align: center; padding: 10px 0;">No journal entries this month. Reflections help you see how far you have come &#x2014; write one after your next session.</div>';
     if (monthlyReflections.length > 0) {
       reflectionsHTML = monthlyReflections.map(r => {
         const dateStr = new Date(r.timestamp).toLocaleDateString(undefined, {
@@ -6212,14 +6310,14 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
 </script>
 
 <style>
-  /* ── Universal focus ring for keyboard navigation ── */
+  /* â”€â”€ Universal focus ring for keyboard navigation â”€â”€ */
   *:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px var(--color-canvas), 0 0 0 4px rgba(37, 99, 235, 0.35);
     border-radius: inherit;
   }
 
-  /* ── Premium input focus ring ── */
+  /* â”€â”€ Premium input focus ring â”€â”€ */
   input:focus, textarea:focus, select:focus {
     outline: none;
     border-color: rgba(37, 99, 235, 0.35) !important;
@@ -6227,7 +6325,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
 
-  /* ── Stealth scrollbar for consistent UX ── */
+  /* â”€â”€ Stealth scrollbar for consistent UX â”€â”€ */
   .scrollbar-thin::-webkit-scrollbar {
     width: 4px;
   }
@@ -6239,7 +6337,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     border-radius: 2px;
   }
 
-  /* ── Smooth panel transitions ── */
+  /* â”€â”€ Smooth panel transitions â”€â”€ */
 
   /* Fade + slight slide up when a panel becomes visible */
   .panel-enter {
@@ -6269,7 +6367,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     100% { transform: scale(1); }
   }
 
-  /* Fade-in for innerHTML‑replaced content inside panels */
+  /* Fade-in for innerHTMLâ€‘replaced content inside panels */
   .content-fade-in {
     animation: contentFadeIn 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
@@ -6278,7 +6376,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     to   { opacity: 1; }
   }
 
-  /* Active Focus Glow — subtle depth when session is live */
+  /* Active Focus Glow &#x2014; subtle depth when session is live */
   .workspace-active-focus {
     transition: all 0.5s ease;
   }
@@ -6286,7 +6384,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     opacity: 0.2;
   }
 
-  /* ── Living Timer — Depth & Animation ── */
+  /* â”€â”€ Living Timer &#x2014; Depth & Animation â”€â”€ */
 
   /* Layered inner shadow for the timer dial */
   .timer-dial-shadow {
@@ -6303,7 +6401,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
       inset 0 1px 2px rgba(0,0,0,0.2);
   }
 
-  /* Progress ring — smooth movement + subtle default glow */
+  /* Progress ring &#x2014; smooth movement + subtle default glow */
   #timer-progress-ring {
     filter: drop-shadow(0 2px 6px rgba(37, 99, 235, 0.1));
     transition: filter 0.8s ease, stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -6312,7 +6410,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.2));
   }
 
-  /* Progress dot — follows the arc smoothly */
+  /* Progress dot &#x2014; follows the arc smoothly */
   #timer-progress-dot {
     filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.4));
     transition: cx 1.5s cubic-bezier(0.4, 0, 0.2, 1), cy 1.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -6324,7 +6422,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     filter: drop-shadow(0 0 12px rgba(37, 99, 235, 0.6));
   }
 
-  /* ── Gentle breathing for the timer dial ── */
+  /* â”€â”€ Gentle breathing for the timer dial â”€â”€ */
   @keyframes breathe {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.012); }
@@ -6333,7 +6431,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     animation: breathe 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
 
-  /* ── Subtle glow pulse (gentle, not flashy) ── */
+  /* â”€â”€ Subtle glow pulse (gentle, not flashy) â”€â”€ */
   @keyframes glowPulse {
     0%, 100% { opacity: 0.25; }
     50% { opacity: 0.55; }
@@ -6342,7 +6440,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     animation: glowPulse 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
 
-  /* ── Smooth number transitions on the countdown ── */
+  /* â”€â”€ Smooth number transitions on the countdown â”€â”€ */
   #timer-countdown {
     transition: color 0.3s ease;
     -webkit-font-smoothing: antialiased;
@@ -6357,7 +6455,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* ── Session label fade transition ── */
+  /* â”€â”€ Session label fade transition â”€â”€ */
   #timer-session-label {
     transition: opacity 0.4s ease, transform 0.4s ease;
   }
@@ -6376,9 +6474,9 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     color: #ffffff !important;
   }
 
-  /* ── Premium micro-interactions ── */
+  /* â”€â”€ Premium micro-interactions â”€â”€ */
 
-  /* Card lift on hover — subtle translateY + shadow */
+  /* Card lift on hover &#x2014; subtle translateY + shadow */
   .card-lift {
     transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
                 box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
@@ -6394,7 +6492,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     border-color: var(--color-hairline-strong);
   }
 
-  /* ── History row delete btn hover ── */
+  /* â”€â”€ History row delete btn hover â”€â”€ */
   .delete-history-row-btn {
     transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
   }
@@ -6405,7 +6503,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     transform: scale(0.92);
   }
 
-  /* ── Journal entry delete ── */
+  /* â”€â”€ Journal entry delete â”€â”€ */
   .delete-journal-btn {
     transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
   }
@@ -6416,7 +6514,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     transform: scale(0.92);
   }
 
-  /* ── Milestone delete ── */
+  /* â”€â”€ Milestone delete â”€â”€ */
   .delete-milestone-btn {
     transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
   }
@@ -6428,7 +6526,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     transform: scale(0.9);
   }
 
-  /* Control icon buttons — subtle scale + shadow on hover */
+  /* Control icon buttons &#x2014; subtle scale + shadow on hover */
   .control-btn {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -6440,7 +6538,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     transform: scale(0.95);
   }
 
-  /* Primary action buttons — refined hover lift */
+  /* Primary action buttons &#x2014; refined hover lift */
   .btn-primary {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -6452,7 +6550,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     transform: translateY(0px) scale(0.98);
   }
 
-  /* Tab buttons — smoother active indicator */
+  /* Tab buttons &#x2014; smoother active indicator */
   .tab-btn {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -6460,13 +6558,13 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     background-color: var(--color-canvas-soft);
   }
 
-  /* Input focus — refined ring */
+  /* Input focus &#x2014; refined ring */
   .input-premium {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1),
                 box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Outcome radio labels — subtle lift on hover + active ring */
+  /* Outcome radio labels &#x2014; subtle lift on hover + active ring */
   .outcome-radio-label {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -6483,7 +6581,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     transform: scale(0.97);
   }
 
-  /* Modal close button — subtle rotation on hover */
+  /* Modal close button &#x2014; subtle rotation on hover */
   .modal-close-btn:hover svg {
     transform: rotate(90deg);
   }
@@ -6560,7 +6658,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     }
   }
 
-  /* ── Tab panel fade entrance ── */
+  /* â”€â”€ Tab panel fade entrance â”€â”€ */
   @keyframes tabFadeIn {
     from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
@@ -6569,7 +6667,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     animation: tabFadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
-  /* ── History table row — left accent on hover ── */
+  /* â”€â”€ History table row &#x2014; left accent on hover â”€â”€ */
   .history-row {
     transition: background-color 0.2s ease, box-shadow 0.2s ease;
     box-shadow: inset 2px 0 0 0 transparent;
@@ -6579,7 +6677,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     box-shadow: inset 2px 0 0 0 var(--color-link);
   }
 
-  /* ── Today's progress card hover lift ── */
+  /* â”€â”€ Today's progress card hover lift â”€â”€ */
   .progress-card {
     transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
                 box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
@@ -6591,7 +6689,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     border-color: var(--color-hairline-strong);
   }
 
-  /* ── Timer container glow when active ── */
+  /* â”€â”€ Timer container glow when active â”€â”€ */
   .timer-active #timer-container-card {
     box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.08);
   }
@@ -6607,7 +6705,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     animation: containerGlow 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
 
-  /* ── Staggered entrance for dynamic content ── */
+  /* â”€â”€ Staggered entrance for dynamic content â”€â”€ */
   @keyframes fadeSlideUp {
     from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
@@ -6621,7 +6719,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
   .stagger-enter:nth-child(4) { animation-delay: 120ms; }
   .stagger-enter:nth-child(5) { animation-delay: 160ms; }
 
-  /* ── Insight card subtle hover ── */
+  /* â”€â”€ Insight card subtle hover â”€â”€ */
   .insight-card {
     transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
                 box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -6634,7 +6732,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     box-shadow: 0 4px 16px rgba(0,0,0,0.2);
   }
 
-  /* ── Journal entry hover refinement ── */
+  /* â”€â”€ Journal entry hover refinement â”€â”€ */
   .journal-entry-card {
     transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
                 box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -6647,7 +6745,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     box-shadow: 0 4px 16px rgba(0,0,0,0.2);
   }
 
-  /* ── Settings/control group hover with lift ── */
+  /* â”€â”€ Settings/control group hover with lift â”€â”€ */
   .settings-card {
     transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
                 border-color 0.2s ease,
@@ -6659,13 +6757,13 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     box-shadow: 0 4px 12px rgba(0,0,0,0.03);
   }
 
-  /* ── Activity buttons (focus-visible only; rest is inline) ── */
+  /* â”€â”€ Activity buttons (focus-visible only; rest is inline) â”€â”€ */
   .activity-btn:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px var(--color-link), 0 0 0 4px color-mix(in srgb, var(--color-link) 10%, transparent);
   }
 
-  /* ── Preset duration buttons ── */
+  /* â”€â”€ Preset duration buttons â”€â”€ */
   .preset-btn {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -6681,7 +6779,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     transform: scale(0.97);
   }
 
-  /* ── Sound buttons ── */
+  /* â”€â”€ Sound buttons â”€â”€ */
   .sound-btn {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -6697,7 +6795,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     transform: scale(0.97);
   }
 
-  /* ── Quick‑log preset buttons ── */
+  /* â”€â”€ Quickâ€‘log preset buttons â”€â”€ */
   .quick-log-btn {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -6709,7 +6807,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     transform: scale(0.97);
   }
 
-  /* ── Refined elevation/shadow system ── */
+  /* â”€â”€ Refined elevation/shadow system â”€â”€ */
   .shadow-card {
     box-shadow: 0 1px 2px rgba(0,0,0,0.02), 0 1px 6px rgba(0,0,0,0.02);
   }
@@ -6729,7 +6827,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 4px 24px rgba(0,0,0,0.15);
   }
 
-  /* ── Section label treatment ── */
+  /* â”€â”€ Section label treatment â”€â”€ */
   .label-group-heading {
     font-size: 10px;
     font-weight: 700;
@@ -6739,13 +6837,13 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     opacity: 0.6;
   }
 
-  /* Custom size for control buttons (52px — between 12 and 14) */
+  /* Custom size for control buttons (52px &#x2014; between 12 and 14) */
   @media (min-width: 1024px) {
     .lg\:w-13 { width: 52px; }
     .lg\:h-13 { height: 52px; }
   }
 
-  /* ── Softer card radii consistency ── */
+  /* â”€â”€ Softer card radii consistency â”€â”€ */
   .card-rounded {
     border-radius: 16px;
   }
@@ -6753,7 +6851,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     border-radius: 20px;
   }
 
-  /* ── Workspace grid — mobile-first ── */
+  /* â”€â”€ Workspace grid &#x2014; mobile-first â”€â”€ */
   .workspace-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -6805,7 +6903,7 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     }
   }
 
-  /* ── Immersive overlay entrance/exit with fade + scale ── */
+  /* â”€â”€ Immersive overlay entrance/exit with fade + scale â”€â”€ */
   #immersive-overlay {
     transform: scale(1);
     opacity: 1;
@@ -6815,4 +6913,14 @@ Generated locally by Tooltails Focus (tooltails.com/focus)
     transform: scale(0.95);
     pointer-events: none;
   }
+
+  #first-run-experience {
+    animation: firstRunFadeIn 0.4s ease-out both;
+  }
+
+  @keyframes firstRunFadeIn {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 </style>
+

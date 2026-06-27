@@ -5,7 +5,7 @@ import Button from "../components/ui/Button.astro";
 import Input from "../components/ui/Input.astro";
 ---
 
-<Layout title="Contact Us - Tooltails.com">
+<Layout title="Contact Us - Tooltails.com" description="Have feedback, a bug report, or a feature request? Contact the Tooltails team. We reply to every message.">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
     <h1 class="text-4xl font-bold text-ink mb-8">Contact Us</h1>
     <p class="text-lg text-body mb-12">
@@ -28,4 +28,16 @@ import Input from "../components/ui/Input.astro";
       </form>
     </Card>
   </div>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Contact Us - Tooltails.com",
+    "description": "Have feedback, a bug report, or a feature request? Contact the Tooltails team.",
+    "url": Astro.url.origin + "/contact",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": Astro.url.origin + "/contact"
+    }
+  })} />
 </Layout>

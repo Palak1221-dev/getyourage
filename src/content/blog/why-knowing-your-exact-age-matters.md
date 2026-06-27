@@ -13,4 +13,4 @@ Age is often thought of in years, but there's much more to the story. By trackin
 Aging is a continuous process. While we celebrate birthdays once a year, our bodies change every single day...
 
 ## Beyond Age: Optimizing Your Routine
-Beyond tracking your age, monitoring your daily habits and digital productivity is another great way to optimize your routine. For example, if you write articles, essays, or social media posts, you can use our [Word Counter](/word-counter) to instantly analyze your text, calculate reading time, and improve readability scores.
+Beyond tracking your age, monitoring your daily habits and digital productivity is another great way to optimize your routine. For example, if you write articles, essays, or social media posts, you can use our [Pomodoro Timer](/pomodoro-timer) to track your writing sessions and stay focused.

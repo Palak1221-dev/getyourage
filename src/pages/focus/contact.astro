@@ -97,4 +97,12 @@ import Button from "../../components/ui/Button.astro";
       </form>
     </div>
   </div>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Contact Support - Tooltails Focus",
+    "url": Astro.url.origin + "/focus/contact",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": Astro.url.origin + "/focus/contact" }
+  })} />
 </Layout>

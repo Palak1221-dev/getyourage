@@ -25,13 +25,15 @@ There are several practical and medical reasons to know your exact age:
 
 ## The Easiest Way to Calculate Your Age
 
-Instead of doing the complex math manually, you can use an automated tool. Our [Exact Age Calculator](/) does all the heavy lifting for you instantly. By processing the dates locally in your browser, it guarantees privacy while providing an accurate breakdown of your age in years, months, days, and even seconds.
+Instead of doing the complex math manually, you can use an automated tool. Our [Exact Age Calculator](/age-calculator) does all the heavy lifting for you instantly. By processing the dates locally in your browser, it guarantees privacy while providing an accurate breakdown of your age in years, months, days, and even seconds.
 
 ### How to Use the Tool
 1. Navigate to the homepage.
 2. Enter your birth day, month, and year.
 3. Click "Calculate My Exact Age."
 4. Instantly view your life statistics.
+
+You can also try our [Date Duration Calculator](/duration) to measure exact time spans between any two dates, or use the [Birthday Countdown](/birthday-countdown) to see how long until your next celebration.
 
 ## Frequently Asked Questions
 

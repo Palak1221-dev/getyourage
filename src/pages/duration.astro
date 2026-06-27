@@ -38,7 +38,30 @@ const faqItems = [
     </div>
 
     <div class="max-w-4xl mx-auto mt-24">
+      <section class="w-full py-16 -mx-4 px-4 bg-canvas-soft-2/50 border-y border-hairline mb-24">
+        <div class="max-w-[1200px] mx-auto text-center">
+          <h2 class="text-2xl font-bold text-ink mb-8">Try our other calculators</h2>
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="/age-calculator" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+              Exact Age Calculator
+            </a>
+            <a href="/future-age" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+              Future Age Calculator
+            </a>
+          </div>
+        </div>
+      </section>
+
       <FAQ items={faqItems} />
     </div>
   </div>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com" },
+      { "@type": "ListItem", "position": 2, "name": "Duration Calculator", "item": "https://tooltails.com/duration" }
+    ]
+  })} />
 </Layout>

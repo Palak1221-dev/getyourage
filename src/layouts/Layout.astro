@@ -6,11 +6,15 @@ import Footer from "../components/ui/Footer.astro";
 interface Props {
 	title?: string;
 	description?: string;
+	image?: string;
+	robots?: string;
 }
 
 const { 
 	title = "Age Calculator - Tooltails.com", 
-	description = "Calculate your exact age in years, months, days, and more. Free, fast, and modern age calculator." 
+	description = "Calculate your exact age in years, months, days, and more. Free, fast, and modern age calculator.",
+	image = "/og-image.png",
+	robots = "index, follow"
 } = Astro.props;
 ---
 
@@ -27,7 +31,9 @@ const {
 		<!-- Apple Touch Icon -->
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
 		<!-- Theme Color for mobile browsers -->
-		<meta name="theme-color" content="#2563EB" />
+		<meta name="theme-color" content="#2563EB" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+		<meta name="color-scheme" content="light dark" />
 		
 		<meta name="generator" content={Astro.generator} />
 		
@@ -54,16 +60,31 @@ const {
 
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<meta name="robots" content={robots} />
+		
+		<!-- Preconnect for third-party origins -->
+		<link rel="preconnect" href="https://www.googletagmanager.com" />
+		<link rel="preconnect" href="https://www.clarity.ms" />
+		<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+		
+		<!-- Preload critical fonts -->
+		<link rel="preload" as="font" href="https://cdn.jsdelivr.net/font-geist/1.0.0/Geist-Variable.woff2" type="font/woff2" crossorigin="anonymous" />
+		<link rel="preload" as="font" href="https://cdn.jsdelivr.net/font-geist/1.0.0/GeistMono-Variable.woff2" type="font/woff2" crossorigin="anonymous" />
 		
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:image" content={Astro.url.origin + image} />
+		<meta property="og:site_name" content="Tooltails" />
+
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={Astro.url.origin + image} />
+		<meta property="twitter:site" content="@tooltails" />
 		
 		<link rel="canonical" href={Astro.url} />
 		<script is:inline>
@@ -86,13 +107,18 @@ const {
 		</script>
 		<slot name="head" />
 	</head>
-	<body class="relative min-h-screen flex flex-col">
+	<body class="relative min-h-screen flex flex-col" style="touch-action: manipulation">
+		<!-- Skip to main content -->
+		<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-canvas focus:text-ink focus:border focus:border-hairline focus:rounded-lg focus:shadow-md">
+			Skip to main content
+		</a>
+		
 		<!-- Mesh Gradient Background -->
 		<div class="mesh-gradient absolute top-0 left-0 w-full h-[600px] -z-10 pointer-events-none"></div>
 		
 		<Header />
 		
-		<main class="flex-grow">
+		<main id="main-content" class="flex-grow">
 			<slot />
 		</main>
 
@@ -118,6 +144,9 @@ const {
         width: 100%;
         min-height: 100%;
       }
+      
+      [data-theme="light"] { color-scheme: light; }
+      [data-theme="dark"] { color-scheme: dark; }
 		</style>
 	</body>
 </html>

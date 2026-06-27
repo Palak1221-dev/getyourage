@@ -4,9 +4,34 @@ import Layout from "../../layouts/Layout.astro";
 import Card from "../../components/ui/Card.astro";
 
 const posts = await getCollection('blog');
+
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Tooltails Blog",
+  "description": "Insights, tips, and fun facts about age, time, and life milestones.",
+  "url": Astro.url.origin + "/blog",
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": posts.map((post, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "url": Astro.url.origin + "/blog/" + post.id
+    }))
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://tooltails.com/blog" }
+  ]
+};
 ---
 
-<Layout title="Blog - Tooltails.com">
+<Layout title="Blog - Tooltails.com" description="Insights, tips, and fun facts about age, time, and life milestones. Learn how to calculate exact age, age difference, birthday countdowns, and more.">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
     <div class="text-center mb-16 max-w-3xl mx-auto">
       <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-ink mb-6">
@@ -32,4 +57,17 @@ const posts = await getCollection('blog');
       ))}
     </div>
   </div>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(collectionSchema)} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Blog - Tooltails.com",
+    "description": "Insights, tips, and fun facts about age, time, and life milestones.",
+    "url": Astro.url.origin + "/blog",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": Astro.url.origin + "/blog"
+    }
+  })} />
 </Layout>

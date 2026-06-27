@@ -22,13 +22,15 @@ Measuring age in days shifts our mindset. While a year feels like a massive bloc
 
 Calculating your total days alive requires summing up every day from your birth to today, ensuring every leap year is counted. Doing this manually is prone to error.
 
-To find your exact day count instantly, you can use our [Age Calculator](/). Simply enter your date of birth, and the results dashboard will reveal your granular life statistics, including your total days, weeks, and hours.
+To find your exact day count instantly, you can use our [Age Calculator](/age-calculator). Simply enter your date of birth, and the results dashboard will reveal your granular life statistics, including your total days, weeks, and hours.
 
 ## Making the Most of Your Days
 
 Once you know your day count, time management takes on a new meaning. 
 1. **Goal Setting:** Instead of a "5-year plan," what is your "1,000-day plan"?
 2. **Mindfulness:** Recognizing that you have lived a finite number of days encourages daily gratitude.
+
+If you're curious about how your age compares to someone else, try our [Age Difference Calculator](/age-difference). Or use the [Birthday Countdown](/birthday-countdown) to track the days until your next milestone.
 
 ## Frequently Asked Questions
 
