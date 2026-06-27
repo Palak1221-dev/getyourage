@@ -1,3 +1,22 @@
+## Session Summary (Jun 27, 2026)
+
+### What We Did
+
+1. **Fixed all mojibake/encoding corruption** in `src/pages/focus/index.astro` — replaced 36 corrupted UTF-8 byte sequences across 2 rounds with correct Unicode emoji:
+   - **Round 1 (27 patterns)**: Activity button emojis (💻📚📖✍️🎨⚙️), mood emojis (😫😕😐😊🤩), section headers (📊🎯), celebration/achievement emojis (🎉🎊🏆🎯✅💡🔥✨💪🎶), journal tags (✅⚠️💡📝), CSS separators (`---`/`--`), middle dot (·), right arrow (→).
+   - **Round 2 (9 patterns)**: 🔥 (celebration fire), 🤩 (alternate corruption in mood buttons), 🎯 (section heading), 🎨 (celebration array), • (bullet point), ⭐ (celebration star), ↑↓ (mood arrows), 💡 (Lesson journal tag).
+2. **Verified clean**: 0 corruption patterns remain in source or built output; all non-ASCII sequences are correct emoji/bullets.
+3. **Build passes** — `npx astro build` completes with 0 errors (34 pages in 8.61s).
+
+### Mechanics
+- Corruption was double-encoding: original emoji UTF-8 bytes were read as CP1252/Latin-1, producing intermediate characters, then re-encoded as UTF-8.
+- Required Python byte-level replacement scripts (`do_replace.py`, `fix_remaining.py`) because the `edit` tool could not match corrupted non-ASCII characters.
+- All replacements confirmed via `fix_all.py` scanner and manual `rg` verification.
+- File saved as UTF-8 with no BOM.
+
+### Files Modified
+- `src/pages/focus/index.astro` — all emoji corruption fixes in this single file
+
 ## Session Summary (Jun 26, 2026)
 
 ### What We Did
