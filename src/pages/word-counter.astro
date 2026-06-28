@@ -5,136 +5,375 @@ import FAQ from "../components/ui/FAQ.astro";
 
 const faqItems = [
   {
-    question: "How does the word counter work?",
-    answer: "Our word counter analyzes your text in real-time as you type or paste. It splits the text by whitespace to count words, counts every character (with and without spaces), detects sentences by end punctuation, and identifies paragraphs by blank lines. All processing happens locally in your browser — nothing is sent to a server."
+    question: "Is this Word Counter free to use?",
+    answer: "Yes, the ToolTails Word Counter is 100% free with no hidden costs, no character limits, and no registration required."
   },
   {
-    question: "What is reading time and how is it calculated?",
-    answer: "Reading time estimates how long it takes an average person to read your text. We use the standard rate of 200 words per minute. Speaking time uses 150 words per minute, the average conversational pace. Both are rounded up to the nearest minute."
+    question: "Is my data safe and private?",
+    answer: "Absolutely. ToolTails processes all text locally in your browser. We never send your content to our servers, and your data never leaves your device. This makes it ideal for sensitive documents, emails, and code snippets."
   },
   {
-    question: "What is keyword density?",
-    answer: "Keyword density shows how frequently each word appears in your text as a percentage of total words. Common stop words (like 'the', 'and', 'is') are filtered out so you can see your content's meaningful keywords. This helps with SEO optimization and identifying overused terms."
+    question: "How is the reading time and speaking time calculated?",
+    answer: "We use standard average speeds: 200 words per minute (WPM) for reading and 130 WPM for speaking. These metrics help speakers and presenters time their scripts accurately."
   },
   {
-    question: "Is my text stored or sent anywhere?",
-    answer: "No. All text processing happens entirely in your browser. Your text never leaves your device. You can paste sensitive content like draft articles, essays, or reports with complete privacy."
+    question: "What is Keyword Density analysis?",
+    answer: "Keyword density identifies how often specific words appear relative to the total word count. This is vital for SEO writers to avoid 'keyword stuffing' while ensuring their target terms are sufficiently represented."
   },
   {
-    question: "Can I upload a file instead of pasting?",
-    answer: "Yes. Click the 'Upload .txt' button to select a plain text file from your device. The file contents will be loaded into the text area and analyzed instantly. We support .txt files of any reasonable size."
+    question: "How does the character count function handle spaces?",
+    answer: "Our tool provides two character metrics: a total character count that includes all letters, numbers, spaces, and punctuation, and a separate 'no spaces' character count. The 'no spaces' count is particularly useful for publishing and academic guidelines that ignore formatting whitespace."
+  },
+  {
+    question: "What readability formula is used for the readability score?",
+    answer: "We calculate readability using the Flesch-Kincaid Grade Level formula. This standard index analyzes sentence length and syllable count to estimate the United States school grade level needed to easily understand the text. Higher scores indicate simpler writing."
+  },
+  {
+    question: "What is a unique word count, and why does it matter?",
+    answer: "The unique word count tracks how many distinct individual words are used in your text. Evaluating unique words helps writers analyze vocabulary richness, avoid repetitive phrasing, and optimize keyword variety for search engine optimization (SEO)."
+  },
+  {
+    question: "Is there a character limit for this online word counter?",
+    answer: "No, there are no character or word limits. You can paste and analyze very large documents, articles, books, or scripts (including 10,000+ words). Because processing occurs locally in your browser, it runs extremely fast without server delays."
+  },
+  {
+    question: "How do formatting options (Upper, Lower, Title Case) work?",
+    answer: "Our built-in text editor formatting tools allow you to convert your entire text or just a selected portion into UPPERCASE, lowercase, or Title Case. This helps you quickly fix accidental capitalization errors or format headings without retyping."
+  },
+  {
+    question: "How does the text cleanup panel improve my writing?",
+    answer: "The text cleanup panel offers instant actions to clean extra spaces, delete empty line breaks, normalize punctuation marks, remove duplicated adjacent words, or completely strip punctuation. It helps format drafts quickly before publishing."
   }
 ];
 ---
 
 <Layout
-  title="Word Counter - Free Online Word & Character Counter | Tooltails"
-  description="Count words, characters, sentences, paragraphs, and reading time for free. Fast and accurate online word counter tool."
+  title="Online Word Counter & Character Counter | Free Text Analyzer"
+  description="Free online word counter and character counter. Get instant text analyzer insights, syllables count, reading time calculator, and readability score. 100% private."
 >
-  <!-- Hero Section -->
-  <section class="w-full pt-4 lg:pt-8 pb-6">
-    <div class="max-w-[1200px] mx-auto px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-[1fr,460px] gap-6 lg:gap-16 items-start">
-        <div class="text-center lg:text-left lg:pt-2">
-          <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold tracking-tighter text-ink mb-3 leading-[1.1]">
-            Free Online Word Counter
-          </h1>
-          <p class="text-base md:text-lg text-body leading-relaxed max-w-lg mx-auto lg:mx-0 mb-6">
-            Count words, characters, sentences, paragraphs, and reading time instantly. Fast, accurate, and private.
-          </p>
+  <!-- Title + Editor + Sidebar -->
+  <section class="px-4 sm:px-6 pt-4 pb-2">
+    <div class="max-w-7xl mx-auto flex flex-col gap-3">
+      <div class="mb-4">
+        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-ink mb-1.5">Free Online <span class="text-link">Word Counter</span></h1>
+        <p class="text-body text-sm max-w-2xl leading-relaxed">
+          Analyze your text in real time with our privacy-first character counter, reading time calculator, and text analyzer.
+        </p>
+      </div>
+      <WordCounter />
+    </div>
+  </section>
 
-          <!-- Trust Signals Desktop -->
-          <div class="hidden lg:flex items-center gap-8 text-[12px] font-bold text-mute uppercase tracking-[0.2em]">
-            <div class="flex items-center gap-2 group">
-              <div class="p-2 rounded-full bg-link/5 group-hover:bg-link/10 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-link"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              </div>
-              Privacy First
+  <!-- Social Limits + Keyword Density + Insight Cards -->
+  <section class="px-4 sm:px-6 py-12 bg-canvas">
+    <div class="max-w-7xl mx-auto">
+      <!-- Platform Benchmarks -->
+      <div class="mb-12">
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Platform Benchmarks</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 shadow-sm transition-all hover:shadow-md group">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[11px] font-bold text-ink uppercase tracking-tight group-hover:text-link transition-colors">Twitter</span>
+              <span class="text-[10px] font-bold text-mute bg-canvas-soft px-2 py-0.5 rounded-full border border-hairline">280</span>
             </div>
-            <div class="flex items-center gap-2 group">
-              <div class="p-2 rounded-full bg-link/5 group-hover:bg-link/10 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-              </div>
-              Instant Results
+            <div class="h-1.5 bg-canvas-soft-2 rounded-full overflow-hidden mb-3 shadow-inner">
+              <div id="limit-twitter-bar" class="h-full bg-link w-0 transition-all duration-500 ease-out"></div>
             </div>
-            <div class="flex items-center gap-2 group">
-              <div class="p-2 rounded-full bg-link/5 group-hover:bg-link/10 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+            <div class="flex justify-between items-center font-bold">
+              <div class="flex items-baseline gap-1">
+                <span id="limit-twitter-count" class="text-sm font-bold text-ink leading-none">0</span>
+                <span class="text-[9px] text-mute uppercase tracking-widest">Chars</span>
               </div>
-              100% Free
+              <span id="limit-twitter-percent" class="text-[10px] font-bold text-mute">0%</span>
+            </div>
+          </div>
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 shadow-sm transition-all hover:shadow-md group">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[11px] font-bold text-ink uppercase tracking-tight group-hover:text-link transition-colors">LinkedIn</span>
+              <span class="text-[10px] font-bold text-mute bg-canvas-soft px-2 py-0.5 rounded-full border border-hairline">3000</span>
+            </div>
+            <div class="h-1.5 bg-canvas-soft-2 rounded-full overflow-hidden mb-3 shadow-inner">
+              <div id="limit-linkedin-bar" class="h-full bg-link w-0 transition-all duration-500 ease-out"></div>
+            </div>
+            <div class="flex justify-between items-center font-bold">
+              <div class="flex items-baseline gap-1">
+                <span id="limit-linkedin-count" class="text-sm font-bold text-ink leading-none">0</span>
+                <span class="text-[9px] text-mute uppercase tracking-widest">Chars</span>
+              </div>
+              <span id="limit-linkedin-percent" class="text-[10px] font-bold text-mute">0%</span>
+            </div>
+          </div>
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 shadow-sm transition-all hover:shadow-md group">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[11px] font-bold text-ink uppercase tracking-tight group-hover:text-link transition-colors">Instagram</span>
+              <span class="text-[10px] font-bold text-mute bg-canvas-soft px-2 py-0.5 rounded-full border border-hairline">2200</span>
+            </div>
+            <div class="h-1.5 bg-canvas-soft-2 rounded-full overflow-hidden mb-3 shadow-inner">
+              <div id="limit-instagram-bar" class="h-full bg-link w-0 transition-all duration-500 ease-out"></div>
+            </div>
+            <div class="flex justify-between items-center font-bold">
+              <div class="flex items-baseline gap-1">
+                <span id="limit-instagram-count" class="text-sm font-bold text-ink leading-none">0</span>
+                <span class="text-[9px] text-mute uppercase tracking-widest">Chars</span>
+              </div>
+              <span id="limit-instagram-percent" class="text-[10px] font-bold text-mute">0%</span>
+            </div>
+          </div>
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 shadow-sm transition-all hover:shadow-md group">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[11px] font-bold text-ink uppercase tracking-tight group-hover:text-link transition-colors">Meta Description</span>
+              <span class="text-[10px] font-bold text-mute bg-canvas-soft px-2 py-0.5 rounded-full border border-hairline">160</span>
+            </div>
+            <div class="h-1.5 bg-canvas-soft-2 rounded-full overflow-hidden mb-3 shadow-inner">
+              <div id="limit-meta-bar" class="h-full bg-link w-0 transition-all duration-500 ease-out"></div>
+            </div>
+            <div class="flex justify-between items-center font-bold">
+              <div class="flex items-baseline gap-1">
+                <span id="limit-meta-count" class="text-sm font-bold text-ink leading-none">0</span>
+                <span class="text-[9px] text-mute uppercase tracking-widest">Chars</span>
+              </div>
+              <span id="limit-meta-percent" class="text-[10px] font-bold text-mute">0%</span>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="w-full">
-          <WordCounter />
+      <!-- Keyword Density + Insight Cards -->
+      <div class="grid md:grid-cols-2 gap-12 mt-12">
+        <!-- Keyword Density -->
+        <div class="bg-canvas border border-hairline rounded-3xl p-6 md:p-8 shadow-sm transition-all hover:shadow-md relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-link/5 rounded-full translate-x-1/2 -translate-y-1/2 blur-2xl group-hover:bg-link/10 transition-colors pointer-events-none"></div>
+          <div class="relative z-10 flex items-center justify-between mb-8">
+            <h3 class="text-sm font-bold tracking-tight text-ink">Keyword Density</h3>
+            <span class="text-[10px] font-bold text-mute uppercase tracking-widest">Top 10 Words</span>
+          </div>
+          <div id="keyword-list" class="space-y-4 relative z-10">
+            {[...Array(10)].map(() => (
+              <div class="flex items-center gap-4 group">
+                <span class="w-24 text-xs font-bold text-body truncate group-hover:text-ink transition-colors">—</span>
+                <div class="flex-grow h-1.5 bg-canvas-soft-2 rounded-full overflow-hidden shadow-inner">
+                  <div class="h-full bg-link/20 group-hover:bg-link transition-all duration-500"></div>
+                </div>
+                <span class="w-10 text-[10px] font-bold text-mute group-hover:text-ink transition-colors">0%</span>
+              </div>
+            ))}
+          </div>
+        </div>
 
-          <!-- Trust Signals Mobile -->
-          <div class="flex lg:hidden flex-wrap justify-center gap-4 mt-6 text-[10px] font-bold text-mute uppercase tracking-widest">
-            <span class="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Privacy First</span>
-            <span class="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg> Instant</span>
-            <span class="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg> Free</span>
+        <!-- Insight Cards -->
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-canvas border border-hairline rounded-[2.5rem] p-8 md:p-12 shadow-sm flex flex-col justify-between transition-all hover:shadow-xl group">
+            <div>
+              <h3 class="text-sm font-bold tracking-tight mb-10 text-ink">Linguistic Pace</h3>
+              <div class="space-y-8">
+                <div class="flex items-center justify-between">
+                  <div class="flex flex-col">
+                    <span class="text-[10px] font-bold text-mute uppercase tracking-widest mb-1">Reading Time</span>
+                    <span id="reading-time" class="text-4xl font-bold tracking-tighter text-ink">0s</span>
+                  </div>
+                  <div class="w-14 h-14 bg-link/5 rounded-2xl flex items-center justify-center text-link group-hover:bg-link/10 group-hover:scale-110 transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex flex-col">
+                    <span class="text-[10px] font-bold text-mute uppercase tracking-widest mb-1">Speaking Time</span>
+                    <span id="speaking-time" class="text-4xl font-bold tracking-tighter text-ink">0s</span>
+                  </div>
+                  <div class="w-14 h-14 bg-link/5 rounded-2xl flex items-center justify-center text-link group-hover:bg-link/10 group-hover:scale-110 transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pt-8 border-t border-hairline mt-10">
+              <p class="text-[10px] text-mute leading-relaxed font-bold uppercase tracking-widest">Standard speeds applied</p>
+            </div>
+          </div>
+
+          <div class="bg-link text-white border border-link rounded-[2.5rem] p-8 md:p-12 shadow-xl flex flex-col justify-between relative overflow-hidden group hover:shadow-2xl transition-all">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full translate-x-1/4 -translate-y-1/4 transition-transform duration-500 group-hover:scale-125 blur-2xl"></div>
+            <div class="relative z-10">
+              <div class="flex items-center justify-between mb-10">
+                <h3 class="text-sm font-bold tracking-tight">Readability Index</h3>
+                <span class="text-[10px] font-bold text-white/80 uppercase tracking-widest px-3 py-1 border border-white/20 rounded-full bg-white/5 backdrop-blur-sm shadow-sm">Flesch-Kincaid</span>
+              </div>
+              <div class="flex items-baseline gap-2 mb-6">
+                <span id="readability-grade" class="text-7xl font-bold tracking-tighter">—</span>
+                <span class="text-2xl font-bold text-white/50">/ 100</span>
+              </div>
+              <p id="readability-feedback" class="text-white/90 text-sm font-medium leading-relaxed max-w-[260px]">
+                Type more than 5 words to generate a precise readability score.
+              </p>
+            </div>
+            <div class="pt-8 border-t border-white/15 mt-10 relative z-10">
+              <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-white/70">
+                <span>Complexity Level</span>
+                <span id="complexity-label" class="text-white font-bold bg-white/10 px-2 py-1 rounded">Awaiting Input</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Feature Grid -->
-  <section class="w-full py-24 bg-canvas-soft-2/50 border-y border-hairline">
-    <div class="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="p-6 sm:p-8 bg-canvas border border-hairline rounded-xl sm:rounded-lg card-shadow">
-        <h3 class="text-lg font-bold text-ink mb-3">Real-Time Counting</h3>
-        <p class="text-sm text-body leading-relaxed">
-          See word, character, sentence, and paragraph counts update instantly as you type or paste text.
+  <!-- Deep Linguistic Insights -->
+  <section class="px-4 sm:px-6 py-10 md:py-14 bg-canvas border-t border-hairline">
+    <div class="max-w-7xl mx-auto">
+      <div class="max-w-3xl mb-10 md:mb-12">
+        <span class="text-[11px] font-bold text-mute uppercase tracking-widest">Deep Linguistic Insights</span>
+        <h2 class="text-2xl md:text-4xl font-bold tracking-tight text-ink mt-3 mb-3">
+          Understand every dimension of your text
+        </h2>
+        <p class="text-sm text-body leading-relaxed max-w-2xl">
+          Go beyond simple counts. Our text analyzer provides professional-grade metrics for readability, keyword density, and speech timing — all processed locally in your browser.
         </p>
       </div>
-      <div class="p-6 sm:p-8 bg-canvas border border-hairline rounded-xl sm:rounded-lg card-shadow">
-        <h3 class="text-lg font-bold text-ink mb-3">Privacy Friendly</h3>
-        <p class="text-sm text-body leading-relaxed">
-          Your text stays on your device. All processing is done locally in your browser — nothing is sent to any server.
-        </p>
-      </div>
-      <div class="p-6 sm:p-8 bg-canvas border border-hairline rounded-xl sm:rounded-lg card-shadow">
-        <h3 class="text-lg font-bold text-ink mb-3">SEO Insights</h3>
-        <p class="text-sm text-body leading-relaxed">
-          Analyze keyword density to optimize your content for search engines and improve readability.
-        </p>
+      <div class="h-px w-full bg-hairline mb-10 md:mb-12"></div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-canvas border border-hairline rounded-3xl p-6 md:p-8 shadow-sm hover:shadow-md transition-all">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-9 h-9 rounded-xl bg-link/10 text-link flex items-center justify-center shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            </div>
+            <h3 class="text-sm font-bold tracking-tight text-ink">What is a Word Counter?</h3>
+          </div>
+          <div class="space-y-4 text-sm text-body leading-relaxed">
+            <p>
+              A Word Counter is a professional tool designed to provide an instant, accurate count of the number of words and characters in a piece of text. Whether you are an author, student, or digital marketer, knowing your word count is essential for meeting specific length requirements.
+            </p>
+            <p>
+              ToolTails takes this further by offering advanced linguistic analysis, including keyword density, readability scores, and estimated reading time, all processed securely in your browser.
+            </p>
+          </div>
+        </div>
+        <div class="bg-canvas border border-hairline rounded-3xl p-6 md:p-8 shadow-sm hover:shadow-md transition-all">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-9 h-9 rounded-xl bg-link/10 text-link flex items-center justify-center shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h3 class="text-sm font-bold tracking-tight text-ink">Why use ToolTails?</h3>
+          </div>
+          <ul class="space-y-4 text-sm text-body leading-relaxed">
+            <li class="flex gap-3">
+              <span class="text-link font-bold shrink-0">01.</span>
+              <span><strong class="text-ink">Privacy First:</strong> Your text never leaves your device. We use browser-native APIs for all calculations.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-link font-bold shrink-0">02.</span>
+              <span><strong class="text-ink">SEO Optimized:</strong> Monitor keyword density to avoid stuffing while ensuring relevance.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-link font-bold shrink-0">03.</span>
+              <span><strong class="text-ink">Professional Grade:</strong> From Flesch-Kincaid scores to speaking time for podcasters.</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Related Tools -->
-  <section class="w-full py-16 bg-canvas-soft-2/50 border-y border-hairline">
-    <div class="max-w-[1200px] mx-auto px-6 text-center">
-      <h2 class="text-2xl font-bold text-ink mb-8">Try our other tools</h2>
-      <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a href="/pomodoro-timer" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
-          Pomodoro Timer
+  <!-- Writing Resources -->
+  <section class="px-4 sm:px-6 py-16 md:py-24 bg-canvas border-t border-hairline">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-12 md:mb-16">
+        <h2 class="text-2xl md:text-4xl font-bold tracking-tight text-ink">Writing Resources</h2>
+        <div class="hidden sm:block h-px w-full bg-hairline"></div>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <a href="/blog/how-many-words-5-minute-speech" class="group bg-canvas border border-hairline rounded-3xl p-6 shadow-sm hover:shadow-lg hover:border-link/30 transition-all">
+          <span class="text-[9px] font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">Speech</span>
+          <h3 class="text-sm font-bold text-ink mt-4 mb-2 group-hover:text-link transition-colors">How Many Words Is a 5 Minute Speech?</h3>
+          <p class="text-xs text-body leading-relaxed line-clamp-2">Learn standard speaking speeds and calculate your presentation length.</p>
         </a>
-        <a href="/focus" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
-          Focus Goals Timer
+        <a href="/blog/how-many-words-10-minute-speech" class="group bg-canvas border border-hairline rounded-3xl p-6 shadow-sm hover:shadow-lg hover:border-link/30 transition-all">
+          <span class="text-[9px] font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">Speech</span>
+          <h3 class="text-sm font-bold text-ink mt-4 mb-2 group-hover:text-link transition-colors">How Many Words Is a 10 Minute Speech?</h3>
+          <p class="text-xs text-body leading-relaxed line-clamp-2">Discover word counts and structure tips for longer presentations.</p>
         </a>
-        <a href="/age-calculator" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
-          Age Calculator
+        <a href="/blog/word-count-vs-character-count" class="group bg-canvas border border-hairline rounded-3xl p-6 shadow-sm hover:shadow-lg hover:border-link/30 transition-all">
+          <span class="text-[9px] font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">Writing Tips</span>
+          <h3 class="text-sm font-bold text-ink mt-4 mb-2 group-hover:text-link transition-colors">Word Count vs Character Count</h3>
+          <p class="text-xs text-body leading-relaxed line-clamp-2">Understand the key differences and when to track each metric.</p>
+        </a>
+        <a href="/blog/average-blog-post-length-seo-2026" class="group bg-canvas border border-hairline rounded-3xl p-6 shadow-sm hover:shadow-lg hover:border-link/30 transition-all">
+          <span class="text-[9px] font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">SEO</span>
+          <h3 class="text-sm font-bold text-ink mt-4 mb-2 group-hover:text-link transition-colors">Average Blog Post Length for SEO</h3>
+          <p class="text-xs text-body leading-relaxed line-clamp-2">Find the sweet spot word count for search rankings in 2026.</p>
+        </a>
+        <a href="/blog/character-limits-social-media" class="group bg-canvas border border-hairline rounded-3xl p-6 shadow-sm hover:shadow-lg hover:border-link/30 transition-all">
+          <span class="text-[9px] font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">Social Media</span>
+          <h3 class="text-sm font-bold text-ink mt-4 mb-2 group-hover:text-link transition-colors">Social Media Character Limits</h3>
+          <p class="text-xs text-body leading-relaxed line-clamp-2">Keep your posts perfectly formatted across every platform.</p>
+        </a>
+        <a href="/blog/how-to-improve-readability" class="group bg-canvas border border-hairline rounded-3xl p-6 shadow-sm hover:shadow-lg hover:border-link/30 transition-all">
+          <span class="text-[9px] font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">Writing Tips</span>
+          <h3 class="text-sm font-bold text-ink mt-4 mb-2 group-hover:text-link transition-colors">How to Improve Readability</h3>
+          <p class="text-xs text-body leading-relaxed line-clamp-2">Actionable tips to make your writing easier to read and understand.</p>
+        </a>
+        <a href="/blog/reading-time-vs-speaking-time" class="group bg-canvas border border-hairline rounded-3xl p-6 shadow-sm hover:shadow-lg hover:border-link/30 transition-all">
+          <span class="text-[9px] font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">Analysis</span>
+          <h3 class="text-sm font-bold text-ink mt-4 mb-2 group-hover:text-link transition-colors">Reading Time vs Speaking Time</h3>
+          <p class="text-xs text-body leading-relaxed line-clamp-2">Why reading and speaking speeds differ and how to pace content.</p>
+        </a>
+        <a href="/blog/what-is-good-readability-score" class="group bg-canvas border border-hairline rounded-3xl p-6 shadow-sm hover:shadow-lg hover:border-link/30 transition-all">
+          <span class="text-[9px] font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">Analysis</span>
+          <h3 class="text-sm font-bold text-ink mt-4 mb-2 group-hover:text-link transition-colors">What Is a Good Readability Score?</h3>
+          <p class="text-xs text-body leading-relaxed line-clamp-2">Learn Flesch-Kincaid benchmarks and how to interpret your score.</p>
         </a>
       </div>
     </div>
   </section>
 
   <!-- FAQ Section -->
-  <section class="w-full py-24">
-    <div class="max-w-[800px] mx-auto px-6">
-      <FAQ items={faqItems} />
+  <section class="px-4 sm:px-6 py-16 md:py-24 bg-canvas-soft border-t border-hairline">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-12">
+        <h2 class="text-2xl font-bold tracking-tight text-ink">Frequently Asked Questions</h2>
+        <div class="hidden sm:block h-px w-full bg-hairline"></div>
+      </div>
+      <div class="space-y-3">
+        {faqItems.map((item) => (
+          <details class="group bg-canvas border border-hairline rounded-3xl overflow-hidden shadow-sm transition-all hover:shadow-md hover:border-link/20 [&_summary::-webkit-details-marker]:hidden">
+            <summary class="flex items-center justify-between px-6 py-4 cursor-pointer hover:bg-canvas-soft transition-colors">
+              <span class="text-sm font-bold text-ink tracking-tight">{item.question}</span>
+              <div class="w-6 h-6 rounded-full border border-hairline flex items-center justify-center transition-transform group-open:rotate-180 group-hover:bg-canvas">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </div>
+            </summary>
+            <div class="px-6 py-5 text-sm text-body leading-relaxed border-t border-hairline bg-canvas/50">
+              {item.answer}
+            </div>
+          </details>
+        ))}
+      </div>
     </div>
   </section>
 
-  <script type="application/ld+json" is:inline set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com" },
-      { "@type": "ListItem", "position": 2, "name": "Word Counter", "item": "https://tooltails.com/word-counter" }
-    ]
-  })} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify([
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tooltails.com" },
+        { "@type": "ListItem", "position": 2, "name": "Word Counter", "item": "https://tooltails.com/word-counter/" }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer
+        }
+      }))
+    }
+  ])} />
 </Layout>

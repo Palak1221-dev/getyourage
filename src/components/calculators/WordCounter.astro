@@ -1,196 +1,445 @@
----
-import Card from "../ui/Card.astro";
-import Button from "../ui/Button.astro";
----
+<div id="word-counter-app">
+  <div class="grid lg:grid-cols-[1fr_280px] gap-6 items-start">
+    <!-- Left: Editor -->
+    <div class="flex flex-col">
+      <div class="bg-canvas border border-hairline-strong rounded-[2.5rem] shadow-md overflow-hidden flex flex-col min-h-[550px] transition-all duration-300 focus-within:-translate-y-1 focus-within:shadow-xl focus-within:border-link focus-within:ring-4 focus-within:ring-link/20 relative group">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-link/5 rounded-full translate-x-1/3 -translate-y-1/3 blur-3xl group-focus-within:bg-link/15 transition-colors duration-500 pointer-events-none"></div>
 
-<Card elevation="lg" padding="md" class="w-full shadow-2xl ring-1 ring-hairline">
-  <div class="space-y-4">
-    <div class="flex items-center justify-between">
-      <label for="word-input" class="text-sm font-medium text-ink">Paste or type your text below</label>
-      <label class="inline-flex items-center gap-2 px-3 py-1.5 text-[11px] font-medium text-mute bg-canvas-soft border border-hairline rounded-sm cursor-pointer hover:bg-canvas-soft-2 transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-        Upload .txt
-        <input type="file" id="file-upload" accept=".txt" class="hidden" />
-      </label>
+        <!-- Toolbar -->
+        <div class="relative z-20 flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 border-b border-hairline bg-canvas-soft/50 backdrop-blur-md">
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-full bg-link/10 text-link flex items-center justify-center shadow-inner">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+              </div>
+              <span class="text-[11px] font-extrabold text-ink uppercase tracking-wider hidden min-[380px]:inline">Editor</span>
+            </div>
+            <div class="h-5 w-px bg-hairline hidden min-[380px]:block"></div>
+            <div class="flex flex-wrap items-center gap-1.5">
+              <button id="upper-btn" class="px-2.5 py-1 rounded-full bg-canvas border border-hairline text-body text-[11px] font-medium hover:border-link hover:text-link active:bg-link active:text-white active:border-link transition-all shadow-sm uppercase">Upper</button>
+              <button id="lower-btn" class="px-2.5 py-1 rounded-full bg-canvas border border-hairline text-body text-[11px] font-medium hover:border-link hover:text-link active:bg-link active:text-white active:border-link transition-all shadow-sm lowercase">Lower</button>
+              <button id="title-btn" class="px-2.5 py-1 rounded-full bg-canvas border border-hairline text-body text-[11px] font-medium hover:border-link hover:text-link active:bg-link active:text-white active:border-link transition-all shadow-sm capitalize">Title</button>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5 shrink-0">
+            <button id="copy-btn" class="group flex items-center gap-1.5 px-3 py-1 rounded-full bg-canvas border border-transparent text-link text-[11px] font-bold hover:bg-link/10 transition-all active:scale-95">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span class="hidden min-[380px]:inline">Copy</span>
+            </button>
+            <button id="clear-btn" class="group flex items-center gap-1.5 px-3 py-1 rounded-full bg-canvas border border-transparent text-mute text-[11px] font-bold hover:text-error hover:bg-error/10 transition-all active:scale-95">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 transition-transform group-hover:rotate-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              <span class="hidden min-[380px]:inline">Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Cleanup Panel -->
+        <div class="relative z-20 px-4 py-3 bg-canvas-soft/30 backdrop-blur-sm border-b border-hairline">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div class="flex items-center gap-2 shrink-0">
+              <div class="w-5 h-5 rounded-full bg-link/10 text-link flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7 21 1.2-1.2c1-1 1.8-2 2.4-3"></path><path d="M12.6 15.6c.6-1 1.4-2 2.4-3l1.2-1.2"></path><path d="M15.8 5.4 18.6 8.2"></path><path d="m19 11-8.8 8.8c-.7.7-1.3.7-2 0l-1.2-1.2c-.7-.7-.7-1.3 0-2L15.8 7.8"></path><path d="m17.4 3.8 2.8 2.8c.7.7.7 1.3 0 2L17.4 11c-.7.7-1.3.7-2 0l-2.8-2.8c-.7-.7-.7-1.3 0-2l2.8-2.8c.7-.7 1.3-.7 2 0Z"></path></svg>
+              </div>
+              <span class="text-[10px] font-extrabold text-ink uppercase tracking-wider">Cleanup</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5 items-center">
+              <button id="cleanup-undo-btn" class="px-3 py-1.5 rounded-full bg-canvas border border-hairline text-mute text-[11px] font-bold hover:border-link hover:text-link active:bg-link active:text-white active:border-link transition-all shadow-sm flex items-center gap-1 disabled:opacity-30 disabled:cursor-not-allowed" disabled title="Undo (Ctrl+Z)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"></path><path d="M21 17a9 9 0 0 0-9-15 9 9 0 0 0-6 2.3L3 13"></path></svg>
+                Undo
+              </button>
+              <div class="w-px h-4 bg-hairline mx-0.5 hidden sm:block"></div>
+              <button id="cleanup-spaces-btn" class="px-3 py-1.5 rounded-full bg-canvas border border-hairline text-body text-[11px] font-medium hover:border-link hover:text-link active:bg-link active:text-white active:border-link transition-all shadow-sm">Clean Spaces</button>
+              <button id="cleanup-lines-btn" class="px-3 py-1.5 rounded-full bg-canvas border border-hairline text-body text-[11px] font-medium hover:border-link hover:text-link active:bg-link active:text-white active:border-link transition-all shadow-sm">Remove Blank Lines</button>
+              <button id="cleanup-punctuation-btn" class="px-3 py-1.5 rounded-full bg-canvas border border-hairline text-body text-[11px] font-medium hover:border-link hover:text-link active:bg-link active:text-white active:border-link transition-all shadow-sm">Fix Punctuation</button>
+              <button id="cleanup-duplicates-btn" class="px-3 py-1.5 rounded-full bg-canvas border border-hairline text-body text-[11px] font-medium hover:border-link hover:text-link active:bg-link active:text-white active:border-link transition-all shadow-sm">Remove Repeated Words</button>
+              <button id="cleanup-strip-btn" class="px-3 py-1.5 rounded-full bg-canvas border border-transparent text-mute text-[11px] font-medium hover:text-error hover:bg-error/10 active:bg-error active:text-white transition-all shadow-sm">Strip Punctuation</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Feedback Bar -->
+        <div id="action-feedback-bar" class="h-0 overflow-hidden bg-link/5 transition-all duration-300 flex items-center px-5 relative z-10">
+          <span id="action-feedback-text" class="text-[10px] font-bold text-link flex items-center gap-1.5 opacity-0 transition-opacity duration-300"></span>
+        </div>
+
+        <!-- Textarea -->
+        <textarea
+          id="text-input"
+          class="flex-grow w-full p-4 sm:p-8 md:p-12 text-lg sm:text-xl font-medium text-ink focus:outline-none resize-none placeholder:text-mute/40 leading-relaxed bg-transparent relative z-10"
+          placeholder="Paste or type your text here to get started..."
+        ></textarea>
+
+        <!-- Status Bar -->
+        <div class="px-6 py-4 border-t border-hairline bg-canvas flex items-center justify-between text-[11px] font-bold text-mute uppercase tracking-widest relative z-10">
+          <span id="editor-status" class="flex items-center gap-2">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-link opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-link"></span>
+            </span>
+            Ready
+          </span>
+          <div class="flex gap-6">
+            <span class="text-mute">Primary: <span id="word-count-primary" class="text-ink font-bold">0</span> Words</span>
+            <span class="text-mute"><span id="char-count-primary" class="text-ink font-bold">0</span> Chars</span>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <textarea
-      id="word-input"
-      class="w-full h-56 p-4 bg-canvas border border-hairline rounded-sm text-sm text-ink placeholder:text-mute resize-y transition-all focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 font-mono leading-relaxed"
-      placeholder="Start typing or paste your text here..."
-    ></textarea>
+    <!-- Right: Sidebar -->
+    <div class="flex flex-col gap-5 lg:sticky lg:top-16 lg:pt-0">
+      <!-- Quick Stats -->
+      <div class="bg-canvas border border-hairline p-5 rounded-[2rem] shadow-md relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-link/40 group">
+        <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-80 group-hover:opacity-100 transition-opacity"></div>
+        <h4 class="text-[10px] font-extrabold text-body uppercase tracking-[0.2em] mb-4">Quick Stats</h4>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="flex flex-col">
+            <span class="text-[9px] font-bold text-mute uppercase tracking-widest leading-none mb-1.5">Reading Time</span>
+            <span id="reading-time-side" class="text-3xl font-extrabold tracking-tighter text-ink">0s</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-[9px] font-bold text-mute uppercase tracking-widest leading-none mb-1.5">Readability</span>
+            <span id="readability-grade-side" class="text-3xl font-extrabold tracking-tighter text-ink">—</span>
+            <span id="complexity-label-side" class="text-[8px] font-bold text-link uppercase tracking-widest mt-1">Awaiting Input</span>
+          </div>
+        </div>
+      </div>
 
-    <div class="flex flex-wrap gap-3">
-      <Button variant="secondary" size="sm" id="clear-btn">Clear</Button>
-      <Button variant="secondary" size="sm" id="copy-btn">Copy Results</Button>
+      <!-- Detailed Metrics -->
+      <div class="bg-canvas border border-hairline p-5 rounded-[2rem] shadow-md relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-link/40 group">
+        <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-80 group-hover:opacity-100 transition-opacity"></div>
+        <h4 class="text-[10px] font-extrabold text-body uppercase tracking-[0.2em] mb-4">Detailed Metrics</h4>
+        <div class="grid grid-cols-2 gap-y-5 gap-x-4">
+          <div class="flex flex-col">
+            <span class="text-[9px] font-bold text-mute uppercase tracking-widest leading-none mb-1.5">Words</span>
+            <span id="word-count" class="text-3xl font-extrabold tracking-tighter text-ink">0</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-[9px] font-bold text-mute uppercase tracking-widest leading-none mb-1.5">Characters</span>
+            <span id="char-count" class="text-3xl font-extrabold tracking-tighter text-ink">0</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-[9px] font-bold text-mute uppercase tracking-widest leading-none mb-1.5">No Space</span>
+            <span id="char-no-space" class="text-3xl font-extrabold tracking-tighter text-ink">0</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-[9px] font-bold text-mute uppercase tracking-widest leading-none mb-1.5">Sentences</span>
+            <span id="sentence-count" class="text-3xl font-extrabold tracking-tighter text-ink">0</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-[9px] font-bold text-mute uppercase tracking-widest leading-none mb-1.5">Paragraphs</span>
+            <span id="paragraph-count" class="text-3xl font-extrabold tracking-tighter text-ink">0</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-[9px] font-bold text-mute uppercase tracking-widest leading-none mb-1.5">Unique Words</span>
+            <span id="unique-words" class="text-3xl font-extrabold tracking-tighter text-ink">0</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div id="results" class="mt-8 space-y-8">
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-      <div class="p-4 bg-canvas-soft-2/50 rounded-xl border border-hairline text-center">
-        <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Words</span>
-        <span id="res-words" class="text-2xl font-bold text-link">0</span>
-      </div>
-      <div class="p-4 bg-canvas-soft-2/50 rounded-xl border border-hairline text-center">
-        <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Characters</span>
-        <span id="res-chars" class="text-2xl font-bold text-link">0</span>
-      </div>
-      <div class="p-4 bg-canvas-soft-2/50 rounded-xl border border-hairline text-center">
-        <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Sentences</span>
-        <span id="res-sentences" class="text-2xl font-bold text-link">0</span>
-      </div>
-      <div class="p-4 bg-canvas-soft-2/50 rounded-xl border border-hairline text-center">
-        <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Paragraphs</span>
-        <span id="res-paragraphs" class="text-2xl font-bold text-link">0</span>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-2 gap-3">
-      <div class="p-4 bg-canvas-soft-2/50 rounded-xl border border-hairline">
-        <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Reading Time</span>
-        <span id="res-reading-time" class="text-lg font-bold text-link">0 min</span>
-      </div>
-      <div class="p-4 bg-canvas-soft-2/50 rounded-xl border border-hairline">
-        <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Speaking Time</span>
-        <span id="res-speaking-time" class="text-lg font-bold text-link">0 min</span>
-      </div>
-    </div>
-
-    <div>
-      <h4 class="text-xs font-bold text-ink uppercase tracking-wider mb-3">Keyword Density</h4>
-      <div id="res-keywords" class="space-y-1">
-        <p class="text-sm text-mute">Start typing to see keyword density.</p>
-      </div>
-    </div>
-  </div>
-</Card>
+  <!-- File Upload -->
+  <input type="file" id="file-upload" accept=".txt" class="hidden" />
+</div>
 
 <script>
-  const input = document.getElementById('word-input') as HTMLTextAreaElement;
+  import { analyzeText } from '../../utils/textAnalyzer';
+  import { 
+    normalizePunctuation, 
+    removeAllPunctuation, 
+    removeExtraSpaces, 
+    removeEmptyLines, 
+    removeDuplicateWords,
+    toTitleCase
+  } from '../../utils/textCleanup';
+
+  const input = document.getElementById('text-input') as HTMLTextAreaElement;
+  const editorStatus = document.getElementById('editor-status')!;
+  const wordCountPrimary = document.getElementById('word-count-primary')!;
+  const charCountPrimary = document.getElementById('char-count-primary')!;
+  const readingTimeSide = document.getElementById('reading-time-side');
+  const readabilityGradeSide = document.getElementById('readability-grade-side');
+  const complexityLabelSide = document.getElementById('complexity-label-side');
+  
+  // Toolbar & Cleanup Buttons
+  const upperBtn = document.getElementById('upper-btn')!;
+  const lowerBtn = document.getElementById('lower-btn')!;
+  const titleBtn = document.getElementById('title-btn')!;
+  const clearBtn = document.getElementById('clear-btn')!;
+  const copyBtn = document.getElementById('copy-btn')!;
+  const cleanupSpacesBtn = document.getElementById('cleanup-spaces-btn')!;
+  const cleanupLinesBtn = document.getElementById('cleanup-lines-btn')!;
+  const cleanupPunctuationBtn = document.getElementById('cleanup-punctuation-btn')!;
+  const cleanupDuplicatesBtn = document.getElementById('cleanup-duplicates-btn')!;
+  const cleanupStripBtn = document.getElementById('cleanup-strip-btn')!;
+  
+  // Metric Grid IDs
+  const wordCount = document.getElementById('word-count')!;
+  const charCount = document.getElementById('char-count')!;
+  const charNoSpace = document.getElementById('char-no-space')!;
+  const sentenceCount = document.getElementById('sentence-count')!;
+  const paragraphCount = document.getElementById('paragraph-count')!;
+  const uniqueWords = document.getElementById('unique-words')!;
+
+  // Insight IDs (may be in page, not component)
+  const readingTime = document.getElementById('reading-time');
+  const speakingTime = document.getElementById('speaking-time');
+  const readabilityGrade = document.getElementById('readability-grade');
+  const readabilityFeedback = document.getElementById('readability-feedback');
+  const complexityLabel = document.getElementById('complexity-label');
+  const keywordList = document.getElementById('keyword-list');
+
+  // Social Limit IDs (may be in page, not component)
+  const socialPlatforms = [
+    { id: 'limit-twitter', key: 'twitter' as const },
+    { id: 'limit-linkedin', key: 'linkedin' as const },
+    { id: 'limit-instagram', key: 'instagram' as const },
+    { id: 'limit-meta', key: 'meta' as const }
+  ];
+
   const fileUpload = document.getElementById('file-upload') as HTMLInputElement;
 
-  const resWords = document.getElementById('res-words');
-  const resChars = document.getElementById('res-chars');
-  const resSentences = document.getElementById('res-sentences');
-  const resParagraphs = document.getElementById('res-paragraphs');
-  const resReadingTime = document.getElementById('res-reading-time');
-  const resSpeakingTime = document.getElementById('res-speaking-time');
-  const resKeywords = document.getElementById('res-keywords');
+  const formatTime = (seconds: number) => {
+    if (seconds === 0) return '0s';
+    if (seconds < 60) return `${seconds}s`;
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return secs === 0 ? `${mins}m` : `${mins}m ${secs}s`;
+  };
 
-  const updateStats = () => {
+  const updateUI = () => {
     const text = input.value;
-    const trimmed = text.trim();
-    const words = trimmed ? trimmed.split(/\s+/).filter(w => w.length > 0) : [];
-    const wordCount = words.length;
-    const charCount = text.length;
-    const charCountNoSpaces = text.replace(/\s/g, '').length;
-    const sentences = trimmed ? trimmed.split(/[.!?]+/).filter(s => s.trim().length > 0).length : 0;
-    const paragraphs = trimmed ? trimmed.split(/\n\s*\n/).filter(p => p.trim().length > 0).length : Math.min(trimmed ? 1 : 0, 1);
+    const results = analyzeText(text);
 
-    const readingTimeMinutes = wordCount / 200;
-    const speakingTimeMinutes = wordCount / 150;
-    const readingTimeStr = readingTimeMinutes < 1 ? '< 1 min' : `${Math.ceil(readingTimeMinutes)} min`;
-    const speakingTimeStr = speakingTimeMinutes < 1 ? '< 1 min' : `${Math.ceil(speakingTimeMinutes)} min`;
+    // Primary Metrics
+    wordCountPrimary.textContent = results.wordCount.toLocaleString();
+    charCountPrimary.textContent = results.charCount.toLocaleString();
+    
+    // Sidebar Metrics
+    if (readingTimeSide) readingTimeSide.textContent = formatTime(results.readingTimeSec);
+    if (readabilityGradeSide) readabilityGradeSide.textContent = results.wordCount > 5 ? results.fleschKincaidGrade.toString() : '—';
+    
+    // Metric Grid
+    wordCount.textContent = results.wordCount.toLocaleString();
+    charCount.textContent = results.charCount.toLocaleString();
+    charNoSpace.textContent = results.charCountNoSpaces.toLocaleString();
+    sentenceCount.textContent = results.sentenceCount.toLocaleString();
+    paragraphCount.textContent = results.paragraphCount.toLocaleString();
+    uniqueWords.textContent = results.uniqueWordCount.toLocaleString();
 
-    if (resWords) resWords.textContent = wordCount.toLocaleString();
-    if (resChars) resChars.textContent = `${charCount.toLocaleString()} (${charCountNoSpaces.toLocaleString()})`;
-    if (resSentences) resSentences.textContent = sentences.toLocaleString();
-    if (resParagraphs) resParagraphs.textContent = paragraphs.toLocaleString();
-    if (resReadingTime) resReadingTime.textContent = readingTimeStr;
-    if (resSpeakingTime) resSpeakingTime.textContent = speakingTimeStr;
+    // Insights
+    if (readingTime) readingTime.textContent = formatTime(results.readingTimeSec);
+    if (speakingTime) speakingTime.textContent = formatTime(results.speakingTimeSec);
+    if (readabilityGrade) readabilityGrade.textContent = results.wordCount > 5 ? results.fleschKincaidGrade.toString() : '—';
+    
+    if (results.wordCount > 5) {
+      let feedback = '';
+      let complexity = '';
+      const grade = results.fleschKincaidGrade;
+      if (grade <= 6) { complexity = 'Very Easy'; feedback = 'Ideal for most readers. Clear and concise.'; }
+      else if (grade <= 8) { complexity = 'Easy'; feedback = 'Conversational. Suitable for broad audiences.'; }
+      else if (grade <= 10) { complexity = 'Standard'; feedback = 'Professional tone. Requires some focus.'; }
+      else { complexity = 'Complex'; feedback = 'Technical or academic. Suited for specialists.'; }
+      
+      if (readabilityFeedback) readabilityFeedback.textContent = feedback;
+      if (complexityLabel) complexityLabel.textContent = complexity;
+      if (complexityLabelSide) complexityLabelSide.textContent = complexity;
+    } else {
+      if (readabilityFeedback) readabilityFeedback.textContent = 'Awaiting sufficient input to calculate readability insights.';
+      if (complexityLabel) complexityLabel.textContent = 'Awaiting Input';
+      if (complexityLabelSide) complexityLabelSide.textContent = 'Awaiting Input';
+    }
 
-    if (resKeywords) {
-      if (wordCount === 0) {
-        resKeywords.innerHTML = '<p class="text-sm text-mute">Start typing to see keyword density.</p>';
-        return;
+    // Keywords
+    if (keywordList) {
+      if (results.keywords.length > 0) {
+        keywordList.innerHTML = results.keywords.map(kw => `
+          <div class="flex items-center gap-4 group">
+            <span class="w-24 text-xs font-bold text-body truncate group-hover:text-ink transition-colors" title="${kw.word}">${kw.word}</span>
+            <div class="flex-grow h-1.5 bg-canvas-soft-2 rounded-full overflow-hidden shadow-inner">
+              <div class="h-full bg-link transition-all duration-500" style="width: ${kw.density}%"></div>
+            </div>
+            <span class="w-10 text-[10px] font-bold text-mute group-hover:text-ink transition-colors">${kw.density}%</span>
+          </div>
+        `).join('');
+      } else {
+        keywordList.innerHTML = Array(10).fill(0).map(() => `
+          <div class="flex items-center gap-4 opacity-50">
+            <span class="w-24 text-xs font-bold text-mute">—</span>
+            <div class="flex-grow h-1.5 bg-canvas-soft-2 rounded-full shadow-inner"></div>
+            <span class="w-10 text-[10px] font-bold text-mute">0%</span>
+          </div>
+        `).join('');
       }
+    }
 
-      const stopWords = new Set([
-        'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
-        'of', 'with', 'by', 'from', 'is', 'are', 'was', 'were', 'be', 'been',
-        'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would',
-        'could', 'should', 'may', 'might', 'shall', 'can', 'need', 'dare',
-        'ought', 'used', 'this', 'that', 'these', 'those', 'i', 'you', 'he',
-        'she', 'it', 'we', 'they', 'me', 'him', 'her', 'us', 'them', 'my',
-        'your', 'his', 'its', 'our', 'their', 'mine', 'yours', 'hers', 'its',
-        'ours', 'theirs', 'what', 'which', 'who', 'whom', 'whose', 'when',
-        'where', 'why', 'how', 'all', 'each', 'every', 'both', 'few', 'more',
-        'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own',
-        'same', 'so', 'than', 'too', 'very', 'just', 'because', 'as', 'until',
-        'while', 'about', 'between', 'through', 'during', 'before', 'after',
-        'above', 'below', 'up', 'down', 'out', 'off', 'over', 'under', 'again',
-        'further', 'then', 'once', 'here', 'there', 'if'
-      ]);
+    // Social Limits
+    socialPlatforms.forEach(platform => {
+      const data = results.socialLimits[platform.key];
+      const bar = document.getElementById(`${platform.id}-bar`);
+      const count = document.getElementById(`${platform.id}-count`);
+      const percent = document.getElementById(`${platform.id}-percent`);
+      if (!bar || !count || !percent) return;
+      
+      bar.style.width = `${data.percent}%`;
+      count.textContent = data.count.toLocaleString();
+      percent.textContent = `${data.percent}%`;
 
-      const wordFreq: Record<string, number> = {};
-      words.forEach(w => {
-        const lower = w.toLowerCase().replace(/[^a-z0-9']/g, '');
-        if (lower && !stopWords.has(lower)) {
-          wordFreq[lower] = (wordFreq[lower] || 0) + 1;
-        }
-      });
-
-      const sorted = Object.entries(wordFreq)
-        .sort(([, a], [, b]) => b - a)
-        .slice(0, 10);
-
-      if (sorted.length === 0 && wordCount > 0) {
-        const fillerWords = Object.entries(
-          words.reduce((acc: Record<string, number>, w) => {
-            const lower = w.toLowerCase().replace(/[^a-z0-9']/g, '');
-            if (lower) acc[lower] = (acc[lower] || 0) + 1;
-            return acc;
-          }, {})
-        ).sort(([, a], [, b]) => b - a).slice(0, 5);
-
-        resKeywords.innerHTML = `
-          <div class="flex flex-wrap gap-2">
-            ${fillerWords.map(([word, count]) => {
-              const pct = ((count / wordCount) * 100).toFixed(1);
-              return `<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-canvas-soft-2/50 rounded-full text-xs font-medium text-ink border border-hairline">${word} <span class="text-mute font-mono">${count}x (${pct}%)</span></span>`;
-            }).join('')}
-          </div>`;
-        return;
+      if (data.percent >= 100) {
+        bar.classList.remove('bg-link', 'bg-warning');
+        bar.classList.add('bg-error');
+      } else if (data.percent >= 90) {
+        bar.classList.remove('bg-link', 'bg-error');
+        bar.classList.add('bg-warning');
+      } else {
+        bar.classList.remove('bg-error', 'bg-warning');
+        bar.classList.add('bg-link');
       }
+    });
 
-      resKeywords.innerHTML = `
-        <div class="flex flex-wrap gap-2">
-          ${sorted.map(([word, count]) => {
-            const pct = ((count / wordCount) * 100).toFixed(1);
-            return `<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-canvas-soft-2/50 rounded-full text-xs font-medium text-ink border border-hairline">${word} <span class="text-mute font-mono">${count}x (${pct}%)</span></span>`;
-          }).join('')}
-        </div>`;
+    editorStatus.textContent = text.length > 0 ? 'Analyzing...' : 'Ready';
+  };
+
+  // History State
+  const historyStack: string[] = [];
+  const MAX_HISTORY = 10;
+
+  const pushToHistory = () => {
+    if (historyStack.length === 0 || historyStack[historyStack.length - 1] !== input.value) {
+      historyStack.push(input.value);
+      if (historyStack.length > MAX_HISTORY) {
+        historyStack.shift();
+      }
+      updateUndoButton();
     }
   };
 
-  input.addEventListener('input', updateStats);
+  const updateUndoButton = () => {
+    const undoBtn = document.getElementById('cleanup-undo-btn') as HTMLButtonElement;
+    if (undoBtn) {
+      undoBtn.disabled = historyStack.length === 0;
+    }
+  };
 
-  document.getElementById('clear-btn')?.addEventListener('click', () => {
-    input.value = '';
-    updateStats();
-    input.focus();
+  const performUndo = () => {
+    if (historyStack.length > 0) {
+      const prevState = historyStack.pop()!;
+      input.value = prevState;
+      updateUI();
+      updateUndoButton();
+      input.focus();
+      showActionFeedback('Undo applied');
+    }
+  };
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+      e.preventDefault();
+      performUndo();
+    }
   });
 
-  document.getElementById('copy-btn')?.addEventListener('click', async () => {
-    const text = input.value;
-    if (!text.trim()) return;
-    try {
-      await navigator.clipboard.writeText(text);
-      const btn = document.getElementById('copy-btn');
-      if (btn) {
-        const original = btn.innerHTML;
-        btn.innerHTML = 'Copied!';
-        setTimeout(() => btn.innerHTML = original, 2000);
-      }
-    } catch {
-      const btn = document.getElementById('copy-btn');
-      if (btn) {
-        const original = btn.innerHTML;
-        btn.innerHTML = 'Failed to copy';
-        setTimeout(() => btn.innerHTML = original, 2000);
-      }
+  const undoBtn = document.getElementById('cleanup-undo-btn');
+  undoBtn?.addEventListener('click', performUndo);
+
+  let feedbackTimeout: number;
+  const showActionFeedback = (message: string) => {
+    const bar = document.getElementById('action-feedback-bar')!;
+    const text = document.getElementById('action-feedback-text')!;
+    
+    text.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> ${message}`;
+    
+    bar.style.height = '28px';
+    bar.style.borderBottom = '1px solid var(--color-hairline)';
+    text.style.opacity = '1';
+
+    clearTimeout(feedbackTimeout);
+    feedbackTimeout = window.setTimeout(() => {
+      bar.style.height = '0px';
+      bar.style.borderBottom = 'none';
+      text.style.opacity = '0';
+    }, 2500);
+  };
+
+  const applyTransformation = (transform: (t: string) => string) => {
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+    const hasSelection = start !== end;
+
+    pushToHistory();
+
+    if (hasSelection) {
+      const selection = input.value.substring(start, end);
+      const transformed = transform(selection);
+      input.value = input.value.substring(0, start) + transformed + input.value.substring(end);
+      input.setSelectionRange(start, start + transformed.length);
+    } else {
+      input.value = transform(input.value);
     }
+    
+    updateUI();
+    input.focus();
+  };
+
+  const applyCleanup = (cleanupFn: (t: string) => { text: string, count: number }, successTemplate: string) => {
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+    const hasSelection = start !== end;
+
+    pushToHistory();
+
+    const selection = hasSelection ? input.value.substring(start, end) : input.value;
+    const result = cleanupFn(selection);
+    
+    if (hasSelection) {
+      input.value = input.value.substring(0, start) + result.text + input.value.substring(end);
+      input.setSelectionRange(start, start + result.text.length);
+    } else {
+      input.value = result.text;
+    }
+    
+    updateUI();
+    input.focus();
+
+    if (result.count > 0) {
+      showActionFeedback(successTemplate.replace('{count}', result.count.toString()));
+    } else {
+      showActionFeedback('No issues found');
+    }
+  };
+
+  upperBtn.addEventListener('click', () => applyTransformation(t => t.toUpperCase()));
+  lowerBtn.addEventListener('click', () => applyTransformation(t => t.toLowerCase()));
+  titleBtn.addEventListener('click', () => applyTransformation(toTitleCase));
+
+  cleanupSpacesBtn.addEventListener('click', () => applyCleanup(removeExtraSpaces, 'Removed {count} extra spaces'));
+  cleanupLinesBtn.addEventListener('click', () => applyCleanup(removeEmptyLines, 'Removed {count} blank lines'));
+  cleanupPunctuationBtn.addEventListener('click', () => applyCleanup(normalizePunctuation, 'Fixed {count} punctuation issues'));
+  cleanupDuplicatesBtn.addEventListener('click', () => applyCleanup(removeDuplicateWords, 'Removed {count} repeated words'));
+
+  cleanupStripBtn.addEventListener('click', () => {
+    if (confirm('Are you sure you want to remove all punctuation? This cannot be easily undone.')) {
+      applyCleanup(removeAllPunctuation, 'Stripped {count} punctuation marks');
+    }
+  });
+
+  copyBtn.addEventListener('click', async () => {
+    if (!input.value) return;
+    try {
+      await navigator.clipboard.writeText(input.value);
+      const originalText = copyBtn.innerHTML;
+      copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied`;
+      setTimeout(() => copyBtn.innerHTML = originalText, 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  });
+
+  clearBtn.addEventListener('click', () => {
+    input.value = '';
+    updateUI();
+    input.focus();
   });
 
   fileUpload?.addEventListener('change', (e) => {
@@ -199,8 +448,10 @@ import Button from "../ui/Button.astro";
     const reader = new FileReader();
     reader.onload = () => {
       input.value = reader.result as string;
-      updateStats();
+      updateUI();
     };
     reader.readAsText(file);
   });
+
+  input.addEventListener('input', updateUI);
 </script>

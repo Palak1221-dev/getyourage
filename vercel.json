@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/word-counter/blog/:path*",
+      "destination": "/blog/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/word-counter/:path*",
