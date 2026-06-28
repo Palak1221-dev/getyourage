@@ -207,3 +207,89 @@
 
 ### Files Modified
 - `src/pages/pomodoro-timer.astro` — all copy and typography changes in this single ~2175-line file
+
+## Session Summary (Jun 28, 2026) — Part 5: Empty State Redesign
+
+### What We Did
+
+1. **Added Quick Start templates** — 4 template buttons (Study, Writing, Coding, Reading) in the task section. Each uses a subtle accent tint (link-blue, amber, sky, green). Clicking auto-fills the task input and triggers "Add task".
+
+2. **Replaced timeline empty state with rotating Focus Insight card** — Shows a practical tip about focus/productivity. Rotates daily (based on day-of-year index) with a "Show another" button that cycles through tips in session storage.
+
+3. **Replaced activity feed empty state with action-oriented welcome** — "Ready when you are. Add a task, pick a duration, and press start." Includes Quick Start template buttons as a secondary entry point.
+
+4. **Added always-visible task context in timer card** — Removed `hidden` class from `#active-task-context`. When no task selected, shows "Select or add a task above" as guidance text instead of "—".
+
+5. **Added daily target progress** — New section below task estimation in the timer card. Shows "Daily target" label with progress bar and `N/g` counter (e.g., "0/4"). Updated by `updateActiveTaskContext()`.
+
+6. **Updated all metrics sub-texts** to be action-oriented:
+   - "Complete a task to see it here" → "Add a task below to begin"
+   - "Time spent focusing today" → "Start a session to begin tracking"
+   - "Complete your first session" → "Your first session will set your baseline"
+   - Encouragement: "You showed up" → "Pick a task, set the timer, and take the first step."
+
+7. **Added subtle accent color differentiation**:
+   - Task card: `border-t-2 border-t-link/15` (blue accent)
+   - Metrics card: `border-t-2 border-t-green-500/15` (green accent)
+   - Streak bar: `border-t-2 border-t-orange-500/15` (orange accent)
+   - Timeline card: `bg-amber-50/30` + `border-t-2 border-t-amber-500/20` (warm tint)
+   - Activity feed card: `bg-sky-50/30` + `border-t-2 border-t-sky-500/20` (cool tint)
+
+8. **Added JS**:
+   - `FOCUS_INSIGHTS` array (6 practical tips, non-generic)
+   - `QUICK_START_TEMPLATES` array
+   - `getTodayInsightIndex()` utility (day-of-year rotation + sessionStorage override)
+   - `handleQuickStart(template)` function (fills input, triggers add)
+   - Focus insight refresh button handler
+   - Daily target bar/text update in `updateActiveTaskContext()`
+
+9. **Avoided**: empty boxes with one sentence, 🌱 emoji, generic motivational quotes, gamification language, clutter
+
+10. **Build passes** — 57 pages, 0 errors, 14.60s
+
+## Session Summary (Jun 28, 2026) — Part 6: Visual Design Audit & Premium Polish
+
+### What We Did
+
+1. **Typography hierarchy elevated:**
+   - Page header: `text-2xl` → `text-3xl sm:text-4xl`
+   - Section headings: `text-sm font-bold` → `text-sm sm:text-base font-extrabold tracking-tight`
+   - Timer display: `font-extrabold` → `font-black`
+   - Metric numbers: `font-extrabold` → `font-black`
+   - Sub-texts: `text-body/60` → `text-mute/50` (better contrast)
+   - Metric labels: `font-semibold tracking-wider` → `font-bold tracking-wide text-mute/70`
+   - Timer status: `text-sm sm:text-base font-bold` → `text-xs sm:text-sm uppercase tracking-widest`
+
+2. **Card shadows and borders strengthened:**
+   - Shadow: `[0_1px_3px_rgba(0,0,0,0.03)]` → `[0_2px_8px_rgba(0,0,0,0.04)]`
+   - Border: `border-hairline/40` → `border-hairline/50`
+   - Ring: `ring-black/[0.02]` → `ring-black/[0.03]`
+   - Sub-metric cards: `bg-canvas-soft-2/50` → `bg-canvas-soft-2/60`, `border-hairline/30` → `border-hairline/40`
+
+3. **Timer hero elevated:**
+   - Ring container: `max-w-[280px]` → `max-w-[300px] sm:max-w-[340px] md:max-w-[360px]`
+   - Play button: `w-14 h-14` → `w-16 h-16` with `width="24"` icon
+   - Reset/skip buttons: `w-10 h-10` → `w-11 h-11` with `width="16"` icons
+   - Timer card: Added `bg-gradient-to-b from-link/[0.02] to-canvas` for subtle elevation
+   - Always-visible active task context with guidance text
+
+4. **Mode tabs polished:**
+   - Container: `p-0.5 max-w-[320px]` → `p-1 max-w-[340px]`
+   - Buttons: `py-2` → `py-2.5`
+   - Margin bottom: `mb-3` → `mb-4`
+
+5. **Visual density improved:**
+   - Grid gap: `gap-4 lg:gap-5` → `gap-3 lg:gap-4`
+   - Left panel: `space-y-4` → `space-y-3`
+   - Section header margins: `mb-3` → `mb-2.5`
+   - Task/active-task/encouragement spacing: `mt-3 pt-3` → `mt-2.5 pt-2.5`
+   - Metrics grid: `gap-3` → `gap-2.5`
+   - Progress bars: `h-1.5` → `h-1`
+   - Insight card: `py-5` → `py-4`
+
+6. **Controls row tightened:**
+   - Gap: `gap-3 sm:gap-4` → `gap-4 sm:gap-5`
+   - Better visual connection between timer and controls
+
+### Files Modified
+- `src/pages/pomodoro-timer.astro` — typography, shadows, spacing, timer hero, mode tabs, controls
