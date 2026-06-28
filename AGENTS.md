@@ -176,3 +176,34 @@
 
 ### Files Modified
 - `src/pages/focus/index.astro` — all changes in this single ~5400-line file.
+
+## Session Summary (Jun 28, 2026) — Part 4: Copy & Typography Polish
+
+### What We Did
+
+1. **Replaced corporate header** — "Pomodoro Dashboard" → "Your focus session", tagline → "A timer that respects your rhythm, not the other way around."
+
+2. **Humanized section headers** — "Today's Progress" → "How it's going", "Today's Timeline" → "Your day", "Activity Feed" → "Recent sessions"
+
+3. **Removed ALL CAPS from metric labels** — dropped `uppercase` class from 6 spans: Sessions, Tasks done, Time spent, Focus score, Current task, Your task. Updated label text: "Focus Time" → "Time spent", "Completed" → "Tasks done", "Sessions" retained.
+
+4. **Improved empty states** (both HTML and JS) — "No tasks yet. Add one below..." → "What would you like to make progress on today?", "Every session starts with a single step" → "Your day is wide open", "This is where your story unfolds" → "Your sessions will show up here". Updated Timeline empty state bullet points to be shorter and warmer.
+
+5. **Softened encouragement copy** — "Take the first step — start your first session" → "You showed up — that's what matters most.", "Goal crushed!" → "Goal reached.", "Welcome back. Your focus muscle is getting stronger." → "Welcome back. Every session builds something."
+
+6. **Timer area microcopy** — "Focus Time" → "Focus time" (sentence case), removed ⏱ emoji from timer label
+
+7. **Outcome modal refinement** — "✨ Session Complete" → "Nice work", "Partial" → "In progress", "Skipped" → "Set aside"
+
+8. **Updated JS defaults** — "Focus Session" → "Focus session", "Rest Break" → "Rest break", "Focus Session Complete" → "Focus session complete"
+
+9. **Updated greeting arrays** — GREETINGS and WARM_ENCOURAGEMENTS arrays rewritten with warmer, more human messages
+
+10. **Button text** — "Add" → "Add task", "Quick select:" → "Pick a task"
+
+11. **Notification text** — "You crushed a..." → "Nice work — X minutes of focused time."
+
+12. **Build passes** — 57 pages, 0 errors, 17.70s
+
+### Files Modified
+- `src/pages/pomodoro-timer.astro` — all copy and typography changes in this single ~2175-line file
