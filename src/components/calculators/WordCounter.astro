@@ -1,0 +1,206 @@
+---
+import Card from "../ui/Card.astro";
+import Button from "../ui/Button.astro";
+---
+
+<Card elevation="lg" padding="md" class="w-full shadow-2xl ring-1 ring-hairline">
+  <div class="space-y-4">
+    <div class="flex items-center justify-between">
+      <label for="word-input" class="text-sm font-medium text-ink">Paste or type your text below</label>
+      <label class="inline-flex items-center gap-2 px-3 py-1.5 text-[11px] font-medium text-mute bg-canvas-soft border border-hairline rounded-sm cursor-pointer hover:bg-canvas-soft-2 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+        Upload .txt
+        <input type="file" id="file-upload" accept=".txt" class="hidden" />
+      </label>
+    </div>
+
+    <textarea
+      id="word-input"
+      class="w-full h-56 p-4 bg-canvas border border-hairline rounded-sm text-sm text-ink placeholder:text-mute resize-y transition-all focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 font-mono leading-relaxed"
+      placeholder="Start typing or paste your text here..."
+    ></textarea>
+
+    <div class="flex flex-wrap gap-3">
+      <Button variant="secondary" size="sm" id="clear-btn">Clear</Button>
+      <Button variant="secondary" size="sm" id="copy-btn">Copy Results</Button>
+    </div>
+  </div>
+
+  <div id="results" class="mt-8 space-y-8">
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div class="p-4 bg-canvas-soft-2/50 rounded-xl border border-hairline text-center">
+        <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Words</span>
+        <span id="res-words" class="text-2xl font-bold text-link">0</span>
+      </div>
+      <div class="p-4 bg-canvas-soft-2/50 rounded-xl border border-hairline text-center">
+        <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Characters</span>
+        <span id="res-chars" class="text-2xl font-bold text-link">0</span>
+      </div>
+      <div class="p-4 bg-canvas-soft-2/50 rounded-xl border border-hairline text-center">
+        <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Sentences</span>
+        <span id="res-sentences" class="text-2xl font-bold text-link">0</span>
+      </div>
+      <div class="p-4 bg-canvas-soft-2/50 rounded-xl border border-hairline text-center">
+        <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Paragraphs</span>
+        <span id="res-paragraphs" class="text-2xl font-bold text-link">0</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3">
+      <div class="p-4 bg-canvas-soft-2/50 rounded-xl border border-hairline">
+        <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Reading Time</span>
+        <span id="res-reading-time" class="text-lg font-bold text-link">0 min</span>
+      </div>
+      <div class="p-4 bg-canvas-soft-2/50 rounded-xl border border-hairline">
+        <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Speaking Time</span>
+        <span id="res-speaking-time" class="text-lg font-bold text-link">0 min</span>
+      </div>
+    </div>
+
+    <div>
+      <h4 class="text-xs font-bold text-ink uppercase tracking-wider mb-3">Keyword Density</h4>
+      <div id="res-keywords" class="space-y-1">
+        <p class="text-sm text-mute">Start typing to see keyword density.</p>
+      </div>
+    </div>
+  </div>
+</Card>
+
+<script>
+  const input = document.getElementById('word-input') as HTMLTextAreaElement;
+  const fileUpload = document.getElementById('file-upload') as HTMLInputElement;
+
+  const resWords = document.getElementById('res-words');
+  const resChars = document.getElementById('res-chars');
+  const resSentences = document.getElementById('res-sentences');
+  const resParagraphs = document.getElementById('res-paragraphs');
+  const resReadingTime = document.getElementById('res-reading-time');
+  const resSpeakingTime = document.getElementById('res-speaking-time');
+  const resKeywords = document.getElementById('res-keywords');
+
+  const updateStats = () => {
+    const text = input.value;
+    const trimmed = text.trim();
+    const words = trimmed ? trimmed.split(/\s+/).filter(w => w.length > 0) : [];
+    const wordCount = words.length;
+    const charCount = text.length;
+    const charCountNoSpaces = text.replace(/\s/g, '').length;
+    const sentences = trimmed ? trimmed.split(/[.!?]+/).filter(s => s.trim().length > 0).length : 0;
+    const paragraphs = trimmed ? trimmed.split(/\n\s*\n/).filter(p => p.trim().length > 0).length : Math.min(trimmed ? 1 : 0, 1);
+
+    const readingTimeMinutes = wordCount / 200;
+    const speakingTimeMinutes = wordCount / 150;
+    const readingTimeStr = readingTimeMinutes < 1 ? '< 1 min' : `${Math.ceil(readingTimeMinutes)} min`;
+    const speakingTimeStr = speakingTimeMinutes < 1 ? '< 1 min' : `${Math.ceil(speakingTimeMinutes)} min`;
+
+    if (resWords) resWords.textContent = wordCount.toLocaleString();
+    if (resChars) resChars.textContent = `${charCount.toLocaleString()} (${charCountNoSpaces.toLocaleString()})`;
+    if (resSentences) resSentences.textContent = sentences.toLocaleString();
+    if (resParagraphs) resParagraphs.textContent = paragraphs.toLocaleString();
+    if (resReadingTime) resReadingTime.textContent = readingTimeStr;
+    if (resSpeakingTime) resSpeakingTime.textContent = speakingTimeStr;
+
+    if (resKeywords) {
+      if (wordCount === 0) {
+        resKeywords.innerHTML = '<p class="text-sm text-mute">Start typing to see keyword density.</p>';
+        return;
+      }
+
+      const stopWords = new Set([
+        'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
+        'of', 'with', 'by', 'from', 'is', 'are', 'was', 'were', 'be', 'been',
+        'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would',
+        'could', 'should', 'may', 'might', 'shall', 'can', 'need', 'dare',
+        'ought', 'used', 'this', 'that', 'these', 'those', 'i', 'you', 'he',
+        'she', 'it', 'we', 'they', 'me', 'him', 'her', 'us', 'them', 'my',
+        'your', 'his', 'its', 'our', 'their', 'mine', 'yours', 'hers', 'its',
+        'ours', 'theirs', 'what', 'which', 'who', 'whom', 'whose', 'when',
+        'where', 'why', 'how', 'all', 'each', 'every', 'both', 'few', 'more',
+        'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own',
+        'same', 'so', 'than', 'too', 'very', 'just', 'because', 'as', 'until',
+        'while', 'about', 'between', 'through', 'during', 'before', 'after',
+        'above', 'below', 'up', 'down', 'out', 'off', 'over', 'under', 'again',
+        'further', 'then', 'once', 'here', 'there', 'if'
+      ]);
+
+      const wordFreq: Record<string, number> = {};
+      words.forEach(w => {
+        const lower = w.toLowerCase().replace(/[^a-z0-9']/g, '');
+        if (lower && !stopWords.has(lower)) {
+          wordFreq[lower] = (wordFreq[lower] || 0) + 1;
+        }
+      });
+
+      const sorted = Object.entries(wordFreq)
+        .sort(([, a], [, b]) => b - a)
+        .slice(0, 10);
+
+      if (sorted.length === 0 && wordCount > 0) {
+        const fillerWords = Object.entries(
+          words.reduce((acc: Record<string, number>, w) => {
+            const lower = w.toLowerCase().replace(/[^a-z0-9']/g, '');
+            if (lower) acc[lower] = (acc[lower] || 0) + 1;
+            return acc;
+          }, {})
+        ).sort(([, a], [, b]) => b - a).slice(0, 5);
+
+        resKeywords.innerHTML = `
+          <div class="flex flex-wrap gap-2">
+            ${fillerWords.map(([word, count]) => {
+              const pct = ((count / wordCount) * 100).toFixed(1);
+              return `<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-canvas-soft-2/50 rounded-full text-xs font-medium text-ink border border-hairline">${word} <span class="text-mute font-mono">${count}x (${pct}%)</span></span>`;
+            }).join('')}
+          </div>`;
+        return;
+      }
+
+      resKeywords.innerHTML = `
+        <div class="flex flex-wrap gap-2">
+          ${sorted.map(([word, count]) => {
+            const pct = ((count / wordCount) * 100).toFixed(1);
+            return `<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-canvas-soft-2/50 rounded-full text-xs font-medium text-ink border border-hairline">${word} <span class="text-mute font-mono">${count}x (${pct}%)</span></span>`;
+          }).join('')}
+        </div>`;
+    }
+  };
+
+  input.addEventListener('input', updateStats);
+
+  document.getElementById('clear-btn')?.addEventListener('click', () => {
+    input.value = '';
+    updateStats();
+    input.focus();
+  });
+
+  document.getElementById('copy-btn')?.addEventListener('click', async () => {
+    const text = input.value;
+    if (!text.trim()) return;
+    try {
+      await navigator.clipboard.writeText(text);
+      const btn = document.getElementById('copy-btn');
+      if (btn) {
+        const original = btn.innerHTML;
+        btn.innerHTML = 'Copied!';
+        setTimeout(() => btn.innerHTML = original, 2000);
+      }
+    } catch {
+      const btn = document.getElementById('copy-btn');
+      if (btn) {
+        const original = btn.innerHTML;
+        btn.innerHTML = 'Failed to copy';
+        setTimeout(() => btn.innerHTML = original, 2000);
+      }
+    }
+  });
+
+  fileUpload?.addEventListener('change', (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      input.value = reader.result as string;
+      updateStats();
+    };
+    reader.readAsText(file);
+  });
+</script>
