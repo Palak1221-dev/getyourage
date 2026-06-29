@@ -321,3 +321,60 @@
 - **Purple/violet**: History, timeline, focus insights
 - **Sky**: Activity feed, secondary welcome
 - All tints at 15–30% for backgrounds, 70% for labels
+
+## Session Summary (Jun 29, 2026) — Part 7: Density & Compact Layout
+
+### What We Did
+
+1. **Density improvements on pomodoro-timer.astro:**
+   - Reduced timer card padding `p-5` → `p-4`, mode tabs tightened (`p-1.5` → `p-1`, `py-2` → `py-1.5`, `mb-3` → `mb-1.5`, `gap-1` → `gap-0.5`)
+   - Reduced timer ring container: `max-w-[240px]` → `max-w-[220px]` (sm 260→240, md 280→260)
+   - Reduced timer display font: `md:text-7xl` → `md:text-6xl`
+   - Tightened timer status text margin: `mt-1.5` → `mt-1`
+   - Reduced phase container `min-h-[16px]` → `min-h-[12px]`
+   - Reduced controls gap: `gap-3 sm:gap-4` → `gap-2 sm:gap-3`
+   - Tightened active task context: `mt-1 pt-1.5` → `mt-0 pt-1`, `gap-2` → `gap-1.5`
+   - Removed borders and extra spacing from task estimation and daily target sections
+2. **Merged Note + Streak into single compact card** — `grid-cols-1 sm:grid-cols-2` sub-grid within one card, smaller icons (w-3 h-3), smaller labels (text-xs uppercase), compact stats (text-sm bold), smaller heatmap (w-2 h-2, text-[9px])
+3. **Compacted Recent Sessions empty state** — reduced `py-3` → `py-2`, `text-xs` → `text-[11px]`, `px-2.5 py-1.5` → `px-2 py-1`
+4. **Updated JS dynamic empty states** to match compact versions (both activity feed and daily timeline/insight)
+5. **Build passes** — 57 pages, 0 errors, 11.20s
+
+### Files Modified
+- `src/pages/pomodoro-timer.astro` — all density and layout compaction changes
+
+## Session Summary (Jun 29, 2026) — Part 8: Hero Timer Redesign
+
+### What We Did
+
+1. **Redesigned right column around a Hero Timer concept** — Timer card stripped to essentials only: mode tabs, timer ring (enlarged to max-w-[320px] on desktop), Focus Time label, play/reset/skip controls. Removed current task, daily target, streak, and settings from the timer card.
+
+2. **Created compact utility cards in 2-column grid below timer** — 4 cards (Current Task, Daily Target, Streak, Settings) each in a compact `p-2.5` rounded-xl card with smaller text/proportions. Settings card includes Sound/Alerts/Auto toggles + Custom button with collapsible settings panel.
+
+3. **Unmerged Note as standalone card** — placed below the utility grid as a full-width card.
+
+4. **Timer card sized ~450-500px desktop** — ring increased from max-w-[260px] to max-w-[320px], display font bumped to `md:text-7xl`, mode tabs enlarged to `max-w-[320px]`.
+
+5. **Grid layout** — Timer: `lg:row-start-1 lg:row-end-3` (sticky rows 1-2). Utility+Note: `lg:col-start-2 lg:row-start-3` (row 3). Left column: Focus row 1, Glance row 2, Recent row 3. Mobile stacking preserved: Focus → Timer → Glance → Utility → Recent.
+
+6. **Build passes** — 57 pages, 0 errors, 14.86s.
+
+7. **Decoupled settings from analytics** — Removed `updateAnalytics()` from `saveSettings()` to prevent settings saves (e.g., custom durations, sounds, alerts, auto-breaks) from triggering visual updates or message refreshes in the left column's focus metrics/statistics cards (Sessions, Tasks done, Time spent, Focus score).
+
+8. **Premium highlighted card borders** — Added thick top borders (`border-t-[3px]` or `border-t-[4px]`) matching the color system theme accents (blue, green, orange, indigo, violet) to all 7 primary cards on the Pomodoro dashboard. Replaced basic shadows with deeper, premium shadows (`shadow-[0_8px_30px_...]` or `shadow-[0_20px_50px_...]`) and added smooth scale/border/shadow hover transitions for a highly polished, premium tactile experience.
+
+9. **Elevated typography hierarchy** — Enhanced font sizes, weights, leading, and tracking styles across the entire Pomodoro dashboard. Replaced standard bold labels with thin/medium letter-spaced uppercase labels (`tracking-widest`), increased metric numbers from `text-lg` to `text-xl sm:text-2xl` with weight `font-black` (900), styled the main hero header to use weight `font-black` with `tracking-tighter`, and polished the timer display (`text-5xl sm:text-6xl md:text-7xl`) and its uppercase letter-spaced status subtitle (`tracking-[0.2em]`).
+
+10. **Refined sub-label contrast and weight** — Replaced very faint sub-labels (such as `text-mute/50` and `text-mute/60`) on dashboard cards with clearer, higher-contrast `text-mute/80` and `text-mute/85` opacities. Softened their weights to `font-medium` or `font-semibold` to keep them clean and modern, preventing visual noise while solving readability issues.
+
+11. **Enhanced card typography contrast** — Replaced all instances of washed-out `text-mute` variables with dynamic `text-ink` opacity blends (e.g. `text-ink/75`, `text-ink/70`, `text-ink/80`) inside cards, ensuring deep, clean legibility that adapts between light/dark modes without using heavy bold weights.
+
+12. **Redesigned Streak Card for premium aesthetics** — Upgraded the Streak Card with a soft orange gradient background, glass-morphism style metrics box containing separate micro-badges for each statistic, stylized status layout, and smooth scaling interactive heatmap blocks. Fixed a duplication bug where heatmap day label rows were being repeatedly appended on every UI redraw.
+
+13. **Solidified metric label typography** — Upgraded the labels `Sessions`, `Tasks done`, `Time spent`, and `Focus score` on the metrics dashboard to use solid, 100% opaque `text-ink` (rendering pure black in light mode and zinc-50 in dark mode) while keeping their weight at `font-medium` (not bold), maximizing clarity and contrast.
+
+14. **Unified collapsible settings center** — Merged the separate Sound/Alerts/Auto Break Settings Card into the collapsible Settings Panel toggled by the timer's gear settings icon (`#btn-toggle-settings`). Structured the unified panel into clear sections for Session Durations and Preferences (with toggles styled as premium switches), and deleted the redundant standalone settings card to streamline the UI.
+
+### Files Modified
+- `src/pages/pomodoro-timer.astro` — all hero timer redesign changes, settings decoupling, premium card borders, card typography/legibility improvements, redesigned Streak Card, and unified settings panel
+- `AGENTS.md` — updated session summary

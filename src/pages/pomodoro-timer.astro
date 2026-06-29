@@ -52,8 +52,8 @@ const websiteSchema = {
   <!-- ===== HERO SECTION ===== -->
   <div class="max-w-[1440px] mx-auto px-4 pt-4 pb-0">
     <div>
-      <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold tracking-tighter text-ink leading-[1.1]">Focus on one thing.</h1>
-      <p class="text-base md:text-lg text-body leading-relaxed mt-1">A timer that helps you do your best work.</p>
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tighter text-ink leading-tight">Focus on <span class="bg-gradient-to-r from-link via-blue-500 to-indigo-600 bg-clip-text text-transparent font-black">one thing</span>.</h1>
+      <p class="text-xs sm:text-sm text-mute/60 leading-relaxed mt-1">A premium focus space designed to protect your attention, rhythm, and flow.</p>
     </div>
   </div>
 
@@ -65,41 +65,41 @@ const websiteSchema = {
       Mobile stacking (order-*): Focus → Timer → Glance → Note → Streak → Recent
       Desktop grid: Focus | Timer (sticky) — Glance | Note — Recent | Streak
     -->
-    <div class="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-4 lg:gap-6 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.05fr] gap-4 lg:gap-6 items-start">
 
-      <!-- 1. TODAY'S FOCUS -->
-      <div class="order-1 lg:col-start-1 lg:row-start-1 lg:row-end-2">
-        <div class="bg-canvas rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-4 sm:p-5">
+            <!-- ===== LEFT COLUMN (Focus, Glance, Recent) ===== -->
+      <div class="order-1 flex flex-col gap-4 lg:col-start-1 lg:row-start-1 lg:row-end-4 w-full">
+        <div class="bg-canvas rounded-2xl border border-link/15 border-t-[3px] border-t-link shadow-[0_8px_30px_rgba(37,99,235,0.05)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-4 sm:p-5 transition-all duration-300 hover:shadow-[0_12px_40px_rgba(37,99,235,0.08)] hover:border-link/25">
             <div class="flex items-center gap-2 mb-1.5 border-b border-hairline/10 pb-1">
-            <svg class="w-4 h-4 text-link shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            <h2 class="text-lg font-bold text-ink">Today's Focus</h2>
-            <span id="tasks-count" class="text-[11px] font-bold uppercase tracking-widest text-mute/60 ml-auto bg-canvas-soft-2 px-2 py-0.5 rounded-full border border-hairline/40">🌱 Nothing planned</span>
+            <svg class="w-4 h-4 text-link shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>
+            <h2 class="text-sm sm:text-base font-extrabold tracking-tight text-ink">Today's Focus</h2>
+            <span id="tasks-count" class="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-ink/75 ml-auto bg-canvas-soft-2 px-2 py-0.5 rounded-full border border-hairline/40">🌱 Nothing planned</span>
           </div>
           <ul id="tasks-list" class="space-y-0.5">
-            <li class="text-sm text-mute/60 text-center py-3 leading-relaxed" id="tasks-empty">What do you want to work on today?</li>
+            <li class="text-sm text-ink/70 text-center py-8 leading-relaxed" id="tasks-empty">What do you want to work on today?</li>
           </ul>
           <div class="flex gap-2 mt-1.5 pt-1.5 border-t border-hairline/30">
-            <input id="task-add-input" type="text" placeholder="Add a task" class="flex-1 h-10 px-3 text-sm bg-canvas-soft-2 border border-hairline/50 rounded-xl text-ink placeholder:text-mute/40 outline-none focus:border-link/50 focus:ring-2 focus:ring-link/10 transition-all" />
+            <input id="task-add-input" type="text" placeholder="Add a task" class="flex-1 h-10 px-3 text-sm bg-canvas-soft-2 border border-hairline/50 rounded-xl text-ink placeholder:text-ink/40 outline-none focus:border-link/50 focus:ring-2 focus:ring-link/10 transition-all" />
             <button id="task-add-btn" class="h-10 px-4 text-sm font-bold text-white bg-link rounded-xl hover:bg-link-hover transition-all shrink-0 cursor-pointer active:scale-95 shadow-sm shadow-link/20" type="button">Add task</button>
           </div>
           <div id="quick-start-section" class="mt-1.5 pt-1.5 border-t border-hairline/30">
-            <span class="text-xs font-bold uppercase tracking-widest text-mute/70 block mb-1.5">Quick start</span>
-            <div class="flex gap-2 overflow-x-auto pb-1 scrollbar-none snap-x snap-mandatory -mx-1 px-1">
-              <button class="quick-start-btn flex flex-col items-center justify-center min-h-[44px] py-2 px-3 rounded-xl border border-hairline/40 bg-link/[0.03] hover:bg-link/[0.07] hover:border-link/20 transition-all cursor-pointer active:scale-95 snap-start shrink-0 text-center" data-template="Study">
+            <span class="text-xs font-bold uppercase tracking-widest text-ink/70 block mb-1.5">Quick start</span>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <button class="quick-start-btn flex flex-col items-center justify-center min-h-[56px] py-2 px-3 rounded-xl border border-hairline/40 bg-slate-50 hover:bg-slate-100 transition-all cursor-pointer active:scale-95 text-center w-full" data-template="Study">
                 <span class="text-xs font-bold text-ink">Study</span>
-                <span class="text-[10px] text-mute/70 font-medium mt-0.5 leading-tight whitespace-nowrap">Review, notes</span>
+                <span class="text-[9px] text-ink/65 font-medium mt-0.5 leading-none whitespace-nowrap">Review, notes</span>
               </button>
-              <button class="quick-start-btn flex flex-col items-center justify-center min-h-[44px] py-2 px-3 rounded-xl border border-hairline/40 bg-amber-500/[0.04] hover:bg-amber-500/[0.08] hover:border-amber-500/20 transition-all cursor-pointer active:scale-95 snap-start shrink-0 text-center" data-template="Writing">
+              <button class="quick-start-btn flex flex-col items-center justify-center min-h-[56px] py-2 px-3 rounded-xl border border-hairline/40 bg-slate-50 hover:bg-slate-100 transition-all cursor-pointer active:scale-95 text-center w-full" data-template="Writing">
                 <span class="text-xs font-bold text-ink">Writing</span>
-                <span class="text-[10px] text-mute/70 font-medium mt-0.5 leading-tight whitespace-nowrap">Draft, outline</span>
+                <span class="text-[9px] text-ink/65 font-medium mt-0.5 leading-none whitespace-nowrap">Draft, outline</span>
               </button>
-              <button class="quick-start-btn flex flex-col items-center justify-center min-h-[44px] py-2 px-3 rounded-xl border border-hairline/40 bg-sky-500/[0.04] hover:bg-sky-500/[0.08] hover:border-sky-500/20 transition-all cursor-pointer active:scale-95 snap-start shrink-0 text-center" data-template="Coding">
+              <button class="quick-start-btn flex flex-col items-center justify-center min-h-[56px] py-2 px-3 rounded-xl border border-hairline/40 bg-slate-50 hover:bg-slate-100 transition-all cursor-pointer active:scale-95 text-center w-full" data-template="Coding">
                 <span class="text-xs font-bold text-ink">Coding</span>
-                <span class="text-[10px] text-mute/70 font-medium mt-0.5 leading-tight whitespace-nowrap">Feature, debug</span>
+                <span class="text-[9px] text-ink/65 font-medium mt-0.5 leading-none whitespace-nowrap">Feature, debug</span>
               </button>
-              <button class="quick-start-btn flex flex-col items-center justify-center min-h-[44px] py-2 px-3 rounded-xl border border-hairline/40 bg-green-500/[0.04] hover:bg-green-500/[0.08] hover:border-green-500/20 transition-all cursor-pointer active:scale-95 snap-start shrink-0 text-center" data-template="Reading">
+              <button class="quick-start-btn flex flex-col items-center justify-center min-h-[56px] py-2 px-3 rounded-xl border border-hairline/40 bg-slate-50 hover:bg-slate-100 transition-all cursor-pointer active:scale-95 text-center w-full" data-template="Reading">
                 <span class="text-xs font-bold text-ink">Reading</span>
-                <span class="text-[10px] text-mute/70 font-medium mt-0.5 leading-tight whitespace-nowrap">Articles, books</span>
+                <span class="text-[9px] text-ink/65 font-medium mt-0.5 leading-none whitespace-nowrap">Articles, books</span>
               </button>
             </div>
           </div>
@@ -113,19 +113,78 @@ const websiteSchema = {
             <button id="btn-complete-task" class="hidden"></button>
           </div>
         </div>
+        <div class="bg-canvas rounded-xl border border-indigo-500/15 border-t-[3px] border-t-indigo-500 shadow-[0_8px_30px_rgba(99,102,241,0.05)] p-3 sm:p-4 transition-all duration-300 hover:shadow-[0_12px_40px_rgba(99,102,241,0.08)] hover:border-indigo-500/25">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+            <div>
+              <span class="text-[9px] sm:text-[10px] font-medium text-ink uppercase tracking-widest">Sessions</span>
+              <div class="flex items-baseline gap-0.5 mt-0.5">
+                <span id="stat-sessions" class="text-xl sm:text-2xl font-black tracking-tight text-ink leading-none">0</span>
+                <span class="text-xs text-ink/65 font-medium">/ <span id="stat-goal-total">4</span></span>
+              </div>
+              <div class="w-full h-0.5 bg-hairline/60 rounded-full overflow-hidden mt-1.5">
+                <div id="stat-goal-bar" class="bg-link h-full rounded-full transition-all duration-500" style="width:0%"></div>
+              </div>
+            </div>
+            <div>
+              <span class="text-[9px] sm:text-[10px] font-medium text-ink uppercase tracking-widest">Tasks done</span>
+              <div class="flex items-baseline mt-0.5">
+                <span id="stat-tasks" class="text-xl sm:text-2xl font-black tracking-tight text-green-500 leading-none">0</span>
+              </div>
+              <div id="tasks-completed-sub" class="text-[10px] text-ink/75 mt-1 font-medium leading-tight">Add a task</div>
+            </div>
+            <div>
+              <span class="text-[9px] sm:text-[10px] font-medium text-ink uppercase tracking-widest">Time spent</span>
+              <div class="flex items-baseline mt-0.5">
+                <span id="stat-total-time" class="text-xl sm:text-2xl font-black tracking-tight text-link leading-none">0m</span>
+              </div>
+              <div class="text-[10px] text-ink/75 mt-1 font-medium leading-tight">Ready when you are</div>
+            </div>
+            <div>
+              <span class="text-[9px] sm:text-[10px] font-medium text-ink uppercase tracking-widest">Focus score</span>
+              <div class="flex items-baseline gap-0.5 mt-0.5">
+                <span id="stat-focus-score" class="text-xl sm:text-2xl font-black tracking-tight text-ink leading-none">0</span>
+                <span class="text-xs text-ink/65 font-medium">/100</span>
+              </div>
+              <span id="focus-score-label" class="text-[10px] font-medium text-link hidden"></span>
+              <div id="focus-score-label-fallback" class="text-[10px] text-ink/75 mt-1 font-medium leading-tight">Start a session</div>
+            </div>
+          </div>
+          <p id="stat-encouragement" class="text-xs text-ink/70 mt-2 pt-1.5 border-t border-hairline/20 leading-relaxed">Small progress still counts. Start where you are.</p>
+          <span id="session-counter-text" class="hidden"></span>
+          <span id="stat-goal-percentage" class="hidden">0%</span>
+        </div>
+
+      
+        <!-- 5. A NOTE FOR TODAY -->
+        <div class="w-full">
+          <div class="bg-canvas rounded-xl border border-violet-500/20 border-t-[3px] border-t-violet-500 shadow-[0_8px_30px_rgba(139,92,246,0.05)] p-3.5 sm:p-4 transition-all duration-300 hover:shadow-[0_12px_40px_rgba(139,92,246,0.08)] hover:border-violet-500/30">
+            <div class="flex items-center gap-1.5 mb-1.5 border-b border-hairline/10 pb-1">
+              <svg class="w-3.5 h-3.5 text-ink/70 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              <h2 class="text-xs sm:text-sm font-extrabold tracking-tight text-ink">A Note for Today</h2>
+            </div>
+            <div id="daily-timeline-content" class="space-y-0">
+              <div id="focus-insight-card">
+                <p id="focus-insight-text" class="text-xs text-ink/80 leading-relaxed">☕ One focus block is enough.</p>
+                <button id="focus-insight-refresh" class="mt-0.5 text-xs font-semibold text-ink/70 hover:text-link transition-colors cursor-pointer" aria-label="Show another insight">Show another</button>
+              </div>
+            </div>
+            <span id="timeline-badge" class="hidden"></span>
+          </div>
+        </div>
+
       </div>
 
-      <!-- 2. TIMER + SETTINGS -->
-      <div class="order-2 flex flex-col gap-4 lg:col-start-2 lg:row-start-1 lg:row-end-3 lg:sticky lg:top-4">
+      <!-- 2. TIMER + SETTINGS + WIDGETS -->
+      <div class="order-2 flex flex-col gap-4 lg:col-start-2 lg:row-start-1 lg:row-end-4 lg:sticky lg:top-4">
 
-        <div class="bg-gradient-to-b from-link/[0.05] via-link/[0.02] to-canvas rounded-2xl border border-hairline/50 shadow-[0_8px_32px_rgba(0,0,0,0.12)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-5">
+        <div class="bg-gradient-to-b from-link/[0.05] via-link/[0.02] to-canvas rounded-2xl border border-link/20 border-t-[4px] border-t-link shadow-[0_20px_50px_rgba(37,99,235,0.08)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-4 sm:p-4.5 transition-all duration-300 hover:shadow-[0_24px_60px_rgba(37,99,235,0.12)] hover:border-link/30">
             <div class="flex gap-1 p-1.5 bg-link/[0.06] rounded-full w-full max-w-[320px] mx-auto mb-3">
               <button id="mode-pomodoro" class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-full transition-all cursor-pointer bg-link text-white shadow-[0_2px_8px_rgba(37,99,235,0.25)] ring-1 ring-link/20" aria-label="Switch to Pomodoro focus session">Pomodoro</button>
               <button id="mode-short" class="flex-1 py-2 text-xs sm:text-sm font-bold text-body/70 hover:text-ink rounded-full transition-all cursor-pointer" aria-label="Switch to short break">Short Break</button>
               <button id="mode-long" class="flex-1 py-2 text-xs sm:text-sm font-bold text-body/70 hover:text-ink rounded-full transition-all cursor-pointer" aria-label="Switch to long break">Long Break</button>
             </div>
             <div class="flex flex-col items-center gap-2">
-              <div id="timer-ring-container" class="relative w-full max-w-[240px] sm:max-w-[260px] md:max-w-[280px] aspect-square mx-auto flex items-center justify-center">
+              <div id="timer-ring-container" class="relative w-full max-w-[200px] sm:max-w-[220px] md:max-w-[240px] aspect-square mx-auto flex items-center justify-center">
                 <svg class="w-full h-full transform -rotate-90" viewBox="0 0 256 256" style="filter: drop-shadow(0 0 12px rgba(59,130,246,0.15))">
                   <defs>
                     <filter id="ring-glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -136,7 +195,7 @@ const websiteSchema = {
                 </svg>
                 <div class="absolute flex flex-col items-center justify-center select-none">
                   <span id="timer-display" class="text-5xl sm:text-6xl md:text-7xl font-black tracking-tighter text-ink tabular-nums leading-none">25:00</span>
-                  <span id="timer-status-text" class="text-xs sm:text-sm font-bold text-link/80 mt-1.5 uppercase tracking-widest">Focus time</span>
+                  <span id="timer-status-text" class="text-[10px] sm:text-xs font-black text-link/70 mt-1.5 uppercase tracking-[0.2em]">Focus time</span>
                 </div>
                 <div id="timer-pulse" class="absolute inset-0 rounded-full border-[3px] border-link/15 pointer-events-none hidden"></div>
                 <div id="celebration-container" class="absolute inset-0 pointer-events-none hidden"></div>
@@ -152,78 +211,80 @@ const websiteSchema = {
                   <svg id="icon-play" class="ml-0.5" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
                   <svg id="icon-pause" class="hidden" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg>
                 </button>
-                <button id="btn-skip" class="w-10 h-10 rounded-full border border-hairline/50 bg-canvas text-body hover:text-link hover:bg-link/[0.06] hover:border-link/20 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Skip" aria-label="Skip Session">
+                <button id="btn-skip" class="w-10 h-10 rounded-full border border-hairline/50 bg-canvas text-body hover:text-link hover:bg-link/[0.06] hover:border-link/20 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Skip" aria-label="Skip Timer">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/></svg>
                 </button>
                 <button id="btn-focus-mode" class="w-10 h-10 rounded-full border border-hairline/40 bg-canvas text-mute hover:text-link hover:bg-link/[0.06] hover:border-link/20 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Focus Mode" aria-label="Enter focus mode">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
                 </button>
-              </div>
-              <div id="active-task-context" class="w-full mt-1 pt-1.5 border-t border-hairline/40">
-                <div class="flex items-center gap-2 mb-0.5">
-                  <div class="w-2 h-2 rounded-full bg-link animate-pulse shrink-0"></div>
-                  <span class="text-[11px] font-bold uppercase text-mute/70 tracking-widest">Current task</span>
-                </div>
-                <div class="flex items-center justify-between">
-                  <span id="active-task-context-name" class="text-sm font-bold text-ink truncate">—</span>
-                  <span id="session-counter-display" class="text-sm font-bold text-link bg-link/10 px-2 py-0.5 rounded-full shrink-0 ml-2">0 of 4 sessions</span>
-                </div>
-                <div class="flex items-center gap-2 mt-0.5">
-                  <span id="task-estimation-text" class="text-xs font-medium text-mute"></span>
-                  <div class="flex-1 h-1 bg-hairline/60 rounded-full overflow-hidden ring-1 ring-inset ring-black/[0.03]">
-                    <div id="task-estimation-bar" class="bg-gradient-to-r from-link to-blue-400 h-full rounded-full transition-all duration-500" style="width:0%"></div>
-                  </div>
-                  <span id="task-estimation-pct" class="text-xs font-bold text-link">0%</span>
-                </div>
-                <div class="flex items-center justify-between mt-0.5 pt-0.5 border-t border-hairline/20">
-                  <span class="text-[11px] font-bold uppercase tracking-widest text-mute/60">Daily target</span>
-                  <div class="flex items-center gap-2">
-                    <div class="w-24 h-1 bg-hairline/60 rounded-full overflow-hidden">
-                      <div id="daily-target-bar" class="bg-link h-full rounded-full transition-all duration-500" style="width:0%"></div>
-                    </div>
-                    <span id="daily-target-text" class="text-xs font-bold text-mute">0/4</span>
-                  </div>
-                </div>
+                <button id="btn-toggle-settings" class="w-10 h-10 rounded-full border border-hairline/40 bg-canvas text-mute hover:text-link hover:bg-link/[0.06] hover:border-link/20 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Timer Settings" aria-expanded="false" aria-label="Toggle custom settings">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                </button>
               </div>
             </div>
-        </div>
+            
+            <!-- Custom Settings Panel (Collapsible panel inside the Timer Card) -->
+            <div id="settings-panel" class="hidden w-full space-y-3.5 mt-3.5 pt-3.5 border-t border-hairline/15 select-none bg-canvas-soft-2/55 p-3 rounded-2xl border border-hairline/20">
+              <div class="space-y-3">
+                <!-- Section 1: Durations -->
+                <div>
+                  <span class="text-[9px] font-extrabold uppercase tracking-widest text-ink block mb-2 text-center">Session Durations</span>
+                  <div class="grid grid-cols-3 gap-2">
+                    <div class="flex flex-col gap-1">
+                      <label for="settings-work" class="text-[8px] font-bold uppercase tracking-wider text-ink/70 text-center">Focus (m)</label>
+                      <input type="number" id="settings-work" min="1" max="180" placeholder="25" class="w-full h-8 px-2 bg-canvas border border-hairline rounded-lg text-xs font-semibold text-ink focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all text-center" />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                      <label for="settings-short" class="text-[8px] font-bold uppercase tracking-wider text-ink/70 text-center">Short (m)</label>
+                      <input type="number" id="settings-short" min="1" max="60" placeholder="5" class="w-full h-8 px-2 bg-canvas border border-hairline rounded-lg text-xs font-semibold text-ink focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all text-center" />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                      <label for="settings-long" class="text-[8px] font-bold uppercase tracking-wider text-ink/70 text-center">Long (m)</label>
+                      <input type="number" id="settings-long" min="1" max="60" placeholder="15" class="w-full h-8 px-2 bg-canvas border border-hairline rounded-lg text-xs font-semibold text-ink focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all text-center" />
+                    </div>
+                  </div>
+                </div>
 
-        <div class="flex items-center justify-between w-full bg-canvas rounded-xl border border-hairline/50 px-4 py-2.5 shadow-sm">
-          <div class="flex items-center gap-3 sm:gap-4">
-            <label class="flex items-center gap-1.5 cursor-pointer group">
-              <input type="checkbox" id="toggle-sound" class="sr-only peer" checked />
-              <div class="w-6 h-3.5 bg-canvas-soft-2 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[0.5px] after:left-[0.5px] after:bg-white after:rounded-full after:h-[10px] after:w-[10px] after:transition-all peer-checked:after:translate-x-[10px] border border-hairline/60 group-hover:border-link/30 transition-colors"></div>
-              <span class="text-xs sm:text-sm text-mute font-semibold group-hover:text-link transition-colors">Sound</span>
-            </label>
-            <label class="flex items-center gap-1.5 cursor-pointer group">
-              <input type="checkbox" id="toggle-notifications" class="sr-only peer" />
-              <div class="w-6 h-3.5 bg-canvas-soft-2 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[0.5px] after:left-[0.5px] after:bg-white after:rounded-full after:h-[10px] after:w-[10px] after:transition-all peer-checked:after:translate-x-[10px] border border-hairline/60 group-hover:border-link/30 transition-colors"></div>
-              <span class="text-xs sm:text-sm text-mute font-semibold group-hover:text-link transition-colors">Alerts</span>
-            </label>
-            <label class="flex items-center gap-1.5 cursor-pointer group">
-              <input type="checkbox" id="toggle-autostart" class="sr-only peer" />
-              <div class="w-6 h-3.5 bg-canvas-soft-2 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[0.5px] after:left-[0.5px] after:bg-white after:rounded-full after:h-[10px] after:w-[10px] after:transition-all peer-checked:after:translate-x-[10px] border border-hairline/60 group-hover:border-link/30 transition-colors"></div>
-              <span class="text-xs sm:text-sm text-mute font-semibold group-hover:text-link transition-colors">Auto</span>
-            </label>
-          </div>
-          <button id="btn-toggle-settings" class="flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-bold text-mute hover:text-link border border-hairline/50 rounded-lg hover:bg-link/[0.06] hover:border-link/20 transition-all cursor-pointer" aria-expanded="false" aria-label="Toggle settings panel">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-            Custom
-          </button>
-        </div>
+                <!-- Section 2: Preferences -->
+                <div>
+                  <span class="text-[9px] font-extrabold uppercase tracking-widest text-ink block mb-2 text-center">Preferences</span>
+                  <div class="grid grid-cols-3 gap-2">
+                    <!-- SOUND -->
+                    <div class="bg-canvas border border-hairline/30 rounded-xl p-2 flex flex-col items-center justify-between min-h-[56px] transition-all hover:border-hairline/50">
+                      <label class="relative inline-flex items-center cursor-pointer select-none">
+                        <input type="checkbox" id="toggle-sound" class="sr-only peer" checked />
+                        <div class="w-6 h-3.5 bg-slate-200 dark:bg-zinc-700 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[1px] after:left-[1px] after:bg-white after:rounded-full after:h-2.5 after:w-2.5 after:transition-all peer-checked:after:translate-x-2.5 border border-slate-300 dark:border-zinc-600"></div>
+                      </label>
+                      <span class="text-[8px] font-bold uppercase tracking-wider text-ink/80 mt-1.5">Sound</span>
+                    </div>
+                    
+                    <!-- ALERTS -->
+                    <div class="bg-canvas border border-hairline/30 rounded-xl p-2 flex flex-col items-center justify-between min-h-[56px] transition-all hover:border-hairline/50">
+                      <label class="relative inline-flex items-center cursor-pointer select-none">
+                        <input type="checkbox" id="toggle-notifications" class="sr-only peer" />
+                        <div class="w-6 h-3.5 bg-slate-200 dark:bg-zinc-700 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[1px] after:left-[1px] after:bg-white after:rounded-full after:h-2.5 after:w-2.5 after:transition-all peer-checked:after:translate-x-2.5 border border-slate-300 dark:border-zinc-600"></div>
+                      </label>
+                      <span class="text-[8px] font-bold uppercase tracking-wider text-ink/80 mt-1.5">Alerts</span>
+                    </div>
+                    
+                    <!-- AUTO BREAK -->
+                    <div class="bg-canvas border border-hairline/30 rounded-xl p-2 flex flex-col items-center justify-between min-h-[56px] transition-all hover:border-hairline/50">
+                      <label class="relative inline-flex items-center cursor-pointer select-none">
+                        <input type="checkbox" id="toggle-autostart" class="sr-only peer" />
+                        <div class="w-6 h-3.5 bg-slate-200 dark:bg-zinc-700 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[1px] after:left-[1px] after:bg-white after:rounded-full after:h-2.5 after:w-2.5 after:transition-all peer-checked:after:translate-x-2.5 border border-slate-300 dark:border-zinc-600"></div>
+                      </label>
+                      <span class="text-[8px] font-bold uppercase tracking-wider text-ink/80 mt-1.5">Auto Break</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-        <div id="settings-panel" class="hidden w-full border border-hairline/50 rounded-xl p-3 bg-canvas space-y-2 shadow-lg">
-          <h4 class="text-sm font-bold uppercase tracking-widest text-ink">Session Settings</h4>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            <Input type="number" id="settings-work" label="Focus" min="1" max="180" placeholder="25" />
-            <Input type="number" id="settings-short" label="Short Break" min="1" max="60" placeholder="5" />
-            <Input type="number" id="settings-long" label="Long Break" min="1" max="60" placeholder="15" />
-            <Input type="number" id="settings-goal" label="Daily Goal" min="1" max="24" placeholder="4" />
-          </div>
-          <div class="flex justify-end gap-2 mt-1">
-            <Button variant="secondary" size="sm" id="btn-reset-durations">Defaults</Button>
-            <Button size="sm" id="btn-save-settings">Save Settings</Button>
-          </div>
+              <!-- Action Buttons -->
+              <div class="flex justify-end gap-1.5 pt-2 border-t border-hairline/15">
+                <button id="btn-reset-durations" type="button" class="px-2.5 h-7 text-[10px] font-bold rounded-lg border border-hairline bg-canvas text-body hover:bg-canvas-soft-2 hover:text-ink transition-all cursor-pointer active:scale-95">Defaults</button>
+                <button id="btn-save-settings" type="button" class="px-3.5 h-7 text-[10px] font-bold rounded-lg bg-link text-white hover:bg-link-hover hover:shadow-md hover:shadow-link/10 transition-all cursor-pointer active:scale-95">Save</button>
+              </div>
+            </div>
         </div>
 
         <div id="recent-tasks-container" class="hidden w-full">
@@ -231,139 +292,96 @@ const websiteSchema = {
           <div id="recent-tasks-list" class="flex flex-wrap gap-1.5"></div>
         </div>
 
-      </div>
+        <!-- 4. UTILITY GRID CONTAINER (2x2 Grid) -->
+        <div class="w-full">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            
+            <!-- Card 1: Your Streak -->
+            <div class="bg-gradient-to-b from-orange-500/[0.04] via-orange-500/[0.01] to-canvas rounded-xl border border-orange-500/15 border-t-[3px] border-t-orange-500 shadow-[0_8px_30px_rgba(249,115,22,0.04)] p-3.5 sm:p-4 flex flex-col justify-between min-h-[155px] sm:min-h-[165px] md:min-h-[175px] transition-all duration-300 hover:shadow-[0_16px_40px_rgba(249,115,22,0.08)] hover:border-orange-500/25 overflow-hidden">
+              <div class="flex flex-col grow">
+                <div class="flex items-center gap-1.5 mb-1.5 border-b border-hairline/10 pb-1">
+                  <svg class="w-3.5 h-3.5 text-orange-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                  <span class="text-[9px] sm:text-[10px] font-extrabold uppercase text-ink tracking-widest">Your Streak</span>
+                </div>
+                <div class="flex items-center justify-between text-xs text-ink mt-2 mb-2 bg-orange-500/[0.04] dark:bg-orange-500/[0.01] px-2 py-1.5 rounded-xl border border-orange-500/10 select-none">
+                  <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-lg bg-orange-500/10 dark:bg-orange-500/20 flex items-center justify-center text-xs shrink-0 select-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">🔥</div>
+                    <div class="flex flex-col">
+                      <span class="text-[8px] font-semibold uppercase tracking-widest text-ink/75 leading-none">Streak</span>
+                      <span class="text-xs sm:text-sm font-black text-ink mt-0.5"><span id="stat-streak">0</span><span class="text-[8px] text-ink/50 font-bold ml-0.5">d</span></span>
+                    </div>
+                  </div>
+                  <div class="w-px h-6 bg-orange-500/10"></div>
+                  <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-lg bg-amber-500/10 dark:bg-amber-500/20 flex items-center justify-center text-xs shrink-0 select-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">🏆</div>
+                    <div class="flex flex-col">
+                      <span class="text-[8px] font-semibold uppercase tracking-widest text-ink/75 leading-none">Best</span>
+                      <span class="text-xs sm:text-sm font-black text-ink mt-0.5"><span id="stat-longest-streak">0</span><span class="text-[8px] text-ink/50 font-bold ml-0.5">d</span></span>
+                    </div>
+                  </div>
+                  <div class="w-px h-6 bg-orange-500/10"></div>
+                  <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center text-xs shrink-0 select-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">⚡</div>
+                    <div class="flex flex-col">
+                      <span class="text-[8px] font-semibold uppercase tracking-widest text-ink/75 leading-none">Score</span>
+                      <span class="text-xs sm:text-sm font-black text-ink mt-0.5"><span id="dash-score">0</span></span>
+                    </div>
+                  </div>
+                </div>
+                <p id="streak-context" class="text-[10px] sm:text-[11px] text-ink/80 mt-2.5 leading-snug font-medium border-l-2 border-orange-500/30 pl-1.5">Start today to begin your streak.</p>
+                <span id="streak-context-fallback" class="hidden"></span>
+              </div>
+              <div class="mt-1 pt-1 border-t border-hairline/20 shrink-0">
+                <span id="heatmap-week-label" class="hidden"></span>
+                <div id="weekly-heatmap" class="flex gap-1 min-h-[20px] items-end">
+                  <div class="text-[9px] text-ink/75 w-full text-center">No sessions yet</div>
+                </div>
+                <!-- Dynamic day labels row placeholder -->
+                <div id="weekly-heatmap-labels" class="flex gap-1 mt-0.5 select-none"></div>
+                <div class="flex items-center justify-between mt-1 pt-1 border-t border-hairline/15 select-none">
+                  <span class="text-[8px] text-ink/75 font-semibold">Activity (Past 7 days)</span>
+                  <div class="flex gap-0.5">
+                    <span class="w-1.5 h-1.5 rounded-sm bg-slate-100 dark:bg-zinc-800/50 border border-slate-200 dark:border-zinc-700"></span>
+                    <span class="w-1.5 h-1.5 rounded-sm bg-violet-200 dark:bg-violet-800/40 border border-violet-300/40"></span>
+                    <span class="w-1.5 h-1.5 rounded-sm bg-violet-300 dark:bg-violet-700/50 border border-violet-400/40"></span>
+                    <span class="w-1.5 h-1.5 rounded-sm bg-violet-400 dark:bg-violet-600/60 border border-violet-500/40"></span>
+                    <span class="w-1.5 h-1.5 rounded-sm bg-violet-500 dark:bg-violet-500/70 border border-violet-600/40"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-      <!-- 3. TODAY AT A GLANCE (compact) -->
-      <div class="order-3 lg:col-start-1 lg:row-start-2 lg:row-end-3">
-        <div class="bg-canvas rounded-xl border border-hairline/50 shadow-sm p-3 sm:p-4">
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
-            <div>
-              <span class="text-[10px] font-bold text-mute uppercase tracking-wider">Sessions</span>
-              <div class="flex items-baseline gap-1 mt-0.5">
-                <span id="stat-sessions" class="text-lg font-bold text-ink tracking-tight">0</span>
-                <span class="text-xs text-mute font-semibold">/ <span id="stat-goal-total">4</span></span>
+            <!-- Card 2: Daily Target -->
+            <div class="bg-canvas rounded-xl border border-green-500/15 border-t-[3px] border-t-green-500 shadow-[0_8px_30px_rgba(34,197,94,0.04)] p-3.5 sm:p-4 flex flex-col justify-between min-h-[145px] sm:min-h-[155px] md:min-h-[165px] transition-all duration-300 hover:shadow-[0_12px_40px_rgba(34,197,94,0.08)] hover:border-green-500/25 overflow-hidden">
+              <div class="flex flex-col grow">
+                <div class="flex items-center gap-1.5 mb-1.5 border-b border-hairline/10 pb-1">
+                  <svg class="w-3.5 h-3.5 text-green-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                  <span class="text-[9px] sm:text-[10px] font-extrabold uppercase text-ink tracking-widest">Daily Target</span>
+                </div>
+                <div class="flex flex-col mt-1.5">
+                  <span id="daily-target-large-text" class="text-sm font-black tracking-tight text-ink leading-none">0 of 4 sessions</span>
+                  <p id="daily-target-subtext" class="text-[10px] text-ink/75 mt-1 leading-normal font-medium">Keep going, you've got this!</p>
+                </div>
               </div>
-              <div class="w-full h-0.5 bg-hairline/60 rounded-full overflow-hidden mt-1">
-                <div id="stat-goal-bar" class="bg-link h-full rounded-full transition-all duration-500" style="width:0%"></div>
+              <div class="flex items-center gap-2 mt-auto w-full">
+                <div class="flex-1 h-1.5 bg-hairline/60 rounded-full overflow-hidden">
+                  <div id="daily-target-bar" class="bg-gradient-to-r from-emerald-500 to-green-500 shadow-[0_0_8px_rgba(34,197,94,0.35)] h-full rounded-full transition-all duration-500" style="width:0%"></div>
+                </div>
+                <span id="daily-target-pct" class="text-[10px] font-bold text-green-500 shrink-0">0%</span>
+                <span id="daily-target-text" class="hidden">0/4</span>
               </div>
             </div>
-            <div>
-              <span class="text-[10px] font-bold text-mute uppercase tracking-wider">Tasks done</span>
-              <div class="flex items-baseline gap-1 mt-0.5">
-                <span id="stat-tasks" class="text-lg font-bold text-green-500 tracking-tight">0</span>
-              </div>
-              <div id="tasks-completed-sub" class="text-[11px] text-mute/60 mt-0.5 font-medium">Add a task</div>
-            </div>
-            <div>
-              <span class="text-[10px] font-bold text-mute uppercase tracking-wider">Time spent</span>
-              <div class="flex items-baseline gap-1 mt-0.5">
-                <span id="stat-total-time" class="text-lg font-bold text-link tracking-tight">0m</span>
-              </div>
-              <div class="text-[11px] text-mute/60 mt-0.5 font-medium">Ready when you are</div>
-            </div>
-            <div>
-              <span class="text-[10px] font-bold text-mute uppercase tracking-wider">Focus score</span>
-              <div class="flex items-baseline gap-1 mt-0.5">
-                <span id="stat-focus-score" class="text-lg font-bold text-ink tracking-tight">0</span>
-                <span class="text-xs text-mute font-semibold">/100</span>
-              </div>
-              <span id="focus-score-label" class="text-[11px] font-semibold text-link hidden"></span>
-              <div id="focus-score-label-fallback" class="text-[11px] text-mute/60 mt-0.5 font-medium">Start a session</div>
-            </div>
-          </div>
-          <p id="stat-encouragement" class="text-xs text-mute/60 mt-2 pt-1.5 border-t border-hairline/20 leading-relaxed">Small progress still counts. Start where you are.</p>
-          <span id="session-counter-text" class="hidden"></span>
-          <span id="stat-goal-percentage" class="hidden">0%</span>
-        </div>
-      </div>
 
-      <!-- 4. A NOTE FOR TODAY -->
-      <div class="order-4 lg:col-start-2 lg:row-start-3 lg:row-end-4">
-        <div class="bg-canvas rounded-xl border border-hairline/50 shadow-sm p-3 sm:p-4">
-          <div class="flex items-center gap-1.5 mb-1">
-            <svg class="w-3.5 h-3.5 text-mute shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-            <h2 class="text-sm font-bold text-ink">A Note for Today</h2>
-          </div>
-          <div id="daily-timeline-content" class="space-y-0">
-            <div id="focus-insight-card">
-              <p id="focus-insight-text" class="text-sm text-body/80 leading-relaxed">☕ One focus block is enough.</p>
-              <button id="focus-insight-refresh" class="mt-0.5 text-xs font-semibold text-mute/60 hover:text-link transition-colors cursor-pointer" aria-label="Show another insight">Show another</button>
-            </div>
-          </div>
-          <span id="timeline-badge" class="hidden"></span>
-        </div>
-      </div>
 
-      <!-- 5. YOUR STREAK -->
-      <div class="order-5 lg:col-start-2 lg:row-start-4 lg:row-end-5">
-        <div class="bg-canvas rounded-xl border border-hairline/50 shadow-sm p-3 sm:p-4">
-          <div class="flex items-center gap-1.5 mb-1">
-            <svg class="w-3.5 h-3.5 text-orange-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-            <h2 class="text-sm font-bold text-ink">Your Streak</h2>
-          </div>
-          <div class="flex items-center gap-3 flex-wrap">
-            <div class="flex items-center gap-1">
-              <span class="text-sm">🔥</span>
-              <span id="stat-streak" class="text-lg font-bold text-orange-500 tracking-tight">0</span>
-              <span class="text-xs text-mute/60 font-medium">days</span>
-            </div>
-            <div class="flex items-center gap-1">
-              <span class="text-sm">🏆</span>
-              <span class="text-xs text-mute font-semibold">Best</span>
-              <span id="stat-longest-streak" class="text-lg font-bold text-amber-500 tracking-tight">0</span>
-              <span class="text-xs text-mute/60 font-medium">days</span>
-            </div>
-            <div class="flex items-center gap-1">
-              <span class="text-sm text-link">⚡</span>
-              <span id="dash-score" class="text-base font-bold text-link tracking-tight">0</span>
-            </div>
-            <span id="streak-context" class="hidden"></span>
-          </div>
-          <div class="mt-1.5 pt-1.5 border-t border-hairline/20">
-            <span id="heatmap-week-label" class="hidden"></span>
-            <div id="weekly-heatmap" class="flex gap-1 min-h-[24px] items-end">
-              <div class="text-xs text-mute/50 w-full text-center py-1">No sessions yet</div>
-            </div>
-            <div class="flex items-center gap-1.5 mt-1.5 pt-1 border-t border-hairline/20">
-              <span class="text-[10px] text-mute/40 font-medium">Less</span>
-              <div class="flex gap-0.5">
-                <span class="w-2.5 h-2.5 rounded-sm bg-violet-100 dark:bg-violet-900/30 border border-violet-200/30 dark:border-violet-800/20"></span>
-                <span class="w-2.5 h-2.5 rounded-sm bg-violet-200 dark:bg-violet-800/40 border border-violet-300/30 dark:border-violet-700/20"></span>
-                <span class="w-2.5 h-2.5 rounded-sm bg-violet-300 dark:bg-violet-700/50 border border-violet-400/30 dark:border-violet-600/20"></span>
-                <span class="w-2.5 h-2.5 rounded-sm bg-violet-400 dark:bg-violet-600/60 border border-violet-500/30 dark:border-violet-500/20"></span>
-                <span class="w-2.5 h-2.5 rounded-sm bg-violet-500 dark:bg-violet-500/70 border border-violet-600/30 dark:border-violet-400/20"></span>
-              </div>
-              <span class="text-[10px] text-mute/40 font-medium">More</span>
-            </div>
           </div>
         </div>
-      </div>
 
-      <!-- 6. RECENT SESSIONS (compact) -->
-      <div class="order-6 lg:col-start-1 lg:row-start-3 lg:row-end-4">
-        <div class="bg-canvas rounded-xl border border-hairline/50 shadow-sm p-3 sm:p-4">
-          <div class="flex items-center justify-between mb-1.5">
-            <div class="flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5 text-link shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <h2 class="text-sm font-bold text-ink">Recent sessions</h2>
+        
             </div>
-            <div class="flex items-center gap-2">
-              <span id="activity-feed-badge" class="text-[10px] font-bold uppercase tracking-widest text-mute/60 hidden"></span>
-              <button id="btn-view-history" class="text-[11px] font-semibold text-link hover:text-link-hover transition-colors cursor-pointer hidden">View all</button>
-            </div>
-          </div>
-          <div id="activity-feed-content" class="space-y-1">
-            <div class="flex flex-col items-center justify-center py-3 text-center">
-              <p class="text-xs text-mute/60">Your first session is waiting.</p>
-              <div class="flex gap-1.5 mt-2 flex-wrap justify-center">
-                <button class="quick-start-btn text-xs font-bold px-2.5 py-1.5 rounded-lg border border-hairline/40 bg-link/[0.04] hover:bg-link/[0.08] hover:border-link/20 transition-all cursor-pointer active:scale-95 text-ink" data-template="Study">Study</button>
-                <button class="quick-start-btn text-xs font-bold px-2.5 py-1.5 rounded-lg border border-hairline/40 bg-amber-500/[0.04] hover:bg-amber-500/[0.08] hover:border-amber-500/20 transition-all cursor-pointer active:scale-95 text-ink" data-template="Writing">Writing</button>
-                <button class="quick-start-btn text-xs font-bold px-2.5 py-1.5 rounded-lg border border-hairline/40 bg-sky-500/[0.04] hover:bg-sky-500/[0.08] hover:border-sky-500/20 transition-all cursor-pointer active:scale-95 text-ink" data-template="Coding">Coding</button>
-                <button class="quick-start-btn text-xs font-bold px-2.5 py-1.5 rounded-lg border border-hairline/40 bg-green-500/[0.04] hover:bg-green-500/[0.08] hover:border-green-500/20 transition-all cursor-pointer active:scale-95 text-ink" data-template="Reading">Reading</button>
-              </div>
-            </div>
+            <span id="timeline-badge" class="hidden"></span>
           </div>
         </div>
+
       </div>
 
       <!-- Hidden (preserved for JS) -->
@@ -1200,23 +1218,18 @@ const websiteSchema = {
     if (settingsWork) settingsWork.value = (parseInt(localStorage.getItem('pomodoro_duration_pomodoro') || '') || DEFAULT_WORK).toString();
     if (settingsShort) settingsShort.value = (parseInt(localStorage.getItem('pomodoro_duration_short') || '') || DEFAULT_SHORT).toString();
     if (settingsLong) settingsLong.value = (parseInt(localStorage.getItem('pomodoro_duration_long') || '') || DEFAULT_LONG).toString();
-    if (settingsGoal) settingsGoal.value = (parseInt(localStorage.getItem('pomodoro_goal') || '') || DEFAULT_GOAL).toString();
   };
 
   const saveSettings = () => {
     const workVal = Math.max(1, Math.min(180, parseInt(settingsWork.value) || DEFAULT_WORK));
     const shortVal = Math.max(1, Math.min(60, parseInt(settingsShort.value) || DEFAULT_SHORT));
     const longVal = Math.max(1, Math.min(60, parseInt(settingsLong.value) || DEFAULT_LONG));
-    const goalVal = Math.max(1, Math.min(24, parseInt(settingsGoal.value) || DEFAULT_GOAL));
     localStorage.setItem('pomodoro_duration_pomodoro', workVal.toString());
     localStorage.setItem('pomodoro_duration_short', shortVal.toString());
     localStorage.setItem('pomodoro_duration_long', longVal.toString());
-    localStorage.setItem('pomodoro_goal', goalVal.toString());
     settingsWork.value = workVal.toString();
     settingsShort.value = shortVal.toString();
     settingsLong.value = longVal.toString();
-    settingsGoal.value = goalVal.toString();
-    updateAnalytics();
     if (!isRunning) resetTimer();
   };
 
@@ -1275,7 +1288,7 @@ const websiteSchema = {
     const longest = parseInt(localStorage.getItem('pomodoro_streak_longest') || '0');
     const goal = parseInt(localStorage.getItem('pomodoro_goal') || '') || DEFAULT_GOAL;
 
-    if (statSessions) statSessions.textContent = `${sessions}/${goal}`;
+    if (statSessions) statSessions.textContent = sessions.toString();
     if (statGoalTotal) statGoalTotal.textContent = `/ ${goal}`;
     if (statGoalNumber) statGoalNumber.textContent = goal.toString();
     if (statGoalNumberSide) statGoalNumberSide.textContent = goal.toString();
@@ -2186,10 +2199,16 @@ const websiteSchema = {
     // Update daily target progress
     const dailyTargetBar = document.getElementById('daily-target-bar');
     const dailyTargetText = document.getElementById('daily-target-text');
-    if (dailyTargetBar && dailyTargetText) {
+    const dailyTargetLargeText = document.getElementById('daily-target-large-text');
+    const dailyTargetPct = document.getElementById('daily-target-pct');
+    if (dailyTargetBar) {
       const pct = goal > 0 ? Math.min(100, Math.round((sessions / goal) * 100)) : 0;
       dailyTargetBar.style.width = `${pct}%`;
-      dailyTargetText.textContent = `${sessions}/${goal}`;
+      if (dailyTargetText) dailyTargetText.textContent = `${sessions}/${goal}`;
+      if (dailyTargetPct) dailyTargetPct.textContent = `${pct}%`;
+      if (dailyTargetLargeText) {
+        dailyTargetLargeText.textContent = `${sessions} of ${goal} sessions`;
+      }
     }
 
     // Update estimation
@@ -2306,20 +2325,20 @@ const websiteSchema = {
 
     weekDays.forEach(d => {
       const intensity = d.count / maxCount;
-      let bgClass = 'bg-violet-100 dark:bg-violet-900/30';
-      if (intensity > 0.75) bgClass = 'bg-violet-500 dark:bg-violet-500/70';
-      else if (intensity > 0.5) bgClass = 'bg-violet-400 dark:bg-violet-600/60';
-      else if (intensity > 0.25) bgClass = 'bg-violet-300 dark:bg-violet-700/50';
-      else if (intensity > 0) bgClass = 'bg-violet-200 dark:bg-violet-800/40';
+      let bgClass = 'bg-violet-50 dark:bg-violet-950/20 text-ink/30';
+      if (intensity > 0.75) bgClass = 'bg-violet-500 dark:bg-violet-500 text-white shadow-sm shadow-violet-500/10';
+      else if (intensity > 0.5) bgClass = 'bg-violet-400 dark:bg-violet-600/80 text-white';
+      else if (intensity > 0.25) bgClass = 'bg-violet-300 dark:bg-violet-700/60 text-ink';
+      else if (intensity > 0) bgClass = 'bg-violet-200 dark:bg-violet-800/40 text-ink';
 
       const height = Math.max(16, d.count * 8 + 8);
       const cell = document.createElement('div');
-      cell.className = `heatmap-cell flex-1 rounded-md ${bgClass} border border-violet-200/30 dark:border-violet-800/20 flex flex-col items-center justify-end transition-all`;
+      cell.className = `heatmap-cell flex-1 rounded-[4px] ${bgClass} border border-violet-200/30 dark:border-violet-800/10 flex flex-col items-center justify-end transition-all hover:scale-105 hover:brightness-105 cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] select-none`;
       cell.style.height = `${Math.min(height, 48)}px`;
       cell.title = `${d.dayName} ${d.label}: ${d.count} session${d.count !== 1 ? 's' : ''}`;
 
       const countLabel = document.createElement('span');
-      countLabel.className = 'text-[9px] font-bold text-violet-700 dark:text-violet-300 leading-none mb-0.5';
+      countLabel.className = 'text-[9px] font-extrabold leading-none mb-0.5';
       countLabel.textContent = d.count > 0 ? d.count.toString() : '';
       cell.appendChild(countLabel);
 
@@ -2327,15 +2346,17 @@ const websiteSchema = {
     });
 
     // Day labels
-    const labelRow = document.createElement('div');
-    labelRow.className = 'flex gap-1.5 mt-1';
-    weekDays.forEach(d => {
-      const lbl = document.createElement('span');
-      lbl.className = 'flex-1 text-[9px] text-center font-medium text-mute/40';
-      lbl.textContent = d.dayName.charAt(0);
-      labelRow.appendChild(lbl);
-    });
-    container.parentElement?.appendChild(labelRow);
+    const labelRow = document.getElementById('weekly-heatmap-labels');
+    if (labelRow) {
+      labelRow.innerHTML = '';
+      labelRow.className = 'flex gap-1.5 mt-1 select-none';
+      weekDays.forEach(d => {
+        const lbl = document.createElement('span');
+        lbl.className = 'flex-1 text-[9px] text-center font-semibold text-ink/30';
+        lbl.textContent = d.dayName.charAt(0);
+        labelRow.appendChild(lbl);
+      });
+    }
   };
 
   // ===== ANALYTICS ENHANCEMENTS =====
@@ -2410,7 +2431,6 @@ const websiteSchema = {
     if (settingsWork) settingsWork.value = DEFAULT_WORK.toString();
     if (settingsShort) settingsShort.value = DEFAULT_SHORT.toString();
     if (settingsLong) settingsLong.value = DEFAULT_LONG.toString();
-    if (settingsGoal) settingsGoal.value = DEFAULT_GOAL.toString();
     saveSettings();
     btnToggleSettings?.setAttribute('aria-expanded', 'false');
     settingsPanel?.classList.add('hidden');
@@ -2474,11 +2494,53 @@ const websiteSchema = {
     }
   };
 
-  document.querySelectorAll('.quick-start-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const template = (e.currentTarget as HTMLElement).getAttribute('data-template');
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (!target) return;
+
+    // Handle insight card refresh
+    const refreshBtn = target.closest('#focus-insight-refresh');
+    if (refreshBtn) {
+      e.preventDefault();
+      const next = (getTodayInsightIndex() + 1) % FOCUS_INSIGHTS.length;
+      sessionStorage.setItem('pomodoro_insight_idx', String(next));
+      const p = document.getElementById('focus-insight-text');
+      if (p) p.textContent = FOCUS_INSIGHTS[next];
+    }
+
+    // Handle Quick Start templates click
+    const quickStartBtn = target.closest('.quick-start-btn');
+    if (quickStartBtn) {
+      e.preventDefault();
+      const template = quickStartBtn.getAttribute('data-template');
       if (template) handleQuickStart(template);
-    });
+    }
+
+    // Handle Save button rollup
+    const saveBtn = target.closest('#btn-save-settings');
+    if (saveBtn) {
+      const panel = document.getElementById('settings-panel');
+      const toggle = document.getElementById('btn-toggle-settings');
+      if (panel) panel.classList.add('hidden');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    // Handle Reset Durations rollup
+    const resetBtn = target.closest('#btn-reset-durations');
+    if (resetBtn) {
+      const panel = document.getElementById('settings-panel');
+      const toggle = document.getElementById('btn-toggle-settings');
+      if (panel) panel.classList.add('hidden');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    // Handle Add Task link in Current Task card
+    const addTaskBtn = target.closest('#btn-current-task-add');
+    if (addTaskBtn) {
+      e.preventDefault();
+      const input = document.getElementById('task-add-input');
+      if (input) (input as HTMLInputElement).focus();
+    }
   });
 
   // Outcome modal listeners
