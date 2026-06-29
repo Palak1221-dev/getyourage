@@ -50,7 +50,7 @@ const websiteSchema = {
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
   <!-- ===== HERO SECTION ===== -->
-  <div class="max-w-[1440px] mx-auto px-4 pt-4 pb-1">
+  <div class="max-w-[1440px] mx-auto px-4 pt-4 pb-0">
     <div>
       <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold tracking-tighter text-ink leading-[1.1]">Focus on one thing.</h1>
       <p class="text-base md:text-lg text-body leading-relaxed mt-1">A timer that helps you do your best work.</p>
@@ -58,7 +58,7 @@ const websiteSchema = {
   </div>
 
   <!-- ===== MAIN CONTENT ===== -->
-  <div class="max-w-[1440px] mx-auto px-4 pb-2 space-y-3">
+  <div class="max-w-[1440px] mx-auto px-4 pb-2 space-y-6">
 
     <!-- ── ROW 1: Today's Focus + Timer ── -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
@@ -122,137 +122,138 @@ const websiteSchema = {
       </div>
 
       <!-- Timer -->
-      <div class="lg:sticky lg:top-4">
-        <div class="bg-gradient-to-b from-link/[0.05] via-link/[0.02] to-canvas rounded-2xl border border-hairline/50 shadow-[0_8px_32px_rgba(0,0,0,0.12)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-5 border-t-2 border-t-link/20">
+      <div class="flex flex-col gap-3">
+        <div class="lg:sticky lg:top-4">
+          <div class="bg-gradient-to-b from-link/[0.05] via-link/[0.02] to-canvas rounded-2xl border border-hairline/50 shadow-[0_8px_32px_rgba(0,0,0,0.12)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-5 border-t-2 border-t-link/20">
 
-          <!-- Mode Tabs -->
-          <div class="flex gap-1 p-1.5 bg-link/[0.06] rounded-full w-full max-w-[320px] mx-auto mb-3">
-            <button id="mode-pomodoro" class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-full transition-all cursor-pointer bg-link text-white shadow-[0_2px_8px_rgba(37,99,235,0.25)] ring-1 ring-link/20" aria-label="Switch to Pomodoro focus session">Pomodoro</button>
-            <button id="mode-short" class="flex-1 py-2 text-xs sm:text-sm font-bold text-body/70 hover:text-ink rounded-full transition-all cursor-pointer" aria-label="Switch to short break">Short Break</button>
-            <button id="mode-long" class="flex-1 py-2 text-xs sm:text-sm font-bold text-body/70 hover:text-ink rounded-full transition-all cursor-pointer" aria-label="Switch to long break">Long Break</button>
-          </div>
-
-          <!-- Timer -->
-          <div class="flex flex-col items-center">
-            <div id="timer-ring-container" class="relative w-full max-w-[260px] sm:max-w-[280px] md:max-w-[300px] aspect-square mx-auto flex items-center justify-center">
-              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 256 256" style="filter: drop-shadow(0 0 12px rgba(59,130,246,0.15))">
-                <defs>
-                  <filter id="ring-glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-                </defs>
-                <circle cx="128" cy="128" r="120" stroke="currentColor" stroke-width="1" fill="transparent" class="text-link/[0.04]" />
-                <circle cx="128" cy="128" r="116" stroke="currentColor" stroke-width="4" fill="transparent" class="text-hairline/20" />
-                <circle id="timer-progress-ring" cx="128" cy="128" r="116" stroke="currentColor" stroke-width="10" fill="transparent" stroke-dasharray="728.85" stroke-dashoffset="0" stroke-linecap="round" class="text-link transition-all duration-1000 ease-linear drop-shadow-[0_0_8px_rgba(59,130,246,0.35)]" filter="url(#ring-glow)" />
-              </svg>
-              <div class="absolute flex flex-col items-center justify-center select-none">
-                <span id="timer-display" class="text-5xl sm:text-6xl md:text-7xl font-black tracking-tighter text-ink tabular-nums leading-none">25:00</span>
-                <span id="timer-status-text" class="text-xs sm:text-sm font-bold text-link/80 mt-1.5 uppercase tracking-widest">Focus time</span>
-              </div>
-              <div id="timer-pulse" class="absolute inset-0 rounded-full border-[3px] border-link/15 pointer-events-none hidden"></div>
-              <div id="celebration-container" class="absolute inset-0 pointer-events-none hidden"></div>
+            <!-- Mode Tabs -->
+            <div class="flex gap-1 p-1.5 bg-link/[0.06] rounded-full w-full max-w-[320px] mx-auto mb-3">
+              <button id="mode-pomodoro" class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-full transition-all cursor-pointer bg-link text-white shadow-[0_2px_8px_rgba(37,99,235,0.25)] ring-1 ring-link/20" aria-label="Switch to Pomodoro focus session">Pomodoro</button>
+              <button id="mode-short" class="flex-1 py-2 text-xs sm:text-sm font-bold text-body/70 hover:text-ink rounded-full transition-all cursor-pointer" aria-label="Switch to short break">Short Break</button>
+              <button id="mode-long" class="flex-1 py-2 text-xs sm:text-sm font-bold text-body/70 hover:text-ink rounded-full transition-all cursor-pointer" aria-label="Switch to long break">Long Break</button>
             </div>
 
-            <!-- Phase message -->
-            <div id="timer-phase-container" class="text-center min-h-[20px] mt-1">
-              <span id="timer-phase" class="text-sm sm:text-base font-bold text-link/80 opacity-0 transition-all duration-500">Whenever you're ready, begin.</span>
-            </div>
-
-            <!-- Controls -->
-              <div class="flex items-center gap-3 sm:gap-4 mt-2.5">
-              <button id="btn-reset" class="w-10 h-10 rounded-full border border-hairline/50 bg-canvas text-body hover:text-link hover:bg-link/[0.06] hover:border-link/20 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Reset" aria-label="Reset Timer">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-              </button>
-              <button id="btn-play-pause" class="w-14 h-14 rounded-full bg-link text-white hover:bg-link-hover hover:shadow-2xl hover:shadow-link/40 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-xl shadow-link/30" title="Start Session" aria-label="Start or Pause Timer">
-                <svg id="icon-play" class="ml-0.5" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
-                <svg id="icon-pause" class="hidden" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg>
-              </button>
-              <button id="btn-skip" class="w-10 h-10 rounded-full border border-hairline/50 bg-canvas text-body hover:text-link hover:bg-link/[0.06] hover:border-link/20 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Skip" aria-label="Skip Session">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/></svg>
-              </button>
-              <button id="btn-focus-mode" class="w-10 h-10 rounded-full border border-hairline/40 bg-canvas text-mute hover:text-link hover:bg-link/[0.06] hover:border-link/20 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Focus Mode" aria-label="Enter focus mode">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-              </button>
-            </div>
-
-            <!-- Active Task Context -->
-            <div id="active-task-context" class="w-full max-w-[360px] mt-2.5 pt-1.5 border-t border-hairline/40">
-              <div class="flex items-center gap-2 mb-0.5">
-                <div class="w-2 h-2 rounded-full bg-link animate-pulse shrink-0"></div>
-                <span class="text-[11px] font-bold uppercase text-mute/70 tracking-widest">Current task</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span id="active-task-context-name" class="text-sm font-bold text-ink truncate">—</span>
-                <span id="session-counter-display" class="text-sm font-bold text-link bg-link/10 px-2 py-0.5 rounded-full shrink-0 ml-2">0 of 4 sessions</span>
-              </div>
-              <div class="flex items-center gap-2 mt-0.5">
-                <span id="task-estimation-text" class="text-xs font-medium text-mute"></span>
-                <div class="flex-1 h-1 bg-hairline/60 rounded-full overflow-hidden ring-1 ring-inset ring-black/[0.03]">
-                  <div id="task-estimation-bar" class="bg-gradient-to-r from-link to-blue-400 h-full rounded-full transition-all duration-500" style="width:0%"></div>
+            <!-- Timer + Controls + Progress (visual group) -->
+            <div class="flex flex-col items-center gap-2">
+              <div id="timer-ring-container" class="relative w-full max-w-[240px] sm:max-w-[260px] md:max-w-[280px] aspect-square mx-auto flex items-center justify-center">
+                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 256 256" style="filter: drop-shadow(0 0 12px rgba(59,130,246,0.15))">
+                  <defs>
+                    <filter id="ring-glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                  </defs>
+                  <circle cx="128" cy="128" r="120" stroke="currentColor" stroke-width="1" fill="transparent" class="text-link/[0.04]" />
+                  <circle cx="128" cy="128" r="116" stroke="currentColor" stroke-width="4" fill="transparent" class="text-hairline/20" />
+                  <circle id="timer-progress-ring" cx="128" cy="128" r="116" stroke="currentColor" stroke-width="10" fill="transparent" stroke-dasharray="728.85" stroke-dashoffset="0" stroke-linecap="round" class="text-link transition-all duration-1000 ease-linear drop-shadow-[0_0_8px_rgba(59,130,246,0.35)]" filter="url(#ring-glow)" />
+                </svg>
+                <div class="absolute flex flex-col items-center justify-center select-none">
+                  <span id="timer-display" class="text-5xl sm:text-6xl md:text-7xl font-black tracking-tighter text-ink tabular-nums leading-none">25:00</span>
+                  <span id="timer-status-text" class="text-xs sm:text-sm font-bold text-link/80 mt-1.5 uppercase tracking-widest">Focus time</span>
                 </div>
-                <span id="task-estimation-pct" class="text-xs font-bold text-link">0%</span>
+                <div id="timer-pulse" class="absolute inset-0 rounded-full border-[3px] border-link/15 pointer-events-none hidden"></div>
+                <div id="celebration-container" class="absolute inset-0 pointer-events-none hidden"></div>
               </div>
-              <!-- Daily target progress -->
-              <div class="flex items-center justify-between mt-0.5 pt-0.5 border-t border-hairline/20">
-                <span class="text-[11px] font-bold uppercase tracking-widest text-mute/60">Daily target</span>
-                <div class="flex items-center gap-2">
-                  <div class="w-24 h-1 bg-hairline/60 rounded-full overflow-hidden">
-                    <div id="daily-target-bar" class="bg-link h-full rounded-full transition-all duration-500" style="width:0%"></div>
-                  </div>
-                  <span id="daily-target-text" class="text-xs font-bold text-mute">0/4</span>
-                </div>
-              </div>
-            </div>
 
-            <!-- Quick Settings -->
-            <div class="flex items-center justify-between w-full max-w-[360px] mt-1.5 pt-1.5 border-t border-hairline/30">
+              <!-- Phase message -->
+              <div id="timer-phase-container" class="text-center min-h-[16px]">
+                <span id="timer-phase" class="text-sm sm:text-base font-bold text-link/80 opacity-0 transition-all duration-500">Whenever you're ready, begin.</span>
+              </div>
+
+              <!-- Controls (tight to ring) -->
               <div class="flex items-center gap-3 sm:gap-4">
-                <label class="flex items-center gap-1.5 cursor-pointer group">
-                  <input type="checkbox" id="toggle-sound" class="sr-only peer" checked />
-                  <div class="w-6 h-3.5 bg-canvas-soft-2 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[0.5px] after:left-[0.5px] after:bg-white after:rounded-full after:h-[10px] after:w-[10px] after:transition-all peer-checked:after:translate-x-[10px] border border-hairline/60 group-hover:border-link/30 transition-colors"></div>
-                  <span class="text-xs sm:text-sm text-mute font-semibold group-hover:text-link transition-colors">Sound</span>
-                </label>
-                <label class="flex items-center gap-1.5 cursor-pointer group">
-                  <input type="checkbox" id="toggle-notifications" class="sr-only peer" />
-                  <div class="w-6 h-3.5 bg-canvas-soft-2 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[0.5px] after:left-[0.5px] after:bg-white after:rounded-full after:h-[10px] after:w-[10px] after:transition-all peer-checked:after:translate-x-[10px] border border-hairline/60 group-hover:border-link/30 transition-colors"></div>
-                  <span class="text-xs sm:text-sm text-mute font-semibold group-hover:text-link transition-colors">Alerts</span>
-                </label>
-                <label class="flex items-center gap-1.5 cursor-pointer group">
-                  <input type="checkbox" id="toggle-autostart" class="sr-only peer" />
-                  <div class="w-6 h-3.5 bg-canvas-soft-2 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[0.5px] after:left-[0.5px] after:bg-white after:rounded-full after:h-[10px] after:w-[10px] after:transition-all peer-checked:after:translate-x-[10px] border border-hairline/60 group-hover:border-link/30 transition-colors"></div>
-                  <span class="text-xs sm:text-sm text-mute font-semibold group-hover:text-link transition-colors">Auto</span>
-                </label>
+                <button id="btn-reset" class="w-10 h-10 rounded-full border border-hairline/50 bg-canvas text-body hover:text-link hover:bg-link/[0.06] hover:border-link/20 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Reset" aria-label="Reset Timer">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                </button>
+                <button id="btn-play-pause" class="w-14 h-14 rounded-full bg-link text-white hover:bg-link-hover hover:shadow-2xl hover:shadow-link/40 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-xl shadow-link/30" title="Start Session" aria-label="Start or Pause Timer">
+                  <svg id="icon-play" class="ml-0.5" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                  <svg id="icon-pause" class="hidden" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg>
+                </button>
+                <button id="btn-skip" class="w-10 h-10 rounded-full border border-hairline/50 bg-canvas text-body hover:text-link hover:bg-link/[0.06] hover:border-link/20 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Skip" aria-label="Skip Session">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/></svg>
+                </button>
+                <button id="btn-focus-mode" class="w-10 h-10 rounded-full border border-hairline/40 bg-canvas text-mute hover:text-link hover:bg-link/[0.06] hover:border-link/20 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Focus Mode" aria-label="Enter focus mode">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                </button>
               </div>
-              <button id="btn-toggle-settings" class="flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-bold text-mute hover:text-link border border-hairline/50 rounded-lg hover:bg-link/[0.06] hover:border-link/20 transition-all cursor-pointer" aria-expanded="false" aria-label="Toggle settings panel">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                Custom
-              </button>
-            </div>
 
-            <!-- Settings panel -->
-            <div id="settings-panel" class="hidden w-full max-w-[360px] mt-3 border border-hairline/50 rounded-xl p-3 bg-canvas space-y-2 shadow-lg">
-              <h4 class="text-sm font-bold uppercase tracking-widest text-ink">Session Settings</h4>
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                <Input type="number" id="settings-work" label="Focus" min="1" max="180" placeholder="25" />
-                <Input type="number" id="settings-short" label="Short Break" min="1" max="60" placeholder="5" />
-                <Input type="number" id="settings-long" label="Long Break" min="1" max="60" placeholder="15" />
-                <Input type="number" id="settings-goal" label="Daily Goal" min="1" max="24" placeholder="4" />
+              <!-- Progress indicators -->
+              <div id="active-task-context" class="w-full mt-1 pt-1.5 border-t border-hairline/40">
+                <div class="flex items-center gap-2 mb-0.5">
+                  <div class="w-2 h-2 rounded-full bg-link animate-pulse shrink-0"></div>
+                  <span class="text-[11px] font-bold uppercase text-mute/70 tracking-widest">Current task</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span id="active-task-context-name" class="text-sm font-bold text-ink truncate">—</span>
+                  <span id="session-counter-display" class="text-sm font-bold text-link bg-link/10 px-2 py-0.5 rounded-full shrink-0 ml-2">0 of 4 sessions</span>
+                </div>
+                <div class="flex items-center gap-2 mt-0.5">
+                  <span id="task-estimation-text" class="text-xs font-medium text-mute"></span>
+                  <div class="flex-1 h-1 bg-hairline/60 rounded-full overflow-hidden ring-1 ring-inset ring-black/[0.03]">
+                    <div id="task-estimation-bar" class="bg-gradient-to-r from-link to-blue-400 h-full rounded-full transition-all duration-500" style="width:0%"></div>
+                  </div>
+                  <span id="task-estimation-pct" class="text-xs font-bold text-link">0%</span>
+                </div>
+                <div class="flex items-center justify-between mt-0.5 pt-0.5 border-t border-hairline/20">
+                  <span class="text-[11px] font-bold uppercase tracking-widest text-mute/60">Daily target</span>
+                  <div class="flex items-center gap-2">
+                    <div class="w-24 h-1 bg-hairline/60 rounded-full overflow-hidden">
+                      <div id="daily-target-bar" class="bg-link h-full rounded-full transition-all duration-500" style="width:0%"></div>
+                    </div>
+                    <span id="daily-target-text" class="text-xs font-bold text-mute">0/4</span>
+                  </div>
+                </div>
               </div>
-              <div class="flex justify-end gap-2 mt-1">
-                <Button variant="secondary" size="sm" id="btn-reset-durations">Defaults</Button>
-                <Button size="sm" id="btn-save-settings">Save Settings</Button>
-              </div>
             </div>
-
-            <!-- Recent Tasks -->
-            <div id="recent-tasks-container" class="hidden w-full max-w-[360px] mt-2">
-              <span class="text-xs font-bold uppercase tracking-widest text-mute/70 block mb-1.5">Pick a task</span>
-              <div id="recent-tasks-list" class="flex flex-wrap gap-1.5"></div>
-            </div>
-
-            <!-- Hidden (preserved for JS) -->
-            <span id="session-type-text" class="hidden">Pomodoro</span>
-            <div id="intention-card" class="hidden"><p id="intention-text"></p></div>
           </div>
         </div>
+
+        <!-- Quick Settings (outside timer card) -->
+        <div class="flex items-center justify-between w-full bg-canvas rounded-xl border border-hairline/50 px-4 py-2.5 shadow-sm">
+          <div class="flex items-center gap-3 sm:gap-4">
+            <label class="flex items-center gap-1.5 cursor-pointer group">
+              <input type="checkbox" id="toggle-sound" class="sr-only peer" checked />
+              <div class="w-6 h-3.5 bg-canvas-soft-2 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[0.5px] after:left-[0.5px] after:bg-white after:rounded-full after:h-[10px] after:w-[10px] after:transition-all peer-checked:after:translate-x-[10px] border border-hairline/60 group-hover:border-link/30 transition-colors"></div>
+              <span class="text-xs sm:text-sm text-mute font-semibold group-hover:text-link transition-colors">Sound</span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer group">
+              <input type="checkbox" id="toggle-notifications" class="sr-only peer" />
+              <div class="w-6 h-3.5 bg-canvas-soft-2 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[0.5px] after:left-[0.5px] after:bg-white after:rounded-full after:h-[10px] after:w-[10px] after:transition-all peer-checked:after:translate-x-[10px] border border-hairline/60 group-hover:border-link/30 transition-colors"></div>
+              <span class="text-xs sm:text-sm text-mute font-semibold group-hover:text-link transition-colors">Alerts</span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer group">
+              <input type="checkbox" id="toggle-autostart" class="sr-only peer" />
+              <div class="w-6 h-3.5 bg-canvas-soft-2 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[0.5px] after:left-[0.5px] after:bg-white after:rounded-full after:h-[10px] after:w-[10px] after:transition-all peer-checked:after:translate-x-[10px] border border-hairline/60 group-hover:border-link/30 transition-colors"></div>
+              <span class="text-xs sm:text-sm text-mute font-semibold group-hover:text-link transition-colors">Auto</span>
+            </label>
+          </div>
+          <button id="btn-toggle-settings" class="flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-bold text-mute hover:text-link border border-hairline/50 rounded-lg hover:bg-link/[0.06] hover:border-link/20 transition-all cursor-pointer" aria-expanded="false" aria-label="Toggle settings panel">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Custom
+          </button>
+        </div>
+
+        <!-- Settings panel (outside timer card) -->
+        <div id="settings-panel" class="hidden w-full border border-hairline/50 rounded-xl p-3 bg-canvas space-y-2 shadow-lg">
+          <h4 class="text-sm font-bold uppercase tracking-widest text-ink">Session Settings</h4>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <Input type="number" id="settings-work" label="Focus" min="1" max="180" placeholder="25" />
+            <Input type="number" id="settings-short" label="Short Break" min="1" max="60" placeholder="5" />
+            <Input type="number" id="settings-long" label="Long Break" min="1" max="60" placeholder="15" />
+            <Input type="number" id="settings-goal" label="Daily Goal" min="1" max="24" placeholder="4" />
+          </div>
+          <div class="flex justify-end gap-2 mt-1">
+            <Button variant="secondary" size="sm" id="btn-reset-durations">Defaults</Button>
+            <Button size="sm" id="btn-save-settings">Save Settings</Button>
+          </div>
+        </div>
+
+        <!-- Recent Tasks (outside timer card) -->
+        <div id="recent-tasks-container" class="hidden w-full">
+          <span class="text-xs font-bold uppercase tracking-widest text-mute/70 block mb-1.5">Pick a task</span>
+          <div id="recent-tasks-list" class="flex flex-wrap gap-1.5"></div>
+        </div>
+
+        <!-- Hidden (preserved for JS) -->
+        <span id="session-type-text" class="hidden">Pomodoro</span>
+        <div id="intention-card" class="hidden"><p id="intention-text"></p></div>
     </div>
 
     <!-- ── ROW 2: Today at a glance ── -->
