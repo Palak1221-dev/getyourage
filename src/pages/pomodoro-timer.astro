@@ -52,8 +52,8 @@ const websiteSchema = {
   <!-- ===== HERO SECTION ===== -->
   <div class="max-w-[1440px] mx-auto px-4 pt-4 pb-1">
     <div>
-      <h1 class="text-4xl lg:text-5xl font-black text-ink tracking-tight leading-[1.08]">Focus on one thing.</h1>
-      <p class="text-sm sm:text-base text-mute/60 mt-1">One focused block can change your day.</p>
+      <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold tracking-tighter text-ink leading-[1.1]">Focus on one thing.</h1>
+      <p class="text-base md:text-lg text-body leading-relaxed mt-1">A timer that helps you do your best work.</p>
     </div>
   </div>
 
@@ -70,13 +70,13 @@ const websiteSchema = {
         <div class="bg-canvas rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-4 sm:p-5 border-t-2 border-t-link/20">
             <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-1.5">
             <svg class="w-4 h-4 text-link shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            <h2 class="text-lg font-extrabold text-ink tracking-tight">Today's Focus</h2>
+            <h2 class="text-lg font-bold text-ink">Today's Focus</h2>
             <span id="tasks-count" class="text-[11px] font-bold uppercase tracking-widest text-mute/60 ml-auto bg-canvas-soft-2 px-2 py-0.5 rounded-full border border-hairline/40">🌱 Nothing planned</span>
           </div>
 
           <!-- Task checklist -->
           <ul id="tasks-list" class="space-y-0.5">
-            <li class="text-sm text-mute/60 text-center py-5 leading-relaxed" id="tasks-empty">What would you like to make progress on today?</li>
+            <li class="text-sm text-mute/60 text-center py-5 leading-relaxed" id="tasks-empty">What do you want to work on today?</li>
           </ul>
 
           <!-- Add task -->
@@ -259,51 +259,51 @@ const websiteSchema = {
     <div class="bg-canvas rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-4 sm:p-5 border-t-2 border-t-green-500/20">
         <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-1.5">
         <svg class="w-4 h-4 text-link shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
-        <h2 class="text-lg font-extrabold text-ink tracking-tight">Today at a glance</h2>
+        <h2 class="text-lg font-bold text-ink">Today at a glance</h2>
           </div>
 
-          <!-- 2×2 metrics grid -->
-          <div class="grid grid-cols-2 gap-2.5">
+          <!-- Horizontal metrics row -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             <!-- Sessions Today -->
-            <div class="bg-canvas-soft-2/60 rounded-xl p-3 border border-hairline/50">
-              <span class="text-[11px] font-bold uppercase text-mute/70 tracking-widest">Sessions</span>
-              <div class="flex items-baseline gap-1 mt-0.5">
-                <span id="stat-sessions" class="text-5xl sm:text-6xl font-black text-ink tracking-tight leading-none">0</span>
+            <div>
+              <span class="text-[10px] font-bold text-mute uppercase tracking-wider">Sessions</span>
+              <div class="flex items-baseline gap-1 mt-1">
+                <span id="stat-sessions" class="text-xl font-bold text-ink tracking-tight">0</span>
                 <span class="text-xs text-mute font-semibold">/ <span id="stat-goal-total">4</span></span>
               </div>
-              <div class="w-full h-1.5 bg-hairline/60 rounded-full overflow-hidden mt-1.5 ring-1 ring-inset ring-black/[0.03]">
-                <div id="stat-goal-bar" class="bg-gradient-to-r from-link to-blue-400 h-full rounded-full transition-all duration-500" style="width:0%"></div>
+              <div class="w-full h-1 bg-hairline/60 rounded-full overflow-hidden mt-1.5 ring-1 ring-inset ring-black/[0.03]">
+                <div id="stat-goal-bar" class="bg-link h-full rounded-full transition-all duration-500" style="width:0%"></div>
               </div>
             </div>
 
             <!-- Tasks Completed -->
-            <div class="bg-canvas-soft-2/60 rounded-xl p-3 border border-hairline/50">
-              <span class="text-[11px] font-bold uppercase text-mute/70 tracking-widest">Tasks done</span>
+            <div>
+              <span class="text-[10px] font-bold text-mute uppercase tracking-wider">Tasks done</span>
               <div class="flex items-baseline gap-1 mt-1">
-                <span id="stat-tasks" class="text-5xl sm:text-6xl font-black text-green-500 tracking-tight leading-none">0</span>
+                <span id="stat-tasks" class="text-xl font-bold text-green-500 tracking-tight">0</span>
                 <span class="text-xs text-mute font-semibold">tasks</span>
               </div>
-              <div id="tasks-completed-sub" class="text-sm text-mute/60 mt-2 font-medium">Add a task to get started</div>
+              <div id="tasks-completed-sub" class="text-xs text-mute/60 mt-1 font-medium">Add a task to get started</div>
             </div>
 
             <!-- Focus Time -->
-            <div class="bg-canvas-soft-2/60 rounded-xl p-3 border border-hairline/50">
-              <span class="text-[11px] font-bold uppercase text-mute/70 tracking-widest">Time spent</span>
+            <div>
+              <span class="text-[10px] font-bold text-mute uppercase tracking-wider">Time spent</span>
               <div class="flex items-baseline gap-1 mt-1">
-                <span id="stat-total-time" class="text-5xl sm:text-6xl font-black text-link tracking-tight leading-none">0m</span>
+                <span id="stat-total-time" class="text-xl font-bold text-link tracking-tight">0m</span>
               </div>
-              <div class="text-sm text-mute/60 mt-2 font-medium">⏱ Ready when you are</div>
+              <div class="text-xs text-mute/60 mt-1 font-medium">⏱ Ready when you are</div>
             </div>
 
             <!-- Focus Score -->
-            <div class="bg-canvas-soft-2/60 rounded-xl p-3 border border-hairline/50">
-              <span class="text-[11px] font-bold uppercase text-mute/70 tracking-widest">Focus score</span>
+            <div>
+              <span class="text-[10px] font-bold text-mute uppercase tracking-wider">Focus score</span>
               <div class="flex items-baseline gap-1 mt-1">
-                <span id="stat-focus-score" class="text-5xl sm:text-6xl font-black text-ink tracking-tight leading-none">0</span>
+                <span id="stat-focus-score" class="text-xl font-bold text-ink tracking-tight">0</span>
                 <span class="text-xs text-mute font-semibold">/100</span>
               </div>
               <span id="focus-score-label" class="text-[11px] font-semibold text-link hidden"></span>
-              <div id="focus-score-label-fallback" class="text-sm text-mute/60 mt-2 font-medium">Start a session to see your focus score</div>
+              <div id="focus-score-label-fallback" class="text-xs text-mute/60 mt-1 font-medium">Start a session to see your focus score</div>
             </div>
           </div>
 
@@ -322,7 +322,7 @@ const websiteSchema = {
       <div class="bg-violet-50/30 dark:bg-violet-500/[0.04] rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-4 sm:p-5 border-t-2 border-t-violet-500/20">
           <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-1.5">
           <svg class="w-4 h-4 text-violet-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <h2 class="text-lg font-extrabold text-ink tracking-tight">A note for today</h2>
+          <h2 class="text-lg font-bold text-ink">A note for today</h2>
           <span id="timeline-badge" class="text-[11px] font-bold uppercase tracking-widest text-violet-500/60 ml-auto"></span>
         </div>
         <div id="daily-timeline-content" class="space-y-0.5">
@@ -340,7 +340,7 @@ const websiteSchema = {
       <div class="bg-canvas rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-4 sm:p-5 border-t-2 border-t-orange-500/20">
         <div class="flex items-center gap-2 mb-3 border-b border-hairline/10 pb-2">
           <svg class="w-4 h-4 text-orange-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          <h2 class="text-lg font-extrabold text-ink tracking-tight">Your focus streak</h2>
+          <h2 class="text-lg font-bold text-ink">Your streak</h2>
         </div>
 
         <!-- Streak metrics -->
@@ -395,7 +395,7 @@ const websiteSchema = {
     <div class="bg-amber-50/30 dark:bg-amber-500/[0.04] rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-5 sm:p-6 border-t-2 border-t-amber-500/20">
         <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-1.5">
             <svg class="w-4 h-4 text-amber-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <h2 class="text-lg font-extrabold text-ink tracking-tight">Recent sessions</h2>
+        <h2 class="text-lg font-bold text-ink">Recent sessions</h2>
         <span id="activity-feed-badge" class="text-[11px] font-bold uppercase tracking-widest text-mute/60 ml-auto"></span>
       </div>
       <div id="activity-feed-content" class="space-y-1.5">
@@ -1978,7 +1978,7 @@ const websiteSchema = {
       tasksList.innerHTML = '';
       const emptyEl = document.createElement('li');
       emptyEl.className = 'text-xs text-body/50 text-center py-6';
-      emptyEl.innerHTML = '<div class="text-lg mb-1">🌱</div>What would you like to make progress on today?';
+      emptyEl.innerHTML = '<div class="text-lg mb-1">🌱</div>What do you want to work on today?';
       tasksList.appendChild(emptyEl);
       updateTaskCount();
       updateTaskMetrics();
