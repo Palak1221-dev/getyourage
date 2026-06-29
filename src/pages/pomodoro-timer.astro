@@ -49,29 +49,29 @@ const websiteSchema = {
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
-  <!-- ===== DASHBOARD HEADER ===== -->
-  <div class="max-w-[1440px] mx-auto px-4 pt-3 pb-0">
-    <div class="flex items-center justify-between">
-      <div>
-        <h1 class="text-4xl lg:text-5xl font-black text-ink tracking-tight leading-none">Focus on one thing.</h1>
-        <p class="text-sm sm:text-base text-mute/60 mt-0.5">A timer that helps you do your best work — one block at a time.</p>
-      </div>
+  <!-- ===== HERO SECTION ===== -->
+  <div class="max-w-[1440px] mx-auto px-4 pt-4 pb-1">
+    <div>
+      <h1 class="text-4xl lg:text-5xl font-black text-ink tracking-tight leading-[1.08]">Focus on one thing.</h1>
+      <p class="text-sm sm:text-base text-mute/60 mt-1">One focused block can change your day.</p>
     </div>
   </div>
 
-  <!-- ===== MAIN GRID: LEFT (5) + RIGHT (7) ===== -->
-  <div class="max-w-[1440px] mx-auto px-4 pb-2">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-4 items-start">
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="max-w-[1440px] mx-auto px-4 pb-2 space-y-4">
 
-      <!-- ===== TODAY'S FOCUS (tasks) - first on mobile ===== -->
-      <div class="lg:col-span-5">
+    <!-- ── ROW 1: Today's Focus + Timer ── -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
+
+      <!-- Today's Focus -->
+      <div>
 
         <!-- ── TODAY'S FOCUS ── -->
-        <div class="bg-canvas rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.06)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-4 sm:p-5 border-t-2 border-t-link/20">
+        <div class="bg-canvas rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-4 sm:p-5 border-t-2 border-t-link/20">
             <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-1.5">
             <svg class="w-4 h-4 text-link shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            <h2 class="text-2xl font-bold text-ink tracking-tight">Today's Focus</h2>
-            <span id="tasks-count" class="text-[11px] font-bold uppercase tracking-widest text-mute/60 ml-auto bg-canvas-soft-2 px-2 py-0.5 rounded-full border border-hairline/40">0 tasks</span>
+            <h2 class="text-lg font-extrabold text-ink tracking-tight">Today's Focus</h2>
+            <span id="tasks-count" class="text-[11px] font-bold uppercase tracking-widest text-mute/60 ml-auto bg-canvas-soft-2 px-2 py-0.5 rounded-full border border-hairline/40">🌱 Nothing planned</span>
           </div>
 
           <!-- Task checklist -->
@@ -121,8 +121,8 @@ const websiteSchema = {
         </div>
       </div>
 
-      <!-- ===== TIMER - second on mobile, right column on desktop ===== -->
-      <div class="lg:col-span-7 lg:sticky lg:top-4 lg:[grid-row:span_2]">
+      <!-- Timer -->
+      <div class="lg:sticky lg:top-4">
         <div class="bg-gradient-to-b from-link/[0.05] via-link/[0.02] to-canvas rounded-2xl border border-hairline/50 shadow-[0_8px_32px_rgba(0,0,0,0.12)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-5 border-t-2 border-t-link/20">
 
           <!-- Mode Tabs -->
@@ -135,13 +135,13 @@ const websiteSchema = {
           <!-- Timer -->
           <div class="flex flex-col items-center">
             <div id="timer-ring-container" class="relative w-full max-w-[320px] sm:max-w-[340px] md:max-w-[360px] aspect-square mx-auto flex items-center justify-center">
-              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 256 256" style="filter: drop-shadow(0 0 20px rgba(59,130,246,0.25))">
+              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 256 256" style="filter: drop-shadow(0 0 12px rgba(59,130,246,0.15))">
                 <defs>
-                  <filter id="ring-glow"><feGaussianBlur stdDeviation="8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                  <filter id="ring-glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
                 </defs>
-                <circle cx="128" cy="128" r="120" stroke="currentColor" stroke-width="1" fill="transparent" class="text-link/[0.06]" />
-                <circle cx="128" cy="128" r="116" stroke="currentColor" stroke-width="4" fill="transparent" class="text-hairline/30" />
-                <circle id="timer-progress-ring" cx="128" cy="128" r="116" stroke="currentColor" stroke-width="10" fill="transparent" stroke-dasharray="728.85" stroke-dashoffset="0" stroke-linecap="round" class="text-link transition-all duration-1000 ease-linear drop-shadow-[0_0_12px_rgba(59,130,246,0.6)]" filter="url(#ring-glow)" />
+                <circle cx="128" cy="128" r="120" stroke="currentColor" stroke-width="1" fill="transparent" class="text-link/[0.04]" />
+                <circle cx="128" cy="128" r="116" stroke="currentColor" stroke-width="4" fill="transparent" class="text-hairline/20" />
+                <circle id="timer-progress-ring" cx="128" cy="128" r="116" stroke="currentColor" stroke-width="10" fill="transparent" stroke-dasharray="728.85" stroke-dashoffset="0" stroke-linecap="round" class="text-link transition-all duration-1000 ease-linear drop-shadow-[0_0_8px_rgba(59,130,246,0.35)]" filter="url(#ring-glow)" />
               </svg>
               <div class="absolute flex flex-col items-center justify-center select-none">
                 <span id="timer-display" class="text-6xl sm:text-7xl md:text-8xl font-black tracking-tighter text-ink tabular-nums leading-none">25:00</span>
@@ -253,15 +253,13 @@ const websiteSchema = {
             <div id="intention-card" class="hidden"><p id="intention-text"></p></div>
           </div>
         </div>
+    </div>
 
-      <!-- ===== PROGRESS + STREAK + TIMELINE ===== -->
-      <div class="lg:col-span-5 space-y-3">
-
-        <!-- ── TODAY'S PROGRESS ── -->
-        <div class="bg-canvas rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.06)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-4 sm:p-5 border-t-2 border-t-green-500/20">
-            <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-1.5">
-            <svg class="w-4 h-4 text-link shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
-            <h2 class="text-2xl font-bold text-ink tracking-tight">How it's going</h2>
+    <!-- ── ROW 2: Today at a glance ── -->
+    <div class="bg-canvas rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-4 sm:p-5 border-t-2 border-t-green-500/20">
+        <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-1.5">
+        <svg class="w-4 h-4 text-link shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+        <h2 class="text-lg font-extrabold text-ink tracking-tight">Today at a glance</h2>
           </div>
 
           <!-- 2×2 metrics grid -->
@@ -269,8 +267,8 @@ const websiteSchema = {
             <!-- Sessions Today -->
             <div class="bg-canvas-soft-2/60 rounded-xl p-3 border border-hairline/50">
               <span class="text-[11px] font-bold uppercase text-mute/70 tracking-widest">Sessions</span>
-              <div class="flex items-baseline gap-1 mt-1">
-                <span id="stat-sessions" class="text-5xl sm:text-6xl font-black text-ink tracking-tight">0</span>
+              <div class="flex items-baseline gap-1 mt-0.5">
+                <span id="stat-sessions" class="text-5xl sm:text-6xl font-black text-ink tracking-tight leading-none">0</span>
                 <span class="text-xs text-mute font-semibold">/ <span id="stat-goal-total">4</span></span>
               </div>
               <div class="w-full h-1.5 bg-hairline/60 rounded-full overflow-hidden mt-1.5 ring-1 ring-inset ring-black/[0.03]">
@@ -282,56 +280,71 @@ const websiteSchema = {
             <div class="bg-canvas-soft-2/60 rounded-xl p-3 border border-hairline/50">
               <span class="text-[11px] font-bold uppercase text-mute/70 tracking-widest">Tasks done</span>
               <div class="flex items-baseline gap-1 mt-1">
-                <span id="stat-tasks" class="text-5xl sm:text-6xl font-black text-green-500 tracking-tight">0</span>
+                <span id="stat-tasks" class="text-5xl sm:text-6xl font-black text-green-500 tracking-tight leading-none">0</span>
                 <span class="text-xs text-mute font-semibold">tasks</span>
               </div>
-              <div id="tasks-completed-sub" class="text-sm text-mute/60 mt-2 font-medium">Add a task below to begin</div>
+              <div id="tasks-completed-sub" class="text-sm text-mute/60 mt-2 font-medium">Add a task to get started</div>
             </div>
 
             <!-- Focus Time -->
             <div class="bg-canvas-soft-2/60 rounded-xl p-3 border border-hairline/50">
               <span class="text-[11px] font-bold uppercase text-mute/70 tracking-widest">Time spent</span>
               <div class="flex items-baseline gap-1 mt-1">
-                <span id="stat-total-time" class="text-5xl sm:text-6xl font-black text-link tracking-tight">0m</span>
+                <span id="stat-total-time" class="text-5xl sm:text-6xl font-black text-link tracking-tight leading-none">0m</span>
               </div>
-              <div class="text-sm text-mute/60 mt-2 font-medium">Start a session to begin tracking</div>
+              <div class="text-sm text-mute/60 mt-2 font-medium">⏱ Ready when you are</div>
             </div>
 
             <!-- Focus Score -->
             <div class="bg-canvas-soft-2/60 rounded-xl p-3 border border-hairline/50">
               <span class="text-[11px] font-bold uppercase text-mute/70 tracking-widest">Focus score</span>
               <div class="flex items-baseline gap-1 mt-1">
-                <span id="stat-focus-score" class="text-5xl sm:text-6xl font-black text-ink tracking-tight">0</span>
+                <span id="stat-focus-score" class="text-5xl sm:text-6xl font-black text-ink tracking-tight leading-none">0</span>
                 <span class="text-xs text-mute font-semibold">/100</span>
               </div>
               <span id="focus-score-label" class="text-[11px] font-semibold text-link hidden"></span>
-              <div id="focus-score-label-fallback" class="text-sm text-mute/60 mt-2 font-medium">Your first session will set your baseline</div>
-            </div>
-          </div>
-
-          <!-- Analytics detail row -->
-          <div class="grid grid-cols-2 gap-2 mt-2">
-            <div class="bg-canvas-soft-2/40 rounded-lg p-2 border border-hairline/30">
-              <span class="text-[9px] font-bold uppercase tracking-widest text-mute/50 block">Completion</span>
-              <span id="analytics-completion-rate" class="text-sm font-bold text-ink">—</span>
-              <span id="analytics-completion-label" class="text-[10px] text-mute/50 block"></span>
-            </div>
-            <div class="bg-canvas-soft-2/40 rounded-lg p-2 border border-hairline/30">
-              <span class="text-[9px] font-bold uppercase tracking-widest text-mute/50 block">Best period</span>
-              <span id="analytics-best-period" class="text-sm font-bold text-ink">—</span>
+              <div id="focus-score-label-fallback" class="text-sm text-mute/60 mt-2 font-medium">Start a session to see your focus score</div>
             </div>
           </div>
 
           <!-- Encouragement -->
-          <p id="stat-encouragement" class="text-sm text-mute/70 mt-3 pt-3 border-t border-hairline/30">Pick a task, set the timer, and take the first step.</p>
+          <p id="stat-encouragement" class="text-sm text-mute/70 mt-3 pt-3 border-t border-hairline/30 leading-relaxed">🌱 Small progress still counts. Start where you are.</p>
 
           <!-- Hidden (preserved for JS) -->
           <span id="session-counter-text" class="hidden"></span>
           <span id="stat-goal-percentage" class="hidden">0%</span>
         </div>
 
-        <!-- ── STREAK + BEST (secondary bar) ── -->
-        <div class="bg-canvas rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.06)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-3 sm:p-4 flex items-center gap-3 sm:gap-4 flex-wrap border-t-2 border-t-orange-500/20">
+    <!-- ── ROW 3: A note for today + Your focus streak ── -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
+
+      <!-- A note for today -->
+      <div class="bg-violet-50/30 dark:bg-violet-500/[0.04] rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-4 sm:p-5 border-t-2 border-t-violet-500/20">
+          <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-1.5">
+          <svg class="w-4 h-4 text-violet-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <h2 class="text-lg font-extrabold text-ink tracking-tight">A note for today</h2>
+          <span id="timeline-badge" class="text-[11px] font-bold uppercase tracking-widest text-violet-500/60 ml-auto"></span>
+        </div>
+        <div id="daily-timeline-content" class="space-y-0.5">
+          <div id="focus-insight-card" class="text-center py-3">
+            <div class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-violet-500/10 mb-2">
+              <svg class="w-3.5 h-3.5 text-violet-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </div>
+            <p id="focus-insight-text" class="text-sm font-medium text-body/80 leading-relaxed max-w-[400px] mx-auto">Set a short timer and begin. Progress comes from showing up, not from planning every detail.</p>
+            <button id="focus-insight-refresh" class="mt-1.5 text-sm font-semibold text-mute hover:text-link transition-colors cursor-pointer" aria-label="Show another insight">Show another</button>
+          </div>
+        </div>
+    </div>
+
+      <!-- Your focus streak -->
+      <div class="bg-canvas rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-4 sm:p-5 border-t-2 border-t-orange-500/20">
+        <div class="flex items-center gap-2 mb-3 border-b border-hairline/10 pb-2">
+          <svg class="w-4 h-4 text-orange-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <h2 class="text-lg font-extrabold text-ink tracking-tight">Your focus streak</h2>
+        </div>
+
+        <!-- Streak metrics -->
+        <div class="flex items-center gap-3 sm:gap-4 flex-wrap mb-3 pb-3 border-b border-hairline/20">
           <div class="flex items-center gap-2">
             <span class="text-sm text-orange-500">🔥</span>
             <span class="text-xs font-bold uppercase tracking-widest text-mute/70">Streak</span>
@@ -351,35 +364,17 @@ const websiteSchema = {
             <span class="text-xs font-bold uppercase tracking-widest text-mute/70">Score</span>
             <span id="dash-score" class="text-xl font-black text-link">0</span>
           </div>
-            <span id="streak-context" class="text-sm text-mute/60 ml-auto hidden sm:inline"></span>
+          <span id="streak-context" class="text-xs text-mute/60 ml-auto hidden sm:inline"></span>
         </div>
 
-        <!-- ── TODAY'S TIMELINE ── -->
-        <div class="bg-violet-50/30 dark:bg-violet-500/[0.04] rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.06)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-4 sm:p-5 border-t-2 border-t-violet-500/20">
-            <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-1.5">
-            <svg class="w-4 h-4 text-violet-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <h2 class="text-2xl font-bold text-ink tracking-tight">Your day</h2>
-            <span id="timeline-badge" class="text-[11px] font-bold uppercase tracking-widest text-violet-500/60 ml-auto"></span>
-          </div>
-          <div id="daily-timeline-content" class="space-y-0.5">
-            <div id="focus-insight-card" class="text-center py-3">
-              <div class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-violet-500/10 mb-2">
-                <svg class="w-3.5 h-3.5 text-violet-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-              </div>
-              <p id="focus-insight-text" class="text-sm font-medium text-body/80 leading-relaxed max-w-[400px] mx-auto">Set a short timer and begin. Progress comes from showing up, not from planning every detail.</p>
-              <button id="focus-insight-refresh" class="mt-1.5 text-sm font-semibold text-mute hover:text-link transition-colors cursor-pointer" aria-label="Show another insight">Show another</button>
-            </div>
-          </div>
-      </div>
-        <!-- ── WEEKLY HEATMAP ── -->
-        <div class="bg-canvas rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.06)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-4 sm:p-5 border-t-2 border-t-violet-500/20">
-            <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-2">
-            <svg class="w-4 h-4 text-violet-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-            <h2 class="text-sm font-extrabold text-ink tracking-tight">Week at a glance</h2>
-            <span id="heatmap-week-label" class="text-[11px] font-bold uppercase tracking-widest text-violet-500/60 ml-auto"></span>
+        <!-- Weekly heatmap -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold uppercase tracking-widest text-mute/70">This week</span>
+            <span id="heatmap-week-label" class="text-xs font-semibold text-mute/60"></span>
           </div>
           <div id="weekly-heatmap" class="flex gap-1.5 min-h-[28px] items-end">
-            <div class="text-xs text-mute/50 w-full text-center py-2">Loading...</div>
+            <div class="text-xs text-mute/50 w-full text-center py-2">No sessions yet</div>
           </div>
           <div class="flex items-center gap-2 mt-2.5 pt-2 border-t border-hairline/20">
             <span class="text-[10px] text-mute/40 font-medium">Less</span>
@@ -396,30 +391,28 @@ const websiteSchema = {
       </div>
     </div>
 
-      <!-- ===== ACTIVITY FEED (full width, below main grid) ===== -->
-      <div class="mt-4">
-        <div class="bg-amber-50/30 dark:bg-amber-500/[0.04] rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.06)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-5 sm:p-6 border-t-2 border-t-amber-500/20">
-            <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-1.5">
-                <svg class="w-4 h-4 text-amber-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <h2 class="text-2xl font-bold text-ink tracking-tight">Recent sessions</h2>
-            <span id="activity-feed-badge" class="text-[11px] font-bold uppercase tracking-widest text-mute/60 ml-auto"></span>
+    <!-- ── ROW 4: Recent Sessions ── -->
+    <div class="bg-amber-50/30 dark:bg-amber-500/[0.04] rounded-2xl border border-hairline/50 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-5 sm:p-6 border-t-2 border-t-amber-500/20">
+        <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-1.5">
+            <svg class="w-4 h-4 text-amber-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <h2 class="text-lg font-extrabold text-ink tracking-tight">Recent sessions</h2>
+        <span id="activity-feed-badge" class="text-[11px] font-bold uppercase tracking-widest text-mute/60 ml-auto"></span>
+      </div>
+      <div id="activity-feed-content" class="space-y-1.5">
+        <div class="flex flex-col items-center justify-center py-6 text-center">
+          <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-500/5 mb-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
+            <svg class="w-6 h-6 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
           </div>
-          <div id="activity-feed-content" class="space-y-1.5">
-            <div class="flex flex-col items-center justify-center py-6 text-center">
-              <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-500/5 mb-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
-                <svg class="w-6 h-6 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-              </div>
-              <p class="text-base font-medium text-body/80 max-w-[340px] leading-relaxed">Ready when you are. Add a task, pick a duration, and press start.</p>
-              <div class="flex gap-2 mt-4">
-                <button class="quick-start-btn text-sm font-bold px-4 py-2 rounded-lg border border-hairline/40 bg-link/[0.04] hover:bg-link/[0.08] hover:border-link/20 transition-all cursor-pointer active:scale-95 text-ink" data-template="Study">Study</button>
-                <button class="quick-start-btn text-sm font-bold px-4 py-2 rounded-lg border border-hairline/40 bg-amber-500/[0.04] hover:bg-amber-500/[0.08] hover:border-amber-500/20 transition-all cursor-pointer active:scale-95 text-ink" data-template="Writing">Writing</button>
-                <button class="quick-start-btn text-sm font-bold px-4 py-2 rounded-lg border border-hairline/40 bg-sky-500/[0.04] hover:bg-sky-500/[0.08] hover:border-sky-500/20 transition-all cursor-pointer active:scale-95 text-ink" data-template="Coding">Coding</button>
-                <button class="quick-start-btn text-sm font-bold px-4 py-2 rounded-lg border border-hairline/40 bg-green-500/[0.04] hover:bg-green-500/[0.08] hover:border-green-500/20 transition-all cursor-pointer active:scale-95 text-ink" data-template="Reading">Reading</button>
-              </div>
-            </div>
+          <p class="text-base font-medium text-body/80 max-w-[340px] leading-relaxed">Your sessions will show up here. Start a focus block to begin.</p>
+          <div class="flex gap-2 mt-4">
+            <button class="quick-start-btn text-sm font-bold px-4 py-2 rounded-lg border border-hairline/40 bg-link/[0.04] hover:bg-link/[0.08] hover:border-link/20 transition-all cursor-pointer active:scale-95 text-ink" data-template="Study">Study</button>
+            <button class="quick-start-btn text-sm font-bold px-4 py-2 rounded-lg border border-hairline/40 bg-amber-500/[0.04] hover:bg-amber-500/[0.08] hover:border-amber-500/20 transition-all cursor-pointer active:scale-95 text-ink" data-template="Writing">Writing</button>
+            <button class="quick-start-btn text-sm font-bold px-4 py-2 rounded-lg border border-hairline/40 bg-sky-500/[0.04] hover:bg-sky-500/[0.08] hover:border-sky-500/20 transition-all cursor-pointer active:scale-95 text-ink" data-template="Coding">Coding</button>
+            <button class="quick-start-btn text-sm font-bold px-4 py-2 rounded-lg border border-hairline/40 bg-green-500/[0.04] hover:bg-green-500/[0.08] hover:border-green-500/20 transition-all cursor-pointer active:scale-95 text-ink" data-template="Reading">Reading</button>
           </div>
         </div>
       </div>
+    </div>
 
     <!-- ===== HIDDEN DATA-BINDING ELEMENTS (preserved for JS compatibility) ===== -->
     <div class="hidden">
@@ -651,18 +644,18 @@ const websiteSchema = {
   const DEFAULT_SHORT = 5;
   const DEFAULT_LONG = 15;
   const DEFAULT_GOAL = 4;
-  const GREETINGS = ["Whenever you're ready.", "One block at a time.", "You're here — that's enough."];
-  const WARM_ENCOURAGEMENTS = ["Showing up is how things get built.", "Steady and present — that's the way.", "No need to be perfect. Just be here.", "You don't need a perfect plan. Just start.", "Be kind to yourself. This is enough."];
+  const GREETINGS = ["Whenever you're ready.", "One block at a time.", "You're here — that's enough.", "Small steps add up.", "Be kind to yourself today."];
+  const WARM_ENCOURAGEMENTS = ["Showing up is how things get built.", "Steady and present — that's the way.", "No need to be perfect. Just be here.", "You don't need a perfect plan. Just start.", "Be kind to yourself. This is enough.", "One focus block can change your day.", "You're doing better than you think."];
 
   const FOCUS_INSIGHTS = [
-    "A 25-minute block is all it takes. Short enough to start, long enough to matter.",
-    "The best session length? The one you actually begin. Stop planning, start doing.",
-    "Write down one clear goal before each session. Clarity before momentum.",
-    "Short breaks aren't distractions — they're how your brain locks in learning.",
-    "Track your outcomes. Patterns emerge when you pay attention to what works.",
-    "Consistency compounds. Five short sessions this week > one marathon.",
-    "Your attention is a muscle. Every session is a rep. Keep showing up.",
-    "The hardest part is the first minute. After that, momentum carries you.",
+    "🌱 Small progress still counts. Showing up is what matters.",
+    "☕ One focused block is enough to shift your day.",
+    "📚 Consistency beats intensity every time.",
+    "✍️ Done is better than perfect. Start before you're ready.",
+    "🎯 A clear intention changes everything. Name what you want to accomplish.",
+    "💡 Your mind needs rest to focus deeply. Breaks aren't weakness.",
+    "🔥 Motivation follows action. Start, and the energy will come.",
+    "🌿 You don't need to be productive all day. A few good blocks are enough.",
   ];
 
   const QUICK_START_TEMPLATES = ['Study', 'Writing', 'Coding', 'Reading'];
@@ -1159,7 +1152,7 @@ const websiteSchema = {
 
     if (progressStreakCount) progressStreakCount.textContent = streak.toString();
     if (progressStreakText) {
-      if (streak === 0) progressStreakText.textContent = 'Start today to begin your streak.';
+      if (streak === 0) progressStreakText.textContent = '🔥 Start your streak today';
       else if (streak === 1) progressStreakText.textContent = 'One day down. Come back tomorrow.';
       else if (streak <= 3) progressStreakText.textContent = `${streak} days strong! Building momentum.`;
       else if (streak <= 6) progressStreakText.textContent = `${streak} days! You're on fire!`;
@@ -1169,7 +1162,7 @@ const websiteSchema = {
 
     if (progressBestCount) progressBestCount.textContent = longest.toString();
     if (progressBestText) {
-      if (longest === 0) progressBestText.textContent = 'Complete your first session.';
+      if (longest === 0) progressBestText.textContent = 'Complete a session to set your best';
       else if (streak >= longest && streak > 0) progressBestText.textContent = 'Tying your best! Push for tomorrow.';
       else {
         const target = longest + 1;
@@ -1181,7 +1174,7 @@ const websiteSchema = {
 
     if (progressWeeklyPct) progressWeeklyPct.textContent = `${wc}%`;
     if (progressWeeklyText) {
-      if (wc === 0) progressWeeklyText.textContent = 'Start your first session this week.';
+      if (wc === 0) progressWeeklyText.textContent = "There's still time to begin this week";
       else if (wc <= 25) progressWeeklyText.textContent = 'Early days. Every session builds momentum.';
       else if (wc <= 50) progressWeeklyText.textContent = 'Building consistency. Keep showing up!';
       else if (wc <= 75) progressWeeklyText.textContent = `Strong week! You're finding your rhythm.`;
@@ -1411,7 +1404,7 @@ const websiteSchema = {
     }
     if (focusScoreLabelFallback) {
       if (score > 0) focusScoreLabelFallback.textContent = label;
-      else focusScoreLabelFallback.textContent = 'Complete your first session';
+      else focusScoreLabelFallback.textContent = 'Start a session to see your score';
     }
 
     // Analytics enhancements
@@ -1435,7 +1428,7 @@ const websiteSchema = {
 
     const streakContext = document.getElementById('streak-context');
     if (streakContext) {
-      if (streak === 0) streakContext.textContent = 'Every streak starts with one day';
+      if (streak === 0) streakContext.textContent = '🔥 Start your streak today';
       else if (streak === 1) streakContext.textContent = 'You showed up today. That\'s how it begins.';
       else if (streak <= 3) streakContext.textContent = `${streak} days. A quiet, steady rhythm.`;
       else if (streak <= 6) streakContext.textContent = `${streak} days. Consistency is taking root.`;
@@ -1957,8 +1950,8 @@ const websiteSchema = {
     const total = tasks.length;
     if (statTasks) statTasks.textContent = completed.toString();
     if (tasksCompletedSub) {
-      if (total === 0) tasksCompletedSub.textContent = 'Add a task to begin';
-      else if (completed === 0) tasksCompletedSub.textContent = `${total} task${total > 1 ? 's' : ''} waiting for you`;
+      if (total === 0) tasksCompletedSub.textContent = 'Add a task to get started';
+      else if (completed === 0) tasksCompletedSub.textContent = `${total} task${total > 1 ? 's' : ''} waiting`;
       else if (completed === total) tasksCompletedSub.textContent = 'All tasks done. Well done.';
       else tasksCompletedSub.textContent = `${completed} of ${total} finished`;
     }
@@ -1969,7 +1962,7 @@ const websiteSchema = {
     const total = tasks.length;
     const completed = tasks.filter(t => t.completed).length;
     if (tasksCount) {
-      if (total === 0) tasksCount.textContent = '0 tasks';
+      if (total === 0) tasksCount.textContent = '🌱 Nothing planned';
       else if (completed === total) tasksCount.textContent = `${total}/${total} done`;
       else tasksCount.textContent = `${total} tasks`;
     }
@@ -2157,7 +2150,7 @@ const websiteSchema = {
           <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-sky-500/20 to-sky-500/5 mb-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
             <svg class="w-6 h-6 text-sky-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
           </div>
-          <p class="text-sm font-medium text-body max-w-[340px] leading-relaxed">Ready when you are. Add a task, pick a duration, and press start.</p>
+          <p class="text-sm font-medium text-body max-w-[340px] leading-relaxed">Your sessions will show up here. Start a focus block to begin.</p>
           <div class="flex gap-2 mt-4">
             <button class="quick-start-btn text-xs font-bold px-4 py-2 rounded-lg border border-hairline/40 bg-link/[0.04] hover:bg-link/[0.08] hover:border-link/20 transition-all cursor-pointer active:scale-95 text-ink" data-template="Study">Study</button>
             <button class="quick-start-btn text-xs font-bold px-4 py-2 rounded-lg border border-hairline/40 bg-amber-500/[0.04] hover:bg-amber-500/[0.08] hover:border-amber-500/20 transition-all cursor-pointer active:scale-95 text-ink" data-template="Writing">Writing</button>
