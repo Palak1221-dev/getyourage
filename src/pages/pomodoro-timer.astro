@@ -50,7 +50,7 @@ const websiteSchema = {
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
   <!-- ===== HERO SECTION ===== -->
-  <div class="max-w-[1440px] mx-auto px-4 pt-4 pb-0">
+  <div class="max-w-[1440px] mx-auto px-4 pt-1 pb-0">
     <div>
       <h1 class="text-pretty text-2xl sm:text-3xl md:text-4xl font-black tracking-tighter text-ink leading-tight">Focus on <span class="bg-gradient-to-r from-link via-blue-500 to-indigo-600 bg-clip-text text-transparent font-black">one thing</span>.</h1>
       <p class="text-xs sm:text-sm text-ink/75 font-medium leading-relaxed mt-1">A premium focus space designed to protect your attention, rhythm, and flow.</p>
@@ -352,7 +352,7 @@ const websiteSchema = {
         </div>
 
         <div id="recent-tasks-container" class="hidden w-full">
-          <span class="text-xs font-bold uppercase tracking-widest text-mute/70 block mb-1.5">Pick a task</span>
+          <span class="text-xs font-bold uppercase tracking-widest text-ink/80 block mb-1.5">Pick a task</span>
           <div id="recent-tasks-list" class="flex flex-wrap gap-1.5"></div>
         </div>
 
@@ -420,7 +420,7 @@ const websiteSchema = {
   <!-- ===== FOCUS MODE OVERLAY ===== -->
   <div id="focus-mode-overlay" class="hidden fixed inset-0 z-40 flex items-center justify-center bg-canvas/95 backdrop-blur-xl">
     <div class="flex flex-col items-center justify-center w-full h-full px-6">
-      <p id="focus-mode-task" class="text-base font-medium text-mute/60 mb-4 max-w-md text-center truncate">—</p>
+      <p id="focus-mode-task" class="text-base font-medium text-ink/70 mb-4 max-w-md text-center truncate">—</p>
       <div class="relative mb-6">
         <span id="focus-mode-timer" class="text-8xl sm:text-9xl font-black tracking-tighter text-ink tabular-nums leading-none">25:00</span>
         <span id="focus-mode-status" class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-xs font-bold uppercase tracking-widest text-link/70 whitespace-nowrap">Focus time</span>
@@ -449,7 +449,7 @@ const websiteSchema = {
         <h3 id="outcome-modal-title" class="text-lg font-extrabold text-ink">Nice work</h3>
       </div>
           <div class="bg-canvas-soft-2/50 rounded-xl p-3 border border-hairline/30 mb-3">
-            <span class="text-[11px] font-bold uppercase tracking-widest text-mute/70">Your task</span>
+            <span class="text-[11px] font-bold uppercase tracking-widest text-ink/80">Your task</span>
             <p id="outcome-modal-task" class="text-sm font-bold text-ink mt-0.5 truncate">—</p>
       </div>
       <p class="text-sm font-bold text-body/80 text-center mb-2.5">How did it go?</p>

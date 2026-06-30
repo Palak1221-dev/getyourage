@@ -479,7 +479,7 @@
       `<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full border text-[10px] font-medium transition-colors ${
         a.earned
           ? 'bg-canvas-soft border-hairline text-ink'
-          : 'bg-transparent border-hairline/30 text-mute/40'
+          : 'bg-transparent border-hairline/30 text-ink/55'
       }">${a.icon} ${a.label}</span>`
     ).join('');
   };
@@ -1362,7 +1362,7 @@
       textWrap.className = 'flex-1 min-w-0';
 
       const textSpan = document.createElement('span');
-      textSpan.className = `text-sm font-semibold block truncate transition-colors ${task.completed ? 'text-mute/50 line-through' : 'text-ink'}`;
+      textSpan.className = `text-sm font-semibold block truncate transition-colors ${task.completed ? 'text-ink/65 line-through' : 'text-ink'}`;
       textSpan.textContent = task.text;
       textWrap.appendChild(textSpan);
 
@@ -1398,7 +1398,7 @@
       const delBtn = document.createElement('button');
       delBtn.type = 'button';
       delBtn.title = 'Delete task';
-      delBtn.className = 'w-7 h-7 rounded-lg text-mute/40 hover:text-red-400 hover:bg-red-500/10 flex items-center justify-center transition-all';
+      delBtn.className = 'w-7 h-7 rounded-lg text-ink/55 hover:text-red-400 hover:bg-red-500/10 flex items-center justify-center transition-all';
       delBtn.innerHTML = '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
       delBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -1560,7 +1560,7 @@
       activeTaskContextName.className = 'text-sm font-bold text-ink truncate';
     } else {
       activeTaskContextName.textContent = 'Select or add a task above';
-      activeTaskContextName.className = 'text-sm font-medium text-mute/60 truncate';
+      activeTaskContextName.className = 'text-sm font-medium text-ink/70 truncate';
     }
 
     // Update session counter
