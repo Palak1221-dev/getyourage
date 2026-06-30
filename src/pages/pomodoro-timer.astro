@@ -68,7 +68,7 @@ const websiteSchema = {
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-3 lg:gap-4 items-start">
 
             <!-- ===== LEFT COLUMN (Focus, Glance, Recent) ===== -->
-      <div class="order-1 flex flex-col gap-3 lg:col-start-1 lg:row-start-1 lg:row-end-4 w-full">
+      <div class="order-2 flex flex-col gap-3 lg:col-start-1 lg:row-start-1 lg:row-end-4 w-full">
         <div aria-busy="true" class="bg-canvas rounded-2xl border border-link/15 border-t-[3px] border-t-link shadow-[0_8px_30px_rgba(37,99,235,0.05)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-3.5 sm:p-4 transition-colors duration-300 hover:shadow-[0_12px_40px_rgba(37,99,235,0.08)] hover:border-link/25">
             <div class="flex items-center gap-2 mb-1.5 border-b border-hairline/10 pb-1">
             <svg class="w-4 h-4 text-link shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>
@@ -254,7 +254,7 @@ const websiteSchema = {
       </div>
 
       <!-- 2. TIMER + SETTINGS + WIDGETS -->
-      <div class="order-2 flex flex-col gap-3 lg:col-start-2 lg:row-start-1 lg:row-end-4 lg:sticky lg:top-4" style="overscroll-behavior: contain"><div aria-busy="true" class="bg-gradient-to-b from-link/[0.05] via-link/[0.02] to-canvas rounded-2xl border border-link/20 border-t-[4px] border-t-link shadow-[0_20px_50px_rgba(37,99,235,0.08)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-3 transition-colors duration-300 hover:shadow-[0_24px_60px_rgba(37,99,235,0.12)] hover:border-link/30">
+      <div class="order-1 flex flex-col gap-3 lg:col-start-2 lg:row-start-1 lg:row-end-4 lg:sticky lg:top-4" style="overscroll-behavior: contain"><div aria-busy="true" class="bg-gradient-to-b from-link/[0.05] via-link/[0.02] to-canvas rounded-2xl border border-link/20 border-t-[4px] border-t-link shadow-[0_20px_50px_rgba(37,99,235,0.08)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-3 transition-colors duration-300 hover:shadow-[0_24px_60px_rgba(37,99,235,0.12)] hover:border-link/30">
             <div class="flex gap-0.5 p-1 bg-link/[0.06] rounded-full w-full max-w-[300px] mx-auto mb-1.5">
               <button type="button" id="mode-pomodoro" class="flex-1 py-1.5 text-xs sm:text-sm font-bold rounded-full transition-all cursor-pointer bg-link text-white shadow-[0_2px_8px_rgba(37,99,235,0.25)] ring-1 ring-link/20" aria-label="Switch to Pomodoro focus session" style="touch-action: manipulation">Pomodoro</button><button type="button" id="mode-short" class="flex-1 py-1.5 text-xs sm:text-sm font-bold text-body/70 hover:text-ink rounded-full transition-all cursor-pointer" aria-label="Switch to short break" style="touch-action: manipulation">Short Break</button><button type="button" id="mode-long" class="flex-1 py-1.5 text-xs sm:text-sm font-bold text-body/70 hover:text-ink rounded-full transition-all cursor-pointer" aria-label="Switch to long break" style="touch-action: manipulation">Long Break</button></div>
             <div class="flex flex-col items-center gap-1.5">
