@@ -671,7 +671,7 @@
     const goal = parseInt(localStorage.getItem('pomodoro_goal') || '') || DEFAULT_GOAL;
 
     if (statSessions) statSessions.textContent = sessions.toString();
-    if (statGoalTotal) statGoalTotal.textContent = `/ ${goal}`;
+    if (statGoalTotal) statGoalTotal.textContent = goal.toString();
     if (statGoalNumber) statGoalNumber.textContent = goal.toString();
     if (statGoalNumberSide) statGoalNumberSide.textContent = goal.toString();
     if (statStreak) statStreak.textContent = streak.toString();
