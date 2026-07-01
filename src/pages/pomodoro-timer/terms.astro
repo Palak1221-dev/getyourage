@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import PomodoroHeader from "../../components/pomodoro/PomodoroHeader.astro";
+import { SUPPORT_EMAIL } from "../../constants";
 
 const sections = [
   { id: "acceptance", title: "Acceptance" },
@@ -146,7 +147,7 @@ const faqSchema = {
             </section>
             <section id="contact" class="pt-10">
               <h2 class="text-xl font-bold text-ink mb-4">Contact</h2>
-              <p class="text-body leading-relaxed">Questions about these terms? Reach out through our <a href="/pomodoro-timer/contact" class="text-link hover:text-link-hover underline underline-offset-2">contact page</a>.</p>
+              <p class="text-body leading-relaxed">Questions about these terms? Reach out through our <a href="/pomodoro-timer/contact" class="text-link hover:text-link-hover underline underline-offset-2">contact page</a> or email us directly at <a href={`mailto:${SUPPORT_EMAIL}`} class="text-link hover:text-link-hover underline underline-offset-2">{SUPPORT_EMAIL}</a>.</p>
             </section>
           </div>
 
