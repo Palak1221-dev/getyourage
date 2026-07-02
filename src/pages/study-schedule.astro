@@ -1,0 +1,1691 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com" },
+    { "@type": "ListItem", "position": 2, "name": "Exam Coach", "item": "https://tooltails.com/study-schedule" }
+  ]
+};
+
+const appSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Tooltails Exam Coach – Know Your Readiness",
+  "operatingSystem": "All",
+  "applicationCategory": "EducationalApplication",
+  "description": "An intelligent exam coach that shows your readiness score, predicts when you'll finish, and adapts as you study. Free, no login.",
+  "browserRequirements": "Requires JavaScript",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "featureList": "Exam Readiness Score, Readiness Forecast, Smart Review, Miss-Day Simulator, Study Streaks, Visual Roadmap"
+};
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Exam Coach – Know Your Readiness | Tooltails",
+  "description": "Your intelligent exam coach. See your readiness score, your path to exam day, and exactly what to study next. Free, no login.",
+  "url": "https://tooltails.com/study-schedule"
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Tooltails Exam Coach",
+  "url": "https://tooltails.com/study-schedule",
+  "description": "Your intelligent exam coach. Readiness score, study forecast, smart review, and streak tracking."
+};
+---
+
+<Layout
+  title="Exam Coach – Know Your Exam Readiness | Free Tooltails"
+  description="Your intelligent exam coach. See your exam readiness score, your path to exam day, and exactly what to study next. Free, no login required."
+  image="/og-image.png"
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+
+  <div class="w-full bg-[#f8f9fd] text-slate-800 font-sans min-h-screen">
+    <!-- Gradient Hero Background (extending under sticky header) -->
+    <div class="w-full bg-gradient-to-r from-[#f2f3fe] via-[#f5f3fc] to-[#fcf3f8] -mt-14 pt-[calc(3.5rem+1rem)] pb-20 border-b border-slate-100/50">
+      <div class="max-w-[1200px] mx-auto px-6">
+        <!-- Hero Grid -->
+        <div class="flex flex-col md:flex-row items-center justify-between gap-8 pt-0">
+          <div class="flex-1 text-left">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-violet-100/50 text-violet-700 text-[11px] font-bold mb-5 tracking-wide shadow-[0_1px_2px_rgba(139,92,246,0.05)] border border-violet-200/20">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-violet-600">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              <span>Plan smarter. Study better. Ace with confidence.</span>
+            </div>
+            <!-- Headline -->
+            <h1 class="text-pretty text-4xl sm:text-5xl md:text-[3.5rem] font-black tracking-tight text-slate-900 leading-none">
+              Your <span class="bg-gradient-to-r from-[#6e3ff3] to-[#2563eb] bg-clip-text text-transparent">exam coach</span>.
+            </h1>
+            <!-- Subtitle -->
+            <p class="text-sm sm:text-base text-slate-600/90 font-medium mt-4 max-w-xl leading-relaxed">
+              Tell us about your exams and we'll give you a personalized readiness plan, what to study next, and how to stay on track.
+            </p>
+          </div>
+          <!-- Graphic -->
+          <div class="hidden md:block shrink-0">
+            <img src="/hero-graphic.png" class="w-[380px] h-auto object-contain" alt="Exam Coach Visual" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-[1200px] mx-auto px-6 -mt-[4.5rem] pb-16">
+
+      <!-- ===== SETUP BAR (Collapsed at top) ===== -->
+      <div class="bg-white rounded-[1.5rem] border border-slate-100/80 shadow-[0_12px_40px_rgba(0,0,0,0.03)] p-6 sm:p-7 transition-all">
+        <div class="flex flex-wrap items-center justify-between gap-6">
+          <div class="flex-1 min-w-[280px]">
+            <div class="flex items-center gap-1.5 mb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-slate-500">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+              <label class="text-[10px] font-bold uppercase tracking-wider text-slate-800">Exams</label>
+            </div>
+            <div id="setup-exams" class="flex items-center gap-2 flex-wrap min-h-[38px]"></div>
+            <button id="setup-add-exam" class="text-[11px] font-bold text-violet-600 hover:text-violet-700 transition-colors cursor-pointer mt-1.5">+ Add another exam</button>
+          </div>
+          <div class="w-32 shrink-0">
+            <div class="flex items-center gap-1.5 mb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-slate-500">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <label class="text-[10px] font-bold uppercase tracking-wider text-slate-800">Hours / Day</label>
+            </div>
+            <div class="flex items-center justify-between h-11 border border-slate-200 rounded-xl px-3 bg-white w-full shadow-sm">
+              <button type="button" id="hours-minus-btn" class="text-slate-500 hover:text-slate-800 font-bold text-lg select-none cursor-pointer w-6 h-6 flex items-center justify-center">-</button>
+              <span id="hours-display-val" class="font-bold text-slate-800 text-sm">4</span>
+              <button type="button" id="hours-plus-btn" class="text-slate-500 hover:text-slate-800 font-bold text-lg select-none cursor-pointer w-6 h-6 flex items-center justify-center">+</button>
+              <input type="hidden" id="hours-per-day" value="4" />
+            </div>
+          </div>
+          <div class="w-72 shrink-0">
+            <div class="flex items-center gap-1.5 mb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-slate-500">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <label class="text-[10px] font-bold uppercase tracking-wider text-slate-800">Days Off</label>
+            </div>
+            <div class="flex gap-1 bg-white">
+              <input type="hidden" id="days-off" value="" />
+              <button data-day="0" class="day-off-btn active w-9 h-9 rounded-xl text-xs font-bold bg-violet-600 border border-violet-600 text-white hover:bg-violet-700 transition-all cursor-pointer">Su</button>
+              <button data-day="1" class="day-off-btn w-9 h-9 rounded-xl text-xs font-bold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all cursor-pointer">Mo</button>
+              <button data-day="2" class="day-off-btn w-9 h-9 rounded-xl text-xs font-bold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all cursor-pointer">Tu</button>
+              <button data-day="3" class="day-off-btn w-9 h-9 rounded-xl text-xs font-bold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all cursor-pointer">We</button>
+              <button data-day="4" class="day-off-btn w-9 h-9 rounded-xl text-xs font-bold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all cursor-pointer">Th</button>
+              <button data-day="5" class="day-off-btn w-9 h-9 rounded-xl text-xs font-bold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all cursor-pointer">Fr</button>
+              <button data-day="6" class="day-off-btn w-9 h-9 rounded-xl text-xs font-bold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all cursor-pointer">Sa</button>
+            </div>
+          </div>
+          <div class="flex gap-2 items-end shrink-0">
+            <button id="import-btn" class="h-11 px-5 text-xs font-bold text-violet-600 bg-violet-50/50 border border-violet-200 rounded-xl hover:bg-violet-100/50 hover:border-violet-300 transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 shrink-0 shadow-sm" title="Import PDF, DOCX, TXT, or CSV" aria-label="Import exam sheet">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              Import
+            </button>
+            <button id="generate-btn" class="h-11 px-6 text-xs font-extrabold tracking-wide text-white bg-violet-600 rounded-xl hover:bg-violet-700 transition-all cursor-pointer shadow-md shadow-violet-600/10 whitespace-nowrap flex items-center gap-2" style="touch-action: manipulation">
+              Build my readiness plan
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </button>
+            <button id="setup-toggle" class="h-11 w-11 flex items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 hover:text-slate-800 hover:bg-slate-50 transition-all cursor-pointer shrink-0 shadow-sm" title="Edit subjects & topics" aria-label="Open setup panel">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"/>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+               </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Time-to-Goal (shown before generation) -->
+        <div id="time-to-goal" class="hidden mt-4 pt-3 border-t border-slate-100">
+          <div class="flex items-center gap-3 text-xs">
+            <span class="text-slate-500">Estimated study needed:</span>
+            <span id="ttg-hours" class="font-bold text-slate-800">0</span>
+            <span class="text-slate-400">hours</span>
+            <span class="text-slate-300">·</span>
+            <span id="ttg-days" class="font-bold text-slate-800">0</span>
+            <span class="text-slate-400">study days</span>
+            <span class="text-slate-300">·</span>
+            <span id="ttg-verdict" class="font-bold text-emerald-600"></span>
+          </div>
+        </div>
+
+        <!-- Import syllabus banner inside card -->
+        <div id="setup-import-banner" class="mt-5 p-3.5 px-4 rounded-2xl bg-[#f8f7ff] border border-violet-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3 text-left">
+            <div class="w-9 h-9 rounded-full bg-violet-100/60 flex items-center justify-center text-violet-600 shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </div>
+            <span class="text-xs text-slate-600 font-medium">Import your syllabus or exam sheet (PDF, DOCX, CSV) and we'll extract subjects, topics and dates for you.</span>
+          </div>
+          <button type="button" id="setup-banner-import-btn" class="bg-violet-100 hover:bg-violet-200/80 text-violet-700 font-bold text-xs h-9 px-4 rounded-xl flex items-center gap-1.5 transition-all shrink-0 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            Import exam sheet
+          </button>
+        </div>
+
+        <!-- ===== SETUP PANEL (expanded) ===== -->
+        <div id="setup-panel" class="hidden mt-5 pt-4 border-t border-slate-100 space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-2">Your Exams</label>
+               <div id="exams-container" class="space-y-2"></div>
+               <button id="add-exam-btn" class="mt-2 h-9 w-full flex items-center justify-center gap-1.5 text-xs font-bold text-violet-600 bg-violet-50/50 border border-dashed border-violet-200 rounded-xl hover:bg-violet-50 transition-all cursor-pointer shadow-sm" style="touch-action: manipulation">+ Add exam</button>
+            </div>
+            <div>
+              <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-2">Subjects & Topics</label>
+               <div id="subjects-container" class="space-y-3 max-h-[340px] overflow-y-auto pr-1 scrollbar-thin"></div>
+               <button id="add-subject-btn" class="mt-2 h-9 w-full flex items-center justify-center gap-1.5 text-xs font-bold text-indigo-600 bg-indigo-50/50 border border-dashed border-indigo-200 rounded-xl hover:bg-indigo-50 transition-all cursor-pointer shadow-sm" style="touch-action: manipulation">+ Add subject</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== EMPTY STATE (pre-generation splash) ===== -->
+      <div id="demo-state" class="mt-2 text-center w-full">
+        <h3 class="text-2xl sm:text-3xl font-black text-slate-900 mb-2 tracking-tight relative inline-block">
+          Know where you stand before exam day
+          <span class="absolute -top-1 -right-6 text-violet-500 select-none">
+            <svg class="w-5 h-5 text-violet-500 inline-block -mt-4 ml-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+              <path d="M6 18c1-3 3-5 6-6" />
+              <path d="M11 15c1-3 3-5 6-6" />
+              <path d="M16 12c1-3 3-5 6-6" />
+            </svg>
+          </span>
+        </h3>
+        <p class="text-sm text-slate-500 font-semibold leading-relaxed mx-auto max-w-md mt-1">
+          Your exam coach builds a personalized readiness plan in three simple steps:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3 text-left">
+          <div class="bg-white rounded-2xl border border-slate-100 p-6 shadow-[0_4px_20px_rgba(0,0,0,0.015)] card-enter" style="animation-delay:0.1s">
+            <div class="flex items-start gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-violet-50/70 flex items-center justify-center text-violet-600 shrink-0 relative shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+                <div class="absolute -bottom-1 -left-1 w-5 h-5 rounded-full bg-violet-600 flex items-center justify-center text-[10px] font-black text-white shadow-md shadow-violet-600/20">1</div>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-slate-800 mb-1">Add your exams</h4>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">Name each exam and set its date. The coach tracks every deadline.</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-100 p-6 shadow-[0_4px_20px_rgba(0,0,0,0.015)] card-enter" style="animation-delay:0.2s">
+            <div class="flex items-start gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-indigo-50/70 flex items-center justify-center text-indigo-600 shrink-0 relative shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+                <div class="absolute -bottom-1 -left-1 w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center text-[10px] font-black text-white shadow-md shadow-indigo-600/20">2</div>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-slate-800 mb-1">List your subjects</h4>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">Topics, difficulty, and confidence level. Tell the coach what you're up against.</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-100 p-6 shadow-[0_4px_20px_rgba(0,0,0,0.015)] card-enter" style="animation-delay:0.3s">
+            <div class="flex items-start gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-emerald-50/70 flex items-center justify-center text-emerald-600 shrink-0 relative shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="20" x2="18" y2="10"/>
+                  <line x1="12" y1="20" x2="12" y2="4"/>
+                  <line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+                <div class="absolute -bottom-1 -left-1 w-5 h-5 rounded-full bg-emerald-600 flex items-center justify-center text-[10px] font-black text-white shadow-md shadow-emerald-600/20">3</div>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-slate-800 mb-1">Get your readiness plan</h4>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">Score, forecast, study path, and daily sessions. Updated as you progress.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Bottom Feature Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4 text-left">
+          <div class="bg-white rounded-2xl border border-slate-100 p-4 shadow-[0_4px_20px_rgba(0,0,0,0.015)] flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-violet-50/60 flex items-center justify-center text-violet-600 shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
+              <svg class="w-10 h-10 transform -rotate-90" viewBox="0 0 36 36">
+                <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" stroke-width="3.5" class="text-violet-100/50" />
+                <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" stroke-width="3.5" stroke-dasharray="88" stroke-dashoffset="25" stroke-linecap="round" class="text-violet-500" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-violet-600">Readiness Score</h4>
+              <p class="text-[11px] text-slate-500 leading-snug mt-0.5">See how prepared you are for each exam.</p>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-2xl border border-slate-100 p-4 shadow-[0_4px_20px_rgba(0,0,0,0.015)] flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-indigo-50/60 flex items-center justify-center text-indigo-600 shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+                <polyline points="16 7 22 7 22 13"/>
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-indigo-600">Study Forecast</h4>
+              <p class="text-[11px] text-slate-500 leading-snug mt-0.5">Know if you're on track and when you'll be ready.</p>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-2xl border border-slate-100 p-4 shadow-[0_4px_20px_rgba(0,0,0,0.015)] flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-amber-50/60 flex items-center justify-center text-amber-600 shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+                <circle cx="8" cy="14" r="1"/>
+                <circle cx="12" cy="14" r="1"/>
+                <circle cx="16" cy="14" r="1"/>
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-amber-600">Smart Review</h4>
+              <p class="text-[11px] text-slate-500 leading-snug mt-0.5">We schedule what to revise and when.</p>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-2xl border border-slate-100 p-4 shadow-[0_4px_20px_rgba(0,0,0,0.015)] flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-emerald-50/60 flex items-center justify-center text-emerald-600 shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-emerald-600">Streaks</h4>
+              <p class="text-[11px] text-slate-500 leading-snug mt-0.5">Build consistency. Small daily wins matter.</p>
+            </div>
+          </div>
+        </div>
+      </div>  </div>
+
+    <!-- ===== DASHBOARD (after generation) ===== -->
+    <div id="dashboard" class="hidden space-y-4 mt-4">
+
+      <!-- Row 0: Visual Roadmap Today → Revision → Exam -->
+      <div class="bg-canvas rounded-2xl border border-hairline/30 border-t-[3px] border-t-violet-500/40 shadow-[0_4px_16px_rgba(0,0,0,0.02)] p-3 sm:p-4 card-enter" style="animation-delay:0.05s">
+        <div class="flex items-center gap-0">
+          <div class="flex items-center gap-1.5 shrink-0">
+            <span class="w-2.5 h-2.5 rounded-full bg-violet-500 ring-2 ring-violet-500/20"></span>
+            <span class="text-[9px] font-black text-ink uppercase tracking-wider">Today</span>
+          </div>
+          <div class="flex-1 h-0.5 bg-gradient-to-r from-violet-500/40 via-amber-500/30 to-emerald-500/40 mx-2 relative" style="min-width:40px">
+            <span id="roadmap-study-marker" class="absolute -top-2.5 left-[15%] text-[7px] font-bold text-ink/40 uppercase tracking-widest hidden">Study</span>
+            <span id="roadmap-revision-marker" class="absolute -top-2.5 left-[55%] text-[7px] font-bold text-ink/40 uppercase tracking-widest hidden">Review</span>
+            <div id="roadmap-progress" class="h-0.5 bg-violet-500/60 rounded-full transition-all duration-700" style="width:0%"></div>
+          </div>
+          <div class="flex items-center gap-1.5 shrink-0">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-emerald-500/20"></span>
+            <span id="roadmap-exam-label" class="text-[9px] font-black text-ink uppercase tracking-wider">Exam</span>
+          </div>
+        </div>
+        <div class="flex justify-between mt-1.5 text-[8px] text-ink/40">
+          <span id="roadmap-today"></span>
+          <span id="roadmap-exam-date"></span>
+        </div>
+      </div>
+
+      <!-- Row 1: Readiness Hero + Streak -->
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-4 card-enter" style="animation-delay:0.1s">
+        <div class="bg-gradient-to-b from-violet-500/[0.04] to-indigo-500/[0.02] rounded-2xl border border-violet-500/20 border-t-[4px] border-t-violet-500 shadow-[0_8px_30px_rgba(139,92,246,0.06)] p-4 sm:p-5">
+          <div class="flex items-start gap-4 sm:gap-6">
+            <div class="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0">
+              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                <circle cx="18" cy="18" r="15.5" fill="none" stroke="currentColor" stroke-width="2.5" class="text-hairline/30" />
+                <circle id="readiness-ring" cx="18" cy="18" r="15.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="97.4" stroke-dashoffset="97.4" stroke-linecap="round" class="text-violet-500 transition-all duration-1000 ease-out" />
+              </svg>
+              <span id="readiness-score" class="absolute inset-0 flex items-center justify-center text-xl sm:text-2xl font-black text-ink">--%</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2">
+                <h2 class="text-base sm:text-lg font-extrabold text-ink">Exam Readiness</h2>
+                <span id="readiness-level" class="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider bg-amber-500/10 text-amber-600">--</span>
+                <div class="relative group ml-auto sm:ml-0">
+                  <button type="button" class="w-5 h-5 rounded-full bg-hairline/30 hover:bg-violet-500/20 flex items-center justify-center transition-colors" aria-label="How readiness score is calculated" onclick="event.stopPropagation()">
+                    <svg class="w-3 h-3 text-ink/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                  </button>
+                  <div class="absolute right-0 top-full mt-1 w-64 p-3 rounded-xl bg-canvas border border-hairline/20 shadow-lg shadow-black/5 z-20 opacity-0 invisible group-hover:opacity-100 group-focus-within:opacity-100 group-hover:visible group-focus-within:visible transition-all duration-200 pointer-events-none text-left">
+                    <p class="text-[10px] font-bold text-ink mb-1.5 uppercase tracking-wider">Score formula</p>
+                    <div class="space-y-1 text-[10px] text-ink/70 leading-relaxed">
+                      <p><span class="font-bold text-violet-600">Topics covered</span> × 0.35 — breadth matters</p>
+                      <p><span class="font-bold text-indigo-600">Schedule density</span> × 0.20 — steady pacing</p>
+                      <p><span class="font-bold text-emerald-600">Avg confidence</span> × 0.45 — quality over speed</p>
+                    </div>
+                    <p class="mt-1.5 pt-1.5 border-t border-hairline/10 text-[9px] text-ink/40">Higher confidence gets the most weight because knowing deeply beats rushing.</p>
+                  </div>
+                </div>
+              </div>
+              <p id="readiness-detail" class="text-xs text-ink/60 mt-1 leading-relaxed">Set up your exams and subjects to see your readiness score.</p>
+              <div id="readiness-breakdown" class="flex flex-wrap gap-2 mt-2"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-canvas rounded-2xl border border-emerald-500/15 border-t-[3px] border-t-emerald-500 shadow-[0_8px_30px_rgba(16,185,129,0.04)] p-4 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-500/5 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
+            <span id="streak-emoji" class="text-xl">🔥</span>
+          </div>
+          <div>
+            <div class="flex items-baseline gap-1">
+              <span id="streak-count" class="text-2xl font-black text-ink">0</span>
+              <span class="text-xs font-bold text-ink/50 uppercase tracking-wider">day streak</span>
+            </div>
+            <p id="streak-message" class="text-[11px] text-ink/60 mt-0.5">Study today to keep it going!</p>
+          </div>
+          <div id="streak-dots" class="ml-auto flex gap-1"></div>
+        </div>
+      </div>
+
+      <!-- Row 2: Today's Session + Readiness Forecast -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 card-enter" style="animation-delay:0.15s">
+        <div class="bg-canvas rounded-2xl border border-sky-500/15 border-t-[3px] border-t-sky-500 shadow-[0_8px_30px_rgba(14,165,233,0.04)] p-4 sm:p-5">
+          <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-1.5">
+            <svg class="w-4 h-4 text-sky-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <h2 class="text-sm font-extrabold text-ink">Today's Session</h2>
+            <span id="today-badge" class="text-[9px] font-bold uppercase tracking-widest text-ink/40 ml-auto"></span>
+          </div>
+          <div id="next-up-content">
+            <div class="text-center py-4 text-xs text-ink/50 italic">Your plan will show what to study today.</div>
+          </div>
+          <!-- Log Session button (shown after topics are studied) -->
+          <div id="log-session-area" class="hidden mt-2 pt-2 border-t border-hairline/10">
+            <p class="text-[9px] font-bold uppercase tracking-widest text-ink/50 mb-1.5">Log a study session</p>
+            <div class="flex gap-1.5">
+              <select id="log-topic-select" class="flex-1 h-8 px-2 text-[10px] bg-canvas-soft-2 border border-hairline/40 rounded-lg text-ink outline-none focus:border-sky-500/50 transition-all"></select>
+              <select id="log-confidence-select" class="w-24 h-8 px-1 text-[10px] bg-canvas-soft-2 border border-hairline/40 rounded-lg text-ink outline-none focus:border-sky-500/50 transition-all">
+                <option value="1">Very Low</option>
+                <option value="2">Low</option>
+                <option value="3" selected>Medium</option>
+                <option value="4">High</option>
+                <option value="5">Very High</option>
+              </select>
+              <button id="log-session-btn" class="h-8 px-3 text-[10px] font-bold text-white bg-sky-500 rounded-lg hover:bg-sky-600 active:scale-95 transition-all cursor-pointer whitespace-nowrap shadow-sm shadow-sky-500/20" style="touch-action: manipulation">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-canvas rounded-2xl border border-indigo-500/15 border-t-[3px] border-t-indigo-500 shadow-[0_8px_30px_rgba(99,102,241,0.04)] p-4 sm:p-5">
+          <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-1.5">
+            <svg class="w-4 h-4 text-indigo-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <h2 class="text-sm font-extrabold text-ink">Readiness Forecast</h2>
+          </div>
+          <div id="forecast-content">
+            <div class="text-center py-4 text-xs text-ink/50 italic">Forecast appears once you build your plan.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Smart Review + Miss-Day Impact -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 card-enter" style="animation-delay:0.2s">
+        <div class="bg-canvas rounded-2xl border border-amber-500/15 border-t-[3px] border-t-amber-500 shadow-[0_8px_30px_rgba(245,158,11,0.04)] p-4 sm:p-5">
+          <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-1.5">
+            <svg class="w-4 h-4 text-amber-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <h2 class="text-sm font-extrabold text-ink">Smart Review</h2>
+            <span id="revision-count" class="text-[9px] font-bold uppercase tracking-widest text-ink/40 ml-auto"></span>
+          </div>
+          <div id="revision-content">
+            <div class="text-center py-4 text-xs text-ink/50 italic">Review schedule appears after you study a few topics.</div>
+          </div>
+        </div>
+
+        <div class="bg-canvas rounded-2xl border border-rose-500/15 border-t-[3px] border-t-rose-500 shadow-[0_8px_30px_rgba(244,63,94,0.04)] p-4 sm:p-5">
+          <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-1.5">
+            <svg class="w-4 h-4 text-rose-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <h2 class="text-sm font-extrabold text-ink">What if I miss a day?</h2>
+          </div>
+          <div id="missed-day-content">
+            <div class="text-center py-4 text-xs text-ink/50 italic">Use the slider to see how missed days impact your readiness.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3b: AI Recommendations -->
+      <div id="recommendations-section" class="hidden mt-1">
+        <div class="bg-canvas rounded-2xl border border-sky-500/15 border-t-[3px] border-t-sky-500 shadow-[0_8px_30px_rgba(14,165,233,0.04)] p-4 sm:p-5">
+          <div class="flex items-center gap-2 mb-3 border-b border-hairline/10 pb-1.5">
+            <svg class="w-4 h-4 text-sky-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <h2 class="text-sm font-extrabold text-ink">AI Coach</h2>
+            <span id="recommendation-count" class="text-[9px] font-bold uppercase tracking-widest text-ink/40 ml-auto"></span>
+          </div>
+          <div id="recommendation-body" class="space-y-2"></div>
+        </div>
+      </div>
+
+      <!-- Row 4: Your Path to Exam Day -->
+      <div class="bg-canvas rounded-2xl border border-hairline/30 border-t-[3px] border-t-hairline-strong/30 shadow-[0_8px_30px_rgba(0,0,0,0.02)] p-4 sm:p-5 card-enter" style="animation-delay:0.25s">
+        <div class="flex items-center gap-2 mb-2 border-b border-hairline/10 pb-1.5">
+          <svg class="w-4 h-4 text-ink/50 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          <h2 class="text-sm font-extrabold text-ink">Your Path to Exam Day</h2>
+          <span id="roadmap-count" class="text-[9px] font-bold uppercase tracking-widest text-ink/40 ml-auto"></span>
+        </div>
+        <div id="weekly-roadmap" class="space-y-2">
+          <div class="text-center py-4 text-xs text-ink/50 italic">Your study path appears once you build your plan.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- ===== IMPORT MODAL (drag-and-drop upload) ===== -->
+  <div id="import-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden" style="overscroll-behavior: contain">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="import-modal-backdrop"></div>
+    <div class="relative w-full max-w-lg mx-4 bg-canvas rounded-2xl border border-hairline/40 shadow-xl shadow-black/10 p-6 sm:p-8 modal-overlay">
+      <button type="button" id="import-modal-close" class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg text-ink/40 hover:text-ink hover:bg-hairline/20 transition-all cursor-pointer" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <h3 class="text-base font-extrabold text-ink mb-1">Import exam sheet</h3>
+      <p class="text-xs text-ink/60 mb-4">Upload a syllabus, exam schedule, or study plan. We'll extract the details.</p>
+
+      <!-- Drag-and-drop zone -->
+      <div id="drop-zone" class="relative border-2 border-dashed border-hairline/40 rounded-xl p-8 text-center transition-all duration-200 hover:border-violet-500/40 hover:bg-violet-500/[0.02] cursor-pointer" tabindex="0" role="button" aria-label="Upload file">
+        <input type="file" id="file-input" accept=".pdf,.docx,.txt,.csv,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/csv" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+        <div class="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center mx-auto mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet-600"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        </div>
+        <p class="text-sm font-semibold text-ink mb-1"><span class="text-violet-600">Click to upload</span> or drag and drop</p>
+        <p class="text-[11px] text-ink/40">PDF, DOCX, TXT, or CSV</p>
+      </div>
+
+      <!-- Progress -->
+      <div id="import-progress" class="hidden mt-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="flex-1 h-1.5 bg-hairline/30 rounded-full overflow-hidden">
+            <div id="import-progress-bar" class="h-full rounded-full bg-gradient-to-r from-violet-500 to-indigo-500 transition-all duration-500" style="width:0%"></div>
+          </div>
+          <span id="import-progress-text" class="text-[10px] font-bold text-ink/40 w-10 text-right">0%</span>
+        </div>
+        <p id="import-status" class="text-[11px] text-ink/50 text-center">Reading file...</p>
+      </div>
+
+      <!-- Error -->
+      <div id="import-error" class="hidden mt-3 p-3 rounded-lg bg-rose-500/5 border border-rose-500/15 text-xs text-rose-600 flex items-start gap-2">
+        <svg class="w-4 h-4 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        <span id="import-error-text">Could not read this file.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PREVIEW MODAL (review extracted data) ===== -->
+  <div id="preview-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden" style="overscroll-behavior: contain">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="preview-modal-backdrop"></div>
+    <div class="relative w-full max-w-2xl mx-4 bg-canvas rounded-2xl border border-hairline/40 shadow-xl shadow-black/10 p-5 sm:p-6 modal-overlay max-h-[85vh] flex flex-col">
+      <div class="flex items-center justify-between mb-3 shrink-0">
+        <div>
+          <h3 class="text-base font-extrabold text-ink">Review extracted data</h3>
+          <p class="text-[11px] text-ink/50 mt-0.5">Edit anything below before importing.</p>
+        </div>
+        <button type="button" id="preview-modal-close" class="w-8 h-8 flex items-center justify-center rounded-lg text-ink/40 hover:text-ink hover:bg-hairline/20 transition-all cursor-pointer" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div id="preview-body" class="flex-1 overflow-y-auto space-y-4 pr-1 scrollbar-thin">
+        <!-- Filled dynamically -->
+      </div>
+
+      <div class="flex items-center justify-end gap-2 mt-4 pt-3 border-t border-hairline/10 shrink-0">
+        <button type="button" id="preview-cancel" class="h-9 px-4 text-xs font-bold text-ink/60 bg-canvas-soft-2 border border-hairline/30 rounded-xl hover:bg-hairline/30 hover:text-ink transition-all cursor-pointer">Cancel</button>
+        <button type="button" id="preview-confirm" class="h-9 px-5 text-xs font-extrabold text-white bg-gradient-to-r from-violet-600 to-indigo-600 rounded-xl hover:from-violet-700 hover:to-indigo-700 hover:shadow-lg hover:shadow-indigo-500/20 active:scale-[0.97] transition-all cursor-pointer shadow-md shadow-indigo-500/10">Import & generate plan</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(appSchema)} />
+</Layout>
+
+<style is:global>
+  .schedule-day-enter { animation: schedule-fade-in 0.3s ease-out; }
+  @keyframes schedule-fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .missed-slider { -webkit-appearance: none; appearance: none; height: 6px; border-radius: 3px; background: var(--color-hairline); outline: none; }
+  .missed-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--color-link, #2563eb); cursor: pointer; border: 2px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+  .missed-slider::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--color-link, #2563eb); cursor: pointer; border: 2px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+  .day-off-btn.active { background: #7c3aed !important; color: white !important; border-color: #7c3aed !important; }
+  .scrollbar-thin::-webkit-scrollbar { width: 4px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: var(--color-hairline); border-radius: 2px; }
+  @media (prefers-reduced-motion: reduce) { .schedule-day-enter { animation: none; } }
+  .streak-dot { transition: all 0.2s ease; }
+  .log-conf-btn { transition: all 0.15s ease; }
+  .log-conf-btn.active { background: var(--color-link, #2563eb); color: white; border-color: var(--color-link, #2563eb); }
+  .card-enter { animation: card-fade-in 0.5s ease-out both; }
+  @keyframes card-fade-in { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  .progress-fill { transition: width 1s cubic-bezier(0.22, 1, 0.36, 1); }
+  .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+  @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .streak-bounce { animation: streak-bounce 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+  @keyframes streak-bounce { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+  .count-up { animation: count-up 1.5s ease-out both; }
+  @keyframes count-up { from { opacity: 0; } to { opacity: 1; } }
+  .modal-overlay { animation: modal-fade-in 0.2s ease-out; }
+  @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
+  .drop-zone-dragover { border-color: var(--color-link, #2563eb); background: rgba(37,99,235,0.04); }
+  .preview-exam-card { transition: all 0.15s ease; }
+  .preview-topic-row { transition: all 0.1s ease; }
+  .preview-topic-row:hover { background: var(--color-hairline); }
+  .extracted-tag { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 9px; font-weight: 700; background: rgba(37,99,235,0.08); color: #2563eb; }
+  .extracted-tag.weak { background: rgba(245,158,11,0.1); color: #d97706; }
+  .preview-edit-input { width: 100%; padding: 0.375rem 0.5rem; font-size: 0.75rem; background: transparent; border: 1px solid var(--color-hairline); border-radius: 0.5rem; color: var(--color-ink); outline: none; transition: all 0.15s; }
+  .preview-edit-input:focus { border-color: var(--color-link, #2563eb); box-shadow: 0 0 0 3px rgba(37,99,235,0.08); }
+</style>
+
+<script is:inline>
+(() => {
+  const state = {
+    exams: [],
+    subjects: [],
+    schedule: [],
+    allTopics: [],
+    daysOff: new Set(),
+    streakData: JSON.parse(localStorage.getItem('ss_streak') || '{"count":0,"dates":[],"lastDate":""}'),
+    missedDays: 0,
+    logHistory: JSON.parse(localStorage.getItem('ss_logs') || '[]')
+  };
+
+  function formatDate(d) {
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  }
+  function friendlyDate(d) {
+    return d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
+  }
+  function shortDate(d) {
+    return d.toLocaleDateString('en-US', { month:'short', day:'numeric' });
+  }
+  function daysBetween(a, b) {
+    return Math.ceil((b.getTime() - a.getTime()) / 86400000);
+  }
+  function addDays(date, n) {
+    const r = new Date(date); r.setDate(r.getDate() + n); return r;
+  }
+
+  function initDefaults() {
+    const today = new Date(); today.setHours(0,0,0,0);
+    const examDate = addDays(today, 30);
+    state.exams = [{ id: 'e1', name: 'Physics', date: examDate }];
+    state.subjects = [{ id: 's1', name: 'Physics', topics: 'Quantum Mechanics\nThermodynamics\nElectromagnetism\nOptics & Waves', difficulty: 3, confidence: 3, examId: 'e1' }];
+    state.daysOff = new Set([0]); // Sunday is off by default
+    renderSetupExams();
+    renderExamsPanel();
+    renderSubjectsPanel();
+    updateTTG();
+  }
+
+  function renderSetupExams() {
+    const el = document.getElementById('setup-exams');
+    el.innerHTML = state.exams.map((e, idx) => {
+      const name = e.name || 'Untitled';
+      const showClose = state.exams.length > 1;
+      return `<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#f5f6fa] border border-slate-100 text-slate-700 text-[11px] font-bold">
+        <span>${name}</span>
+        <span class="text-slate-400 font-normal">${shortDate(e.date)}</span>
+        ${showClose ? `
+        <button type="button" class="setup-remove-exam-chip hover:text-red-500 text-slate-400 transition-colors cursor-pointer ml-0.5" data-idx="${idx}" aria-label="Remove exam">
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>` : ''}
+      </span>`;
+    }).join('');
+    
+    el.querySelectorAll('.setup-remove-exam-chip').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        removeExam(parseInt(this.dataset.idx));
+      });
+    });
+  }
+
+  function renderExamsPanel() {
+    const el = document.getElementById('exams-container');
+    el.innerHTML = state.exams.map((e, i) => `
+      <div class="exam-card flex items-center gap-1.5 p-1.5 rounded-lg bg-canvas-soft-2/40 border border-hairline/20">
+        <input type="text" value="${e.name}" placeholder="Exam name" data-idx="${i}" class="exam-name-input flex-1 h-8 px-2 text-xs bg-canvas border border-hairline/40 rounded-md text-ink placeholder:text-ink/40 outline-none focus:border-violet-500/50 transition-all" />
+        <input type="date" value="${formatDate(e.date)}" data-idx="${i}" class="exam-date-input h-8 px-2 text-xs bg-canvas border border-hairline/40 rounded-md text-ink outline-none focus:border-violet-500/50 transition-all w-32" />
+        <button class="remove-exam-btn w-7 h-7 flex items-center justify-center rounded-md text-red-400 hover:bg-red-500/10 hover:text-red-500 transition-all cursor-pointer ${state.exams.length <= 1 ? 'opacity-20 pointer-events-none' : ''}" data-idx="${i}" style="touch-action: manipulation">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    `).join('');
+    el.querySelectorAll('.exam-name-input').forEach(inp => {
+      inp.addEventListener('input', function() { state.exams[parseInt(this.dataset.idx)].name = this.value; renderSetupExams(); syncSubjectExamDropdowns(); updateTTG(); });
+    });
+    el.querySelectorAll('.exam-date-input').forEach(inp => {
+      inp.addEventListener('change', function() { state.exams[parseInt(this.dataset.idx)].date = new Date(this.value + 'T23:59:59'); renderSetupExams(); updateTTG(); });
+    });
+    el.querySelectorAll('.remove-exam-btn').forEach(btn => {
+      btn.addEventListener('click', function() { removeExam(parseInt(this.dataset.idx)); });
+    });
+  }
+
+  function removeExam(idx) {
+    if (state.exams.length <= 1) return;
+    const removedId = state.exams[idx].id;
+    state.exams.splice(idx, 1);
+    state.subjects = state.subjects.map(s => s.examId === removedId ? { ...s, examId: state.exams[0].id } : s);
+    renderSetupExams(); renderExamsPanel(); renderSubjectsPanel(); syncSubjectExamDropdowns(); updateTTG();
+  }
+
+  function renderSubjectsPanel() {
+    const el = document.getElementById('subjects-container');
+    el.innerHTML = state.subjects.map((s, i) => {
+      const diffOpts = [1,2,3,4,5].map(d => `<option value="${d}"${d===s.difficulty?' selected':''}>${['','Very Easy','Easy','Medium','Hard','Very Hard'][d]}</option>`).join('');
+      const confOpts = [1,2,3,4,5].map(c => `<option value="${c}"${c===s.confidence?' selected':''}>${['','Very Low','Low','Medium','High','Very High'][c]}</option>`).join('');
+      const examOpts = state.exams.map(e => `<option value="${e.id}"${e.id===s.examId?' selected':''}>${e.name||'Untitled'}</option>`).join('');
+      return `<div class="subject-card bg-canvas-soft-2/30 border border-hairline/20 rounded-lg p-2 space-y-1.5">
+        <div class="flex items-center gap-1.5">
+          <input type="text" value="${s.name}" placeholder="Subject" data-idx="${i}" class="subject-name-input flex-1 h-8 px-2 text-xs bg-canvas border border-hairline/40 rounded-md text-ink placeholder:text-ink/40 outline-none focus:border-indigo-500/50 transition-all" />
+          <select data-idx="${i}" class="subject-exam-select h-8 px-1.5 text-[10px] bg-canvas border border-hairline/40 rounded-md text-ink outline-none focus:border-indigo-500/50 transition-all">${examOpts}</select>
+          <button class="remove-subject-btn w-7 h-7 flex items-center justify-center rounded-md text-red-400 hover:bg-red-500/10 hover:text-red-500 transition-all cursor-pointer ${state.subjects.length<=1?'opacity-20 pointer-events-none':''}" data-idx="${i}" style="touch-action: manipulation">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <textarea rows="2" placeholder="Topics (one per line)" data-idx="${i}" class="subject-topics-input w-full px-2 py-1 text-xs bg-canvas border border-hairline/40 rounded-md text-ink placeholder:text-ink/40 outline-none focus:border-indigo-500/50 transition-all resize-none">${s.topics}</textarea>
+        <div class="flex gap-2">
+          <div class="flex-1"><select data-idx="${i}" class="subject-difficulty-select h-7 w-full px-1 text-[10px] bg-canvas border border-hairline/40 rounded-md text-ink outline-none focus:border-indigo-500/50 transition-all">${diffOpts}</select></div>
+          <div class="flex-1"><select data-idx="${i}" class="subject-confidence-select h-7 w-full px-1 text-[10px] bg-canvas border border-hairline/40 rounded-md text-ink outline-none focus:border-indigo-500/50 transition-all">${confOpts}</select></div>
+          <div class="flex-1 flex items-center gap-1">
+            <div class="flex-1 h-1.5 bg-hairline/50 rounded-full overflow-hidden"><div class="priority-bar h-full rounded-full bg-gradient-to-r from-rose-500 via-amber-500 to-emerald-500" style="width:${Math.min(100, (s.difficulty*2+(6-s.confidence)*1.5)/14*100)}%"></div></div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    el.querySelectorAll('.subject-name-input').forEach(inp => { inp.addEventListener('input', function() { state.subjects[parseInt(this.dataset.idx)].name = this.value; updateTTG(); }); });
+    el.querySelectorAll('.subject-topics-input').forEach(inp => { inp.addEventListener('input', function() { state.subjects[parseInt(this.dataset.idx)].topics = this.value; updateTTG(); }); });
+    el.querySelectorAll('.subject-difficulty-select').forEach(sel => { sel.addEventListener('change', function() { state.subjects[parseInt(this.dataset.idx)].difficulty = parseInt(this.value); updatePBar(this); updateTTG(); }); });
+    el.querySelectorAll('.subject-confidence-select').forEach(sel => { sel.addEventListener('change', function() { state.subjects[parseInt(this.dataset.idx)].confidence = parseInt(this.value); updatePBar(this); updateTTG(); }); });
+    el.querySelectorAll('.subject-exam-select').forEach(sel => { sel.addEventListener('change', function() { state.subjects[parseInt(this.dataset.idx)].examId = this.value; }); });
+    el.querySelectorAll('.remove-subject-btn').forEach(btn => { btn.addEventListener('click', function() { if (state.subjects.length<=1) return; state.subjects.splice(parseInt(this.dataset.idx),1); renderSubjectsPanel(); updateTTG(); }); });
+  }
+
+  function updatePBar(el) {
+    const card = el.closest('.subject-card');
+    const idx = parseInt(card.querySelector('[data-idx]')?.dataset.idx);
+    if (idx===undefined) return;
+    const s = state.subjects[idx]; if (!s) return;
+    card.querySelector('.priority-bar').style.width = Math.min(100, (s.difficulty*2+(6-s.confidence)*1.5)/14*100)+'%';
+  }
+
+  function syncSubjectExamDropdowns() {
+    document.querySelectorAll('.subject-exam-select').forEach(sel => {
+      const idx = parseInt(sel.dataset.idx);
+      const current = sel.value;
+      sel.innerHTML = state.exams.map(e => `<option value="${e.id}"${e.id===current?' selected':''}>${e.name||'Untitled'}</option>`).join('');
+      state.subjects[idx].examId = sel.value;
+    });
+  }
+
+  // TTG
+  function updateTTG() {
+    const valid = state.subjects.filter(s => s.name.trim() && s.topics.trim());
+    const topics = [];
+    for (const s of valid) {
+      const ts = s.topics.split('\n').map(t => t.trim()).filter(t => t.length > 0);
+      for (const t of ts) topics.push(t);
+    }
+    const hpDay = parseFloat(document.getElementById('hours-per-day').value) || 4;
+    const hpt = Math.max(0.5, Math.min(1.5, 1));
+    const daysNeeded = Math.ceil(topics.length / Math.floor(hpDay / hpt));
+    const totalHours = Math.ceil(topics.length * hpt);
+
+    const el = document.getElementById('time-to-goal');
+    if (topics.length === 0) { el.classList.add('hidden'); return; }
+    el.classList.remove('hidden');
+    document.getElementById('ttg-hours').textContent = totalHours;
+    document.getElementById('ttg-days').textContent = daysNeeded;
+
+    const earliest = state.exams.filter(e => e.name.trim()).sort((a,b) => a.date - b.date)[0];
+    const verdictEl = document.getElementById('ttg-verdict');
+    if (!earliest) { verdictEl.textContent = ''; return; }
+    const today = new Date(); today.setHours(0,0,0,0);
+    const avail = daysBetween(today, earliest.date);
+    const offCount = state.daysOff.size;
+    const actualAvail = Math.round(avail * (7 - offCount) / 7);
+    if (daysNeeded <= actualAvail) {
+      verdictEl.textContent = `${actualAvail - daysNeeded} buffer day${actualAvail-daysNeeded!==1?'s':''} remaining`;
+      verdictEl.className = 'font-bold text-emerald-600';
+    } else {
+      verdictEl.textContent = `${daysNeeded - actualAvail} more day${daysNeeded-actualAvail!==1?'s':''} needed — adjust hours or days off`;
+      verdictEl.className = 'font-bold text-rose-600';
+    }
+  }
+
+  document.getElementById('hours-per-day').addEventListener('input', updateTTG);
+
+  function setupDaysOff() {
+    document.querySelectorAll('.day-off-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const day = parseInt(this.dataset.day);
+        if (state.daysOff.has(day)) state.daysOff.delete(day); else state.daysOff.add(day);
+        this.classList.toggle('active');
+        updateTTG();
+      });
+    });
+  }
+
+  document.getElementById('add-exam-btn').addEventListener('click', function() {
+    const today = new Date(); today.setHours(0,0,0,0);
+    state.exams.push({ id: 'e'+Date.now(), name: '', date: addDays(today, 30) });
+    renderSetupExams(); renderExamsPanel(); syncSubjectExamDropdowns(); updateTTG();
+  });
+
+  document.getElementById('add-subject-btn').addEventListener('click', function() {
+    state.subjects.push({ id: 's'+Date.now(), name: '', topics: '', difficulty: 3, confidence: 3, examId: state.exams[0].id });
+    renderSubjectsPanel(); updateTTG();
+  });
+
+  document.getElementById('setup-toggle').addEventListener('click', function() {
+    document.getElementById('setup-panel').classList.toggle('hidden');
+  });
+
+  // ===== GENERATE =====
+  function generate() {
+    const today = new Date(); today.setHours(0,0,0,0);
+    const validExams = state.exams.filter(e => e.name.trim());
+    if (validExams.length === 0) { alert('Please name at least one exam.'); return; }
+    for (const e of validExams) { if (e.date <= today) { alert(`"${e.name}" date must be in the future.`); return; } }
+    validExams.sort((a,b) => a.date - b.date);
+    const validSubjects = state.subjects.filter(s => s.name.trim() && s.topics.trim());
+    if (validSubjects.length === 0) { alert('Please add at least one subject with topics.'); return; }
+
+    const hoursPerDay = parseFloat(document.getElementById('hours-per-day').value) || 4;
+    const allTopics = [];
+
+    for (const subj of validSubjects) {
+      const targetExam = validExams.find(e => e.id === subj.examId) || validExams[0];
+      const daysUntil = daysBetween(today, targetExam.date);
+      const score = subj.difficulty * 2 + (6 - subj.confidence) * 1.5 + (1 / Math.max(1, daysUntil)) * 15;
+      const topics = subj.topics.split('\n').map(t => t.trim()).filter(t => t.length > 0);
+      for (const topic of topics) {
+        allTopics.push({ subject: subj.name, topic, difficulty: subj.difficulty, confidence: subj.confidence, priorityScore: score, targetExam, studied: false, studyDay: null, revisionDays: [] });
+      }
+    }
+    allTopics.sort((a,b) => b.priorityScore - a.priorityScore);
+
+    const earliest = validExams[0];
+    const availableDays = [];
+    let cursor = new Date(today);
+    while (cursor < earliest.date) {
+      if (!state.daysOff.has(cursor.getDay())) availableDays.push(new Date(cursor));
+      cursor = addDays(cursor, 1);
+    }
+
+    const schedule = [];
+    const studiedSet = new Set();
+    const hpt = Math.max(0.5, Math.min(1.5, (availableDays.length * hoursPerDay) / Math.max(1, allTopics.length) / 2));
+    let ti = 0;
+
+    for (let di = 0; di < availableDays.length && ti < allTopics.length; di++) {
+      const day = availableDays[di]; const slots = []; let hu = 0; const hard = [], easy = [];
+      while (ti < allTopics.length && hu + hpt <= hoursPerDay) {
+        const t = allTopics[ti];
+        if (!studiedSet.has(t.subject+'::'+t.topic)) { if (t.difficulty >= 4) hard.push(t); else easy.push(t); }
+        ti++;
+      }
+      const picked = [];
+      if (hard.length) picked.push(hard[0]);
+      let hi = hard.length>0?1:0, ei = 0;
+      while (picked.length < Math.floor(hoursPerDay / hpt)) {
+        if (hi < hard.length && picked.length % 2 === 1) picked.push(hard[hi++]);
+        else if (ei < easy.length) picked.push(easy[ei++]);
+        else if (hi < hard.length) picked.push(hard[hi++]); else break;
+      }
+      const rem = allTopics.filter(t => !studiedSet.has(t.subject+'::'+t.topic)); let ri = 0;
+      while (picked.length < Math.floor(hoursPerDay / hpt) && ri < rem.length) {
+        const t = rem[ri]; if (!picked.includes(t)) picked.push(t); ri++;
+      }
+      for (const t of picked) {
+        const key = t.subject+'::'+t.topic;
+        if (!studiedSet.has(key)) {
+          studiedSet.add(key); t.studied = true; t.studyDay = new Date(day);
+          const ai = t.confidence <= 2 ? [1,2,4,8] : t.confidence === 3 ? [1,3,7,14] : [2,5,10,20];
+          t.revisionDays = ai.map(d => addDays(day, d)).filter(d => d <= t.targetExam.date);
+          slots.push(t); hu += hpt;
+        }
+      }
+      if (slots.length > 0) schedule.push({ date: day, slots });
+    }
+
+    const unstudied = allTopics.filter(t => !t.studied);
+    if (unstudied.length > 0 && validExams.length > 1) {
+      for (const le of validExams.slice(1)) {
+        const extraDays = [];
+        let c2 = addDays(le.date > earliest.date ? new Date(Math.max(earliest.date.getTime(), today.getTime())) : today, 1);
+        while (c2 < le.date) { if (!state.daysOff.has(c2.getDay())) extraDays.push(new Date(c2)); c2 = addDays(c2, 1); }
+        const still = allTopics.filter(t => !t.studied && t.targetExam.id === le.id); let ti2 = 0;
+        for (const ed of extraDays) {
+          if (ti2 >= still.length) break; const slots = []; let hu = 0;
+          while (ti2 < still.length && hu + hpt <= hoursPerDay) {
+            const t = still[ti2]; const key = t.subject+'::'+t.topic;
+            if (!studiedSet.has(key)) { studiedSet.add(key); t.studied = true; t.studyDay = new Date(ed);
+              const ai = t.confidence <= 2 ? [1,2,4,8] : t.confidence === 3 ? [1,3,7,14] : [2,5,10,20];
+              t.revisionDays = ai.map(d => addDays(ed, d)).filter(d => d <= t.targetExam.date);
+              slots.push(t); hu += hpt; }
+            ti2++;
+          }
+          if (slots.length > 0) schedule.push({ date: ed, slots });
+        }
+      }
+    }
+
+    state.allTopics = allTopics; state.schedule = schedule;
+    updateStreak(today);
+    _renderDashboard(validExams, today);
+    document.getElementById('demo-state').classList.add('hidden');
+  }
+
+  function updateStreak(today) {
+    const sd = state.streakData; const todayStr = formatDate(today);
+    if (sd.lastDate === todayStr) return;
+    const yesterday = formatDate(addDays(today, -1));
+    if (sd.lastDate === yesterday) sd.count++; else if (sd.lastDate !== todayStr) sd.count = 1;
+    sd.lastDate = todayStr;
+    if (!sd.dates.includes(todayStr)) sd.dates.push(todayStr);
+    if (sd.dates.length > 60) sd.dates = sd.dates.slice(-60);
+    localStorage.setItem('ss_streak', JSON.stringify(sd)); state.streakData = sd;
+  }
+
+  function renderRecommendations(exams, today) {
+    const section = document.getElementById('recommendations-section');
+    const body = document.getElementById('recommendation-body');
+    const count = document.getElementById('recommendation-count');
+    const recs = [];
+    const totalTopics = state.allTopics.length;
+    const studiedTopics = state.allTopics.filter(t => t.studied).length;
+    const avgConf = state.allTopics.length > 0 ? state.allTopics.reduce((s,t) => s + (t.confidence||1), 0) / state.allTopics.length : 0;
+
+    // Catch-up pressure
+    if (totalTopics > 0 && studiedTopics / totalTopics < 0.3) {
+      recs.push({ icon: '🎯', text: 'You\'ve covered less than 30% of topics. Try 2 short sessions today to build momentum.', type: 'focus' });
+    } else if (studiedTopics === totalTopics && avgConf < 3) {
+      recs.push({ icon: '📖', text: 'All topics started! Now deepen them — re-study low-confidence topics to boost your avg above 3.', type: 'review' });
+    }
+
+    // Confidence holes
+    const lowConf = state.allTopics.filter(t => t.confidence < 2);
+    if (lowConf.length >= 2) {
+      recs.push({ icon: '⚠️', text: `${lowConf.length} topics need attention (confidence < 2). A focused session on these will move your score most.`, type: 'warning' });
+    }
+
+    // Near exams
+    const nearExam = exams.filter(e => daysBetween(today, e.date) <= 3 && daysBetween(today, e.date) >= 0);
+    if (nearExam.length > 0) {
+      recs.push({ icon: '🔔', text: `${nearExam[0].name} is in ${daysBetween(today, nearExam[0].date)} day${daysBetween(today, nearExam[0].date)>1?'s':''}! Focus on review over new material.`, type: 'urgent' });
+    }
+
+    // Burnout check
+    const topicsToday = state.allTopics.filter(t => daysBetween(new Date(t.studiedDate||''), today) === 0).length;
+    if (topicsToday >= 4) {
+      recs.push({ icon: '🧘', text: `You studied ${topicsToday} topics today. Take a break or do a light review session to avoid burnout.`, type: 'rest' });
+    }
+
+    // Streak encouragement
+    if (state.streakData.count > 0 && state.streakData.count < 5) {
+      recs.push({ icon: '🔥', text: `${state.streakData.count}-day streak! One more day unlocks the 5-day milestone.`, type: 'streak' });
+    }
+
+    if (recs.length === 0) { section.classList.add('hidden'); return; }
+
+    section.classList.remove('hidden');
+    count.textContent = `${recs.length} insight${recs.length>1?'s':''}`;
+    body.innerHTML = recs.map((r, i) => {
+      const colors = { focus: 'border-sky-500/20 bg-sky-500/[0.02]', review: 'border-indigo-500/20 bg-indigo-500/[0.02]', warning: 'border-amber-500/20 bg-amber-500/[0.02]', urgent: 'border-rose-500/20 bg-rose-500/[0.02]', rest: 'border-emerald-500/20 bg-emerald-500/[0.02]', streak: 'border-orange-500/20 bg-orange-500/[0.02]' };
+      return `<div class="flex items-start gap-2.5 p-2.5 rounded-xl border ${colors[r.type]||colors.focus} card-enter" style="animation-delay:${i*0.08}s">
+        <span class="text-sm shrink-0 mt-0.5">${r.icon}</span>
+        <p class="text-xs text-ink/80 leading-relaxed">${r.text}</p>
+      </div>`;
+    }).join('');
+  }
+
+  function renderStreak(today) {
+    const sd = state.streakData;
+    document.getElementById('streak-count').textContent = sd.count;
+    document.getElementById('streak-emoji').textContent = sd.count >= 7 ? '🏆' : sd.count >= 3 ? '🔥' : '⭐';
+    document.getElementById('streak-message').textContent = sd.count === 0 ? 'Study today to start your streak!' : sd.count < 3 ? `Studied ${sd.count} day${sd.count>1?'s':''}. Keep it up!` : sd.count < 7 ? `${sd.count}-day streak! Don't break it!` : `Incredible! ${sd.count}-day streak!`;
+    const dots = document.getElementById('streak-dots');
+    const weekAgo = addDays(today, -6); dots.innerHTML = '';
+    for (let i = 0; i < 7; i++) {
+      const d = addDays(weekAgo, i); const ds = formatDate(d); const active = sd.dates.includes(ds);
+      const dot = document.createElement('span');
+      dot.className = `streak-dot w-3 h-3 rounded-sm ${active ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.3)]' : 'bg-hairline/30'}`;
+      dot.title = friendlyDate(d) + (active ? ' ✓ studied' : ''); dots.appendChild(dot);
+    }
+  }
+
+  function renderRoadmap(exam, today) {
+    const d = daysBetween(today, exam.date);
+    const studied = state.allTopics.filter(t => t.studied).length;
+    const total = state.allTopics.length;
+    const pct = total > 0 ? Math.min(100, (studied / total) * 100) : 0;
+    document.getElementById('roadmap-progress').style.width = pct + '%';
+    document.getElementById('roadmap-today').textContent = friendlyDate(today);
+    document.getElementById('roadmap-exam-date').textContent = friendlyDate(exam.date) + ' (' + d + ' days)';
+    document.getElementById('roadmap-exam-label').textContent = exam.name + ' Exam';
+
+    const studyMarker = document.getElementById('roadmap-study-marker');
+    const revMarker = document.getElementById('roadmap-revision-marker');
+    studyMarker.classList.remove('hidden');
+    revMarker.classList.remove('hidden');
+    if (d <= 3) studyMarker.classList.add('hidden');
+    if (d <= 7) revMarker.classList.add('hidden');
+  }
+
+  function _renderDashboard(exams, today) {
+    document.getElementById('dashboard').classList.remove('hidden');
+
+    renderStreak(today);
+    renderRoadmap(exams[0], today);
+    renderReadiness(exams, today);
+    renderNextUp(today);
+    renderForecast(exams, today);
+    renderAdaptiveRevision(today);
+    renderMissedDay(exams, today);
+    renderWeeklyRoadmap(today);
+    renderRecommendations(exams, today);
+
+    const totalDays = state.schedule.length;
+    const totalTopics = state.allTopics.filter(t => t.studied).length;
+    document.getElementById('roadmap-count').textContent = `${totalDays}d · ${totalTopics} topics`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function renderReadiness(exams, today) {
+    const all = state.allTopics; const total = all.length; const studied = all.filter(t => t.studied).length;
+    const pct = total > 0 ? (studied / total) * 100 : 0;
+    let confScore = 0; for (const t of all) confScore += t.confidence;
+    const avgConf = all.length > 0 ? (confScore / all.length) * 20 : 0;
+    const daysUntil = daysBetween(today, exams[0].date);
+    const daysPct = daysUntil > 0 ? Math.min(100, (state.schedule.length / Math.max(1, daysUntil)) * 100) : 0;
+    const readiness = Math.min(100, Math.round(pct * 0.35 + daysPct * 0.2 + avgConf * 0.45));
+    const circ = 97.4;
+    const ring = document.getElementById('readiness-ring');
+    const scoreEl = document.getElementById('readiness-score');
+    ring.style.strokeDashoffset = circ - (readiness / 100) * circ;
+    // Animated count-up
+    const current = parseInt(scoreEl.textContent) || 0;
+    if (current !== readiness) {
+      let start = current;
+      const step = Math.ceil(Math.abs(readiness - start) / 20);
+      const interval = setInterval(() => {
+        start += (readiness > start ? step : -step);
+        if ((readiness > start && start >= readiness) || (readiness < start && start <= readiness)) { start = readiness; clearInterval(interval); }
+        scoreEl.textContent = start + '%';
+      }, 30);
+    } else {
+      scoreEl.textContent = readiness + '%';
+    }
+    const levels = [
+      { min: 90, label: 'Exam Ready', cls: 'bg-emerald-500/10 text-emerald-600' },
+      { min: 70, label: 'Well Prepared', cls: 'bg-green-500/10 text-green-600' },
+      { min: 45, label: 'Getting There', cls: 'bg-amber-500/10 text-amber-600' },
+      { min: 20, label: 'Needs Work', cls: 'bg-orange-500/10 text-orange-600' },
+      { min: 0, label: 'Just Started', cls: 'bg-rose-500/10 text-rose-600' }
+    ];
+    const level = levels.find(l => readiness >= l.min) || levels[4];
+    document.getElementById('readiness-level').textContent = level.label;
+    document.getElementById('readiness-level').className = `text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${level.cls}`;
+    document.getElementById('readiness-detail').textContent =
+      readiness >= 90 ? 'You are well prepared. Focus on maintenance reviews and rest.' :
+      readiness >= 70 ? 'Good progress. Keep following the plan and target weak areas.' :
+      readiness >= 45 ? 'You are making progress. Focus on high-difficulty, low-confidence topics.' :
+      readiness >= 20 ? 'Prioritize studying for your earliest exam. You have time to catch up.' :
+      'Start with the highest priority topics. Every session counts.';
+    const breakdown = document.getElementById('readiness-breakdown');
+    const colors = ['text-violet-600','text-emerald-600','text-amber-600','text-sky-600','text-rose-600'];
+    breakdown.innerHTML = exams.map((exam, ei) => {
+      const et = all.filter(t => t.targetExam.id === exam.id);
+      const es = et.filter(t => t.studied).length;
+      const ep = et.length > 0 ? Math.round((es / et.length) * 100) : 0;
+      return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-canvas-soft-2 border border-hairline/20 text-[10px] font-bold ${colors[ei%colors.length]}">${exam.name} ${ep}%</span>`;
+    }).join('');
+  }
+
+  function renderNextUp(today) {
+    const el = document.getElementById('next-up-content');
+    const todayStr = formatDate(today); const badge = document.getElementById('today-badge');
+    const todayPlan = state.schedule.find(d => formatDate(d.date) === todayStr);
+
+    if (todayPlan && todayPlan.slots.length > 0) {
+      badge.textContent = `Today · ${todayPlan.slots.length} topics`;
+      el.innerHTML = todayPlan.slots.map(t => {
+        const pri = getPri(t.priorityScore);
+        return `<div class="flex items-center gap-2 p-1.5 rounded-lg bg-sky-500/[0.03] border border-sky-500/10 schedule-day-enter">
+          <span class="${pri.cls} text-[9px] font-bold px-1.5 py-0.5 rounded-md shrink-0">${pri.label}</span>
+          <div class="flex-1 min-w-0"><span class="text-xs font-bold text-ink truncate block">${t.topic}</span><span class="text-[9px] text-ink/50">${t.subject} · ${t.targetExam.name}</span></div>
+        </div>`;
+      }).join('');
+      document.getElementById('log-session-area').classList.remove('hidden');
+      populateLogSelect();
+    } else {
+      const next = state.schedule.find(d => formatDate(d.date) > todayStr);
+      const daysLeft = daysBetween(today, state.allTopics.length > 0 ? state.allTopics[0].targetExam.date : today);
+      if (daysLeft <= 0) { badge.textContent = 'Exam day!'; el.innerHTML = '<div class="text-center py-3 text-xs text-ink/60 font-medium">Best of luck!</div>'; }
+      else if (next) { badge.textContent = 'Rest day'; el.innerHTML = `<div class="text-center py-3 text-xs text-ink/50 italic">Rest day. Next session: ${friendlyDate(next.date)}</div>`; }
+      else { badge.textContent = 'All done'; el.innerHTML = '<div class="text-center py-3 text-xs text-ink/60 font-medium">All caught up! Review weak topics.</div>'; }
+    }
+  }
+
+  function populateLogSelect() {
+    const sel = document.getElementById('log-topic-select');
+    const todayStr = formatDate(new Date());
+    const todayPlan = state.schedule.find(d => formatDate(d.date) === todayStr);
+    sel.innerHTML = (todayPlan?.slots || []).map(t => `<option value="${t.topic}|${t.subject}">${t.topic} (${t.subject})</option>`).join('');
+    if (!sel.options.length) sel.innerHTML = '<option value="">No topics available</option>';
+  }
+
+  document.getElementById('log-session-btn').addEventListener('click', function() {
+    const sel = document.getElementById('log-topic-select');
+    const conf = parseInt(document.getElementById('log-confidence-select').value);
+    const val = sel.value;
+    if (!val) { alert('Select a topic to log.'); return; }
+    const [topic, subject] = val.split('|');
+    const match = state.allTopics.find(t => t.topic === topic && t.subject === subject);
+    if (match) {
+      match.confidence = conf;
+      const log = { topic, subject, confidence: conf, date: formatDate(new Date()) };
+      state.logHistory.push(log);
+      localStorage.setItem('ss_logs', JSON.stringify(state.logHistory));
+      // Recompute priority score
+      const daysUntil = daysBetween(new Date(), match.targetExam.date);
+      match.priorityScore = match.difficulty * 2 + (6 - conf) * 1.5 + (1 / Math.max(1, daysUntil)) * 15;
+      // Re-render
+      const today = new Date(); today.setHours(0,0,0,0);
+      const exams = state.exams.filter(e => e.name.trim()).sort((a,b) => a.date - b.date);
+      _renderDashboard(exams, today);
+    }
+  });
+
+  function renderForecast(exams, today) {
+    const el = document.getElementById('forecast-content');
+    const all = state.allTopics;
+    const groups = {};
+    for (const t of all) {
+      const key = t.subject+'::'+t.targetExam.id;
+      if (!groups[key]) groups[key] = { subject: t.subject, exam: t.targetExam, topics: [] };
+      groups[key].topics.push(t);
+    }
+    el.innerHTML = Object.values(groups).map(g => {
+      const total = g.topics.length; const studied = g.topics.filter(t => t.studied).length;
+      const pct = total > 0 ? Math.round((studied/total)*100) : 0;
+      const pace = Math.max(1, state.schedule.length);
+      const pctPerDay = pace > 0 ? (studied / pace) : 0;
+      const remaining = total - studied;
+      const estDays = pctPerDay > 0 ? Math.ceil(remaining / pctPerDay) : 999;
+      const estDate = addDays(today, estDays);
+      const isOnTrack = estDate <= g.exam.date;
+      return `<div class="schedule-day-enter">
+        <div class="flex items-center justify-between mb-1"><span class="text-xs font-bold text-ink">${g.subject}</span><span class="text-[9px] text-ink/50">${studied}/${total} topics</span></div>
+        <div class="w-full h-2 bg-hairline/30 rounded-full overflow-hidden"><div class="h-full rounded-full bg-gradient-to-r from-violet-500 to-indigo-500 progress-fill" style="width:${pct}%"></div></div>
+        <div class="flex items-center justify-between mt-1">
+          <span class="${isOnTrack ? 'text-emerald-600' : 'text-rose-600'} text-[10px] font-bold flex items-center gap-1">${isOnTrack ? '✓' : '⚠'} ${isOnTrack ? 'On track' : 'Behind'}</span>
+          <span class="text-[9px] text-ink/50">${isOnTrack ? 'Done by ' + shortDate(estDate) : estDays + ' days behind'}</span>
+        </div>
+        ${daysBetween(today, g.exam.date) <= 7 ? `<div class="mt-1 text-[9px] text-rose-500 font-semibold">${daysBetween(today, g.exam.date)} days until ${g.exam.name}</div>` : ''}
+      </div>`;
+    }).join('') || '<div class="text-center py-3 text-xs text-ink/50 italic">No subjects loaded for forecast.</div>';
+  }
+
+  function renderAdaptiveRevision(today) {
+    const el = document.getElementById('revision-content'); const badge = document.getElementById('revision-count');
+    const studied = state.allTopics.filter(t => t.studied && t.revisionDays.length > 0);
+    if (studied.length === 0) { badge.textContent = ''; el.innerHTML = '<div class="text-center py-3 text-xs text-ink/50 italic">Review schedule appears as you study topics.</div>'; return; }
+    const todayStr = formatDate(today); const dueNow = [], dueSoon = [];
+    for (const t of studied) { for (const rd of t.revisionDays) { const ds = formatDate(rd); if (ds === todayStr) dueNow.push(t); else if (rd > today && daysBetween(today, rd) <= 3) dueSoon.push(t); } }
+    const tc = dueNow.length; badge.textContent = `${tc} due today`;
+    if (tc > 0) {
+      el.innerHTML = `<div class="space-y-1.5"><p class="text-[10px] font-bold text-amber-600 uppercase tracking-wider mb-1">Due today</p>${
+        dueNow.slice(0,5).map(t => `<div class="flex items-center gap-1.5 p-1.5 rounded-lg bg-amber-500/[0.05] border border-amber-500/10 schedule-day-enter">
+          <span class="text-xs font-semibold text-ink flex-1 min-w-0 truncate">${t.topic}</span>
+          <span class="text-[8px] text-ink/40 uppercase">${t.subject}</span>
+          <span class="text-[8px] font-bold px-1 py-0.5 rounded bg-amber-500/10 text-amber-600">${t.confidence <= 2 ? 'Low conf' : t.confidence === 3 ? 'Review' : 'Quick'}</span>
+        </div>`).join('')
+      }${dueSoon.length > 0 ? `<p class="text-[10px] text-ink/50 mt-2">${dueSoon.length} more within 3 days</p>` : ''}</div>`;
+    } else if (dueSoon.length > 0) {
+      el.innerHTML = `<div class="text-center py-2 text-xs text-ink/60"><span class="text-emerald-500 font-bold">✓</span> All caught up. ${dueSoon.length} reviews due within 3 days.</div>`;
+    } else {
+      el.innerHTML = '<div class="text-center py-2 text-xs text-ink/60"><span class="text-emerald-500 font-bold">✓</span> No upcoming reviews. You\'re on top of revision!</div>';
+    }
+  }
+
+  function renderMissedDay(exams, today) {
+    const el = document.getElementById('missed-day-content');
+    const all = state.allTopics;
+    if (all.length === 0) { el.innerHTML = '<div class="text-center py-3 text-xs text-ink/50 italic">Generate your plan to use the miss-day simulator.</div>'; return; }
+    const studied = all.filter(t => t.studied).length; const total = all.length;
+    const currentPct = total > 0 ? Math.round((studied / total) * 100) : 0;
+    const hpDay = parseFloat(document.getElementById('hours-per-day').value) || 4;
+    const hpt = Math.max(0.5, Math.min(1.5, 1));
+    const topicsPerDay = Math.floor(hpDay / hpt);
+    const impact = Math.max(0, currentPct - state.missedDays * 2);
+    el.innerHTML = `
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xs font-bold text-ink shrink-0">Miss</span>
+        <input type="range" id="missed-slider" class="missed-slider flex-1" min="0" max="14" value="${state.missedDays}" />
+        <span class="text-xs font-bold text-ink w-20 text-right"><span id="missed-day-count">${state.missedDays}</span> day${state.missedDays!==1?'s':''}</span>
+      </div>
+      <div class="flex items-center justify-between p-2 rounded-lg bg-rose-500/[0.04] border border-rose-500/10">
+        <div>
+          <span class="text-[10px] text-ink/60">Readiness would drop to</span>
+          <div class="flex items-baseline gap-1.5 mt-0.5">
+            <span class="text-sm font-black ${impact >= currentPct*0.7 ? 'text-emerald-500' : impact >= currentPct*0.4 ? 'text-amber-500' : 'text-rose-500'}">${impact}%</span>
+            <span class="text-[10px] text-ink/40">from ${currentPct}%</span>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-[10px] text-ink/60">Topics delayed</span>
+          <div class="text-sm font-black text-ink mt-0.5">${Math.min(topicsPerDay * state.missedDays, total - studied)}</div>
+        </div>
+      </div>
+      <p id="missed-warning" class="text-[9px] text-ink/50 mt-1 leading-relaxed">${state.missedDays === 0 ? 'Drag the slider to see the impact of missed days on your readiness.' : state.missedDays <= 3 ? 'A short break is manageable — just stay consistent.' : state.missedDays <= 7 ? 'This will noticeably impact your readiness. Consider adjusting your schedule.' : 'This seriously affects your preparation. Re-plan your study schedule.'}</p>`;
+    const slider = document.getElementById('missed-slider');
+    slider.addEventListener('input', function() { state.missedDays = parseInt(this.value); renderMissedDay(exams, today); });
+  }
+
+  function renderWeeklyRoadmap(today) {
+    const el = document.getElementById('weekly-roadmap');
+    if (state.schedule.length === 0) { el.innerHTML = '<div class="text-center py-3 text-xs text-ink/50 italic">No study days scheduled.</div>'; return; }
+    const todayStr = formatDate(today);
+    el.innerHTML = state.schedule.map((day, di) => {
+      const isToday = formatDate(day.date) === todayStr;
+      return `<div class="p-2.5 rounded-xl ${isToday ? 'bg-violet-500/5 border border-violet-500/15' : 'bg-canvas-soft-2/20 border border-hairline/10'} schedule-day-enter" style="animation-delay:${di*30}ms">
+        <div class="flex items-center gap-2 mb-1.5">
+          <span class="text-xs font-extrabold text-ink">${isToday ? 'Today' : friendlyDate(day.date)}</span>${isToday ? '<span class="text-[8px] font-bold text-violet-500 bg-violet-500/10 px-1.5 py-0.5 rounded-full uppercase tracking-wider">Now</span>' : ''}
+          <span class="text-[9px] text-ink/40 ml-auto">${day.slots.length} topic${day.slots.length>1?'s':''}</span>
+        </div>
+        <div class="flex flex-wrap gap-1">${day.slots.map(t => { const pri = getPri(t.priorityScore); return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-canvas border border-hairline/20 text-[10px] font-semibold text-ink"><span class="${pri.cls} text-[7px] font-bold px-1 py-0.25 rounded">${pri.label}</span> ${t.topic}</span>`; }).join('')}</div>
+      </div>`;
+    }).join('');
+  }
+
+  function getPri(score) {
+    if (score >= 14) return { label: 'Critical', cls: 'bg-rose-500/10 text-rose-600' };
+    if (score >= 10) return { label: 'High', cls: 'bg-amber-500/10 text-amber-600' };
+    if (score >= 7) return { label: 'Medium', cls: 'bg-blue-500/10 text-blue-600' };
+    return { label: 'Low', cls: 'bg-emerald-500/10 text-emerald-600' };
+  }
+
+  document.getElementById('generate-btn').addEventListener('click', generate);
+  document.getElementById('generate-btn').addEventListener('touchstart', function(e) { if (!this._clicked) { this._clicked = true; generate(); } }, { passive: true });
+
+  // ===== IMPORT EXAM SHEET =====
+  function setProgress(pct, text) {
+    document.getElementById('import-progress').classList.remove('hidden');
+    document.getElementById('import-progress-bar').style.width = pct + '%';
+    document.getElementById('import-progress-text').textContent = pct + '%';
+    if (text) document.getElementById('import-status').textContent = text;
+  }
+
+  function showImportError(msg) {
+    document.getElementById('import-progress').classList.add('hidden');
+    document.getElementById('import-error').classList.remove('hidden');
+    document.getElementById('import-error-text').textContent = msg;
+  }
+
+  function hideImportError() {
+    document.getElementById('import-error').classList.add('hidden');
+  }
+
+  function openImportModal() { document.getElementById('import-modal').classList.remove('hidden'); hideImportError();
+    document.getElementById('import-progress').classList.add('hidden'); }
+  function closeImportModal() { document.getElementById('import-modal').classList.add('hidden'); }
+  function openPreviewModal() { document.getElementById('preview-modal').classList.remove('hidden'); }
+  function closePreviewModal() { document.getElementById('preview-modal').classList.add('hidden'); }
+
+  // --- File parsing ---
+  async function parseFileText(file) {
+    const ext = file.name.split('.').pop().toLowerCase();
+    if (ext === 'txt') return await file.text();
+    if (ext === 'csv') return await file.text();
+    if (ext === 'pdf') return await parsePDF(file);
+    if (ext === 'docx') return await parseDOCX(file);
+    throw new Error('Unsupported file type: .' + ext);
+  }
+
+  async function parsePDF(file) {
+    const pdfjsLib = await import('https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/build/pdf.min.mjs');
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/build/pdf.worker.min.mjs';
+    const buf = await file.arrayBuffer();
+    const doc = await pdfjsLib.getDocument({ data: buf }).promise;
+    let text = '';
+    for (let i = 1; i <= doc.numPages; i++) {
+      const page = await doc.getPage(i);
+      const content = await page.getTextContent();
+      text += content.items.map(item => item.str).join(' ') + '\n';
+    }
+    return text;
+  }
+
+  async function parseDOCX(file) {
+    const mammoth = await import('https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js');
+    const buf = await file.arrayBuffer();
+    const result = await mammoth.extractRawText({ arrayBuffer: buf });
+    return result.value;
+  }
+
+  // --- Entity extraction ---
+  function tryParseDate(str) {
+    str = str.trim();
+    const formats = [
+      /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/,
+      /^(\d{4})-(\d{1,2})-(\d{1,2})$/,
+      /^(\d{1,2})-(\d{1,2})-(\d{4})$/,
+      /^(\w+)\s+(\d{1,2}),?\s*(\d{4})$/i,
+      /^(\d{1,2})(?:st|nd|rd|th)?\s+(\w+)\s+(\d{4})$/i,
+      /^(\w+)\s+(\d{4})$/i
+    ];
+    for (const rx of formats) {
+      const m = str.match(rx);
+      if (!m) continue;
+      if (rx === formats[5]) return new Date(Date.parse(m[1] + ' 1, ' + m[2]));
+      const d = new Date(str);
+      if (!isNaN(d.getTime())) return d;
+    }
+    return null;
+  }
+
+  function findDatesInText(text) {
+    const dateRx = /(\d{1,2}\/\d{1,2}\/\d{4})|(\d{4}-\d{1,2}-\d{1,2})|(\d{1,2}-\d{1,2}-\d{4})|(\w+\s+\d{1,2},?\s*\d{4})|(\d{1,2}(?:st|nd|rd|th)?\s+\w+\s+\d{4})/gi;
+    const dates = [];
+    const seen = new Set();
+    let match;
+    while ((match = dateRx.exec(text)) !== null) {
+      const raw = match[0].trim();
+      const parsed = tryParseDate(raw);
+      if (parsed && !seen.has(raw.toLowerCase())) {
+        seen.add(raw.toLowerCase());
+        dates.push({ raw, date: parsed });
+      }
+    }
+    return dates;
+  }
+
+  function extractEntities(text) {
+    const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    const foundDates = findDatesInText(text);
+
+    // Heuristic: detect exam names
+    const examKeywords = /(exam|test|final|midterm|assessment|quiz|board|paper|evaluation|examination|semester|term[- ]?end)/i;
+    const knownSubjects = ['math','mathematics','physics','chemistry','biology','english','history','geography','economics','computer','science','literature','art','music','physical education','pe','social studies','civics','geology','astronomy','psychology','sociology','philosophy','statistics','algebra','geometry','calculus','trigonometry','botany','zoology','biochemistry','ecology','genetics','anatomy','physiology','immunology','microbiology','pathology','pharmacology','neuroscience','organic','inorganic','physical chemistry','electrochemistry','thermodynamics','quantum','mechanics','electromagnetism','optics','waves','nuclear','particle','fluid','solid','circuit','signal','programming','algorithm','data structure','database','network','operating system','software engineering','web development','machine learning','artificial intelligence','deep learning','natural language','computer vision','robotics','cybersecurity','cryptography','blockchain','cloud computing','devops','accounting','finance','marketing','management','law','political science','anthropology','linguistics','archaeology'];
+    const knownSubjectSet = new Set(knownSubjects);
+
+    // Phase 1: identify exam blocks
+    const exams = [];
+    let currentExam = null;
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      // Is this line an exam header?
+      const isExamLine = examKeywords.test(line) || /^\d{1,2}\s*\.?\s*(final|midterm|exam|test)/i.test(line);
+
+      if (isExamLine && line.length < 120) {
+        // Find nearest date
+        const lineDate = foundDates.find(d => Math.abs(text.indexOf(line) - text.indexOf(d.raw)) < 200);
+        // Also look ahead up to 3 lines for a date
+        let date = lineDate ? lineDate.date : null;
+        if (!date) {
+          for (let j = i + 1; j < Math.min(i + 4, lines.length); j++) {
+            const d = tryParseDate(lines[j]);
+            if (d) { date = d; break; }
+          }
+        }
+        if (!date && foundDates.length === 1) date = foundDates[0].date;
+        const examName = line.replace(/^\d{1,2}\s*\.?\s*/, '').replace(/[:\-–].*$/, '').replace(/\s+/g, ' ').trim().slice(0, 60);
+        currentExam = { name: examName, date, subjects: [], raw: true };
+        exams.push(currentExam);
+      }
+    }
+
+    // Fallback: if no exams detected, create one from found dates
+    if (exams.length === 0 && foundDates.length > 0) {
+      for (const fd of foundDates) {
+        exams.push({ name: 'Exam ' + (exams.length + 1), date: fd.date, subjects: [], raw: true });
+      }
+    }
+    if (exams.length === 0) {
+      exams.push({ name: 'My Exam', date: addDays(new Date(), 30), subjects: [], raw: true });
+    }
+
+    // Phase 2: detect subjects and topics
+    const allTopics = [];
+    let currentSubject = null;
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      // Skip lines that look like exam headers or dates
+      if (examKeywords.test(line) && line.length < 80) continue;
+      if (tryParseDate(line)) continue;
+      if (line.length < 2) continue;
+
+      // Check if it looks like a subject header
+      const lower = line.toLowerCase();
+      const isSubject = knownSubjectSet.has(lower) ||
+        knownSubjects.some(s => lower.startsWith(s) || lower.includes(s + ' ') || lower.includes(s + ':') || lower.includes(s + ' —')) ||
+        /^(chapter|module|unit|section|part|week)\s+\d+/i.test(line) ||
+        /^[A-Z][a-z]+(\s+[A-Z][a-z]+){0,3}$/.test(line) && line.length < 50 && !line.endsWith('.') && !line.endsWith('?');
+
+      if (isSubject && line.length < 60) {
+        currentSubject = line.replace(/:\s*$/, '').trim();
+        if (!currentSubject) continue;
+        continue;
+      }
+
+      // Detect topic
+      const topicLine = line.replace(/^[-–•·*]\s*/, '').replace(/^\d+[.)]\s*/, '').trim();
+      if (topicLine.length > 1 && topicLine.length < 120 && !examKeywords.test(line)) {
+        const difficulty = topicLine.length > 40 ? 4 : topicLine.length > 20 ? 3 : 2;
+        allTopics.push({
+          topic: topicLine,
+          subject: currentSubject || 'General',
+          difficulty,
+          confidence: 1,
+          targetExam: exams[0]
+        });
+      }
+    }
+
+    // Map subjects to exams
+    const subjectPerExam = {};
+    // Distribute subjects across exams
+    const uniqueSubjects = [...new Set(allTopics.map(t => t.subject))];
+    uniqueSubjects.forEach((s, si) => {
+      const examIdx = si % exams.length;
+      subjectPerExam[s] = exams[examIdx];
+    });
+    allTopics.forEach(t => {
+      t.targetExam = subjectPerExam[t.subject] || exams[0];
+    });
+
+    return { exams, topics: allTopics };
+  }
+
+  // --- Preview & confirm ---
+  function renderPreview(data) {
+    const body = document.getElementById('preview-body');
+    let html = '';
+
+    // Exam cards
+    data.exams.forEach((exam, ei) => {
+      const dateStr = exam.date ? exam.date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : 'Not detected';
+      html += `<div class="preview-exam-card bg-canvas-soft-2/30 rounded-xl border border-hairline/20 p-3">
+        <div class="flex items-center gap-2 mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-violet-500 shrink-0"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <input class="preview-edit-input text-xs font-extrabold text-ink flex-1" data-exam-idx="${ei}" data-field="name" value="${exam.name}" />
+          <span class="extracted-tag ${exam.raw ? '' : 'weak'}">${exam.raw ? 'Detected' : 'Estimated'}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-[10px] text-ink/40 w-16 shrink-0">Date</span>
+          <input class="preview-edit-input text-xs text-ink flex-1" data-exam-idx="${ei}" data-field="date" value="${dateStr}" placeholder="e.g. 06/15/2026" />
+        </div>
+      </div>`;
+    });
+
+    // Subjects & Topics
+    const subjects = {};
+    data.topics.forEach(t => {
+      if (!subjects[t.subject]) subjects[t.subject] = [];
+      subjects[t.subject].push(t);
+    });
+
+    html += `<div class="mt-2">
+      <div class="flex items-center gap-2 mb-2">
+        <h4 class="text-xs font-extrabold text-ink">Subjects & Topics</h4>
+        <span class="text-[9px] text-ink/40">${data.topics.length} topics across ${Object.keys(subjects).length} subjects</span>
+      </div>`;
+
+    Object.entries(subjects).forEach(([subj, topics]) => {
+      html += `<div class="bg-canvas-soft-2/20 rounded-xl border border-hairline/10 p-2.5 mb-2">
+        <div class="flex items-center gap-2 mb-1.5">
+          <input class="preview-edit-input text-[10px] font-bold text-ink flex-1 max-w-[200px]" data-subject="${subj}" value="${subj}" placeholder="Subject name" />
+          <span class="text-[9px] text-ink/40">${topics.length} topics</span>
+        </div>
+        <div class="space-y-1">${topics.map((t, ti) => `<div class="preview-topic-row flex items-center gap-1.5 p-1 rounded-lg">
+          <span class="text-[9px] text-ink/40 w-4 shrink-0 text-right">${ti+1}</span>
+          <input class="preview-edit-input text-[10px] text-ink flex-1" data-topic="${t.topic}" value="${t.topic}" placeholder="Topic name" />
+          <select class="preview-edit-input text-[10px] text-ink w-16 shrink-0" data-topic-diff="${t.topic}">
+            <option value="2" ${t.difficulty===2?'selected':''}>Easy</option>
+            <option value="3" ${t.difficulty===3?'selected':''}>Medium</option>
+            <option value="4" ${t.difficulty===4?'selected':''}>Hard</option>
+            <option value="5" ${t.difficulty===5?'selected':''}>Expert</option>
+          </select>
+        </div>`).join('')}</div>
+      </div>`;
+    });
+
+    html += `</div>`;
+    body.innerHTML = html;
+  }
+
+  function collectPreviewData() {
+    const exams = [];
+    document.querySelectorAll('#preview-body [data-exam-idx]').forEach(input => {
+      const ei = parseInt(input.dataset.examIdx);
+      if (!exams[ei]) exams[ei] = {};
+      if (input.dataset.field === 'name') exams[ei].name = input.value;
+      if (input.dataset.field === 'date') exams[ei].dateStr = input.value;
+    });
+
+    // Collect topics from the DOM structure
+    const topics = [];
+    const subjectBlocks = document.querySelectorAll('#preview-body [data-subject]');
+    subjectBlocks.forEach(subjInput => {
+      const subjName = subjInput.value;
+      const block = subjInput.closest('.rounded-xl.border');
+      if (!block) return;
+      const rows = block.querySelectorAll('.preview-topic-row');
+      rows.forEach(row => {
+        const tInput = row.querySelector('[data-topic]');
+        const diffSelect = row.querySelector('[data-topic-diff]');
+        if (tInput && tInput.value.trim()) {
+          topics.push({ topic: tInput.value.trim(), subject: subjName, difficulty: parseInt(diffSelect ? diffSelect.value : '3'), confidence: 1 });
+        }
+      });
+    });
+
+    // Fallback: if subjectBlocks empty, try linear scan
+    if (subjectBlocks.length === 0) {
+      document.querySelectorAll('#preview-body .preview-topic-row').forEach(row => {
+        const tInput = row.querySelector('[data-topic]');
+        const diffSelect = row.querySelector('[data-topic-diff]');
+        if (tInput && tInput.value.trim()) {
+          topics.push({ topic: tInput.value.trim(), subject: 'General', difficulty: parseInt(diffSelect ? diffSelect.value : '3'), confidence: 1 });
+        }
+      });
+    }
+
+    // Map dates
+    exams.forEach((e, ei) => {
+      if (e && e.dateStr) {
+        const parsed = tryParseDate(e.dateStr);
+        e.date = parsed || addDays(new Date(), 30);
+      } else if (exams[ei]) {
+        exams[ei].date = addDays(new Date(), 30);
+      }
+    });
+
+    return { exams: exams.filter(Boolean), topics };
+  }
+
+  async function handleImportFile(file) {
+    hideImportError();
+    document.getElementById('import-progress').classList.remove('hidden');
+    setProgress(10, 'Reading file...');
+    window.__importFileName = file.name;
+
+    try {
+      const text = await parseFileText(file);
+      setProgress(50, 'Extracting exams, subjects, and topics...');
+
+      const data = extractEntities(text);
+      setProgress(80, 'Preparing preview...');
+
+      // Deduplicate topics
+      const seen = new Set();
+      data.topics = data.topics.filter(t => {
+        const key = t.topic.toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+
+      // Limit to reasonable count
+      if (data.topics.length > 80) data.topics = data.topics.slice(0, 80);
+      if (data.exams.length > 10) data.exams = data.exams.slice(0, 10);
+      if (data.exams.length === 0) data.exams.push({ name: 'My Exam', date: addDays(new Date(), 30), raw: true });
+
+      setProgress(100, 'Ready for review');
+      setTimeout(() => {
+        closeImportModal();
+        renderPreview(data);
+        window.__importData = data;
+        openPreviewModal();
+      }, 400);
+    } catch (err) {
+      console.error('Import error:', err);
+      showImportError(err.message || 'Could not parse this file. Make sure it contains text content.');
+    }
+  }
+
+  // --- Wire UI ---
+  document.getElementById('import-btn').addEventListener('click', openImportModal);
+  document.getElementById('import-modal-backdrop').addEventListener('click', closeImportModal);
+  document.getElementById('import-modal-close').addEventListener('click', closeImportModal);
+  document.getElementById('preview-modal-backdrop').addEventListener('click', closePreviewModal);
+  document.getElementById('preview-modal-close').addEventListener('click', closePreviewModal);
+  document.getElementById('preview-cancel').addEventListener('click', closePreviewModal);
+
+  // Drag-and-drop visual feedback
+  const dropZone = document.getElementById('drop-zone');
+  ['dragenter', 'dragover'].forEach(evt => {
+    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drop-zone-dragover'); });
+  });
+  ['dragleave', 'drop'].forEach(evt => {
+    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drop-zone-dragover'); });
+  });
+
+  // File input change
+  document.getElementById('file-input').addEventListener('change', function() {
+    if (this.files && this.files[0]) {
+      handleImportFile(this.files[0]);
+      this.value = '';
+    }
+  });
+
+  // Confirm preview
+  document.getElementById('preview-confirm').addEventListener('click', function() {
+    const data = window.__importData;
+    if (!data) return;
+    const cleaned = collectPreviewData();
+    const importFileName = window.__importFileName || 'file';
+
+    // Populate planner
+    state.exams = cleaned.exams.map(e => ({ id: crypto.randomUUID ? crypto.randomUUID() : Date.now() + Math.random(), name: e.name, date: e.date }));
+    state.subjects = [];
+    const subjMap = {};
+    cleaned.topics.forEach(t => {
+      const exam = state.exams.find(e => e.name === t.subject) || state.exams[0];
+      if (!subjMap[t.subject]) {
+        const subjId = crypto.randomUUID ? crypto.randomUUID() : Date.now() + Math.random();
+        subjMap[t.subject] = { id: subjId, name: t.subject, targetExam: exam.id, topics: [] };
+        state.subjects.push(subjMap[t.subject]);
+      }
+      subjMap[t.subject].topics.push({ id: crypto.randomUUID ? crypto.randomUUID() : Date.now() + Math.random(), name: t.topic, difficulty: t.difficulty, confidence: t.confidence || 1 });
+    });
+
+    closePreviewModal();
+    initDefaults();
+    setupDaysOff();
+    document.getElementById('setup-panel').classList.remove('hidden');
+
+    // Auto-scroll to generate button and flash it
+    document.querySelector('.max-w-\\[1200px\\]').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const genBtn = document.getElementById('generate-btn');
+    genBtn.style.transform = 'scale(1.05)';
+    setTimeout(() => { genBtn.style.transform = ''; }, 300);
+
+    // Show toast
+    const toast = document.createElement('div');
+    toast.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-canvas border border-emerald-500/30 shadow-lg shadow-emerald-500/5 rounded-xl p-3 px-4 flex items-center gap-2 text-xs font-bold text-emerald-600 modal-overlay';
+    toast.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> ${cleaned.topics.length} topics imported from ${importFileName}. Click "Build my readiness plan" to generate your study plan.`;
+    document.body.appendChild(toast);
+    setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.5s'; setTimeout(() => toast.remove(), 500); }, 4000);
+  });
+
+  // Drop event
+  dropZone.addEventListener('drop', function(e) {
+    e.preventDefault();
+    const files = e.dataTransfer.files;
+    if (files && files[0]) {
+      handleImportFile(files[0]);
+    }
+  });
+
+  // Keyboard: close modals on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeImportModal();
+      closePreviewModal();
+    }
+  });
+
+  // Custom Hours Input Buttons
+  const hoursInput = document.getElementById('hours-per-day');
+  const hoursDisplay = document.getElementById('hours-display-val');
+  document.getElementById('hours-minus-btn').addEventListener('click', () => {
+    let val = parseInt(hoursInput.value) || 4;
+    if (val > 1) {
+      val--;
+      hoursInput.value = val;
+      hoursDisplay.textContent = val;
+      hoursInput.dispatchEvent(new Event('input'));
+    }
+  });
+  document.getElementById('hours-plus-btn').addEventListener('click', () => {
+    let val = parseInt(hoursInput.value) || 4;
+    if (val < 16) {
+      val++;
+      hoursInput.value = val;
+      hoursDisplay.textContent = val;
+      hoursInput.dispatchEvent(new Event('input'));
+    }
+  });
+
+  // Setup banner import button
+  document.getElementById('setup-banner-import-btn').addEventListener('click', openImportModal);
+
+  // Setup bar Add Exam button
+  document.getElementById('setup-add-exam').addEventListener('click', () => {
+    document.getElementById('add-exam-btn').click();
+    document.getElementById('setup-panel').classList.remove('hidden');
+  });
+
+  initDefaults();
+  setupDaysOff();
+})();
+</script>

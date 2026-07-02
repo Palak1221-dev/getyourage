@@ -1,3 +1,35 @@
+## Session Summary (Jul 2, 2026) — Part 2: Import Exam Sheet
+
+### What We Did
+1. **Added Import Exam Sheet feature** — Drag-and-drop upload modal supporting **PDF**, **DOCX**, **TXT**, and **CSV** files. Parses documents client-side using pdfjs-dist and mammoth loaded dynamically from CDN.
+2. **File parsing** — Three parsers: `parsePDF()` (pdfjs-dist with worker), `parseDOCX()` (mammoth raw text extraction), and native `file.text()` for TXT/CSV.
+3. **Entity extraction** — `extractEntities()` heuristic engine detects exam names (via keyword matching), dates (6 format patterns), subjects (200+ known subject dictionary), and topics (bullet/numbered list detection). Graceful fallbacks when nothing detected.
+4. **Preview modal** — Shows extracted exams (editable name/date), subjects and topics (editable with difficulty dropdown). Review before import.
+5. **Auto-populate** — "Import & generate plan" button populates the planner's exams and subjects arrays, opens the setup panel, scrolls to the generate button with a flash animation, and shows a success toast.
+6. **UX details** — Progress bar during parsing, error handling for unreadable files, Escape key closes modals, backdrop click closes, drag-and-drop zone visual feedback.
+7. **Installed dependencies**: `pdfjs-dist`, `mammoth`
+8. **Build passes** — 58 pages built with 0 errors in 21.02s.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — import button, upload modal, preview modal, CSS, all parsing/extraction/preview/confirm JS
+- `AGENTS.md` — updated session summary
+- `package.json` / `package-lock.json` — added pdfjs-dist, mammoth
+
+## Session Summary (Jul 2, 2026) — Study Schedule Polish Round
+
+### What We Did
+1. **Replaced mock demo dashboard with premium empty state** — 3-step walkthrough (Add exams → List subjects → Get readiness plan) with numbered cards, feature badges, and animated entrance. Removed `opacity-60 pointer-events-none` approach; now shows genuine value proposition before data.
+2. **Added readiness score breakdown tooltip** — Hover info button next to "Exam Readiness" heading that reveals the formula: Topics covered × 0.35, Schedule density × 0.20, Avg confidence × 0.45, with explanation of why confidence gets the most weight.
+3. **Added AI Coach recommendations section** — `renderRecommendations()` function analyzes 6 triggers: catch-up pressure (<30% coverage), confidence holes (<2), near exams (≤3 days), burnout check (4+ topics/day), streak encouragement (<5 days), and all-topics-started-but-low-confidence. Shows contextual tips with color-coded cards (focus, review, warning, urgent, rest, streak).
+4. **Added CSS animations** — `card-enter` staggered entrance (fade+translate+scale), `progress-fill` cubic-bezier bar animation, `pulse-dot` for active indicators, `streak-bounce` for streak count changes, `count-up` for metrics. Applied to all 6 dashboard rows with increasing delays (0.05s–0.25s).
+5. **Animated readiness score counter** — Score number now animates/tick-tocks from current value to target value on re-render (after logging study sessions).
+6. **Applied `progress-fill` class** to forecast progress bars for smooth width transitions.
+7. **Build passes** — 58 pages built with 0 errors in 13.61s.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — empty state, score tooltip, recommendations section, CSS animations, animated counter, progress bar polish
+- `AGENTS.md` — updated session summary
+
 ## Session Summary (Jun 27, 2026) — Final launch audit
 
 ### What We Did
