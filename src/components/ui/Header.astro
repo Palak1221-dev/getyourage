@@ -42,8 +42,8 @@ const isToolActive = toolItems.some(item => isActive(item.href));
         <div class="relative group" id="tools-dropdown">
           <button 
             class:list={[
-              "px-3 py-1.5 text-[13px] font-medium transition-all rounded-full whitespace-nowrap flex items-center gap-1 group-hover:bg-canvas-soft-2",
-              isToolActive ? "text-link bg-link/10" : "text-body hover:text-ink"
+              "nav-link-premium px-3 py-1.5 text-[13px] font-medium transition-all rounded-full whitespace-nowrap flex items-center gap-1 group-hover:bg-canvas-soft-2",
+              isToolActive ? "text-link bg-link/10 active" : "text-body hover:text-ink"
             ]}
             aria-haspopup="true"
             aria-expanded="false"
@@ -58,7 +58,7 @@ const isToolActive = toolItems.some(item => isActive(item.href));
                 <a 
                   href={item.href} 
                   class:list={[
-                    "flex items-center justify-between px-3 py-2 text-[13px] font-medium transition-all rounded-lg", 
+                    "dropdown-item-premium flex items-center justify-between px-3 py-2 text-[13px] font-medium transition-all rounded-lg", 
                     isActive(item.href) 
                       ? "text-link bg-link/5" 
                       : "text-body hover:text-ink hover:bg-canvas-soft-2"
@@ -75,9 +75,9 @@ const isToolActive = toolItems.some(item => isActive(item.href));
         <a 
           href="/about" 
           class:list={[
-            "px-3 py-1.5 text-[13px] font-medium transition-all rounded-full whitespace-nowrap", 
+            "nav-link-premium px-3 py-1.5 text-[13px] font-medium transition-all rounded-full whitespace-nowrap", 
             isActive("/about") 
-              ? "text-link bg-link/10" 
+              ? "text-link bg-link/10 active" 
               : "text-body hover:text-ink hover:bg-canvas-soft-2"
           ]}
         >
@@ -86,9 +86,9 @@ const isToolActive = toolItems.some(item => isActive(item.href));
         <a 
           href="/blog" 
           class:list={[
-            "px-3 py-1.5 text-[13px] font-medium transition-all rounded-full whitespace-nowrap", 
+            "nav-link-premium px-3 py-1.5 text-[13px] font-medium transition-all rounded-full whitespace-nowrap", 
             isActive("/blog") || currentPath.startsWith("/blog/") 
-              ? "text-link bg-link/10" 
+              ? "text-link bg-link/10 active" 
               : "text-body hover:text-ink hover:bg-canvas-soft-2"
           ]}
         >
@@ -237,21 +237,98 @@ const isToolActive = toolItems.some(item => isActive(item.href));
     }
   };
 
+  const setupGlow = () => {
+    const header = document.querySelector('header');
+    if (!header) return;
+    header.addEventListener('mousemove', (e) => {
+      const rect = header.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      header.style.setProperty('--x', `${x}px`);
+      header.style.setProperty('--y', `${y}px`);
+    });
+  };
+
   // Run on initial load
   setupMobileMenu();
+  setupGlow();
 
   // Run on view transitions
-  document.addEventListener('astro:after-swap', setupMobileMenu);
+  document.addEventListener('astro:after-swap', () => {
+    setupMobileMenu();
+    setupGlow();
+  });
 </script>
 
 <style>
   header {
     /* Ensure the backdrop blur works well with the border */
     border-bottom-width: 1px;
+    position: relative;
   }
   
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      150px circle at var(--x, 0px) var(--y, 0px),
+      rgba(124, 58, 237, 0.08),
+      transparent 80%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+  
+  header:hover::before {
+    opacity: 1;
+  }
+
   /* Smooth transitions for links */
   nav a, button {
-    transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                color 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-link-premium {
+    position: relative;
+  }
+
+  .nav-link-premium::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 12px;
+    right: 12px;
+    height: 1.5px;
+    background-color: var(--color-link);
+    transform: scale-x(0);
+    transform-origin: right;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 1px;
+  }
+
+  .nav-link-premium:hover::after {
+    transform: scale-x(1);
+    transform-origin: left;
+  }
+
+  .nav-link-premium.active::after {
+    transform: scale-x(1);
+  }
+
+  .nav-link-premium:hover {
+    transform: translateY(-0.5px);
+  }
+
+  .dropdown-item-premium {
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .dropdown-item-premium:hover {
+    transform: translateX(3px);
   }
 </style>

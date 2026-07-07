@@ -106,24 +106,7 @@ const {
 			window.localStorage.setItem('theme', theme);
 		</script>
 		<slot name="head" />
-	</head>
-	<body class="relative min-h-screen flex flex-col" style="touch-action: manipulation">
-		<!-- Skip to main content -->
-		<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-canvas focus:text-ink focus:border focus:border-hairline focus:rounded-lg focus:shadow-md">
-			Skip to main content
-		</a>
-		
-		<!-- Mesh Gradient Background -->
-		<div class="mesh-gradient absolute top-0 left-0 w-full h-[600px] -z-10 pointer-events-none"></div>
-		
-		<Header />
-		
-		<main id="main-content" class="flex-grow">
-			<slot />
-		</main>
 
-		<Footer />
-		
 		<style is:global>
 			@font-face {
 				font-family: 'Geist';
@@ -148,5 +131,22 @@ const {
       [data-theme="light"] { color-scheme: light; }
       [data-theme="dark"] { color-scheme: dark; }
 		</style>
+	</head>
+	<body class="relative min-h-screen flex flex-col" style="touch-action: manipulation">
+		<!-- Skip to main content -->
+		<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-canvas focus:text-ink focus:border focus:border-hairline focus:rounded-lg focus:shadow-md">
+			Skip to main content
+		</a>
+		
+		<!-- Mesh Gradient Background -->
+		<div class="mesh-gradient absolute top-0 left-0 w-full h-[600px] -z-10 pointer-events-none"></div>
+		
+		<Header />
+		
+		<main id="main-content" class="flex-grow">
+			<slot />
+		</main>
+
+		<Footer />
 	</body>
 </html>

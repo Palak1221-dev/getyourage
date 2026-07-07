@@ -1,3 +1,271 @@
+## Session Summary (Jul 7, 2026) — Part 3: Cover Redesign — Premium Academy Planner
+
+### What We Did
+1. **Redesigned printable cover page** (`#planner-cover`) in `src/pages/study-schedule.astro` with a premium academy aesthetic:
+   - **Doodle-heavy corner ornaments**: 12 subtle SVG/doodle decorative elements positioned around the cover edges (3×3 corner dot grids, paperclips, hearts, tick marks) at low opacity for a hand-made feel.
+   - **Hero pill banner**: "STUDY PLANNER" in Fredoka font inside a violet gradient pill with irregular brush-stroke border-radius (`100px 12px 100px 12px/12px 100px 12px 100px`), box-shadow glow.
+   - **Subheadline**: "— Student Dashboard 2026 —" in spaced uppercase Outfit.
+   - **Star-divider separator**: gradient fade line with ✦ ✦ ✦ centerpiece between title and form.
+   - **Premium stationery card**: white-to-lavender gradient background, 24px rounded corners, subtle shadow, organized into labeled form rows: Name / Target Score (side-by-side), Target Exam / Exam Date (side-by-side), Why This Exam Matters (full width). All entry lines use thick deep-purple bottom borders (`2.5px solid #4c1d95`).
+   - **Sticky note quote card**: rounded 18px box with lavender border, folded-corner top-right (`border-width: 0 24px 24px 0`), heart doodle, dynamic quote + author populated by JS.
+   - **Footer brand line**: "tooltails ◆ study smarter" in soft purple.
+2. **Preserved all JS bindings**: `pk-cover-name`, `pk-cover-quote`, `pk-cover-quote-author`, `pk-cover-exam`, `pk-cover-date` IDs retained.
+3. **Build passes** — 58 pages, 0 errors in 18.41s.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — cover page content between `#planner-cover` and `#planner-weekly`
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 7, 2026) — Part 3b: Cover Revert to Generic Study Journal
+
+### What We Did
+1. **Removed all exam-specific fields**: Target Score, Target Exam, Exam Date, Why This Exam Matters, "Student Dashboard 2026" subheadline — all deleted. Cover is now a generic study journal, not an exam planner.
+2. **Simplified ownership card**: Only 3 fields remain — Name, Class / Grade, Academic Year — under "This Planner Belongs To" heading.
+3. **Strengthened hero title**: "STUDY PLANNER" split across two lines inside a soft purple gradient sticker (rounded 16px), with washi tape accent strips (gold, low opacity, rotated) top-left and bottom-right for a stationery feel.
+4. **Bold purple entry lines**: 2px solid `#7c3aed` bottom borders on all 3 ownership fields.
+5. **Cohesive centered composition**: Title sticker → dot divider → ownership card → quote sticker → footer — all vertically centered as one unified composition within `max-width: 420px`.
+6. **Enhanced quote card**: Now a pure white sticker-style card with folded top-right corner, soft purple border (`#ede9fe`), minimal shadow — aligned with the stationery aesthetic.
+7. **Refined decorations**: Reduced from 12 scattered elements to 10 positioned ones (3-star clusters, sparkle accents, heart doodles, checkmark pairs) with lower opacity (0.08–0.2) for subtle support rather than clutter. Placed evenly at ~32px inset from edges.
+8. **Footer updated**: "study planner • printable kit" instead of "study smarter".
+9. **Build passes** — 58 pages, 0 errors in 17.70s.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — full cover content replaced (lines 92–166)
+- `AGENTS.md` — updated session summary
+
+### What We Did
+1. **Redesigned printable cover page** (`#planner-cover`) in `src/pages/study-schedule.astro` with a premium academy aesthetic:
+   - **Doodle-heavy corner ornaments**: 12 subtle SVG/doodle decorative elements positioned around the cover edges (3×3 corner dot grids, paperclips, hearts, tick marks) at low opacity for a hand-made feel.
+   - **Hero pill banner**: "STUDY PLANNER" in Fredoka font inside a violet gradient pill with irregular brush-stroke border-radius (`100px 12px 100px 12px/12px 100px 12px 100px`), box-shadow glow.
+   - **Subheadline**: "— Student Dashboard 2026 —" in spaced uppercase Outfit.
+   - **Star-divider separator**: gradient fade line with ✦ ✦ ✦ centerpiece between title and form.
+   - **Premium stationery card**: white-to-lavender gradient background, 24px rounded corners, subtle shadow, organized into labeled form rows: Name / Target Score (side-by-side), Target Exam / Exam Date (side-by-side), Why This Exam Matters (full width). All entry lines use thick deep-purple bottom borders (`2.5px solid #4c1d95`).
+   - **Sticky note quote card**: rounded 18px box with lavender border, folded-corner top-right (`border-width: 0 24px 24px 0`), heart doodle, dynamic quote + author populated by JS.
+   - **Footer brand line**: "tooltails ◆ study smarter" in soft purple.
+2. **Preserved all JS bindings**: `pk-cover-name`, `pk-cover-quote`, `pk-cover-quote-author`, `pk-cover-exam`, `pk-cover-date` IDs retained.
+3. **Build passes** — 58 pages, 0 errors in 18.41s.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — cover page content between `#planner-cover` and `#planner-weekly`
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 7, 2026) — Part 3c: PDF Generation Flash/Flicker Fix
+
+### What We Did
+1. **Fixed PDF generation UX bug** — The original code temporarily moved each off-screen planner page element to `position: absolute; left: 0; top: 0` for html2canvas capture, causing a visible flash/flicker in the viewport.
+2. **Clone-based capture approach** (Option C): Instead of mutating original element positions, the code now deep-clones each page template into a dedicated off-screen container (`#pdf-render-container`) positioned at `left: -99999px; pointer-events: none`.
+3. **No position mutation of originals** — Original template elements (`#planner-cover`, `#planner-weekly`, etc.) stay at their original `position: fixed; left: -9999px` permanently — never moved, never visible.
+4. **Cleanup** — Each clone is removed from the container after capture; the container itself is removed from the DOM after all pages are captured.
+5. **No design changes** — Planner content, layout, and styling untouched.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — `downloadPDF()` capture loop (replaced in-place element repositioning with clone-and-capture pattern)
+
+## Session Summary (Jul 7, 2026) — Part 2: Premium Soft Journal Cover Redesign
+
+### What We Did
+1. **Redesigned Cover Page for Digital Planner Aesthetic** — Redesigned ONLY the printable cover page (`#planner-cover`) in `src/pages/study-schedule.astro` to make it look like a premium digital student journal:
+   - Replaced old target-exam, exam-date, and exam-goal fields with "THIS PLANNER BELONGS TO" styling, mapping inputs for **Name**, **Class / Grade**, and **Academic Year**.
+   - Centered all page content vertically, optimizing spacing to sit elegantly in the center of the page like a premium journal cover.
+   - Replaced "2026 Study Planner" with "My Study Planner — Student Edition —" in a soft, large typography layout.
+   - Softened the cover border (reduced thickness to 2px and styled with a gentle `#ddd6fe` lavender tone).
+   - Added subtle sparkles (`✨` and `✦`) positioned in the cover corners.
+   - Swapped hard solid black writing lines with thin, elegant, soft gray-purple borders (`border-bottom: 1.5px solid #ddd6fe`) with high-quality contrast.
+   - Refactored the daily rotating quote card to render as a dashed soft lavender box containing quote text and author labels.
+2. **Kept All Other Functionality Intact** — Left pages 2–7, calculations, data tables, and client scripts completely untouched.
+3. **Build passes** — 58 pages built successfully with 0 errors.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — cover page redesign
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 7, 2026) — Recovery & Planner Cover Redesign
+
+### What We Did
+1. **Recovered Lost Workspace Revisions** — Extracted the complete page structure, onboarding markup, and client-side setup panel script from the production built HTML file (`dist/study-schedule/index.html`) from July 7, restoring all uncommitted revisions made between July 3 and July 6.
+2. **Redesigned Planner Cover Page** — Updated the printable cover template (`#planner-cover`) to match `PKFP.png` exactly:
+   - Added a rounded-corner vibrant purple border (`border: 3px solid #7c3aed; border-radius: 28px`).
+   - Positioned purple sparkle elements and 3x3 dot grid ornaments in the page corners.
+   - Styled the header title banner as a violet-to-light-purple gradient pill containing white "STUDY PLANNER" text, decorated with hand-drawn SVG doodle shapes (three ticks on top-left, star outline on bottom-right).
+   - Added spaced-out uppercase subheadline text: "— PRINTABLE STUDY KIT —".
+   - Structured indented NAME, GOAL, TARGET EXAM, and EXAM DATE labels with bold purple text and purple bottom borders for handwriting entries.
+   - Restructured the footer quote section into a lavender box with a thick purple left border and a hand-drawn SVG heart doodle in the top-right corner.
+3. **Verified and Tested** — Built the project successfully with 0 errors, and ran the Playwright test suite to confirm that all 6 test suites pass perfectly without regression.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — restored all uncommitted changes, redesigned the planner kit cover page
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 6, 2026) — Hero Section Redesign: Premium SaaS Headline + Dual CTAs
+
+### What We Did
+1. **Stronger headline** — "Your exam coach." → "Plan **smarter**. Study **better**. Ace your **exams**." with gradient spans on all three action words.
+
+2. **Improved subheadline** — Now focuses on outcomes: "Generate a personalized study plan, track your readiness, and download beautiful printable planner pages — all in one place."
+
+3. **Updated badge** — "Smart study plans + printable planner kits." → "Everything you need to stay organized and exam-ready"
+
+4. **Trust badges** — Added 4 inline checkmark badges below description: Personalized Study Plans, Printable Planner Kit, No Sign-Up Required, Free & Private.
+
+5. **Dual CTA buttons** — Primary: gradient "Build My Study Plan" (scrolls & opens setup panel). Secondary: outlined "Download Planner Kit" (triggers planner kit download).
+
+6. **Mini feature strip** — Below CTAs: 📅 Study Plans · 📓 Planner Pages · 🔄 Revision Tracking · ⏳ Exam Countdown.
+
+7. **Wired hero button JS** — `hero-generate-btn` scrolls to setup and opens panel. `hero-planner-btn` delegates to existing planner kit handler.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — hero section (headline, badges, CTAs, feature strip), JS click handlers for new hero buttons
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 6, 2026) — Demo State Redesign: Premium SaaS Onboarding Section
+
+### What We Did
+1. **Renamed section** — "Know where you stand before exam day" → "How Tooltails Helps You Succeed" with subtitle and emerald "Planner Kit" badge next to the title.
+
+2. **3-step connected flow** — Replaced 3 disconnected cards with a visual pipeline: [Add Exams] → [Add Subjects] → [Generate Plan]. Connected with SVG arrow chevrons (right on desktop, down on mobile). Step 3 highlighted with emerald border and gradient. Each card has hover lift effect.
+
+3. **"What You'll Get" divider** — Added between the 3-step flow and feature cards with centered text and horizontal rules for clear visual hierarchy.
+
+4. **Premium feature cards** — Upgraded 4 benefit cards (Readiness Score, Study Forecast, Smart Review, Streaks) with larger icons, one-line benefit statements, hover lift + border tint + icon scale effects, consistent `group/hover` transitions.
+
+5. **Relocated "Two Ways to Plan"** — Moved inside the demo-state section, made it a proper section with divider heading (matching "What You'll Get" style) instead of a floating pill. Tighter spacing. Same comparison table + CTA kept intact.
+
+6. **Reduced whitespace** — Tighter card padding (`p-6`→`p-5`), reduced gaps (`gap-4`→`gap-3`), smaller icon containers (`w-14 h-14`→`w-10 h-10`), compacted footer text sizes (`text-[11px]`→`text-[10px]/[9px]`), removed unnecessary max-width constraints.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — demo-state section replaced (title, 3-step flow with arrows, feature cards, relocated Two Ways to Plan)
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 6, 2026) — Setup Section Redesign: Premium 3-Step Onboarding
+
+### What We Did
+1. **Redesigned setup section as a 3-step flow** — Replaced the plain 2-column form with a guided step experience: Step 1 (📅 Add Exams), Step 2 (📚 Add Subjects & Topics), Step 3 (🧠 Generate Your Plan). Each step has its own card with icon, numbered badge, title, description, and visual separation.
+
+2. **Added Setup Progress Indicator** — 3-step progress bar in the collapsed setup bar with completion dots. Steps auto-update to filled violet circles with checkmarks when exams have names+dates and subjects have names+topics. Step 3 turns emerald when both prior steps are complete.
+
+3. **Redesigned Exam Cards** — Premium mini cards with calendar icon, name input, date picker, and color-coded countdown badge (red ≤7 days, amber ≤30 days, emerald >30 days). Cards use gradient backgrounds, subtle shadows, and rounded corners.
+
+4. **Redesigned Subject Cards** — Modern card layout with book icon, name input, exam selector, topics textarea with live tag/chip preview rendering each topic as an indigo pill below the input, difficulty/confidence as chip-styled colored selects, and priority bar.
+
+5. **Added Benefits Panel** — Sticky right sidebar listing 5 value props (Personalized schedule, Exam countdown, Revision tracker, Planner kit, Readiness score) with emerald checkmarks, gradient background, and social proof footer.
+
+6. **Hero Generate Button** — Upgraded to gradient background (`from-violet-600 to-violet-700`), rounded-2xl, larger size, with sparkle emoji. Added duplicate hero button in Step 3 of expanded panel. Subtitle: "Takes less than 5 seconds · No credit card required".
+
+7. **Empty State Guidance** — When no exams: "Add your first exam to begin building your study plan." When no subjects: "Add subjects and topics so we know what to prioritize." Auto-hide when items exist.
+
+8. **Reduced white space** — Tighter card padding, compact step layout with consistent spacing, gradient backgrounds for visual depth.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — setup bar (progress indicator), setup panel (3-step + benefits), exam/subject card templates, new JS functions (updateSetupProgress, toggleEmptyStates), generate-step-btn binding
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 6, 2026) — Critical Bug Fix: Non-Responsive Setup Buttons
+
+### What We Did
+1. **Diagnosed root cause** — All setup buttons (Add Exam, Generate, Import, Setup toggle, PDF download) were non-responsive because the 108KB inline `<script is:inline>` in `study-schedule.astro` never executed due to a `SyntaxError: Unexpected token '<'` at JavaScript parse time.
+
+2. **Identified exact syntax error** — At `src/pages/study-schedule.astro:2899`, orphaned HTML template code (`<div style="width: 100%;">...`) remained after the prior workbook-removal edit removed `pdfMilestonesList.innerHTML = milestonesData.map(m => { return \`` but left the template literal body and closing backtick + `}).join('');`. This raw `<div>` in the middle of JavaScript caused the parse failure.
+
+3. **Removed orphaned HTML** — Deleted 17 lines (2899–2912) of raw HTML template code that was not inside a backtick string.
+
+4. **Verified fix** — `node --check` on extracted built script confirms clean parse. Build passes (58 pages, 0 errors). All 6 Playwright tests pass (0 failures).
+
+### Files Modified
+- `src/pages/study-schedule.astro` — removed orphaned HTML template code at lines 2899–2912
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 5, 2026) — Part 4: Workbook Removal & Page 2 Roadmap Restructure
+
+### What We Did
+1. **Removed workbook-style cards from Study Plan PDF** — Page 1: removed Today's Reflection and Quick Notes from bottom row (kept Readiness Breakdown + Priority Topics). Page 2: removed Notes & Sketches, Formula Sheet, Reflection, and Habits tracker cards. Kept only roadmap/action-plan elements.
+
+2. **Restructured Page 2 as "WEEKLY ROADMAP"** — Converted from two-column workbook layout to single-column roadmap: Weekly Planner (flex: 3), Milestones (flex: 2), bottom row with Top Tip + Daily Win + Reward (flex-shrink: 0). Header retitled from "PLANNER WORKSHEETS" to "WEEKLY ROADMAP".
+
+3. **Removed dead JS** — Habits grid population code (~40 lines) and fillLines helper + calls removed alongside their deleted HTML targets.
+
+4. **Build passes**: 58 pages, 0 errors, 13.38s.
+5. **Tests pass**: Playwright — Readiness stable (42%), Tabs active, PDF button visible, Layout balanced (590px/590px).
+
+### Files Modified
+- `src/pages/study-schedule.astro` — Page 1 bottom row simplified (2 cards), Page 2 restructured from workbook layout (Notes, Formula, Reflection, Habits removed) to single-column weekly roadmap, dead JS removed.
+- `AGENTS.md` — updated session summary.
+
+## Session Summary (Jul 5, 2026) — Three-Page PDF Restructure
+
+### What We Did
+1. **Split monolithic PDF template into three separate page templates** — Replaced the single `#planner-pdf-template` (containing all sections crammed into one page) with three independent templates:
+   - **Page 1 (`#planner-pdf-template`)**: Streamlined Overview + Daily Plan — only Header Row, Metrics Row, Today's Missions, Daily Schedule (standalone full-width card), Footer. Fixed content that fits within one A4 page without overflow.
+   - **Page 2 (`#planner-page-2`)**: Planner Worksheets — Weekly Planner, Milestones, Top Tip, Habits, Daily Win (left column) + Notes & Sketches, Formula Sheet, Reflection, Reward (right column). Fixed 1131px with `overflow: hidden`.
+   - **Revision Template (`#planner-revision-template`)**: Paginated Revision Tracker — Topic table with progress circles, page counter, legend. Cloned per chunk of ~18 topics.
+
+2. **Created `-p2` suffix ID scheme** — All Page 2 elements use `-p2` suffixed IDs (e.g., `pdf-weekly-goal-badge-p2`, `pdf-milestones-list-p2`, `pdf-habit-grid-p2`, `pdf-notes-lines-p2`, `pdf-formula-lines-p2`, `pdf-reflection-lines-p2`, `pdf-reward-text-p2`, `pdf-reward-badge-p2`) to avoid DOM ID conflicts.
+
+3. **Added revision pagination logic** — `generateRevisionRowsHtml(topics)` helper function generates HTML for a chunk of topics. Capture loop chunks topics into groups of 18, clones the revision template for each chunk, populates rows + page counter, captures, then removes the clone from DOM.
+
+4. **Refactored capture loop** — Old single-element slicing replaced with discrete per-template capture: capture Page 1 → addPage → capture Page 2 → for each revision chunk: clone, populate, capture, remove, addPage.
+
+5. **Removed orphan `</div>` tags** from old two-column layout remnants (lines 773-774).
+
+6. **Removed A4_TARGET formula/reflection line filler** that was checking Page 1 scrollHeight but filling Page 2 elements — unnecessary since Page 2 is fixed-height with `overflow: hidden`.
+
+7. **Build passes** — 58 pages, 0 errors, 15.72s.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — HTML: restructured template into 3 separate `#planner-pdf-template` / `#planner-page-2` / `#planner-revision-template` divs. JS: replaced revision rows direct assignment with helper function, replaced single-canvas capture with 3-step capture loop, added revision pagination chunking/cloning/population.
+- `AGENTS.md` — updated session summary.
+
+## Session Summary (Jul 4, 2026) — Redesigned PDF Export with Planner Aesthetic
+
+### What We Did
+1. **Redesigned printable PDF export** — Completely replaced the old study schedule PDF template markup and layout with the beautiful, single-page layout matching the visual reference (`D:\download.png`).
+2. **Planner Aesthetic Upgrades**:
+   - **Custom Typography**: Loaded and integrated Google Fonts: `'Outfit'` (for body/numbers), `'Fredoka'` (for titles), and `'Caveat'` / `'Patrick Hand'` (for notes, handwriting tips, quotes, and sticky notes).
+   - **Hand-drawn Brush Stroke Banners**: Used the custom organic `border-radius: 120px 10px 100px 8px/8px 100px 10px 120px;` trick with vibrant gradients to style main headers (Today's Plan, Daily Schedule, Revision Tracker) as colorful brush stroke shapes instead of rigid report blocks.
+   - **Checklist Checkboxes**: Styled interactive task boxes as real printable squares (`☐` and green checked `✓` boxes) with a hand-sketched design.
+   - **Organic Sticky Note**: Designed a tilted, yellow memo sticky pad on the top-left with torn pink washi tape on the top edge and handwritten cursive quotes.
+   - **Notebook Lined Notes section**: Styled the notes area with horizontal dashed sheet lines using a CSS linear gradient pattern.
+   - **Warm Background Mat**: Bounded the entire page in a warm ivory background `#fdfbf7` with a double-bordered desk pad outline and solid white cards.
+   - **Etsy / GoodNotes Style Binder Rings**: Added a realistic vertical metallic binder coils/rings column dividing the two symmetric pages to mimic a physical open study binder.
+   - **GoodNotes Style Index Tabs**: Styled and positioned five colorful notebook side-index bookmark tabs sticking out from the page's right margin for tabs like PLAN, TODAY, DAILY, REV, and NOTES.
+   - **Preloaded Google Fonts**: Promoted Google Font styles to the main page Layout header to make sure they are fully loaded by the browser and ready before html2canvas prints.
+   - **Today's Plan Hero Section**: Refactored Today's Plan into a full-width `720px` card positioned prominently below metrics. Displays study topics as actionable grid-based mission cards with hand-sketched checkboxes, subject labels, and `🕐 1h` estimated time badges.
+   - **Balanced Columns Layout**: Moved Weekly Overview and Milestones to the left column, resulting in a perfectly balanced two-column layout (left: 345px, right: 334px content height).
+    - **Dynamic Auto-Resizing Layout**: Changed fixed height values (`height: 210px`, `height: 180px`, `height: 95px`, `height: 50px`, and flex-growth stretches) to fluid rules (`min-height`, `max-height`, and `height: auto`) so cards automatically resize and shrink tightly if there is only 1 topic, avoiding large empty white spaces.
+    - **Content-Aware Compaction — Shrink Hero/Metrics/Weekly, Expand Content Sections**: Compacted header row (110→85px), sticky note (130→100px), metrics cards padding (8→5px) and donut size (44→34px), weekly overview (65→42px min-height), top tip, quote box, habit tracker, and QR code. Reduced outer template gap (12→10px). Added `flex: 1` to Milestones (left column) and Daily Schedule + Revision Tracker (right column). Expanded Notes min-height (135→160px) with `flex: 2` so content-heavy sections claim the reclaimed space.
+    - **Bulletproof Date Validation**: Resolved edge-case null-value page crashes in `updateTTG()` and `daysBetween()` sorting/calculations when adding new empty exams.
+3. **Removed Placeholder/Demo Data**:
+   - Stripped hardcoded subjects/topics ("Magnet", "A temple") from the milestones checklist, replacing them with dynamic coverage markers ("25% Syllabus Coverage", "50% Syllabus Coverage", etc.).
+   - Removed hardcoded timeline dates and values from the Progress Overview SVG chart, replacing them with a dynamically generated SVG path tracing the user's actual completion rates over the last 5 days.
+   - Integrated dynamic AI coach recommendation triggers into the "Top Tip" callout box instead of displaying static tip text.
+   - Replaced placeholder student names with dynamic state parameters.
+4. **Fixed Playwright tests** — Made the tab switching loop in `test-study-schedule.cjs` dynamic to handle the exact count of tabs rendering on the page rather than hardcoding a loop size of 3, resolving a TypeError when accessing non-existent tabs.
+5. **Build and test suites pass** — All 58 pages built successfully with 0 errors. All Playwright tests pass (0 failures).
+
+### Files Modified
+- `src/pages/study-schedule.astro` — replaced old PDF template HTML and downloadPDF JS logic with the premium single-page visual layout matching the PNG reference.
+- `test-study-schedule.cjs` — made the tab test query tab length dynamically.
+- `AGENTS.md` — updated session summary.
+
+## Session Summary (Jul 3, 2026) — PDF Bug Fixes & Test Suite
+
+### What We Did
+1. **Removed hardcoded demo data from PDF export** — Stripped ~335 lines of inline demo subjects ("Algebra", "Numbers", "Metals & Non Metals", etc.) from `downloadPDF()`. Replaced with empty-state or aggregate-based content.
+2. **Removed stray `console.log`** at line 1979.
+3. **Removed dead stats bar code** — 6 `getElementById` calls (`plan-overall-count`, `plan-overall-bar`, `plan-weekly-count`, `plan-weekly-bar`, `plan-countdown-val`, `study-plan-stats-bar`) that had no matching HTML elements.
+4. **Hoisted `parseAsDate`** to IIFE top level, removed duplicate definition inside `downloadPDF`.
+5. **Built Playwright test suite** (`test-study-schedule.cjs`) — 6 passing tests: Add Exam + Subject + Generate, Readiness score stability (no flicker), Tab switching (Today/Week/Full), PDF button visibility, Layout column balance (632px/632px).
+6. **Fixed readiness score flickering** — Removed `setInterval` animation that ran `renderReadiness` on a loop; score now displays directly (stable 42% across 8 reads).
+7. **Fixed blank PDF downloads** — Changed print container from `display: none` (Tailwind `hidden` class, which prints empty) to off-screen positioning (`position: fixed; left: -9999px; top: 0; opacity: 0; pointer-events: none`).
+8. **Fixed default exam date** — Was `new Date(today)` (today), which failed `e.date <= today` validation. Restored to `addDays(today, 30)` (30 days out).
+9. **Confirmed "This Week" / "Full Plan" tab switching** — Playwright test verifies `active` class presence + non-empty content for all 3 tabs.
+10. **Build passes** — 58 pages built with 0 errors.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — PDF demo data removal, dead code cleanup, console.log removal, parseAsDate hoisting, readiness flicker fix, date default fix, PDF hidden→offscreen fix
+- `AGENTS.md` — updated session summary
+- `test-study-schedule.cjs` — created (Playwright test suite)
+- `test-diag.cjs` — created (diagnostic helper, temporary)
+
 ## Session Summary (Jul 2, 2026) — Part 2: Import Exam Sheet
 
 ### What We Did
@@ -434,4 +702,56 @@
 ### Files Modified
 - `src/pages/pomodoro-timer.astro` — compressed card paddings, grid gap-size, layout margins, and SVG sizes
 - `AGENTS.md` — added Part 2 Session Summary
+
+## Session Summary (Jul 5, 2026) — Part 3: PDF Layout Rebalance
+
+### What We Did
+1. **PAGE 2 left column rebalanced** — Changed from `flex: 1` (Weekly Planner dominates, others `flex-shrink: 0`) to proportional flex ratios: Weekly Planner `flex: 4` (40%), Milestones `flex: 2` (20%), Top Tip `flex-shrink: 0` (auto), Habits `flex: 2` (20%), Daily Win `flex: 1` (10%). Removed `max-height: 100px` from Milestones so it expands proportionally. Increased column gap from 8px to 6px for tighter packing.
+
+2. **PAGE 2 right column restructured** — Pulled Formula Sheet and Reflection out of the Notes card into their own standalone cards. Notes `flex: 6` (60%), Formula `flex: 2` (20%), Reflection `flex: 2` (20%), Reward `flex-shrink: 0` (auto). New IDs: `#pdf-formula-card-p2`, `#pdf-reflection-card-p2`.
+
+3. **JS fillLines helper** — Replaced the monolithic notes-lines balance code with a reusable `fillLines(container, card, headerH, paddingH, borderColor)` function called per card. Each card gets lines proportional to its rendered height.
+
+4. **PAGE 3 content-sized revision tracker** — Removed fixed `height: 1131px` and `overflow: hidden` from revision template. Removed `flex: 1; overflow: hidden` from table container. Capture loop now calculates content height: `fixedH(130) + rowCount * rowH(18)`. For 10 topics → ~310px, 20 topics → ~490px, 24 topics → ~562px. No more full-page stretching, no wasted whitespace. Legend + page counter naturally follow content.
+
+5. **Build passes**: 58 pages, 0 errors, 14.79s.
+6. **Tests pass**: Playwright — Readiness stable (42%), Tabs active, PDF button visible, Layout balanced (590px/590px), 0 errors.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — PAGE 2 left/right column flex ratios, right column restructure (separate formula/reflection cards), JS fillLines helper, PAGE 3 auto-height tracker, capture loop dynamic height calc.
+- `AGENTS.md` — updated session summary.
+
+## Session Summary (Jul 5, 2026) — Part 2: PDF Layout Balance (Three-Page Whitespace Fix)
+
+### What We Did
+1. **Page 1 bottom row**: Added 4-card row (Today's Reflection, Readiness Breakdown, Priority Topics, Quick Notes) as `#pdf-bottom-row` with `flex: 1` to fill whitespace below Daily Schedule. Hidden in empty state alongside schedule. Footer turned `flex-shrink: 0`.
+
+2. **Page 2 rebalance**: Weekly Planner gets `flex: 1` to naturally expand. Notes capped at `max-height: 55%` (reduced ~30%). Milestones capped at `max-height: 100px`. All compact cards (Top Tip, Habits, Daily Win) set to `flex-shrink: 0`. Notes/Formula/Reflection lines balance JS uses `-p2` suffixed IDs and caps Notes max-height at 55% of remaining space with 12px min.
+
+3. **Page 3 compact revision rows**: Padding reduced (7px→4px heading, 6px→5px cell), progress circles 11px→9px, fonts 8px→7px, header/footer padding reduced, `MAX_ROWS_PER_PAGE` 18→24. Template gap 8px→6px, padding 16px→12px.
+
+4. **Build passes**: 58 pages, 0 errors, 20.93s.
+5. **Tests pass**: Playwright test suite — Readiness stable (42%), Tabs active, PDF button visible, Layout balanced (590px/590px), 0 errors.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — HTML: bottom row 4 cards on Page 1, new styles on Page 2/3 elements. JS: balance layout tweaks, MAX_ROWS_PER_PAGE=24.
+- `AGENTS.md` — updated session summary.
+
+## Session Summary (Jul 5, 2026) — PDF Content Expansion & Text Clipping Fix
+
+### What We Did
+1. **Fixed text clipping/truncation in PDF export** — Removed `overflow:hidden`, `text-overflow:ellipsis`, `white-space:nowrap`, and `max-width` constraints from all dynamically populated text containers (countdown, priorities, checklist, habits, revision topics, milestones, weekly grid cells).
+2. **Increased line-height** to 1.3–1.4 on all text elements (sticky note, priorities, checklist, habits, revision topics, milestones, footer) for better readability.
+3. **Changed fixed heights to `min-height` + `height: auto`** on header row (68px→min-height:68px) and footer (24px→min-height:24px).
+4. **Removed CSS transforms** that cause html2canvas rendering artifacts (sticky note rotate, washi tape rotates, sparkle rotate).
+5. **Made two-column layout flex-grow** to fill A4 page height — added `flex: 1` to `#pdf-columns-container`, left column, and right column so content cascades flex growth:
+   - Template → Two-column container (flex:1) → Left/Right columns (flex:1) → Milestones/Notes/Schedule/Revision (flex:1-2)
+   - Content naturally expands to fill the 1130px A4 page without blank space at the bottom.
+6. **Simplified balanceLayout()** — removed JS notes-lines-filling hack; flex growth handles spacing naturally. Only overflow trimming (gap reduction) remains.
+7. **Build passes** — 58 pages built with 0 errors.
+8. **Pre-existing test failure** (add-exam-btn visibility) remains unrelated and unchanged.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — overflow fixes, line-height, min-height, flex growth on two-column layout, transform removal, balanceLayout simplification
+- `AGENTS.md` — updated session summary
 
