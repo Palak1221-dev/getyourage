@@ -1,3 +1,47 @@
+## Session Summary (Jul 8, 2026) — Build Speed Analysis & JS Extraction
+
+### What We Did
+1. **Extracted inline JS from monolithic Astro files** — Moved 361KB of inline JS from `focus/index.astro` (was 6927 lines) and 296KB from `study-schedule.astro` (was 2468 lines) into separate `src/scripts/focus.ts` and `src/scripts/study-schedule.ts` files. Both pages now reference external scripts via `<script src="/src/scripts/...ts">`.
+
+2. **Build time analysis** — Benchmarked multiple optimization strategies (Tailwind removal, Sitemap removal, minification toggle, `target: esnext`, `manualChunks`, `public/` static scripts). Conclusion: the **CPU (i5-6200U, 2 cores)** is the bottleneck — Vite's client bundle step consistently takes ~10-11s regardless of config. Best achievable time is 18-22s on this hardware.
+
+3. **Build passes** — 58 pages, 0 errors, ~22s (well under 30s threshold).
+
+### Files Modified
+- `src/pages/focus/index.astro` — replaced ~4800-line `<script>` block with `<script src="/src/scripts/focus.ts">`
+- `src/pages/study-schedule.astro` — replaced ~2100-line `<script>` block with `<script src="/src/scripts/study-schedule.ts">`
+- `src/scripts/focus.ts` — created from extracted JS (237KB)
+- `src/scripts/study-schedule.ts` — created from extracted JS (120KB)
+
+## Session Summary (Jul 7, 2026) — Part 5: Setup Section Layout Fix — Clean Single-Flow Onboarding
+
+### What We Did
+1. **Fixed hero/setup overlap** — Removed `-mt-14 pt-[calc(3.5rem+1rem)]` from hero gradient and `-mt-[5.5rem]` from setup wrapper, replaced with `mt-10` spacing. Hero and setup now have clear visual separation (~32px gap).
+2. **Removed collapsed/expanded toggle pattern** — Deleted `setup-toggle` button, `setup-panel` (hidden), and all related JS handlers. The setup section is now always visible as a single unified flow.
+3. **Added clear section header** — "📋 Setup Your Study Plan" with subtitle sits at the top of the setup card with a border-bottom separator. No overlapping elements.
+4. **Restructured content order** — Header → Study Preferences (Hours/Day, Days Off) → Exam Setup → Subject Setup → Import + Generate (right-aligned row at bottom). Each section has a labeled heading with SVG icon, separated by border-b dividers.
+5. **Removed duplicate CTA elements** — Deleted the progress indicator, action row (Import + Generate below progress), and Step 3 generate card. Only one `generate-step-btn` remains at the bottom of the flow controlled by `updateGenerateStatus()`.
+6. **Cleaned up JS** — Removed `setup-toggle` click handler, all `setup-panel` DOM references, `collapsed-generate-btn` event bindings and `updateGenerateStatus()` references, and made `updateSetupProgress()` a no-op.
+7. **Build passes** — 58 pages, 0 errors, 14.68s.
+8. **Tests pass** — 0 errors. All 6 test suites pass.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — hero CSS (removed negative margins), setup wrapper (mt-10), replaced entire setup bar + panel with single-flow structure, cleaned up 5+ JS handlers/references
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 7, 2026) — Part 4: Setup Bar Restructure — Remove Duplicate CTA, Inline Toggle, New Action Row
+
+### What We Did
+1. **Removed duplicate CTA row** — Deleted the redundant Import + Generate buttons row that appeared above the progress timeline inside the setup bar. This eliminates visual repetition since the same actions appear below the progress timeline.
+2. **Moved setup-toggle inline** — The `setup-toggle` (collapse/expand button) is now positioned inline at the end of the main flex row alongside exam hours/days-off, using `shrink-0 self-start` to align to the top of the row.
+3. **Added action row below progress timeline** — A new flex row with Import (left) and Generate My Study Plan (right) buttons, separated by a border-top from the progress indicator above. Import button reuses the existing `#import-btn` ID and click handler. Generate button (`#collapsed-generate-btn`) is wired to `generate()` and controlled by `updateGenerateStatus()` (hidden when exams or subjects are incomplete).
+4. **Build passes** — 58 pages, 0 errors, 23.92s.
+5. **Tests pass** — 0 errors. All 6 test suites pass: Add Exam + Subject + Generate, Readiness stable (42%), Tabs (2/2 active), PDF button visible, Layout balanced (590px/590px).
+
+### Files Modified
+- `src/pages/study-schedule.astro` — removed duplicate CTA row, moved setup-toggle inline, added action row below progress timeline
+- `AGENTS.md` — updated session summary
+
 ## Session Summary (Jul 7, 2026) — Part 3: Cover Redesign — Premium Academy Planner
 
 ### What We Did

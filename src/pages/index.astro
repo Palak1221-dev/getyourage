@@ -110,14 +110,16 @@ const whyTooltails = [
   description="Calculate ages, track birthdays, compare dates and get answers instantly — all for free. Fast, accurate and easy to use."
 >
   <!-- Hero Section -->
-  <section class="relative w-full pt-12 md:pt-16 pb-8 md:pb-12 overflow-hidden">
+  <div class="mx-4 md:mx-6 mb-4 rounded-[2.5rem] bg-[#f8f4ff] border border-[#e8dff5] shadow-[0_4px_24px_rgba(109,40,217,0.04),inset_0_1px_0_rgba(255,255,255,0.8)]">
+  <section class="relative w-full pt-12 md:pt-16 pb-8 md:pb-12 overflow-hidden rounded-[2.5rem] bg-canvas shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
     <!-- Decorative background elements -->
     <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-link/10 rounded-full blur-[120px] pointer-events-none opacity-50"></div>
     <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none opacity-30"></div>
     <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-hairline to-transparent opacity-50 pointer-events-none"></div>
 
     <div class="max-w-[1200px] mx-auto px-6 relative z-10">
-      <div class="flex flex-col items-center text-center">
+      <div class="bg-gradient-to-b from-canvas via-canvas to-canvas-soft/50 rounded-[2.5rem] border border-hairline/30 shadow-[0_4px_24px_rgba(0,0,0,0.02),0_1px_3px_rgba(0,0,0,0.02),inset_0_1px_0_rgba(255,255,255,0.7)] px-8 py-12 md:px-16 md:py-16">
+        <div class="flex flex-col items-center text-center">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-link/10 border border-link/20 text-link text-xs font-bold mb-6 uppercase tracking-wider animate-in fade-in slide-in-from-top-4 duration-1000 shadow-sm">
           <span class="relative flex h-2 w-2">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-link opacity-75"></span>
@@ -164,14 +166,16 @@ const whyTooltails = [
         </div>
       </div>
     </div>
+  </div>
   </section>
+  </div>
 
   <!-- Stats Section -->
-  <section class="w-full pb-12">
+  <section class="w-full py-12 bg-canvas-soft border-b border-hairline/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
     <div class="max-w-[1200px] mx-auto px-6">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
         {stats.map(stat => (
-          <div class="p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-canvas border border-hairline shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center group">
+          <div class="p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-[2rem] bg-canvas border border-hairline/60 shadow-[0_2px_8px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02),inset_0_1px_0_rgba(255,255,255,0.7)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.05)] transition-all flex flex-col items-center text-center group">
             <div class="mb-4 text-link/50 group-hover:text-link transition-colors">
               {stat.icon === 'tool' && <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 21 8.35-8.35a5.5 5.5 0 0 0-7.78-7.78l-8.35 8.35a5.5 5.5 0 0 0 7.78 7.78Z"/><path d="m9.5 14.5 5-5"/></svg>}
               {stat.icon === 'gift' && <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect width="20" height="5" x="2" y="7"/><line x1="12" x2="12" y1="22" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>}
@@ -187,7 +191,7 @@ const whyTooltails = [
   </section>
 
   <!-- Popular Tools Section -->
-  <section id="tools" class="w-full pt-12 pb-20 bg-canvas-soft border-y border-hairline scroll-mt-16">
+  <section id="tools" class="w-full pt-12 pb-20 bg-canvas border-y border-hairline/30 scroll-mt-16 shadow-[inset_0_1px_0_rgba(255,255,255,0.7),inset_0_-1px_0_rgba(255,255,255,0.7)]">
     <div class="max-w-[1200px] mx-auto px-6">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-20">
         <div class="max-w-2xl">
@@ -203,7 +207,7 @@ const whyTooltails = [
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="tools-grid">
         {tools.map((tool) => (
           <a href={tool.href} class="tool-card group block h-full" data-category={tool.tag}>
-            <Card elevation="sm" class="h-full group-hover:shadow-2xl group-hover:border-link/40 transition-all duration-500 relative bg-canvas rounded-2xl sm:rounded-[2rem] p-6 sm:p-10 flex flex-col">
+            <Card elevation="sm" class="h-full group-hover:shadow-[0_8px_32px_rgba(0,0,0,0.05)] group-hover:border-link/40 transition-all duration-500 relative bg-canvas rounded-2xl sm:rounded-[2.5rem] border border-hairline/60 shadow-[0_2px_12px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02),inset_0_1px_0_rgba(255,255,255,0.7)] p-6 sm:p-10 flex flex-col">
               {tool.popular && (
                 <div class="absolute top-0 right-0 px-4 py-1.5 bg-link text-canvas text-[10px] font-bold uppercase tracking-[0.2em] rounded-bl-2xl">
                   Popular
@@ -260,7 +264,7 @@ const whyTooltails = [
   </section>
 
   <!-- Why Tooltails Section -->
-  <section id="why" class="w-full py-32 md:py-40">
+  <section id="why" class="w-full py-32 md:py-40 bg-canvas-soft border-b border-hairline/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
     <div class="max-w-[1200px] mx-auto px-6">
       <div class="text-center mb-24">
         <h2 class="text-4xl md:text-7xl font-bold tracking-tight text-ink mb-8 leading-tight">
@@ -273,7 +277,7 @@ const whyTooltails = [
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {whyTooltails.map(item => (
-          <div class="p-6 sm:p-12 rounded-2xl sm:rounded-[2.5rem] bg-canvas border border-hairline shadow-sm hover:shadow-xl transition-all group overflow-hidden relative">
+          <div class="p-6 sm:p-12 rounded-2xl sm:rounded-[3rem] bg-canvas border border-hairline/60 shadow-[0_2px_12px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02),inset_0_1px_0_rgba(255,255,255,0.7)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.05)] transition-all group overflow-hidden relative">
             <div class="absolute top-0 right-0 w-32 h-32 bg-link/5 rounded-full translate-x-1/2 -translate-y-1/2 blur-2xl group-hover:bg-link/10 transition-colors"></div>
             
             <div class="w-16 h-16 rounded-2xl bg-link/5 text-link flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
@@ -291,7 +295,7 @@ const whyTooltails = [
   </section>
 
   <!-- Modern CTA Section -->
-  <section class="w-full pb-40">
+  <section class="w-full pb-40 bg-canvas">
     <div class="max-w-[1200px] mx-auto px-6">
       <div class="relative group">
         <div class="absolute -inset-1 bg-gradient-to-r from-link to-primary rounded-[3rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>

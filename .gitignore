@@ -27,3 +27,18 @@ pnpm-debug.log*
 .agents/
 scratch/
 .aider*
+ check-brackets.cjs
+check-dist.cjs
+check-dist2.cjs
+check-html.cjs
+find-bad-less-than.cjs
+run-tests.mjs
+serve-dist.cjs
+src/scripts/focus.ts
+src/scripts/study-schedule.ts
+test-diag.cjs
+test-results/
+test-study-schedule.cjs
+test-study-schedule.mjs
+verify-pdf.cjs
+check-brackets.cjs
