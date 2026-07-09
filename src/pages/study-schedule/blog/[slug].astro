@@ -1,0 +1,103 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const glob = import.meta.glob('../../../content/study-schedule-blog/*.md', { eager: true });
+  const entries = Object.entries(glob).map(([path, mod]) => {
+    const normalized = path.replace(/\\/g, '/');
+    const slug = normalized.split('/').pop().replace(/\.md$/, '');
+    return { slug, mod };
+  });
+  return entries.map(({ slug, mod }) => ({
+    params: { slug },
+    props: { Content: mod.Content, frontmatter: mod.frontmatter },
+  }));
+}
+
+const { Content, frontmatter } = Astro.props;
+const pubDate = new Date(frontmatter.pubDate);
+
+const blogPostingSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": frontmatter.title,
+  "description": frontmatter.description,
+  "datePublished": pubDate.toISOString(),
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": Astro.url.origin + Astro.url.pathname
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Tooltails",
+    "url": "https://tooltails.com"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com" },
+    { "@type": "ListItem", "position": 2, "name": "Study Schedule", "item": "https://tooltails.com/study-schedule" },
+    { "@type": "ListItem", "position": 3, "name": "Blog", "item": "https://tooltails.com/study-schedule/blog" },
+    { "@type": "ListItem", "position": 4, "name": frontmatter.title, "item": Astro.url.origin + Astro.url.pathname }
+  ]
+};
+
+---
+
+<Layout title={frontmatter.title} description={frontmatter.description}>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+    <div class="mb-4">
+      <a href="/study-schedule/blog" class="inline-flex items-center gap-1 text-xs font-bold text-violet-600 hover:text-violet-700 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Blog
+      </a>
+    </div>
+    <div class="mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4 tracking-tight leading-tight">{frontmatter.title}</h1>
+      <div class="flex items-center gap-4 text-sm font-mono text-slate-400">
+        <time datetime={pubDate.toISOString()}>
+          {pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+      </div>
+    </div>
+
+    <div class="prose prose-neutral max-w-none prose-headings:text-slate-800 prose-p:text-slate-600 prose-a:text-violet-600 prose-strong:text-slate-800 prose-code:text-sm prose-code:bg-slate-100 prose-code:px-1 prose-code:rounded">
+      <Content />
+    </div>
+
+    <div class="mt-16 p-6 rounded-xl bg-gradient-to-br from-violet-50/40 to-indigo-50/20 border border-violet-100/60">
+      <div class="text-center">
+        <p class="text-sm font-bold text-slate-800 mb-1">Ready to build your study plan?</p>
+        <p class="text-xs text-slate-500 mb-3">Generate a personalized study schedule in seconds. Free, no sign-up required.</p>
+        <a href="/study-schedule" class="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-extrabold text-white bg-violet-600 rounded-xl hover:bg-violet-700 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063A2 2 0 0 0 14.063 15.5l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+          Build My Study Plan
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-slate-200/60">
+      <a href="/study-schedule/blog" class="text-sm font-medium text-violet-600 hover:underline">&larr; Back to all articles</a>
+    </div>
+  </article>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(blogPostingSchema)} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
+</Layout>
+
+<style is:global>
+  @reference "../../../styles/global.css";
+  .prose h2 { @apply text-2xl font-bold mt-12 mb-6; }
+  .prose h3 { @apply text-xl font-bold mt-8 mb-4; }
+  .prose p { @apply mb-6 leading-relaxed; }
+  .prose ul { @apply mb-6 space-y-2; }
+  .prose ol { @apply mb-6 space-y-2; }
+  .prose li { @apply text-slate-600; }
+  .prose blockquote { @apply border-l-4 border-violet-300 bg-violet-50/30 py-3 px-5 my-6 rounded-r-lg; }
+  .prose blockquote p { @apply mb-0 text-slate-600 italic; }
+  .prose table { @apply w-full border-collapse my-6; }
+  .prose th { @apply bg-slate-50 text-slate-700 font-bold text-sm py-2 px-3 border border-slate-200; }
+  .prose td { @apply text-sm text-slate-600 py-2 px-3 border border-slate-200; }
+</style>

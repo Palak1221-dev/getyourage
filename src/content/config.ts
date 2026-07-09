@@ -22,8 +22,14 @@ const pomodoroBlogCollection = defineCollection({
   schema: blogSchema.omit({ section: true }),
 });
 
+const studyScheduleBlogCollection = defineCollection({
+  type: 'content',
+  schema: blogSchema.omit({ section: true }),
+});
+
 export const collections = {
   'blog': blogCollection,
   'focus-blog': focusBlogCollection,
   'pomodoro-blog': pomodoroBlogCollection,
+  'study-schedule-blog': studyScheduleBlogCollection,
 };

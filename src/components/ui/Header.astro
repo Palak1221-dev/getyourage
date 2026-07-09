@@ -298,29 +298,6 @@ const isToolActive = toolItems.some(item => isActive(item.href));
     position: relative;
   }
 
-  .nav-link-premium::after {
-    content: '';
-    position: absolute;
-    bottom: 4px;
-    left: 12px;
-    right: 12px;
-    height: 1.5px;
-    background-color: var(--color-link);
-    transform: scale-x(0);
-    transform-origin: right;
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 1px;
-  }
-
-  .nav-link-premium:hover::after {
-    transform: scale-x(1);
-    transform-origin: left;
-  }
-
-  .nav-link-premium.active::after {
-    transform: scale-x(1);
-  }
-
   .nav-link-premium:hover {
     transform: translateY(-0.5px);
   }
