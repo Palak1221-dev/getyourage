@@ -1,17 +1,66 @@
-## Session Summary (Jul 8, 2026) — Build Speed Analysis & JS Extraction
+## Session Summary (Jul 9, 2026) — FAQ Visibility Fix + Schedule Timeline Redesign
 
 ### What We Did
-1. **Extracted inline JS from monolithic Astro files** — Moved 361KB of inline JS from `focus/index.astro` (was 6927 lines) and 296KB from `study-schedule.astro` (was 2468 lines) into separate `src/scripts/focus.ts` and `src/scripts/study-schedule.ts` files. Both pages now reference external scripts via `<script src="/src/scripts/...ts">`.
+1. **Fixed FAQ off-screen bug** — Root cause: `#planner-cover` (PDF cover template at `position: fixed; left: -9999px`) was missing its closing `</div>` at line 628. The two `</div>` only closed inner containers, leaving `#planner-cover` open, causing the entire FAQ section to render as a child of `#planner-cover` at `x: -9965`. Fix: added third `</div>` to properly close `#planner-cover`. Verified via Playwright parent-chain DOM inspection.
 
-2. **Build time analysis** — Benchmarked multiple optimization strategies (Tailwind removal, Sitemap removal, minification toggle, `target: esnext`, `manualChunks`, `public/` static scripts). Conclusion: the **CPU (i5-6200U, 2 cores)** is the bottleneck — Vite's client bundle step consistently takes ~10-11s regardless of config. Best achievable time is 18-22s on this hardware.
+2. **Redesigned study plan timeline** (`renderStudyPlan` in `study-schedule.ts`) — Complete rewrite addressing 5 issues:
+   - **Timeline alignment**: Replaced misaligned `-left-[33px]` dots with a clean `left-[10px]` vertical line, 22px dots centered on the line, proper dot states (violet for today with ring, emerald for completed, slate for future)
+   - **Empty days collapsed**: Days with 0 topics now render as a single compact row with a dashed border dot and contextual message — "Rest Day" (days off), "Weekend" (Sat/Sun), "Buffer Day" (weekday with no sessions)
+   - **Milestones decoupled**: Removed per-slot milestone injection. Milestones now computed via `dayMilestones` Map, rendered as small thin badges BETWEEN day tasks instead of full-size cards. Only unlocked milestones shown (locked ones omitted entirely).
+   - **Priority borders**: Each task gets a `border-l-[3px]` color-coded priority indicator (rose=Critical, amber=High, blue=Medium, emerald=Low) for visual hierarchy at a glance.
+   - **Compact density**: Reduced card padding (p-3→p-2), gaps (space-y-2→space-y-0.5), font sizes (text-xs→text-[11px]), metadata badges replaced with compact `estMin` + color dot. Subject name and task name are primary; difficulty/confidence labels removed.
 
-3. **Build passes** — 58 pages, 0 errors, ~22s (well under 30s threshold).
+3. **Build passes** — 69 pages, 0 errors, 18.43s.
+4. **Tests pass** — 0 errors. All 6 suites pass (Readiness 61% stable, Tabs 2/2, PDF visible, Layout 570px/570px).
 
 ### Files Modified
-- `src/pages/focus/index.astro` — replaced ~4800-line `<script>` block with `<script src="/src/scripts/focus.ts">`
-- `src/pages/study-schedule.astro` — replaced ~2100-line `<script>` block with `<script src="/src/scripts/study-schedule.ts">`
-- `src/scripts/focus.ts` — created from extracted JS (237KB)
-- `src/scripts/study-schedule.ts` — created from extracted JS (120KB)
+- `src/scripts/study-schedule.ts` — `renderStudyPlan()` function (lines 1660–1856) fully rewritten with compact timeline, collapsed empty days, priority-based borders, unlocked-only milestone badges
+- `src/pages/study-schedule.astro` — added missing `</div>` at line 628 to close `#planner-cover` (fixes FAQ rendering off-screen)
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 8, 2026) — Dark Mode Implementation + Schedule Generation Fix + Contrast Polish
+
+### What We Did
+1. **Dark mode implemented** — Added comprehensive `:root[data-theme="dark"]` CSS variable overrides in `study-schedule.astro` covering: page/card/skeleton backgrounds, 5-tier text color hierarchy (primary→muted), slate/gray border colors, violet/purple accent elements (backgrounds, text, borders, buttons), gradient backgrounds (`from-violet-50`, `to-white`), skeleton pulse bars, input/select backgrounds. Bulk `bg-white`→`bg-canvas` replacement across all card elements for Tailwind CSS variable compatibility. Integrates with existing moon/sun ThemeToggle component, Layout.astro flash-prevention script, and global.css `--color-*` variable system.
+
+2. **Flex-based dark mode CSS** — Uses utility-class overrides (e.g. `:root[data-theme="dark"] .text-slate-800 { color: var(--ss-text-primary); }`) instead of restructuring all Tailwind classes to design system variables — minimal diff, max compatibility with existing code.
+
+3. **Schedule generation tab-switch fix (revisit)** — Root cause: `generate()` only created schedule entries for days with topic slots; all 3 topics fit in 1 day at `hpt=1.5`. Fix: fill all available days (today→exam) with empty slot arrays, merge revision sessions, sort by date. Both tabs now show distinct ranges.
+
+4. **Planner Preview contrast fix** — Removed `opacity-60` from skeleton containers. Increased text contrast (labels `slate-500`→`slate-700`, values `slate-400`→`slate-500`). Bars `slate-100`→`slate-200`/`slate-300`. Card border `slate-200/60`→`slate-200`. Added section separator line.
+
+5. **Page/card contrast enhancement** — Page background `#f7f8fc`→`#eef0f6` (~9 pts darker). Sidebar card borders full opacity (`slate-200/60`→`slate-200`), shadow depth increased. Setup card shadows bumped. Hero separator strengthened (`slate-100/50`→`slate-200/30`).
+
+6. **Build passes** — 58 pages, 0 errors, 16.17s.
+7. **Tests pass** — 0 errors. All 6 suites pass (Readiness stable 61%, Tabs 2/2, PDF visible, Layout 590/590).
+
+### Files Modified
+- `src/pages/study-schedule.astro` — dark mode CSS overrides (lines 605–681), bg-canvas replacement (~30 instances)
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 8, 2026) — Full Mojibake Cleanup & Entire Emoji→Lucide Migration
+
+### What We Did
+1. **Fixed 150 mojibake corruption instances** across 4 files — v2 decoder (134 auto-detected sequences) + 8 targeted partial-corruption fixes + 8 remaining PDF template corruption fixes.
+
+2. **Replaced ALL emoji with Lucide inline SVG icons** across all 4 files (139 replacements total):
+   - `study-schedule.astro`: 47 emoji→SVG (CTA buttons, setup header, PDF template decorations — Calendar, Target, Heart, Star, RefreshCw, Clipboard, Map, Check, etc.)
+   - `focus/index.astro`: 20 emoji→SVG (activity buttons + mood selectors + section headers)
+   - `study-schedule.ts`: 50 emoji→SVG (JS template literals: Check, Fire, Target, Book, Crown, Star, Rocket, Brain, etc.)
+   - `focus.ts`: 22 emoji→SVG (celebration, mood arrays, journal tags, insights)
+
+3. **Updated test script** — Changed hardcoded port 4321 to `PORT` env variable (default 4324). Killed stale dev servers on ports 4321/4324/4325.
+
+4. **Build passes** — 58 pages, 0 errors, 14.05s.
+5. **Tests pass** — 0 errors. All 6 suites pass (Readiness stable 42%, Tabs 2/2, PDF visible, Layout 590/590).
+
+### Files Modified
+- `src/pages/study-schedule.astro` — 46 v2 fixes + 8 targeted fixes + 47 emoji→SVG
+- `src/pages/focus/index.astro` — 25 v2 fixes + 3 targeted fixes + 20 emoji→SVG
+- `src/scripts/study-schedule.ts` — 39 v2 fixes + 50 emoji→SVG
+- `src/scripts/focus.ts` — 24 v2 fixes + 2 targeted fixes + 22 emoji→SVG
+- `test-study-schedule.cjs` — port configurable via `PORT` env var (default 4324)
+- `AGENTS.md` — updated session summary
 
 ## Session Summary (Jul 7, 2026) — Part 5: Setup Section Layout Fix — Clean Single-Flow Onboarding
 
@@ -797,5 +846,76 @@
 
 ### Files Modified
 - `src/pages/study-schedule.astro` — overflow fixes, line-height, min-height, flex growth on two-column layout, transform removal, balanceLayout simplification
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 8, 2026) — Tab Investigation, Schedule Generation Fix & Planner Preview Contrast Fix
+
+### What We Did
+1. **Diagnosed tab-switching bug** — Root cause: `generate()` only created schedule entries for days with topic slots. With 3 topics and `hpt=1.5`, all topics fit in 1 day, making the schedule length 1. Both "This Week" and "Full Plan" showed identical content.
+
+2. **Fixed schedule generation** — After topic distribution, all remaining available days (from today to exam date) are now filled into the schedule with empty slots. Revision sessions from studied topics are merged into their respective days. Schedule sorted by date. Test confirms `scheduleLen` now spans full range (weeks vs full plan are distinct).
+
+3. **Fixed Planner Preview washed-out skeleton** — Removed `opacity-60` from all 4 skeleton containers (washed everything out). Changed labels `text-slate-500`→`text-slate-700`, skeleton values `text-slate-400`→`text-slate-500`, skeleton bars `bg-slate-100`→`bg-slate-200`/`bg-slate-300`, revision count `text-amber-400`→`text-amber-500`. Added section separator line below header. Darkened card border from `border-slate-200/60` to `border-slate-200`. Changed header text `text-slate-700`→`text-slate-800`.
+
+### Files Modified
+- `src/scripts/study-schedule.ts` — schedule generation: fill missing days + merge revision sessions (lines 508-541)
+- `src/pages/study-schedule.astro` — planner preview skeleton: removed opacity-60, increased all contrast levels, added separator line, darkened card border
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 8, 2026) — Layout Regression Fixes (Sidebar, Dark Mode, Balance)
+
+### What We Did
+1. **Fixed sidebar overlap** — Added `items-start` to the flex container and `self-start` to `#readiness-sidebar` so it shrinks to content height instead of stretching to match the left column. The `sticky top-28` inner div now works properly within its actual bounds.
+
+2. **Moved features section inside left column** — The 4-card features grid (Smart Schedule, Readiness Score, Printable Planner Kit, Revision Tracking) was previously outside the `flex` container (below both columns), creating a "T-shaped" unbalanced layout where the sidebar didn't extend alongside the features. Now it sits inside the left column, so the sidebar co-extends with both setup content and features.
+
+3. **Fixed dark mode hero gradient** — Added `sch-hero` class to the hero gradient wrapper and overrode it in dark mode (`background: linear-gradient(to right, var(--ss-page), var(--ss-card), var(--ss-card))`). Previously the hero remained light in dark mode.
+
+4. **Added missing dark mode accent overrides** — Added overrides for `bg-emerald-100/60`, `bg-amber-100/60`, `bg-sky-100/60`, their border/text variants (used in feature cards), `bg-violet-100/50` (hero badge), `border-slate-200/30` (features separator), and `border-violet-200/20` (hero badge border).
+
+5. **Audited for artificial heights** — Confirmed no `h-screen`, `min-h-screen`, `100vh`, or problematic `flex-grow` containers causing empty gaps. The `#main-content` uses standard `flex-grow` for sticky footer (from Layout), not artificial height.
+
+6. **Build passes** — 58 pages, 0 errors, 12.35s.
+7. **Tests pass** — 0 errors. All 6 suites pass (Readiness stable 61%, Tabs 2/2, PDF visible, Layout 570px/570px).
+
+### Files Modified
+- `src/pages/study-schedule.astro` — `items-start` on flex container, `self-start` on sidebar, features section moved inside left column, `sch-hero` class added to hero, dark mode overrides for hero gradient + emerald/amber/sky accents + border tokens
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 8, 2026) — Desktop Layout Density, Typography Scale & Features Section
+
+### What We Did
+1. **Layout width expansion** — Main containers (`max-w-[1200px]→[1440px]`), sidebar (`w-64→w-80`), flex gaps (`gap-5→gap-8`), outer padding (`px-6→px-8`), hero padding/spacing increased.
+
+2. **Typography scale bumped** — Hero heading (`[1.75rem]→[2.25rem]`), badge (9→10px), subtitle (xs→sm), sidebar titles (10px→xs), ring percentage (xs→sm), step labels (10px→xs), step descriptions (8px→10px), roadmap markers (7px→9px), dashboard dates (8px→10px), daily buttons (10px→xs) + size (w-7 h-7→w-8 h-8), all buttons/text (11px→xs), download PDF/Planner kit buttons (h-7 px-3 text-[10px]→h-8 px-4 text-xs).
+
+3. **Card padding increased** — Empty states (p-3→p-4), sidebar cards (p-3→p-4), plan summary (px-3 py-2→px-4 py-2.5, p-3→p-4), import banner (p-2.5→p-3).
+
+4. **Spacing tightened** — Hero py-2→py-3, setup wrapper mt-1 pb-4→mt-2 pb-6, sidebar space-y-2.5→3, sticky top-24→top-28, summary footer gap-2.5 mt-3 pt-3→gap-3 mt-4 pt-3.5, setup preferences gap-3 pt-2.5→gap-4 pt-3, generate row gap-2.5 mt-3→gap-3 mt-3.5, dashboard space-y-2→3, planner preview mb-2→mb-3.
+
+5. **Features section added** — 4-card 2×2 grid below setup area: Smart Schedule, Exam Readiness Score, Printable Planner Kit, Revision Tracking. Separated by `mt-8 pt-6 border-t` with heading/subtitle. Each card has colored icon box, title, description.
+
+6. **Test updated for single-flow design** — Removed setup toggle step (no longer exists), replaced `clickButton` with `progClick` (programmatic) to work around overlap issues with wider sidebar. All 6 suites pass (readiness 61% stable, tabs 2/2, PDF visible, layout 570px/570px).
+
+7. **Build passes** — 58 pages, 0 errors, 12.47s.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — layout width expansion, typography scale bumps, card padding, spacing, features section HTML
+- `test-study-schedule.cjs` — replaced toggle step with direct interaction, programmatic click helper (`progClick`), CSS class selectors for inputs
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 8, 2026) — Page/Card Contrast Enhancement
+
+### What We Did
+1. **Darkened page background** — `#f7f8fc` → `#eef0f6` (~9 pts darker per RGB channel). Creates stronger separation from white (`#ffffff`) cards without changing the clean SaaS aesthetic.
+
+2. **Enhanced sidebar card elevation** — Both sidebar cards (Setup Readiness, Planner Preview) upgraded: border from `border-slate-200/60`→`border-slate-200`, shadow from `[0_1px_3px_rgba(0,0,0,0.04)]`→`[0_2px_8px_rgba(0,0,0,0.06)]`, hover shadow → `[0_4px_16px_rgba(0,0,0,0.1)]`.
+
+3. **Enhanced setup section card borders/shadows** — Pre-summary card: border/shadows upgraded to match sidebar. Empty state cards (exam, subject) and import banner: shadows from `[0_1px_3px_rgba(0,0,0,0.03)]`→`[0_2px_6px_rgba(0,0,0,0.05)]`, hover shadows → `[0_4px_16px_rgba(...,0.08)]`.
+
+4. **Strengthened hero/page separator** — Hero gradient banner border from `border-slate-100/50`→`border-slate-200/30` for clearer visual demarcation between hero and content.
+
+### Files Modified
+- `src/pages/study-schedule.astro` — page bg color, sidebar card borders/shadows, setup card shadows, hero separator
 - `AGENTS.md` — updated session summary
 

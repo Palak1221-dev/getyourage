@@ -42,3 +42,5 @@ test-study-schedule.cjs
 test-study-schedule.mjs
 verify-pdf.cjs
 check-brackets.cjs
+run-tests.ps1
+scan_mojibake.py
