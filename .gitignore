@@ -43,3 +43,5 @@ verify-pdf.cjs
 check-brackets.cjs
 run-tests.ps1
 scan_mojibake.py
+test-bug.cjs
+test-session-restore.cjs

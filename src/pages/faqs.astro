@@ -3,107 +3,128 @@ import Layout from "../layouts/Layout.astro";
 
 const faqSections = [
   {
-    category: "Age Calculator",
+    category: "Word Counter & Text Analysis",
+    items: [
+      {
+        q: "How does the word counter work?",
+        a: "Our word counter instantly analyzes your text as you type, counting words, characters, sentences, paragraphs, and reading time. All processing happens entirely in your browser — nothing is sent to our servers."
+      },
+      {
+        q: "What is a readability score and how is it calculated?",
+        a: "A readability score estimates how easy your text is to read. We use the Flesch-Kincaid formula, which analyzes sentence length and syllable count per word. A score of 60-70 is considered plain English that's easily understood by most readers."
+      },
+      {
+        q: "Can I check character limits for social media platforms?",
+        a: "Yes. Our tool tracks character counts for Twitter, LinkedIn, Instagram, Facebook, and other platforms in real-time. You'll see platform-specific limits and warnings as you type."
+      },
+      {
+        q: "Is my text stored or saved when I use the word counter?",
+        a: "No. All text analysis is performed locally in your browser using JavaScript. We never store, log, or transmit any text you enter. Your privacy is fully protected."
+      }
+    ]
+  },
+  {
+    category: "Pomodoro Timer & Productivity",
+    items: [
+      {
+        q: "How does the Pomodoro technique work?",
+        a: "The Pomodoro technique breaks work into 25-minute focused intervals called 'pomodoros,' separated by 5-minute breaks. After four pomodoros, take a longer 15-30 minute break. This pattern helps maintain focus and prevents mental fatigue."
+      },
+      {
+        q: "Can I customize the timer durations?",
+        a: "Yes. You can adjust the focus session length, short break length, and long break length to suit your preferences. Some people prefer 50-minute sessions with 10-minute breaks — our timer adapts to any schedule."
+      },
+      {
+        q: "What happens to my session data?",
+        a: "Your session history, streaks, and productivity metrics are stored locally in your browser using localStorage. We never store this data on our servers, and you can clear it at any time."
+      },
+      {
+        q: "Does the Pomodoro timer work on mobile?",
+        a: "Yes. The timer is fully responsive and works on all devices. It also supports push notifications for break reminders when used in a supported browser."
+      }
+    ]
+  },
+  {
+    category: "Focus Timer & Goal Planning",
+    items: [
+      {
+        q: "What makes the Focus timer different from a regular timer?",
+        a: "The Focus timer is outcome-based — you set a goal, break it into milestones, and track your progress toward completion. It includes activity tracking, mood logging, and detailed analytics to help you understand your productivity patterns."
+      },
+      {
+        q: "How are focus streaks calculated?",
+        a: "A focus streak counts consecutive days where you complete at least one focused session. Miss a day and the streak resets. Streaks are designed to motivate consistency rather than intensity — showing up every day matters more than how much you do."
+      },
+      {
+        q: "Can I track different types of activities?",
+        a: "Yes. You can log sessions for studying, writing, reading, coding, and other custom activities. Each activity type is tracked separately, and you can view detailed breakdowns of where your time goes."
+      },
+      {
+        q: "Is there a way to review my focus history?",
+        a: "The Focus timer includes a comprehensive history view with daily, weekly, and monthly reports. You can see trends, compare periods, and export your data. Insights are shown with clear visualizations to help you identify patterns."
+      }
+    ]
+  },
+  {
+    category: "Study Schedule & Exam Preparation",
+    items: [
+      {
+        q: "How does the Study Schedule generator work?",
+        a: "You enter your exam dates and subjects, and the generator creates a personalized study plan. It distributes your topics across the available days, prioritizes subjects based on exam proximity and confidence levels, and automatically schedules revision sessions."
+      },
+      {
+        q: "What is the Readiness Score?",
+        a: "The Readiness Score is a percentage that reflects how prepared you are for your exams. It considers topics covered, confidence ratings, schedule density, and revision frequency. A score above 80% suggests you're well-prepared."
+      },
+      {
+        q: "Can I download my study schedule as a PDF?",
+        a: "Yes. The planner generates a beautifully formatted PDF with your study plan, readiness breakdown, revision tracker, and weekly overview. It's designed to be printed or saved as a digital planner."
+      },
+      {
+        q: "Does the study schedule adapt if I fall behind?",
+        a: "The schedule is designed for flexibility. You can log completed topics, adjust confidence levels, and regenerate your plan at any time. The AI coach provides recommendations if you're falling behind or need to adjust your focus."
+      }
+    ]
+  },
+  {
+    category: "Resume Checker & Career Tools",
+    items: [
+      {
+        q: "How does the ATS resume checker work?",
+        a: "Our ATS checker analyzes your resume against job descriptions to identify keyword matches, skill gaps, and optimization opportunities. It scores your resume based on keyword density, phrase matching, experience quality, and section structure."
+      },
+      {
+        q: "Is my resume data stored on your servers?",
+        a: "No. All resume analysis is performed locally in your browser. Your personal information, work history, and the job descriptions you paste never leave your device. We believe privacy is essential for career tools."
+      },
+      {
+        q: "What is the difference between required and preferred skills?",
+        a: "Required skills are weighted more heavily in your score. The checker identifies explicit 'Requirements' or 'Must Have' sections in job descriptions and applies a 2x multiplier to matching skills. Missing required skills directly impact your score."
+      },
+      {
+        q: "Can I edit my resume directly in the tool?",
+        a: "Yes. The split-screen editor lets you edit your resume on one side while seeing your ATS score update in real-time on the other. You can also download your edited resume in TXT, DOCX, or PDF format."
+      }
+    ]
+  },
+  {
+    category: "Date & Age Calculators",
     items: [
       {
         q: "How is my exact age calculated?",
-        a: "We calculate your exact age by determining the precise time elapsed between your date of birth and the current date, intelligently accounting for leap years and the varying number of days in each month."
+        a: "We calculate your exact age by determining the precise time elapsed between your date of birth and the current date, accounting for leap years and varying month lengths. Results are shown in years, months, days, hours, minutes, and seconds."
       },
       {
-        q: "Can I find out exactly how many days I have lived?",
-        a: "Yes, our age calculator provides a granular breakdown including your total days, weeks, hours, and seconds lived."
+        q: "Can I calculate the age difference between two people?",
+        a: "Yes. Enter two birth dates and the Age Difference calculator shows the exact chronological gap in years, months, and days. The order of dates doesn't matter — the tool automatically determines the difference."
       },
       {
-        q: "Is my birth date data stored on your servers?",
-        a: "No. All calculations are performed entirely locally within your browser. We prioritize your privacy and never store, log, or transmit your personal data."
+        q: "How does the Birthday Countdown work?",
+        a: "Enter your date of birth and the tool identifies your next upcoming birthday, showing the exact number of days remaining and the day of the week it falls on. The countdown updates based on your device's current date."
       },
       {
-        q: "How accurate is the calculation for leap years?",
-        a: "Our algorithm uses highly precise native date logic that perfectly accounts for leap years, ensuring your exact age is always 100% accurate."
-      }
-    ]
-  },
-  {
-    category: "Age Difference Calculator",
-    items: [
-      {
-        q: "How do you calculate the age gap between two people?",
-        a: "By entering two distinct birth dates, the tool calculates the absolute chronological time difference between them, outputting the gap clearly in years, months, and days."
-      },
-      {
-        q: "Does the order of dates matter when calculating age difference?",
-        a: "No, you can enter the dates in any order. The calculator automatically identifies the older and younger dates to compute the positive chronological difference."
-      },
-      {
-        q: "Can I use this to find the age gap between me and a historical figure?",
-        a: "Absolutely. As long as the birth year falls within our dynamic 130-year window, you can compare your exact age with anyone else's."
-      },
-      {
-        q: "What happens if I enter the exact same date for both people?",
-        a: "The calculator will output a 0-day difference, which accurately reflects the identical age gap between twins born on the exact same day."
-      }
-    ]
-  },
-  {
-    category: "Birthday Countdown",
-    items: [
-      {
-        q: "How do I know how many days are left until my next birthday?",
-        a: "Our Birthday Countdown tool takes your date of birth, identifies your next upcoming birthday in the current or following calendar year, and calculates the exact number of days remaining."
-      },
-      {
-        q: "Will it tell me what day of the week my birthday is on?",
-        a: "Yes, the countdown results specifically highlight the weekday (e.g., Monday, Friday) your next birthday will fall on."
-      },
-      {
-        q: "Does the countdown update automatically?",
-        a: "The countdown provides an exact calculation at the moment you run it, based on your device's current date and time zone."
-      },
-      {
-        q: "What age will I be turning on my next birthday?",
-        a: "Along with the countdown, the tool explicitly displays the exact age you will be turning on that upcoming date."
-      }
-    ]
-  },
-  {
-    category: "Date Duration Calculator",
-    items: [
-      {
-        q: "What is the Date Duration Calculator used for?",
-        a: "It is primarily used for project planning, tracking relationship milestones, or simply finding out exactly how much time has elapsed between any two historical or future dates."
-      },
-      {
-        q: "Does the duration calculation include the end date?",
-        a: "It calculates the elapsed time between the start and end dates. If you need inclusive dates (counting both the first and last day), you may need to add one day manually."
-      },
-      {
-        q: "Can I calculate the duration between a past date and a future date?",
-        a: "Yes, you can select any combination of past, present, or future dates to find the exact chronological span between them."
-      },
-      {
-        q: "Is the output only provided in days?",
-        a: "No, the duration is broken down into years, months, and days to give you a comprehensive and easily understandable timeframe."
-      }
-    ]
-  },
-  {
-    category: "Future Age Calculator",
-    items: [
-      {
-        q: "How can I find out how old I will be in the year 2050?",
-        a: "Enter your date of birth and set the target future date to any day in 2050. The tool will calculate exactly how old you will be on that specific day."
-      },
-      {
-        q: "Can I use the Future Age Calculator for past dates?",
-        a: "Yes! Despite the name, you can enter a target date in the past (as long as it is after your birth date) to see exactly how old you were at that historical moment."
-      },
-      {
-        q: "What happens if I enter a future date that is before my date of birth?",
-        a: "The tool includes strict validation to prevent this. You cannot calculate an age for a date before you were actually born."
-      },
-      {
-        q: "Do these future calculations account for calendar anomalies?",
-        a: "Yes, the underlying logic perfectly handles leap years and variable month lengths far into the future, ensuring mathematical accuracy."
+        q: "Can I use the duration calculator for project planning?",
+        a: "Absolutely. The Date Duration calculator measures the exact time between any two dates — past, present, or future. It's perfect for project timelines, tracking milestones, or calculating elapsed time for any purpose."
       }
     ]
   }
@@ -127,7 +148,7 @@ const faqSchema = {
 
 <Layout 
   title="Frequently Asked Questions - Tooltails.com" 
-  description="Answers to common questions about calculating your exact age, finding age differences, counting down to birthdays, and projecting future ages."
+  description="Answers to common questions about word counter, Pomodoro timer, focus timer, study schedule, resume checker, and date calculators. Find help for all Tooltails tools."
 >
   <div class="max-w-[1200px] mx-auto px-4 py-12 md:py-24">
     <div class="max-w-3xl mx-auto text-center mb-16">
@@ -135,7 +156,7 @@ const faqSchema = {
         Frequently Asked Questions
       </h1>
       <p class="text-lg md:text-xl text-body leading-relaxed">
-        Everything you need to know about our precision date and age calculators.
+        Find answers to common questions about all Tooltails tools — from word counting and productivity timers to resume optimization and age calculations.
       </p>
     </div>
 

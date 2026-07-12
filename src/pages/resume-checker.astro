@@ -1,0 +1,1062 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com" },
+    { "@type": "ListItem", "position": 2, "name": "Resume Checker", "item": "https://tooltails.com/resume-checker" }
+  ]
+};
+
+const appSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Resume Optimizer & ATS Checker",
+  "url": "https://tooltails.com/resume-checker",
+  "description": "Advanced ATS resume checker with real-time scoring, section analysis, bullet quality checks, action verb detection, and downloadable optimization reports.",
+  "applicationCategory": "Career Development",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires JavaScript"
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is an ATS resume checker?",
+      "acceptedAnswer": { "@type": "Answer", "text": "An ATS (Applicant Tracking System) resume checker analyzes how well your resume matches a job description by comparing keywords, skills, and formatting requirements used by hiring software." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the ATS score calculated?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The ATS score is calculated across 7 dimensions: keyword match (30%), skill alignment (20%), content quality (15%), section completeness (10%), bullet effectiveness (10%), formatting compatibility (5%), and experience relevance (10%)." }
+    },
+    {
+      "@type": "Question",
+      "name": "What sections should a resume have for ATS?",
+      "acceptedAnswer": { "@type": "Answer", "text": "ATS-friendly resumes typically include: Contact Information, Professional Summary, Work Experience, Skills, Education, and optionally Certifications and Projects. Avoid tables, columns, and graphics." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this resume checker free?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes, this ATS resume checker is completely free with real-time analysis. No sign-up or credit card required." }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the Sandbox tool help optimize my score?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The Sandbox lets you test-fit new keywords or skills and instantly see their simulated impact on your overall match score before you manually modify your resume document." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a \"Ghost Job\" and how is it detected?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A ghost job is a job listing that is not actively being filled. We scan for template placeholders, evergreen phrases (\"always looking to hire\"), lack of salary info, and copy-paste clichés to flag risk." }
+    },
+    {
+      "@type": "Question",
+      "name": "Will this checker read PDF and DOCX files?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes, the file importer supports .pdf, .docx, and .txt formats up to 5MB. You can upload either your resume, the job description, or both." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does formatting like tables or columns hurt my score?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Columns, tables, text boxes, and charts can scramble your text during parsing, causing critical contact details or job histories to be misread by ATS parsers." }
+    },
+    {
+      "@type": "Question",
+      "name": "How often should I optimize my resume?",
+      "acceptedAnswer": { "@type": "Answer", "text": "You should customize your resume for every single job application. Tailoring your keywords and skills to match each unique job description is the single most effective way to pass recruiters' automated screenings." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my resume data saved or shared?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. All parsing and analysis are performed locally inside your browser sessions. Your data is stored securely in your local browser storage and is never uploaded to remote servers or shared with third parties." }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Resume Optimizer & ATS Checker – Free ATS Resume Score Tool | Tooltails"
+  description="Advanced free ATS resume checker. Paste your resume and job description for real-time keyword matching, section validation, bullet quality scoring, and downloadable optimization report."
+>
+  <link rel="preconnect" href="https://fonts.googleapis.com" slot="head" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin slot="head" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" slot="head" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" slot="head" />
+  
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(appSchema)} />
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+
+  <style is:global>
+    @keyframes rc-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    @keyframes rc-fade-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes rc-fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes rc-scale-in { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes rc-bar-fill { from { width: 0 !important; } }
+    @keyframes rc-shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    @keyframes rc-slide-in { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes rc-glow-pulse { 0%, 100% { box-shadow: 0 0 6px color-mix(in srgb, var(--rc-primary) 15%, transparent); } 50% { box-shadow: 0 0 18px color-mix(in srgb, var(--rc-primary) 30%, transparent); } }
+    @keyframes rc-type-cursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    @keyframes rc-chip-enter { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+
+    .rc-dashboard {
+      font-family: 'Outfit', 'Inter', -apple-system, sans-serif !important;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-feature-settings: "ss01", "ss02", "cv01", "cv02", "liga" 1, "kern" 1;
+      line-height: 1.6;
+      --rc-type-display: 800;
+      --rc-type-heading: 700;
+      --rc-type-label: 600;
+      --rc-type-body: 500;
+      --rc-type-leading: 1.6;
+      --rc-type-tracking-wide: 0.08em;
+      --rc-type-tracking-wider: 0.12em;
+      --rc-bg: #eef0f6;
+      --rc-card-bg: #ffffff;
+      --rc-border: #e4e8f0;
+      --rc-border-strong: #cdd3df;
+      --rc-text-primary: #080b14;
+      --rc-text-secondary: #363c50;
+      --rc-text-muted: #636b80;
+      --rc-primary: #4f46e5;
+      --rc-primary-soft: #eef2ff;
+      --rc-success: #0f9d58;
+      --rc-success-soft: #e6f7ee;
+      --rc-warning: #d97706;
+      --rc-warning-soft: #fef3c7;
+      --rc-error: #dc2626;
+      --rc-error-soft: #fde8e8;
+      --rc-info: #2563eb;
+      --rc-info-soft: #dbeafe;
+      --rc-accent-warm: #f59e0b;
+      --rc-accent-rose: #f43f5e;
+      --rc-accent-violet: #8b5cf6;
+      --rc-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 0 0 1px rgba(0, 0, 0, 0.01);
+      --rc-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02);
+      --rc-shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.02);
+      --rc-gradient-brand: linear-gradient(135deg, #4f46e5, #7c3aed, #a78bfa);
+      --rc-gradient-warm: linear-gradient(135deg, #f59e0b, #f97316);
+      --rc-gradient-success: linear-gradient(135deg, #0f9d58, #059669);
+      --rc-gradient-card-border: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.15), transparent);
+    }
+
+    :root[data-theme="dark"] .rc-dashboard {
+      --rc-bg: #09090b;
+      --rc-card-bg: #18181b;
+      --rc-border: #27272a;
+      --rc-border-strong: #3f3f46;
+      --rc-text-primary: #f4f4f5;
+      --rc-text-secondary: #d4d4d8;
+      --rc-text-muted: #a1a1aa;
+      --rc-primary: #818cf8;
+      --rc-primary-soft: rgba(129, 140, 248, 0.15);
+      --rc-success: #34d399;
+      --rc-success-soft: rgba(52, 211, 153, 0.15);
+      --rc-warning: #fbbf24;
+      --rc-warning-soft: rgba(251, 191, 36, 0.15);
+      --rc-error: #f87171;
+      --rc-error-soft: rgba(248, 113, 113, 0.15);
+      --rc-info: #60a5fa;
+      --rc-info-soft: rgba(96, 165, 250, 0.15);
+      --rc-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+      --rc-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
+      --rc-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .rc-bg-dot-grid {
+      background-image: radial-gradient(circle, var(--rc-border) 0.5px, transparent 0.5px);
+      background-size: 20px 20px;
+    }
+
+    .rc-bg-purple-aura {
+      background: var(--rc-bg);
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(79,70,229,0.14) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 90% 90%, rgba(139,92,246,0.09) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 10% 80%, rgba(124,58,237,0.07) 0%, transparent 50%);
+    }
+
+    .rc-card {
+      position: relative;
+      background: linear-gradient(180deg, var(--rc-card-bg) 0%, color-mix(in srgb, var(--rc-card-bg) 98%, var(--rc-primary) 2%) 100%);
+      border: 1px solid var(--rc-border);
+      border-radius: 12px;
+      box-shadow: var(--rc-shadow);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+    }
+    .rc-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background: linear-gradient(180deg, transparent 60%, color-mix(in srgb, var(--rc-primary) 1.5%, transparent) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .rc-card:hover {
+      border-color: var(--rc-border-strong);
+      box-shadow: var(--rc-shadow-md);
+      transform: translateY(-1px);
+    }
+    .rc-card:hover::after {
+      opacity: 1;
+    }
+    .rc-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .rc-card-accent {
+      border-top: 2px solid transparent;
+      border-image: var(--rc-gradient-card-border) 1;
+    }
+
+    .rc-card-lift:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--rc-shadow-lg);
+    }
+
+    .rc-btn-primary {
+      background: var(--rc-gradient-brand);
+      color: white;
+      border: none;
+      transition: opacity 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .rc-btn-primary:hover {
+      opacity: 0.92;
+      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .rc-btn-ghost {
+      background-color: var(--rc-card-bg);
+      border: 1px solid var(--rc-border);
+      color: var(--rc-text-primary);
+      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+    .rc-btn-ghost:hover {
+      background-color: var(--rc-bg);
+      border-color: var(--rc-border-strong);
+      transform: translateY(-1px);
+    }
+
+    .rc-text-gradient {
+      background: var(--rc-gradient-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .rc-section-accent {
+      position: relative;
+      padding-left: 14px;
+    }
+    .rc-section-accent::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 2px;
+      bottom: 2px;
+      width: 3px;
+      border-radius: 4px;
+      background: var(--rc-gradient-brand);
+    }
+
+    #percentile-rank { display: none !important; }
+
+    .rc-card-heading {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--rc-text-muted);
+      margin-bottom: 8px;
+    }
+    .rc-card-heading::before {
+      content: '';
+      width: 3px;
+      height: 12px;
+      border-radius: 4px;
+      background: var(--rc-gradient-brand);
+      flex-shrink: 0;
+    }
+
+    .rc-glow {
+      box-shadow: 0 0 24px rgba(79, 70, 229, 0.18);
+    }
+    .rc-glow-strong {
+      box-shadow: 0 0 36px rgba(79, 70, 229, 0.25);
+    }
+
+    .rc-dashboard .tabular-nums { font-variant-numeric: tabular-nums; }
+    .rc-dashboard button:focus-visible, .rc-dashboard a:focus-visible { outline: 2px solid var(--rc-primary); outline-offset: 2px; border-radius: 8px; }
+    .rc-dashboard button:not(:focus-visible) { outline: none; }
+
+    .rc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 1.5px 7px;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--rc-primary) 10%, transparent);
+      color: var(--rc-primary);
+      border: 1px solid color-mix(in srgb, var(--rc-primary) 15%, transparent);
+    }
+    .rc-badge-success {
+      background: color-mix(in srgb, var(--rc-success) 10%, transparent);
+      color: var(--rc-success);
+      border-color: color-mix(in srgb, var(--rc-success) 15%, transparent);
+    }
+    .rc-badge-error {
+      background: color-mix(in srgb, var(--rc-error) 10%, transparent);
+      color: var(--rc-error);
+      border-color: color-mix(in srgb, var(--rc-error) 15%, transparent);
+    }
+
+    .rc-input {
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+    }
+    .rc-input:focus {
+      border-color: var(--rc-primary) !important;
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--rc-primary) 15%, transparent) !important;
+      background-color: var(--rc-card-bg) !important;
+    }
+
+    .animate-fade-in { animation: rc-fade-in 0.4s ease-out both; }
+    .animate-fade-up { animation: rc-fade-up 0.5s ease-out both; }
+    .animate-scale-in { animation: rc-scale-in 0.3s ease-out both; }
+    .animate-pulse-dot { animation: rc-pulse 1.5s ease-in-out infinite; }
+    .animate-slide-in { animation: rc-slide-in 0.4s ease-out both; }
+    .animate-glow-pulse { animation: rc-glow-pulse 2s ease-in-out infinite; }
+    .animate-chip-enter { animation: rc-chip-enter 0.25s ease-out both; }
+    .rc-type-cursor::after { content: '|'; display: inline; animation: rc-type-cursor 0.8s step-end infinite; color: var(--rc-primary); font-weight: 300; }
+    .rc-delay-1 { animation-delay: 0.1s; }
+    .rc-delay-2 { animation-delay: 0.2s; }
+    .rc-delay-3 { animation-delay: 0.35s; }
+    .rc-delay-4 { animation-delay: 0.5s; }
+    .rc-delay-5 { animation-delay: 0.65s; }
+    .rc-delay-6 { animation-delay: 0.8s; }
+    .rc-delay-7 { animation-delay: 1s; }
+
+    .rc-card-aura {
+      position: relative;
+      overflow: hidden;
+    }
+    .rc-card-aura::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        320px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+        rgba(79, 70, 229, 0.10),
+        transparent 80%
+      );
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .rc-card-aura:hover::before {
+      opacity: 1;
+    }
+    .rc-card-aura > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Split Workspace View CSS */
+    @media (min-width: 1024px) {
+      .rc-split-active #main-content {
+        max-width: 1400px !important;
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        column-gap: 1.5rem;
+        align-items: start;
+      }
+      .rc-split-active #split-editor-tabs {
+        display: flex !important;
+        grid-column: 1;
+        grid-row: 3;
+      }
+      .rc-split-active #live-score-bar {
+        display: contents;
+      }
+      .rc-split-active #resume-card {
+        grid-column: 1;
+        grid-row: 4;
+        position: sticky;
+        top: 1.25rem;
+        height: calc(100vh - 7rem);
+        display: flex !important;
+        flex-direction: column;
+        z-index: 10;
+      }
+      .rc-split-active #resume-card textarea {
+        flex-grow: 1 !important;
+        min-height: 0 !important;
+        height: 100% !important;
+      }
+      .rc-split-active #jd-card {
+        grid-column: 1;
+        grid-row: 4;
+        position: sticky;
+        top: 1.25rem;
+        height: calc(100vh - 7rem);
+        display: flex !important;
+        flex-direction: column;
+        z-index: 10;
+      }
+      .rc-split-active #jd-card textarea {
+        flex-grow: 1 !important;
+        min-height: 0 !important;
+        height: 100% !important;
+      }
+      .rc-split-active #jd-card.hidden, .rc-split-active #resume-card.hidden {
+        display: none !important;
+      }
+      .rc-split-active #analyze-btn-wrapper {
+        grid-column: 2;
+        grid-row: 3;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        justify-content: flex-end !important;
+      }
+      .rc-split-active #analyze-btn-wrapper button {
+        padding: 0.5rem 1.25rem !important;
+        border-radius: 0.75rem !important;
+        font-size: 11px !important;
+      }
+      .rc-split-active #dashboard {
+        grid-column: 2;
+        grid-row: 4 / span 10;
+        margin-top: 0 !important;
+      }
+      .rc-split-active #hero-section {
+        grid-column: 1 / -1;
+      }
+      .rc-split-active #empty-state {
+        grid-column: 2;
+        grid-row: 4;
+      }
+    }
+
+    @media print {
+      body.printing-resume {
+        background: white !important;
+        color: black !important;
+      }
+      body.printing-resume #main-content, 
+      body.printing-resume footer, 
+      body.printing-resume #split-editor-tabs {
+        display: none !important;
+      }
+      body.printing-resume #resume-print-container {
+        display: block !important;
+        visibility: visible !important;
+        white-space: pre-wrap !important;
+        font-family: Arial, Helvetica, sans-serif !important;
+        font-size: 10.5pt !important;
+        line-height: 1.5 !important;
+        color: black !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      body:not(.printing-resume) {
+        background: white !important;
+        color: black !important;
+      }
+      body:not(.printing-resume) .rc-dashboard {
+        background: transparent !important;
+        padding: 0 !important;
+      }
+      body:not(.printing-resume) #live-score-bar, 
+      body:not(.printing-resume) #empty-state, 
+      body:not(.printing-resume) .flex.items-center.justify-between.mb-6, 
+      body:not(.printing-resume) #sample-btn-header, 
+      body:not(.printing-resume) #clear-btn, 
+      body:not(.printing-resume) #download-report-btn, 
+      body:not(.printing-resume) #toggle-raw-text-btn, 
+      body:not(.printing-resume) footer, 
+      body:not(.printing-resume) .border-t.border-\[var\(--rc-border\)\].pt-4 {
+        display: none !important;
+      }
+      body:not(.printing-resume) #dashboard {
+        display: block !important;
+        visibility: visible !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      body:not(.printing-resume) .rc-card {
+        border: 1px solid #d0d7e2 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      .animate-fade-in, .animate-scale-in, .animate-pulse-dot { animation: none !important; opacity: 1 !important; }
+    }
+  </style>
+
+  <div class="rc-dashboard rc-bg-purple-aura w-full min-h-screen">
+    <!-- Skip to main content link for screen readers and keyboard users -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:px-3 focus:py-1.5 focus:bg-[var(--rc-card-bg)] focus:text-[var(--rc-primary)] focus:border focus:border-[var(--rc-primary)]/50 focus:rounded-lg focus:text-xs focus:font-bold focus:shadow-md focus:z-50 select-none">
+      Skip to main content
+    </a>
+
+    <!-- Purple-themed hero atmosphere -->
+    <div class="relative overflow-hidden">
+      <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(79,70,229,0.1) 0%, rgba(139,92,246,0.05) 40%, transparent 100%);"></div>
+      <div class="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full" style="background: radial-gradient(circle, rgba(79,70,229,0.12) 0%, transparent 70%);"></div>
+      <div class="absolute -top-24 right-1/4 w-80 h-80 rounded-full" style="background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);"></div>
+      <div id="main-content" class="relative max-w-[1080px] mx-auto px-4 sm:px-6 pt-3 pb-4 lg:pt-4 lg:pb-5">
+
+        <!-- Toolbar: minimal -->
+        <div class="flex items-center justify-between mb-2.5">
+          <div class="flex items-center gap-3">
+            <span id="live-status-indicator" class="hidden inline-flex items-center gap-1.5 text-xs text-[var(--rc-primary)] font-semibold">
+              <span class="flex gap-0.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-[var(--rc-primary)] animate-pulse-dot"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-[var(--rc-primary)] animate-pulse-dot" style="animation-delay:0.3s"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-[var(--rc-primary)] animate-pulse-dot" style="animation-delay:0.6s"></span>
+              </span>
+              Analyzing
+            </span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button id="layout-toggle-btn" type="button" class="px-3 py-1.5 text-xs font-semibold rounded-lg border border-[var(--rc-border)] bg-[var(--rc-card-bg)] text-[var(--rc-text-secondary)] hover:text-[var(--rc-text-primary)] transition-colors cursor-pointer inline-flex items-center gap-1.5 shadow-sm">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+              <span>Edit Resume</span>
+            </button>
+            <button id="sample-btn-header" class="px-3 py-1.5 text-xs font-medium text-[var(--rc-primary)] hover:text-[var(--rc-primary)]/80 transition-colors cursor-pointer">
+              Load sample →
+            </button>
+            <button id="clear-btn" class="px-3 py-1.5 text-xs font-medium text-[var(--rc-text-muted)] hover:text-[var(--rc-text-primary)] transition-colors cursor-pointer inline-flex">
+              Clear
+            </button>
+            <button id="print-pdf-btn" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hidden whitespace-nowrap cursor-pointer hover:opacity-90 shadow-sm transition-colors" style="background: var(--rc-gradient-brand); color: white;">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="inline mr-1"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              Download PDF Report
+            </button>
+          </div>
+        </div>
+
+        <!-- Compact hero -->
+        <div id="hero-section" class="text-center mb-3 sm:mb-4">
+          <h1 class="text-xl sm:text-2xl font-bold text-[var(--rc-text-primary)] tracking-[-0.02em] leading-tight animate-fade-in rc-delay-1">
+            Stop getting rejected by robots. Start getting <span class="rc-text-gradient">more interviews</span>.
+          </h1>
+          <p class="text-xs text-[var(--rc-text-secondary)] mt-1 max-w-xl mx-auto leading-relaxed animate-fade-in rc-delay-2">
+            Paste your resume and the job description to see how well you match — keyword gaps, missing skills, and dynamic ATS optimization scores.
+          </p>
+        </div>
+
+        <!-- Split Mode Editor Tabs (Only visible in Split View) -->
+        <div id="split-editor-tabs" class="hidden flex border-b border-[var(--rc-border)]/40 mb-3 gap-1 select-none">
+          <button id="tab-edit-resume" type="button" class="px-4 py-2 text-xs font-bold border-b-2 border-indigo-600 text-indigo-600 cursor-pointer bg-transparent">
+            Edit Resume
+          </button>
+          <button id="tab-edit-jd" type="button" class="px-4 py-2 text-xs font-bold border-b-2 border-transparent text-[var(--rc-text-secondary)] hover:text-[var(--rc-text-primary)] cursor-pointer bg-transparent">
+            Edit Job Description
+          </button>
+        </div>
+
+        <!-- Inputs Row -->
+        <div id="live-score-bar" class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-5">
+          <!-- Resume Card -->
+          <div id="resume-card" class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-xl p-4 md:p-5 flex flex-col justify-between">
+            <div id="resume-dropzone" class="flex-grow flex flex-col">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-semibold text-[var(--rc-text-secondary)] flex items-center">
+                  <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)] inline mr-1.5"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  Resume
+                </span>
+                <div class="flex items-center gap-2 text-[10px] text-[var(--rc-text-muted)]">
+                  <span id="resume-char-count">0 chars</span>
+                  <span class="w-px h-3 bg-[var(--rc-border)]"></span>
+                  <span id="resume-word-count" class="font-semibold">0 words</span>
+                </div>
+              </div>
+              <div class="relative flex-grow min-h-[95px] flex flex-col">
+                <textarea id="resume-input" name="resume" autocomplete="off" aria-label="Paste your resume text" class="rc-input w-full flex-grow min-h-[95px] px-4 py-3 text-sm text-[var(--rc-text-primary)] bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-xl resize-y focus:outline-none leading-relaxed placeholder:text-[var(--rc-text-muted)]/50" placeholder="Paste your resume or CV here…"></textarea>
+                
+                <!-- Beautiful Placeholder Overlay -->
+                <div id="resume-placeholder-overlay" class="absolute inset-0 rounded-xl border border-dashed border-[var(--rc-border-strong)]/60 bg-[var(--rc-card-bg)] hover:bg-[var(--rc-border)]/10 cursor-text flex flex-col items-center justify-center p-4 transition-colors duration-200">
+                  <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-text-muted)]/60 mb-2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  <p class="text-xs font-semibold text-[var(--rc-text-secondary)] text-center">
+                    Paste your resume or CV here
+                  </p>
+                  <button type="button" class="text-xs font-bold text-[var(--rc-primary)] hover:opacity-85 mt-1 cursor-pointer select-none">
+                    or upload a file
+                  </button>
+                </div>
+
+                <div id="resume-drop-overlay" class="absolute inset-0 rounded-xl border-2 border-dashed border-[var(--rc-primary)]/40 bg-[var(--rc-card-bg)]/95 backdrop-blur-sm flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200">
+                  <div class="text-center">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)] mx-auto mb-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <p class="text-xs font-medium text-[var(--rc-text-primary)]">Drop your file here</p>
+                    <p class="text-[10px] text-[var(--rc-text-muted)] mt-0.5">PDF, DOCX, or TXT</p>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between mt-3 pt-3 border-t border-[var(--rc-border)]/50">
+                <div class="flex items-center gap-1.5">
+                  <button id="import-resume-btn" type="button" class="text-xs font-bold text-[var(--rc-primary)] hover:opacity-85 transition-opacity cursor-pointer flex items-center">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)] mr-1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    Upload file
+                  </button>
+                  <span id="import-status" class="text-[10px] text-[var(--rc-text-muted)] hidden"></span>
+                  <span class="text-[10px] text-[var(--rc-text-muted)]">PDF, DOCX, TXT (Max 5MB)</span>
+                </div>
+                <input id="resume-file-input" type="file" accept=".pdf,.docx,.txt" class="hidden" aria-hidden="true">
+                <div class="flex items-center gap-2 select-none">
+                  <button id="download-resume-btn" type="button" class="text-xs font-bold text-emerald-600 hover:opacity-85 transition-opacity cursor-pointer flex items-center gap-1 bg-transparent">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-600"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Download Resume
+                  </button>
+                  <span class="text-[10px] text-[var(--rc-text-muted)] hidden sm:inline">or drag &amp; drop</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Job Description Card -->
+          <div id="jd-card" class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-xl p-4 md:p-5 flex flex-col justify-between">
+            <div id="jd-dropzone" class="flex-grow flex flex-col">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-semibold text-[var(--rc-text-secondary)] flex items-center">
+                  <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)] inline mr-1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                  Job Description
+                </span>
+                <div class="flex items-center gap-2 text-[10px] text-[var(--rc-text-muted)]">
+                  <span id="jd-char-count">0 chars</span>
+                  <span class="w-px h-3 bg-[var(--rc-border)]"></span>
+                  <span id="jd-word-count" class="font-semibold">0 words</span>
+                </div>
+              </div>
+              <div class="relative flex-grow min-h-[95px] flex flex-col">
+                <textarea id="jd-input" name="job-description" autocomplete="off" aria-label="Paste the job description" class="rc-input w-full flex-grow min-h-[95px] px-4 py-3 text-sm text-[var(--rc-text-primary)] bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-xl resize-y focus:outline-none leading-relaxed placeholder:text-[var(--rc-text-muted)]/50" placeholder="Paste the job description here…"></textarea>
+                        <!-- Beautiful Placeholder Overlay -->
+                <div id="jd-placeholder-overlay" class="absolute inset-0 rounded-xl border border-dashed border-[var(--rc-border-strong)]/60 bg-[var(--rc-card-bg)] hover:bg-[var(--rc-border)]/10 cursor-text flex flex-col items-center justify-center p-4 transition-colors duration-200">
+                  <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-text-muted)]/60 mb-2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                  <p class="text-xs font-semibold text-[var(--rc-text-secondary)] text-center">
+                    Paste the job description here
+                  </p>
+                  <button type="button" class="text-xs font-bold text-[var(--rc-primary)] hover:opacity-85 mt-1 cursor-pointer select-none">
+                    or upload a file
+                  </button>
+                </div>
+
+                <div id="jd-drop-overlay" class="absolute inset-0 rounded-xl border-2 border-dashed border-[var(--rc-primary)]/40 bg-[var(--rc-card-bg)]/95 backdrop-blur-sm flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200">
+                  <div class="text-center">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)] mx-auto mb-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <p class="text-xs font-medium text-[var(--rc-text-primary)]">Drop your file here</p>
+                    <p class="text-[10px] text-[var(--rc-text-muted)] mt-0.5">PDF, DOCX, or TXT</p>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between mt-3 pt-3 border-t border-[var(--rc-border)]/50">
+                <div class="flex items-center gap-1.5">
+                  <button id="import-jd-btn" type="button" class="text-xs font-bold text-[var(--rc-primary)] hover:opacity-85 transition-opacity cursor-pointer flex items-center">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)] mr-1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    Upload file
+                  </button>
+                  <span id="import-jd-status" class="text-[10px] text-[var(--rc-text-muted)] hidden"></span>
+                  <span class="text-[10px] text-[var(--rc-text-muted)]">PDF, DOCX, TXT (Max 5MB)</span>
+                </div>
+                <input id="jd-file-input" type="file" accept=".pdf,.docx,.txt" class="hidden" aria-hidden="true">
+                <span class="text-[10px] text-[var(--rc-text-muted)]">or drag &amp; drop</span>
+              </div>
+              <div id="ghost-job-badge" class="hidden mt-2"></div>
+            </div>
+          </div>
+
+          <!-- ATS Score Card (Right Column) -->
+        </div>
+
+        <!-- Dummy hidden empty state to prevent JS null reference errors -->
+        <div id="empty-state" class="hidden"></div>
+
+        <!-- Centered Action Button -->
+        <div id="analyze-btn-wrapper" class="flex justify-center mt-4 mb-0 animate-fade-in rc-delay-4">
+          <button id="analyze-btn" class="rc-btn-primary flex items-center justify-center gap-2.5 px-8 py-3 rounded-xl text-sm font-semibold shadow-md hover:shadow-lg transition-colors cursor-pointer">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Analyze My Match
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-white"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboard" class="space-y-4 hidden mt-4">
+          <div id="score-card-hero" class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-3 sm:p-3.5 relative overflow-hidden shadow-sm transition-[border-color,box-shadow] duration-300">
+            
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between w-full">
+              
+              <!-- Left Column: Score Ring + Grade/Pills -->
+              <div class="flex items-center gap-3 md:border-r border-[var(--rc-border)]/20 md:pr-6 shrink-0 w-full md:w-auto justify-center md:justify-start">
+                <!-- Ring (120px) -->
+                <div class="relative w-[120px] h-[120px] shrink-0">
+                  <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                    <defs>
+                      <linearGradient id="score-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#6366f1" />
+                        <stop offset="100%" stop-color="#a855f7" />
+                      </linearGradient>
+                    </defs>
+                    <circle cx="18" cy="18" r="15.5" fill="none" stroke="currentColor" stroke-width="1.0" class="stroke-[var(--rc-border)]/20"/>
+                    <circle id="score-ring-glow" cx="18" cy="18" r="15.5" fill="none" stroke="url(#score-grad)" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="97.4" stroke-dashoffset="97.4" class="opacity-30" style="filter: blur(3px); transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);"/>
+                    <circle id="score-ring" cx="18" cy="18" r="15.5" fill="none" stroke="url(#score-grad)" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="97.4" stroke-dashoffset="97.4" style="transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);"/>
+                  </svg>
+                  <div class="absolute inset-0 flex flex-col items-center justify-center leading-none">
+                    <span id="live-score" class="text-3xl font-black text-[var(--rc-text-primary)] tracking-tight tabular-nums">0</span>
+                    <span class="text-[7.5px] font-bold text-[var(--rc-text-muted)] uppercase tracking-widest mt-0.5">MATCH</span>
+                  </div>
+                </div>
+
+                <!-- Grade, Match rating, Percentile stacked vertically -->
+                <div class="space-y-1.5 flex-grow md:flex-grow-0 min-w-0">
+                  <div>
+                    <span class="text-[9px] font-bold uppercase tracking-widest text-[var(--rc-text-muted)] block">Match Rating</span>
+                    <h3 id="live-rating" class="text-base font-extrabold text-[var(--rc-text-primary)] tracking-tight leading-tight truncate">Awaiting Analysis</h3>
+                  </div>
+                  
+                  <div class="flex flex-wrap gap-1.5 items-center">
+                    <span class="inline-flex items-center text-[10px] font-bold px-2 py-0.5 rounded bg-[var(--rc-primary-soft)] text-[var(--rc-primary)] border border-[var(--rc-primary)]/20 leading-none">
+                      Grade <span id="live-grade" class="ml-1 font-black">—</span>
+                    </span>
+                    <span id="live-ranking-badge" class="inline-flex items-center text-[9px] font-bold px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-200/20 leading-none select-none">
+                      —
+                    </span>
+                  </div>
+                  
+                  <div class="flex flex-col gap-0.5">
+                    <span id="live-percentile" class="text-[10px] font-medium text-[var(--rc-text-secondary)] whitespace-nowrap">
+                      — of candidates
+                    </span>
+                    <div class="flex items-center gap-1 select-none">
+                      <span class="text-[10px] font-bold text-[var(--rc-text-muted)]">Confidence:</span>
+                      <span id="live-confidence-badge" class="text-[9.5px] font-bold px-1.5 py-0.5 rounded border leading-none bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200/40">—</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Hidden description element for state preservation -->
+                <p id="overall-rating-desc" class="hidden"></p>
+              </div>
+
+              <!-- Right Column: Keywords, Skills, Content, Experience progress bars -->
+              <div class="flex-grow max-w-[440px] w-full space-y-1.5 py-0.5">
+                <!-- Keywords -->
+                <div class="space-y-0.5">
+                  <div class="flex justify-between text-[11px] font-medium leading-none">
+                    <span class="text-[var(--rc-text-secondary)]">Keywords</span>
+                    <span id="score-bar-keyword-value" class="text-[var(--rc-text-primary)] font-bold tabular-nums">0%</span>
+                  </div>
+                  <div class="h-1.5 rounded-full bg-[var(--rc-border)]/40 overflow-hidden">
+                    <div id="score-bar-keyword-fill" class="h-full rounded-full transition-[width] duration-700 ease-out" style="width:0%; background: linear-gradient(90deg, var(--rc-primary), var(--rc-accent-violet));"></div>
+                  </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="space-y-0.5">
+                  <div class="flex justify-between text-[11px] font-medium leading-none">
+                    <span class="text-[var(--rc-text-secondary)]">Skills</span>
+                    <span id="score-bar-skills-value" class="text-[var(--rc-text-primary)] font-bold tabular-nums">0%</span>
+                  </div>
+                  <div class="h-1.5 rounded-full bg-[var(--rc-border)]/40 overflow-hidden">
+                    <div id="score-bar-skills-fill" class="h-full rounded-full transition-[width] duration-700 ease-out" style="width:0%; background: linear-gradient(90deg, var(--rc-primary), var(--rc-accent-violet));"></div>
+                  </div>
+                </div>
+
+                <!-- Content -->
+                <div class="space-y-0.5">
+                  <div class="flex justify-between text-[11px] font-medium leading-none">
+                    <span class="text-[var(--rc-text-secondary)]">Content</span>
+                    <span id="score-bar-content-value" class="text-[var(--rc-text-primary)] font-bold tabular-nums">0%</span>
+                  </div>
+                  <div class="h-1.5 rounded-full bg-[var(--rc-border)]/40 overflow-hidden">
+                    <div id="score-bar-content-fill" class="h-full rounded-full transition-[width] duration-700 ease-out" style="width:0%; background: linear-gradient(90deg, var(--rc-accent-warm), var(--rc-warning));"></div>
+                  </div>
+                </div>
+
+                <!-- Experience -->
+                <div class="space-y-0.5">
+                  <div class="flex justify-between text-[11px] font-medium leading-none">
+                    <span class="text-[var(--rc-text-secondary)]">Experience</span>
+                    <span id="score-bar-recruiter-value" class="text-[var(--rc-text-primary)] font-bold tabular-nums">—</span>
+                  </div>
+                  <div class="h-1.5 rounded-full bg-[var(--rc-border)]/40 overflow-hidden">
+                    <div id="score-bar-recruiter-fill" class="h-full rounded-full transition-[width] duration-700 ease-out" style="width:0%; background: linear-gradient(90deg, var(--rc-info), #60a5fa);"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Separator Line before Footer -->
+            <div class="border-t border-[var(--rc-border)]/20 mt-2.5 pt-2 flex flex-wrap gap-x-6 gap-y-1 text-[10px] sm:text-[11px] text-[var(--rc-text-muted)] items-center">
+              <!-- Best Score -->
+              <span class="inline-flex items-center gap-1.5">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)]"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                Best Score: <span id="delta-badge" class="font-bold text-[var(--rc-text-secondary)]">—</span>
+              </span>
+
+              <!-- Scan Timestamp -->
+              <span class="inline-flex items-center gap-1.5">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-text-muted)]"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Last Scan: <span id="last-analyzed" class="font-semibold text-[var(--rc-text-secondary)]">—</span>
+              </span>
+
+              <!-- Benchmark bar & other hidden items (JS compatibility) -->
+              <div id="benchmark-bar" class="hidden"></div>
+              <span id="percentile-rank" class="hidden"></span>
+              <span id="overall-rating-badge" class="hidden"></span>
+              <span id="overall-rating" class="hidden"></span>
+            </div>
+          </div>
+
+          <!-- Separation Header -->
+          <div class="pt-4 mt-6 border-t border-[var(--rc-border)]/30">
+            <h2 class="text-xs font-bold uppercase tracking-widest text-[var(--rc-text-muted)] mb-2">Insights &amp; Recommendations</h2>
+            <p class="text-[11px] text-[var(--rc-text-muted)] leading-relaxed">
+              Step-by-step breakdown of your score gaps, recommended updates, and missing skills.
+            </p>
+          </div>
+              <!-- 2. Top 3 Reasons Your ATS Score Is Not Higher -->
+          <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-5 md:p-6">
+            <div class="flex items-center gap-2.5 mb-4">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-error)]"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">Top 3 Reasons Your ATS Score Is Not Higher</h3>
+            </div>
+            <div id="top-reasons-list" class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- 3. Top 5 Resume Changes To Make Today -->
+          <div id="improvements-card" class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-5 md:p-6">
+            <div class="flex items-center gap-2.5 mb-4">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)]"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">Top 5 Resume Changes To Make Today</h3>
+            </div>
+            <div id="priority-tips" class="space-y-2.5">
+              <!-- Rendered dynamically -->
+            </div>
+            
+            <!-- Custom changes input form -->
+            <form id="custom-tips-form" class="mt-4 pt-3 border-t border-[var(--rc-border)]/50 flex gap-2">
+              <input id="custom-tips-input" type="text" autocomplete="off" placeholder="Add custom action item to your changes checklist…" class="flex-grow text-xs px-3 py-1.5 rounded-lg border border-[var(--rc-border)] bg-[var(--rc-card-bg)] focus:outline-none focus:border-[var(--rc-primary)] text-[var(--rc-text-primary)] placeholder:text-[var(--rc-text-muted)]/50" />
+              <button type="submit" class="px-3.5 py-1.5 rounded-lg bg-[var(--rc-primary)] text-white text-xs font-semibold hover:opacity-90 transition-opacity shrink-0 cursor-pointer">
+                Add
+              </button>
+            </form>
+          </div>
+
+          <!-- Score Optimizer Sandbox -->
+          <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-5 md:p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-2.5">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">Score Optimizer Sandbox</h3>
+              </div>
+              <span class="text-[9px] font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 px-1.5 py-0.5 rounded-md uppercase tracking-wider">Simulate Impact</span>
+            </div>
+            <p class="text-[11px] text-[var(--rc-text-muted)] leading-relaxed mb-3">
+              Test how adding specific keywords or skills (e.g. Kubernetes, Docker) will improve your ATS score in real-time before updating your actual resume.
+            </p>
+            <div class="flex gap-2">
+              <input id="sandbox-input" type="text" autocomplete="off" placeholder="Type keywords or skills separated by commas…" class="flex-grow text-xs px-3 py-2 rounded-xl border border-[var(--rc-border)] bg-[var(--rc-card-bg)] focus:outline-none focus:border-[var(--rc-primary)] text-[var(--rc-text-primary)] placeholder:text-[var(--rc-text-muted)]/50" />
+              <button id="sandbox-test-btn" type="button" class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-700 transition-colors shrink-0 cursor-pointer flex items-center gap-1.5 shadow-sm">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Test Impact
+              </button>
+            </div>
+            <div id="sandbox-result" class="hidden mt-3 p-2.5 rounded-xl border border-indigo-100 bg-indigo-50/15 animate-fade-in flex items-center justify-between text-xs">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- 4. Missing Skills That Matter Most -->
+          <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-5 md:p-6">
+            <div class="flex items-center gap-2.5 mb-4">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)]"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">Missing Skills That Matter Most</h3>
+            </div>
+            <div id="missing-skills-matter" class="flex flex-wrap gap-1.5 mt-2">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- 5. Recruiter Perspective -->
+          <div id="recruiter-perspective-card" class="rc-card border border-indigo-100/50 bg-indigo-50/20 rounded-2xl p-5 md:p-6">
+            <div class="flex items-center gap-2.5 mb-3">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)]"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">Recruiter Perspective</h3>
+            </div>
+            <p id="recruiter-description" class="text-xs text-[var(--rc-text-secondary)] leading-relaxed">
+              <!-- Rendered dynamically -->
+            </p>
+          </div>
+
+          <!-- AI Resume Bullet Point Optimizer Card -->
+          <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-5 md:p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-2.5">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">AI Resume Bullet Point Optimizer</h3>
+              </div>
+              <span class="text-[9px] font-bold text-[var(--rc-primary)] bg-[var(--rc-primary-soft)] px-1.5 py-0.5 rounded-md uppercase tracking-wider">Score Booster</span>
+            </div>
+            <p class="text-[11px] text-[var(--rc-text-muted)] leading-relaxed mb-3">
+              Paste a weak bullet point from your resume (e.g. "Responsible for maintaining servers") to rewrite it using active action verbs and quantified impact placeholders to boost your ATS score.
+            </p>
+
+            <div id="bullet-opt-suggestions" class="hidden mb-4 p-3 rounded-xl border border-[var(--rc-border)]/50 bg-[var(--rc-card-bg)] space-y-2">
+              <span class="text-[10px] font-bold text-amber-500 uppercase tracking-wider block">⚠️ Weak Bullets Detected in Your Resume</span>
+              <div id="bullet-suggestions-list" class="space-y-1.5 max-h-36 overflow-y-auto pr-1"></div>
+            </div>
+            <div class="flex flex-col gap-2.5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <textarea id="bullet-opt-input" autocomplete="off" placeholder="Paste your bullet point here (e.g. 'Responsible for building APIs')…" rows="2" class="w-full text-xs px-3 py-2 rounded-xl border border-[var(--rc-border)] bg-[var(--rc-card-bg)] focus:outline-none focus:border-[var(--rc-primary)] text-[var(--rc-text-primary)] placeholder:text-[var(--rc-text-muted)]/50 resize-y sm:col-span-2"></textarea>
+                <div>
+                  <label for="bullet-opt-focus" class="text-[9px] font-bold uppercase tracking-wider text-[var(--rc-text-muted)] block mb-1">Optimization Focus</label>
+                  <select id="bullet-opt-focus" class="w-full text-xs px-2.5 py-1.5 rounded-xl border border-[var(--rc-border)] bg-[var(--rc-card-bg)] focus:outline-none focus:border-[var(--rc-primary)] text-[var(--rc-text-primary)] cursor-pointer">
+                    <option value="performance">⚡ Speed &amp; Performance</option>
+                    <option value="scale">🌐 Scale &amp; Architecture</option>
+                    <option value="revenue">📈 Revenue &amp; Growth</option>
+                    <option value="efficiency">💰 Cost &amp; Efficiency</option>
+                    <option value="leadership">👑 Team Leadership</option>
+                    <option value="general">✨ General &amp; Execution</option>
+                  </select>
+                </div>
+                <div class="flex items-end">
+                  <button id="bullet-opt-btn" type="button" class="w-full py-2 rounded-xl text-white text-xs font-semibold hover:opacity-90 transition-opacity cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" style="background: var(--rc-gradient-brand);">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    Optimize Bullet Point
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div id="bullet-opt-result" class="hidden mt-3 p-3 rounded-xl border border-indigo-200/30 bg-indigo-50/10 animate-fade-in space-y-2">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Hidden container to preserve compatibility with legacy script DOM hooks -->
+          <div class="hidden" aria-hidden="true">
+            <div id="bullet-list"></div>
+            <div id="red-flags-list"></div>
+            <span id="action-verb-count"></span>
+            <span id="quantified-count"></span>
+            <span id="total-bullets"></span>
+          </div>
+
+        </div>
+
+        <!-- FAQs Section for SEO (Always Visible) -->
+        <section class="mt-8 pt-6 border-t border-[var(--rc-border)]/30 animate-fade-up select-none">
+          <h2 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight mb-4 flex items-center gap-2">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)]"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Frequently Asked Questions
+          </h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
+              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">What is an ATS resume checker?</h3>
+              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
+                An ATS (Applicant Tracking System) resume checker analyzes how well your resume matches a job description by comparing keywords, skills, and formatting requirements used by hiring software.
+              </p>
+            </div>
+            
+            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
+              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">How is the ATS score calculated?</h3>
+              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
+                The ATS score is calculated across four key categories with strict influence limits: Keywords (up to 40%, covering exact terms and multi-word phrases), Skills alignment (up to 30%, prioritizing required skills over preferred ones), Experience relevance (up to 20%, evaluating duration, seniority matching, and bullet point impact metrics), and Structure (up to 10%, checking sections, length, and format compatibility).
+              </p>
+            </div>
+
+            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
+              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">What sections should a resume have for ATS?</h3>
+              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
+                ATS-friendly resumes typically include: Contact Information, Professional Summary, Work Experience, Skills, Education, and optionally Certifications and Projects. Avoid tables, columns, and graphics.
+              </p>
+            </div>
+
+            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
+              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">Is this resume checker free?</h3>
+              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
+                Yes, this ATS resume checker is completely free with real-time analysis. No sign-up or credit card required.
+              </p>
+            </div>
+
+            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
+              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">How does the Sandbox tool help optimize my score?</h3>
+              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
+                The Sandbox lets you test-fit new keywords or skills and instantly see their simulated impact on your overall match score before you manually modify your resume document.
+              </p>
+            </div>
+
+            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
+              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">What is a "Ghost Job" and how is it detected?</h3>
+              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
+                A ghost job is a job listing that is not actively being filled. We scan for template placeholders, evergreen phrases ("always looking to hire"), lack of salary info, and copy-paste clichés to flag risk.
+              </p>
+            </div>
+
+            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
+              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">Will this checker read PDF and DOCX files?</h3>
+              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
+                Yes, the file importer supports .pdf, .docx, and .txt formats up to 5MB. You can upload either your resume, the job description, or both.
+              </p>
+            </div>
+
+            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
+              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">Does formatting like tables or columns hurt my score?</h3>
+              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
+                Yes. Columns, tables, text boxes, and charts can scramble your text during parsing, causing critical contact details or job histories to be misread by ATS parsers.
+              </p>
+            </div>
+
+            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
+              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">How often should I optimize my resume?</h3>
+              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
+                You should customize your resume for every single job application. Tailoring your keywords and skills to match each unique job description is the single most effective way to pass recruiters' automated screenings.
+              </p>
+            </div>
+
+            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
+              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">Is my resume data saved or shared?</h3>
+              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
+                No. All parsing and analysis are performed locally inside your browser sessions. Your data is stored securely in your local browser storage and is never uploaded to remote servers or shared with third parties.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        </div>
+      </div>
+    </div>
+    <!-- Hidden container for printing only the edited resume text as PDF -->
+    <div id="resume-print-container" class="hidden" style="display: none;" aria-hidden="true"></div>
+  </div>
+</Layout>
+
+<script src="/src/scripts/resume-checker.ts"></script>

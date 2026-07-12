@@ -11,7 +11,7 @@ const categories = [
 ];
 
 const stats = [
-  { label: "Tools", value: "8+", icon: "tool" },
+  { label: "Tools", value: "9+", icon: "tool" },
   { label: "Free", value: "100%", icon: "gift" },
   { label: "Signup", value: "No", icon: "user-minus" },
   { label: "Results", value: "Fast", icon: "zap" }
@@ -79,6 +79,14 @@ const tools = [
     popular: true,
     tag: "Productivity"
   },
+  {
+    title: "Study Schedule Generator",
+    description: "Generate a personalized study plan, track exam readiness, and download printable planner pages — all in one place.",
+    href: "/study-schedule",
+    icon: "book",
+    popular: true,
+    tag: "Productivity"
+  },
 ];
 
 const whyTooltails = [
@@ -107,7 +115,7 @@ const whyTooltails = [
 
 <Layout 
   title="Tooltails - Free Online Tools for Everyday Tasks" 
-  description="Calculate ages, track birthdays, compare dates and get answers instantly — all for free. Fast, accurate and easy to use."
+  description="Free online tools for word counting, age calculation, Pomodoro timer, focus sessions, study planning, resume checking, and more. Fast, private, and easy to use."
 >
   <!-- Hero Section -->
   <div class="mx-4 md:mx-6 mb-4 rounded-[2.5rem] bg-[#f8f4ff] border border-[#e8dff5] shadow-[0_4px_24px_rgba(109,40,217,0.04),inset_0_1px_0_rgba(255,255,255,0.8)]">
@@ -132,7 +140,7 @@ const whyTooltails = [
           Free Online Tools for <span class="text-link">Everyday</span> Tasks.
         </h1>
         <p class="text-lg md:text-xl text-body leading-relaxed max-w-2xl mx-auto mb-8 opacity-80 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
-          Calculate ages, track birthdays, compare dates and get answers instantly — all for free.
+          Free tools for word counting, age calculation, productivity timers, study planning, and more — all private and no sign-up required.
         </p>
 
         <!-- Category Pills -->
@@ -239,6 +247,9 @@ const whyTooltails = [
                 {tool.icon === 'target' && (
                   <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
                 )}
+                {tool.icon === 'book' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/></svg>
+                )}
               </div>
               
               <div class="mb-2">
@@ -311,8 +322,8 @@ const whyTooltails = [
               Join thousands of users who rely on Tooltails for their daily calculations and utility needs. No signup, no catch.
             </p>
             <div class="flex flex-wrap justify-center gap-6">
-              <a href="/age-calculator" class="inline-flex items-center justify-center px-12 h-20 text-xl font-bold rounded-pill bg-canvas text-ink hover:bg-link hover:text-canvas transition-all active:scale-[0.98] shadow-2xl">
-                Try the Age Calculator
+              <a href="#tools" class="inline-flex items-center justify-center px-12 h-20 text-xl font-bold rounded-pill bg-canvas text-ink hover:bg-link hover:text-canvas transition-all active:scale-[0.98] shadow-2xl">
+                Browse All Tools
               </a>
               <a href="#tools" class="inline-flex items-center justify-center px-12 h-20 text-xl font-bold rounded-pill bg-transparent text-canvas border border-canvas/20 hover:bg-canvas/10 transition-all active:scale-[0.98]">
                 Explore All Tools
@@ -376,7 +387,7 @@ const whyTooltails = [
     "@type": "WebSite",
     "name": "Tooltails",
     "url": "https://tooltails.com",
-    "description": "Free online tools for age calculation, date duration, birthday countdown, and productivity. Fast, private, and mobile-friendly.",
+    "description": "Free online tools for word counting, age calculation, productivity timers, study planning, resume checking, and more. Fast, private, and mobile-friendly.",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {

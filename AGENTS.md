@@ -1,3 +1,34 @@
+## Session Summary (Jul 12, 2026) — Resume Checker: Interactive Split Workspace & Live Ingestion Loops
+
+### What We Did
+1. **Interactive Split-Screen Workspace (Side-by-Side Editor)** — Re-architected the layout to support a premium side-by-side editing dashboard (toggled via a toolbar action renamed to **"Edit Resume"**). It expands the workspace to `1400px` wide. The left column holds a dedicated editing panel with tab triggers ("Edit Resume" / "Edit Job Description") while the right column shows the live ATS Score Ring and recommendations card that update in real-time as the user edits.
+2. **Download Edited Resume** — Integrated a **"Download Resume"** button in the Resume card footer. It checks the format of the uploaded resume (TXT, DOCX, or PDF) and downloads the edited text in the matching format (exporting to a Microsoft Word-compatible `.doc` document for DOCX/PDF to preserve line breaks, spacing, and page layout templates).
+3. **Download Edited Resume** — Integrated a **"Download Resume"** button in the Resume card footer. Clicking this button triggers a native browser print-to-PDF flow that isolates and formats only the edited resume text with clean, professional typography and margins, hiding all other UI elements to save a perfect vector PDF.
+4. **Click-to-Inject Missing Skills** — Converted passive web search links for missing skills into active click-to-inject buttons decorated with `+` plus icons. Clicking a missing skill automatically searches for a "Skills" or "Technologies" section in the resume text, appends the term, and re-scans the resume. The matched skill tag immediately disappears from the gaps list as the score updates.
+5. **Quick-Replace Bullet Optimizer** — Added an "Insert" action to the AI Bullet Optimizer variations card. When clicked, it matches the original weak bullet string in the resume text and replaces it with the selected high-impact variant, preserving original line bullet markers (e.g. `• `, `- `) and automatically triggering a new scan.
+6. **Layout State Persistence** — Configured layout preferences (Standard vs. Split Workspace) to persist in browser `localStorage`, preserving the layout choice across session page reloads.
+7. **Always-Visible FAQs Block** — Moved the expanded 10-item FAQ accordion grid outside of the hidden `#dashboard` container, positioning it at the very bottom of the page wrapper so that it remains visible on initial load for optimal search engine crawling and user onboarding.
+8. **Web Guidelines Typography & Performance** — Fixed all straight ellipses (`...`) to typographic ones (`…`) in placeholders and scripts. Replaced laggy `transition-all` declarations on hover states and progress bars with explicit composited styles (`transition-colors`, `transition-[width]`).
+9. **Layout-Preserving PDF Parser** — Upgraded the client-side PDF parser to group text segments by vertical y-coordinates and sort them horizontally. This prevents list columns, sections, and bullet points from collapsing into a single paragraph when uploaded, preserving clean list formatting.
+10. **Decoupled Scoring Engine** — Decoupled all parsing, vocabulary, and grading algorithms from the client-side UI script into [src/scripts/scoring-engine.ts](file:///C:/wordcounter.com/src/scripts/scoring-engine.ts).
+11. **Required vs Preferred Skill Weighting** — Grouped job description skills into required vs preferred zones based on explicit headers (Requirements, Must Have, Qualifications, Required Skills vs Preferred, Nice to Have, Bonus, Good to Have) and applied a `2x` weight multiplier to required matches, a `1x` weight to preferred matches, and an additional direct penalty on the skills sub-score for missing required skills.
+12. **Phrase-Level Matching Weights** — Rewarded longer matched phrases (3x for 3-word, 2x for 2-word, 1x for 1-word) to favor coherent sentence structures over single-word keyword stuffing.
+13. **Recency Multipliers & Experience Quality** — Assigned a `1.3x` recency bonus to skills appearing in roles from 2024 onwards, and measured bullet quality based on metrics, revenue impact, scale descriptors, and leadership vocabulary.
+14. **Category Maximum Limits** — Capped category contributions to strict maximum weight caps: Keywords <= 40% (25% words + 15% phrases), Skills <= 30%, Experience <= 20%, Structure <= 10%.
+15. **Benchmarking & Confidence Badges** — Integrated ranking labels (Top 5%, Top 10%, Top 25%, Average) and reliability confidence levels with tooltip explanations based on word and signal count.
+16. **Automated Prebuild Testing** — Configured `scripts/test-scoring.ts` to assert that minor edits yield stable scores, integrated via a package `prebuild` hook to run tests before compiles.
+17. **Fixed Analysis Rendering** — Resolved a reference error on `overall` in the `analyze` function of [src/scripts/resume-checker.ts](file:///C:/wordcounter.com/src/scripts/resume-checker.ts) to restore results rendering.
+18. **Personalized Layout Footer** — Tailored the global footer in [src/components/ui/Footer.astro](file:///C:/wordcounter.com/src/components/ui/Footer.astro) for the `/resume-checker` route, adding customized tags, descriptions, and app links aligned with Focus and Pomodoro.
+19. **10 Resume Optimization Blog Articles** — Wrote 10 SEO-friendly markdown articles inside `src/content/resume-checker-blog/` and built the listing and article detail pages under `/resume-checker/blog/` using the filesystem glob loader pattern.
+20. **Build passes** — 82 pages, 0 errors, 15.61s.
+
+### Files Modified
+- `package.json` — added `prebuild` hook.
+- `src/pages/resume-checker.astro` — integrated Benchmarking and Confidence widgets in score card.
+- `src/scripts/scoring-engine.ts` — isolated reusable ATS vocabulary lists, parsers, and calculator.
+- `src/scripts/resume-checker.ts` — integrated decoupled scoring engine calls, resets, and renderers.
+- `scripts/test-scoring.ts` — automated stability checks.
+
 ## Session Summary (Jul 9, 2026) — FAQ Visibility Fix + Schedule Timeline Redesign
 
 ### What We Did

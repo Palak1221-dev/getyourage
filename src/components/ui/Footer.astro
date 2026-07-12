@@ -4,14 +4,15 @@ const isFocusPath = Astro.url.pathname.startsWith('/focus');
 const isPomodoroPath = Astro.url.pathname.startsWith('/pomodoro-timer');
 const isWordCounterPath = Astro.url.pathname.startsWith('/word-counter');
 const isStudySchedulePath = Astro.url.pathname.startsWith('/study-schedule');
+const isResumeCheckerPath = Astro.url.pathname.startsWith('/resume-checker');
 ---
 
 <footer class="bg-canvas border-t border-hairline py-12 md:py-24">
   <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
       <div class="col-span-2 md:col-span-1">
-        <a href={isFocusPath ? "/focus" : isPomodoroPath ? "/pomodoro-timer" : isWordCounterPath ? "/word-counter" : isStudySchedulePath ? "/study-schedule" : "/"} class="text-xl font-bold tracking-tighter text-ink mb-4 inline-block">
-          Tooltails<span class="text-primary">{isFocusPath ? " Focus" : isPomodoroPath ? " Pomodoro" : isWordCounterPath ? " Word Counter" : isStudySchedulePath ? " Study Schedule" : ".com"}</span>
+        <a href={isFocusPath ? "/focus" : isPomodoroPath ? "/pomodoro-timer" : isWordCounterPath ? "/word-counter" : isStudySchedulePath ? "/study-schedule" : isResumeCheckerPath ? "/resume-checker" : "/"} class="text-xl font-bold tracking-tighter text-ink mb-4 inline-block">
+          Tooltails<span class="text-primary">{isFocusPath ? " Focus" : isPomodoroPath ? " Pomodoro" : isWordCounterPath ? " Word Counter" : isStudySchedulePath ? " Study Schedule" : isResumeCheckerPath ? " Resume Checker" : ".com"}</span>
         </a>
         <p class="text-sm text-body leading-relaxed max-w-xs">
           {isFocusPath 
@@ -22,13 +23,15 @@ const isStudySchedulePath = Astro.url.pathname.startsWith('/study-schedule');
             ? "Tooltails Word Counter is a free text analysis tool with word count, readability scoring, keyword density, and speech timing, all processed locally in your browser."
             : isStudySchedulePath
             ? "Tooltails Study Schedule is an intelligent exam coach that shows your readiness score, predicts when you'll finish, and adapts as you study. Free, no login."
+            : isResumeCheckerPath
+            ? "Tooltails Resume Checker is a privacy-first ATS optimization editor designed to help you align your experience, inject missing skills, and ship a high-scoring, layout-perfect resume."
             : "Tooltails is a collection of free online calculators and utility tools designed to simplify everyday tasks."}
         </p>
       </div>
       
       <nav aria-label="Tools">
         <h4 class="text-xs font-mono uppercase tracking-widest text-mute mb-4">
-          {isFocusPath ? "Product" : isPomodoroPath ? "Product" : isWordCounterPath ? "Product" : isStudySchedulePath ? "Product" : "Popular Tools"}
+          {isFocusPath ? "Product" : isPomodoroPath ? "Product" : isWordCounterPath ? "Product" : isStudySchedulePath ? "Product" : isResumeCheckerPath ? "Product" : "Popular Tools"}
         </h4>
         <ul class="space-y-2">
           {isFocusPath ? (
@@ -57,6 +60,13 @@ const isStudySchedulePath = Astro.url.pathname.startsWith('/study-schedule');
               <li><a href="/study-schedule" class="text-sm text-body hover:text-ink transition-colors">Study Schedule</a></li>
               <li><a href="/" class="text-sm text-body hover:text-ink transition-colors">Tooltails Home</a></li>
               <li><a href="/focus" class="text-sm text-body hover:text-ink transition-colors">Focus Timer</a></li>
+              <li><a href="/pomodoro-timer" class="text-sm text-body hover:text-ink transition-colors">Pomodoro Timer</a></li>
+            </>
+          ) : isResumeCheckerPath ? (
+            <>
+              <li><a href="/resume-checker" class="text-sm text-body hover:text-ink transition-colors">Resume Checker</a></li>
+              <li><a href="/" class="text-sm text-body hover:text-ink transition-colors">Tooltails Home</a></li>
+              <li><a href="/focus" class="text-sm text-body hover:text-ink transition-colors">Focus Goals Timer</a></li>
               <li><a href="/pomodoro-timer" class="text-sm text-body hover:text-ink transition-colors">Pomodoro Timer</a></li>
             </>
           ) : (
@@ -92,11 +102,10 @@ const isStudySchedulePath = Astro.url.pathname.startsWith('/study-schedule');
             </>
           ) : isWordCounterPath ? (
             <>
-              <li><a href="/blog" class="text-sm text-body hover:text-ink transition-colors">Writing Resources</a></li>
-              <li><a href="/blog/how-to-improve-readability" class="text-sm text-body hover:text-ink transition-colors">How to Improve Readability</a></li>
-              <li><a href="/blog/average-blog-post-length-seo-2026" class="text-sm text-body hover:text-ink transition-colors">Average Blog Post Length</a></li>
-              <li><a href="/blog/word-count-vs-character-count" class="text-sm text-body hover:text-ink transition-colors">Word Count vs Character Count</a></li>
+              <li><a href="/blog" class="text-sm text-body hover:text-ink transition-colors">Blog</a></li>
+              <li><a href="/faqs" class="text-sm text-body hover:text-ink transition-colors">FAQs</a></li>
               <li><a href="/about" class="text-sm text-body hover:text-ink transition-colors">About Tooltails</a></li>
+              <li><a href="/contact" class="text-sm text-body hover:text-ink transition-colors">Contact</a></li>
             </>
           ) : isStudySchedulePath ? (
             <>
@@ -104,6 +113,13 @@ const isStudySchedulePath = Astro.url.pathname.startsWith('/study-schedule');
               <li><a href="/about" class="text-sm text-body hover:text-ink transition-colors">About Tooltails</a></li>
               <li><a href="/faqs" class="text-sm text-body hover:text-ink transition-colors">FAQs</a></li>
               <li><a href="/contact" class="text-sm text-body hover:text-ink transition-colors">Contact</a></li>
+            </>
+          ) : isResumeCheckerPath ? (
+            <>
+              <li><a href="/resume-checker/blog" class="text-sm text-body hover:text-ink transition-colors">Resume Blog</a></li>
+              <li><a href="/faqs" class="text-sm text-body hover:text-ink transition-colors">FAQs</a></li>
+              <li><a href="/about" class="text-sm text-body hover:text-ink transition-colors">About Tooltails</a></li>
+              <li><a href="/contact" class="text-sm text-body hover:text-ink transition-colors">Contact Support</a></li>
             </>
           ) : (
             <>
@@ -139,6 +155,11 @@ const isStudySchedulePath = Astro.url.pathname.startsWith('/study-schedule');
               <li><a href="/privacy" class="text-sm text-body hover:text-ink transition-colors">Privacy Policy</a></li>
               <li><a href="/terms" class="text-sm text-body hover:text-ink transition-colors">Terms of Service</a></li>
             </>
+          ) : isResumeCheckerPath ? (
+            <>
+              <li><a href="/privacy" class="text-sm text-body hover:text-ink transition-colors">Privacy Policy</a></li>
+              <li><a href="/terms" class="text-sm text-body hover:text-ink transition-colors">Terms of Service</a></li>
+            </>
           ) : (
             <>
               <li><a href="/privacy" class="text-sm text-body hover:text-ink transition-colors">Privacy Policy</a></li>
@@ -156,7 +177,7 @@ const isStudySchedulePath = Astro.url.pathname.startsWith('/study-schedule');
         </p>
         <span class="hidden md:inline text-hairline-strong text-[10px]">•</span>
         <p class="text-[10px] font-medium text-mute uppercase tracking-widest">
-          {isFocusPath ? "Outcome-oriented focus timer • Privacy friendly • No signup required" : isPomodoroPath ? "Free Pomodoro timer • Privacy friendly • No signup required" : isWordCounterPath ? "Free word counter & text analysis • Privacy friendly • No signup required" : isStudySchedulePath ? "Intelligent exam coach & study planner • Privacy friendly • No signup required" : "Free online age calculator • Privacy friendly • No signup required"}
+          {isFocusPath ? "Outcome-oriented focus timer • Privacy friendly • No signup required" : isPomodoroPath ? "Free Pomodoro timer • Privacy friendly • No signup required" : isWordCounterPath ? "Free word counter & text analysis • Privacy friendly • No signup required" : isStudySchedulePath ? "Intelligent exam coach & study planner • Privacy friendly • No signup required" : isResumeCheckerPath ? "Privacy-first ATS resume optimizer • Local analysis • No signup required" : "Free online age calculator • Privacy friendly • No signup required"}
         </p>
       </div>
       <div class="flex gap-6">
