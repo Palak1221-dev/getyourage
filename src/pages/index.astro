@@ -11,7 +11,7 @@ const categories = [
 ];
 
 const stats = [
-  { label: "Tools", value: "9+", icon: "tool" },
+  { label: "Tools", value: "10+", icon: "tool" },
   { label: "Free", value: "100%", icon: "gift" },
   { label: "Signup", value: "No", icon: "user-minus" },
   { label: "Results", value: "Fast", icon: "zap" }
@@ -84,6 +84,14 @@ const tools = [
     description: "Generate a personalized study plan, track exam readiness, and download printable planner pages — all in one place.",
     href: "/study-schedule",
     icon: "book",
+    popular: true,
+    tag: "Productivity"
+  },
+  {
+    title: "Resume Checker",
+    description: "Optimize your resume for ATS systems, match keywords, and get a score with actionable improvement suggestions.",
+    href: "/resume-checker",
+    icon: "clipboard-check",
     popular: true,
     tag: "Productivity"
   },
@@ -249,6 +257,9 @@ const whyTooltails = [
                 )}
                 {tool.icon === 'book' && (
                   <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/></svg>
+                )}
+                {tool.icon === 'clipboard-check' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>
                 )}
               </div>
               
