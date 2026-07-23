@@ -82,7 +82,6 @@ export const POST: APIRoute = async ({ request }) => {
         break;
       }
 
-      case 'refund.created':
       case 'refund.succeeded': {
         const paymentId = data.payment?.id || data.id;
         const order = orderStore.getByPaymentId(paymentId);
@@ -92,6 +91,10 @@ export const POST: APIRoute = async ({ request }) => {
         }
         break;
       }
+
+      case 'refund.failed':
+        console.log('Refund failed for payment:', data.payment?.id || data.id);
+        break;
 
       case 'subscription.created':
       case 'subscription.active':
