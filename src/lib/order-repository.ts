@@ -102,7 +102,10 @@ export class SupabaseOrderRepository implements OrderRepository {
       })
       .single();
 
-    if (error) throw new Error(`Failed to create order: ${error.message}`);
+    if (error) {
+      console.error('[SupabaseOrderRepository] Insert error:', JSON.stringify({ message: error.message, details: (error as any).details, hint: (error as any).hint, code: (error as any).code }));
+      throw new Error(`Failed to create order: ${error.message}`);
+    }
     return order;
   }
 
@@ -113,7 +116,10 @@ export class SupabaseOrderRepository implements OrderRepository {
       .eq('id', orderId)
       .maybeSingle();
 
-    if (error) throw new Error(`Failed to get order: ${error.message}`);
+    if (error) {
+      console.error('[SupabaseOrderRepository] get error:', JSON.stringify({ message: error.message, details: (error as any).details }));
+      throw new Error(`Failed to get order: ${error.message}`);
+    }
     return data ? rowToOrder(data) : null;
   }
 
@@ -125,7 +131,10 @@ export class SupabaseOrderRepository implements OrderRepository {
       .eq('dodo_checkout_session_id', sessionId)
       .maybeSingle();
 
-    if (error) throw new Error(`Failed to get order by session: ${error.message}`);
+    if (error) {
+      console.error('[SupabaseOrderRepository] getByCheckoutSessionId error:', JSON.stringify({ message: error.message, details: (error as any).details }));
+      throw new Error(`Failed to get order by session: ${error.message}`);
+    }
     return data ? rowToOrder(data) : null;
   }
 
@@ -137,7 +146,10 @@ export class SupabaseOrderRepository implements OrderRepository {
       .eq('dodo_payment_id', paymentId)
       .maybeSingle();
 
-    if (error) throw new Error(`Failed to get order by payment: ${error.message}`);
+    if (error) {
+      console.error('[SupabaseOrderRepository] getByPaymentId error:', JSON.stringify({ message: error.message, details: (error as any).details }));
+      throw new Error(`Failed to get order by payment: ${error.message}`);
+    }
     return data ? rowToOrder(data) : null;
   }
 
@@ -162,7 +174,10 @@ export class SupabaseOrderRepository implements OrderRepository {
       .select('*')
       .maybeSingle();
 
-    if (error) throw new Error(`Failed to update order: ${error.message}`);
+    if (error) {
+      console.error('[SupabaseOrderRepository] updateStatus error:', JSON.stringify({ message: error.message, details: (error as any).details }));
+      throw new Error(`Failed to update order: ${error.message}`);
+    }
     return data ? rowToOrder(data) : null;
   }
 
@@ -173,7 +188,10 @@ export class SupabaseOrderRepository implements OrderRepository {
       .eq('customer_email', email)
       .order('created_at', { ascending: false });
 
-    if (error) throw new Error(`Failed to get orders by email: ${error.message}`);
+    if (error) {
+      console.error('[SupabaseOrderRepository] getByEmail error:', JSON.stringify({ message: error.message, details: (error as any).details }));
+      throw new Error(`Failed to get orders by email: ${error.message}`);
+    }
     return (data || []).map(rowToOrder);
   }
 
@@ -183,7 +201,10 @@ export class SupabaseOrderRepository implements OrderRepository {
       .select('*')
       .order('created_at', { ascending: false });
 
-    if (error) throw new Error(`Failed to get all orders: ${error.message}`);
+    if (error) {
+      console.error('[SupabaseOrderRepository] getAll error:', JSON.stringify({ message: error.message, details: (error as any).details }));
+      throw new Error(`Failed to get all orders: ${error.message}`);
+    }
     return (data || []).map(rowToOrder);
   }
 }
