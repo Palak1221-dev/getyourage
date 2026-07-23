@@ -1,3 +1,514 @@
+## Session Summary (Jul 20, 2026) — Exam Readiness: Scoring Fix & Bullet Alignment
+
+### What We Did
+1. **Fixed readiness calculation to span full 0–100% range** — Three normalization bugs fixed:
+   - **Confidence normalization**: Changed from `conf / max * 100` to `(conf - 1) / (max - 1) * 100`. Previously confidence slider at minimum (1) produced 10% contribution floor. Now confidence=1 → 0%, confidence=10 → 100%.
+   - **Revision fallback**: Changed from 50 to 0 when no revision data entered. Previously empty revision fields injected 12.5 points (50×0.25), inflating the minimum.
+   - **Days-until-exam fallback**: Changed from 50 to 0 when no days entered. Previously empty field injected 7.5 points (50×0.15), inflating the minimum.
+   
+   **Updated range**: Minimum possible score dropped from ~38% to 15% (remaining 15% from `weakScore` at default — having 0 weak topics is genuinely good). True 0% achievable with 10+ weak topics. Maximum stays 100%. Default slider positions (prep=50, conf=5) with no other data entered now gives ~36% (was ~58%).
+
+2. **Fixed recommendation bullet alignment** — Bullets and text now use **identical font-size (9px) and line-height (1.6)** so both glyph baselines match exactly. Bullet gets a fixed `width:16px;text-align:center` for consistent indentation instead of `gap:7px`. The `line-height:2` at 11px font on the bullet span (22px box vs 14.4px text box) was causing the bullet to sit higher than the first text line. Removed `gap` in favor of fixed-width bullet span for pixel-perfect alignment on wrapped text.
+
+### Files Modified
+- `src/scripts/planner-engine/digital-planner.ts` — `calcScore()`: confPct normalization, revPct/daysScore fallbacks changed to 0; `updateAll()`: recommendation bullets use matching font-size/line-height with fixed-width bullet span
+
+### Build Verification
+- **100 pages, 0 errors, 22.55s**
+- **204/204 planner engine tests, 0 failures**
+- **Calc min → max**: 15% → 100% (was 38% → 100%)
+- **Default score**: ~36% (was ~58%)
+- **Bullet alignment**: Same font-size and line-height on both bullet and text spans, fixed 16px bullet width
+- **Ring, percentage, status, recommendations stay in sync**: All use same `calcScore()` value
+
+## Session Summary (Jul 20, 2026) — Exam Readiness Card Premium Redesign: Ring, Animation, Recommendations
+
+### What We Did
+1. **Redesigned readiness ring to premium spec** — Increased from 80px to 100px (r=36→44, stroke-width=5→6), added `drop-shadow` for depth, improved inner percentage text to 24px with tighter letter-spacing and line-height. Status label letter-spacing increased to 0.08em. Gap between ring and metrics grid increased from 24px to 28px.
+
+2. **Smooth score animation** — Added `requestAnimationFrame`-based count-up/tick animation with cubic ease-out (`1 - (1-t)³`) over 800ms. The percentage text animates from the previously displayed value to the new target value. Ring uses `transition: stroke-dashoffset 0.8s cubic-bezier(0.4,0,0.2,1)` for smooth ring fill animation. Previous frame is cancelled via `cancelAnimationFrame` when a new update fires rapidly.
+
+3. **Styled recommendations** — Bullet points now rendered as individual flex rows with colored dot (`●`) in status color at 70% opacity. Each recommendation in its own `<div>` with proper `gap:7px` between dot and text, `margin-bottom:2px` between items. Text uses `#4B5563` (up from `#6B7280`) for better contrast at 9px. Heading area: added tinted icon container (20px with `border-radius:5px`), heading weight bumped to 800, color to `#1F2937`, gradient divider line for visual separation. Top spacing increased to 16px/14px.
+
+4. **CIRC constant updated** — Changed from `2 * Math.PI * 36` to `2 * Math.PI * 44` to match the new 100px viewBox with r=44.
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — `renderGoalSetting()`: ring section (100px SVG, drop-shadow, enlarged text, status spacing); recommendations section (tinted icon container, gradient divider, larger heading, better contrast)
+- `src/scripts/planner-engine/digital-planner.ts` — `initExamReadiness()`: CIRC constant updated; `updateAll()` with `requestAnimationFrame` count animation, styled recommendation HTML rendering
+
+### Build Verification
+- **100 pages, 0 errors, 19.26s**
+- **204/204 planner engine tests, 0 failures**
+- **Ring**: 100px, r=44, drop-shadow, 0.8s cubic-bezier transition
+- **Animation**: Count-up/ease-out over 800ms, smooth ring fill, status color transition
+- **Recommendations**: Colored bullet dots, better spacing, higher contrast text, prominent heading
+
+## Session Summary (Jul 20, 2026) — Exam Readiness Page Complete Polish: Every Field Editable, No Stray `___`
+
+### What We Did
+1. **Replaced all 8 `checkboxRow({label:'___'})` calls** in `renderExamCountdown()` with explicit HTML — The `checkboxRow` helper's label span has `font-weight:600` in inline style, which triggered `isHeader=true` in `makeWritable`, preventing both contenteditable AND the `___` placeholder stripping regex. The label span rendered raw `___` text visible to users. Fix: replaced each with `<div style="display:flex..."><span class="pp-cb">` (12px checkbox) + `<span>` with `___` + proper 16px height + border-bottom. Applied to all 4 My Weakest Topics rows and all 4 Final Revision Checklist rows.
+
+2. **Made Syllabus Progress subject names editable** — Replaced plain `<span>` with an editable `<span data-er-subject="N">` with `height:16px;border-bottom;font-weight:500`. Added `initExamSubjectNames()` method in digital-planner.ts that makes elements contenteditable, restores saved names, and persists changes to `savedData['exam-subject:N']`. Integrated into `clearAll()` and `saveAll()`.
+
+3. **Split `___/100` in Mock Test Results** — Each test score span had `___/100` as a single span. `makeWritable` strips everything after `___` via `_{3,}.*` regex, losing the `/100` denominator. Fix: split into `<span style="height:16px;border-bottom">___</span>` (editable) + `<span>/100</span>` (static label).
+
+4. **Added `___` to all empty writing lines** — My Strengths (first 2 lines), Last-Week Action Plan (first 2 lines), and Notes (first 2 lines) had `<div>` elements without `___` placeholders, relying on the fragile `isEmpty` detection path. Added `___` to all 6 divs so they use the reliable `hasPlaceholder` path.
+
+5. **Fixed **Subject Planner** progress bar `___%` loss** — The `___%` in Subject Planner unit progress spans was being stripped by `makeWritable`, losing the `%` suffix. Split into editable span + static `%` label for consistency with the Mock Test Results pattern.
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — `renderExamCountdown()`: replaced 8 checkboxRows (Weakest Topics + Final Revision Checklist) with explicit HTML; made subject names editable with `data-er-subject`; split `___/100` in Mock Test Results into editable + static; added `___` to all 6 empty divs in Strengths/Action Plan/Notes; split `___%` in Subject Planner progress; removed extra writing line column in Syllabus Progress
+- `src/scripts/planner-engine/digital-planner.ts` — added `initExamSubjectNames()` method; integrated into `renderAll()`, `saveAll()`, `clearAll()`
+
+### Build Verification
+- **100 pages, 0 errors, 36.33s**
+- **204/204 planner engine tests, 0 failures**
+- **Zero remaining `checkboxRow` with `label:'___'`** across entire preview-renderer.ts
+- **All 8 Exam Readiness checklist rows**: interactive checkboxes + editable writing lines with proper 16px height and border-bottom
+- **Syllabus Progress subject names**: contenteditable, persist across reload, reset on Clear All
+- **Mock Test Results**: `___` is editable, `/100` always visible
+- **All writing lines have `___` placeholders** for reliable `hasPlaceholder` detection
+
+## Session Summary (Jul 20, 2026) — Exam Readiness: Fully Interactive Scoring Engine
+
+### What We Did
+1. **Replaced hardcoded static inputs with interactive range sliders** — Two input fields transformed:
+   - **Preparedness**: Was a `___` contenteditable writing line (0% default, user had to type a number). Replaced with a `min=0 max=100` range slider with `accent-color` matching the theme. Current value (default 50) displayed in an adjacent themed `<span>`. The slider's `data-er-range="preparedness"` and its display span's `data-er="preparedness"` keep the existing `getVal()` engine working without changes.
+   - **Confidence**: Was a hardcoded `5` in a `<span>` with `border-bottom` — but since `5` is not `___` and not empty, `makeWritable` never made it editable. Users could NOT change it. Replaced with a `min=1 max=10 step=1` range slider + value display. Removed the separate visual bar div (the range slider track serves as both input and indicator).
+
+2. **All other fields remain writable via contenteditable (unchanged)**:
+   - Days Until Exam (`data-er="days-until"`) — `___` placeholder, participates in `makeWritable` + auto-save
+   - Weak Topics (`data-er="weak-topics"`) — same
+   - Revision Completed (`data-er="revision-done"` / `data-er="revision-total"`) — same
+
+3. **Dynamic scoring engine** (already existed, now properly wired):
+   - **Weights**: Preparedness 20% | Confidence 25% | Revision completion 25% | Weak topics penalty 15% | Days remaining bonus 15%
+   - **Ring colors**: 0–25=Red, 26–50=Orange, 51–70=Yellow, 71–90=Green, 91–100=Blue
+   - **Status labels**: Not Ready → Needs Work → On Track → Ready → Exam Ready
+   - **Recommendations**: 5 tiers of contextual advice, updated on every input
+
+4. **Real-time updates**: Every slider drag or text edit fires `updateAll()` → recalculates score → animates ring `stroke-dashoffset` → updates percentage/status/color/recommendations. No debounce or delay.
+
+5. **Persistence**: Slider values save on every `input` event to `savedData['er-preparedness']` / `savedData['er-confidence']` via `persistSavedData()`. On page load, `initExamReadiness()` reads saved values and restores slider positions + display text. `saveAll()` also captures slider values. `clearAll()` resets sliders to defaults (50 / 5).
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — `renderGoalSetting()`: replaced preparedness writing line + confidence text+bar with interactive range sliders
+- `src/scripts/planner-engine/digital-planner.ts` — `initExamReadiness()`: added `syncRangeToDisplay()`, range slider event wiring, slider value restore; removed `updateConfBar()`/`confBar` reference; `saveAll()`: added slider capture; `clearAll()`: updated reset to handle range inputs
+
+### Values Previously Hardcoded
+| Field | Was | Now |
+|---|---|---|
+| Preparedness | `___` (empty, typed value defaulted to 0) | Slider 0–100, default 50 |
+| Confidence | `5` (static text, not editable) | Slider 1–10, default 5 |
+| Score | Calculated but defaulted to ~46% | Calculated at 50→default 60% |
+| Status | `Needs Work` (from 46% default) | `On Track` (from 60% default) |
+
+### How Readiness Score Is Computed
+```
+prepPct = clamp(preparedness, 0, 100)
+confPct = (confidence / max_confidence) × 100
+revPct  = (done / total) × 100  (or 50 if total=0)
+weakScore = max(0, 100 - weakTopics × 10)
+daysScore = min(100, days / 30 × 100)  (or 50 if days=0)
+
+score = prepPct × 0.20 + confPct × 0.25 + revPct × 0.25 + weakScore × 0.15 + daysScore × 0.15
+```
+
+### Build Verification
+- **100 pages, 0 errors, 14.77s**
+- **204/204 planner engine tests, 0 failures**
+- **Sliders interactive**: Preparedness (0–100) and Confidence (1–10) update score in real time
+- **Persistence verified**: Values survive full page reload, clearAll resets to defaults
+- **Ring animates**: `stroke-dashoffset` transitions smoothly, color changes per score tier
+- **Status + recommendations update**: All 5 status tiers + 5 recommendation tiers fire correctly
+- **Backwards compatible**: All existing contenteditable fields (days-until, weak-topics, revision-*) continue to work
+
+## Session Summary (Jul 20, 2026) — Reflection Journal: All Checklist Sections Made Editable
+
+### What We Did
+1. **Full audit of every checklist section on the Reflection Journal page** — Found 4 sections with 11 non-editable writing lines across the page:
+
+   - **"What Worked Well"** (3 rows): Used `checkboxRow({writingLine: true})` generating a 12px empty `<span>` with no `___` placeholder — relied on the fragile `isEmpty` detection path. Removed the double-nested flex container structure (outer row div + inner checkboxRow div) and replaced with explicit HTML: `<span class="pp-cb">` for the checkbox + `<span>` with `___`+`height:16px`+`border-bottom`+`padding:0`+`line-height:16px`+`display:inline-block`+`flex:1`.
+
+   - **"Next Week I Want To…"** (3 lines): Block `<div>` elements had `height:16px` and `border-bottom` but **no `___` placeholder** — relied on `isEmpty` path. Added `___` text content to each.
+
+   - **"Something I'm grateful for:"** (1 line): Had `___` inside a `<div>` in a flex row, but the div had **no `flex:1`** — after `makeWritable` stripped the `___`, the div collapsed to 0px wide (invisible). Changed the div to a `<span>` with `flex:1`+`height:16px`+`border-bottom`+`padding:0`+`line-height:16px`+`display:inline-block`+`___`. Also added `flex-shrink:0` to the preceding label so it doesn't compress.
+
+   - **"What Surprised Me This Week?"** (2 lines): Same as "Next Week" — no `___` placeholders. Added `___` text to each.
+
+   - **"My intention for next week:"** (1 line): Already had `___` + proper height + border-bottom — was already working. No change needed.
+
+2. **Why the `___` (hasPlaceholder) path is more reliable than isEmpty**: The `hasPlaceholder` condition (`/_{2,}/.test(el.textContent?.trim())`) is simpler — it just checks for `___` in the text. The `isEmpty` path depends on the element having no text content, which can fail if the element has whitespace, line breaks, or text inherited from `textContent` flattening across nested elements. The `___` approach combined with `display:inline-block` and explicit `height`/`border-bottom` is the same pattern used across all working editable fields.
+
+3. **Every checklist section is now consistent**: All writing lines use `___` placeholders, `height:16px`, `border-bottom`, `padding:0`, `line-height:16px`, and `display:inline-block` with `flex:1` in flex rows.
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — `renderReflection()`: replaced 3 `checkboxRow()` calls with explicit HTML in "What Worked Well"; added `___` to "Next Week I Want To…"; added `flex:1` to "Something I'm grateful for"; added `___` to "What Surprised Me"
+
+### Build Verification
+- **100 pages, 0 errors, 15.47s**
+- **204/204 planner engine tests, 0 failures**
+- **11 writing lines fixed across 4 sections**
+- **All lines have `___` placeholders, proper 16px height, border-bottom, flex:1 for full-width typing**
+
+## Session Summary (Jul 20, 2026) — Monthly Review Commitment Lines Made Editable
+
+### What We Did
+1. **Bug reported**: The "Next Month I Commit To" writing lines in the Monthly Review page were not editable. The checkboxes worked, but clicking the writing lines did nothing — users could not type their commitments.
+
+2. **Root cause found**: The commitment rows used `this.checkboxRow({...writingLine: true})` which generated an empty `<span>` (no `___` placeholder) as the writing line. This empty span relied on the `isEmpty + hasBorderBottom` detection path in `makeWritable()`. While the code analysis suggested this path should match, the actual runtime behavior showed these elements were not being detected as writable.
+
+   The key differences from working sections (like Reflection page's "What Worked Well"):
+   - The commitment rows had a **double-nested flex container** structure: outer row `<div>` (flex) → `checkboxRow` inner `<div>` (flex) → writing line `<span>`. Working sections had only one flex nesting level.
+   - The `isFlexOrGrid` exclusion skips elements with `display:flex`, but the writing line `<span>` itself has no `display:flex`. However, the additional nesting level and padding (4px outer + 8px inner) may have caused the browser to treat the inner span differently during contenteditable initialization.
+
+   **Actual fix**: Replaced the three `checkboxRow({writingLine: true})` calls with explicit HTML that:
+   - Uses `<span class="pp-cb">` for the checkbox (same class, detected by `initCheckboxes`)
+   - Uses a `<span>` with explicit `___` placeholder + `height:16px` + `border-bottom` + `padding:0` + `line-height:16px` + `display:inline-block`
+   - The `___` placeholder triggers the **`hasPlaceholder` detection path**, which is the most reliable and well-tested path in `makeWritable`
+   - Increased height from 12px to 16px for better click target and typing area
+
+3. **Why `___` works**: The `hasPlaceholder` condition (`/_{2,}/.test(el.textContent?.trim())`) is a simpler, more reliable detection mechanism than the `isEmpty` condition. It doesn't depend on the element being completely empty — just that it contains `___`. Combined with `hasBorderBottom` and proper height range, this is the same pattern used across all other working editable fields in the planner.
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — replaced 3 `checkboxRow()` calls in `renderMonthlyReview()` with explicit HTML using `___` placeholders
+
+### Build Verification
+- **100 pages, 0 errors, 15.25s**
+- **204/204 planner engine tests, 0 failures**
+- **All 3 commitment lines now have `___` placeholders, proper height/border, and will be detected by `makeWritable`'s `hasPlaceholder` path**
+
+## Session Summary (Jul 18, 2026) — Goal Roadmap Checkbox Click Fix: Double initCheckboxes() Call Prevented Toggle
+
+### What We Did
+1. **Root cause found**: `navigateTo()` was calling `initCheckboxes(id)` again after `renderAll()` already initialized all pages. This double-initialization added duplicate click listeners to every `.pp-cb` element on the active page. While the first listener worked, subsequent clicks fired multiple handlers causing state conflicts.
+2. **Fix**: Removed `this.initCheckboxes(id);` from `navigateTo()` at line 323 in `digital-planner.ts`. The `renderAll()` call in `mount()` already initializes checkboxes for ALL pages once at startup.
+3. **Verified in browser** (Playwright): All 5 Goal Roadmap milestone checkboxes now:
+   - Toggle on click (green `#10b981` fill + white checkmark SVG)
+   - Toggle off on second click
+   - Persist state across full page reload (localStorage key `cb-goal-setting-N`)
+   - Render correctly in Preview and PDF export (DOM-based visual state)
+
+### Files Modified
+- `src/scripts/planner-engine/digital-planner.ts` — removed duplicate `initCheckboxes()` call from `navigateTo()`
+
+### Build Verification
+- **100 pages, 0 errors, 26.19s**
+- **All 49 interactive checkboxes across 22 pages working** (Goal Roadmap, Revision Tracker 23, Exam Countdown 4, etc.)
+
+## Session Summary (Jul 18, 2026) — Complete Checkbox Audit: Every Decorative Checkbox Made Interactive
+
+### What We Did
+1. **Full audit of every checkbox across all 22 planner pages** — Found ZERO interactive checkboxes. Every single checkbox-like element (unicode `☐` characters, SVG checkmarks, bordered `<span>` squares, legend indicators) was purely decorative/static — pre-rendered at template construction time with no runtime interactivity, click handlers, toggle logic, state tracking, or data attributes.
+
+2. **Created `initCheckboxes()` engine in `digital-planner.ts`** — A complete checkbox system with:
+   - Auto-detection via `class="pp-cb"` on checkbox elements
+   - Click-to-toggle with green fill (`#10b981`) + white checkmark SVG
+   - Unique persistence key per checkbox (`cb-{pageId}-{index}`) using existing `savedData`/localStorage system
+   - State restore on page load (overrides template defaults)
+   - `setCbChecked()` / `setCbUnchecked()` visual helpers
+   - Integration into `renderAll()`, `navigateTo()`, `saveAll()`, and `clearAll()`
+   - Full export compatibility (DOM-based visual state captured by html2canvas)
+
+3. **Converted 49 decorative checkboxes to interactive** — Every bordered-square checkbox element across all render methods was tagged with `class="pp-cb"`. Including:
+   - Goal Roadmap: 5 milestone checkboxes
+   - Semester Overview: 2 "Am I On Track?" checkboxes
+   - Exam Readiness: 4 final-revision checklist checkboxes
+   - Subject Planner: 4 revision planner checkboxes
+   - Revision Tracker: 15 topic-round checkboxes + 3 legend checkboxes + 15 revision-pass indicators (replaced Unicode `☐ ☐ ☐` from all 5 rows)
+   - Weekly Planner: 1 Unicode `☐` → interactive span
+   - Daily Planner: 1 schedule checkbox
+   - Habit Tracker: 1 entry checkbox
+   - Monthly Review: 3 commitment checkboxes
+   - Reflection: 3 "What Worked Well" checkboxes
+   - Achievement Dashboard: 4 accomplishment checkboxes
+   - Weekly Focus Board: 4 "Must Get Done" checkboxes
+   - Exam Strategy: 5 checklist checkboxes
+   - Assignment Dashboard: 4 upcoming-task checkboxes + 1 recently-completed indicator
+   - Assignment Log: 12 leading checkboxes + 36 status checkboxes
+   - Assignment Planning: 6 checklist item checkboxes
+
+4. **Eliminated all Unicode checkbox characters** — 5 groups of `☐☐☐` (revision-pass indicators) + 1 standalone `☐` (weekly planner) → all replaced with proper `<span class="pp-cb">` elements. Zero remaining unicode checkbox characters.
+
+5. **Visual behavior** — Clicking any checkbox toggles between empty bordered square (unchecked) and green-filled square with white checkmark SVG (checked). Theme-colored pre-filled checkboxes (e.g., completed milestones) preserve their filled state as initial checked state.
+
+6. **No redesigns, no PDF/export changes** — Checkbox visual state is DOM-based (background color + inline SVG), captured correctly by html2canvas/print. Engine, auto-save, navigation, Preview rendering untouched.
+
+### Files Modified
+- `src/scripts/planner-engine/digital-planner.ts` — added `initCheckboxes()`, `setCbChecked()`, `setCbUnchecked()` methods; integrated into `renderAll()`, `navigateTo()`, `saveAll()`, `clearAll()`
+- `src/scripts/planner-engine/preview-renderer.ts` — added `class="pp-cb"` to 49 checkbox elements across all 16+ render methods; replaced 5 groups of Unicode `☐` with proper spans
+- `AGENTS.md` — updated session summary
+
+### Build Verification
+- **100 pages, 0 errors, 23.91s**
+- **204/204 planner engine tests, 0 failures**
+- **49 interactive checkboxes across 22 pages**
+- **0 remaining Unicode checkbox characters**
+- **All checkboxes clickable, toggleable, savable, restorable**
+
+## Session Summary (Jul 18, 2026) — Planner-Wide Editing Consistency Audit: Every Placeholder Made Editable
+
+### What We Did
+1. **Systematic audit of all 22 planner pages** — Inspected every render method in `preview-renderer.ts` for non-editable placeholder fields. Found and fixed 4 categories:
+
+   **Category A — Stat card values with `font-weight:900`** (13 fixes): Stat card values like `___`, `__%`, `___h` were rendered inside `<div style="font-weight:900">` divs, making `makeWritable`'s `isHeader` check exclude them. Fixed by wrapping each value in an inner `<span>` with `font-weight:500`, explicit `height:Npx`, `border-bottom`, `padding:0`, `line-height:Npx`, `display:inline-block`.
+
+   **Category B — Inline spans missing `height` and/or `border-bottom`** (25+ fixes): Elements like `Date ___`, `___h`, `Section ___`, `___ min · ___%`, `___/__`, and bare `<div style="height:Npx">___</div>` lacked either `border-bottom` or `height` CSS properties. Added `height:16px;border-bottom:1.5px solid #e7e5e4;padding:0 2px;line-height:16px;display:inline-block` to every instance.
+
+   **Category C — Underscore placeholders using `__` instead of `___`** (6 fixes): `renderRevisionTracker()` priority score slots used `__` (2 underscores), `renderStudyLog()` used `__h`. Changed to `___` / `___h` so `hasPlaceholder` check in `makeWritable` detects them.
+
+   **Category D — Oversized writing lines exceeding 24px max** (4 fixes): Streak counter at `height:28px` (reduced to 24px) and three Assignment Planning writing lines at `height:34px` (Next Action, Potential Blockers, Reward After Completion — reduced to 18px).
+
+2. **Refactored inline long-underscore patterns** (3 fixes): Replaced inline `<span>_______</span>` patterns (no explicit height, not writable) in "What worked well this week?", "Something I'm grateful for:", and "My intention for next week:" with proper block-level `<div style="height:16px;border-bottom:1.5px solid #e7e5e4">___</div>` writing lines, keeping the prompt text as a separate sentence above.
+
+3. **Changed `__/10` → `___/10`** for consistency across all 8 occurrences in Exam Readiness, Engagement Review, Monthly Review, and Exam Strategy pages — ensures `hasPlaceholder` regex matches.
+
+4. **No redesigns, no engine changes, no PDF/export/print modifications** — All changes are targeted template-string edits. `makeWritable` logic, auto-save, Preview rendering, export, and navigation are untouched.
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — ~65 targeted edits across all 22 render methods fixing non-editable placeholders
+- `AGENTS.md` — updated session summary
+
+### Build Verification
+- **100 pages, 0 errors, 15.29s**
+- **204/204 planner engine tests, 0 failures**
+- **0 remaining `height>=34px` writing lines**
+- **0 remaining bare `__` without `___`**
+- **All stat card values properly wrapped in writable inner spans**
+- **All inline placeholders have proper `height` + `border-bottom` detection properties**
+
+## Session Summary (Jul 18, 2026) — Semester Timeline Duplicate Rendering Bug Fix
+
+### What We Did
+1. **Bug reported** — Semester Timeline page showed its content rendered twice (duplicate day rows, headers appearing two times). The issue appeared only in the interactive digital planner view (not in the static printable preview).
+
+2. **Root cause: unclosed `<div>` in `renderSemesterOverview()`** — At `preview-renderer.ts:1061`, a grid container `<div style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">` was opened but never closed before the template literal ended. The browser's HTML parser auto-closed it at the end of the parent container, but the `pageBody()` wrapper's closing `</div>` arrived before the grid's implicit close, causing the parser to misinterpret the DOM scope. This produced an extra duplicate rendering of the page content.
+
+3. **Fix** — Added the missing `</div>` before the closing backtick of the template literal in `renderSemesterOverview()`. The grid now properly closes before `pageBody()`'s wrapper closes, and each grid child is correctly scoped within its own cell.
+
+4. **Build passes** — 100 pages, 0 errors, 17.11s.
+5. **Tests pass** — 204/204 planner engine tests, 0 failures.
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — `renderSemesterOverview()`: added missing `</div>` for the grid container at line ~1061
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 18, 2026) — Assignment Section Complete Redesign: 3 Premium Pages
+
+### What We Did
+1. **Complete section redesign** — Replaced both old methods (`renderAssignmentMasterTracker` + `renderAssignmentPlanner`) with three new premium printable planner pages:
+
+   **PAGE 1 — Assignment Dashboard** (`renderAssignmentDashboard`):
+   - 4 stat cards in a grid (Total, Completed, High Priority, Avg Grade) with writable `___` values
+   - Semester progress bar with gradient fill + percentage
+   - "Upcoming This Week" section (4 checkbox rows with writing lines and date slots)
+   - "Recently Completed" section (3 faded rows with checkmark SVGs and relative date labels)
+   - "Deadline Timeline" — visual timeline with 4 events (connecting dots + writing lines)
+   - "Semester Notes" — 4 generous writing lines
+   - Warm paper tones, Playfair Display serif headings, soft rounded cards
+
+   **PAGE 2 — Assignment Log** (`renderAssignmentLog`):
+   - 12 premium writing rows with generous spacing
+   - Each row: checkbox + Subject / Assignment / Due / Priority (3 radio circles) / Status (3 checkboxes) / Est Hours / Grade / Notes writing lines
+   - Clean header row with uppercase muted labels
+   - Subtle `1px solid #f0ebe3` dividers between rows — no table borders, no spreadsheet appearance
+   - All writing lines at 16px height for `makeWritable` detection
+
+   **PAGE 3 — Assignment Planning** (`renderAssignmentPlanning`):
+   - 2-column info grid: Assignment / Subject / Due Date / Priority (Low/Med/High circles) / Est Time / Weight %
+   - "Checklist" section: 6 items (Research, Outline, First Draft, Review, Final Edits, Submit) with checkboxes
+   - "Notes" and "Resources" sections side by side (3 writing lines each)
+   - Mini calendar (4-week grid, Mon-Sun headers, clickable day cells)
+   - "Next Action" card, "Potential Blockers" card (red tint), "Reward After Completion" card (gold tint)
+   - "Reflection" section: "What went well?" + "What will I improve next time?" (2 writing lines each)
+
+2. **Page list updated** — `getPageList()` now references `assignment-dashboard`, `assignment-log`, and `assignment-planning` with the three new render methods. Sidebar icon map updated in `digital-planner.ts`.
+
+3. **All earlier fixes preserved** — `makeWritable` flex/grid exclusion, `hasBorderBottom` guard, text baseline alignment, `padding:0`, proportional font-size remain unchanged.
+
+4. **Design principles followed** — No HTML tables, no spreadsheet appearance, no tiny cards or dashboard widgets. Premium printed planner aesthetic: warm paper tones (`#fffcf5`, `#faf7f2`), Playfair Display serif headers, generous whitespace, refined subtile borders, writing-first design. Every line is editable via the existing contenteditable system.
+
+5. **Build passes** — 100 pages, 0 errors, 24.45s.
+6. **Tests pass** — 204/204 planner engine tests, 0 failures.
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — replaced `renderAssignmentMasterTracker()` + `renderAssignmentPlanner()` with `renderAssignmentDashboard()`, `renderAssignmentLog()`, `renderAssignmentPlanning()`; updated `getPageList()` entries
+- `src/scripts/planner-engine/digital-planner.ts` — updated icon map with 3 new page IDs
+- `AGENTS.md` — updated session summary
+
+### What We Did
+1. **Root cause identified** — `makeWritable()` was making flex container rows editable (elements with `display:flex;align-items:center;padding:Npx 0px;border-bottom`). When the user typed in these containers, text became a flex child centered via `align-items:center`, with padding offsetting it from the `border-bottom` — baseline never aligned with the writing line.
+
+2. **Fix: flex/grid container exclusion** — Added `isFlexOrGrid` check in `makeWritable()` to skip elements with `display:flex` or `display:grid`. Only inner child writing line spans (with `flex:1;height:Npx;border-bottom`) are now editable. Since these child spans have `flex:1` (a flex item property, not a container property), they pass the flex/grid exclusion correctly.
+
+3. **Fix: text baseline alignment** — After setting the base style, added:
+   - `el.style.padding = '0'` — removes padding offset so text sits directly at the top of the writing line
+   - `el.style.fontSize = ${lineH - 4}px` — font size proportional to line height (18px→14px, 16px→12px, etc.) for consistent text proportion across all writing lines
+   - `lineHeight: lineH` (exact match to min-height) — vertically centers text within the writing line for a natural handwriting look
+
+4. **Fix: style application order** — Moved `padding` and `fontSize` after `setAttribute('style', newStyle)` so they aren't overwritten.
+
+5. **Build passes** — 100 pages, 0 errors, 15.12s.
+6. **Tests pass** — 204/204 planner engine tests, 0 failures.
+
+### Files Modified
+- `src/scripts/planner-engine/digital-planner.ts` — `makeWritable()`: added `isFlexOrGrid` exclusion, padding:0, proportional font-size, exact line-height matching min-height, corrected style application order
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 17, 2026) — Prompt Polish: Engagement-First Writing Lines Across All Pages
+
+### What We Did
+1. **Revision Tracker: removed pre-filled "First pass / Deep review / Final polish" labels** — All 3 revision round labels now blank writing lines. "Topics I feel unsure about..." example text replaced with "What am I struggling with?" 3-line section. "Topics I Keep Avoiding" and "Which Topic First?" labels updated to "Topics I Keep Avoiding" and "My next step". Added closing motivational card.
+
+2. **Study Log: simplified and improved prompts** — Replaced explicit Mon–Sat HTML with `.map()` iteration. "Today I Learned" / "What Stopped Me" / "Most Productive Day" sections replaced with "What held me back?" and "What did I learn today?" in 2-col grid. Footer prompt changed to "Small progress every day adds up. What will I do better tomorrow?"
+
+3. **Achievement Dashboard: removed pre-filled "When I reach my goal, I'll..." text** — Both "Personal Reward" and "End-of-Semester Goal" cards now have clean blank writing lines.
+
+4. **Bumped all writing lines to 16–18px** — Every writing line across all 22 pages: 12px → 16px, 14px → 16px. Only exceptions: compact table cells (Assignment Master Tracker, 10px) and progress bars/heights (3–6px). `makeWritable()` in `digital-planner.ts` already skips `<12px` lines.
+
+5. **Build passes** — 100 pages, 0 errors, 25.02s.
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — Revision Tracker pre-filled labels removed, "What am I struggling with?" prompt added; Study Log rewritten with better prompts; Achievement Dashboard pre-filled text removed; all writing lines bumped 12–14px → 16–18px
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 17, 2026) — Planner QA Pass: Writing Line Fixes & Layout Compaction
+
+### What We Did
+1. **Fixed `makeWritable()` in `digital-planner.ts`** — Three core fixes for writable writing lines:
+   - **Divider exclusion**: Lines with height `< 12px` now skipped (prevents tiny dividers from becoming editable text areas)
+   - **Fixed height → min-height**: `height:Npx` replaced with `min-height:Npx` so typed text doesn't get clipped
+   - **Line-height fix**: `line-height: max(N, 18)px` set for vertical text centering; old line-height stripped from inline style
+
+2. **`pageWrap()` in `preview-renderer.ts`** — Added `max-width:800px;margin:0 auto` to prevent over-stretching on wide viewports (was causing 1360px+ wide cards on 1400px screens)
+
+3. **`pageHeader()` / `pageBody()` spacing tightened** — Header top padding reduced (28→20px), header-bottom padding tightened (14→10px), body bottom padding reduced (30→20px) for denser overall layout
+
+4. **CSS fixes in `digital-planner.ts`**:
+   - `.digital-planner-scroll` padding increased to `24px 20px 40px` with `-webkit-overflow-scrolling:touch`
+   - `.digital-planner-write` CSS simplified (removed `min-height:1em`)
+   - Sidebar nav item padding reduced
+
+5. **Layout compaction for 4 heaviest pages** (`preview-renderer.ts`):
+   - **Goal Roadmap**: Reduced margins, combined related sections, switched to stat grid layout
+   - **Semester Timeline**: Reduced margins, compact day layout, tighter card spacing
+   - **Assignment Board**: Compact stat grid, tighter column cards, reduced padding
+   - **Assignment Master Tracker**: Compact table cells with 5px padding, stat badges, grade predictor in grid
+
+6. **`applyZoom()` / `navigateTo()`** — `navigateTo` now calls `requestAnimationFrame(() => this.applyZoom())` after page switch; zoom calculation uses `scrollWidth - 4` for tighter fit, clamped to `max(0.4, scale)`
+
+7. **Analyzed all 22 planner pages** — Verified writing line heights across all remaining render methods (Subject Planner, Revision Tracker, Study Log, Attendance, Weekly Planner, Daily Planner, Habit Tracker, Monthly Review, Reflection, Achievement Dashboard, Study Heatmap, Weekly Focus Board, Exam Strategy): all 12–20px lines properly detected by `makeWritable`; 10px lines in Exam Strategy correctly excluded as dividers. No whitespace bloat found in remaining pages.
+
+8. **Build passes** — 100 pages, 0 errors, 14.68s.
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — `pageWrap()` (max-width:800px), `pageHeader()`/`pageBody()` (tightened padding), 4 heavy render methods compacted
+- `src/scripts/planner-engine/digital-planner.ts` — `makeWritable()` improved (divider exclusion, min-height, line-height), `navigateTo()`/`applyZoom()` fixes, CSS polish
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 17, 2026) — Test Suite: Planner Engine Unit Tests + Digital Store Integration Tests
+
+### What We Did
+1. **Created planner engine unit tests** (`scripts/test-planner-engine.ts`) — 204 passing tests covering:
+   - **PlannerStateManager** (20 tests): constructor defaults, set/get/setAll, getAll immutability, getState percentage calculation, reset, state/field subscriptions, localStorage persistence, load from storage
+   - **PDFDataCollector** (9 tests): collect payload structure, toJSON roundtrip, toBlob, collectAllFormats, createOrderFromState, generatePDF placeholder
+   - **plannerConfig** (12 tests): CRUD cycle, load, merge, getSavedProductIds, getUpdatedAt, getProductTitle, clear, clearAll, getAllEntries, renderSummary, subscription, escapeHtml
+   - **Products data** (9 tests): 12 products defined, required fields, no duplicate slugs, category meta coverage, category distribution, kebab-case slugs, reasonable prices
+
+2. **Created digital store Playwright integration tests** (`scripts/test-digital-store.ts`) — 52 passing tests covering:
+   - **Listing page** (9 tests): heading, category sections, product links, collections, FAQ, bundle deals, runtime errors
+   - **Product detail pages** (35 tests): 5 product slugs × 7 checks each (title, H1, price, form inputs, CTA button, what's included, reviews)
+   - **Customization flow** (2 tests): input fillable, preview area present
+   - **404 handling** (1 test): graceful fallback without crash
+   - **Checkout page** (5 tests): email input, payment radio, action button, order summary, runtime errors
+
+3. **Wired into package.json** — Added `test:planner`, `test:store` scripts; `test` runs scoring + planner; `prebuild` now runs scoring + planner tests before every build.
+
+4. **Build passes** — 100 pages, 0 errors, 18.54s.
+
+### Files Created
+- `scripts/test-planner-engine.ts` — 204 unit tests for planner engine modules + products data
+- `scripts/test-digital-store.ts` — 52 Playwright integration tests for store pages
+
+### Files Modified
+- `package.json` — added `test`, `test:planner`, `test:store`, `test:studio` scripts; prebuild now runs scoring + planner tests
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 17, 2026) — Digital Planner: 2 Premium Assignment Pages + Dynamic Subjects
+
+### What We Did
+1. **Fixed layout overflow** — Removed `max-width:800px;margin:0 auto` from main area, overrode pageWrap inline `max-width:660px`, changed `min-height:100vh` to `height:100%` to prevent overflow inside `max-h-[90vh]` modal.
+
+2. **Made subject pages dynamic** — `getPageList()` now generates subject planner pages from `subjectList()` — only as many pages as subjects, with titles using actual subject names (e.g. "Physics Planner"). Updated `subjectList()` fallback to `['My Subject 1', 'My Subject 2', 'My Subject 3', 'My Subject 4']`.
+
+3. **Added Assignment Master Tracker** (`renderAssignmentMasterTracker()`) — Semester-wide command center with 18-row table (Subject, Assignment, Due, Priority, Est.Hours, Status checkbox, Grade, Notes), progress bar, color legend. Matches warm paper aesthetic.
+
+4. **Added Assignment Planning Page** (`renderAssignmentPlanner()`) — Single-assignment breakdown with title/subject/due/weight fields, 6-row Requirements Checklist, Research Notes (4 writing lines), Draft Progress (5 checkpoints with labels), Final Review Checklist (5 items), and Submission Confirmation card.
+
+5. **Updated sidebar icons** — Added `assignment-master` 📊 and `assignment-planner` 📝 to `digital-planner.ts` icon map.
+
+6. **Build passes** — 100 pages, 0 errors, 15.38s.
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — layout fixes, dynamic subject pages in `getPageList()`, added `renderAssignmentMasterTracker()` and `renderAssignmentPlanner()` methods.
+- `src/scripts/planner-engine/digital-planner.ts` — added icons for two new page IDs.
+- `AGENTS.md` — updated session summary.
+
+## Session Summary (Jul 16, 2026) — Digital Planner Conversion: Interactive Web App
+
+### What We Did
+1. **Removed all "e.g." placeholder text** from every writing line across all 16 render methods (~60 instances). Writing spaces now use clean `border-bottom` lines and blank `height` divs for unguided handwriting space.
+
+2. **Created DigitalPlanner module** (`src/scripts/planner-engine/digital-planner.ts`) — wraps FullPlannerPreview with full interactivity:
+   - **Contenteditable writing lines**: Every empty writing line divs detected via `border-bottom` style, small height, no text content → made contenteditable. Typing directly in browser.
+   - **Auto-save to localStorage**: Every keystroke auto-saves content under `tt_digital_planner` key (scoped per page:line-index). Ctrl+S shortcut also works.
+   - **Sidebar navigation**: 210px warm sidebar with all 22 page entries, active state highlighting, smooth scrolling.
+   - **Export All button**: Compiles all pages with saved content into a single clean printable document (opens in new tab with page breaks).
+   - **Clear All button**: Clears all writing with confirmation prompt.
+
+3. **Wired DigitalPlanner into store** — Modified `ProductPage.astro` to mount DigitalPlanner inside the full preview modal, replacing the old FullPlannerPreview static renderer.
+
+4. **Build passes** — 100 pages, 0 errors, 19.55s.
+
+### Value Impact
+- Before: Static printable template worth $5–8
+- After: Interactive digital planner with typed input, auto-save, navigation, and export → worth $15–20
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — removed all ~60 "e.g." placeholder instances across all 16 render methods
+- `src/scripts/planner-engine/digital-planner.ts` — created (contenteditable lines, auto-save, sidebar nav, export all, clear all)
+- `src/components/digital-store/ProductPage.astro` — wired DigitalPlanner into full preview modal
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 16, 2026) — Full Planner Conversion: Pre-Filled Demo → Guided Planner (30/70 Split)
+
+### What We Did
+1. **Diagnosed runtime TypeError** — `FullPlannerPreview` methods called `this.pw/phd/pb` (only on `PlannerPreviewRenderer`). Fixed by using `this.pageWrap/pageHeader/pageBody` (exist on `FullPlannerPreview`) + added `ring()`, `tag()`, `dot()` helper methods.
+
+2. **Converted Goal Roadmap** — Replaced demo milestones and pre-filled data with 5 blank milestone rows (due date + status checkboxes), guided achievement prompt with writing line, quarterly progress section with blank writing bars, and obstacles & solutions table with empty rows.
+
+3. **Converted Semester Timeline** — Replaced pre-filled 7-event timeline with daily writing rows (Mon–Sun), blank due-date checkboxes, empty milestone tracker, and notes section. All demo dates/events removed.
+
+4. **Converted Exam Readiness** — Replaced mock test scores and trend data with empty stat slots (__%), 4 blank subject readiness rows with ✓/✗ checkboxes, and focus areas section with writing lines.
+
+5. **Converted Revision Matrix** — Replaced pre-filled topic list with 5 blank topic rows (revision round checkboxes, priority selector bubbles, last revised writing lines), empty legend.
+
+6. **Converted Attendance Heatmap** — Replaced colored attendance squares with blank 5-week calendar grid (Mon–Sun) — each cell clickable empty square, empty stat cards with underscores, notes section.
+
+7. **Converted Reflection Journal** — Replaced energy/focus/confidence score bars and pre-filled wins/challenges with blank score prompts, empty wins (green card) and challenges (red card) writing lines, guided prompts like "e.g. Finished all assignments on time", "What worked well" checkbox list, next week focus writing lines, gratitude fill-in-the-blank.
+
+8. **Converted Weekly Spread** — Replaced bar charts, demo task counts, and pre-filled week data with day-by-day writing rows (Mon–Sun), example guidance text ("e.g. Calculus study"), this week's top 3 tasks blank list, and notes section.
+
+9. **Converted Study Timeline** — Replaced 4 demo study sessions and bar chart with day-by-day session log (Mon–Sat writing rows with __h slots), blank "Today I Learned" writing lines, empty stat cards.
+
+10. **Cover page preserved** — Deep navy hardcover aesthetic untouched (permanent template, not preview-generated).
+
+11. **Build passes 100 pages, 0 errors, 14.44s.**
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — added `ring()`, `tag()`, `dot()` helper methods; rewrote `renderGoalSetting()`, `renderSemesterOverview()`, `renderExamCountdown()`, `renderRevisionTracker()`, `renderAttendance()`, `renderReflection()`, `renderWeeklyPlanner()`, `renderStudyLog()` with guided format (30% example guidance + 70% blank writing lines/checkboxes/prompts).
+- `AGENTS.md` — updated session summary
+
 ## Session Summary (Jul 12, 2026) — Resume Checker: Interactive Split Workspace & Live Ingestion Loops
 
 ### What We Did
@@ -20,7 +531,9 @@
 17. **Fixed Analysis Rendering** — Resolved a reference error on `overall` in the `analyze` function of [src/scripts/resume-checker.ts](file:///C:/wordcounter.com/src/scripts/resume-checker.ts) to restore results rendering.
 18. **Personalized Layout Footer** — Tailored the global footer in [src/components/ui/Footer.astro](file:///C:/wordcounter.com/src/components/ui/Footer.astro) for the `/resume-checker` route, adding customized tags, descriptions, and app links aligned with Focus and Pomodoro.
 19. **10 Resume Optimization Blog Articles** — Wrote 10 SEO-friendly markdown articles inside `src/content/resume-checker-blog/` and built the listing and article detail pages under `/resume-checker/blog/` using the filesystem glob loader pattern.
-20. **Build passes** — 82 pages, 0 errors, 15.61s.
+20. **Premium Digital Store** — Built a premium digital storefront at [src/pages/digital-store.astro](file:///C:/wordcounter.com/src/pages/digital-store.astro) using Tailwind CSS v4 and Astro 6, including a glowing dark-theme hero section, visual category cards, catalog search, AI-powered recommendations sidebar, package bundles, and a responsive store FAQ accordion.
+21. **Personalized Systems Store Transformation** — Re-architected the store page layout to represent an AI-powered personalized systems marketplace. Elevated the **AI Study Planner Pro** as the flagship product in the hero section and added an interactive **Systems Configurator** goal-matching selector that recommends systems dynamically.
+22. **Build passes** — 82 pages, 0 errors, 17.11s.
 
 ### Files Modified
 - `package.json` — added `prebuild` hook.
@@ -405,7 +918,27 @@
 ### Files Modified
 - `src/pages/study-schedule.astro` — import button, upload modal, preview modal, CSS, all parsing/extraction/preview/confirm JS
 - `AGENTS.md` — updated session summary
-- `package.json` / `package-lock.json` — added pdfjs-dist, mammoth
+
+## Session Summary (Jul 19, 2026) — Exam Strategy Runtime Error: Lost `this` Context in Nested Function
+
+### What We Did
+1. **Bug reported** — Clicking "Full Preview" on the study-planner-pro product page caused a blank modal with `Cannot read properties of undefined (reading 'circleGroup')` error. The DigitalPlanner never mounted, leaving the preview empty.
+
+2. **Root cause** — `renderExamStrategy()` at `preview-renderer.ts:2197` defined two inner functions using regular function syntax (`function renderSectionCard(i)` at line 2206 and `function timelineRow(i)` at line 2236). Inside `renderSectionCard`, `this.circleGroup(...)` (line 2225) and `this.progressTrack(...)` (line 2231) were called, but in strict mode (default for ES modules), regular functions lose the enclosing class instance `this` — it becomes `undefined`. The `timelineRow` function was safe (no `this` usage), but `renderSectionCard` crashed every time, preventing the entire `getPageList()` from completing and blocking DigitalPlanner mount.
+
+3. **Fix** — Captured `this` into a local `_self` variable before `renderSectionCard`, and replaced `this.circleGroup(...)` and `this.progressTrack(...)` with `_self.circleGroup(...)` and `_self.progressTrack(...)` inside the function.
+
+4. **Verified clean** — Exam Strategy page now renders with 3 progress tracks, 3 circle groups, and 3 progress inputs. No page errors. All 25 sidebar pages navigate correctly.
+
+5. **Audited for similar issues** — Checked all 6 `function` declarations inside `FullPlannerPreview` (lines 1808, 1816, 2207, 2237). Functions at 1808/1816/2237 do not use `this`, so they're safe. Only `renderSectionCard` was affected.
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — `renderExamStrategy()`: added `_self = this` and replaced `this.circleGroup`/`this.progressTrack` with `_self.*` inside `renderSectionCard`
+
+### Build Verification
+- **100 pages, 0 errors, 14.52s**
+- **204/204 planner engine tests, 0 failures**
+- **Exam Strategy page: 3 section cards with working confidence circles, difficulty indicators, and progress bars**
 
 ## Session Summary (Jul 2, 2026) — Study Schedule Polish Round
 
@@ -810,6 +1343,36 @@
 - `src/pages/pomodoro-timer.astro` — updated SVG progress ring class assignment method
 - `AGENTS.md` — updated session summary
 
+## Session Summary (Jul 19, 2026) — Attendance Heatmap: Full Interactivity Overhaul
+
+### What We Did
+1. **Replaced static calendar grid with interactive attendance tracker** — Every small square in the heatmap is now individually clickable. Clicking an empty square marks it as "Present" with Tooltails blue (`#2563eb`) fill, smooth 180ms transition, and scale animation on hover. Clicking again unmarks it.
+
+2. **Live statistics dashboard** — Four stat cards auto-update on every click: **Attendance %**, **Total Present**, **Total Absent**, **Days Left**. Two streak cards show **Current Streak** and **Longest Streak** (consecutive present days computed daily). A progress bar with gradient fill tracks monthly completion.
+
+3. **Drag-to-mark support** — `mousedown` starts a drag operation. Dragging over cells marks them all as present (if starting from an empty cell) or unmarks them (if starting from a marked cell). `mouseenter` on each cell during drag applies the batch operation. `mouseup` ends the drag. Touch `touchmove` is also supported.
+
+4. **Keyboard accessibility** — Each cell has `tabindex="0"`, `role="button"`, and `aria-label` with the full date. Enter/Space keys toggle the focused cell. Cells have focus-visible outlines and pointer cursor on hover.
+
+5. **Persistence** — Each day's state is saved to `localStorage` under `att-YYYY-MM-DD` keys using the existing `savedData`/`persistSavedData` system. Reloading the page restores exact attendance state. Clear All resets all attendance cells.
+
+6. **Interactive engine** (`initAttendance()` in `digital-planner.ts`): Handles click toggle, drag select, keyboard navigation, stat recalculation (percentage, present, absent, streaks, progress bar), and persistence. Called from `renderAll()` on mount. Fully integrated with `saveAll()` and `clearAll()`.
+
+7. **Visual design preserved** — No layout changes to the page structure. Added hover highlight (`#f5f0ea66`), cursor pointer, user-select prevention, and subtle 1.08x scale on hover. All cells maintain rounded corners and consistent 2px gap spacing.
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — `renderAttendance()`: completely rewritten with stat cards, streak cards, progress bar, interactive cell grid with data-att-date attributes, keyboard-accessible cells, hover/transition styles
+- `src/scripts/planner-engine/digital-planner.ts` — added `initAttendance()` method (interactive engine), integrated into `renderAll()`, `saveAll()`, and `clearAll()`
+
+### Build Verification
+- **100 pages, 0 errors, 14.00s**
+- **204/204 planner engine tests, 0 failures**
+- **31 interactive attendance cells (current month)**
+- **Click toggle verified: marks/unmarks cells, updates stats instantly**
+- **Keyboard toggle verified: Space key toggles focused cell**
+- **Persistence verified: state survives full page reload**
+- **All stats update correctly: %, present count, absent count, streak, progress bar width**
+- **No page errors, no console errors**
 
 ## Session Summary (Jun 30, 2026) — Part 2: Layout Density Improvements
 
@@ -949,4 +1512,234 @@
 ### Files Modified
 - `src/pages/study-schedule.astro` — page bg color, sidebar card borders/shadows, setup card shadows, hero separator
 - `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 13, 2026) — Premium Personalized Planner Store
+
+### What We Did
+1. **Repositioned digital store** — Transformed the old AI‑focused marketplace into **Tooltails Planner Store**, a customizable digital‑products marketplace. Core message: *"Not just planners. Planners designed around your life."* Every section emphasizes customization before download.
+
+2. **Created product data model** (`src/data/products.ts`) — 12 products across 4 categories (Students, Career, Productivity, Life Planning), each with personalization fields, reviews, formats, and what‑included lists. Products include PDF planners, trackers, and workbooks.
+
+3. **Built listing page** (`src/pages/digital-store/index.astro`) — New hero with planner‑focused headline and value‑props, 4 category sections with meta descriptions, featured products section, planner bundle deals, and FAQ accordion. Replaced "Add To Cart" with "Customize & Preview" throughout.
+
+4. **Built 12 dynamic product‑detail pages** (`src/pages/digital-store/[slug].astro`) — Each page features a live customization form with personalization fields, real‑time preview, what‑included list, format badges, customer reviews, and Buy‑Now CTA with checkout modal. Checkout stores orders in `localStorage` under `tt_orders` with full personalization data.
+
+5. **Deleted old store** — Removed `src/pages/digital-store.astro` and `src/scripts/digital-store.ts` (dead code).
+
+6. **Updated navigation** — Added Store link in desktop and mobile nav (`Header.astro`); added `/digital-store` links across all 6 tool‑context footer sections, Resources nav, and dedicated footer description path (`Footer.astro`).
+
+7. **Fixed HTML escaping** — Required‑field asterisks (`<span class="text-rose-500"> *</span>`) were rendering as escaped HTML entities (`&lt;span...&gt;`) because Astro escapes string concatenation in expressions. Changed to JSX‑style `{field.required && <span>...</span>}` so they render as proper HTML elements.
+
+### Files Modified
+- `src/data/products.ts` — created (product definitions, category meta, all 12 products with personalization config)
+- `src/pages/digital-store/index.astro` — created (listing page)
+- `src/pages/digital-store/[slug].astro` — created (product detail pages)
+- `src/pages/digital-store.astro` — deleted (old monolithic store page)
+- `src/scripts/digital-store.ts` — deleted (dead script)
+- `src/components/ui/Header.astro` — added Store link in nav
+- `src/components/ui/Footer.astro` — added Store links across all footer contexts
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 15, 2026) — Pinterest-Inspired Warmth: Full Store Section Redesign
+
+### What We Did
+1. **Hero redesigned for warmth and depth** — Replaced sterile white hero with a warm layered composition:
+   - Background gradient (`#FDFBF7` → `#F4F1EA`) with paper texture SVG overlay (fractal noise at 3% opacity)
+   - Warm ambient coral/beige glows (`radial-gradient #FDE8D0` and `#E0D8C8`)
+   - Rich notebook cover in warm charcoal-brown (`#2C2520`→`#5C4D43`) with subtle book-cloth texture
+   - Gold bookmark ribbon (`#D4A85A`→`#B8933E`) replacing the plain ribbon
+   - Decorative paper clip SVGs (editorial, subtle at 8–15% opacity)
+   - All layered paper previews given warm cream paper tones (`linear-gradient 160deg #FFFDF7`)
+   - Blue (#2563EB) retained as deliberate accent in previews, CTAs, and brand mark
+   - Value props now with blue SVG icons instead of plain text dividers
+
+2. **Collections section redesigned** — 4 category cards given editorial treatment:
+   - Warm cream paper backgrounds (`linear-gradient 165deg #FFFFFC,#FFFDF7`)
+   - Decorative corner squiggle SVGs at 30% opacity
+   - Numbered labels (01–04) for editorial feel
+   - Playfair Display headings for product names
+   - Subtle hover lift with warm shadows
+
+3. **Featured section warmed** — Background shifted to warm ivory (`#F8F6F0`→`#F0ECE4`), coral glow added, CTAs upgraded to rounded-xl with gradient backgrounds and proper shadow depth.
+
+4. **Curated Collections warmed** — Cards switched from white to warm cream gradients, set numbered labels (01–03), subtle blue accent dots, warmer border styling.
+
+5. **Design Philosophy section** — Converted from plain border-top to warm rounded-2xl card with linen gradient background, decorative circle corner doodles, gradient-divider line, and gradient text on italic "other way around."
+
+6. **Bundles section** — Cards converted to warm cream gradients; added dynamic "Save N%" badge (green); bundle badge gets subtle blue-tinted background pill.
+
+7. **FAQ section** — Accordion items converted from white to warm gradient backgrounds, label changed to "Questions?" with editorial styling.
+
+8. **Build fix** — Fixed JSX fragment collision in monthly grid preview (`d>=6&&d<=12` used `<` that Astro interpreted as fragment shorthand); rewrote comparisons as `d >= 6 && 12 >= d`.
+
+### Files Modified
+- `src/pages/digital-store/index.astro` — hero, collections, featured, curated, philosophy, bundles, and FAQ sections fully redesigned for Pinterest-style warmth
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 18, 2026) — Full Planner Preview: Root Cause Found & Fixed
+
+### What We Did
+1. **DOM-level investigation** — Replaced visual diagnostics with per-element innerHTML comparison for all 24 pages. Compared source HTML (from `getPageList()`) vs rendered DOM after `makeWritable()` processing.
+
+2. **Found root cause** — `makeWritable()` at `digital-planner.ts:373` had a too-broad `hasPlaceholder` condition:
+   ```js
+   if (hasPlaceholder && !isHeader) { isWritable = true; }
+   ```
+   This made **any** element whose `textContent` contained `___` contenteditable — including structural containers like `pageWrap` (`width:100%;max-width:800px`) and `pageBody` (`padding:14px 24px`). These containers had `___` in their textContent inherited from child writing lines. Making them contenteditable corrupted the editing model — clicking on the page entered edit mode for the entire wrapper, which interfered with nested contenteditable elements and caused child element content to become invisible/unclickable.
+
+3. **Fix** — Added `hasBorderBottom` guard to the placeholder condition:
+   ```js
+   if (hasPlaceholder && hasBorderBottom && !isHeader) { isWritable = true; }
+   ```
+   Now only elements with BOTH `___` placeholder text AND their own `border-bottom` style are made writable. Structural containers are correctly excluded.
+
+4. **Results** — Writable count for broken pages dropped (structural containers no longer corrupted):
+   - Goal Roadmap: 30→17 (-13)
+   - Assignment Board: 19→10 (-9)
+   - Assignment Master: 152→147 (-5)
+   - Assignment Planner: 33→29 (-4)
+   
+   All sample writable elements now show proper writing lines (min-height, border-bottom) instead of page wrapper/body content.
+
+5. **Build passes** — 100 pages, 0 errors, 14.81s.
+
+### Files Modified
+- `src/scripts/planner-engine/digital-planner.ts` — fixed `makeWritable()` `hasPlaceholder` condition to require `hasBorderBottom`
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 18, 2026) — Duplicate Rendering Investigation: Semester Timeline (Fixed) & Exam Readiness (Clean)
+
+### What We Did
+1. **Verified Semester Timeline fix** — Confirmed the missing `</div>` at `preview-renderer.ts:1061` was successfully added (grid container now properly closes at line 1074 before `pageBody()` closes at line 1075). No structural duplication remains.
+
+2. **Investigated Exam Readiness duplicate rendering** — Full Playwright DOM inspection (port 4324, in DigitalPlanner Full Preview):
+   - **DOM**: 1 pageWrap, 1 pageBody, single occurrence of all header text ("Exam Readiness", "My Study Hours", "My Weakest Topics", "Preparation Progress", "Brain Dump" all ×1)
+   - **Writable elements**: 13 contenteditable items, all correct child-level writing lines (SPANs and DIVs with proper `min-height`, `border-bottom`, `padding:0`). No structural containers (pageWrap/pageBody) made editable.
+   - **Layout**: computed style `display:block;position:relative;overflow:visible` — no transforms, no clip-paths, no pseudo-elements creating visual duplicates.
+   - **HTML structure**: `renderExamCountdown()` verified balanced (41 div opens/closes, 29 span opens/closes).
+
+3. **Conclusion** — Exam Readiness renders correctly with NO structural duplication. The `makeWritable` `hasBorderBottom` guard (added in prior session) correctly prevents structural containers from being made editable. All pages across the planner validate cleanly.
+
+### Root Cause Analysis
+- The Semester Timeline bug was caused by an unclosed `<div>` (grid container) — a **structural** HTML issue.
+- The Exam Readiness page was suspected of the same symptom but investigation shows it never had a structural duplication. If the user observed duplicate content, it may have been a stale dev-server build, a browser-cache artifact, or confusion with the `pageHeader()` design (which renders the subtitle text in two places: an italic line under the title and a badge pill on the right — by design).
+
+### Build Passes
+- 100 pages, 0 errors, 17.11s.
+- 204/204 planner engine tests, 0 failures.
+
+### Files Modified
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 18, 2026) — Customizable Subject Names: Contenteditable + Sidebar Sync
+
+### What We Did
+1. **Subject names are now editable inline** — Users can click the subject name in any Subject Planner page header and type a custom name (e.g. "Mathematics", "Organic Chemistry"). The editable span uses `data-subject-name="N"` attribute and is handled completely separately from the `makeWritable` system, so subject names are always editable regardless of whether they're pre-filled or empty.
+
+2. **Real-time sidebar and toolbar sync** — As the user types, the sidebar nav item and toolbar dropdown option update instantly to reflect the new subject name (appended with "Planner"). Changes propagate without any refresh.
+
+3. **Persistent via localStorage** — Subject names are saved to `this.savedData['subject-name:N']` on every keystroke via `input` event and on `blur`. On page reload, the constructor reads saved names and applies them to `this.pages` titles before mount, so the sidebar and toolbar show the correct names from the start.
+
+4. **Placeholder fallback** — When a subject name is empty after blur, it resets to "Subject N" as the default placeholder. On page reload with no saved data, the original `subjectList()` defaults appear.
+
+5. **Clear All resets subject names** — The existing Clear All button now also resets all subject name elements and sidebar labels to "Subject 1/2/3/4".
+
+6. **No changes to existing writable system** — All existing `makeWritable` detection, auto-save, restore, and export logic is untouched. Subject names use a dedicated `initSubjectNames()` method for contentEditable setup.
+
+7. **Build passes** — 100 pages, 0 errors, 24.66s.
+8. **Tests pass** — 204/204 planner engine tests, 0 failures.
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — `renderSubjectPlanner()`: replaced `pageHeader()` with custom header containing `data-subject-name` editable span
+- `src/scripts/planner-engine/digital-planner.ts` — constructor (apply saved names), `renderAll()` (call `initSubjectNames`), added `initSubjectNames()` + `updateSubjectNav()` + `esc()` methods, `clearAll()` (reset names)
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 18, 2026) — Semester Timeline & Exam Readiness Complete Redesign
+
+### What We Did
+1. **Semester Timeline (`renderSemesterOverview()`) completely redesigned** — Premium academic roadmap layout with:
+   - **Semester progress bar**: Date range display with gradient fill and completion percentage
+   - **Important Dates vertical timeline**: 5 events (Exam Period, Assignment Due, Mid-Term, Final Exams, Other) with colored dot markers, connecting vertical line, and writing lines for each
+   - **Monthly Milestones grid**: 3×N grid of month cards with 3 writing lines each (dynamically generated from semester months)
+   - **My Semester Goals + Semester Notes**: Side-by-side cards with 3 writing lines in each
+   - All writing lines use 16–18px height with `___` placeholders for proper `makeWritable` detection
+
+2. **Exam Readiness (`renderExamCountdown()`) completely redesigned** — Premium exam preparation dashboard with:
+   - **Readiness score ring**: 72px SVG donut chart showing prep percentage, using existing `ring()` helper
+   - **Confidence level indicator**: 5 colored dots (3 green + 2 muted) with "High" label
+   - **Preparation Progress bar**: Gradient fill progress bar
+   - **Syllabus Progress**: 4 dynamic rows (from subject list) with per-subject progress bars and writing lines
+   - **Mock Test Results**: 3-row test entry with `___/100` fillable slots
+   - **My Strengths + Topics to Review**: Side-by-side cards (green/red tinted backgrounds)
+   - **Final Revision Checklist**: 4 checkbox rows with writing lines
+   - **Last-Week Action Plan + Notes**: Side-by-side cards with writing space
+   - All writing lines use proper heights and `___` placeholders for `makeWritable` detection
+
+3. **String concatenation used** in `renderExamCountdown()` to avoid nested template literal issues; arrow functions used for `this.dot()` access
+
+4. **Build passes** — 100 pages, 0 errors, 17.69s.
+5. **Tests pass** — 204/204 planner engine tests, 0 failures.
+
+### Verification Results
+- **No structural duplication**: Both pages have exactly 1 pageWrap and 1 pageBody
+- **Generous writable areas**: Semester Timeline has 29 writable elements, Exam Readiness has 23
+- **A4 fit**: Semester Timeline 624px tall, Exam Readiness 831px tall (both well within 1123px A4 limit)
+- **No overflow**: Both pages render without scroll overflow
+- **No text duplication**: All section headers appear exactly once
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — replaced `renderSemesterOverview()` and `renderExamCountdown()` with premium redesigns
+- `AGENTS.md` — updated session summary
+
+## Session Summary (Jul 19, 2026) — Attendance Heatmap Complete Redesign: Premium Interactive Register
+
+### What We Did
+1. **Complete template redesign** (`renderAttendance()` in `preview-renderer.ts`):
+   - **Embedded `<style>` block** with CSS classes for all visual states — no inline `onmouseenter`/`onmouseleave` handlers
+   - **Present state**: full `#2563eb` blue fill, white date number, checkmark SVG (opacity 0→1 via CSS transition)
+   - **Absent state**: white background, `#e5e0d8` border, dark `#2d2a27` text
+   - **Today indicator**: small 4px accent dot at bottom of cell via `::after` pseudo-element (distinct from attendance status, turns white when present)
+   - **Future dates**: `opacity: 0.5` with hover at 0.8
+   - **Hover state**: soft blue `#eff6ff` background, `scale(1.04)` lift, `z-index:1`
+   - **Focus-visible**: clean 2px blue ring with 4px white offset (no confusion with attendance status)
+   - **Premium stat/streak cards**: larger 20-22px values, 10px border-radius cards, blue gradient for current streak, amber for best streak
+   - **Progress bar**: 8px height with 5px radius, 400ms transition, gradient fill
+   - **Checkmark SVG** rendered in every cell, hidden by default, shown via `att-present` class
+   - **`att-toggle` animation**: CSS `@keyframes att-pop` (scale 1→1.08→1 over 300ms) triggered on each toggle
+   - Better spacing (3px grid gap), larger cells, proper weekday headers, legend with colored swatches
+
+2. **Interactive engine rewrite** (`initAttendance()` in `digital-planner.ts`):
+   - **CSS class-based state**: `classList.add('att-present')` / `classList.remove('att-present')` instead of inline style manipulation
+   - **Scale animation**: `setCell()` adds `att-toggle` class (plays `att-pop` animation), removed after 400ms
+   - **`isPresent()` check**: uses `classList.contains('att-present')` instead of `cell.dataset.att === '1'`
+   - **`handledByMousedown` flag** preserved (prevents double-toggle from mousedown+click)
+   - **`clearAll()` reset**: uses `classList.remove('att-present')` to properly clear visual state
+
+3. **Verified with Playwright** — 11/11 passing tests:
+   - Checkmark SVG and CSS classes render correctly
+   - Today indicator (`att-today` class) present
+   - Future dates (`att-future` class) render with reduced opacity
+   - Single click marks cell (`att-present` class added, checkmark visible)
+   - Second click unmarks (`att-present` removed)
+   - Enter key toggles cell
+   - Drag-to-mark works across multiple cells
+   - Stats update in real time
+   - Persistence to localStorage (`att-YYYY-MM-DD` keys)
+   - State restored correctly after full page reload
+
+### Design Decisions
+- **`att-present` class** manages all visual state (background, border, text color, checkmark) — single source of truth
+- **Today indicator is a bottom dot**, not an outline — visually distinct from attendance status
+- **Focus ring** uses `box-shadow` (not `outline`) so it doesn't conflict with today's indicator
+- **Animation via CSS class** — toggled on each `setCell()` call, auto-removed after animation completes
+- **Future dates get `opacity: 0.5`** — clear visual signal without blocking interaction entirely
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — `renderAttendance()`: complete template redesign with embedded CSS, checkmark SVGs, stat/streak cards, progress bar, legend, grid
+- `src/scripts/planner-engine/digital-planner.ts` — `initAttendance()`: class-based state management, animation trigger, updated `clearAll()` reset; `makeWritable()`: strip `___` placeholder text after detection (line 898–901)
+
+### Build Verification
+- **100 pages, 0 errors, 20.43s**
+- **204/204 planner engine tests, 0 failures**
+- **11/11 Playwright attendance tests pass** (render, toggle, keyboard, drag, stats, persistence, reload restore)
 

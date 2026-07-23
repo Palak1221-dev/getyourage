@@ -1,0 +1,67 @@
+---
+import { products } from "../../data/products";
+
+const popularPlanners = products.slice(0, 6);
+---
+
+<section id="build-your-suite" class="my-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="bg-gradient-to-r from-[#FAF5EE] via-[#FFFDF9] to-[#F5EFE6] rounded-3xl p-6 md:p-10 border border-[#E8DFD0] shadow-sm space-y-8">
+    
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E8DFD0] pb-6">
+      <div class="space-y-2">
+        <span class="text-xs font-bold uppercase tracking-widest text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200 inline-block">
+          📦 Custom System Bundle
+        </span>
+        <h2 class="text-2xl md:text-3xl font-bold font-serif text-stone-900">Build Your 3-Planner Ecosystem & Save 30%</h2>
+        <p class="text-xs md:text-sm text-stone-600 font-medium">Select any 3 productivity systems below to generate your complete custom toolkit.</p>
+      </div>
+
+      <!-- Pricing Summary -->
+      <div class="bg-white p-4 rounded-2xl border border-[#E8DFD0] shadow-2xs flex items-center gap-4 shrink-0">
+        <div>
+          <span class="text-[10px] font-bold text-stone-400 uppercase tracking-wider block">Bundle Special:</span>
+          <div class="flex items-baseline gap-2">
+            <span class="text-2xl font-bold font-heading text-stone-900">$27.00</span>
+            <span class="text-xs text-stone-400 line-through">$38.97</span>
+          </div>
+        </div>
+        <button id="claim-bundle-btn" class="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all">
+          Get 3-System Bundle →
+        </button>
+      </div>
+    </div>
+
+    <!-- Selectable Planners Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {popularPlanners.map((p, idx) => (
+        <div data-bundle-item={p.id} class={`bundle-select-card p-4 rounded-2xl bg-white border border-[#EAE3D8] hover:border-blue-500 shadow-2xs cursor-pointer transition-all flex items-center justify-between ${idx < 3 ? 'border-blue-600 ring-2 ring-blue-500/20 bg-blue-50/20' : ''}`}>
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">{p.icon}</span>
+            <div>
+              <h3 class="text-sm font-bold font-serif text-stone-900">{p.title}</h3>
+              <span class="text-[10px] text-stone-500 font-medium">{p.category.replace('-', ' ')}</span>
+            </div>
+          </div>
+          <div class="w-5 h-5 rounded-full border border-stone-300 flex items-center justify-center text-[10px] font-bold check-circle bg-blue-600 text-white border-blue-600">
+            ✓
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+const bundleCards = document.querySelectorAll('.bundle-select-card');
+
+bundleCards.forEach(card => {
+  card.addEventListener('click', () => {
+    card.classList.toggle('border-blue-600');
+    card.classList.toggle('ring-2');
+    card.classList.toggle('ring-blue-500/20');
+    card.classList.toggle('bg-blue-50/20');
+  });
+});
+</script>

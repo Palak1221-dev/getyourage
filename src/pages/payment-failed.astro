@@ -1,0 +1,61 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Payment Failed — Tooltails Store"
+  description="Your payment could not be completed."
+>
+  <div class="min-h-screen bg-[#FAF9FC] flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-lg mx-auto text-center space-y-8">
+
+      <div class="w-20 h-20 bg-rose-50 border-2 border-rose-200 rounded-full flex items-center justify-center text-4xl mx-auto shadow-lg shadow-rose-100/50">
+        <span class="text-rose-500">✕</span>
+      </div>
+
+      <div class="space-y-3">
+        <h1 class="text-3xl sm:text-4xl font-bold text-stone-900 font-serif tracking-tight">
+          Payment Couldn't Be Completed
+        </h1>
+        <p class="text-sm text-stone-500 font-medium max-w-md mx-auto">
+          Something went wrong while processing your payment. No charges were made.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-stone-200/80 p-6 shadow-xs space-y-3">
+        <div class="flex items-start gap-3">
+          <span class="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <svg class="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-1.964-.833-2.732 0L3.27 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+            </svg>
+          </span>
+          <div class="text-left">
+            <p class="text-sm font-bold text-stone-900">Possible reasons:</p>
+            <ul class="mt-2 space-y-1.5 text-xs text-stone-600 font-medium">
+              <li>• Insufficient funds or card declined</li>
+              <li>• Incorrect payment details</li>
+              <li>• Temporary network issue</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/digital-store/checkout" class="px-8 py-4 rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-sm shadow-lg shadow-purple-600/20 hover:shadow-2xl transition-all flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path d="M4 6h16M4 12h16m-7 6h7"/>
+          </svg>
+          Retry Payment
+        </a>
+        <a href="/digital-store" class="px-8 py-4 rounded-full bg-white hover:bg-stone-50 text-stone-700 border border-stone-200 font-bold text-sm transition-all flex items-center gap-2">
+          Return to Store
+        </a>
+      </div>
+
+      <p class="text-xs text-stone-400 font-medium">
+        Need help? <a href="/contact" class="text-[#7C3AED] font-bold hover:underline">Contact Support</a>
+      </p>
+
+    </div>
+  </div>
+</Layout>

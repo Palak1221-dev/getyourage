@@ -1,0 +1,455 @@
+---
+import type { Product } from "../../data/products";
+import PlannerPreviewStack from "./PlannerPreviewStack.astro";
+
+interface Props {
+  product: Product;
+  features: { icon: string; title: string; description: string }[];
+  faqs: { q: string; a: string }[];
+  heroTagline?: string;
+  storyTitle?: string;
+  storyText?: string;
+}
+
+const { product, features, faqs, heroTagline, storyTitle, storyText } = Astro.props;
+const suffix = product.id;
+
+const storyHeading = storyTitle || `Thoughtfully designed for the way you ${product.category === 'study-exams' ? 'learn' : product.category === 'productivity' ? 'work' : 'grow'}.`;
+const storyDesc = storyText || product.longDescription.split('. ').slice(0, 2).join('. ') + '.';
+
+const sections = [...new Set(product.personalization.map(f => f.section))];
+const sortedFields = [...product.personalization].sort((a, b) => (a.required === b.required ? 0 : a.required ? -1 : 1));
+
+const renderStars = (n: number) =>
+  Array.from({ length: 5 }, (_, i) => (i < Math.round(n) ? "★" : "☆")).join("");
+---
+
+<div class="digital-store-root text-stone-900 bg-stone-50/30">
+  
+  <!-- HERO: Revision Mastery Dashboard & Circular Progress Ring -->
+  <section class="relative bg-gradient-to-b from-blue-900 via-indigo-950 to-slate-900 text-white pt-10 pb-16 md:py-20 overflow-hidden">
+    <!-- Background grid texture -->
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-xs font-semibold text-blue-200/70 mb-8">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        <a href="/digital-store" class="hover:text-white transition-colors">Store</a>
+        <span>/</span>
+        <span class="text-white font-bold">{product.title}</span>
+      </nav>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+        
+        <!-- Left: Product Story & Mastery Metrics -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold">
+            📊 Exam Readiness & Revision Engine
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight font-serif">
+            {product.title}
+          </h1>
+
+          <p class="text-lg sm:text-xl text-blue-200/90 font-medium font-serif italic">
+            "{heroTagline || product.tagline}"
+          </p>
+
+          <p class="text-sm sm:text-base text-stone-300 leading-relaxed max-w-2xl font-medium">
+            Track what you've revised and what still needs attention — before exam day. Features 3-pass revision tracking, subject mastery indicators, and CSV data export.
+          </p>
+
+          <!-- Mastery Metric Ring Preview Bar -->
+          <div class="grid grid-cols-3 gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 max-w-xl">
+            <div class="text-center">
+              <div class="text-2xl font-bold text-amber-400 font-heading">3-Pass</div>
+              <div class="text-[10px] text-stone-300 font-semibold uppercase">Revision System</div>
+            </div>
+            <div class="text-center border-x border-white/10">
+              <div class="text-2xl font-bold text-emerald-400 font-heading">8 Subjects</div>
+              <div class="text-[10px] text-stone-300 font-semibold uppercase">Tracked Parallel</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl font-bold text-blue-400 font-heading">100%</div>
+              <div class="text-[10px] text-stone-300 font-semibold uppercase">Coverage Score</div>
+            </div>
+          </div>
+
+          <!-- Price & CTAs -->
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-bold text-white font-heading">${product.price.toFixed(2)}</span>
+              <span class="text-xs text-blue-300/70 font-semibold uppercase">Instant PDF + CSV</span>
+              {product.originalPrice && (
+                <span class="text-sm text-stone-400 line-through ml-1">${product.originalPrice.toFixed(2)}</span>
+              )}
+            </div>
+            <a href="#customize" class="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-xl shadow-lg shadow-blue-500/30 transition-all active:scale-98">
+              Customize Revision Tracker
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Right: Animated Mastery Ring & Subject Progress Visual -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="w-full max-w-[420px] bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6 shadow-2xl space-y-6 text-white">
+            
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-blue-300">Exam Readiness Score</span>
+              <span class="text-xs font-extrabold text-emerald-400 bg-emerald-500/20 px-2.5 py-0.5 rounded-full border border-emerald-400/30">ON TRACK</span>
+            </div>
+
+            <!-- Ring Gauge -->
+            <div class="flex items-center justify-center relative py-2">
+              <svg class="w-40 h-40 transform -rotate-90" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="8" class="text-white/10" fill="transparent"></circle>
+                <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="8" class="text-blue-500" stroke-dasharray="263.8" stroke-dashoffset="40" stroke-linecap="round" fill="transparent"></circle>
+              </svg>
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                <span class="text-3xl font-bold font-heading">85%</span>
+                <span class="text-[9px] text-stone-300 font-semibold uppercase tracking-wider">Mastery Level</span>
+              </div>
+            </div>
+
+            <!-- Subject Progress Bars -->
+            <div class="space-y-2.5 pt-2 border-t border-white/10">
+              {[
+                { subj: "Biology", pct: 90, color: "bg-emerald-400" },
+                { subj: "Chemistry", pct: 82, color: "bg-blue-400" },
+                { subj: "Physics", pct: 75, color: "bg-amber-400" },
+              ].map(item => (
+                <div class="space-y-1">
+                  <div class="flex justify-between text-[11px] font-semibold text-stone-200">
+                    <span>{item.subj}</span>
+                    <span>{item.pct}%</span>
+                  </div>
+                  <div class="h-2 w-full bg-white/10 rounded-full overflow-hidden">
+                    <div class={`h-full rounded-full ${item.color}`} style={`width: ${item.pct}%`}></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SECTION 2: 3-PASS REVISION METHODOLOGY SHOWCASE -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
+      <span class="text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+        Proven Study Science
+      </span>
+      <h2 class="text-3xl font-bold text-stone-900 font-serif">The 3-Pass Revision Framework</h2>
+      <p class="text-xs text-stone-500 font-medium">
+        Designed around spaced repetition and active recall to build long-term memory before exam day.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <div class="bg-white border border-stone-200 rounded-2xl p-6 shadow-xs hover:shadow-md transition-all space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 font-bold flex items-center justify-center text-lg">
+          1
+        </div>
+        <h3 class="text-lg font-bold font-serif text-stone-900">Pass 1: Concept Mastery</h3>
+        <p class="text-xs text-stone-600 leading-relaxed font-medium">
+          Cover initial textbook chapters and lecture notes. Mark topics as initial coverage complete.
+        </p>
+        <span class="inline-block text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">Initial Learn</span>
+      </div>
+
+      <div class="bg-white border border-stone-200 rounded-2xl p-6 shadow-xs hover:shadow-md transition-all space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 font-bold flex items-center justify-center text-lg">
+          2
+        </div>
+        <h3 class="text-lg font-bold font-serif text-stone-900">Pass 2: Active Recall & Flashcards</h3>
+        <p class="text-xs text-stone-600 leading-relaxed font-medium">
+          Test yourself without looking at notes. Identify weak spots and record practice session logs.
+        </p>
+        <span class="inline-block text-[10px] font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded">Active Test</span>
+      </div>
+
+      <div class="bg-white border border-stone-200 rounded-2xl p-6 shadow-xs hover:shadow-md transition-all space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 font-bold flex items-center justify-center text-lg">
+          3
+        </div>
+        <h3 class="text-lg font-bold font-serif text-stone-900">Pass 3: Past Paper Simulations</h3>
+        <p class="text-xs text-stone-600 leading-relaxed font-medium">
+          Complete timed mock tests. Maximize your score and confirm 100% exam readiness.
+        </p>
+        <span class="inline-block text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">Exam Simulation</span>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- WHAT'S INCLUDED SECTION -->
+  <section id="whats-included" class="bg-white border-y border-stone-200/80 py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="text-center space-y-2">
+        <span class="text-xs font-bold uppercase tracking-widest text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
+          Complete Revision Package
+        </span>
+        <h2 class="text-3xl font-bold text-stone-900 font-serif">What's Included in Your Download</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {product.whatIncluded.map(item => (
+          <div class="flex items-start gap-3 p-3.5 rounded-xl bg-stone-50 border border-stone-200/60">
+            <div class="w-6 h-6 rounded-full bg-blue-50 text-blue-600 font-bold flex items-center justify-center shrink-0 text-xs">
+              ✓
+            </div>
+            <span class="text-xs text-stone-700 font-semibold leading-relaxed">{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CUSTOMIZER & LIVE PREVIEW -->
+  <section id="customize" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
+      <span class="text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+        Personalize Your Tracker
+      </span>
+      <h2 class="text-3xl font-bold text-stone-900 font-serif">Configure Your Exam Tracker Live</h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Form Panel -->
+      <div class="lg:col-span-5 bg-white border border-stone-200 rounded-2xl p-6 shadow-xs">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-stone-100">
+          <span class="text-xs font-bold text-stone-800">Your Exam & Subject Details</span>
+          <span id={`save-status-${suffix}`} class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded transition-all opacity-0">Draft Saved</span>
+        </div>
+
+        <form id={`pf-form-${suffix}`} class="space-y-4">
+          {sections.map(section => (
+            <div>
+              <h4 class="text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-2">{section}</h4>
+              <div class="space-y-3">
+                {sortedFields.filter(f => f.section === section).map(f => (
+                  <div>
+                    <label for={`pf-${f.id}-${suffix}`} class="block text-xs font-bold text-stone-700 mb-1">
+                      {f.label}{f.required ? <span class="text-rose-500 ml-0.5">*</span> : ""}
+                    </label>
+                    {f.type === "select" ? (
+                      <select id={`pf-${f.id}-${suffix}`} data-field={f.id} class="w-full px-3.5 py-2 text-xs bg-stone-50 border border-stone-200 rounded-xl focus:ring-2 focus:ring-blue-500/30 text-stone-800 font-medium">
+                        {f.options?.map(o => <option value={o.value} selected={o.value === f.defaultValue}>{o.label}</option>)}
+                      </select>
+                    ) : f.type === "textarea" ? (
+                      <textarea id={`pf-${f.id}-${suffix}`} data-field={f.id} placeholder={f.placeholder} class="w-full px-3.5 py-2 text-xs bg-stone-50 border border-stone-200 rounded-xl focus:ring-2 focus:ring-blue-500/30 min-h-[70px] text-stone-800 font-medium">{f.defaultValue || ""}</textarea>
+                    ) : (
+                      <input type={f.type} id={`pf-${f.id}-${suffix}`} data-field={f.id} placeholder={f.placeholder} value={f.defaultValue || ""} class="w-full px-3.5 py-2 text-xs bg-stone-50 border border-stone-200 rounded-xl focus:ring-2 focus:ring-blue-500/30 text-stone-800 font-medium" />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </form>
+
+        <div class="flex gap-2.5 mt-6 pt-4 border-t border-stone-100">
+          <button id={`save-draft-btn-${suffix}`} type="button" class="flex-1 py-2 text-xs font-bold text-blue-700 bg-blue-50 rounded-xl border border-blue-200">Save Draft</button>
+          <button id={`restore-draft-btn-${suffix}`} type="button" class="flex-1 py-2 text-xs font-bold text-stone-600 bg-stone-50 rounded-xl border border-stone-200">Restore Draft</button>
+        </div>
+      </div>
+
+      <!-- Preview Container -->
+      <div class="lg:col-span-7 bg-white border border-stone-200 rounded-2xl p-4 shadow-xs">
+        <div class="flex items-center justify-between mb-3 border-b border-stone-100 pb-2">
+          <span class="text-xs font-bold text-stone-800">Live Revision Grid Preview</span>
+          <button id={`download-sample-btn-${suffix}`} class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">Sample PDF</button>
+        </div>
+        <div id={`planner-preview-container-${suffix}`} class="min-h-[500px]"></div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- REVIEWS SECTION -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center mb-10 space-y-2">
+      <span class="text-xs font-bold uppercase tracking-widest text-amber-600">Verified Testimonials</span>
+      <h2 class="text-3xl font-bold text-stone-900 font-serif">What Students Say</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {product.reviews.map(r => (
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs space-y-3">
+          <p class="text-xs text-stone-600 leading-relaxed font-medium italic">"{r.text}"</p>
+          <div class="flex items-center gap-2 pt-2 border-t border-stone-100">
+            <div class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center">{r.initials}</div>
+            <div>
+              <p class="text-xs font-bold text-stone-900">{r.name}</p>
+              <span class="text-[10px] text-amber-500 font-bold">{renderStars(r.rating)}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+
+  <!-- FAQS -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center mb-10 space-y-2">
+      <h2 class="text-3xl font-bold text-stone-900 font-serif">Frequently Asked Questions</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {faqs.map(faq => (
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 space-y-2">
+          <h3 class="text-sm font-bold text-stone-900">{faq.q}</h3>
+          <p class="text-xs text-stone-600 font-medium leading-relaxed">{faq.a}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+
+  <!-- PURCHASE PANEL -->
+  <section class="max-w-3xl mx-auto my-16 px-4">
+    <div class="bg-stone-900 text-white rounded-3xl p-8 text-center space-y-4 shadow-xl">
+      <h2 class="text-3xl font-bold font-serif">Ready to Ace Your Exams?</h2>
+      <div class="text-4xl font-bold">${product.price.toFixed(2)}</div>
+      
+      <div id={`planner-summary-${suffix}`} class="max-w-md mx-auto p-4 bg-white/5 rounded-xl text-left text-xs space-y-2"></div>
+
+      <button
+        id={`pf-purchase-btn-${suffix}`}
+        data-product-id={product.id}
+        data-product-slug={product.slug}
+        data-product-title={product.title}
+        data-product-price={product.price.toFixed(2)}
+        data-product-icon={product.icon}
+        data-what-included={JSON.stringify(product.whatIncluded)}
+        class="w-full sm:w-auto px-8 py-3.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-xl transition-all"
+      >
+        Add Customized Revision Tracker to Cart
+      </button>
+    </div>
+  </section>
+
+  <!-- Checkout Modal & Toast -->
+  <div id={`checkout-modal-${suffix}`} class="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+    <div id={`checkout-overlay-${suffix}`} class="absolute inset-0 bg-black/40 opacity-0 transition-opacity pointer-events-none"></div>
+    <div id={`checkout-content-${suffix}`} class="relative bg-white rounded-2xl p-6 w-full max-w-lg mx-4 opacity-0 scale-95 transition-all pointer-events-none">
+      <button id={`close-checkout-${suffix}`} class="absolute top-4 right-4 text-stone-600 font-bold">✕</button>
+      <h2 class="text-base font-bold text-stone-900 mb-4">{product.title}</h2>
+      <div id={`checkout-summary-${suffix}`} class="bg-stone-50 p-4 rounded-xl mb-4 text-xs"></div>
+      <div id={`checkout-total-${suffix}`} class="text-lg font-bold text-blue-600 mb-4"></div>
+      <div class="space-y-3 mb-4">
+        <input type="email" id={`checkout-email-${suffix}`} class="w-full px-4 py-2.5 text-sm bg-stone-50 border rounded-xl" placeholder="Your email address" required />
+        <select id={`checkout-payment-${suffix}`} class="w-full px-4 py-2.5 text-sm bg-stone-50 border rounded-xl">
+          <option value="">Select payment method...</option>
+          <option value="card">Credit Card</option>
+          <option value="paypal">PayPal</option>
+        </select>
+      </div>
+      <button id={`place-order-btn-${suffix}`} class="w-full py-3 text-sm font-bold text-white bg-blue-600 rounded-xl">Complete Purchase</button>
+    </div>
+  </div>
+
+  <div id={`toast-${suffix}`} class="fixed bottom-6 right-6 z-50 bg-stone-900 text-white text-xs font-bold px-5 py-3 rounded-2xl opacity-0 pointer-events-none transition-all"></div>
+
+</div>
+
+<!-- Client-side state manager and planner engine bindings -->
+<script>
+import { PlannerStateManager } from '../../scripts/planner-engine/index.ts';
+import { plannerConfig } from '../../scripts/planner-config.ts';
+import { getTheme, PlannerPreviewRenderer } from '../../scripts/planner-engine/preview-renderer.ts';
+import { DigitalPlanner } from '../../scripts/planner-engine/digital-planner.ts';
+
+(function() {
+  const buyBtn = document.querySelector('button[data-product-id]') as HTMLButtonElement | null;
+  if (!buyBtn) return;
+
+  const productId = buyBtn.dataset.productId!;
+  const productTitle = buyBtn.dataset.productTitle!;
+  const productPrice = parseFloat(buyBtn.dataset.productPrice!);
+  const productSlug = buyBtn.dataset.productSlug!;
+  const whatIncluded: string[] = JSON.parse(buyBtn.dataset.whatIncluded || '[]');
+  const suffix = productId;
+
+  const form = document.getElementById('pf-form-' + suffix);
+  const fields = form ? form.querySelectorAll('input, select, textarea') : [];
+
+  const config = { productId, productSlug, productTitle, productPrice, icon: buyBtn.dataset.productIcon || '📊', fields: [] as any[], sections: [] as string[] };
+
+  const stateManager = new PlannerStateManager(config as any);
+  let dpInstance: DigitalPlanner | null = null;
+  let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+  function mountDigitalPlanner() {
+    const container = document.getElementById('planner-preview-container-' + suffix);
+    if (!container) return;
+    const values = collectCustomization();
+    const themeKey = values['theme'] || values['color'] || 'blue';
+    const theme = getTheme(themeKey);
+    container.innerHTML = '';
+    const dp = new DigitalPlanner(container, values, theme, productTitle, buyBtn?.dataset.productIcon || '📊', { sidebar: false });
+    dp.mount();
+    dpInstance = dp;
+  }
+
+  function refreshDigitalPlanner() {
+    if (debounceTimer) clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      if (dpInstance) {
+        const values = collectCustomization();
+        const theme = getTheme(values['theme'] || values['color'] || 'blue');
+        dpInstance.setValues(values, theme, productTitle, buyBtn?.dataset.productIcon || '📊');
+      }
+    }, 400);
+  }
+
+  mountDigitalPlanner();
+
+  function collectCustomization() {
+    const data: Record<string, string> = {};
+    fields.forEach((el: any) => {
+      const key = el.id.replace('pf-', '').replace('-' + suffix, '');
+      data[key] = el.value;
+    });
+    return data;
+  }
+
+  function persistConfig() {
+    const data = collectCustomization();
+    plannerConfig.save(productId, data, productTitle);
+    stateManager.setAll(data);
+  }
+
+  fields.forEach((el: any) => {
+    const key = el.id.replace('pf-', '').replace('-' + suffix, '');
+    el.addEventListener('input', () => { stateManager.set(key, el.value); refreshDigitalPlanner(); });
+    el.addEventListener('change', () => { stateManager.set(key, el.value); refreshDigitalPlanner(); });
+  });
+
+  buyBtn.addEventListener('click', () => {
+    persistConfig();
+    try {
+      const existing = JSON.parse(localStorage.getItem('tt_cart') || '[]');
+      existing.push({ id: productId, title: productTitle, slug: productSlug, price: productPrice, quantity: 1 });
+      localStorage.setItem('tt_cart', JSON.stringify(existing));
+    } catch (e) {
+      localStorage.setItem('tt_cart', JSON.stringify([{ id: productId, title: productTitle, slug: productSlug, price: productPrice, quantity: 1 }]));
+    }
+    window.location.href = '/digital-store/checkout';
+  });
+})();
+</script>

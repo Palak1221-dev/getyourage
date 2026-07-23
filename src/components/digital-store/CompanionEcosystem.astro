@@ -1,0 +1,159 @@
+---
+import { products, productFamilies, type Product } from "../../data/products";
+
+interface Props {
+  currentProduct: Product;
+}
+
+const { currentProduct } = Astro.props;
+
+if (!currentProduct) {
+  return;
+}
+
+// Find companion products safely
+const companionIds = currentProduct.companionProductIds || [];
+const companions = companionIds
+  .map(id => products.find(p => p.id === id))
+  .filter((p): p is Product => !!p && p.id !== currentProduct.id)
+  .slice(0, 4);
+
+// Find family
+const family = (currentProduct.familyId && productFamilies.find(f => f.id === currentProduct.familyId)) || productFamilies[0];
+
+// Bundle calculation (current product + top 2 companions)
+const bundleItems = [currentProduct, ...companions.slice(0, 2)].filter((p): p is Product => !!p && !!p.id);
+const bundleTotalPrice = bundleItems.reduce((acc, item) => acc + (item.price || 0), 0);
+const discountedBundlePrice = (bundleTotalPrice * 0.75).toFixed(2);
+---
+
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-stone-200/80">
+  
+  <!-- Section Title -->
+  <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-bold">
+      {family.icon || '⚡'} Part of the {family.title || 'Productivity Ecosystem'}
+    </div>
+    <h2 class="text-3xl font-bold text-stone-900 font-serif">Complete Your Productivity System</h2>
+    <p class="text-xs sm:text-sm text-stone-600 font-medium">
+      Designed to work together seamlessly. Pair <span class="font-bold text-stone-900">{currentProduct.title}</span> with companion tools to build a comprehensive workflow.
+    </p>
+  </div>
+
+  <!-- Frequently Purchased Together Bundle Card -->
+  {bundleItems.length >= 2 && (
+    <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white rounded-3xl p-6 md:p-8 shadow-xl mb-16 relative overflow-hidden">
+      <div class="absolute right-0 top-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left: Bundle Product Tiles -->
+        <div class="lg:col-span-8 space-y-4">
+          <div class="flex items-center gap-2 text-xs font-bold text-amber-300 uppercase tracking-wider">
+            ⚡ Recommended Ecosystem Bundle — Save 25%
+          </div>
+          <h3 class="text-2xl font-bold font-serif text-white">
+            {currentProduct.title} + {bundleItems.slice(1).map(i => i.title).join(' + ')}
+          </h3>
+
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            {bundleItems.map((item, idx) => (
+              <div class="flex items-center gap-2">
+                {idx > 0 && <span class="text-blue-300 font-bold text-lg">+</span>}
+                <div class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-white/10 border border-white/15 backdrop-blur-xs">
+                  <span class="text-xl">{item.icon || '📄'}</span>
+                  <div>
+                    <div class="text-xs font-bold text-white">{item.title}</div>
+                    <div class="text-[10px] text-blue-200">${(item.price || 0).toFixed(2)}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Right: Bundle Buy Action -->
+        <div class="lg:col-span-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 text-center space-y-3">
+          <div class="text-xs text-blue-200 font-semibold uppercase tracking-wider">Bundle Special Price</div>
+          <div class="flex items-baseline justify-center gap-2">
+            <span class="text-3xl font-bold font-heading text-white">${discountedBundlePrice}</span>
+            <span class="text-xs text-stone-300 line-through">${bundleTotalPrice.toFixed(2)}</span>
+          </div>
+          <button
+            class="bundle-add-btn w-full py-3 px-4 text-xs font-bold text-stone-900 bg-amber-400 hover:bg-amber-300 rounded-xl transition-all shadow-lg cursor-pointer"
+            data-bundle-items={JSON.stringify(bundleItems.map(i => ({ id: i.id, title: i.title, slug: i.slug, price: i.price, icon: i.icon })))}
+          >
+            🛒 Add Ecosystem Bundle to Cart
+          </button>
+          <div class="text-[10px] text-blue-200 font-medium">Instant PDF & DOCX downloads for all {bundleItems.length} systems</div>
+        </div>
+
+      </div>
+    </div>
+  )}
+
+  <!-- Companion Planners Grid -->
+  {companions.length > 0 && (
+    <div class="space-y-6">
+      <div class="flex items-center justify-between">
+        <h3 class="text-xl font-bold text-stone-900 font-serif">Companion Planners in This Ecosystem</h3>
+        <a href="/digital-store" class="text-xs font-bold text-blue-600 hover:text-blue-700">View All Systems →</a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {companions.map(companion => (
+          <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between space-y-4 group">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 font-bold flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition-transform">
+                  {companion.icon || '📄'}
+                </span>
+                <span class="text-xs font-bold text-stone-900">${(companion.price || 0).toFixed(2)}</span>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-stone-900 font-serif group-hover:text-blue-600 transition-colors">
+                  {companion.title}
+                </h4>
+                <p class="text-[11px] text-stone-500 font-medium line-clamp-2 mt-1">
+                  {companion.tagline}
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-stone-100 flex items-center justify-between">
+              <a href={`/digital-store/${companion.slug}`} class="text-xs font-bold text-blue-600 hover:underline">
+                Explore Product →
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+</section>
+
+<script>
+document.querySelectorAll('.bundle-add-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const raw = btn.getAttribute('data-bundle-items');
+    if (!raw) return;
+    try {
+      const items = JSON.parse(raw);
+      const cart = JSON.parse(localStorage.getItem('tt_cart') || '[]');
+      items.forEach((item: any) => {
+        cart.push({
+          id: item.id,
+          title: item.title,
+          slug: item.slug,
+          price: item.price,
+          icon: item.icon,
+          quantity: 1
+        });
+      });
+      localStorage.setItem('tt_cart', JSON.stringify(cart));
+      window.location.href = '/digital-store/checkout';
+    } catch (e) {}
+  });
+});
+</script>

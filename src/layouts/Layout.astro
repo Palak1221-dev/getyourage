@@ -8,13 +8,17 @@ interface Props {
 	description?: string;
 	image?: string;
 	robots?: string;
+	hideHeader?: boolean;
+	hideFooter?: boolean;
 }
 
 const { 
 	title = "Age Calculator - Tooltails.com", 
 	description = "Calculate your exact age in years, months, days, and more. Free, fast, and modern age calculator.",
 	image = "/og-image.png",
-	robots = "index, follow"
+	robots = "index, follow",
+	hideHeader = false,
+	hideFooter = false
 } = Astro.props;
 ---
 
@@ -63,9 +67,14 @@ const {
 		<meta name="robots" content={robots} />
 		
 		<!-- Preconnect for third-party origins -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link rel="preconnect" href="https://www.googletagmanager.com" />
 		<link rel="preconnect" href="https://www.clarity.ms" />
 		<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+		
+		<!-- Storefront & Editorial Fonts -->
+		<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 		
 		<!-- Preload critical fonts -->
 		<link rel="preload" as="font" href="https://cdn.jsdelivr.net/font-geist/1.0.0/Geist-Variable.woff2" type="font/woff2" crossorigin="anonymous" />
@@ -141,12 +150,12 @@ const {
 		<!-- Mesh Gradient Background -->
 		<div class="mesh-gradient absolute top-0 left-0 w-full h-[600px] -z-10 pointer-events-none"></div>
 		
-		<Header />
+		{!hideHeader && <Header />}
 		
 		<main id="main-content" class="flex-grow">
 			<slot />
 		</main>
 
-		<Footer />
+		{!hideFooter && <Footer />}
 	</body>
 </html>

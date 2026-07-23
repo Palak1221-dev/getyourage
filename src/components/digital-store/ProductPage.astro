@@ -1,0 +1,573 @@
+---
+import type { Product } from "../../data/products";
+import PlannerPreviewStack from './PlannerPreviewStack.astro';
+
+interface Props {
+  product: Product;
+  mockupIndex?: number;
+  features: { icon: string; title: string; description: string; }[];
+  faqs: { q: string; a: string; }[];
+  heroTagline?: string;
+  storyTitle?: string;
+  storyText?: string;
+}
+
+const { product, features, faqs, heroTagline, storyTitle, storyText, mockupIndex = 0 } = Astro.props;
+
+const sections = [...new Set(product.personalization.map(f => f.section))];
+const sortedFields = [...product.personalization].sort((a, b) => (a.required === b.required ? 0 : a.required ? -1 : 1));
+const suffix = product.id;
+const storyHeading = storyTitle || `Thoughtfully designed for the way you work.`;
+const storyDesc = storyText || product.longDescription.split('. ').slice(0, 2).join('. ') + '.';
+
+const catLabelMap: Record<string, { label: string; icon: string }> = {
+  academic: { label: 'Academic System', icon: '📖' },
+  productivity: { label: 'Productivity System', icon: '⚡' },
+  wellness: { label: 'Wellness System', icon: '🌿' },
+  goals: { label: 'Goal System', icon: '🎯' },
+};
+const catInfo = catLabelMap[product.category] || { label: 'System', icon: '⚡' };
+
+const categoryPreviewCards: Record<string, { icon: string; title: string; desc: string }[]> = {
+  academic: [
+    { icon: '📔', title: 'Personalized Academic Cover', desc: 'Features your name, semester term, and subjects printed in crisp vector typography.' },
+    { icon: '📊', title: '12-Week Semester Overview', desc: 'A bird\'s-eye view of your entire term with exam dates and key deadlines.' },
+    { icon: '⏱️', title: '3-Pass Revision Tracker', desc: 'Monitor topic coverage across 3 revision passes with mastery scores.' },
+    { icon: '📍', title: 'Exam Countdown Dashboard', desc: 'Persistent countdown wall with weak-topic matrix for focused preparation.' }
+  ],
+  productivity: [
+    { icon: '⚡', title: 'Personalized Productivity Cover', desc: 'Custom compiled around your name, peak focus hours, and weekly priorities.' },
+    { icon: '⏰', title: 'Hourly Time-Blocking Grid', desc: 'Color-coded 6 AM — 11 PM slots aligned with your circadian energy peaks.' },
+    { icon: '🎯', title: 'Eisenhower Priority Matrix', desc: 'Filter daily tasks into Must-Do, Delegate, Schedule, and Eliminate.' },
+    { icon: '📈', title: 'Deep Work Session Tracker', desc: 'Log focus sessions, track output velocity, and review weekly wins.' }
+  ],
+  wellness: [
+    { icon: '🌿', title: 'Personalized Wellness Cover', desc: 'Your name, habit targets, and daily intention set in a calming design.' },
+    { icon: '🌅', title: 'Habit Streak Grid', desc: 'Track up to 6 daily habits with a month-long visual streak grid.' },
+    { icon: '🌙', title: 'Mood & Energy Logger', desc: 'Log daily mood and energy levels to identify patterns over time.' },
+    { icon: '📋', title: 'Evening Gratitude & Reflection', desc: 'End each day with 3 gratitudes, key lessons, and sleep quality notes.' }
+  ],
+  goals: [
+    { icon: '🎯', title: 'Personalized Goal Cover', desc: 'Custom cover featuring your name, primary goal, and target milestones.' },
+    { icon: '🚀', title: 'Life Vision Board', desc: 'Design your ideal future across Health, Wealth, Career, Relationships, and Growth.' },
+    { icon: '📊', title: '90-Day Sprint Planner', desc: 'Break annual goals into quarterly execution sprints with weekly action steps.' },
+    { icon: '💰', title: 'Budget & Career Roadmap', desc: 'Track your 50/30/20 budget, savings goals, and career skill acquisition.' }
+  ]
+};
+
+const previewCards = categoryPreviewCards[product.category] || categoryPreviewCards['academic'];
+
+const renderStars = (n: number) =>
+  Array.from({ length: 5 }, (_, i) =>
+    i < Math.round(n) ? '★' : '☆'
+  ).join('');
+---
+<div class="digital-store-root text-stone-900 bg-[#FCFAF7] min-h-screen">
+<section class="bg-gradient-to-b from-[#FCFBF8] via-[#FAF9F5] to-[#F5F3EF] border-b border-[#EAE6E0] pb-14 pt-2">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs font-semibold text-stone-500 py-6 border-b border-stone-200/60 mb-8">
+      <a href="/" class="hover:text-[#7C3AED] transition-colors">Home</a>
+      <span class="text-stone-300">/</span>
+      <a href="/digital-store" class="hover:text-[#7C3AED] transition-colors">Store</a>
+      <span class="text-stone-300">/</span>
+      <span class="text-stone-900 font-bold">{product.title}</span>
+    </nav>
+
+    <!-- Product Landing Hero -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center mb-12">
+      
+      <!-- Hero Left Column -->
+      <div class="lg:col-span-7 space-y-7">
+        
+        <!-- Soft Pill Badges -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#EEF2FF] text-[#7C3AED] border border-purple-200/80 shadow-2xs">
+            {catInfo.icon} {catInfo.label}
+          </span>
+          {product.badge && (
+            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-[#7C3AED] text-white shadow-xs">
+              ✨ {product.badge}
+            </span>
+          )}
+          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs">
+            🤖 AI Personalized
+          </span>
+          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-stone-100 text-stone-700 border border-stone-200/80 shadow-2xs">
+            📥 Instant Download
+          </span>
+        </div>
+
+        <!-- Title & Subtitle -->
+        <div class="space-y-3">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-stone-900 leading-[1.08] font-serif">
+            {product.title}
+          </h1>
+
+          <p class="text-lg sm:text-xl text-stone-600 leading-relaxed font-medium font-serif italic">
+            "{heroTagline || product.tagline}"
+          </p>
+        </div>
+
+        <p class="text-sm sm:text-base text-stone-600 leading-relaxed font-normal max-w-2xl">
+          {product.description}
+        </p>
+
+        <!-- Pricing & Ratings -->
+        <div class="flex items-center flex-wrap gap-x-6 gap-y-3 pt-1">
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-bold text-stone-900 font-heading">${product.price.toFixed(2)}</span>
+            <span class="text-xs text-stone-400 font-semibold uppercase tracking-wider">One-Time Download</span>
+            {product.originalPrice && (
+              <span class="text-sm text-stone-400 line-through font-medium ml-1">${product.originalPrice.toFixed(2)}</span>
+            )}
+          </div>
+          <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white border border-stone-200/80 shadow-2xs">
+            <span class="text-[#7C3AED] text-sm font-bold">{renderStars(product.rating)}</span>
+            <span class="text-xs text-stone-700 font-bold">{product.rating}</span>
+            <span class="text-xs text-stone-400 font-normal">({product.reviewCount} reviews)</span>
+          </div>
+        </div>
+
+        <!-- Action CTAs (Matching Homepage Exact Styling) -->
+        <div class="flex flex-wrap items-center gap-4 pt-2">
+          <a href="#customize" class="px-8 py-4 rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-sm shadow-lg shadow-purple-600/20 hover:shadow-2xl hover:shadow-purple-600/30 hover:-translate-y-0.5 transition-all active:translate-y-0 flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <span>Customize Yours Live</span>
+            <span class="text-base">&rarr;</span>
+          </a>
+          <a href="#whats-included" class="px-8 py-4 rounded-full bg-white/90 backdrop-blur-xs hover:bg-stone-50 text-[#7C3AED] border border-purple-200/80 font-bold text-sm shadow-2xs hover:-translate-y-0.5 transition-all flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>What's Included</span>
+          </a>
+        </div>
+
+        <!-- Guarantee Pills -->
+        <div class="flex flex-wrap items-center gap-6 pt-4 border-t border-stone-200/60 text-xs text-stone-600 font-medium">
+          <span class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">&#10003;</span> Vector Print-Ready PDF</span>
+          <span class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">&#10003;</span> Editable Word DOCX</span>
+          <span class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">&#10003;</span> iPad & GoodNotes Ready</span>
+        </div>
+
+      </div>
+
+      <!-- Hero Right Column: Layered Stationery Mockup -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="w-full max-w-[440px]">
+          <PlannerPreviewStack category={product.category} icon={product.icon} title={product.title} />
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- SEE EVERY PAGE SHOWCASE -->
+    <div id="example-pages" class="scroll-mt-20 my-20">
+      <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-[#EEF2FF] text-[#7C3AED] border border-purple-200/80 shadow-2xs uppercase tracking-wider">
+          ✨ Interactive Layouts
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-stone-900 font-serif">See Every Page in Your Download</h2>
+        <p class="text-xs text-stone-500 font-medium">
+          Every page is dynamically generated and compiled around your name, schedule, and targets.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {previewCards.map((c, idx) => (
+          <div class="bg-white border border-[#EAE6E0] rounded-2xl p-5 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between h-[270px]">
+            <div class="space-y-2">
+              <span class="text-2xl">{c.icon}</span>
+              <h3 class="text-sm font-bold text-stone-900 font-serif">{c.title}</h3>
+              <p class="text-xs text-stone-600 leading-relaxed font-medium">{c.desc}</p>
+            </div>
+            <div class="pt-3 border-t border-[#EAE6E0] flex items-center justify-between text-[10px] text-[#7C3AED] font-bold">
+              <span>Layout Spread 0{idx + 1}</span>
+              <span>✓ AI Compiled</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+
+    <!-- PHILOSOPHY / STORY SECTION -->
+    <div class="max-w-3xl mx-auto text-center my-20 space-y-4">
+      <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-[#EEF2FF] text-[#7C3AED] border border-purple-200/80 shadow-2xs uppercase tracking-wider">
+        💡 The Philosophy
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-stone-900 font-serif">
+        {storyHeading}
+      </h2>
+      <p class="text-sm text-stone-600 leading-relaxed font-medium">
+        {storyDesc}
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHAT'S INCLUDED SECTION -->
+<section id="whats-included" class="scroll-mt-20 py-20 bg-[#FCFAF7] border-b border-[#EAE6E0]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    
+    <div class="text-center max-w-2xl mx-auto space-y-3">
+      <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-[#EEF2FF] text-[#7C3AED] border border-purple-200/80 shadow-2xs uppercase tracking-wider">
+        📦 Package Details
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-stone-900 font-serif">What's Included in Your Custom Download</h2>
+      <p class="text-xs text-stone-500 font-medium">
+        Engineered with precision for printing, tablet annotation, or digital editing.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {features.map(f => (
+        <div class="p-6 rounded-2xl bg-white border border-[#EAE6E0] shadow-xs space-y-3 flex flex-col justify-between">
+          <div class="space-y-3">
+            <span class="text-3xl">{f.icon}</span>
+            <h3 class="text-base font-bold text-stone-900 font-serif">{f.title}</h3>
+            <p class="text-xs text-stone-600 leading-relaxed font-medium">{f.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<!-- CUSTOMIZATION FORM & LIVE PREVIEW BUILDER -->
+<section id="customize" class="scroll-mt-20 py-20 bg-[#FCFAF7]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Editorial Section Header -->
+    <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">
+      <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-[#EEF2FF] text-[#7C3AED] border border-purple-200/80 shadow-2xs uppercase tracking-widest">
+        ⚙️ PERSONALIZATION ENGINE
+      </span>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 font-serif tracking-tight leading-tight">
+        Personalize Your {product.title}
+      </h2>
+      <p class="text-sm text-stone-600 font-normal max-w-xl mx-auto leading-relaxed">
+        Your planner updates live as you customize every detail.
+      </p>
+    </div>
+
+    <!-- Compact Form Sidebar (42% width) & Hero Live Preview Showcase (58% width) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+      
+      <!-- Left Compact Configuration Form Sidebar (5 cols / 41.7% width) -->
+      <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 border border-[#EAE6E0] shadow-sm space-y-6">
+        
+        {sections.map(sec => (
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold text-stone-800 uppercase tracking-widest border-b border-[#EAE6E0] pb-2 font-sans flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#7C3AED]"></span>
+              {sec}
+            </h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              {sortedFields.filter(f => f.section === sec).map(f => (
+                <div class="space-y-1">
+                  <label for={`pf-${f.id}-${suffix}`} class="block text-[11px] font-bold text-stone-800">
+                    {f.label} {f.required && <span class="text-rose-500">*</span>}
+                  </label>
+                  {f.type === 'text' && (
+                    <input
+                      type="text"
+                      id={`pf-${f.id}-${suffix}`}
+                      data-field-id={f.id}
+                      placeholder={f.placeholder}
+                      value={f.defaultValue || ''}
+                      class="w-full px-3.5 py-2.5 text-xs bg-[#FCFAF7] border border-[#EAE6E0] rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/30 focus:border-[#7C3AED] focus:bg-white transition-all text-stone-900 shadow-2xs"
+                    />
+                  )}
+                  {f.type === 'select' && (
+                    <select
+                      id={`pf-${f.id}-${suffix}`}
+                      data-field-id={f.id}
+                      class="w-full px-3.5 py-2.5 text-xs bg-[#FCFAF7] border border-[#EAE6E0] rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/30 focus:border-[#7C3AED] focus:bg-white transition-all text-stone-900 shadow-2xs"
+                    >
+                      {f.options?.map(opt => (
+                        <option value={opt.value} selected={opt.value === f.defaultValue}>{opt.label}</option>
+                      ))}
+                    </select>
+                  )}
+                  {f.type === 'textarea' && (
+                    <textarea
+                      id={`pf-${f.id}-${suffix}`}
+                      data-field-id={f.id}
+                      placeholder={f.placeholder}
+                      rows={2}
+                      class="w-full px-3.5 py-2.5 text-xs bg-[#FCFAF7] border border-[#EAE6E0] rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/30 focus:border-[#7C3AED] focus:bg-white transition-all text-stone-900 resize-none shadow-2xs"
+                    ></textarea>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        <!-- Direct Purchase Button -->
+        <div class="pt-4 border-t border-[#EAE6E0] space-y-2.5">
+          <button
+            id={`pf-purchase-btn-${suffix}`}
+            data-product-id={product.id}
+            data-product-slug={product.slug}
+            data-product-title={product.title}
+            data-product-price={product.price.toFixed(2)}
+            data-product-icon={product.icon}
+            data-what-included={JSON.stringify(product.whatIncluded)}
+            class="w-full py-3.5 px-6 text-sm font-bold text-white bg-[#7C3AED] hover:bg-[#6D28D9] rounded-full shadow-lg shadow-purple-600/20 hover:shadow-2xl hover:shadow-purple-600/30 hover:-translate-y-0.5 transition-all active:translate-y-0 flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <span>🛒</span> Download Custom {product.title} &mdash; ${product.price.toFixed(2)}
+          </button>
+          <div class="flex items-center justify-between text-xs text-stone-500 font-medium px-1">
+            <span>📥 Instant PDF + DOCX access</span>
+            <span>⚡ Lifetime access & free updates</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Large Immersive Live Preview Showcase (7 cols / 58.3% width) -->
+      <div class="lg:col-span-7 bg-white rounded-3xl p-5 sm:p-6 border border-[#EAE6E0] shadow-sm space-y-3.5">
+        <div class="flex items-center justify-between text-xs text-stone-800 font-bold border-b border-[#EAE6E0] pb-3">
+          <span class="flex items-center gap-2 font-serif text-sm">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#7C3AED] animate-pulse"></span>
+            Live Interactive Preview
+          </span>
+          <span class="text-[#7C3AED] bg-purple-50 px-3 py-1 rounded-full border border-purple-100 font-semibold text-[11px] flex items-center gap-1">
+            ✨ Live Renderer
+          </span>
+        </div>
+        
+        <div id={`digital-planner-preview-container-${suffix}`} class="bg-[#FCFAF7] rounded-2xl text-stone-900 h-[680px] lg:h-[760px] flex flex-col items-center justify-center shadow-inner overflow-hidden border border-[#EAE6E0]">
+          <div class="text-center space-y-2 p-6">
+            <span class="text-3xl animate-bounce inline-block">{product.icon}</span>
+            <p class="text-xs font-bold text-stone-700 font-serif">Compiling Live Canvas...</p>
+            <p class="text-[10px] text-stone-400">Your custom entries update cover text and layout blocks live.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ ACCORDION SECTION -->
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-[#EAE6E0]">
+  <div class="text-center mb-12 space-y-3">
+    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-[#EEF2FF] text-[#7C3AED] border border-purple-200/80 shadow-2xs uppercase tracking-wider">
+      ❓ Got Questions?
+    </span>
+    <h2 class="text-3xl font-bold text-stone-900 font-serif">Frequently Asked Questions</h2>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {faqs.map(faq => (
+      <div data-faq class="bg-white border border-stone-200/80 rounded-2xl p-6 shadow-xs space-y-2">
+        <h3 class="text-sm font-bold text-stone-900">{faq.q}</h3>
+        <p class="text-xs text-stone-600 font-medium leading-relaxed">{faq.a}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+</div>
+
+<script>
+import { DigitalPlanner } from "../../scripts/planner-engine/digital-planner";
+
+function initPlannerPreview() {
+  const buyBtn = document.querySelector('button[data-product-id]') as HTMLButtonElement | null;
+  if (!buyBtn) return;
+
+  const productId = buyBtn.dataset.productId || '';
+  const productTitle = buyBtn.dataset.productTitle || 'Personalized Planner';
+  const productIcon = buyBtn.dataset.productIcon || '📅';
+  const suffix = productId;
+  const container = document.getElementById(`digital-planner-preview-container-${suffix}`);
+
+  if (container && !(container as any).__dp_mounted) {
+    (container as any).__dp_mounted = true;
+    try {
+      const inputs = document.querySelectorAll(`input[id^="pf-"], select[id^="pf-"]`);
+      const getValues = (): Record<string, string> => {
+        const values: Record<string, string> = {};
+        inputs.forEach(inp => {
+          const el = inp as HTMLInputElement | HTMLSelectElement;
+          const fid = el.dataset.fieldId;
+          if (fid) values[fid] = el.value;
+        });
+        return values;
+      };
+
+      const getTheme = (): string => {
+        const colorEl = document.querySelector(`select[id^="pf-accentColor-"]`) as HTMLSelectElement | null;
+        return colorEl ? colorEl.value : 'violet';
+      };
+
+      const dp = new DigitalPlanner(container, getValues(), getTheme(), productTitle, productIcon, { sidebar: false });
+      dp.mount();
+
+      const updateLive = () => {
+        dp.setValues(getValues(), getTheme(), productTitle, productIcon);
+      };
+
+      inputs.forEach(inp => {
+        inp.addEventListener('input', updateLive);
+        inp.addEventListener('change', updateLive);
+      });
+    } catch (e) {
+      console.warn('Live preview initialized error:', e);
+    }
+  }
+
+  buyBtn.addEventListener('click', () => {
+    const pid = buyBtn.dataset.productId;
+    const pslug = buyBtn.dataset.productSlug;
+    const ptitle = buyBtn.dataset.productTitle;
+    const pprice = Number(buyBtn.dataset.productPrice);
+    const picon = buyBtn.dataset.productIcon;
+
+    try {
+      const existing = JSON.parse(localStorage.getItem('tt_cart') || '[]');
+      existing.push({ id: pid, title: ptitle, slug: pslug, price: pprice, icon: picon, quantity: 1 });
+      localStorage.setItem('tt_cart', JSON.stringify(existing));
+    } catch (e) {
+      localStorage.setItem('tt_cart', JSON.stringify([{ id: pid, title: ptitle, slug: pslug, price: pprice, icon: picon, quantity: 1 }]));
+    }
+
+    window.location.href = '/digital-store/checkout';
+  });
+}
+
+if (document.readyState !== 'loading') {
+  initPlannerPreview();
+} else {
+  document.addEventListener('DOMContentLoaded', initPlannerPreview);
+}
+document.addEventListener('astro:page-load', initPlannerPreview);
+</script>
+
+<style is:global>
+  /* Live Preview PDF Viewer Layout & Sizing Fixes */
+  [id^="digital-planner-preview-container"] {
+    width: 100% !important;
+    height: 760px !important;
+    border-radius: 1rem !important;
+    overflow: hidden !important;
+    position: relative !important;
+    background: #FCFAF7 !important;
+    border: 1px solid #EAE6E0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  @media (max-width: 1024px) {
+    [id^="digital-planner-preview-container"] {
+      height: 640px !important;
+    }
+  }
+
+  [id^="digital-planner-preview-container"] .digital-planner-root {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background: #FAF7F2 !important;
+    border-radius: 1rem !important;
+    overflow: hidden !important;
+  }
+
+  /* Toolbar PDF Viewer Styling */
+  [id^="digital-planner-preview-container"] .dp-toolbar {
+    background: #FFFFFF !important;
+    border-bottom: 1px solid #EAE6E0 !important;
+    padding: 8px 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02) !important;
+  }
+
+  [id^="digital-planner-preview-container"] .dp-toolbar-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+
+  [id^="digital-planner-preview-container"] .dp-nav-select {
+    background: #FCFAF7 !important;
+    border: 1px solid #EAE6E0 !important;
+    border-radius: 6px !important;
+    padding: 3px 6px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: #171717 !important;
+  }
+
+  [id^="digital-planner-preview-container"] .dp-zoom-btn.active {
+    background: #7C3AED !important;
+    color: #FFFFFF !important;
+    border-color: #7C3AED !important;
+    border-radius: 6px !important;
+  }
+
+  [id^="digital-planner-preview-container"] .dp-export-btn {
+    background: #7C3AED !important;
+    border-color: #7C3AED !important;
+    border-radius: 6px !important;
+    padding: 4px 10px !important;
+    font-size: 11px !important;
+  }
+
+  /* Main Area & Scroll Container */
+  [id^="digital-planner-preview-container"] .digital-planner-body {
+    flex: 1 !important;
+    display: flex !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    background: #FAF7F2 !important;
+  }
+
+  [id^="digital-planner-preview-container"] .digital-planner-main {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  [id^="digital-planner-preview-container"] .digital-planner-scroll {
+    flex: 1 !important;
+    overflow: auto !important;
+    padding: 10px 4px 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+  }
+
+  /* Active Page Centering & Fit Container */
+  [id^="digital-planner-preview-container"] .digital-planner-page {
+    margin: 0 auto !important;
+    box-shadow: 0 12px 32px -8px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.03) !important;
+    border-radius: 10px !important;
+    background: #FFFFFF !important;
+    overflow: hidden !important;
+    transition: transform 0.2s ease, opacity 0.2s ease !important;
+  }
+
+  [id^="digital-planner-preview-container"] .digital-planner-page.active {
+    display: block !important;
+  }
+</style>

@@ -1,0 +1,147 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ProductPage from "../../components/digital-store/ProductPage.astro";
+
+import { products } from "../../data/products";
+
+const aliasMap: Record<string, string> = {
+  'study-planner': 'study-planner-pro',
+  'revision-tracker': 'study-planner-pro',
+  'resume-optimizer-kit': 'goal-roadmap',
+  'habit-tracker': 'wellness-journal',
+  'budget-planner': 'goal-roadmap',
+};
+
+export function getStaticPaths() {
+  const mainPaths = products.map(product => ({
+    params: { slug: product.slug },
+    props: { product }
+  }));
+
+  const aliasPaths = Object.entries(aliasMap).map(([alias, targetSlug]) => {
+    const targetProduct = products.find(p => p.slug === targetSlug) || products[0];
+    return {
+      params: { slug: alias },
+      props: { product: { ...targetProduct, slug: alias } }
+    };
+  });
+
+  return [...mainPaths, ...aliasPaths];
+}
+
+const slug = Astro.params.slug || '';
+const resolvedSlug = aliasMap[slug] || slug;
+const resolvedProduct = products.find(p => p.slug === resolvedSlug);
+const product = Astro.props.product || (resolvedProduct ? { ...resolvedProduct, slug } : products[0]);
+
+const slugExtraData: Record<string, {
+  features: { icon: string; title: string; description: string }[];
+  faqs: { q: string; a: string }[];
+  storyTitle: string;
+  storyText: string;
+}> = {
+  "study-planner-pro": {
+    features: [
+      { icon: '📅', title: 'Smart Semester Overview', description: 'Map out your entire term in minutes. The 12-week overview spread shows every subject, exam, and deadline at a glance.' },
+      { icon: '🎯', title: '3-Pass Revision Tracker', description: 'Track 3 passes per topic across 8 subjects with mastery scoring and weak-topic identification.' },
+      { icon: '⏱️', title: 'Exam Countdown Dashboard', description: 'A dedicated countdown tracker keeps every exam date front and center with weak-topic matrix.' },
+      { icon: '✏️', title: 'Assignment Breakdown Engine', description: 'Milestone checklists with due dates, priority levels, and completion tracking.' },
+      { icon: '📊', title: 'Study Analytics Dashboard', description: 'Hours logged, readiness score, subject velocity — all calculated automatically.' },
+      { icon: '🖨️', title: 'Printable in A4 & US Letter', description: 'Download your personalized planner as a high-quality PDF in both A4 and US Letter formats.' }
+    ],
+    faqs: [
+      { q: 'How is this different from a generic planner template?', a: 'Generic planners give you the same layout as everyone else. Study Planner Pro embeds your name, subjects, exam dates, and personal goals into every page.' },
+      { q: 'Can I add my own subjects after the planner is generated?', a: 'Yes. Simply regenerate your planner with updated subjects — your purchase includes 30 days of free regeneration.' },
+      { q: 'What modules are included?', a: 'Semester overview, 12 weekly planner spreads, 3-pass revision tracker, assignment planner, lecture notes, exam countdown, study log, and analytics dashboard.' }
+    ],
+    storyTitle: 'A complete academic operating system that adapts to your courses.',
+    storyText: 'Enter your subjects and exam dates once. Study Planner Pro generates a fully compiled semester system with weekly spreads, revision tracking, assignment planning, and exam countdown — all connected.'
+  },
+  "master-your-day": {
+    features: [
+      { icon: '⚡', title: 'Weekly Planning Spread', description: 'Set intentional weekly priorities using the Eisenhower matrix and top-3 focus method.' },
+      { icon: '⏰', title: 'Hourly Time-Blocking Grid', description: 'Color-coded 6 AM — 11 PM grid aligned to your natural energy peaks.' },
+      { icon: '🧠', title: 'Deep Work Session Tracker', description: 'Log flow state sessions with duration, focus score, and distraction tracking.' },
+      { icon: '🗑️', title: 'Brain Dump Clearing Pages', description: 'Structured pages to offload mental clutter and process into actionable tasks.' },
+      { icon: '📈', title: 'Daily Output Velocity Scorecard', description: 'Track completed blocks, tasks done, and productivity trends over time.' },
+      { icon: '🔄', title: 'Time Audit Worksheet', description: 'Find wasted hours and rebalance your weekly schedule for maximum output.' }
+    ],
+    faqs: [
+      { q: 'How does time-blocking improve productivity?', a: 'Assigning a single task to each block eliminates decision fatigue and context switching — your brain stays in one mode.' },
+      { q: 'What modules are included?', a: 'Weekly planning, daily time-blocking grid, deep work tracker, brain dump, priority matrix, time audit, velocity scorecard, and weekly reflection.' }
+    ],
+    storyTitle: 'Your complete daily execution system.',
+    storyText: 'Eliminate calendar chaos with structured time blocks, deep work sessions, and output tracking. Plan your week, execute daily, and review your velocity.'
+  },
+  "wellness-journal": {
+    features: [
+      { icon: '🌿', title: 'Habit Streak Grid', description: 'Track up to 6 daily habits with a month-long visual streak grid and consistency scoring.' },
+      { icon: '📊', title: 'Mood & Energy Logger', description: 'Log daily mood and energy levels to identify patterns over weeks and months.' },
+      { icon: '🌅', title: 'Morning Intention Pages', description: 'Set daily intentions, hydration goals, and movement targets every morning.' },
+      { icon: '🌙', title: 'Evening Gratitude & Reflection', description: 'End each day with 3 gratitudes, a key lesson, and sleep quality tracking.' },
+      { icon: '🧘', title: 'Self-Care Routine Planner', description: 'Plan and track weekly self-care activities with checklists and rotation prompts.' },
+      { icon: '📋', title: 'Monthly Wellness Review', description: 'Review mood trends, habit consistency, and energy patterns month-over-month.' }
+    ],
+    faqs: [
+      { q: 'How much time does daily logging take?', a: 'Only 5 minutes in the morning and 5 minutes before sleep — designed to be sustainable, not overwhelming.' },
+      { q: 'What modules are included?', a: 'Habit tracker with streak grid, mood & energy logger, morning intention pages, evening gratitude, self-care planner, and monthly wellness review.' }
+    ],
+    storyTitle: 'Build sustainable wellness habits, one day at a time.',
+    storyText: 'Track habits, log mood, practice gratitude, and plan self-care — all in one beautifully designed journal. The monthly review reveals patterns you never noticed.'
+  },
+  "goal-roadmap": {
+    features: [
+      { icon: '🎯', title: 'SMART Goal Worksheet', description: 'Deconstruct long-term dreams into specific, measurable, achievable, relevant, time-bound goals.' },
+      { icon: '🚀', title: '90-Day Execution Sprint', description: '13-week sprint planner with weekly action steps, milestone markers, and review points.' },
+      { icon: '🧭', title: 'Life Vision Board', description: 'Design your ideal future across Health, Wealth, Career, Relationships, Growth, and Joy.' },
+      { icon: '💼', title: 'Career Roadmap', description: 'Map your career trajectory with skill acquisition trackers and role transition plans.' },
+      { icon: '💰', title: '50/30/20 Budget Worksheet', description: 'Allocate income into Needs, Wants, and Savings with expense tracking and savings goals.' },
+      { icon: '📋', title: 'Quarterly Review Pages', description: 'Audit progress, adjust strategy, and set new objectives every 90 days.' }
+    ],
+    faqs: [
+      { q: 'Why 90-day sprints?', a: '90 days is long enough to achieve substantial goals but short enough to maintain daily urgency and focus.' },
+      { q: 'What modules are included?', a: 'Life vision board, SMART goal worksheet, 90-day sprint planner, career roadmap, 50/30/20 budget, savings tracker, and quarterly review pages.' }
+    ],
+    storyTitle: 'Design your ideal life and execute it in 90-day sprints.',
+    storyText: 'Set your vision, break it into 90-day execution sprints, track career and financial progress, and review quarterly. Everything connects to move you forward.'
+  }
+};
+
+const extra = slugExtraData[product.slug] || {
+  features: [],
+  faqs: [{ q: 'What is included in the download?', a: 'Includes vector PDF (A4 + US Letter) and editable Word DOCX files.' }],
+  storyTitle: `Master your goals with ${product.title}.`,
+  storyText: product.longDescription.split('. ').slice(0, 2).join('. ') + '.'
+};
+---
+
+<Layout title={`${product.title} — Personalized System | Tooltails`} description={product.description}>
+  <ProductPage
+    product={product}
+    features={extra.features}
+    faqs={extra.faqs}
+    heroTagline={product.tagline}
+    storyTitle={extra.storyTitle}
+    storyText={extra.storyText}
+  />
+</Layout>
+
+<style is:global>
+  :root[data-theme="dark"] .digital-store-root .text-stone-900 { color: var(--ds-text, #e7e5e4) !important; }
+  :root[data-theme="dark"] .digital-store-root .text-stone-700,
+  :root[data-theme="dark"] .digital-store-root .text-stone-600 { color: var(--ds-text-secondary, #a8a29e) !important; }
+  :root[data-theme="dark"] .digital-store-root .text-stone-500,
+  :root[data-theme="dark"] .digital-store-root .text-stone-400 { color: var(--ds-text-muted, #78716c) !important; }
+  :root[data-theme="dark"] .digital-store-root .bg-white { background: var(--ds-bg-card, #1c1917) !important; }
+  :root[data-theme="dark"] .digital-store-root .border-stone-200,
+  :root[data-theme="dark"] .digital-store-root .border-stone-200\/80 { border-color: var(--ds-border, #292524) !important; }
+  :root[data-theme="dark"] .digital-store-root .border-stone-100 { border-color: var(--ds-border-soft, #292524) !important; }
+  :root[data-theme="dark"] .digital-store-root .bg-stone-50,
+  :root[data-theme="dark"] .digital-store-root .bg-stone-50\/30 { background: var(--ds-bg-warm, #1c1917) !important; }
+  @media (prefers-reduced-motion: reduce) {
+    .digital-store-root * {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>

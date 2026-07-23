@@ -1,0 +1,348 @@
+---
+import type { Product } from "../../data/products";
+
+interface Props {
+  product: Product;
+  features: { icon: string; title: string; description: string }[];
+  faqs: { q: string; a: string }[];
+  heroTagline?: string;
+  storyTitle?: string;
+  storyText?: string;
+}
+
+const { product, features, faqs, heroTagline, storyTitle, storyText } = Astro.props;
+const suffix = product.id;
+
+const storyHeading = storyTitle || `Thoughtfully designed for the way you ${product.category === 'study-exams' ? 'learn' : product.category === 'productivity' ? 'work' : 'grow'}.`;
+const storyDesc = storyText || product.longDescription.split('. ').slice(0, 2).join('. ') + '.';
+
+const sections = [...new Set(product.personalization.map(f => f.section))];
+const sortedFields = [...product.personalization].sort((a, b) => (a.required === b.required ? 0 : a.required ? -1 : 1));
+
+const renderStars = (n: number) =>
+  Array.from({ length: 5 }, (_, i) => (i < Math.round(n) ? "★" : "☆")).join("");
+---
+
+<div class="digital-store-root text-stone-900 bg-stone-50/30">
+  
+  <!-- HERO: Distraction-Free Workspace Theme -->
+  <section class="relative bg-gradient-to-b from-zinc-950 via-slate-900 to-stone-900 text-white pt-10 pb-16 md:py-20 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-xs font-semibold text-stone-400 mb-8">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        <a href="/digital-store" class="hover:text-white transition-colors">Store</a>
+        <span>/</span>
+        <span class="text-white font-bold">{product.title}</span>
+      </nav>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+        
+        <!-- Left Column -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800 border border-zinc-700 text-blue-400 text-xs font-bold">
+            ⚡ Minimalist Deep Work System
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight font-serif">
+            {product.title}
+          </h1>
+
+          <p class="text-lg sm:text-xl text-stone-300 font-medium font-serif italic">
+            "{heroTagline || product.tagline}"
+          </p>
+
+          <p class="text-sm sm:text-base text-stone-400 leading-relaxed max-w-2xl font-medium">
+            Eliminate distractions and execute with intensity. Features customizable time blocks (25m, 45m, 90m), daily distraction audit logs, and weekly velocity reviews.
+          </p>
+
+          <div class="grid grid-cols-3 gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 max-w-xl">
+            <div class="text-center">
+              <div class="text-2xl font-bold text-blue-400 font-heading">45 Min</div>
+              <div class="text-[10px] text-stone-400 font-semibold uppercase">Focus Blocks</div>
+            </div>
+            <div class="text-center border-x border-white/10">
+              <div class="text-2xl font-bold text-rose-400 font-heading">Distraction</div>
+              <div class="text-[10px] text-stone-400 font-semibold uppercase">Audit Log</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl font-bold text-emerald-400 font-heading">Velocity</div>
+              <div class="text-[10px] text-stone-400 font-semibold uppercase">Weekly Review</div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-bold text-white font-heading">${product.price.toFixed(2)}</span>
+              <span class="text-xs text-stone-400 font-semibold uppercase">PDF + DOCX</span>
+            </div>
+            <a href="#customize" class="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-xl shadow-lg shadow-blue-500/30 transition-all active:scale-98">
+              Configure Focus System
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Distraction-Free Timer & Session Card -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="w-full max-w-[400px] bg-zinc-900 border border-zinc-800 rounded-3xl p-6 shadow-2xl space-y-4 text-white">
+            <div class="flex items-center justify-between border-b border-zinc-800 pb-3">
+              <span class="text-xs font-bold text-stone-400 uppercase tracking-wider">Active Focus Session</span>
+              <span class="text-xs font-bold text-blue-400 bg-blue-500/10 px-2.5 py-0.5 rounded-full border border-blue-500/20">FOCUS MODE</span>
+            </div>
+
+            <!-- Session Countdown visual -->
+            <div class="text-center py-4 bg-zinc-950 rounded-2xl border border-zinc-800 space-y-1">
+              <div class="text-4xl font-bold font-mono tracking-widest text-white">45:00</div>
+              <div class="text-[10px] font-semibold text-stone-400 uppercase tracking-wider">Deep Work Block 02 of 04</div>
+            </div>
+
+            <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800 space-y-1">
+              <span class="text-[10px] font-bold text-stone-500 uppercase">Current Task Priority:</span>
+              <p class="text-xs font-semibold text-stone-200">"Complete System Architecture Review"</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PHILOSOPHY -->
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center space-y-4">
+    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-800 border border-blue-100">
+      ⚡ Distraction-Free Philosophy
+    </span>
+    <h2 class="text-3xl font-bold text-stone-900 font-serif">{storyHeading}</h2>
+    <p class="text-base text-stone-600 leading-relaxed font-medium">{storyDesc}</p>
+  </section>
+
+
+  <!-- WHAT'S INCLUDED -->
+  <section id="whats-included" class="bg-white border-y border-stone-200/80 py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="text-center space-y-2">
+        <h2 class="text-3xl font-bold text-stone-900 font-serif">What's Included in Your Download</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {product.whatIncluded.map(item => (
+          <div class="flex items-start gap-3 p-3.5 rounded-xl bg-stone-50 border border-stone-200/60">
+            <div class="w-6 h-6 rounded-full bg-blue-50 text-blue-600 font-bold flex items-center justify-center shrink-0 text-xs">
+              ✓
+            </div>
+            <span class="text-xs text-stone-700 font-semibold leading-relaxed">{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CUSTOMIZER -->
+  <section id="customize" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
+      <h2 class="text-3xl font-bold text-stone-900 font-serif">Configure Your Focus System Live</h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="lg:col-span-5 bg-white border border-stone-200 rounded-2xl p-6 shadow-xs">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-stone-100">
+          <span class="text-xs font-bold text-stone-800">Your Focus Session Settings</span>
+          <span id={`save-status-${suffix}`} class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded transition-all opacity-0">Draft Saved</span>
+        </div>
+
+        <form id={`pf-form-${suffix}`} class="space-y-4">
+          {sections.map(section => (
+            <div>
+              <h4 class="text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-2">{section}</h4>
+              <div class="space-y-3">
+                {sortedFields.filter(f => f.section === section).map(f => (
+                  <div>
+                    <label for={`pf-${f.id}-${suffix}`} class="block text-xs font-bold text-stone-700 mb-1">
+                      {f.label}{f.required ? <span class="text-rose-500 ml-0.5">*</span> : ""}
+                    </label>
+                    {f.type === "select" ? (
+                      <select id={`pf-${f.id}-${suffix}`} data-field={f.id} class="w-full px-3.5 py-2 text-xs bg-stone-50 border border-stone-200 rounded-xl font-medium">
+                        {f.options?.map(o => <option value={o.value} selected={o.value === f.defaultValue}>{o.label}</option>)}
+                      </select>
+                    ) : f.type === "textarea" ? (
+                      <textarea id={`pf-${f.id}-${suffix}`} data-field={f.id} placeholder={f.placeholder} class="w-full px-3.5 py-2 text-xs bg-stone-50 border border-stone-200 rounded-xl min-h-[70px] font-medium">{f.defaultValue || ""}</textarea>
+                    ) : (
+                      <input type={f.type} id={`pf-${f.id}-${suffix}`} data-field={f.id} placeholder={f.placeholder} value={f.defaultValue || ""} class="w-full px-3.5 py-2 text-xs bg-stone-50 border border-stone-200 rounded-xl font-medium" />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </form>
+
+        <div class="flex gap-2.5 mt-6 pt-4 border-t border-stone-100">
+          <button id={`save-draft-btn-${suffix}`} type="button" class="flex-1 py-2 text-xs font-bold text-blue-700 bg-blue-50 rounded-xl">Save Draft</button>
+          <button id={`restore-draft-btn-${suffix}`} type="button" class="flex-1 py-2 text-xs font-bold text-stone-600 bg-stone-50 rounded-xl">Restore Draft</button>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 bg-white border border-stone-200 rounded-2xl p-4 shadow-xs">
+        <div class="flex items-center justify-between mb-3 border-b border-stone-100 pb-2">
+          <span class="text-xs font-bold text-stone-800">Live Focus System Preview</span>
+          <button id={`download-sample-btn-${suffix}`} class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">Sample PDF</button>
+        </div>
+        <div id={`planner-preview-container-${suffix}`} class="min-h-[500px]"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- REVIEWS -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center mb-10 space-y-2">
+      <h2 class="text-3xl font-bold text-stone-900 font-serif">Verified Customer Reviews</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {product.reviews.map(r => (
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs space-y-3">
+          <p class="text-xs text-stone-600 leading-relaxed font-serif italic">"{r.text}"</p>
+          <div class="flex items-center gap-2 pt-2 border-t border-stone-100">
+            <div class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center">{r.initials}</div>
+            <div>
+              <p class="text-xs font-bold text-stone-900">{r.name}</p>
+              <span class="text-[10px] text-amber-500 font-bold">{renderStars(r.rating)}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+
+  <!-- FAQS -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center mb-10 space-y-2">
+      <h2 class="text-3xl font-bold text-stone-900 font-serif">Frequently Asked Questions</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {faqs.map(faq => (
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 space-y-2">
+          <h3 class="text-sm font-bold text-stone-900">{faq.q}</h3>
+          <p class="text-xs text-stone-600 font-medium leading-relaxed">{faq.a}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+
+  <!-- PURCHASE PANEL -->
+  <section class="max-w-3xl mx-auto my-16 px-4">
+    <div class="bg-zinc-950 text-white rounded-3xl p-8 text-center space-y-4 shadow-xl">
+      <h2 class="text-3xl font-bold font-serif">Master Your Focus Practice</h2>
+      <div class="text-4xl font-bold">${product.price.toFixed(2)}</div>
+      
+      <div id={`planner-summary-${suffix}`} class="max-w-md mx-auto p-4 bg-white/5 rounded-xl text-left text-xs space-y-2"></div>
+
+      <button
+        id={`pf-purchase-btn-${suffix}`}
+        data-product-id={product.id}
+        data-product-slug={product.slug}
+        data-product-title={product.title}
+        data-product-price={product.price.toFixed(2)}
+        data-product-icon={product.icon}
+        data-what-included={JSON.stringify(product.whatIncluded)}
+        class="w-full sm:w-auto px-8 py-3.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-xl transition-all"
+      >
+        Add Customized Deep Focus System to Cart
+      </button>
+    </div>
+  </section>
+
+  <div id={`checkout-modal-${suffix}`} class="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+    <div id={`checkout-overlay-${suffix}`} class="absolute inset-0 bg-black/40 opacity-0 transition-opacity pointer-events-none"></div>
+    <div id={`checkout-content-${suffix}`} class="relative bg-white rounded-2xl p-6 w-full max-w-lg mx-4 opacity-0 scale-95 transition-all pointer-events-none">
+      <button id={`close-checkout-${suffix}`} class="absolute top-4 right-4 text-stone-600 font-bold">✕</button>
+      <h2 class="text-base font-bold text-stone-900 mb-4">{product.title}</h2>
+      <div id={`checkout-summary-${suffix}`} class="bg-stone-50 p-4 rounded-xl mb-4 text-xs"></div>
+      <div id={`checkout-total-${suffix}`} class="text-lg font-bold text-blue-600 mb-4"></div>
+      <div class="space-y-3 mb-4">
+        <input type="email" id={`checkout-email-${suffix}`} class="w-full px-4 py-2.5 text-sm bg-stone-50 border rounded-xl" placeholder="Your email address" required />
+        <select id={`checkout-payment-${suffix}`} class="w-full px-4 py-2.5 text-sm bg-stone-50 border rounded-xl">
+          <option value="">Select payment method...</option>
+          <option value="card">Credit Card</option>
+          <option value="paypal">PayPal</option>
+        </select>
+      </div>
+      <button id={`place-order-btn-${suffix}`} class="w-full py-3 text-sm font-bold text-white bg-blue-600 rounded-xl">Complete Purchase</button>
+    </div>
+  </div>
+
+  <div id={`toast-${suffix}`} class="fixed bottom-6 right-6 z-50 bg-stone-900 text-white text-xs font-bold px-5 py-3 rounded-2xl opacity-0 pointer-events-none transition-all"></div>
+
+</div>
+
+<script>
+import { PlannerStateManager } from '../../scripts/planner-engine/index.ts';
+import { plannerConfig } from '../../scripts/planner-config.ts';
+import { getTheme } from '../../scripts/planner-engine/preview-renderer.ts';
+import { DigitalPlanner } from '../../scripts/planner-engine/digital-planner.ts';
+
+(function() {
+  const buyBtn = document.querySelector('button[data-product-id]') as HTMLButtonElement | null;
+  if (!buyBtn) return;
+
+  const productId = buyBtn.dataset.productId!;
+  const productTitle = buyBtn.dataset.productTitle!;
+  const productPrice = parseFloat(buyBtn.dataset.productPrice!);
+  const productSlug = buyBtn.dataset.productSlug!;
+  const suffix = productId;
+
+  const form = document.getElementById('pf-form-' + suffix);
+  const fields = form ? form.querySelectorAll('input, select, textarea') : [];
+
+  const config = { productId, productSlug, productTitle, productPrice, icon: buyBtn.dataset.productIcon || '⚡', fields: [] as any[], sections: [] as string[] };
+  const stateManager = new PlannerStateManager(config as any);
+
+  let dpInstance: DigitalPlanner | null = null;
+  function mountDigitalPlanner() {
+    const container = document.getElementById('planner-preview-container-' + suffix);
+    if (!container) return;
+    const values = collectCustomization();
+    const theme = getTheme(values['theme'] || values['color'] || 'blue');
+    container.innerHTML = '';
+    const dp = new DigitalPlanner(container, values, theme, productTitle, buyBtn?.dataset.productIcon || '⚡', { sidebar: false });
+    dp.mount();
+    dpInstance = dp;
+  }
+
+  function collectCustomization() {
+    const data: Record<string, string> = {};
+    fields.forEach((el: any) => {
+      const key = el.id.replace('pf-', '').replace('-' + suffix, '');
+      data[key] = el.value;
+    });
+    return data;
+  }
+
+  mountDigitalPlanner();
+
+  fields.forEach((el: any) => {
+    const key = el.id.replace('pf-', '').replace('-' + suffix, '');
+    el.addEventListener('input', () => { stateManager.set(key, el.value); });
+    el.addEventListener('change', () => { stateManager.set(key, el.value); });
+  });
+
+  buyBtn.addEventListener('click', () => {
+    const customization = collectCustomization();
+    plannerConfig.save(productId, customization, productTitle);
+    try {
+      const existing = JSON.parse(localStorage.getItem('tt_cart') || '[]');
+      existing.push({ id: productId, title: productTitle, slug: productSlug, price: productPrice, quantity: 1 });
+      localStorage.setItem('tt_cart', JSON.stringify(existing));
+    } catch (e) {
+      localStorage.setItem('tt_cart', JSON.stringify([{ id: productId, title: productTitle, slug: productSlug, price: productPrice, quantity: 1 }]));
+    }
+    window.location.href = '/digital-store/checkout';
+  });
+})();
+</script>

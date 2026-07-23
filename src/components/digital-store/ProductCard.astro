@@ -1,0 +1,130 @@
+---
+import type { Product } from "../../data/products";
+
+export interface Props {
+  product: Product;
+  link: string;
+  badge?: 'hero' | 'featured';
+}
+
+const { product: p, link } = Astro.props;
+
+type CatStyle = { containerBg: string; textAccent: string; tagBg: string; tagText: string; icon: string; titleUpper: string; gradient: string };
+const catStyles: Record<string, CatStyle> = {
+  'academic':     { containerBg: '#F5F3FF', textAccent: '#7C3AED', tagBg: '#F3E8FF', tagText: '#7C3AED', icon: '🎓', titleUpper: 'STUDY PLANNER PRO', gradient: 'from-[#F5F3FF] via-[#FAF5FF] to-[#EDE9FE]' },
+  'productivity': { containerBg: '#F0F9FF', textAccent: '#0284C7', tagBg: '#E0F2FE', tagText: '#0284C7', icon: '☀️', titleUpper: 'MASTER YOUR DAY', gradient: 'from-[#F0F9FF] via-[#F0FDF4] to-[#E0F2FE]' },
+  'wellness':     { containerBg: '#F0FDF4', textAccent: '#16A34A', tagBg: '#DCFCE7', tagText: '#16A34A', icon: '🌿', titleUpper: 'WELLNESS JOURNAL', gradient: 'from-[#F0FDF4] via-[#ECFDF5] to-[#DCFCE7]' },
+  'goals':        { containerBg: '#FFF7ED', textAccent: '#EA580C', tagBg: '#FFEDD5', tagText: '#EA580C', icon: '🎯', titleUpper: 'GOAL ROADMAP', gradient: 'from-[#FFF7ED] via-[#FEF3C7] to-[#FFEDD5]' },
+};
+const cs = catStyles[p.category] || catStyles['academic'];
+
+const pageCountMap: Record<string, string> = {
+  'study-planner-pro': '25 Pages',
+  'master-your-day': '18 Pages',
+  'wellness-journal': '20 Pages',
+  'goal-roadmap': '22 Pages',
+};
+const pageCount = pageCountMap[p.slug] || '20 Pages';
+
+const shortDescMap: Record<string, string> = {
+  'study-planner-pro': 'Your complete exam preparation system.',
+  'master-your-day': 'Plan your day. Get things done.',
+  'wellness-journal': 'Habits, mood, and self-care in one place.',
+  'goal-roadmap': 'Set goals. Track progress. Achieve more.',
+};
+const shortDesc = shortDescMap[p.slug] || p.tagline;
+
+const priceMap: Record<string, number> = {
+  'study-planner-pro': 24.99,
+  'master-your-day': 22.99,
+  'wellness-journal': 19.99,
+  'goal-roadmap': 24.99,
+};
+const displayPrice = priceMap[p.slug] || p.price;
+const originalPrice = (displayPrice * 1.5).toFixed(2);
+---
+
+<a href={link} class="block group h-full select-none" data-product-card>
+  <article 
+    class="flex flex-col bg-white rounded-3xl border border-stone-200/70 p-4 sm:p-5 shadow-xs hover:shadow-2xl hover:shadow-purple-900/10 hover:border-purple-300/80 hover:-translate-y-1.5 transition-all duration-300 h-full relative overflow-hidden group/card"
+    data-id={p.id}
+  >
+    <!-- TOP VISUAL MOCKUP CONTAINER -->
+    <div 
+      class={`relative w-full h-56 sm:h-60 rounded-2xl overflow-hidden flex items-center justify-center p-5 bg-gradient-to-br ${cs.gradient} transition-all duration-300 group-hover/card:scale-[1.02]`}
+    >
+      <!-- Background Ambient Glow -->
+      <div class="absolute inset-0 bg-white/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+
+      <!-- Format Tag Badge -->
+      <div class="absolute top-3 right-3 z-20">
+        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md border border-white/80 text-[10px] font-bold text-stone-700 shadow-2xs">
+          <span>PDF + DOCX</span>
+        </span>
+      </div>
+
+      <!-- SPIRAL NOTEBOOK MOCKUP -->
+      <div class="relative w-[78%] h-[90%] bg-white rounded-xl shadow-lg border border-stone-200/60 flex items-center justify-between p-4 overflow-hidden group-hover/card:shadow-xl transition-shadow">
+        
+        <!-- Left Spiral Binding Ring -->
+        <div class="absolute left-2 top-3.5 bottom-3.5 flex flex-col justify-between z-20">
+          {Array.from({ length: 9 }).map(() => (
+            <div class="w-2.5 h-2 rounded-full border border-stone-300/80 bg-stone-100 shadow-2xs"></div>
+          ))}
+        </div>
+
+        <!-- Cover Content -->
+        <div class="pl-4 w-full flex flex-col items-center justify-center text-center space-y-2 z-10">
+          <span class="text-[10px] font-extrabold uppercase tracking-widest leading-tight px-1" style={`color: ${cs.textAccent}`}>
+            {cs.titleUpper}
+          </span>
+          <span class="text-2xl filter drop-shadow-2xs transform group-hover/card:scale-110 transition-transform duration-300">{cs.icon}</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CARD BODY CONTENT -->
+    <div class="flex flex-col flex-1 pt-4 space-y-3">
+      
+      <div class="space-y-1">
+        <div class="flex items-center justify-between">
+          <h3 class="text-base font-bold text-stone-900 group-hover/card:text-[#7C3AED] transition-colors leading-snug">
+            {p.title}
+          </h3>
+          <span class="text-amber-500 text-xs font-bold flex items-center gap-0.5">
+            ★ 4.9
+          </span>
+        </div>
+        <p class="text-xs text-stone-500 font-normal leading-relaxed line-clamp-2">
+          {shortDesc}
+        </p>
+      </div>
+
+      <!-- Page Count Tag -->
+      <div class="pt-0.5 flex items-center gap-2">
+        <span 
+          class="inline-block text-[11px] font-semibold px-3 py-0.5 rounded-full"
+          style={`background-color: ${cs.tagBg}; color: ${cs.tagText};`}
+        >
+          {pageCount}
+        </span>
+        <span class="text-[11px] text-stone-400 font-medium">• Instant Download</span>
+      </div>
+
+      <!-- Price & Action Button -->
+      <div class="pt-3.5 mt-auto flex items-center justify-between border-t border-stone-100">
+        <div class="flex items-baseline gap-1.5">
+          <span class="text-base font-extrabold text-stone-900">${displayPrice.toFixed(2)}</span>
+          <span class="text-xs text-stone-400 line-through font-medium">${originalPrice}</span>
+        </div>
+
+        <span class="inline-flex items-center justify-between gap-2 text-xs font-bold text-[#7C3AED] bg-purple-50/80 border border-purple-200/80 hover:bg-[#7C3AED] hover:text-white px-4 py-1.5 rounded-full transition-all duration-300 group-hover/card:border-[#7C3AED] group-hover/card:bg-[#7C3AED] group-hover/card:text-white shadow-2xs">
+          <span>Customize</span>
+          <span class="text-sm leading-none group-hover/card:translate-x-0.5 transition-transform">&rarr;</span>
+        </span>
+      </div>
+
+    </div>
+  </article>
+</a>

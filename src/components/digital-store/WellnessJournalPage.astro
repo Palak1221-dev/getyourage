@@ -1,0 +1,364 @@
+---
+import type { Product } from "../../data/products";
+
+interface Props {
+  product: Product;
+  features: { icon: string; title: string; description: string }[];
+  faqs: { q: string; a: string }[];
+  heroTagline?: string;
+  storyTitle?: string;
+  storyText?: string;
+}
+
+const { product, features, faqs, heroTagline, storyTitle, storyText } = Astro.props;
+const suffix = product.id;
+
+const storyHeading = storyTitle || `Thoughtfully designed for the way you ${product.category === 'study-exams' ? 'learn' : product.category === 'productivity' ? 'work' : 'grow'}.`;
+const storyDesc = storyText || product.longDescription.split('. ').slice(0, 2).join('. ') + '.';
+
+const sections = [...new Set(product.personalization.map(f => f.section))];
+const sortedFields = [...product.personalization].sort((a, b) => (a.required === b.required ? 0 : a.required ? -1 : 1));
+
+const renderStars = (n: number) =>
+  Array.from({ length: 5 }, (_, i) => (i < Math.round(n) ? "★" : "☆")).join("");
+---
+
+<div class="digital-store-root text-stone-900 bg-stone-50/30">
+  
+  <!-- HERO: Calm Editorial Soft Aesthetics -->
+  <section class="relative bg-gradient-to-b from-stone-100 via-amber-50/40 to-rose-50/20 border-b border-stone-200/60 pt-10 pb-16 md:py-20 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-xs font-semibold text-stone-500 mb-8">
+        <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
+        <span>/</span>
+        <a href="/digital-store" class="hover:text-blue-600 transition-colors">Store</a>
+        <span>/</span>
+        <span class="text-stone-900 font-bold">{product.title}</span>
+      </nav>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+        
+        <!-- Left: Editorial Mindfulness Copy -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-50 border border-rose-100 text-rose-700 text-xs font-bold">
+            🌱 Mindful Living & Daily Reflection
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-stone-900 leading-tight font-serif">
+            {product.title}
+          </h1>
+
+          <p class="text-lg sm:text-xl text-stone-600 font-medium font-serif italic">
+            "{heroTagline || product.tagline}"
+          </p>
+
+          <p class="text-sm sm:text-base text-stone-600 leading-relaxed max-w-2xl font-medium">
+            Designed for calm, clarity, and daily self-reflection. Includes guided morning & evening prompts, mood trackers, and gratitude pages to bring balance to your daily routine.
+          </p>
+
+          <div class="grid grid-cols-3 gap-3 p-4 rounded-2xl bg-white border border-stone-200/80 max-w-xl shadow-xs">
+            <div class="text-center">
+              <div class="text-2xl font-bold text-rose-500 font-heading">5 Min</div>
+              <div class="text-[10px] text-stone-500 font-semibold uppercase">Daily Practice</div>
+            </div>
+            <div class="text-center border-x border-stone-100">
+              <div class="text-2xl font-bold text-amber-600 font-heading">Morning</div>
+              <div class="text-[10px] text-stone-500 font-semibold uppercase">& Evening Prompts</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl font-bold text-emerald-600 font-heading">Mood</div>
+              <div class="text-[10px] text-stone-500 font-semibold uppercase">Streak Tracker</div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-bold text-stone-900 font-heading">${product.price.toFixed(2)}</span>
+              <span class="text-xs text-stone-400 font-semibold uppercase">PDF + DOCX</span>
+            </div>
+            <a href="#customize" class="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-bold text-white bg-stone-900 hover:bg-stone-800 rounded-xl shadow-lg transition-all active:scale-98">
+              Personalize Your Journal
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Daily Gratitude Prompt Card Mockup -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="w-full max-w-[400px] bg-white border border-stone-200 rounded-3xl p-6 shadow-xl space-y-4">
+            <div class="flex items-center justify-between border-b border-stone-100 pb-3">
+              <span class="text-xs font-bold text-stone-800 uppercase tracking-wider">Morning Reflection</span>
+              <span class="text-[10px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded">Daily Habit</span>
+            </div>
+
+            <div class="space-y-3 text-xs">
+              <div class="p-3 bg-stone-50 rounded-xl space-y-1">
+                <span class="text-[10px] font-bold text-stone-400 uppercase">3 Things I'm Grateful For Today</span>
+                <p class="font-serif italic text-stone-700 text-sm">"Morning sunlight, fresh tea, a productive focus block."</p>
+              </div>
+
+              <div class="p-3 bg-amber-50/50 rounded-xl space-y-1">
+                <span class="text-[10px] font-bold text-amber-700 uppercase">My Daily Intention</span>
+                <p class="font-serif italic text-stone-800 text-sm">"Stay present and focus on one task at a time."</p>
+              </div>
+
+              <div class="flex justify-between items-center pt-2">
+                <span class="text-[10px] text-stone-400 font-semibold">Mood Rating:</span>
+                <div class="flex gap-1">
+                  {["😊", "✨", "🧘", "🌿"].map(emoji => (
+                    <span class="w-6 h-6 rounded-full bg-stone-100 flex items-center justify-center text-xs">{emoji}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SECTION 2: PHILOSOPHY -->
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center space-y-4">
+    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-50 text-rose-700 border border-rose-100">
+      🌿 Mindful Living Philosophy
+    </span>
+    <h2 class="text-3xl font-bold text-stone-900 font-serif">{storyHeading}</h2>
+    <p class="text-base text-stone-600 leading-relaxed font-medium">{storyDesc}</p>
+  </section>
+
+
+  <!-- WHAT'S INCLUDED -->
+  <section id="whats-included" class="bg-white border-y border-stone-200/80 py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="text-center space-y-2">
+        <span class="text-xs font-bold uppercase tracking-widest text-rose-600 bg-rose-50 px-3 py-1 rounded-full">
+          Complete Journal Suite
+        </span>
+        <h2 class="text-3xl font-bold text-stone-900 font-serif">What's Included in Your Journal</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {product.whatIncluded.map(item => (
+          <div class="flex items-start gap-3 p-3.5 rounded-xl bg-stone-50 border border-stone-200/60">
+            <div class="w-6 h-6 rounded-full bg-rose-50 text-rose-600 font-bold flex items-center justify-center shrink-0 text-xs">
+              ✓
+            </div>
+            <span class="text-xs text-stone-700 font-semibold leading-relaxed">{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CUSTOMIZER -->
+  <section id="customize" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
+      <span class="text-xs font-bold uppercase tracking-widest text-rose-600 bg-rose-50 px-3 py-1 rounded-full">
+        Personalize Your Journal
+      </span>
+      <h2 class="text-3xl font-bold text-stone-900 font-serif">Tailor Your Wellness Pages</h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="lg:col-span-5 bg-white border border-stone-200 rounded-2xl p-6 shadow-xs">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-stone-100">
+          <span class="text-xs font-bold text-stone-800">Your Reflection & Wellness Focus</span>
+          <span id={`save-status-${suffix}`} class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded transition-all opacity-0">Draft Saved</span>
+        </div>
+
+        <form id={`pf-form-${suffix}`} class="space-y-4">
+          {sections.map(section => (
+            <div>
+              <h4 class="text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-2">{section}</h4>
+              <div class="space-y-3">
+                {sortedFields.filter(f => f.section === section).map(f => (
+                  <div>
+                    <label for={`pf-${f.id}-${suffix}`} class="block text-xs font-bold text-stone-700 mb-1">
+                      {f.label}{f.required ? <span class="text-rose-500 ml-0.5">*</span> : ""}
+                    </label>
+                    {f.type === "select" ? (
+                      <select id={`pf-${f.id}-${suffix}`} data-field={f.id} class="w-full px-3.5 py-2 text-xs bg-stone-50 border border-stone-200 rounded-xl font-medium">
+                        {f.options?.map(o => <option value={o.value} selected={o.value === f.defaultValue}>{o.label}</option>)}
+                      </select>
+                    ) : f.type === "textarea" ? (
+                      <textarea id={`pf-${f.id}-${suffix}`} data-field={f.id} placeholder={f.placeholder} class="w-full px-3.5 py-2 text-xs bg-stone-50 border border-stone-200 rounded-xl min-h-[70px] font-medium">{f.defaultValue || ""}</textarea>
+                    ) : (
+                      <input type={f.type} id={`pf-${f.id}-${suffix}`} data-field={f.id} placeholder={f.placeholder} value={f.defaultValue || ""} class="w-full px-3.5 py-2 text-xs bg-stone-50 border border-stone-200 rounded-xl font-medium" />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </form>
+
+        <div class="flex gap-2.5 mt-6 pt-4 border-t border-stone-100">
+          <button id={`save-draft-btn-${suffix}`} type="button" class="flex-1 py-2 text-xs font-bold text-stone-700 bg-stone-100 rounded-xl">Save Draft</button>
+          <button id={`restore-draft-btn-${suffix}`} type="button" class="flex-1 py-2 text-xs font-bold text-stone-600 bg-stone-50 rounded-xl">Restore Draft</button>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 bg-white border border-stone-200 rounded-2xl p-4 shadow-xs">
+        <div class="flex items-center justify-between mb-3 border-b border-stone-100 pb-2">
+          <span class="text-xs font-bold text-stone-800">Live Journal Preview</span>
+          <button id={`download-sample-btn-${suffix}`} class="text-xs font-bold text-stone-800 bg-stone-100 px-3 py-1 rounded-lg">Sample PDF</button>
+        </div>
+        <div id={`planner-preview-container-${suffix}`} class="min-h-[500px]"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- REVIEWS -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center mb-10 space-y-2">
+      <h2 class="text-3xl font-bold text-stone-900 font-serif">Verified Customer Reviews</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {product.reviews.map(r => (
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs space-y-3">
+          <p class="text-xs text-stone-600 leading-relaxed font-serif italic">"{r.text}"</p>
+          <div class="flex items-center gap-2 pt-2 border-t border-stone-100">
+            <div class="w-7 h-7 rounded-full bg-rose-100 text-rose-700 font-bold text-xs flex items-center justify-center">{r.initials}</div>
+            <div>
+              <p class="text-xs font-bold text-stone-900">{r.name}</p>
+              <span class="text-[10px] text-amber-500 font-bold">{renderStars(r.rating)}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+
+  <!-- FAQS -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center mb-10 space-y-2">
+      <h2 class="text-3xl font-bold text-stone-900 font-serif">Frequently Asked Questions</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {faqs.map(faq => (
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 space-y-2">
+          <h3 class="text-sm font-bold text-stone-900">{faq.q}</h3>
+          <p class="text-xs text-stone-600 font-medium leading-relaxed">{faq.a}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+
+  <!-- PURCHASE PANEL -->
+  <section class="max-w-3xl mx-auto my-16 px-4">
+    <div class="bg-stone-900 text-white rounded-3xl p-8 text-center space-y-4 shadow-xl">
+      <h2 class="text-3xl font-bold font-serif">Bring Calm to Your Daily Routine</h2>
+      <div class="text-4xl font-bold">${product.price.toFixed(2)}</div>
+      
+      <div id={`planner-summary-${suffix}`} class="max-w-md mx-auto p-4 bg-white/5 rounded-xl text-left text-xs space-y-2"></div>
+
+      <button
+        id={`pf-purchase-btn-${suffix}`}
+        data-product-id={product.id}
+        data-product-slug={product.slug}
+        data-product-title={product.title}
+        data-product-price={product.price.toFixed(2)}
+        data-product-icon={product.icon}
+        data-what-included={JSON.stringify(product.whatIncluded)}
+        class="w-full sm:w-auto px-8 py-3.5 text-sm font-bold text-white bg-rose-600 hover:bg-rose-500 rounded-xl transition-all"
+      >
+        Add Customized Wellness Journal to Cart
+      </button>
+    </div>
+  </section>
+
+  <div id={`checkout-modal-${suffix}`} class="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+    <div id={`checkout-overlay-${suffix}`} class="absolute inset-0 bg-black/40 opacity-0 transition-opacity pointer-events-none"></div>
+    <div id={`checkout-content-${suffix}`} class="relative bg-white rounded-2xl p-6 w-full max-w-lg mx-4 opacity-0 scale-95 transition-all pointer-events-none">
+      <button id={`close-checkout-${suffix}`} class="absolute top-4 right-4 text-stone-600 font-bold">✕</button>
+      <h2 class="text-base font-bold text-stone-900 mb-4">{product.title}</h2>
+      <div id={`checkout-summary-${suffix}`} class="bg-stone-50 p-4 rounded-xl mb-4 text-xs"></div>
+      <div id={`checkout-total-${suffix}`} class="text-lg font-bold text-rose-600 mb-4"></div>
+      <div class="space-y-3 mb-4">
+        <input type="email" id={`checkout-email-${suffix}`} class="w-full px-4 py-2.5 text-sm bg-stone-50 border rounded-xl" placeholder="Your email address" required />
+        <select id={`checkout-payment-${suffix}`} class="w-full px-4 py-2.5 text-sm bg-stone-50 border rounded-xl">
+          <option value="">Select payment method...</option>
+          <option value="card">Credit Card</option>
+          <option value="paypal">PayPal</option>
+        </select>
+      </div>
+      <button id={`place-order-btn-${suffix}`} class="w-full py-3 text-sm font-bold text-white bg-rose-600 rounded-xl">Complete Purchase</button>
+    </div>
+  </div>
+
+  <div id={`toast-${suffix}`} class="fixed bottom-6 right-6 z-50 bg-stone-900 text-white text-xs font-bold px-5 py-3 rounded-2xl opacity-0 pointer-events-none transition-all"></div>
+
+</div>
+
+<script>
+import { PlannerStateManager } from '../../scripts/planner-engine/index.ts';
+import { plannerConfig } from '../../scripts/planner-config.ts';
+import { getTheme } from '../../scripts/planner-engine/preview-renderer.ts';
+import { DigitalPlanner } from '../../scripts/planner-engine/digital-planner.ts';
+
+(function() {
+  const buyBtn = document.querySelector('button[data-product-id]') as HTMLButtonElement | null;
+  if (!buyBtn) return;
+
+  const productId = buyBtn.dataset.productId!;
+  const productTitle = buyBtn.dataset.productTitle!;
+  const productPrice = parseFloat(buyBtn.dataset.productPrice!);
+  const productSlug = buyBtn.dataset.productSlug!;
+  const suffix = productId;
+
+  const form = document.getElementById('pf-form-' + suffix);
+  const fields = form ? form.querySelectorAll('input, select, textarea') : [];
+
+  const config = { productId, productSlug, productTitle, productPrice, icon: buyBtn.dataset.productIcon || '🌱', fields: [] as any[], sections: [] as string[] };
+  const stateManager = new PlannerStateManager(config as any);
+
+  let dpInstance: DigitalPlanner | null = null;
+  function mountDigitalPlanner() {
+    const container = document.getElementById('planner-preview-container-' + suffix);
+    if (!container) return;
+    const values = collectCustomization();
+    const theme = getTheme(values['theme'] || values['color'] || 'rose');
+    container.innerHTML = '';
+    const dp = new DigitalPlanner(container, values, theme, productTitle, buyBtn?.dataset.productIcon || '🌱', { sidebar: false });
+    dp.mount();
+    dpInstance = dp;
+  }
+
+  function collectCustomization() {
+    const data: Record<string, string> = {};
+    fields.forEach((el: any) => {
+      const key = el.id.replace('pf-', '').replace('-' + suffix, '');
+      data[key] = el.value;
+    });
+    return data;
+  }
+
+  mountDigitalPlanner();
+
+  fields.forEach((el: any) => {
+    const key = el.id.replace('pf-', '').replace('-' + suffix, '');
+    el.addEventListener('input', () => { stateManager.set(key, el.value); });
+    el.addEventListener('change', () => { stateManager.set(key, el.value); });
+  });
+
+  buyBtn.addEventListener('click', () => {
+    const customization = collectCustomization();
+    plannerConfig.save(productId, customization, productTitle);
+    try {
+      const existing = JSON.parse(localStorage.getItem('tt_cart') || '[]');
+      existing.push({ id: productId, title: productTitle, slug: productSlug, price: productPrice, quantity: 1 });
+      localStorage.setItem('tt_cart', JSON.stringify(existing));
+    } catch (e) {
+      localStorage.setItem('tt_cart', JSON.stringify([{ id: productId, title: productTitle, slug: productSlug, price: productPrice, quantity: 1 }]));
+    }
+    window.location.href = '/digital-store/checkout';
+  });
+})();
+</script>

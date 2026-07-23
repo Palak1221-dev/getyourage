@@ -45,3 +45,12 @@ run-tests.ps1
 scan_mojibake.py
 test-bug.cjs
 test-session-restore.cjs
+# Astro dev logs
+.astro-dev-*.err.log
+.astro-dev-*.out.log
+
+# Generated preview/PDF output
+pdf-test-output/
+
+# Local diagnostic output
+planner-ui-diagnostics.json
