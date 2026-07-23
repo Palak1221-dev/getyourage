@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@astrojs/vercel": "^10.0.8",
+    "@supabase/supabase-js": "^2.110.8",
     "astro": "^6.4.4",
     "dodopayments": "^2.42.2",
     "mammoth": "^1.12.0",

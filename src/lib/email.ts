@@ -1,3 +1,7 @@
+export function isSmtpConfigured(): boolean {
+  return !!(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS);
+}
+
 export interface OrderConfirmationParams {
   to: string;
   orderId: string;
@@ -6,20 +10,16 @@ export interface OrderConfirmationParams {
 }
 
 export async function sendOrderConfirmation(params: OrderConfirmationParams): Promise<void> {
-  const smtpHost = process.env.SMTP_HOST;
-  const smtpPort = process.env.SMTP_PORT;
-  const smtpUser = process.env.SMTP_USER;
-  const smtpPass = process.env.SMTP_PASS;
   const fromEmail = process.env.SMTP_FROM || 'orders@tooltails.com';
 
-  if (smtpHost && smtpUser && smtpPass) {
+  if (isSmtpConfigured()) {
     try {
       const nodemailer = await import('nodemailer');
       const transporter = nodemailer.default.createTransport({
-        host: smtpHost,
-        port: parseInt(smtpPort || '587', 10),
-        secure: smtpPort === '465',
-        auth: { user: smtpUser, pass: smtpPass },
+        host: process.env.SMTP_HOST!,
+        port: parseInt(process.env.SMTP_PORT || '587', 10),
+        secure: process.env.SMTP_PORT === '465',
+        auth: { user: process.env.SMTP_USER!, pass: process.env.SMTP_PASS! },
       });
 
       await transporter.sendMail({

@@ -1,3 +1,20 @@
+import { SupabaseOrderRepository } from './order-repository';
+import type { OrderRepository } from './order-repository';
+
+/**
+ * Derive a human-readable product title from order items.
+ *
+ * Single product → "Study Planner Pro"
+ * Bundle       → "Study Planner Pro + 3 more"
+ * Empty        → "Personalized Planner" (fallback)
+ */
+export function formatProductTitle(items: OrderItem[]): string {
+  if (!items || items.length === 0) return 'Personalized Planner';
+  const first = items[0].productTitle || 'Personalized Planner';
+  if (items.length === 1) return first;
+  return `${first} + ${items.length - 1} more`;
+}
+
 export interface OrderItem {
   productId: string;
   productSlug: string;
@@ -9,7 +26,8 @@ export interface OrderItem {
 
 export interface Order {
   id: string;
-  dodoPaymentId: string;
+  dodoCheckoutSessionId: string;
+  dodoPaymentId?: string;
   customerEmail: string;
   customerName: string;
   items: OrderItem[];
@@ -22,82 +40,41 @@ export interface Order {
   downloadUrl?: string;
 }
 
-function getStoragePath(): string {
-  const dir = process.env.NODE_ENV === 'production' ? '/tmp' : './data';
-  return `${dir}/orders.json`;
-}
+let _repo: OrderRepository | null = null;
 
-function readOrders(): Record<string, Order> {
-  try {
-    const fs = require('fs');
-    const path = getStoragePath();
-    if (fs.existsSync(path)) {
-      const raw = fs.readFileSync(path, 'utf-8');
-      return JSON.parse(raw);
-    }
-  } catch { /* file may not exist yet */ }
-  return {};
-}
-
-function writeOrders(orders: Record<string, Order>): void {
-  try {
-    const fs = require('fs');
-    const path = getStoragePath();
-    const dir = require('path').dirname(path);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    fs.writeFileSync(path, JSON.stringify(orders, null, 2), 'utf-8');
-  } catch { /* storage may be unavailable */ }
+function repo(): OrderRepository {
+  if (!_repo) {
+    _repo = new SupabaseOrderRepository();
+  }
+  return _repo;
 }
 
 export const orderStore = {
-  create(dodoPaymentId: string, email: string, name: string, items: OrderItem[], amount: number, currency: string): Order {
-    const orders = readOrders();
-    const id = 'ORD-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
-    const order: Order = {
-      id,
-      dodoPaymentId,
-      customerEmail: email,
-      customerName: name,
-      items,
-      amount,
-      currency,
-      status: 'pending',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-    orders[id] = order;
-    writeOrders(orders);
-    return order;
+  async create(dodoCheckoutSessionId: string, email: string, name: string, items: OrderItem[], amount: number, currency: string): Promise<Order> {
+    return repo().create(dodoCheckoutSessionId, email, name, items, amount, currency);
   },
 
-  get(orderId: string): Order | null {
-    const orders = readOrders();
-    return orders[orderId] || null;
+  async get(orderId: string): Promise<Order | null> {
+    return repo().get(orderId);
   },
 
-  getByPaymentId(dodoPaymentId: string): Order | null {
-    const orders = readOrders();
-    return Object.values(orders).find(o => o.dodoPaymentId === dodoPaymentId) || null;
+  async getByPaymentId(dodoPaymentId: string): Promise<Order | null> {
+    return repo().getByPaymentId(dodoPaymentId);
   },
 
-  updateStatus(orderId: string, status: Order['status'], extra?: Partial<Order>): Order | null {
-    const orders = readOrders();
-    const order = orders[orderId];
-    if (!order) return null;
-    order.status = status;
-    order.updatedAt = new Date().toISOString();
-    if (extra) Object.assign(order, extra);
-    writeOrders(orders);
-    return order;
+  async getByCheckoutSessionId(dodoCheckoutSessionId: string): Promise<Order | null> {
+    return repo().getByCheckoutSessionId(dodoCheckoutSessionId);
   },
 
-  getAll(): Order[] {
-    return Object.values(readOrders()).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  async updateStatus(orderId: string, status: Order['status'], extra?: Partial<Order>): Promise<Order | null> {
+    return repo().updateStatus(orderId, status, extra);
   },
 
-  getByEmail(email: string): Order[] {
-    return this.getAll().filter(o => o.customerEmail === email);
+  async getAll(): Promise<Order[]> {
+    return repo().getAll();
+  },
+
+  async getByEmail(email: string): Promise<Order[]> {
+    return repo().getByEmail(email);
   },
 };

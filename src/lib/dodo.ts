@@ -8,9 +8,13 @@ function getClient(): DodoPayments {
     if (!apiKey) {
       throw new Error('DODO_PAYMENTS_API_KEY environment variable is not set');
     }
+    const dodoEnv = process.env.DODO_ENV;
+    if (!dodoEnv) {
+      throw new Error('DODO_ENV environment variable is not set. Set to "live" for production or "test" for development/preview.');
+    }
     client = new DodoPayments({
       bearerToken: apiKey,
-      environment: process.env.NODE_ENV === 'production' ? 'live_mode' : 'test_mode',
+      environment: dodoEnv === 'live' ? 'live_mode' : 'test_mode',
     });
   }
   return client;
@@ -50,7 +54,7 @@ export async function createCheckoutSession(params: CreateCheckoutParams): Promi
   });
   return {
     checkoutUrl: session.checkout_url,
-    sessionId: session.id,
+    sessionId: session.session_id,
   };
 }
 
@@ -68,10 +72,10 @@ export async function verifyPayment(paymentId: string): Promise<VerifyPaymentRes
   const payment = await dodo.payments.retrieve(paymentId);
   return {
     verified: payment.status === 'succeeded',
-    paymentId: payment.id,
+    paymentId: payment.payment_id,
     status: payment.status,
     customerEmail: payment.customer?.email || '',
-    amount: payment.amount,
+    amount: payment.total_amount,
     currency: payment.currency,
   };
 }

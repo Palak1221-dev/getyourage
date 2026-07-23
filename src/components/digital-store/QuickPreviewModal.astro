@@ -68,7 +68,7 @@ import { products } from "../../data/products";
         <div>
           <div class="flex items-center justify-between">
             <span id="preview-modal-rating" class="text-xs font-bold text-amber-600">★ 4.9 (128 reviews)</span>
-            <span id="preview-modal-price" class="text-xl font-bold font-heading text-stone-900">$12.99</span>
+            <span id="preview-modal-price" class="text-xl font-bold font-heading text-stone-900">$19.99</span>
           </div>
           <h2 id="preview-modal-heading" class="text-2xl font-bold font-serif text-stone-900 leading-tight">Study Planner Pro</h2>
           <p id="preview-modal-tagline" class="text-xs text-stone-600 font-medium leading-relaxed mt-1">
@@ -155,7 +155,7 @@ if (liveNameInput && previewName) {
   // Find product card data
   const card = document.querySelector(`[data-id="${prodId}"]`);
   const title = card?.querySelector('h3, h4')?.textContent?.trim() || 'Planner System';
-  const price = card?.querySelector('.font-heading')?.textContent?.trim() || '$12.99';
+  const price = card?.querySelector('.font-heading')?.textContent?.trim() || '$19.99';
   const cat = card?.querySelector('[data-category-label]')?.textContent?.trim() || 'Productivity System';
   const icon = card?.querySelector('.filter')?.textContent?.trim() || '📖';
 

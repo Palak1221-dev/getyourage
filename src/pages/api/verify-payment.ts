@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { verifyPayment } from '../../lib/dodo';
+import { verifyPayment, getCheckoutSession } from '../../lib/dodo';
 import { orderStore } from '../../lib/orders';
 
 export const POST: APIRoute = async ({ request }) => {
@@ -11,18 +11,56 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: 'Missing paymentId or sessionId' }), { status: 400 });
     }
 
-    const result = await verifyPayment(paymentId);
+    let resolvedPaymentId = paymentId;
 
-    if (result.verified) {
-      const order = orderStore.getByPaymentId(paymentId);
-      if (order) {
-        orderStore.updateStatus(order.id, 'completed', {
-          downloadUrl: `/api/orders/${order.id}/download`,
+    if (!resolvedPaymentId && sessionId) {
+      try {
+        const session = await getCheckoutSession(sessionId);
+        if (!session.payment_id) {
+          return new Response(JSON.stringify({
+            verified: false,
+            paymentId: '',
+            status: 'pending',
+            customerEmail: '',
+            amount: 0,
+            currency: 'USD',
+          }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+        resolvedPaymentId = session.payment_id;
+      } catch {
+        return new Response(JSON.stringify({
+          verified: false,
+          error: 'Invalid checkout session',
+          paymentId: '',
+          status: 'unknown',
+          customerEmail: '',
+          amount: 0,
+          currency: 'USD',
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
         });
       }
     }
 
-    return new Response(JSON.stringify(result), {
+    const result = await verifyPayment(resolvedPaymentId);
+
+    let orderId = '';
+    if (result.verified) {
+      const order = (await orderStore.getByCheckoutSessionId(sessionId)) || (await orderStore.getByPaymentId(resolvedPaymentId));
+      if (order) {
+        await orderStore.updateStatus(order.id, 'completed', {
+          dodoPaymentId: resolvedPaymentId,
+          downloadUrl: `/api/orders/${order.id}/download`,
+        });
+        orderId = order.id;
+      }
+    }
+
+    return new Response(JSON.stringify({ ...result, orderId }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });

@@ -8,7 +8,7 @@ export const GET: APIRoute = async ({ params }) => {
       return new Response(JSON.stringify({ error: 'Missing order ID' }), { status: 400 });
     }
 
-    const order = orderStore.get(id);
+    const order = await orderStore.get(id);
     if (!order) {
       return new Response(JSON.stringify({ error: 'Order not found' }), { status: 404 });
     }

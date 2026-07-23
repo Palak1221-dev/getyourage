@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { Webhook } from 'standardwebhooks';
-import { orderStore } from '../../../lib/orders';
+import { orderStore, formatProductTitle } from '../../../lib/orders';
 import { sendOrderConfirmation } from '../../../lib/email';
 
 export const POST: APIRoute = async ({ request }) => {
@@ -28,42 +28,49 @@ export const POST: APIRoute = async ({ request }) => {
     const data = payload.data || payload;
 
     switch (eventType) {
-      case 'payment.succeeded':
-      case 'payment.completed': {
-        const paymentId = data.id || data.payment?.id;
+      case 'payment.succeeded': {
+        const paymentId = data.payment_id;
         const customerEmail = data.customer?.email || '';
         const metadata = data.metadata || {};
 
-        const order = orderStore.getByPaymentId(paymentId) || orderStore.getByPaymentId(data.checkout_session?.id || '');
+        const order = (await orderStore.getByCheckoutSessionId(data.checkout_session_id || '')) || (await orderStore.getByPaymentId(paymentId));
 
         if (order) {
+          if (order.status === 'completed') {
+            console.log(`Duplicate payment.succeeded ignored: order ${order.id} already completed`);
+            break;
+          }
           const downloadUrl = `/api/orders/${order.id}/download`;
-          orderStore.updateStatus(order.id, 'completed', {
+          await orderStore.updateStatus(order.id, 'completed', {
             dodoPaymentId: paymentId,
             downloadUrl,
           });
           console.log(`Order ${order.id} completed via webhook`);
-          sendOrderConfirmation({
+          await sendOrderConfirmation({
             to: customerEmail || order.customerEmail,
             orderId: order.id,
-            productTitle: order.productTitle || 'Personalized Planner',
+            productTitle: formatProductTitle(order.items),
             downloadUrl: `${process.env.PUBLIC_SITE_URL || 'https://tooltails.com'}${downloadUrl}`,
           });
         } else {
-          const sessionId = data.checkout_session?.id || metadata.sessionId || '';
+          const sessionId = data.checkout_session_id || metadata.sessionId || '';
           if (sessionId) {
-            const foundOrder = orderStore.getByPaymentId(sessionId);
+            const foundOrder = (await orderStore.getByCheckoutSessionId(sessionId)) || (await orderStore.getByPaymentId(sessionId));
             if (foundOrder) {
+              if (foundOrder.status === 'completed') {
+                console.log(`Duplicate payment.succeeded ignored: order ${foundOrder.id} already completed (matched by session)`);
+                break;
+              }
               const downloadUrl = `/api/orders/${foundOrder.id}/download`;
-              orderStore.updateStatus(foundOrder.id, 'completed', {
+              await orderStore.updateStatus(foundOrder.id, 'completed', {
                 dodoPaymentId: paymentId,
                 downloadUrl,
               });
               console.log(`Order ${foundOrder.id} completed via webhook (matched by session)`);
-              sendOrderConfirmation({
+              await sendOrderConfirmation({
                 to: customerEmail || foundOrder.customerEmail,
                 orderId: foundOrder.id,
-                productTitle: foundOrder.productTitle || 'Personalized Planner',
+                productTitle: formatProductTitle(foundOrder.items),
                 downloadUrl: `${process.env.PUBLIC_SITE_URL || 'https://tooltails.com'}${downloadUrl}`,
               });
             }
@@ -73,27 +80,27 @@ export const POST: APIRoute = async ({ request }) => {
       }
 
       case 'payment.failed': {
-        const paymentId = data.id || data.payment?.id;
-        const order = orderStore.getByPaymentId(paymentId);
+        const paymentId = data.payment_id;
+        const order = (await orderStore.getByCheckoutSessionId(data.checkout_session_id || '')) || (await orderStore.getByPaymentId(paymentId));
         if (order) {
-          orderStore.updateStatus(order.id, 'failed');
+          await orderStore.updateStatus(order.id, 'failed');
           console.log(`Order ${order.id} failed via webhook`);
         }
         break;
       }
 
       case 'refund.succeeded': {
-        const paymentId = data.payment?.id || data.id;
-        const order = orderStore.getByPaymentId(paymentId);
+        const paymentId = data.payment_id;
+        const order = await orderStore.getByPaymentId(paymentId);
         if (order) {
-          orderStore.updateStatus(order.id, 'refunded');
+          await orderStore.updateStatus(order.id, 'refunded');
           console.log(`Order ${order.id} refunded via webhook`);
         }
         break;
       }
 
       case 'refund.failed':
-        console.log('Refund failed for payment:', data.payment?.id || data.id);
+        console.log('Refund failed for payment:', data.payment_id);
         break;
 
       case 'subscription.created':

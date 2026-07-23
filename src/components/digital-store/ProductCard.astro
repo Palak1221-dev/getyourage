@@ -34,13 +34,7 @@ const shortDescMap: Record<string, string> = {
 };
 const shortDesc = shortDescMap[p.slug] || p.tagline;
 
-const priceMap: Record<string, number> = {
-  'study-planner-pro': 24.99,
-  'master-your-day': 22.99,
-  'wellness-journal': 19.99,
-  'goal-roadmap': 24.99,
-};
-const displayPrice = priceMap[p.slug] || p.price;
+const displayPrice = p.price;
 const originalPrice = (displayPrice * 1.5).toFixed(2);
 ---
 

@@ -1,5 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { isSmtpConfigured } from "../lib/email";
+
+const smtpEnabled = isSmtpConfigured();
 ---
 
 <Layout
@@ -59,7 +62,11 @@ import Layout from "../layouts/Layout.astro";
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
             </span>
-            <span class="text-xs font-medium text-stone-600">A receipt has been sent to your email.</span>
+            <span class="text-xs font-medium text-stone-600">
+              {smtpEnabled
+                ? 'A receipt has been sent to your email.'
+                : 'Your payment was successful.'}
+            </span>
           </div>
         </div>
 
@@ -107,13 +114,14 @@ import Layout from "../layouts/Layout.astro";
       const downloadBtn = document.getElementById('download-planner-btn') as HTMLAnchorElement;
       const downloadBtnText = document.getElementById('download-btn-text');
 
-      let purchasedProductSlug = productSlug;
-
       if (!sessionId && !paymentId) {
         if (loadingEl) loadingEl.classList.add('hidden');
         if (contentEl) {
           document.getElementById('order-id')!.textContent = 'Completed';
           contentEl.classList.remove('hidden');
+        }
+        if (downloadBtn) {
+          downloadBtn.href = '/digital-store';
         }
         return;
       }
@@ -133,10 +141,14 @@ import Layout from "../layouts/Layout.astro";
         if (loadingEl) loadingEl.classList.add('hidden');
 
         if (result.verified) {
-          document.getElementById('order-id')!.textContent = result.paymentId || 'Completed';
+          const displayOrderId = result.orderId || result.paymentId || 'Completed';
+          document.getElementById('order-id')!.textContent = displayOrderId;
           document.getElementById('order-product')!.textContent = 'Your Personalized Planner';
           document.getElementById('order-email')!.textContent = result.customerEmail || 'Check your email';
           if (contentEl) contentEl.classList.remove('hidden');
+          if (downloadBtn && result.orderId) {
+            downloadBtn.href = `/download/${encodeURIComponent(result.orderId)}`;
+          }
         } else {
           if (contentEl) contentEl.classList.remove('hidden');
           document.getElementById('order-id')!.textContent = paymentId || sessionId || 'Completed';
@@ -146,19 +158,6 @@ import Layout from "../layouts/Layout.astro";
         if (errorEl) errorEl.classList.remove('hidden');
         if (contentEl) contentEl.classList.remove('hidden');
         document.getElementById('order-id')!.textContent = paymentId || sessionId || 'Completed';
-      }
-
-      if (!purchasedProductSlug) {
-        try {
-          const cart = JSON.parse(localStorage.getItem('tt_cart') || '[]');
-          if (cart.length > 0 && cart[0].slug) {
-            purchasedProductSlug = cart[0].slug;
-          }
-        } catch (e) {}
-      }
-
-      if (purchasedProductSlug && downloadBtn) {
-        downloadBtn.href = `/digital-store/${purchasedProductSlug}?download=true`;
       }
 
       try { localStorage.removeItem('tt_cart'); } catch (e) {}

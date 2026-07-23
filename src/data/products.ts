@@ -51,11 +51,11 @@ export interface Product {
 export const products: Product[] = [
   // ── STUDY PLANNER PRO ──
   {
-    id: 'p1', slug: 'study-planner-pro', category: 'academic', price: 34.99, previewType: 'planner', icon: '📅',
+    id: 'p1', slug: 'study-planner-pro', category: 'academic', price: 19.99, previewType: 'planner', icon: '📅',
     title: 'Study Planner Pro', subtitle: 'Your complete academic command center', tagline: 'A personalized semester system with revision tracking, assignment planning, lecture notes, exam countdowns, study schedules, and analytics — all in one.',
     description: 'An all-in-one academic system that replaces 6 separate products. Study Planner Pro includes a semester overview, revision tracker, assignment planner, lecture note templates, exam countdown dashboard, study session log, and academic analytics.',
     longDescription: 'Study Planner Pro is a complete academic operating system. Enter your name, subjects, and exam dates once, and get a fully compiled planner with personalized weekly spreads, a revision tracker that monitors 3-pass topic coverage, an assignment breakdown engine, Cornell-style lecture note templates, a 30-day exam countdown, and an analytics dashboard that tracks your study velocity and readiness score.',
-    tags: ['study', 'planner', 'semester', 'exam', 'revision', 'assignment', 'notes', 'analytics'], rating: 4.9, reviewCount: 342, sales: 5280, originalPrice: 49.99, featured: true, badge: 'Flagship System',
+    tags: ['study', 'planner', 'semester', 'exam', 'revision', 'assignment', 'notes', 'analytics'], rating: 4.9, reviewCount: 342, sales: 5280, originalPrice: 29.99, featured: true, badge: 'Flagship System',
     whatIncluded: [
       'Personalized semester overview with your name, term, and subjects',
       '12-week weekly planner spreads with priority zones',
@@ -86,11 +86,11 @@ export const products: Product[] = [
 
   // ── MASTER YOUR DAY ──
   {
-    id: 'p7', slug: 'master-your-day', category: 'productivity', price: 29.99, previewType: 'planner', icon: '⚡',
+    id: 'p7', slug: 'master-your-day', category: 'productivity', price: 7.00, previewType: 'planner', icon: '⚡',
     title: 'Master Your Day', subtitle: 'Daily planning, time blocking, and deep work system', tagline: 'A complete productivity system with daily and weekly planning, time blocking, deep work sessions, brain dump, and execution tracking.',
     description: 'Master Your Day combines daily planning, weekly planning, time blocking, deep work focus sessions, brain dump clearing, and productivity analytics into one seamless system.',
     longDescription: 'Master Your Day is your complete daily execution system. Plan your week with intentional priority-setting, block deep work sessions aligned to your energy peaks, clear mental clutter with structured brain dump pages, track daily output velocity, and review weekly wins. Every module is designed to eliminate context switching and build momentum.',
-    tags: ['productivity', 'planning', 'time-blocking', 'deep-work', 'focus'], rating: 4.8, reviewCount: 256, sales: 4120, originalPrice: 44.99, featured: true, badge: 'Flagship System',
+    tags: ['productivity', 'planning', 'time-blocking', 'deep-work', 'focus'], rating: 4.8, reviewCount: 256, sales: 4120, originalPrice: 14.99, featured: true, badge: 'Flagship System',
     whatIncluded: [
       'Weekly planning spread with priority matrix and goal setting',
       'Daily planner with hourly time-blocking grid (6 AM — 11 PM)',
@@ -119,11 +119,11 @@ export const products: Product[] = [
 
   // ── WELLNESS JOURNAL ──
   {
-    id: 'p12', slug: 'wellness-journal', category: 'wellness', price: 24.99, previewType: 'journal', icon: '🌿',
+    id: 'p12', slug: 'wellness-journal', category: 'wellness', price: 8.00, previewType: 'journal', icon: '🌿',
     title: 'Wellness Journal', subtitle: 'Habits, mood, gratitude, and self-care system', tagline: 'A daily wellness system combining habit tracking, mood logging, gratitude journaling, self-care routines, and monthly wellness planning.',
     description: 'Wellness Journal is your complete self-care system. Track daily habits, log mood patterns, practice gratitude, plan self-care routines, and review monthly wellness trends.',
     longDescription: 'Wellness Journal helps you build lasting wellness habits through structured daily and weekly practices. Track up to 6 daily habits with visual streak grids, log your mood and energy levels to identify patterns, write morning intentions and evening gratitudes, plan self-care routines, and review monthly wellness reports. All in one beautifully designed journal.',
-    tags: ['wellness', 'habits', 'mood', 'gratitude', 'self-care', 'journal'], rating: 4.9, reviewCount: 198, sales: 3560, originalPrice: 39.99, featured: true, badge: 'Flagship System',
+    tags: ['wellness', 'habits', 'mood', 'gratitude', 'self-care', 'journal'], rating: 4.9, reviewCount: 198, sales: 3560, originalPrice: 14.99, featured: true, badge: 'Flagship System',
     whatIncluded: [
       'Habit tracker with monthly streak grid (up to 6 habits)',
       'Daily mood and energy level logger',
@@ -151,11 +151,11 @@ export const products: Product[] = [
 
   // ── GOAL ROADMAP ──
   {
-    id: 'p10', slug: 'goal-roadmap', category: 'goals', price: 29.99, previewType: 'workbook', icon: '🎯',
+    id: 'p10', slug: 'goal-roadmap', category: 'goals', price: 12.00, previewType: 'workbook', icon: '🎯',
     title: 'Goal Roadmap', subtitle: 'Life goals, career planning, finance, and vision system', tagline: 'A complete life planning system combining goal setting, career roadmapping, finance planning, vision boarding, and long-term strategy.',
     description: 'Goal Roadmap is your complete life planning system. Set SMART goals, plan your career trajectory, manage your finances, create vision boards, and track long-term progress across every area of life.',
     longDescription: 'Goal Roadmap helps you design and execute the life you want. Start with a life vision board that captures your ideal future across health, wealth, career, relationships, and growth. Break down 1-year goals into 90-day execution sprints with weekly action steps. Map your career trajectory with skill acquisition roadmaps. Manage your finances with 50/30/20 budget allocation and savings trackers. Review quarterly progress and adjust your strategy.',
-    tags: ['goals', 'career', 'finance', 'vision', 'planning', 'life'], rating: 4.8, reviewCount: 215, sales: 3890, originalPrice: 44.99, featured: true, badge: 'Flagship System',
+    tags: ['goals', 'career', 'finance', 'vision', 'planning', 'life'], rating: 4.8, reviewCount: 215, sales: 3890, originalPrice: 19.99, featured: true, badge: 'Flagship System',
     whatIncluded: [
       'Life vision board with 6-category framework',
       'SMART goal setting worksheet with milestone tracking',

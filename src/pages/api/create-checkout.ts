@@ -1,11 +1,13 @@
 import type { APIRoute } from 'astro';
 import { createCheckoutSession } from '../../lib/dodo';
 import { orderStore } from '../../lib/orders';
+import { resolveDodoProductId } from '../../lib/product-ids';
+import { products } from '../../data/products';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
-    const { productId, productTitle, productSlug, price, icon, quantity = 1, customerEmail, customerName, metadata = {} } = body;
+    const { productId, quantity = 1, customerEmail, customerName, metadata = {} } = body;
 
     if (!productId) {
       return new Response(JSON.stringify({ error: 'Missing productId' }), { status: 400 });
@@ -14,37 +16,52 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: 'Missing customerEmail' }), { status: 400 });
     }
 
+    const product = products.find(p => p.id === productId || p.slug === productId);
+    if (!product) {
+      return new Response(JSON.stringify({ error: `Product not found: "${productId}"` }), { status: 400 });
+    }
+
+    let dodoProductId: string;
+    try {
+      dodoProductId = resolveDodoProductId(productId);
+    } catch (err: any) {
+      return new Response(JSON.stringify({ error: err.message }), { status: 400 });
+    }
+
+    const unitPrice = product.price;
+    const totalAmount = unitPrice * quantity;
+
     const siteUrl = process.env.PUBLIC_SITE_URL || 'http://localhost:4324';
 
     const result = await createCheckoutSession({
-      productId,
+      productId: dodoProductId,
       quantity,
       customerEmail,
       customerName: customerName || '',
       metadata: {
         ...metadata,
-        productTitle: productTitle || '',
-        productSlug: productSlug || '',
-        price: String(price || 0),
-        icon: icon || '',
+        productTitle: product.title,
+        productSlug: product.slug,
+        price: String(unitPrice),
+        icon: product.icon,
       },
-      returnUrl: `${siteUrl}/payment-success?session_id={CHECKOUT_SESSION_ID}&product_slug=${encodeURIComponent(productSlug || '')}`,
+      returnUrl: `${siteUrl}/payment-success?session_id={CHECKOUT_SESSION_ID}&product_slug=${encodeURIComponent(product.slug)}`,
       cancelUrl: `${siteUrl}/payment-cancelled`,
     });
 
-    orderStore.create(
+    await orderStore.create(
       result.sessionId,
       customerEmail,
       customerName || '',
       [{
-        productId,
-        productSlug: productSlug || '',
-        productTitle: productTitle || '',
-        price: Number(price) || 0,
-        icon: icon || '',
+        productId: product.id,
+        productSlug: product.slug,
+        productTitle: product.title,
+        price: unitPrice,
+        icon: product.icon,
         quantity,
       }],
-      Number(price) * quantity || 0,
+      totalAmount,
       'USD'
     );
 
