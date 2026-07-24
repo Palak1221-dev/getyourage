@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { Webhook } from 'standardwebhooks';
+import DodoPayments from 'dodopayments';
 import { orderStore, formatProductTitle } from '../../../lib/orders';
 import { sendOrderConfirmation } from '../../../lib/email';
 
@@ -14,13 +14,25 @@ export const POST: APIRoute = async ({ request }) => {
     const body = await request.text();
     const headers = Object.fromEntries(request.headers.entries());
 
-    const webhook = new Webhook(webhookSecret);
+    console.log('Webhook headers received:', JSON.stringify({
+      'webhook-id': headers['webhook-id'] || '(missing)',
+      'webhook-signature': headers['webhook-signature'] ? '(present, length=' + headers['webhook-signature'].length + ')' : '(missing)',
+      'webhook-timestamp': headers['webhook-timestamp'] || '(missing)',
+    }));
 
     let payload: any;
     try {
-      payload = webhook.verify(body, headers);
+      const dodo = new DodoPayments({
+        bearerToken: process.env.DODO_PAYMENTS_API_KEY || '',
+        environment: (process.env.DODO_ENV === 'live' ? 'live_mode' : 'test_mode') as any,
+        webhookKey: webhookSecret,
+      });
+      payload = dodo.webhooks.unwrap(body, { headers }) as any;
     } catch (err) {
-      console.error('Webhook signature verification failed:', err);
+      console.error('Webhook signature verification failed:', err instanceof Error ? err.message : err);
+      if (err instanceof Error && err.stack) {
+        console.error('Webhook verification stack:', err.stack);
+      }
       return new Response(JSON.stringify({ error: 'Invalid signature' }), { status: 401 });
     }
 
