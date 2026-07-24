@@ -86,7 +86,7 @@ export const products: Product[] = [
 
   // ── MASTER YOUR DAY ──
   {
-    id: 'p7', slug: 'master-your-day', category: 'productivity', price: 7.00, previewType: 'planner', icon: '⚡',
+    id: 'p7', slug: 'master-your-day', category: 'productivity', price: 0.01, previewType: 'planner', icon: '⚡',
     title: 'Master Your Day', subtitle: 'Daily planning, time blocking, and deep work system', tagline: 'A complete productivity system with daily and weekly planning, time blocking, deep work sessions, brain dump, and execution tracking.',
     description: 'Master Your Day combines daily planning, weekly planning, time blocking, deep work focus sessions, brain dump clearing, and productivity analytics into one seamless system.',
     longDescription: 'Master Your Day is your complete daily execution system. Plan your week with intentional priority-setting, block deep work sessions aligned to your energy peaks, clear mental clutter with structured brain dump pages, track daily output velocity, and review weekly wins. Every module is designed to eliminate context switching and build momentum.',
