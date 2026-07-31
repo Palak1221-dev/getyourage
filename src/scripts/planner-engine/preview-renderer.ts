@@ -39,43 +39,93 @@ function buildCoverInnerHTML(data: {
   foil: string; accent: string; ivory: string; navy: string;
   compact: boolean;
 }): string {
-  const a = (op: string) => `${data.accent}${op}`;
-  const foil = data.foil;
-  const ivory = data.ivory;
+  const ink = '#1B2A41';
+  const gold = data.foil || '#C4954A';
+  const muted = '#6B7280';
   const s = data.compact;
-  const is = (full: number, compact: number) => s ? compact : full;
 
-  const dataLines: string[] = [];
-  if (data.goal) dataLines.push(data.goal);
-  if (data.subjects.length > 0) dataLines.push(data.subjects.join(`<span style="color:${a('40')};margin:0 3px">·</span>`));
-  if (data.examDisplay) {
-    let exam = data.examDisplay;
-    if (data.countdownText) exam += `<span style="color:${a('40')};margin:0 5px">—</span>${data.countdownText}`;
-    dataLines.push(exam);
-  }
+  const titleWords = data.title.split(' ');
+  const mainTitle = titleWords.slice(0, Math.min(2, titleWords.length)).join(' ');
+  const subtitle = titleWords.length > 2 ? titleWords.slice(2).join(' ') : '';
+  const titleParts = mainTitle.split(' ');
+  const titleLine1 = titleParts[0] || '';
+  const titleLine2 = titleParts.length > 1 ? titleParts.slice(1).join(' ') : '';
 
-  const dataHtml = dataLines.length > 0
-    ? dataLines.map(l => `<div style="font-size:${is(10,8)}px;font-weight:400;color:${ivory};line-height:${is(2,1.7)};letter-spacing:0.02em;text-align:center">${l}</div>`).join('')
-    : '';
+  function nf(full: string, comp: string): string { return s ? comp : full; }
 
-  return `
-<div style="position:absolute;inset:0;background:
-  radial-gradient(ellipse at 50% 30%, rgba(237,228,214,0.04) 0%, transparent 50%),
-  repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.006) 2px,rgba(255,255,255,0.006) 3px),
-  repeating-linear-gradient(90deg,transparent,transparent 3px,rgba(255,255,255,0.004) 3px,rgba(255,255,255,0.004) 4px)"></div>
-<div style="position:absolute;inset:${is(20,12)}px;border:0.5px solid ${foil}30;border-radius:${is(6,4)}px;pointer-events:none"></div>
-<div style="position:absolute;bottom:${is(18,12)}px;right:${is(24,16)}px;font-size:${is(5,4)}px;color:${ivory};letter-spacing:0.12em;font-weight:300;font-family:Outfit,sans-serif;opacity:0.1">tooltails · 2026</div>
-<div style="position:relative;z-index:2;text-align:center;max-width:${is(300,230)}px;padding:0 ${is(40,20)}px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100%">
-  <div style="margin-bottom:${is(16,10)}px;padding:${is(3,2)}px ${is(12,10)}px;border:0.5px solid ${a('30')};border-radius:${is(8,6)}px">
-    <span style="font-size:${is(6,5)}px;font-weight:500;color:${a('75')};letter-spacing:0.18em;text-transform:uppercase">2026 Edition</span>
-  </div>
-  <div style="font-size:${is(28,20)}px;font-weight:900;letter-spacing:0.12em;line-height:1.12;font-family:'Playfair Display',Outfit,serif;text-transform:uppercase;background:linear-gradient(180deg,${ivory} 0%,${foil} 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">${data.title}</div>
-  ${data.term ? `<div style="margin-top:${is(6,4)}px;font-size:${is(10,8)}px;font-weight:500;color:${a('60')};letter-spacing:0.15em;font-family:Outfit,sans-serif">${data.term}</div>` : ''}
-  <div style="margin:${is(14,10)}px 0 ${is(12,8)}px;font-size:${is(6,5)}px;color:${a('40')};letter-spacing:0.05em">✦</div>
-  <div style="font-size:${is(22,16)}px;font-weight:400;color:${ivory};letter-spacing:0.06em;line-height:1.2;font-family:'Playfair Display',Outfit,serif">${data.name}</div>
-  <div style="margin:${is(12,8)}px 0 ${is(14,10)}px;font-size:${is(6,5)}px;color:${a('40')};letter-spacing:0.05em">✦</div>
-  ${dataHtml ? `<div style="display:flex;flex-direction:column;align-items:center;gap:${is(3,1)}px">${dataHtml}</div>` : ''}
-</div>`;
+  const nameHtml =
+    '<div contenteditable="true" style="font-size:16px;font-weight:400;font-family:\'Playfair Display\',Outfit,serif;color:' + ink + ';letter-spacing:0.02em;height:22px;border-bottom:0.5px solid ' + gold + '40;line-height:22px;padding:0 4px;display:inline-block;min-width:180px;outline:none;transition:border-color 0.15s ease" data-pp-cover="name">' + data.name + '</div>';
+
+  const yearHtml =
+    '<div contenteditable="true" style="display:inline-block;outline:none;border-bottom:0.5px solid transparent;padding:0 2px;min-width:50px;transition:border-color 0.15s ease;text-align:center" data-pp-cover="year">' + (data.term || '\u2014') + '</div>';
+
+  const focusHtml =
+    '<div contenteditable="true" style="display:inline-block;outline:none;border-bottom:0.5px solid transparent;padding:0 2px;min-width:80px;transition:border-color 0.15s ease;text-align:center" data-pp-cover="preparingFor">' + (data.goal || '\u2014') + '</div>';
+
+  return nf(
+    // ── Full-size: luxury hardcover book cover ──
+    '<div style="position:relative;min-height:540px;padding:48px;display:flex;flex-direction:column;align-items:center;justify-content:center">' +
+    // Publisher imprint — top-left, establishes authority
+    '<div style="position:absolute;top:48px;left:48px;font-size:7px;font-weight:500;color:' + muted + ';letter-spacing:0.12em;text-transform:uppercase;font-family:Outfit,sans-serif;opacity:0.55">tooltails \u00b7 academic series</div>' +
+    // Gold foil band — short thick top rule, like a book cloth spine band
+    '<div style="position:absolute;top:80px;left:48px;width:90px;height:2px;background:' + gold + '"></div>' +
+    // Hero title — commanding, centered, like a foil-stamped hardcover
+    '<div style="text-align:center;margin-top:-10px">' +
+      '<div style="font-size:34px;font-weight:900;letter-spacing:0.12em;line-height:1.05;font-family:\'Playfair Display\',Outfit,serif;text-transform:uppercase;color:' + ink + '">' + titleLine1 + '</div>' +
+      (titleLine2 ? '<div style="font-size:34px;font-weight:900;letter-spacing:0.12em;line-height:1.05;font-family:\'Playfair Display\',Outfit,serif;text-transform:uppercase;color:' + ink + ';margin-top:2px">' + titleLine2 + '</div>' : '') +
+      (subtitle ? '<div style="margin-top:8px;font-size:8px;font-weight:600;color:' + muted + ';letter-spacing:0.25em;text-transform:uppercase;font-family:Outfit,sans-serif">' + subtitle + '</div>' : '') +
+    '</div>' +
+    // Inspiring academic quote — like a front-flap endorsement
+    '<div style="margin-top:28px;text-align:center;max-width:360px;margin-left:auto;margin-right:auto">' +
+      '<div style="font-size:11px;font-weight:400;font-style:italic;color:' + muted + ';line-height:1.55;font-family:\'Playfair Display\',Outfit,serif">\u201CThe expert in anything was once a beginner.\u201D</div>' +
+      '<div style="margin-top:5px;font-size:9px;font-weight:400;color:' + ink + ';font-style:italic;font-family:\'Playfair Display\',Outfit,serif;opacity:0.75">\u2014 Helen Hayes</div>' +
+    '</div>' +
+    // Gold ornament divider — centered, like a decorative chapter break
+    '<div style="margin-top:28px;font-size:10px;color:' + gold + ';letter-spacing:0.3em">\u2726</div>' +
+    // Subtitle — clarifies purpose
+    '<div style="margin-top:22px;text-align:center">' +
+      '<div style="font-size:10px;font-weight:500;color:' + muted + ';letter-spacing:0.08em;font-family:Outfit,sans-serif">A GUIDE TO ACADEMIC EXCELLENCE</div>' +
+      '<div style="font-size:9px;font-weight:400;color:' + muted + ';letter-spacing:0.04em;font-family:Outfit,sans-serif;margin-top:2px;opacity:0.8">&amp; PURPOSEFUL STUDY</div>' +
+    '</div>' +
+    // Bookplate — ownership area, like an ex-libris plate
+    '<div style="margin-top:38px;text-align:center">' +
+      '<div style="font-size:7px;font-weight:400;font-style:italic;color:' + gold + ';letter-spacing:0.15em;font-family:Outfit,sans-serif;opacity:0.6">ex libris</div>' +
+      '<div style="margin-top:8px">' + nameHtml + '</div>' +
+      '<div style="margin-top:16px;display:flex;align-items:center;gap:12px;justify-content:center">' +
+        '<div style="display:flex;align-items:center;gap:6px">' +
+          '<span style="font-size:7px;font-weight:500;color:' + gold + ';letter-spacing:0.08em;text-transform:uppercase;font-family:Outfit,sans-serif;opacity:0.7">Year</span>' +
+          yearHtml +
+        '</div>' +
+        '<span style="color:' + gold + ';opacity:0.3;font-size:8px">\u25C9</span>' +
+        '<div style="display:flex;align-items:center;gap:6px">' +
+          '<span style="font-size:7px;font-weight:500;color:' + gold + ';letter-spacing:0.08em;text-transform:uppercase;font-family:Outfit,sans-serif;opacity:0.7">Focus</span>' +
+          focusHtml +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    // Bottom gold rule — closes the composition
+    '<div style="position:absolute;bottom:48px;left:48px;right:48px;height:1px;background:' + gold + '25"></div>' +
+    // Colophon — publication details, like a title page verso
+    '<div style="position:absolute;bottom:54px;left:0;right:0;text-align:center;font-size:6px;font-weight:400;color:' + muted + ';letter-spacing:0.12em;text-transform:uppercase;opacity:0.4;font-family:Outfit,sans-serif">tooltails \u00b7 New York \u00b7 2026</div>' +
+    '</div>',
+
+    // ── Compact: stripped-down book cover for PDF thumbnails ──
+    '<div style="position:relative;width:100%;min-height:360px;padding:24px;display:flex;flex-direction:column;align-items:center;justify-content:center">' +
+    '<div style="text-align:center">' +
+      '<div style="font-size:20px;font-weight:900;letter-spacing:0.12em;line-height:1.1;font-family:\'Playfair Display\',Outfit,serif;text-transform:uppercase;color:' + ink + '">' + titleLine1 + (titleLine2 ? ' ' + titleLine2 : '') + '</div>' +
+      (subtitle ? '<div style="margin-top:4px;font-size:7px;font-weight:600;color:' + muted + ';letter-spacing:0.22em;text-transform:uppercase">' + subtitle + '</div>' : '') +
+    '</div>' +
+    '<div style="margin-top:18px;text-align:center;max-width:200px">' +
+      '<div style="font-size:9px;font-weight:400;font-style:italic;color:' + muted + ';line-height:1.4;font-family:\'Playfair Display\',Outfit,serif">\u201CThe expert in anything was once a beginner.\u201D</div>' +
+    '</div>' +
+    '<div style="margin-top:16px;text-align:center">' +
+      '<div style="font-size:7px;font-weight:400;font-style:italic;color:' + gold + ';letter-spacing:0.12em;font-family:Outfit,sans-serif;opacity:0.5">ex libris</div>' +
+      '<div style="margin-top:6px;font-size:13px;font-weight:400;font-family:\'Playfair Display\',Outfit,serif;color:' + ink + ';letter-spacing:0.02em">' + data.name + '</div>' +
+      '<div style="margin-top:10px;font-size:8px;color:' + muted + '">' + (data.term || '\u2014') + (data.goal && data.term ? ' \u00b7 ' : '') + (data.goal || '') + '</div>' +
+    '</div>' +
+    '<div style="position:absolute;bottom:14px;left:0;right:0;text-align:center;font-size:4px;color:' + muted + ';letter-spacing:0.12em;opacity:0.3">tooltails \u00b7 New York \u00b7 2026</div>' +
+    '</div>'
+  );
 }
 
 export class PlannerPreviewRenderer {
@@ -172,7 +222,7 @@ export class PlannerPreviewRenderer {
     const term = esc(values['term'] || values['semester'] || '');
 
     const subjectsRaw = values['subjects'] || values['courses'] || '';
-    const subjects = subjectsRaw.split(/[,\n]/).map(s => s.trim()).filter(s => s.length > 0).slice(0, 8);
+    const subjects = subjectsRaw.split(/[,\n]/).map(s => s.trim()).filter(s => s.length > 0);
 
     const examDateStr = values['examDate'] || '';
     let examDisplay = '';
@@ -194,11 +244,9 @@ export class PlannerPreviewRenderer {
       } catch (e) {}
     }
 
-    const navy = '#1a2035';
-    const ivory = '#f5f0e8';
     const inner = buildCoverInnerHTML({
       name, title, term, goal, subjects, examDisplay, countdownText,
-      foil: theme.gold, accent: theme.accent, ivory, navy, compact: false,
+      foil: theme.gold, accent: theme.accent, ivory: '#f5f0e8', navy: '#1a2035', compact: false,
     });
 
     return `<div class="pp-cover">${inner}</div>`;
@@ -442,11 +490,9 @@ return `<div style="display:flex;align-items:center;gap:10px;margin:14px 0">
     const title = esc(this.config.productTitle);
     const goal = esc(values['goal'] || values['vision'] || values['targetRole'] || values['currentRole'] || '');
     const term = esc(values['term'] || values['semester'] || '');
-    const navy = '#1a2035';
-    const ivory = '#f5f0e8';
 
     const subjectsRaw = values['subjects'] || values['courses'] || '';
-    const subjects = subjectsRaw.split(/[,\n]/).map(s => s.trim()).filter(s => s.length > 0).slice(0, 8);
+    const subjects = subjectsRaw.split(/[,\n]/).map(s => s.trim()).filter(s => s.length > 0);
 
     const examDateStr = values['examDate'] || '';
     let examDisplay = '';
@@ -470,11 +516,11 @@ return `<div style="display:flex;align-items:center;gap:10px;margin:14px 0">
 
     const inner = buildCoverInnerHTML({
       name, title, term, goal, subjects, examDisplay, countdownText,
-      foil: theme.gold, accent: theme.accent, ivory, navy, compact: true,
+      foil: theme.gold, accent: theme.accent, ivory: '#f5f0e8', navy: '#1a2035', compact: true,
     });
 
     return `
-      <div class="pdf-page" style="width:350px;min-height:400px;padding:20px;box-sizing:border-box;font-family:Outfit,Inter,sans-serif;background:${navy};border-radius:8px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+      <div class="pdf-page" style="width:350px;min-height:400px;padding:20px;box-sizing:border-box;font-family:Outfit,Inter,sans-serif;background:#fcf9f2;border-radius:8px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
         ${inner}
       </div>
     `;
@@ -626,9 +672,9 @@ ${subj.tasks.map(done => `
       /* === COVER — Premium Classic === */
       .pp-cover {
         position:relative;border-radius:8px;overflow:hidden;min-height:310px;
-        background:#1a2035;
+        background:#fcf9f2;
         display:flex;align-items:center;justify-content:center;
-        box-shadow:0 4px 20px rgba(0,0,0,0.15);
+        box-shadow:0 4px 20px rgba(0,0,0,0.06);
       }
       /* === WEEKLY OVERVIEW === */
       .pp-weekly { background:white;border-radius:12px;padding:18px;min-height:310px;box-shadow:0 2px 8px rgba(0,0,0,0.02);border:1px solid #ede4d8; }
@@ -775,7 +821,7 @@ export class FullPlannerPreview {
     return `<div style="padding:20px 24px 10px;border-bottom:1px solid #ede4d8;display:flex;align-items:flex-start;justify-content:space-between">
       <div>
         <div style="font-size:16px;font-weight:700;color:#1F2937;letter-spacing:-0.01em;font-family:'Playfair Display',Outfit,serif">${title}</div>
-        ${subtitle ? `<div style="font-size:9px;color:#6B7280;font-weight:500;margin-top:2px;font-style:italic">${subtitle}</div>` : ''}
+        ${subtitle ? `<div style="font-size:9px;color:#4B5563;font-weight:500;margin-top:2px;font-style:italic">${subtitle}</div>` : ''}
       </div>
       ${subtitle ? `<div style="font-size:8px;color:#4B5563;background:#f5f0ea;padding:3px 10px;border-radius:20px;font-weight:600;white-space:nowrap;flex-shrink:0;margin-top:2px">${subtitle}</div>` : ''}
     </div>`;
@@ -912,16 +958,13 @@ private subjectList(): string[] {
 
   private renderCover(): string {
     const t = this.theme;
-    const navy = '#1a2035';
-    const ivory = '#f5f0e8';
-
     const name = esc(this.values['name'] || 'Your Name');
     const title = esc(this.title);
     const goal = esc(this.values['goal'] || this.values['vision'] || this.values['targetRole'] || this.values['currentRole'] || '');
     const term = esc(this.values['term'] || this.values['semester'] || '');
 
     const subjectsRaw = this.values['subjects'] || this.values['courses'] || '';
-    const subjects = subjectsRaw.split(/[,\n]/).map(s => s.trim()).filter(s => s.length > 0).slice(0, 8);
+    const subjects = subjectsRaw.split(/[,\n]/).map(s => s.trim()).filter(s => s.length > 0);
 
     const examDateStr = this.values['examDate'] || '';
     let examDisplay = '';
@@ -945,11 +988,11 @@ private subjectList(): string[] {
 
     const inner = buildCoverInnerHTML({
       name, title, term, goal, subjects, examDisplay, countdownText,
-      foil: t.gold, accent: t.accent, ivory, navy, compact: false,
+      foil: t.gold, accent: t.accent, ivory: '#f5f0e8', navy: '#1a2035', compact: false,
     });
 
     return this.pageWrap(
-      `<div style="padding:0;min-height:540px;background:${navy};display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-radius:0">${inner}</div>`
+      `<div style="padding:0;min-height:540px;position:relative;overflow:hidden;border-radius:0">${inner}</div>`
     );
   }
 
@@ -1750,7 +1793,7 @@ private subjectList(): string[] {
           '<div style="display:flex;align-items:center;gap:4px;font-size:7px;font-weight:600;color:#6B7280"><span style="width:8px;height:8px;border-radius:2px;background:' + ac + ';border:1px solid ' + ac + '"></span>Present</div>' +
           '<div style="display:flex;align-items:center;gap:4px;font-size:7px;font-weight:600;color:#6B7280"><span style="width:8px;height:8px;border-radius:2px;background:#ffffff;border:1.5px solid #e5e0d8"></span>Absent</div>' +
           '<div style="flex:1"></div>' +
-          '<div style="font-size:7px;color:#6B7280;font-weight:500">Click to toggle</div>' +
+          '<div style="font-size:7px;color:#4B5563;font-weight:500">Click to toggle</div>' +
         '</div>' +
         // Weekday headers
         '<div style="display:flex;gap:3px;margin:0 0 2px">' +
@@ -1846,11 +1889,11 @@ private subjectList(): string[] {
               '</div>';
             }).join('')}
             <div style="margin-top:6px;padding:6px 8px;background:#ffffff;border-radius:5px;border:1px solid #ede4d8;display:flex;gap:8px;align-items:center">
-              <span style="font-size:8px;font-weight:600;color:#6B7280">Avg: <span data-energy-avg="w${index}" style="color:#2563eb;font-weight:700">--</span></span>
-              <span style="font-size:8px;font-weight:600;color:#6B7280">High: <span data-energy-high="w${index}" style="color:#10b981;font-weight:700">--</span></span>
-              <span style="font-size:8px;font-weight:600;color:#6B7280">Low: <span data-energy-low="w${index}" style="color:#ef4444;font-weight:700">--</span></span>
+              <span style="font-size:8px;font-weight:600;color:#4B5563">Avg: <span data-energy-avg="w${index}" style="color:#2563eb;font-weight:700">--</span></span>
+              <span style="font-size:8px;font-weight:600;color:#4B5563">High: <span data-energy-high="w${index}" style="color:#10b981;font-weight:700">--</span></span>
+              <span style="font-size:8px;font-weight:600;color:#4B5563">Low: <span data-energy-low="w${index}" style="color:#ef4444;font-weight:700">--</span></span>
               <span style="flex:1"></span>
-              <span style="font-size:7px;color:#6B7280">Click · drag · ← →</span>
+              <span style="font-size:7px;color:#4B5563">Click · drag · ← →</span>
             </div>
           </div>
         </div>

@@ -5,11 +5,12 @@ const isPomodoroPath = Astro.url.pathname.startsWith('/pomodoro-timer');
 const isWordCounterPath = Astro.url.pathname.startsWith('/word-counter');
 const isStudySchedulePath = Astro.url.pathname.startsWith('/study-schedule');
 const isResumeCheckerPath = Astro.url.pathname.startsWith('/resume-checker');
+const isDigitalStorePath = Astro.url.pathname.startsWith('/digital-store');
 ---
 
 <footer class="bg-canvas border-t border-hairline py-12 md:py-24">
   <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
       <div class="col-span-2 md:col-span-1">
         <a href={isFocusPath ? "/focus" : isPomodoroPath ? "/pomodoro-timer" : isWordCounterPath ? "/word-counter" : isStudySchedulePath ? "/study-schedule" : isResumeCheckerPath ? "/resume-checker" : "/"} class="text-xl font-bold tracking-tighter text-ink mb-4 inline-block">
           Tooltails<span class="text-primary">{isFocusPath ? " Focus" : isPomodoroPath ? " Pomodoro" : isWordCounterPath ? " Word Counter" : isStudySchedulePath ? " Study Schedule" : isResumeCheckerPath ? " Resume Checker" : ".com"}</span>
@@ -80,6 +81,44 @@ const isResumeCheckerPath = Astro.url.pathname.startsWith('/resume-checker');
               <li><a href="/focus" class="text-sm text-body hover:text-ink transition-colors">Focus Goals Timer</a></li>
               <li><a href="/word-counter" class="text-sm text-body hover:text-ink transition-colors">Word Counter</a></li>
               <li><a href="/study-schedule" class="text-sm text-body hover:text-ink transition-colors">Study Schedule Generator</a></li>
+            </>
+          )}
+        </ul>
+      </nav>
+
+      <nav aria-label="Store">
+        <h4 class="text-xs font-mono uppercase tracking-widest text-mute mb-4">Store</h4>
+        <ul class="space-y-2">
+          {isFocusPath ? (
+            <>
+              <li><a href="/digital-store/master-your-day" class="text-sm text-body hover:text-ink transition-colors">Master Your Day</a></li>
+              <li><a href="/digital-store" class="text-sm text-body hover:text-ink transition-colors">Browse All Planners</a></li>
+            </>
+          ) : isPomodoroPath ? (
+            <>
+              <li><a href="/digital-store/master-your-day" class="text-sm text-body hover:text-ink transition-colors">Master Your Day</a></li>
+              <li><a href="/digital-store" class="text-sm text-body hover:text-ink transition-colors">Browse All Planners</a></li>
+            </>
+          ) : isStudySchedulePath ? (
+            <>
+              <li><a href="/digital-store/study-planner-pro" class="text-sm text-body hover:text-ink transition-colors">Study Planner Pro</a></li>
+              <li><a href="/digital-store" class="text-sm text-body hover:text-ink transition-colors">Browse All Planners</a></li>
+            </>
+          ) : isResumeCheckerPath ? (
+            <>
+              <li><a href="/digital-store" class="text-sm text-body hover:text-ink transition-colors">Browse All Planners</a></li>
+            </>
+          ) : isDigitalStorePath ? (
+            <>
+              <li><a href="/study-schedule" class="text-sm text-body hover:text-ink transition-colors">Study Schedule</a></li>
+              <li><a href="/focus" class="text-sm text-body hover:text-ink transition-colors">Focus Timer</a></li>
+              <li><a href="/pomodoro-timer" class="text-sm text-body hover:text-ink transition-colors">Pomodoro Timer</a></li>
+            </>
+          ) : (
+            <>
+              <li><a href="/digital-store" class="text-sm text-body hover:text-ink transition-colors">Digital Store</a></li>
+              <li><a href="/digital-store/study-planner-pro" class="text-sm text-body hover:text-ink transition-colors">Study Planner Pro</a></li>
+              <li><a href="/digital-store/master-your-day" class="text-sm text-body hover:text-ink transition-colors">Master Your Day</a></li>
             </>
           )}
         </ul>

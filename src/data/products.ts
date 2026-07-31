@@ -72,10 +72,7 @@ export const products: Product[] = [
     personalization: [
       { id: 'name', label: 'Your Name', type: 'text', placeholder: 'Alex Johnson', required: true, section: 'Personal Info' },
       { id: 'term', label: 'Semester / Term', type: 'text', placeholder: 'Fall 2026', defaultValue: 'Fall 2026', required: true, section: 'Personal Info' },
-      { id: 'subjects', label: 'Your Subjects', type: 'textarea', placeholder: 'Biology, Chemistry, Physics, Calculus', required: true, section: 'Course Setup' },
-      { id: 'examDate', label: 'First Exam Date', type: 'date', required: true, section: 'Course Setup' },
-      { id: 'goal', label: 'This Term Goal', type: 'text', placeholder: 'Achieve a 3.8 GPA', section: 'Personal Info' },
-      { id: 'color', label: 'Accent Color', type: 'select', options: [{ label: 'Violet', value: 'violet' }, { label: 'Emerald', value: 'emerald' }, { label: 'Sky', value: 'sky' }], defaultValue: 'violet', section: 'Personal Info' }
+      { id: 'goal', label: 'This Term Goal', type: 'text', placeholder: 'Achieve a 3.8 GPA', section: 'Personal Info' }
     ],
     reviews: [
       { id: 'r1', name: 'Sarah M.', initials: 'SM', rating: 5, date: 'Jun 2026', text: 'This replaced 3 separate planners I was using. The revision tracker alone is worth the price.' },
@@ -86,34 +83,32 @@ export const products: Product[] = [
 
   // ── MASTER YOUR DAY ──
   {
-    id: 'p7', slug: 'master-your-day', category: 'productivity', price: 0.50, previewType: 'planner', icon: '⚡',
-    title: 'Master Your Day', subtitle: 'Daily planning, time blocking, and deep work system', tagline: 'A complete productivity system with daily and weekly planning, time blocking, deep work sessions, brain dump, and execution tracking.',
-    description: 'Master Your Day combines daily planning, weekly planning, time blocking, deep work focus sessions, brain dump clearing, and productivity analytics into one seamless system.',
-    longDescription: 'Master Your Day is your complete daily execution system. Plan your week with intentional priority-setting, block deep work sessions aligned to your energy peaks, clear mental clutter with structured brain dump pages, track daily output velocity, and review weekly wins. Every module is designed to eliminate context switching and build momentum.',
-    tags: ['productivity', 'planning', 'time-blocking', 'deep-work', 'focus'], rating: 4.8, reviewCount: 256, sales: 4120, originalPrice: 14.99, featured: true, badge: 'Flagship System',
+    id: 'p7', slug: 'master-your-day', category: 'productivity', price: 14.99, previewType: 'planner', icon: '⚡',
+    title: 'Master Your Day', subtitle: 'Your complete daily execution system with energy-aware planning',     tagline: 'A connected productivity system with weekly reset, energy-aware daily planning, priority engine, time audit, habit streaks, and anti-procrastination tools.',
+    description: 'Master Your Day is a complete productivity system that connects your weekly reset to your daily command center to your evening reflection. With 11 connected pages including weekly reset, energy tracking, priority engine, time audit, habit streaks, and anti-procrastination tools — designed to be sustainable, not overwhelming.',
+    longDescription: 'Master Your Day is not a collection of pages. It is a system. A daily ritual that takes less than 10 minutes, connects everything (weekly reset to daily command to evening reflection), adapts to your energy, never punishes you for missing days, and actually helps you DO the work. Features 11 connected tools: Weekly Reset, Daily Command Center, Evening Reflection, Priority Engine, Anti-Procrastination Dashboard, Energy & Mood Tracker, Time Audit, Brain Dump Processor, and Habit Streak Analytics.',
+    tags: ['productivity', 'planning', 'time-blocking', 'deep-work', 'focus', 'habits', 'energy', 'goals'], rating: 4.9, reviewCount: 312, sales: 5680, originalPrice: 24.99, featured: true, badge: 'Flagship System',
     whatIncluded: [
-      'Weekly planning spread with priority matrix and goal setting',
-      'Daily planner with hourly time-blocking grid (6 AM — 11 PM)',
-      'Deep work session tracker with flow state logging',
-      'Brain dump clearing pages for mental clutter',
-      'Eisenhower priority matrix for task triage',
-      'Time audit worksheet to find wasted hours',
-      'Daily output velocity scorecard',
-      'Weekly reflection and win review',
-      'Printable PDF (A4 + US Letter) and editable DOCX',
-      '30 days of free regenerations'
+      'Weekly Reset (7-step Sunday ritual with week rating, wins, challenges, priorities, and intentions)',
+      'Daily Command Center (energy slider + mood selector + Big 3 prioritization + hourly schedule + notes)',
+      'Evening Reflection (accomplished entries + distractions + focus score + mood comparison + sleep plan)',
+      'Priority Engine (task scoring by impact, urgency, and energy fit with scoring guide and deferred tasks)',
+      'Anti-Procrastination Dashboard (task breakdown + time estimates + reason tags + micro-action planning + commitment button)',
+      'Energy & Mood Tracker (AM/PM mood comparison + energy slider + sleep quality + weekly trend + insight card)',
+      'Time Audit (hour-by-hour log + category breakdown + ideal vs actual comparison + deep work trend)',
+      'Brain Dump Processor (free-write zone + categorize into Tasks/Ideas/Worries/Later with action prompts)',
+      'Habit Tracker & Streak Analytics (8 habits with 28-day chain grid + best/current streak + completion %)',
+      'Interactive digital preview with auto-saving sliders, mood selectors, and checkboxes'
     ],
-    formats: [{ type: 'pdf', label: 'PDF (A4 + US Letter)' }, { type: 'printable', label: 'Printable' }, { type: 'docx', label: 'DOCX (Editable)' }],
+    formats: [{ type: 'pdf', label: 'PDF (A4 + US Letter)' }, { type: 'printable', label: 'Interactive Digital Planner' }],
     personalization: [
       { id: 'name', label: 'Your Name', type: 'text', placeholder: 'Jamie Chen', required: true, section: 'Personal Info' },
-      { id: 'focusHours', label: 'Peak Focus Hours', type: 'text', placeholder: '8:00 AM — 12:00 PM', defaultValue: '8:00 AM — 12:00 PM', section: 'Preferences' },
-      { id: 'topPriorities', label: 'Top 3 Weekly Priorities', type: 'text', placeholder: 'Finish project, Exercise 4x, Read 1 book', section: 'Goal Setup' },
-      { id: 'color', label: 'Accent Color', type: 'select', options: [{ label: 'Amber', value: 'amber' }, { label: 'Indigo', value: 'indigo' }, { label: 'Emerald', value: 'emerald' }], defaultValue: 'amber', section: 'Preferences' }
+      { id: 'goal', label: 'Your #1 Goal This Season', type: 'text', placeholder: 'Build a successful freelance business', section: 'Goal Setup' }
     ],
     reviews: [
-      { id: 'r4', name: 'Marcus B.', initials: 'MB', rating: 5, date: 'Jul 2026', text: 'The time-blocking grid transformed my chaotic weeks into structured execution.' },
-      { id: 'r5', name: 'Emma T.', initials: 'ET', rating: 5, date: 'Jun 2026', text: 'Having deep work sessions and brain dump in one system eliminates all friction.' },
-      { id: 'r6', name: 'Leo N.', initials: 'LN', rating: 4, date: 'May 2026', text: 'Clean, intentional design. The weekly reflection is my favorite part.' }
+      { id: 'r4', name: 'Marcus B.', initials: 'MB', rating: 5, date: 'Jul 2026', text: 'The Weekly Reset ritual changed my Sundays from anxiety to clarity. This system is incredible.' },
+      { id: 'r5', name: 'Emma T.', initials: 'ET', rating: 5, date: 'Jun 2026', text: 'Having goal breakdown, energy tracking, and anti-procrastination in one system — I\'ve never been this consistent.' },
+      { id: 'r6', name: 'Leo N.', initials: 'LN', rating: 5, date: 'May 2026', text: 'The Smart Goal Breakdown finally connects my big dreams to what I do today. This is what every planner should be.' }
     ]
   },
 
@@ -139,8 +134,8 @@ export const products: Product[] = [
     formats: [{ type: 'pdf', label: 'PDF (A4 + US Letter)' }, { type: 'printable', label: 'Printable' }, { type: 'docx', label: 'DOCX (Editable)' }],
     personalization: [
       { id: 'name', label: 'Your Name', type: 'text', placeholder: 'Maya Rivera', required: true, section: 'Personal Info' },
-      { id: 'habits', label: 'Habits You Want to Track', type: 'textarea', placeholder: 'Meditate, Exercise, Read, Journal, No sugar, Sleep by 11pm', required: true, section: 'Habit Setup' },
-      { id: 'morningRoutine', label: 'Morning Routine Goal', type: 'text', placeholder: 'Wake at 6:30, meditate 10 min, stretch', section: 'Routine Setup' }
+      { id: 'wellnessFocus', label: 'Your Wellness Focus', type: 'text', placeholder: 'Build a consistent morning routine and stress habits', required: true, section: 'Wellness Setup' },
+      { id: 'habits', label: 'Habits You Want to Track', type: 'textarea', placeholder: 'Meditate, Exercise, Read, Journal, No sugar, Sleep by 11pm', required: true, section: 'Habit Setup' }
     ],
     reviews: [
       { id: 'r7', name: 'Hannah P.', initials: 'HP', rating: 5, date: 'Jul 2026', text: 'The mood tracking revealed patterns I never noticed. My habits are finally sticking.' },
@@ -149,36 +144,42 @@ export const products: Product[] = [
     ]
   },
 
-  // ── GOAL ROADMAP ──
+  // ── SOCIAL MEDIA DETOX ──
   {
-    id: 'p10', slug: 'goal-roadmap', category: 'goals', price: 12.00, previewType: 'workbook', icon: '🎯',
-    title: 'Goal Roadmap', subtitle: 'Life goals, career planning, finance, and vision system', tagline: 'A complete life planning system combining goal setting, career roadmapping, finance planning, vision boarding, and long-term strategy.',
-    description: 'Goal Roadmap is your complete life planning system. Set SMART goals, plan your career trajectory, manage your finances, create vision boards, and track long-term progress across every area of life.',
-    longDescription: 'Goal Roadmap helps you design and execute the life you want. Start with a life vision board that captures your ideal future across health, wealth, career, relationships, and growth. Break down 1-year goals into 90-day execution sprints with weekly action steps. Map your career trajectory with skill acquisition roadmaps. Manage your finances with 50/30/20 budget allocation and savings trackers. Review quarterly progress and adjust your strategy.',
-    tags: ['goals', 'career', 'finance', 'vision', 'planning', 'life'], rating: 4.8, reviewCount: 215, sales: 3890, originalPrice: 19.99, featured: true, badge: 'Flagship System',
+    id: 'p10', slug: 'social-media-detox', category: 'goals', price: 12.99, previewType: 'workbook', icon: '📵',
+    title: 'Social Media Detox', subtitle: 'Digital wellbeing, screen time tracking, and mindful tech use', tagline: 'Reclaim your time and attention with a structured digital detox system.',
+    description: 'Social Media Detox is your complete digital wellbeing system. Audit your current usage, set meaningful boundaries, track daily screen time, log cravings, and reflect on the benefits of a healthier relationship with technology.',
+    longDescription: 'Social Media Detox helps you break free from compulsive scrolling and rebuild your relationship with technology. Start with a digital audit to understand your baseline — screen time, unlocks, peak usage, and triggers. Design a personalized detox plan with boundaries, replacement activities, and daily screen time targets. Track each day with screen time logs, phone-free hours, and mood checks. Log cravings and triggering situations to understand your patterns. Review weekly progress, celebrate wins, and adjust your approach.',
+    tags: ['digital wellbeing', 'screen time', 'detox', 'habits', 'mindfulness', 'focus'], rating: 4.7, reviewCount: 142, sales: 2100, originalPrice: 14.99, featured: true, badge: 'Trending',
     whatIncluded: [
-      'Life vision board with 6-category framework',
-      'SMART goal setting worksheet with milestone tracking',
-      '90-day execution sprint planner (13-week breakdown)',
-      'Career roadmap with skill acquisition tracker',
-      '50/30/20 budget allocation worksheet',
-      'Savings goal tracker and expense log',
-      'Vision board collage pages',
-      'Quarterly review and strategy adjustment',
+      'Cover page with your detox commitment',
+      'Digital audit — assess your baseline usage',
+      'App usage deep dive — understand your patterns',
+      'Notification audit — control the pings',
+      'Detox goals & boundaries planner',
+      'Phone-free morning ritual builder',
+      'Bedtime wind-down routine',
+      'Replacement activities catalog',
+      'Daily screen time and phone-unlock tracker',
+      'Cravings & triggers identification log',
+      'Social Media Blackout Challenge',
+      'Focus Zone Planner for deep work',
+      'Weekly progress review with trend tracking',
+      'Rewards & milestones celebration tracker',
+      'Monthly digital wellness review',
       'Printable PDF (A4 + US Letter) and editable DOCX',
       '30 days of free regenerations'
     ],
     formats: [{ type: 'pdf', label: 'PDF (A4 + US Letter)' }, { type: 'printable', label: 'Printable' }, { type: 'docx', label: 'DOCX (Editable)' }],
     personalization: [
       { id: 'name', label: 'Your Name', type: 'text', placeholder: 'Alex Johnson', required: true, section: 'Personal Info' },
-      { id: 'primaryGoal', label: 'Your #1 Goal This Year', type: 'text', placeholder: 'Start my own business', required: true, section: 'Goal Setup' },
-      { id: 'careerTarget', label: 'Target Career / Role', type: 'text', placeholder: 'Senior Product Manager', section: 'Career' },
-      { id: 'monthlyIncome', label: 'Monthly Income (for budget)', type: 'number', placeholder: '5000', section: 'Finance' }
+      { id: 'detoxGoal', label: 'Your Detox Goal', type: 'text', placeholder: 'Reduce screen time to 2 hrs/day', required: true, section: 'Detox Setup' },
+      { id: 'topApp', label: 'App You Use Most', type: 'text', placeholder: 'Instagram', section: 'Usage' }
     ],
     reviews: [
-      { id: 'r10', name: 'Alex M.', initials: 'AM', rating: 5, date: 'Jul 2026', text: 'The 90-day sprint framework is a game changer. I have accomplished more in 3 months than all last year.' },
-      { id: 'r11', name: 'Sarah M.', initials: 'SM', rating: 5, date: 'Jun 2026', text: 'Having career goals and finance planning in one roadmap makes everything feel connected.' },
-      { id: 'r12', name: 'Marcus B.', initials: 'MB', rating: 4, date: 'May 2026', text: 'The vision board pages are stunning. This replaced my separate career and budget planners.' }
+      { id: 'r10', name: 'Jenna K.', initials: 'JK', rating: 5, date: 'Jul 2026', text: 'I had no idea I was spending 6 hours a day on social media. This planner helped me cut it to under an hour.' },
+      { id: 'r11', name: 'David R.', initials: 'DR', rating: 5, date: 'Jun 2026', text: 'The cravings log is eye-opening. I finally understand why I reach for my phone.' },
+      { id: 'r12', name: 'Maya L.', initials: 'ML', rating: 4, date: 'May 2026', text: 'I have read 4 books this month instead of scrolling. The replacement activity ideas are genius.' }
     ]
   }
 ];

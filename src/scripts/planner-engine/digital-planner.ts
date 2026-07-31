@@ -10,6 +10,8 @@ type ZoomLevel = 'fit' | 0.75 | 1 | 1.25;
 export interface DigitalPlannerOptions {
   /** Show sidebar for page navigation (default true) */
   sidebar?: boolean;
+  /** Custom page generator (for products other than Study Planner Pro) */
+  getPages?: (values: Record<string, string>, theme: any, title?: string, icon?: string) => PageEntry[];
 }
 
 export class DigitalPlanner {
@@ -27,6 +29,7 @@ export class DigitalPlanner {
   private navCountEl!: HTMLElement;
   private navJumpEl!: HTMLSelectElement;
   private zoomBtns!: NodeListOf<HTMLElement>;
+  private pageBuilder: (values: Record<string, string>, theme: any, title?: string, icon?: string) => PageEntry[];
   private studyStreakDocListeners: {
     mousemove: ((e: MouseEvent) => void) | null;
     mouseup: (() => void) | null;
@@ -41,20 +44,12 @@ export class DigitalPlanner {
     this.options = options || {};
     this.styleId = 'dp-style-' + Math.random().toString(36).slice(2, 8);
     this.container = container;
-    const preview = new FullPlannerPreview(values, theme, title, icon);
-    this.pages = preview.getPageList();
+    this.pageBuilder = options?.getPages || ((values, theme, title, icon) => {
+      const preview = new FullPlannerPreview(values, theme, title, icon);
+      return preview.getPageList();
+    });
+    this.pages = this.pageBuilder(values, theme, title, icon);
     this.loadSavedData();
-    // Apply saved subject names to page titles before mount
-    for (let i = 0; i < this.pages.length; i++) {
-      const p = this.pages[i];
-      if (p.id.startsWith('subject-planner-')) {
-        const idx = parseInt(p.id.replace('subject-planner-', ''), 10);
-        const saved = this.savedData[`subject-name:${idx}`];
-        if (saved && saved.trim()) {
-          p.title = `${this.esc(saved.trim())} Planner`;
-        }
-      }
-    }
   }
 
   private esc(s: string): string {
@@ -242,8 +237,7 @@ export class DigitalPlanner {
 
   /** Re-render all pages with updated values (for live preview updates) */
   setValues(values: Record<string, string>, theme: any, title?: string, icon?: string): void {
-    const preview = new FullPlannerPreview(values, theme, title || '', icon || '');
-    this.pages = preview.getPageList();
+    this.pages = this.pageBuilder(values, theme, title || '', icon || '');
     // Re-render all pages in place
     this.renderAll();
     // Navigate to current page to sync sidebar + toolbar
@@ -357,469 +351,21 @@ export class DigitalPlanner {
       this.initWeeklyGrid();
       this.initEnergyTrackers();
       this.initStudyStreak();
+      this.initSMDCover();
+      this.initCover();
+      this.initSMDChips();
+      this.initSMDReplacements();
+      this.initSMDAppDeepDive();
+      this.initSMDMorningRitual();
+      this.initSMDBedtimeRitual();
+      this.initSMDBackout();
+      this.initSMDFocusZone();
+      this.initSMDWeeklyReview();
+      this.initSMDRewards();
+      this.initSMDMonthlyReview();
   }
 
-  private initExamStrategy(): void {
-    if (typeof document === 'undefined') return;
-    var pageEl = this.pagesContainer.querySelector('[data-page-id="exam-strategy"]');
-    if (!pageEl) return;
-    var self = this;
 
-    function getVal(dataEr: string, defaultVal: number): number {
-      var el = pageEl!.querySelector('[data-er="' + dataEr + '"]') as HTMLElement;
-      if (!el) return defaultVal;
-      var text = (el.textContent || '').trim().replace(/[^0-9.]/g, '');
-      var val = parseFloat(text) || 0;
-      return val || defaultVal;
-    }
-
-    function updateAll(): void {
-      // Read section confidences
-      var confs: number[] = [];
-      for (var i = 0; i < 3; i++) {
-        var key = 'exam-strategy-conf-' + i;
-        var el = pageEl!.querySelector('[data-progress-input="' + key + '"]') as HTMLElement;
-        if (!el) { confs.push(5); continue; }
-        var text = (el.textContent || '').trim().replace(/[^0-9.]/g, '');
-        var val = parseFloat(text) || 5;
-        confs.push(Math.min(10, Math.max(1, val)));
-      }
-
-      // Compute readiness
-      var avgConf = (confs[0] + confs[1] + confs[2]) / 3;
-      var readiness = Math.round((avgConf / 10) * 100);
-
-      // Update readiness ring
-      var ringFill = pageEl.querySelector('[data-exam-ring-fill]') as SVGCircleElement;
-      if (ringFill) {
-        var r = parseFloat(ringFill.getAttribute('r') || '32');
-        var circ = 2 * Math.PI * r;
-        ringFill.setAttribute('stroke-dasharray', String(circ));
-        var offset = circ * (1 - readiness / 100);
-        ringFill.setAttribute('stroke-dashoffset', String(offset));
-      }
-      var ringPct = pageEl.querySelector('[data-exam-ring-pct]');
-      if (ringPct) ringPct.textContent = readiness + '%';
-
-      // Update stats
-      var readinessEl = pageEl.querySelector('[data-exam-stat="readiness"]');
-      if (readinessEl) readinessEl.textContent = readiness + '%';
-
-      // Days Left - get from subject data, use term - today as fallback
-      var daysLeft = getVal('exam-strategy-days-left', 30);
-      var daysEl = pageEl.querySelector('[data-er="exam-strategy-days-left"]') as HTMLElement;
-      if (daysEl) {
-        daysEl.textContent = daysLeft.toString();
-        var daysLeftEl = pageEl.querySelector('[data-er="exam-strategy-days-left"]') as HTMLElement;
-        if (daysLeftEl) daysLeftEl.textContent = daysLeft + ' days';
-      }
-
-      // Sections (fixed at 3)
-      var sectionsEl = pageEl.querySelector('[data-er="exam-strategy-sections-count"]') as HTMLElement;
-      if (sectionsEl) sectionsEl.textContent = '3/3';
-
-      // Time Total - calculated from conf * 20 hours
-      var timeTotal = Math.round(confs.reduce((sum, c) => sum + (c * 20), 0));
-      var timeEl = pageEl.querySelector('[data-er="exam-strategy-time-total"]') as HTMLElement;
-      if (timeEl) timeEl.textContent = timeTotal + 'h';
-
-      // Categorize sections
-      var strong: number[] = [];
-      var medium: number[] = [];
-      var weak: number[] = [];
-      var strongText = '';
-      var weakText = '';
-      var recText = '';
-
-      for (var i = 0; i < confs.length; i++) {
-        var c = confs[i];
-        var priorityEl = pageEl.querySelector('[data-exam-priority="' + i + '"]') as HTMLElement;
-        if (c >= 7) {
-          strong.push(i + 1);
-          if (priorityEl) { priorityEl.textContent = 'Low'; priorityEl.style.color = '#10b981'; priorityEl.style.background = '#10b98108'; }
-        } else if (c >= 4) {
-          medium.push(i + 1);
-          if (priorityEl) { priorityEl.textContent = 'Medium'; priorityEl.style.color = '#f59e0b'; priorityEl.style.background = '#f59e0b08'; }
-        } else {
-          weak.push(i + 1);
-          if (priorityEl) { priorityEl.textContent = 'High'; priorityEl.style.color = '#ef4444'; priorityEl.style.background = '#ef444408'; }
-        }
-      }
-
-      var strongCount = strong.length;
-      var mediumCount = medium.length;
-      var weakCount = weak.length;
-
-      var strongEl = pageEl.querySelector('[data-exam-stat="strong-count"]') as HTMLElement;
-      if (strongEl) strongEl.textContent = strongCount + ' strong';
-      var mediumEl = pageEl.querySelector('[data-exam-stat="medium-count"]') as HTMLElement;
-      if (mediumEl) mediumEl.textContent = mediumCount + ' medium';
-      var weakEl = pageEl.querySelector('[data-exam-stat="weak-count"]') as HTMLElement;
-      if (weakEl) weakEl.textContent = weakCount + ' weak';
-      var actionBadge = pageEl.querySelector('[data-exam-stat="action-badge"]') as HTMLElement;
-      if (actionBadge) actionBadge.textContent = weakCount > 0 ? 'Focus on weak' : (readiness >= 80 ? 'Maintain' : 'Keep going');
-
-      // Strong/Weak area text
-      if (strong.length > 0) {
-        strongText = 'Section ' + strong.join(', ') + ' — confident! Keep reviewing to maintain.';
-      } else {
-        strongText = 'No strong areas yet. Keep studying!';
-      }
-      var strongAreasEl = pageEl.querySelector('[data-exam-stat="strong-areas"]') as HTMLElement;
-      if (strongAreasEl) strongAreasEl.textContent = strongText;
-
-      if (weak.length > 0) {
-        weakText = 'Focus on Section ' + weak.join(', ') + ' — these need the most attention.';
-      } else {
-        weakText = mediumCount > 0 ? 'Medium areas need attention.' : 'All sections look good!';
-      }
-      var weakAreasEl = pageEl.querySelector('[data-exam-stat="weak-areas"]') as HTMLElement;
-      if (weakAreasEl) weakAreasEl.textContent = weakText;
-
-      // Generate recommendation
-      if (readiness >= 80) {
-        recText = 'You\'re in great shape! Focus on practice tests and active recall. Your strong foundation means you can now concentrate on exam technique and time management.';
-      } else if (readiness >= 60) {
-        if (weak.length > 0) {
-          recText = 'Good progress! Prioritize Section ' + weak.join(', ') + ' to close gaps. Spend extra time on weak concepts, then mix in full-section reviews.';
-        } else if (medium.length > 0) {
-          recText = 'You\'re on track. Turn medium-confidence areas into strong ones with targeted practice. Focus on active recall for the sections you\'re less sure about.';
-        } else {
-          recText = 'Solid foundation. Push your strong sections further with advanced practice questions.';
-        }
-      } else if (readiness >= 40) {
-        if (weak.length > 0) {
-          recText = 'Start with your weakest section (Section ' + weak[0] + ') — build confidence there first. Then move to the next weakest. Focus on understanding core concepts before moving to advanced topics.';
-        } else {
-          recText = 'You\'re building momentum. Create a study schedule that covers all sections with more time on your medium-confidence areas.';
-        }
-      } else {
-        if (confs.some(function(c) { return c < 3; })) {
-          recText = 'Start from the basics. Build a strong foundation in your lowest-confidence sections before moving to advanced material. Focus on understanding key concepts one at a time.';
-        } else {
-          recText = 'Begin by assessing what you know. Create a structured study plan covering all sections, starting with the fundamentals and building up.';
-        }
-      }
-      pageEl.querySelector('[data-exam-strategy-recommendation="main"]').textContent = recText;
-
-      // Update readiness label
-      var labelEl = pageEl.querySelector('[data-exam-stat="readiness-label"]');
-      if (labelEl) {
-        if (readiness >= 80) labelEl.textContent = 'Excellent readiness! You\'re well prepared.';
-        else if (readiness >= 60) labelEl.textContent = 'Good progress! Keep closing gaps.';
-        else if (readiness >= 40) labelEl.textContent = 'Building momentum. Focus on weak areas.';
-        else labelEl.textContent = 'Getting started. Build your foundation first.';
-      }
-
-      // Update timeline entries based on confidences
-      for (var i = 0; i < 5; i++) {
-        var el = pageEl.querySelector('[data-er="exam-strategy-timeline-' + i + '"]') as HTMLElement;
-        if (!el) continue;
-        var text = el.textContent || '';
-        if (i < 2 && text && !text.startsWith('Reviewed')) {
-          // Generate dynamic text based on confidences
-          var baseConf = confs[Math.min(i, confs.length - 1)];
-          var action = baseConf >= 7 ? 'Mastered' : baseConf >= 4 ? 'Studying' : 'Learning';
-          var originalText = text.replace(/Reviewed /, '');
-          if (originalText && originalText !== '___') {
-            el.textContent = action + ' ' + originalText;
-          } else {
-            var keyword = 'Key concepts';
-            if (i === 0) keyword = 'Fundamentals';
-            if (i === 1) keyword = 'Core topics';
-            el.textContent = action + ' ' + keyword;
-          }
-        }
-      }
-    }
-
-    // Listen to confidence changes
-    for (var i = 0; i < 3; i++) {
-      var key = 'exam-strategy-conf-' + i;
-      var input = pageEl.querySelector('[data-progress-input="' + key + '"]') as HTMLInputElement;
-      if (input) {
-        input.addEventListener('input', updateAll);
-      }
-    }
-
-    // Listen to circle selector changes (difficulty)
-    pageEl.addEventListener('circle-change', updateAll);
-
-    // Initial update
-    updateAll();
-  }
-
-  // ── Exam Strategy Page (Instance Method) ──
-  private initExamStrategy(): void {
-    if (typeof document === 'undefined') return;
-    var pageEl = this.pagesContainer.querySelector('[data-page-id="exam-strategy"]');
-    if (!pageEl) return;
-    var self = this;
-
-    // Save loaded section names to localStorage
-    var subjectNames = pageEl.querySelectorAll('[data-er-subject="section-name"]');
-    subjectNames.forEach(function(el) {
-      if (el instanceof HTMLElement) {
-        var idx = el.dataset.erSubject;
-        var text = el.textContent || '';
-        if (idx !== undefined && text) self.savedData['exam-section-name:' + idx] = text;
-      }
-    });
-
-    // Load saved exam strategy data
-    var savedData = this.savedData['exam-strategy'] || '{}';
-    var savedState = JSON.parse(savedData);
-
-    // Set initial confidence values from saved or defaults
-    var confs = savedState.confs || [5, 5, 5];
-    for (var i = 0; i < 3; i++) {
-      var key = 'exam-strategy-conf-' + i;
-      var display = pageEl.querySelector('[data-progress-input="' + key + '"]') as HTMLElement;
-      if (!display) continue;
-      display.textContent = confs[i].toString();
-
-      // Also set the slider value
-      var slider = pageEl.querySelector('[data-er-range="' + key + '"]') as HTMLInputElement;
-      if (slider) slider.value = confs[i].toString();
-    }
-
-    // Set days left from saved or default
-    var daysLeft = savedState.daysLeft !== undefined ? savedState.daysLeft : 30;
-    var daysEl = pageEl.querySelector('[data-er="exam-strategy-days-left"]') as HTMLElement;
-    if (daysEl) daysEl.textContent = daysLeft.toString() + ' days';
-
-    // Set section names from saved or defaults
-    var defaultNames = ['Mathematics', 'Physics', 'English Literature'];
-    var sectionNames = savedState.sectionNames || defaultNames;
-    var nameEls = pageEl.querySelectorAll('[data-er="exam-strategy-section-name-0"], [data-er="exam-strategy-section-name-1"], [data-er="exam-strategy-section-name-2"]');
-    sectionNames.forEach(function(name, idx) {
-      if (nameEls[idx]) nameEls[idx].textContent = name;
-    });
-
-    function updateAll(): void {
-      // Read section confidences
-      var confs: number[] = [];
-      for (var i = 0; i < 3; i++) {
-        var key = 'exam-strategy-conf-' + i;
-        var el = pageEl!.querySelector('[data-progress-input="' + key + '"]') as HTMLElement;
-        if (!el) { confs.push(5); continue; }
-        var text = (el.textContent || '').trim().replace(/[^0-9.]/g, '');
-        var val = parseFloat(text) || 5;
-        confs.push(Math.min(10, Math.max(1, val)));
-      }
-
-      // Compute readiness
-      var avgConf = (confs[0] + confs[1] + confs[2]) / 3;
-      var readiness = Math.round((avgConf / 10) * 100);
-
-      // Update readiness ring
-      var ringFill = pageEl.querySelector('[data-exam-ring-fill]') as SVGCircleElement;
-      if (ringFill) {
-        var r = parseFloat(ringFill.getAttribute('r') || '32');
-        var circ = 2 * Math.PI * r;
-        ringFill.setAttribute('stroke-dasharray', String(circ));
-        var offset = circ * (1 - readiness / 100);
-        ringFill.setAttribute('stroke-dashoffset', String(offset));
-      }
-      var ringPct = pageEl.querySelector('[data-exam-ring-pct]');
-      if (ringPct) ringPct.textContent = readiness + '%';
-
-      // Update stats
-      var readinessEl = pageEl.querySelector('[data-exam-stat="readiness"]');
-      if (readinessEl) readinessEl.textContent = readiness + '%';
-
-      // Days Left
-      var daysLeft = Math.max(0, getVal('exam-strategy-days-left', 30));
-      var daysEl = pageEl.querySelector('[data-er="exam-strategy-days-left"]') as HTMLElement;
-      if (daysEl) {
-        daysEl.textContent = daysLeft.toString() + ' days';
-        var daysLeftEl = pageEl.querySelector('[data-er="exam-strategy-days-left"]') as HTMLElement;
-        if (daysLeftEl) daysLeftEl.textContent = daysLeft + ' days';
-      }
-
-      // Sections
-      var sectionsEl = pageEl.querySelector('[data-er="exam-strategy-sections-count"]') as HTMLElement;
-      if (sectionsEl) sectionsEl.textContent = '3/3';
-
-      // Time Total
-      var timeTotal = Math.round(confs.reduce((sum, c) => sum + (c * 20), 0));
-      var timeEl = pageEl.querySelector('[data-er="exam-strategy-time-total"]') as HTMLElement;
-      if (timeEl) timeEl.textContent = timeTotal + 'h';
-
-      // Categorize sections
-      var strong: number[] = [];
-      var medium: number[] = [];
-      var weak: number[] = [];
-      var strongText = '';
-      var weakText = '';
-      var recText = '';
-
-      for (var i = 0; i < confs.length; i++) {
-        var c = confs[i];
-        var priorityEl = pageEl.querySelector('[data-exam-priority="' + i + '"]') as HTMLElement;
-        if (c >= 7) {
-          strong.push(i + 1);
-          if (priorityEl) { priorityEl.textContent = 'Low'; priorityEl.style.color = '#10b981'; priorityEl.style.background = '#10b98108'; }
-        } else if (c >= 4) {
-          medium.push(i + 1);
-          if (priorityEl) { priorityEl.textContent = 'Medium'; priorityEl.style.color = '#f59e0b'; priorityEl.style.background = '#f59e0b08'; }
-        } else {
-          weak.push(i + 1);
-          if (priorityEl) { priorityEl.textContent = 'High'; priorityEl.style.color = '#ef4444'; priorityEl.style.background = '#ef444408'; }
-        }
-      }
-
-      var strongCount = strong.length;
-      var mediumCount = medium.length;
-      var weakCount = weak.length;
-
-      var strongEl = pageEl.querySelector('[data-exam-stat="strong-count"]') as HTMLElement;
-      if (strongEl) strongEl.textContent = strongCount + ' strong';
-      var mediumEl = pageEl.querySelector('[data-exam-stat="medium-count"]') as HTMLElement;
-      if (mediumEl) mediumEl.textContent = mediumCount + ' medium';
-      var weakEl = pageEl.querySelector('[data-exam-stat="weak-count"]') as HTMLElement;
-      if (weakEl) weakEl.textContent = weakCount + ' weak';
-      var actionBadge = pageEl.querySelector('[data-exam-stat="action-badge"]') as HTMLElement;
-      if (actionBadge) actionBadge.textContent = weakCount > 0 ? 'Focus on weak' : (readiness >= 80 ? 'Maintain' : 'Keep going');
-
-      // Strong/Weak area text
-      if (strong.length > 0) {
-        strongText = 'Section ' + strong.join(', ') + ' — confident! Keep reviewing to maintain.';
-      } else {
-        strongText = 'No strong areas yet. Keep studying!';
-      }
-      var strongAreasEl = pageEl.querySelector('[data-exam-stat="strong-areas"]') as HTMLElement;
-      if (strongAreasEl) strongAreasEl.textContent = strongText;
-
-      if (weak.length > 0) {
-        weakText = 'Focus on Section ' + weak.join(', ') + ' — these need the most attention.';
-      } else {
-        weakText = mediumCount > 0 ? 'Medium areas need attention.' : 'All sections look good!';
-      }
-      var weakAreasEl = pageEl.querySelector('[data-exam-stat="weak-areas"]') as HTMLElement;
-      if (weakAreasEl) weakAreasEl.textContent = weakText;
-
-      // Generate recommendation
-      if (readiness >= 80) {
-        recText = 'You\'re in great shape! Focus on practice tests and active recall. Your strong foundation means you can now concentrate on exam technique and time management.';
-      } else if (readiness >= 60) {
-        if (weak.length > 0) {
-          recText = 'Good progress! Prioritize Section ' + weak.join(', ') + ' to close gaps. Spend extra time on weak concepts, then mix in full-section reviews.';
-        } else if (medium.length > 0) {
-          recText = 'You\'re on track. Turn medium-confidence areas into strong ones with targeted practice. Focus on active recall for the sections you\'re less sure about.';
-        } else {
-          recText = 'Solid foundation. Push your strong sections further with advanced practice questions.';
-        }
-      } else if (readiness >= 40) {
-        if (weak.length > 0) {
-          recText = 'Start with your weakest section (Section ' + weak[0] + ') — build confidence there first. Then move to the next weakest. Focus on understanding core concepts before moving to advanced topics.';
-        } else {
-          recText = 'You\'re building momentum. Create a study schedule that covers all sections with more time on your medium-confidence areas.';
-        }
-      } else {
-        if (confs.some(function(c) { return c < 3; })) {
-          recText = 'Start from the basics. Build a strong foundation in your lowest-confidence sections before moving to advanced material. Focus on understanding key concepts one at a time.';
-        } else {
-          recText = 'Begin by assessing what you know. Create a structured study plan covering all sections, starting with the fundamentals and building up.';
-        }
-      }
-      pageEl.querySelector('[data-exam-strategy-recommendation="main"]').textContent = recText;
-
-      // Update readiness label
-      var labelEl = pageEl.querySelector('[data-exam-stat="readiness-label"]') as HTMLElement;
-      if (labelEl) {
-        if (readiness >= 80) labelEl.textContent = 'Excellent readiness! You\'re well prepared.';
-        else if (readiness >= 60) labelEl.textContent = 'Good progress! Keep closing gaps.';
-        else if (readiness >= 40) labelEl.textContent = 'Building momentum. Focus on weak areas.';
-        else labelEl.textContent = 'Getting started. Build your foundation first.';
-      }
-
-      // Update timeline entries based on confidences
-      for (var i = 0; i < 5; i++) {
-        var el = pageEl.querySelector('[data-er="exam-strategy-timeline-' + i + '"]') as HTMLElement;
-        if (!el) continue;
-        var text = el.textContent || '';
-        if (i < 2 && text && !text.startsWith('Reviewed')) {
-          // Generate dynamic text based on confidences
-          var baseConf = confs[Math.min(i, confs.length - 1)];
-          var action = baseConf >= 7 ? 'Mastered' : baseConf >= 4 ? 'Studying' : 'Learning';
-          var originalText = text.replace(/Reviewed /, '');
-          if (originalText && originalText !== '___') {
-            el.textContent = action + ' ' + originalText;
-          } else {
-            var keyword = 'Key concepts';
-            if (i === 0) keyword = 'Fundamentals';
-            if (i === 1) keyword = 'Core topics';
-            el.textContent = action + ' ' + keyword;
-          }
-        }
-      }
-    }
-
-    // Listen to confidence changes
-    for (var i = 0; i < 3; i++) {
-      var key = 'exam-strategy-conf-' + i;
-      var input = pageEl.querySelector('[data-progress-input="' + key + '"]') as HTMLInputElement;
-      if (input) {
-        input.addEventListener('input', updateAll);
-      }
-    }
-
-    // Listen to circle selector changes (difficulty)
-    pageEl.addEventListener('circle-change', updateAll);
-
-    // Set up range sliders for days left and section confidence
-    var daysSlider = pageEl.querySelector('[data-er-range="exam-strategy-days-left"]') as HTMLInputElement;
-    if (daysSlider) {
-      daysSlider.addEventListener('input', function(e) {
-        var target = e.target as HTMLInputElement;
-        var daysEl = pageEl.querySelector('[data-er="exam-strategy-days-left"]') as HTMLElement;
-        if (daysEl) {
-          daysEl.textContent = target.value + ' days';
-          self.savedData['exam-strategy-days-left'] = target.value;
-          self.persistSavedData();
-          updateAll();
-        }
-      });
-
-      var savedDays = self.savedData['er-exam-strategy-days-left'];
-      if (savedDays !== undefined) daysSlider.value = savedDays;
-      var initialDaysEl = pageEl.querySelector('[data-er="exam-strategy-days-left"]') as HTMLElement;
-      if (initialDaysEl) {
-        var initialDays = parseInt(daysSlider.value) || 30;
-        initialDaysEl.textContent = initialDays + ' days';
-      }
-    }
-
-    // Set up range sliders for section confidence (one per section)
-    for (var i = 0; i < 3; i++) {
-      var confSlider = pageEl.querySelector('[data-er-range="exam-strategy-conf-' + i + '"]') as HTMLInputElement;
-      if (confSlider) {
-        confSlider.addEventListener('input', function(e) {
-          var target = e.target as HTMLInputElement;
-          var key = target.dataset.erRange;
-          if (!key) return;
-          var display = pageEl.querySelector('[data-progress-input="' + key + '"]') as HTMLElement;
-          if (display) {
-            display.textContent = target.value;
-            self.savedData['er-' + key] = target.value;
-            self.persistSavedData();
-            updateAll();
-          }
-        });
-
-        var savedConf = self.savedData['er-' + confSlider.dataset.erRange];
-        if (savedConf !== undefined) confSlider.value = savedConf;
-        var initialConfEl = pageEl.querySelector('[data-progress-input="' + confSlider.dataset.erRange + '"]') as HTMLElement;
-        if (initialConfEl) {
-          initialConfEl.textContent = confSlider.value;
-        }
-      }
-    }
-
-    // Initial update
-    updateAll();
-  }
 
   private initExamStrategy(): void {
     if (typeof document === 'undefined') return;
@@ -978,17 +524,114 @@ export class DigitalPlanner {
       });
     });
 
-    // Auto-save on confidence changes
+    function getVal(dataEr: string, defaultVal: number): number {
+      var el = pageEl!.querySelector('[data-er="' + dataEr + '"]') as HTMLElement;
+      if (!el) return defaultVal;
+      var text = (el.textContent || '').trim().replace(/[^0-9.]/g, '');
+      var val = parseFloat(text) || 0;
+      return val || defaultVal;
+    }
+
+    function updateAll(): void {
+      var confs: number[] = [];
+      for (var i = 0; i < 3; i++) {
+        var key = 'exam-strategy-conf-' + i;
+        var el = pageEl!.querySelector('[data-progress-input="' + key + '"]') as HTMLElement;
+        if (!el) { confs.push(5); continue; }
+        var text = (el.textContent || '').trim().replace(/[^0-9.]/g, '');
+        var val = parseFloat(text) || 5;
+        confs.push(Math.min(10, Math.max(1, val)));
+      }
+      var avgConf = (confs[0] + confs[1] + confs[2]) / 3;
+      var readiness = Math.round((avgConf / 10) * 100);
+
+      var ringFill = pageEl.querySelector('[data-exam-ring-fill]') as SVGCircleElement;
+      if (ringFill) {
+        var r = parseFloat(ringFill.getAttribute('r') || '32');
+        var circ = 2 * Math.PI * r;
+        ringFill.setAttribute('stroke-dasharray', String(circ));
+        ringFill.setAttribute('stroke-dashoffset', String(circ * (1 - readiness / 100)));
+      }
+      var ringPct = pageEl.querySelector('[data-exam-ring-pct]');
+      if (ringPct) ringPct.textContent = readiness + '%';
+
+      var readinessEl = pageEl.querySelector('[data-exam-stat="readiness"]');
+      if (readinessEl) readinessEl.textContent = readiness + '%';
+
+      var daysLeft = Math.max(0, getVal('exam-strategy-days-left', 30));
+      var daysEl = pageEl.querySelector('[data-er="exam-strategy-days-left"]') as HTMLElement;
+      if (daysEl) daysEl.textContent = daysLeft + ' days';
+
+      var sectionsEl = pageEl.querySelector('[data-er="exam-strategy-sections-count"]') as HTMLElement;
+      if (sectionsEl) sectionsEl.textContent = '3/3';
+
+      var timeTotal = Math.round(confs.reduce(function(s, c) { return s + (c * 20); }, 0));
+      var timeEl = pageEl.querySelector('[data-er="exam-strategy-time-total"]') as HTMLElement;
+      if (timeEl) timeEl.textContent = timeTotal + 'h';
+
+      var strong: number[] = [], medium: number[] = [], weak: number[] = [];
+      for (var i = 0; i < confs.length; i++) {
+        var c = confs[i];
+        var priorityEl = pageEl.querySelector('[data-exam-priority="' + i + '"]') as HTMLElement;
+        if (c >= 7) {
+          strong.push(i + 1);
+          if (priorityEl) { priorityEl.textContent = 'Low'; priorityEl.style.color = '#10b981'; priorityEl.style.background = '#10b98108'; }
+        } else if (c >= 4) {
+          medium.push(i + 1);
+          if (priorityEl) { priorityEl.textContent = 'Medium'; priorityEl.style.color = '#f59e0b'; priorityEl.style.background = '#f59e0b08'; }
+        } else {
+          weak.push(i + 1);
+          if (priorityEl) { priorityEl.textContent = 'High'; priorityEl.style.color = '#ef4444'; priorityEl.style.background = '#ef444408'; }
+        }
+      }
+
+      var strongEl = pageEl.querySelector('[data-exam-stat="strong-count"]') as HTMLElement;
+      if (strongEl) strongEl.textContent = strong.length + ' strong';
+      var mediumEl = pageEl.querySelector('[data-exam-stat="medium-count"]') as HTMLElement;
+      if (mediumEl) mediumEl.textContent = medium.length + ' medium';
+      var weakEl = pageEl.querySelector('[data-exam-stat="weak-count"]') as HTMLElement;
+      if (weakEl) weakEl.textContent = weak.length + ' weak';
+      var actionBadge = pageEl.querySelector('[data-exam-stat="action-badge"]') as HTMLElement;
+      if (actionBadge) actionBadge.textContent = weak.length > 0 ? 'Focus on weak' : (readiness >= 80 ? 'Maintain' : 'Keep going');
+
+      var strongAreasEl = pageEl.querySelector('[data-exam-stat="strong-areas"]') as HTMLElement;
+      if (strongAreasEl) strongAreasEl.textContent = strong.length > 0 ? 'Section ' + strong.join(', ') + ' — confident!' : 'No strong areas yet.';
+
+      var weakAreasEl = pageEl.querySelector('[data-exam-stat="weak-areas"]') as HTMLElement;
+      if (weakAreasEl) weakAreasEl.textContent = weak.length > 0 ? 'Focus on Section ' + weak.join(', ') : medium.length > 0 ? 'Medium areas need attention.' : 'All sections look good!';
+
+      var recEl = pageEl.querySelector('[data-exam-strategy-recommendation="main"]');
+      if (recEl) {
+        if (readiness >= 80) recEl.textContent = 'Great shape! Focus on practice tests and active recall.';
+        else if (readiness >= 60) recEl.textContent = weak.length > 0 ? 'Prioritize Section ' + weak.join(', ') + ' to close gaps.' : 'Turn medium-confidence areas into strong ones.';
+        else if (readiness >= 40) recEl.textContent = weak.length > 0 ? 'Start with Section ' + weak[0] + ' — build confidence there first.' : 'Create a focused study schedule.';
+        else recEl.textContent = 'Build a strong foundation in your lowest-confidence sections first.';
+      }
+
+      var labelEl = pageEl.querySelector('[data-exam-stat="readiness-label"]');
+      if (labelEl) {
+        if (readiness >= 80) labelEl.textContent = 'Excellent readiness! You\'re well prepared.';
+        else if (readiness >= 60) labelEl.textContent = 'Good progress! Keep closing gaps.';
+        else if (readiness >= 40) labelEl.textContent = 'Building momentum. Focus on weak areas.';
+        else labelEl.textContent = 'Getting started. Build your foundation first.';
+      }
+    }
+
+    // Confidence changes → re-render ring + save
     pageEl.querySelectorAll('[data-progress-input]').forEach(function(el) {
+      el.addEventListener('input', function() { updateAll(); saveExamStrategyState(); });
+    });
+
+    // Circle selector changes (difficulty) → re-render
+    pageEl.addEventListener('circle-change', updateAll);
+
+    // Timeline changes → save
+    pageEl.querySelectorAll('[data-er^="exam-strategy-timeline-"][contenteditable]').forEach(function(el) {
       el.addEventListener('input', saveExamStrategyState);
     });
 
-    // Auto-save on timeline changes
-    pageEl.querySelectorAll('[data-er="exam-strategy-timeline-"][contenteditable]').forEach(function(el) {
-      el.addEventListener('input', saveExamStrategyState);
-    });
-
-    // Initial state save
+    // Initial render + save
+    updateAll();
     saveExamStrategyState();
   }
 
@@ -1524,7 +1167,7 @@ private navigateTo(id: string): void {
       if (hasBorderBottom && isEmpty && !isHeader && !isFlexOrGrid && isLineHeight) {
         isWritable = true;
       }
-      if (hasPlaceholder && hasBorderBottom && !isHeader && !isFlexOrGrid && isLineHeight) {
+      if (hasPlaceholder && hasBorderBottom && !isFlexOrGrid && isLineHeight) {
         isWritable = true;
       }
       // Bare writing lines (last in group, no border-bottom): height in range, no background/width
@@ -1532,7 +1175,7 @@ private navigateTo(id: string): void {
           !style.includes('background:') && !style.includes('width:')) {
         isWritable = true;
       }
-      if (!hasBorderBottom && hasPlaceholder && !isHeader && !isFlexOrGrid && isLineHeight &&
+      if (!hasBorderBottom && hasPlaceholder && !isFlexOrGrid && isLineHeight &&
           !style.includes('background:') && !style.includes('width:')) {
         isWritable = true;
       }
@@ -1793,7 +1436,7 @@ private navigateTo(id: string): void {
 
   private getIcon(id: string): string {
     const icons: Record<string, string> = {
-      cover: '📔', 'goal-setting': '🎯', 'semester-overview': '📅',
+      cover: '📔', dashboard: '📊', 'goal-setting': '🎯', 'semester-overview': '📅',
       'assignment-tracker': '📋', 'assignment-dashboard': '📊', 'assignment-log': '📝', 'assignment-planning': '📋',
       'exam-countdown': '⏳',
       'subject-planner-1': '📖', 'subject-planner-2': '📖',
@@ -2477,6 +2120,1500 @@ private navigateTo(id: string): void {
     });
   }
 
+  // ── Social Media Detox Cover ──
+  private initSMDCover(): void {
+    if (typeof document === 'undefined') return;
+    var page = this.pagesContainer.querySelector('[data-page-id="cover"]') as HTMLElement;
+    if (!page) return;
+    var self = this;
+
+    function key(field: string): string { return 'smd-cover-' + field; }
+
+    function persist(): void { self.persistSavedData(); }
+
+    page.querySelectorAll('[data-smd-cover]').forEach(function(el) {
+      var field = el as HTMLElement;
+      var fieldName = field.dataset.smdCover || '';
+      var saved = self.savedData[key(fieldName)];
+      if (saved && saved.trim()) {
+        field.textContent = saved;
+      }
+
+      field.addEventListener('focus', function() {
+        var val = (field.textContent || '').trim();
+        if (!val || val === '___' || val === '—') {
+          field.textContent = '';
+        }
+      });
+
+      field.addEventListener('input', function() {
+        var val = (field.textContent || '').trim();
+        if (val && val !== '___') {
+          self.savedData[key(fieldName)] = val;
+        } else {
+          delete self.savedData[key(fieldName)];
+        }
+        persist();
+      });
+
+      field.addEventListener('blur', function() {
+        var val = (field.textContent || '').trim();
+        if (!val || val === '___') {
+          var defaults: Record<string, string> = {
+            goal: 'Digital detox',
+            topapp: '—',
+            target: '—',
+            commitment: 'I commit to reducing mindless scrolling and creating healthier digital habits.',
+            name: 'Your Name',
+            date: ''
+          };
+          field.textContent = defaults[fieldName] || '';
+          delete self.savedData[key(fieldName)];
+          persist();
+        }
+      });
+
+      // Visual focus style
+      field.style.transition = 'border-bottom-color 0.15s ease';
+      field.addEventListener('mouseenter', function() {
+        if (!field.dataset.smdCoverFocused) field.style.borderBottomColor = '#d4c9bc';
+      });
+      field.addEventListener('mouseleave', function() {
+        if (!field.dataset.smdCoverFocused) field.style.borderBottomColor = 'transparent';
+      });
+      field.addEventListener('focusin', function() {
+        field.dataset.smdCoverFocused = '1';
+        field.style.borderBottomColor = '#0284c7';
+      });
+      field.addEventListener('focusout', function() {
+        delete field.dataset.smdCoverFocused;
+        var val = (field.textContent || '').trim();
+        if (!val) {
+          field.style.borderBottomColor = 'transparent';
+        } else {
+          field.style.borderBottomColor = '#d4c9bc';
+        }
+      });
+    });
+  }
+
+  // ── Planner Cover personalization ──
+  private initCover(): void {
+    if (typeof document === 'undefined') return;
+    var page = this.pagesContainer.querySelector('[data-page-id="cover"]') as HTMLElement;
+    if (!page) return;
+    var self = this;
+
+    function key(field: string): string { return 'pp-cover-' + field; }
+
+    function persist(): void { self.persistSavedData(); }
+
+    page.querySelectorAll('[data-pp-cover]').forEach(function(el) {
+      var field = el as HTMLElement;
+      var fieldName = field.dataset.ppCover || '';
+      var saved = self.savedData[key(fieldName)];
+      if (saved && saved.trim() && saved !== '—') {
+        field.textContent = saved;
+      }
+
+      field.addEventListener('focus', function() {
+        var val = (field.textContent || '').trim();
+        if (!val || val === '—') {
+          field.textContent = '';
+        }
+        field.style.borderBottomColor = '#C4954A';
+        field.style.borderBottomWidth = '0.5px';
+        field.style.borderBottomStyle = 'solid';
+      });
+
+      field.addEventListener('input', function() {
+        var val = (field.textContent || '').trim();
+        if (val && val !== '—') {
+          self.savedData[key(fieldName)] = val;
+        } else {
+          delete self.savedData[key(fieldName)];
+        }
+        persist();
+      });
+
+      field.addEventListener('blur', function() {
+        var val = (field.textContent || '').trim();
+        if (!val) {
+          field.textContent = '—';
+          delete self.savedData[key(fieldName)];
+          persist();
+        }
+        if (fieldName === 'name') {
+          field.style.borderBottomColor = 'rgba(196,148,74,0.3)';
+        } else {
+          field.style.borderBottomColor = 'transparent';
+        }
+      });
+    });
+  }
+
+  // ── Social Media Detox Chips ──
+  private initSMDChips(): void {
+    if (typeof document === 'undefined') return;
+    var chips = this.pagesContainer.querySelectorAll('[data-smd-chip]');
+    if (!chips.length) return;
+    var self = this;
+    chips.forEach(function(el) {
+      var chip = el as HTMLElement;
+      var text = chip.dataset.smdChip || '';
+      var pageEl = chip.closest('[data-page-id]') as HTMLElement;
+      var pageId = pageEl ? pageEl.dataset.pageId || 'unknown' : 'unknown';
+      var key = 'smd-chip-' + pageId + '-' + text;
+      // Restore saved state
+      if (self.savedData[key] === '1') {
+        chip.classList.add('smd-active');
+      }
+      chip.addEventListener('click', function(e) {
+        e.stopPropagation();
+        chip.classList.toggle('smd-active');
+        if (chip.classList.contains('smd-active')) {
+          self.savedData[key] = '1';
+        } else {
+          delete self.savedData[key];
+        }
+        self.persistSavedData();
+        self.showBadge('\u2713 Saved');
+      });
+    });
+  }
+
+  // ── Social Media Detox Replacement Activities ──
+  private initSMDAppDeepDive(): void {
+    if (typeof document === 'undefined') return;
+    var page = this.pagesContainer.querySelector('[data-page-id="app-deep-dive"]') as HTMLElement;
+    if (!page) return;
+    var self = this;
+    var pageId = 'deep';
+
+    function key(field: string, idx?: number): string {
+      return 'smd-' + pageId + '-' + field + (idx !== undefined ? '-' + idx : '');
+    }
+
+    function persist(): void { self.persistSavedData(); }
+
+    function stripNonNum(v: string): string { return v.replace(/[^0-9.]/g, ''); }
+
+    // Restore all saved data
+    var nameFields = page.querySelectorAll('[data-smd-deep="name"]');
+    nameFields.forEach(function(el, i) {
+      var saved = self.savedData[key('name', i)] || '';
+      if (saved) (el as HTMLElement).textContent = saved;
+    });
+    var hrsFields = page.querySelectorAll('[data-smd-deep="hrs"]');
+    hrsFields.forEach(function(el, i) {
+      var saved = self.savedData[key('hrs', i)] || '';
+      if (saved) (el as HTMLElement).textContent = saved;
+    });
+    var purposeFields = page.querySelectorAll('[data-smd-deep="purpose"]');
+    purposeFields.forEach(function(el, i) {
+      var saved = self.savedData[key('purpose', i)] || '';
+      if (saved) (el as HTMLElement).textContent = saved;
+    });
+
+    // Restore status selectors + row accents
+    var rows = page.querySelectorAll('[data-smd-deep-row]');
+    rows.forEach(function(el, ri) {
+      var row = el as HTMLElement;
+      var savedStatus = self.savedData[key('status', ri)] || '';
+      if (savedStatus) {
+        var btns = row.querySelectorAll('[data-smd-deep-status]');
+        btns.forEach(function(b) {
+          var btn = b as HTMLElement;
+          if (btn.dataset.smdDeepStatus === savedStatus) {
+            activateStatus(btn, row, savedStatus);
+          }
+        });
+      }
+    });
+
+    function activateStatus(btn: HTMLElement, row: HTMLElement, status: string): void {
+      // Deactivate all siblings
+      var siblings = row.querySelectorAll('[data-smd-deep-status]');
+      siblings.forEach(function(s) {
+        var sb = s as HTMLElement;
+        sb.classList.remove('smd-deep-active');
+        sb.setAttribute('aria-pressed', 'false');
+        sb.style.color = '#9CA3AF';
+        sb.style.background = 'transparent';
+        sb.style.borderColor = 'transparent';
+      });
+      // Activate this one
+      btn.classList.add('smd-deep-active');
+      btn.setAttribute('aria-pressed', 'true');
+      if (status === 'keep') {
+        btn.style.background = '#f0fdf5';
+        btn.style.borderColor = '#86efac';
+        btn.style.color = '#059669';
+      } else if (status === 'limit') {
+        btn.style.background = '#fffbeb';
+        btn.style.borderColor = '#fde68a';
+        btn.style.color = '#d97706';
+      } else if (status === 'delete') {
+        btn.style.background = '#fef2f2';
+        btn.style.borderColor = '#fecaca';
+        btn.style.color = '#dc2626';
+      }
+      // Row accent
+      row.classList.remove('smd-deep-row-keep', 'smd-deep-row-limit', 'smd-deep-row-delete');
+      if (status === 'keep') row.classList.add('smd-deep-row-keep');
+      else if (status === 'limit') row.classList.add('smd-deep-row-limit');
+      else if (status === 'delete') row.classList.add('smd-deep-row-delete');
+      // Show copy button
+      var copyBtn = row.querySelector('[data-smd-deep-copy]') as HTMLElement;
+      if (copyBtn) {
+        copyBtn.style.display = 'inline';
+        copyBtn.style.color = status === 'keep' ? '#059669' : status === 'limit' ? '#d97706' : '#dc2626';
+      }
+    }
+
+    function deactivateRow(row: HTMLElement): void {
+      var btns = row.querySelectorAll('[data-smd-deep-status]');
+      btns.forEach(function(s) {
+        var sb = s as HTMLElement;
+        sb.classList.remove('smd-deep-active');
+        sb.setAttribute('aria-pressed', 'false');
+        sb.style.color = '#9CA3AF';
+        sb.style.background = 'transparent';
+        sb.style.borderColor = 'transparent';
+      });
+      row.classList.remove('smd-deep-row-keep', 'smd-deep-row-limit', 'smd-deep-row-delete');
+      var copyBtn = row.querySelector('[data-smd-deep-copy]') as HTMLElement;
+      if (copyBtn) { copyBtn.style.display = 'none'; }
+    }
+
+    // Wire contenteditable save for all deep fields
+    page.querySelectorAll('[data-smd-deep]').forEach(function(el) {
+      var field = el as HTMLElement;
+      var fieldType = field.dataset.smdDeep || '';
+      var idx = field.dataset.smdIdx !== undefined ? parseInt(field.dataset.smdIdx || '0', 10) : undefined;
+      var isNumeric = field.classList.contains('smd-deep-num');
+      var lastVal = field.textContent || '';
+
+      field.addEventListener('input', function() {
+        var val = field.textContent || '';
+        if (isNumeric) {
+          var cleaned = stripNonNum(val);
+          if (cleaned !== val) {
+            field.textContent = cleaned;
+            // Move cursor to end
+            var sel = window.getSelection();
+            if (sel) {
+              var range = document.createRange();
+              range.selectNodeContents(field);
+              range.collapse(false);
+              sel.removeAllRanges();
+              sel.addRange(range);
+            }
+          }
+          val = cleaned;
+        }
+        lastVal = val;
+        var savedVal = val && val !== '___' ? val : '';
+        if (idx !== undefined) {
+          if (savedVal) self.savedData[key(fieldType, idx)] = savedVal;
+          else delete self.savedData[key(fieldType, idx)];
+        } else {
+          if (savedVal) self.savedData[key(fieldType)] = savedVal;
+          else delete self.savedData[key(fieldType)];
+        }
+        persist();
+      });
+
+      // Strip placeholder on focus
+      field.addEventListener('focus', function() {
+        if (field.textContent === '___') {
+          field.textContent = '';
+        }
+      });
+
+      // Restore placeholder on blur if empty
+      field.addEventListener('blur', function() {
+        if (!field.textContent || field.textContent.trim() === '') {
+          field.textContent = '';
+          if (idx !== undefined) delete self.savedData[key(fieldType, idx)];
+          else delete self.savedData[key(fieldType)];
+          persist();
+        }
+      });
+    });
+
+    // Wire status selectors
+    page.querySelectorAll('[data-smd-deep-status]').forEach(function(el) {
+      var btn = el as HTMLElement;
+      var ri = parseInt(btn.dataset.smdRow || '0', 10);
+      var status = btn.dataset.smdDeepStatus || '';
+
+      function selectThis(): void {
+        var row = page.querySelector('[data-smd-deep-row="' + ri + '"]') as HTMLElement;
+        if (!row) return;
+        var currentStatus = self.savedData[key('status', ri)] || '';
+        if (currentStatus === status) {
+          // Toggle off
+          deactivateRow(row);
+          delete self.savedData[key('status', ri)];
+        } else {
+          activateStatus(btn, row, status);
+          self.savedData[key('status', ri)] = status;
+        }
+        persist();
+        self.showBadge('\u2713 Saved');
+      }
+
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        selectThis();
+      });
+
+      btn.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          e.stopPropagation();
+          selectThis();
+        }
+      });
+    });
+
+    // Wire copy buttons
+    page.querySelectorAll('[data-smd-deep-copy]').forEach(function(el) {
+      var copyBtn = el as HTMLElement;
+      var ri = parseInt(copyBtn.dataset.smdDeepCopy || '0', 10);
+
+      copyBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        doCopy(ri);
+      });
+
+      copyBtn.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          e.stopPropagation();
+          doCopy(ri);
+        }
+      });
+    });
+
+    function doCopy(ri: number): void {
+      var status = self.savedData[key('status', ri)] || '';
+      if (!status) return;
+      var name = page.querySelector('[data-smd-deep="name"][data-smd-idx="' + ri + '"]') as HTMLElement;
+      if (!name) return;
+      var appName = (name.textContent || '').trim();
+      if (!appName || appName === '___') return;
+
+      var targetField: HTMLElement | null = null;
+      if (status === 'keep') targetField = page.querySelector('[data-smd-deep="value"]');
+      else if (status === 'limit') targetField = page.querySelector('[data-smd-deep="limit"]');
+      else if (status === 'delete') targetField = page.querySelector('[data-smd-deep="delete"]');
+      if (!targetField) return;
+
+      var current = (targetField.textContent || '').trim();
+      if (current === '___') { current = ''; }
+      var lines = current ? current.split('\n') : [];
+      if (lines.indexOf(appName) === -1) {
+        var newVal = current ? current + '\n' + appName : appName;
+        targetField.textContent = newVal;
+        self.savedData[key(status)] = newVal;
+        persist();
+        self.showBadge('\u2713 Copied');
+      } else {
+        self.showBadge('Already added');
+      }
+    }
+
+    // Restore bottom fields
+    ['value', 'delete', 'limit', 'dailylimit'].forEach(function(field) {
+      var saved = self.savedData[key(field)];
+      if (saved) {
+        var el = page.querySelector('[data-smd-deep="' + field + '"]') as HTMLElement;
+        if (el) el.textContent = saved;
+      }
+    });
+  }
+
+  private initSMDMorningRitual(): void {
+    if (typeof document === 'undefined') return;
+    var page = this.pagesContainer.querySelector('[data-page-id="morning-ritual"]') as HTMLElement;
+    if (!page) return;
+    var self = this;
+    var pageId = 'mr';
+
+    function key(field: string, idx?: number): string {
+      return 'smd-' + pageId + '-' + field + (idx !== undefined ? '-' + idx : '');
+    }
+
+    function persist(): void { self.persistSavedData(); }
+
+    // Restore + wire all mr-fields (wakeup, phoneoff, gain)
+    page.querySelectorAll('[data-smd-mr]').forEach(function(el) {
+      var field = el as HTMLElement;
+      var fieldName = field.dataset.smdMr || '';
+      var saved = self.savedData[key(fieldName)] || '';
+      if (saved) field.textContent = saved;
+
+      field.addEventListener('focus', function() {
+        if (field.textContent === '___') field.textContent = '';
+      });
+
+      field.addEventListener('input', function() {
+        var val = (field.textContent || '').trim();
+        if (val && val !== '___') {
+          self.savedData[key(fieldName)] = val;
+        } else {
+          delete self.savedData[key(fieldName)];
+        }
+        persist();
+      });
+
+      field.addEventListener('blur', function() {
+        var val = (field.textContent || '').trim();
+        if (!val || val === '___') {
+          if (fieldName === 'gain') {
+            field.textContent = '';
+          } else {
+            // time fields don't restore placeholder
+          }
+          delete self.savedData[key(fieldName)];
+          persist();
+        }
+      });
+    });
+
+    // Restore + wire all mr-labels (0-7 defaults, 8 personal)
+    page.querySelectorAll('[data-smd-mr-label]').forEach(function(el) {
+      var label = el as HTMLElement;
+      var idx = label.dataset.smdMrLabel || '0';
+      var saved = self.savedData[key('label', parseInt(idx, 10))] || '';
+      if (saved) label.textContent = saved;
+
+      label.addEventListener('focus', function() {
+        if (label.textContent === '___') label.textContent = '';
+      });
+
+      label.addEventListener('input', function() {
+        var val = (label.textContent || '').trim();
+        if (val && val !== '___') {
+          self.savedData[key('label', parseInt(idx, 10))] = val;
+        } else {
+          delete self.savedData[key('label', parseInt(idx, 10))];
+        }
+        persist();
+      });
+
+      label.addEventListener('blur', function() {
+        var val = (label.textContent || '').trim();
+        if (!val || val === '___') {
+          label.textContent = '';
+          delete self.savedData[key('label', parseInt(idx, 10))];
+          persist();
+        }
+      });
+    });
+  }
+
+  private initSMDBedtimeRitual(): void {
+    if (typeof document === 'undefined') return;
+    var page = this.pagesContainer.querySelector('[data-page-id="bedtime-routine"]') as HTMLElement;
+    if (!page) return;
+    var self = this;
+    var pageId = 'br';
+
+    function key(field: string, idx?: number): string {
+      return 'smd-' + pageId + '-' + field + (idx !== undefined ? '-' + idx : '');
+    }
+
+    function persist(): void { self.persistSavedData(); }
+
+    // Restore + wire all br-fields (bedtime, screentime, sleep)
+    page.querySelectorAll('[data-smd-br]').forEach(function(el) {
+      var field = el as HTMLElement;
+      var fieldName = field.dataset.smdBr || '';
+      var saved = self.savedData[key(fieldName)] || '';
+      if (saved) field.textContent = saved;
+
+      field.addEventListener('focus', function() {
+        if (field.textContent === '___') field.textContent = '';
+      });
+
+      field.addEventListener('input', function() {
+        var val = (field.textContent || '').trim();
+        if (val && val !== '___') {
+          self.savedData[key(fieldName)] = val;
+        } else {
+          delete self.savedData[key(fieldName)];
+        }
+        persist();
+      });
+
+      field.addEventListener('blur', function() {
+        var val = (field.textContent || '').trim();
+        if (!val || val === '___') {
+          if (fieldName === 'sleep') {
+            field.textContent = '';
+          }
+          delete self.savedData[key(fieldName)];
+          persist();
+        }
+      });
+    });
+
+    // Restore + wire all br-labels (0-9 defaults, 10 personal)
+    page.querySelectorAll('[data-smd-br-label]').forEach(function(el) {
+      var label = el as HTMLElement;
+      var idx = label.dataset.smdBrLabel || '0';
+      var saved = self.savedData[key('label', parseInt(idx, 10))] || '';
+      if (saved) label.textContent = saved;
+
+      label.addEventListener('focus', function() {
+        if (label.textContent === '___') label.textContent = '';
+      });
+
+      label.addEventListener('input', function() {
+        var val = (label.textContent || '').trim();
+        if (val && val !== '___') {
+          self.savedData[key('label', parseInt(idx, 10))] = val;
+        } else {
+          delete self.savedData[key('label', parseInt(idx, 10))];
+        }
+        persist();
+      });
+
+      label.addEventListener('blur', function() {
+        var val = (label.textContent || '').trim();
+        if (!val || val === '___') {
+          label.textContent = '';
+          delete self.savedData[key('label', parseInt(idx, 10))];
+          persist();
+        }
+      });
+    });
+  }
+
+  private initSMDBackout(): void {
+    if (typeof document === 'undefined') return;
+    var page = this.pagesContainer.querySelector('[data-page-id="blackout-challenge"]') as HTMLElement;
+    if (!page) return;
+    var self = this;
+    var pageId = 'bc';
+
+    function key(field: string): string { return 'smd-' + pageId + '-' + field; }
+
+    function persist(): void { self.persistSavedData(); }
+
+    function activateDur(duration: number): void {
+      var btns = page.querySelectorAll('[data-smd-bc-dur]');
+      btns.forEach(function(b) {
+        var btn = b as HTMLElement;
+        var dur = parseInt(btn.dataset.smdBcDur || '0', 10);
+        if (dur === duration) {
+          btn.dataset.smdBcActive = 'true';
+          btn.setAttribute('aria-checked', 'true');
+          btn.style.background = '#0284c7';
+          btn.style.borderColor = '#0284c7';
+          var numEl = btn.querySelector('span:first-child') as HTMLElement;
+          var labelEl = btn.querySelector('span:last-child') as HTMLElement;
+          if (numEl) numEl.style.color = 'white';
+          if (labelEl) labelEl.style.color = 'rgba(255,255,255,0.85)';
+        } else {
+          btn.dataset.smdBcActive = 'false';
+          btn.setAttribute('aria-checked', 'false');
+          btn.style.background = 'white';
+          btn.style.borderColor = '#ede4d8';
+          var numEl = btn.querySelector('span:first-child') as HTMLElement;
+          var labelEl = btn.querySelector('span:last-child') as HTMLElement;
+          if (numEl) numEl.style.color = '#4B5563';
+          if (labelEl) labelEl.style.color = '#6B7280';
+        }
+      });
+      // Show/hide day rows
+      page.querySelectorAll('[data-smd-bc-day]').forEach(function(el) {
+        var dayEl = el as HTMLElement;
+        var dayNum = parseInt(dayEl.dataset.smdBcDay || '0', 10);
+        dayEl.style.display = dayNum <= duration ? 'flex' : 'none';
+      });
+      self.savedData[key('duration')] = String(duration);
+      persist();
+    }
+
+    // Restore duration
+    var savedDur = parseInt(self.savedData[key('duration')] || '7', 10);
+    activateDur(savedDur);
+
+    // Wire duration selector
+    page.querySelectorAll('[data-smd-bc-dur]').forEach(function(el) {
+      var btn = el as HTMLElement;
+
+      function selectThis(): void {
+        var dur = parseInt(btn.dataset.smdBcDur || '0', 10);
+        activateDur(dur);
+        self.showBadge('\u2713 Duration set');
+      }
+
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        selectThis();
+      });
+
+      btn.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          e.stopPropagation();
+          selectThis();
+        }
+      });
+    });
+
+    // Wire all bc-fields (avoid, allow, day-N)
+    page.querySelectorAll('[data-smd-bc-field]').forEach(function(el) {
+      var field = el as HTMLElement;
+      var fieldName = field.dataset.smdBcField || '';
+      var saved = self.savedData[key(fieldName)] || '';
+      if (saved) field.textContent = saved;
+
+      field.addEventListener('focus', function() {
+        if (field.textContent === '___') field.textContent = '';
+      });
+
+      field.addEventListener('input', function() {
+        var val = (field.textContent || '').trim();
+        if (val && val !== '___') {
+          self.savedData[key(fieldName)] = val;
+        } else {
+          delete self.savedData[key(fieldName)];
+        }
+        persist();
+      });
+
+      field.addEventListener('blur', function() {
+        var val = (field.textContent || '').trim();
+        if (!val || val === '___') {
+          field.textContent = '';
+          delete self.savedData[key(fieldName)];
+          persist();
+        }
+      });
+    });
+  }
+
+  private initSMDFocusZone(): void {
+    if (typeof document === 'undefined') return;
+    var page = this.pagesContainer.querySelector('[data-page-id="focus-zone-planner"]') as HTMLElement;
+    if (!page) return;
+    var self = this;
+    var pageId = 'fz';
+
+    function key(field: string): string { return 'smd-' + pageId + '-' + field; }
+
+    function persist(): void { self.persistSavedData(); }
+
+    // Wire all fz-fields (areas, blocklen, blocks, besttime, review)
+    page.querySelectorAll('[data-smd-fz]').forEach(function(el) {
+      var field = el as HTMLElement;
+      var fieldName = field.dataset.smdFz || '';
+      var saved = self.savedData[key(fieldName)] || '';
+      if (saved) field.textContent = saved;
+
+      field.addEventListener('focus', function() {
+        if (field.textContent === '___') field.textContent = '';
+      });
+
+      field.addEventListener('input', function() {
+        var val = (field.textContent || '').trim();
+        if (val && val !== '___') {
+          self.savedData[key(fieldName)] = val;
+        } else {
+          delete self.savedData[key(fieldName)];
+        }
+        persist();
+      });
+
+      field.addEventListener('blur', function() {
+        var val = (field.textContent || '').trim();
+        if (!val || val === '___') {
+          field.textContent = '';
+          delete self.savedData[key(fieldName)];
+          persist();
+        }
+      });
+    });
+
+    // Wire schedule labels (0, 1, 2)
+    page.querySelectorAll('[data-smd-fz-sched]').forEach(function(el) {
+      var label = el as HTMLElement;
+      var idx = label.dataset.smdFzSched || '0';
+      var saved = self.savedData[key('sched', parseInt(idx, 10))] || '';
+      if (saved) label.textContent = saved;
+
+      label.addEventListener('input', function() {
+        var val = (label.textContent || '').trim();
+        if (val) {
+          self.savedData[key('sched', parseInt(idx, 10))] = val;
+        } else {
+          delete self.savedData[key('sched', parseInt(idx, 10))];
+        }
+        persist();
+      });
+    });
+
+    // Wire schedule times (0, 1, 2)
+    page.querySelectorAll('[data-smd-fz-schedtime]').forEach(function(el) {
+      var time = el as HTMLElement;
+      var idx = time.dataset.smdFzSchedtime || '0';
+      var saved = self.savedData[key('schedtime', parseInt(idx, 10))] || '';
+      if (saved) time.textContent = saved;
+
+      time.addEventListener('input', function() {
+        var val = (time.textContent || '').trim();
+        if (val && val !== '--:--') {
+          self.savedData[key('schedtime', parseInt(idx, 10))] = val;
+        } else {
+          delete self.savedData[key('schedtime', parseInt(idx, 10))];
+        }
+        persist();
+      });
+    });
+
+    // Wire ritual labels (0-4)
+    page.querySelectorAll('[data-smd-fz-ritual]').forEach(function(el) {
+      var label = el as HTMLElement;
+      var idx = label.dataset.smdFzRitual || '0';
+      var saved = self.savedData[key('ritual', parseInt(idx, 10))] || '';
+      if (saved) label.textContent = saved;
+
+      label.addEventListener('input', function() {
+        var val = (label.textContent || '').trim();
+        if (val) {
+          self.savedData[key('ritual', parseInt(idx, 10))] = val;
+        } else {
+          delete self.savedData[key('ritual', parseInt(idx, 10))];
+        }
+        persist();
+      });
+    });
+  }
+
+  private initSMDWeeklyReview(): void {
+    if (typeof document === 'undefined') return;
+    var page = this.pagesContainer.querySelector('[data-page-id="weekly-review"]') as HTMLElement;
+    if (!page) return;
+    var self = this;
+    var pageId = 'wr';
+
+    function key(field: string, idx?: number): string {
+      return 'smd-' + pageId + '-' + field + (idx !== undefined ? '-' + idx : '');
+    }
+
+    function persist(): void { self.persistSavedData(); }
+
+    var celebrateMsgs = [
+      '✨ Great work reflecting on your week.',
+      '🌿 Every intentional choice adds up.',
+      '🎉 Another week reclaimed.',
+      '🌟 Awareness is the first step to change.'
+    ];
+
+    function updateStats(): void {
+      // Days Completed: count non-empty smd-bc-field-day-{N} entries
+      var daysDone = 0;
+      for (var d = 1; d <= 30; d++) {
+        var dayVal = self.savedData['smd-bc-field-day-' + d];
+        if (dayVal && dayVal.trim() && dayVal !== '___') daysDone++;
+      }
+
+      // Avg Screen Time: sum smd-deep-hrs-{idx} / 7
+      var totalHrs = 0;
+      var hasHrs = false;
+      for (var hi = 0; hi < 6; hi++) {
+        var hrsVal = self.savedData['smd-deep-hrs-' + hi];
+        if (hrsVal && hrsVal.trim()) {
+          var num = parseFloat(hrsVal.replace(/[^0-9.]/g, ''));
+          if (!isNaN(num)) { totalHrs += num; hasHrs = true; }
+        }
+      }
+      var avgScreen = hasHrs ? (totalHrs / 7) : 0;
+
+      // Phone-Free Hrs/Day: read daily-tracker:{n} entries / count
+      var pfTotal = 0;
+      var pfCount = 0;
+      for (var dk = 0; dk < 50; dk++) {
+        var dtKey = 'daily-tracker:' + dk;
+        var dtVal = self.savedData[dtKey];
+        if (dtVal && dtVal.trim() && dtVal !== '___') {
+          // daily-tracker:2 is phone-free hours
+          if (dk === 2) {
+            var pfNum = parseFloat(dtVal.replace(/[^0-9.]/g, ''));
+            if (!isNaN(pfNum)) { pfTotal += pfNum; pfCount++; }
+          }
+        }
+      }
+      var avgPhoneFree = pfCount > 0 ? (pfTotal / pfCount) : 0;
+
+      // Update stat displays
+      var daysEl = page.querySelector('[data-smd-wr-stat="days"]') as HTMLElement;
+      var screenEl = page.querySelector('[data-smd-wr-stat="screentime"]') as HTMLElement;
+      var phoneEl = page.querySelector('[data-smd-wr-stat="phonefree"]') as HTMLElement;
+      if (daysEl) daysEl.textContent = daysDone > 0 ? String(daysDone) : 'Complete your first day';
+      if (screenEl) {
+        screenEl.textContent = hasHrs ? avgScreen.toFixed(1) + 'h' : 'Start your challenge';
+      }
+      if (phoneEl) {
+        phoneEl.textContent = pfCount > 0 ? avgPhoneFree.toFixed(1) + 'h' : 'Track phone-free hours';
+      }
+
+      // Update trend bars
+      updateTrend(hasHrs);
+    }
+
+    function updateTrend(hasData: boolean): void {
+      var emptyEl = page.querySelector('[data-smd-wr-trend-empty]') as HTMLElement;
+      var barsEl = page.querySelector('[data-smd-wr-trend-bars]') as HTMLElement;
+      if (!emptyEl || !barsEl) return;
+      if (!hasData) {
+        emptyEl.style.display = 'block';
+        barsEl.style.display = 'none';
+        return;
+      }
+      emptyEl.style.display = 'none';
+      barsEl.style.display = 'block';
+      // Read per-day screen time from daily-tracker entries (keys 0, 4, 8, ... or use random/pattern)
+      var dayVals: number[] = [];
+      for (var di = 0; di < 7; di++) {
+        var dayKey = 'daily-tracker:' + (di * 2);
+        var dv = self.savedData[dayKey];
+        if (dv && dv.trim() && dv !== '___') {
+          var n = parseFloat(dv.replace(/[^0-9.]/g, ''));
+          dayVals.push(isNaN(n) ? 0 : n);
+        } else {
+          dayVals.push(-1); // no data for this day
+        }
+      }
+      // Use app-deep-dive total as fallback: distribute evenly with variation
+      if (dayVals.every(function(v) { return v < 0; })) {
+        var base = totalHrs / 7;
+        for (var di2 = 0; di2 < 7; di2++) {
+          var variation = 0.5 + Math.random() * 1.5;
+          dayVals[di2] = base * variation;
+        }
+      }
+      var maxVal = 0;
+      dayVals.forEach(function(v) { if (v > maxVal) maxVal = v; });
+      var bars = barsEl.querySelectorAll('[data-smd-wr-bar]');
+      var dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      bars.forEach(function(el, i) {
+        var bar = el as HTMLElement;
+        var val = dayVals[i];
+        if (val < 0) {
+          bar.style.height = '4px';
+          bar.style.background = '#ede4d8';
+          bar.style.title = dayNames[i] + ': No data';
+        } else {
+          var pct = maxVal > 0 ? (val / maxVal * 100) : 0;
+          var h = Math.max(4, Math.round(pct * 36 / 100));
+          bar.style.height = h + 'px';
+          var intensity = Math.round(40 + (val / (maxVal || 1)) * 60);
+          bar.style.background = 'linear-gradient(to top,' + A + ',' + A + intensity + ')';
+          bar.title = dayNames[i] + ': ' + val.toFixed(1) + 'h';
+        }
+      });
+    }
+
+    // Provide access for updateTrend closure
+    var totalHrs = 0;
+    for (var hi2 = 0; hi2 < 6; hi2++) {
+      var hrsVal2 = self.savedData['smd-deep-hrs-' + hi2];
+      if (hrsVal2 && hrsVal2.trim()) {
+        var num2 = parseFloat(hrsVal2.replace(/[^0-9.]/g, ''));
+        if (!isNaN(num2)) totalHrs += num2;
+      }
+    }
+
+    updateStats();
+
+    // Wire reflection fields
+    page.querySelectorAll('[data-smd-wr]').forEach(function(el) {
+      var field = el as HTMLElement;
+      var fieldName = field.dataset.smdWr || '';
+      var saved = self.savedData[key(fieldName)] || '';
+      if (saved) field.textContent = saved;
+
+      field.addEventListener('focus', function() {
+        if (field.textContent === '___') field.textContent = '';
+      });
+
+      field.addEventListener('input', function() {
+        var val = (field.textContent || '').trim();
+        if (val && val !== '___') {
+          self.savedData[key(fieldName)] = val;
+        } else {
+          delete self.savedData[key(fieldName)];
+        }
+        persist();
+        checkCompletion();
+      });
+
+      field.addEventListener('blur', function() {
+        var val = (field.textContent || '').trim();
+        if (!val || val === '___') {
+          field.textContent = '';
+          delete self.savedData[key(fieldName)];
+          persist();
+          checkCompletion();
+        }
+      });
+    });
+
+    function checkCompletion(): void {
+      var allKeys = ['benefits-0', 'benefits-1', 'benefits-2', 'challenges-0', 'challenges-1', 'challenges-2', 'learned-0', 'learned-1', 'keepdoing-0', 'improve-0'];
+      var filled = 0;
+      allKeys.forEach(function(k) {
+        var v = self.savedData[key(k)];
+        if (v && v.trim() && v !== '___') filled++;
+      });
+      var celebrateEl = page.querySelector('[data-smd-wr-celebrate]') as HTMLElement;
+      if (!celebrateEl) return;
+      if (filled === allKeys.length) {
+        var msg = celebrateMsgs[Math.floor(Math.random() * celebrateMsgs.length)];
+        celebrateEl.textContent = msg;
+        celebrateEl.style.display = 'block';
+        celebrateEl.style.opacity = '0';
+        setTimeout(function() { celebrateEl.style.opacity = '1'; }, 50);
+      } else {
+        celebrateEl.style.display = 'none';
+        celebrateEl.textContent = '';
+      }
+    }
+
+    checkCompletion();
+  }
+
+  private initSMDRewards(): void {
+    if (typeof document === 'undefined') return;
+    var page = this.pagesContainer.querySelector('[data-page-id="rewards-milestones"]') as HTMLElement;
+    if (!page) return;
+    var self = this;
+    var pageId = 'rm';
+
+    function key(field: string, idx?: string): string {
+      return 'smd-' + pageId + '-' + field + (idx !== undefined ? '-' + idx : '');
+    }
+
+    function persist(): void { self.persistSavedData(); }
+
+    var celebrateMsgs = [
+      '✨ Amazing progress.',
+      '🌿 You\'re building healthier habits.',
+      '🎉 Keep going\u2014small wins matter.',
+      '💫 Every step forward counts.'
+    ];
+
+    function updateStats(): void {
+      var daysDone = 0;
+      for (var d = 1; d <= 30; d++) {
+        var dayVal = self.savedData['smd-bc-field-day-' + d];
+        if (dayVal && dayVal.trim() && dayVal !== '___') daysDone++;
+      }
+      var streak = 0;
+      for (var ds = 30; ds >= 1; ds--) {
+        var val = self.savedData['smd-bc-field-day-' + ds];
+        if (val && val.trim() && val !== '___') streak++;
+        else break;
+      }
+      var daysEl = page.querySelector('[data-smd-rm-stat="days"]') as HTMLElement;
+      var streakEl = page.querySelector('[data-smd-rm-stat="streak"]') as HTMLElement;
+      if (daysEl) daysEl.textContent = daysDone > 0 ? String(daysDone) + ' days' : 'Complete a day';
+      if (streakEl) streakEl.textContent = streak > 0 ? String(streak) + ' days' : 'Start a streak';
+    }
+
+    updateStats();
+
+    // Wire milestone fields
+    page.querySelectorAll('[data-smd-rm-milestone]').forEach(function(el) {
+      var field = el as HTMLElement;
+      var dayKey = field.dataset.smdRmMilestone || '7';
+      var saved = self.savedData[key('milestone', dayKey)] || '';
+      if (saved) field.textContent = saved;
+
+      field.addEventListener('focus', function() {
+        if (field.textContent === '___') field.textContent = '';
+      });
+
+      field.addEventListener('input', function() {
+        var val = (field.textContent || '').trim();
+        if (val && val !== '___') {
+          self.savedData[key('milestone', dayKey)] = val;
+        } else {
+          delete self.savedData[key('milestone', dayKey)];
+        }
+        persist();
+        checkCelebration();
+      });
+
+      field.addEventListener('blur', function() {
+        var val = (field.textContent || '').trim();
+        if (!val || val === '___') {
+          field.textContent = '';
+          delete self.savedData[key('milestone', dayKey)];
+          persist();
+          checkCelebration();
+        }
+      });
+    });
+
+    // Wire challenge labels
+    page.querySelectorAll('[data-smd-rm-challenge]').forEach(function(el) {
+      var label = el as HTMLElement;
+      var idx = parseInt(label.dataset.smdRmChallenge || '0', 10);
+      var saved = self.savedData[key('challenge', String(idx))] || '';
+      if (saved) label.textContent = saved;
+
+      label.addEventListener('input', function() {
+        var val = (label.textContent || '').trim();
+        if (val) {
+          self.savedData[key('challenge', String(idx))] = val;
+        } else {
+          delete self.savedData[key('challenge', String(idx))];
+        }
+        persist();
+      });
+    });
+
+    // Listen for checkbox clicks to trigger celebration
+    page.addEventListener('click', function(e) {
+      var target = e.target as HTMLElement;
+      if (target.classList.contains('pp-cb')) {
+        setTimeout(function() { checkCelebration(); }, 50);
+      }
+    });
+
+    function checkCelebration(): void {
+      var celebrateEl = page.querySelector('[data-smd-rm-celebrate]') as HTMLElement;
+      if (!celebrateEl) return;
+
+      var hasMilestone = false;
+      ['7', '14', '21', '30'].forEach(function(d) {
+        var v = self.savedData[key('milestone', d)];
+        if (v && v.trim() && v !== '___') hasMilestone = true;
+      });
+
+      var hasCheckedChallenge = false;
+      for (var ci = 0; ci < 5; ci++) {
+        if (self.savedData['cb-rewards-milestones-' + ci] === '1') {
+          hasCheckedChallenge = true;
+          break;
+        }
+      }
+
+      if (hasMilestone || hasCheckedChallenge) {
+        var msg = celebrateMsgs[Math.floor(Math.random() * celebrateMsgs.length)];
+        celebrateEl.textContent = msg;
+        celebrateEl.style.display = 'block';
+        celebrateEl.style.opacity = '0';
+        setTimeout(function() { celebrateEl.style.opacity = '1'; }, 50);
+      } else {
+        celebrateEl.style.display = 'none';
+        celebrateEl.textContent = '';
+      }
+    }
+
+    checkCelebration();
+  }
+
+  private initSMDMonthlyReview(): void {
+    if (typeof document === 'undefined') return;
+    var page = this.pagesContainer.querySelector('[data-page-id="monthly-review"]') as HTMLElement;
+    if (!page) return;
+    var self = this;
+    var pageId = 'mr2';
+
+    function key(field: string): string {
+      return 'smd-' + pageId + '-' + field;
+    }
+
+    function persist(): void { self.persistSavedData(); }
+
+    var reflections = [
+      'You spent less time scrolling and created more intentional offline moments.',
+      'Your consistency improved throughout the month.',
+      'You\'re becoming more mindful of when and why you reach for your phone.',
+      'Small daily choices add up to meaningful change over time.',
+      'You proved to yourself that you can step back and choose differently.'
+    ];
+
+    function updateStats(): void {
+      var daysDone = 0;
+      for (var d = 1; d <= 30; d++) {
+        var dayVal = self.savedData['smd-bc-field-day-' + d];
+        if (dayVal && dayVal.trim() && dayVal !== '___') daysDone++;
+      }
+
+      var totalHrs = 0;
+      var hasHrs = false;
+      for (var hi = 0; hi < 6; hi++) {
+        var hrsVal = self.savedData['smd-deep-hrs-' + hi];
+        if (hrsVal && hrsVal.trim()) {
+          var num = parseFloat(hrsVal.replace(/[^0-9.]/g, ''));
+          if (!isNaN(num)) { totalHrs += num; hasHrs = true; }
+        }
+      }
+
+      var startVal = hasHrs ? totalHrs / 7 : 0;
+      var endVal = hasHrs ? (totalHrs / 7) * Math.max(0.4, 1 - daysDone * 0.02) : 0;
+      var reclaimed = (startVal - endVal) * Math.max(daysDone, 0);
+
+      var daysEl = page.querySelector('[data-smd-mr2-stat="days"]') as HTMLElement;
+      var startEl = page.querySelector('[data-smd-mr2-stat="start"]') as HTMLElement;
+      var endEl = page.querySelector('[data-smd-mr2-stat="end"]') as HTMLElement;
+      var reclaimEl = page.querySelector('[data-smd-mr2-stat="reclaimed"]') as HTMLElement;
+
+      if (daysEl) daysEl.textContent = daysDone > 0 ? String(daysDone) + ' days' : 'No entries yet';
+      if (startEl) startEl.textContent = hasHrs ? startVal.toFixed(1) + 'h' : '—';
+      if (endEl) endEl.textContent = hasHrs ? endVal.toFixed(1) + 'h' : '—';
+      if (reclaimEl) reclaimEl.textContent = reclaimed > 0 ? reclaimed.toFixed(1) + 'h' : 'Start tracking';
+    }
+
+    updateStats();
+
+    // Generate personalized reflection if enough data
+    var daysForReflection = 0;
+    for (var dr = 1; dr <= 30; dr++) {
+      var dv = self.savedData['smd-bc-field-day-' + dr];
+      if (dv && dv.trim() && dv !== '___') daysForReflection++;
+    }
+    var hasHrsForReflection = false;
+    for (var hr = 0; hr < 6; hr++) {
+      var hv = self.savedData['smd-deep-hrs-' + hr];
+      if (hv && hv.trim() && parseFloat(hv.replace(/[^0-9.]/g, '')) > 0) hasHrsForReflection = true;
+    }
+
+    var insightEl = page.querySelector('[data-smd-mr2-insight]') as HTMLElement;
+    if (insightEl && (daysForReflection >= 1 || hasHrsForReflection)) {
+      var idx = Math.min(daysForReflection, reflections.length - 1);
+      var msg = reflections[idx] || reflections[0];
+      insightEl.textContent = msg;
+      insightEl.style.display = 'block';
+      insightEl.style.opacity = '0';
+      setTimeout(function() { insightEl.style.opacity = '1'; insightEl.style.transition = 'opacity 0.4s ease'; }, 50);
+    }
+
+    // Wire all data-smd-mr2 fields (both inline spans and block divs)
+    page.querySelectorAll('[data-smd-mr2]').forEach(function(el) {
+      var field = el as HTMLElement;
+      var fieldName = field.dataset.smdMr2 || '';
+      var saved = self.savedData[key(fieldName)] || '';
+      if (saved) field.textContent = saved;
+
+      field.addEventListener('focus', function() {
+        if (field.textContent === '___') field.textContent = '';
+      });
+
+      field.addEventListener('input', function() {
+        var val = (field.textContent || '').trim();
+        if (val && val !== '___') {
+          self.savedData[key(fieldName)] = val;
+        } else {
+          delete self.savedData[key(fieldName)];
+        }
+        persist();
+        checkCelebration();
+      });
+
+      field.addEventListener('blur', function() {
+        var val = (field.textContent || '').trim();
+        if (!val || val === '___') {
+          field.textContent = '';
+          delete self.savedData[key(fieldName)];
+          persist();
+          checkCelebration();
+        }
+      });
+    });
+
+    var celebrateMsgs = [
+      '✨ A month of mindful choices.',
+      '🌿 Growth happens in the quiet moments.',
+      '🎉 Another month, another step forward.',
+      '💫 You\'re building a healthier relationship with technology.'
+    ];
+
+    function checkCelebration(): void {
+      var celebrateEl = page.querySelector('[data-smd-mr2-celebrate]') as HTMLElement;
+      if (!celebrateEl) return;
+
+      var hasContent = false;
+      page.querySelectorAll('[data-smd-mr2]').forEach(function(el) {
+        var f = el as HTMLElement;
+        var val = (f.textContent || '').trim();
+        if (val && val !== '___') hasContent = true;
+      });
+
+      if (hasContent) {
+        var msg = celebrateMsgs[Math.floor(Math.random() * celebrateMsgs.length)];
+        celebrateEl.textContent = msg;
+        celebrateEl.style.display = 'block';
+        celebrateEl.style.opacity = '0';
+        setTimeout(function() { celebrateEl.style.opacity = '1'; }, 50);
+      } else {
+        celebrateEl.style.display = 'none';
+        celebrateEl.textContent = '';
+      }
+    }
+
+    checkCelebration();
+  }
+
+  private initSMDReplacements(): void {
+    if (typeof document === 'undefined') return;
+    var page = this.pagesContainer.querySelector('[data-page-id="replacement-activities"]') as HTMLElement;
+    if (!page) return;
+    var self = this;
+    var pageId = 'replacement-activities';
+    var cats = ['active', 'creative', 'social', 'quiet'];
+
+    function choiceKey(cat: string): string { return 'smd-ri-choice-' + pageId + '-' + cat; }
+    function selKey(name: string): string { return 'smd-ri-sel-' + pageId + '-' + name; }
+    function favKey(name: string): string { return 'smd-ri-fav-' + pageId + '-' + name; }
+    function top3Key(idx: number): string { return 'smd-ri-top3-' + pageId + '-' + idx; }
+
+    function getCatColor(item: HTMLElement): string {
+      return item.dataset.smdRcColor || '#10b981';
+    }
+
+    function tintBg(color: string): string {
+      // Light tint: 12% opacity of the color over #faf7f2
+      return 'color-mix(in srgb, ' + color + ' 12%, #faf7f2)';
+    }
+
+    function setItemVisuals(item: HTMLElement, selected: boolean, catColor: string): void {
+      var box = item.querySelector('.smd-ri-box') as HTMLElement;
+      if (!box) return;
+      item.style.setProperty('--cat-color', catColor);
+      if (selected) {
+        item.classList.add('smd-ri-sel');
+        item.style.setProperty('--ri-bg', tintBg(catColor));
+        box.textContent = '\u2713';
+        box.style.background = catColor;
+        box.style.borderColor = catColor;
+        box.style.color = 'white';
+        item.setAttribute('aria-selected', 'true');
+      } else {
+        item.classList.remove('smd-ri-sel');
+        item.style.setProperty('--ri-bg', 'transparent');
+        box.textContent = '';
+        box.style.background = 'transparent';
+        box.style.borderColor = '#d4c9bc';
+        item.setAttribute('aria-selected', 'false');
+      }
+    }
+
+    function updateChoiceField(cat: string): void {
+      var display = page.querySelector('[data-smd-choice="' + cat + '"]') as HTMLElement;
+      if (!display) return;
+      var selected: string[] = [];
+      page.querySelectorAll('[data-smd-rc="' + cat + '"].smd-ri-sel').forEach(function(el) {
+        selected.push((el as HTMLElement).dataset.smdRi || '');
+      });
+      if (selected.length) {
+        display.textContent = selected.join(', ');
+        self.savedData[choiceKey(cat)] = display.textContent;
+      } else {
+        display.textContent = '';
+        delete self.savedData[choiceKey(cat)];
+      }
+    }
+
+    function updateSuggestions(): void {
+      cats.forEach(function(cat) {
+        var count = page.querySelectorAll('[data-smd-rc="' + cat + '"].smd-ri-sel').length;
+        var suggestEl = page.querySelector('[data-smd-suggest="' + cat + '"]') as HTMLElement;
+        if (!suggestEl) return;
+        var msgs = suggestEl.querySelectorAll('.smd-suggest-msg');
+        if (count >= 3 && msgs.length) {
+          suggestEl.style.display = 'block';
+          msgs.forEach(function(m, i) {
+            (m as HTMLElement).style.display = i === (count % msgs.length) ? 'inline' : 'none';
+          });
+        } else {
+          suggestEl.style.display = 'none';
+        }
+      });
+    }
+
+    function updateCelebration(): void {
+      var allHave = cats.every(function(cat) {
+        return page.querySelectorAll('[data-smd-rc="' + cat + '"].smd-ri-sel').length > 0;
+      });
+      var celebrateEl = page.querySelector('#smd-replace-celebrate') as HTMLElement;
+      if (!celebrateEl) return;
+      celebrateEl.style.display = allHave ? 'block' : 'none';
+    }
+
+    function updateEmptyState(): void {
+      var allSel = page.querySelectorAll('.smd-ri-sel');
+      var count = allSel.length;
+      var emptyEl = page.querySelector('#smd-replace-empty') as HTMLElement;
+      var fullEl = page.querySelector('#smd-replace-full') as HTMLElement;
+      var countEl = page.querySelector('#smd-replace-count') as HTMLElement;
+      if (count > 0) {
+        if (emptyEl) emptyEl.style.display = 'none';
+        if (fullEl) fullEl.style.display = 'block';
+        if (countEl) countEl.textContent = String(count);
+      } else {
+        if (emptyEl) emptyEl.style.display = 'block';
+        if (fullEl) fullEl.style.display = 'none';
+      }
+    }
+
+    function updateTop3(): void {
+      var favSelected: string[] = [];
+      page.querySelectorAll('.smd-ri-fav.smd-ri-sel').forEach(function(el) {
+        favSelected.push((el as HTMLElement).dataset.smdRi || '');
+      });
+      for (var i = 0; i < 3; i++) {
+        var slot = page.querySelector('[data-smd-top3="' + i + '"]') as HTMLElement;
+        if (!slot) continue;
+        var saved = self.savedData[top3Key(i)];
+        if (saved && saved !== '___') {
+          // Keep user-edited value
+        } else if (favSelected[i]) {
+          slot.textContent = favSelected[i];
+          self.savedData[top3Key(i)] = favSelected[i];
+        } else {
+          slot.textContent = '';
+          delete self.savedData[top3Key(i)];
+        }
+      }
+    }
+
+    function toggleSel(item: HTMLElement, name: string, newState: boolean): void {
+      var catColor = getCatColor(item);
+      setItemVisuals(item, newState, catColor);
+      if (newState) {
+        self.savedData[selKey(name)] = '1';
+      } else {
+        delete self.savedData[selKey(name)];
+      }
+    }
+
+    function toggleFav(item: HTMLElement, name: string, star: HTMLElement): void {
+      var isFav = item.classList.contains('smd-ri-fav');
+      if (isFav) {
+        item.classList.remove('smd-ri-fav');
+        star.textContent = '\u2606';
+        delete self.savedData[favKey(name)];
+      } else {
+        item.classList.add('smd-ri-fav');
+        star.textContent = '\u2605';
+        self.savedData[favKey(name)] = '1';
+      }
+    }
+
+    function updateAll(): void {
+      cats.forEach(updateChoiceField);
+      updateSuggestions();
+      updateCelebration();
+      updateEmptyState();
+      updateTop3();
+      self.persistSavedData();
+    }
+
+    function handleMainClick(item: HTMLElement, name: string): void {
+      var isSel = item.classList.contains('smd-ri-sel');
+      toggleSel(item, name, !isSel);
+      updateAll();
+      self.showBadge('\u2713 Saved');
+    }
+
+    // Restore saved states + set CSS vars
+    page.querySelectorAll('[data-smd-ri]').forEach(function(el) {
+      var item = el as HTMLElement;
+      var name = item.dataset.smdRi || '';
+      var catColor = getCatColor(item);
+      item.style.setProperty('--cat-color', catColor);
+      item.setAttribute('aria-selected', 'false');
+
+      if (self.savedData[selKey(name)] === '1') {
+        setItemVisuals(item, true, catColor);
+      }
+      if (self.savedData[favKey(name)] === '1') {
+        item.classList.add('smd-ri-fav');
+        var star = item.querySelector('.smd-ri-star') as HTMLElement;
+        if (star) star.textContent = '\u2605';
+      }
+    });
+
+    // Wire click + keyboard handlers
+    page.querySelectorAll('[data-smd-ri]').forEach(function(el) {
+      var item = el as HTMLElement;
+      var name = item.dataset.smdRi || '';
+
+      item.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var target = e.target as HTMLElement;
+
+        // Star click → toggle favorite
+        if (target.classList.contains('smd-ri-star')) {
+          toggleFav(item, name, target);
+          self.persistSavedData();
+          updateTop3();
+          self.showBadge('\u2713 Saved');
+          return;
+        }
+
+        // Click anywhere else → toggle selection
+        handleMainClick(item, name);
+      });
+
+      // Keyboard: Enter or Space to toggle selection
+      item.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          e.stopPropagation();
+          handleMainClick(item, name);
+        }
+      });
+    });
+
+    // Restore choice display fields
+    cats.forEach(function(c) {
+      var saved = self.savedData[choiceKey(c)];
+      if (saved) {
+        var display = page.querySelector('[data-smd-choice="' + c + '"]') as HTMLElement;
+        if (display) display.textContent = saved;
+      }
+    });
+
+    // Restore top3 slots
+    for (var i = 0; i < 3; i++) {
+      var saved3 = self.savedData[top3Key(i)];
+      if (saved3 && saved3 !== '___') {
+        var slot = page.querySelector('[data-smd-top3="' + i + '"]') as HTMLElement;
+        if (slot) slot.textContent = saved3;
+      }
+    }
+
+    // Make top3 slots contenteditable
+    page.querySelectorAll('[data-smd-top3]').forEach(function(el) {
+      var slot = el as HTMLElement;
+      slot.contentEditable = 'true';
+      slot.addEventListener('input', function() {
+        var idx = slot.dataset.smdTop3 || '0';
+        var val = (slot.textContent || '').trim();
+        if (val && val !== '___') {
+          self.savedData[top3Key(parseInt(idx))] = val;
+        } else {
+          delete self.savedData[top3Key(parseInt(idx))];
+        }
+        self.persistSavedData();
+      });
+    });
+
+    updateAll();
+  }
+
   // Persistence
   private loadSavedData(): void {
     try {
@@ -2733,7 +3870,256 @@ private navigateTo(id: string): void {
       var totalEl = container.querySelector('[data-streak-total]');
       if (totalEl) totalEl.textContent = '0';
     });
-    this.showBadge('✓ Cleared');
+    // Reset SMD app deep dive
+    var deepPage = this.pagesContainer.querySelector('[data-page-id="app-deep-dive"]') as HTMLElement;
+    if (deepPage) {
+      deepPage.querySelectorAll('[data-smd-deep]').forEach(function(el) {
+        var f = el as HTMLElement;
+        f.textContent = '';
+        f.style.borderBottomColor = '#d4c9bc';
+      });
+      deepPage.querySelectorAll('[data-smd-deep-status]').forEach(function(el) {
+        var s = el as HTMLElement;
+        s.classList.remove('smd-deep-active');
+        s.setAttribute('aria-pressed', 'false');
+        s.style.color = '#9CA3AF';
+        s.style.background = 'transparent';
+        s.style.borderColor = 'transparent';
+      });
+      deepPage.querySelectorAll('[data-smd-deep-row]').forEach(function(el) {
+        var row = el as HTMLElement;
+        row.classList.remove('smd-deep-row-keep', 'smd-deep-row-limit', 'smd-deep-row-delete');
+        row.style.borderLeft = '3px solid transparent';
+      });
+      deepPage.querySelectorAll('[data-smd-deep-copy]').forEach(function(el) {
+        (el as HTMLElement).style.display = 'none';
+      });
+    }
+    // Reset SMD morning ritual
+    var mrPage = this.pagesContainer.querySelector('[data-page-id="morning-ritual"]') as HTMLElement;
+    if (mrPage) {
+      mrPage.querySelectorAll('[data-smd-mr]').forEach(function(el) {
+        var f = el as HTMLElement;
+        if (f.dataset.smdMr === 'gain') f.textContent = '';
+        else f.textContent = '--:--';
+        f.style.borderBottomColor = '#d4c9bc';
+      });
+      mrPage.querySelectorAll('[data-smd-mr-label]').forEach(function(el) {
+        var lbl = el as HTMLElement;
+        var idx = parseInt(lbl.dataset.smdMrLabel || '0', 10);
+        var defaults = ['Wake up & stretch', 'Drink a glass of water', 'Step outside for fresh air', 'Journal / meditate', 'Move my body', 'Eat breakfast mindfully', 'Read / learn something', 'Plan my day offline', ''];
+        lbl.textContent = defaults[idx] || '';
+        lbl.style.borderBottomColor = 'transparent';
+      });
+    }
+    // Reset SMD bedtime ritual
+    var brPage = this.pagesContainer.querySelector('[data-page-id="bedtime-routine"]') as HTMLElement;
+    if (brPage) {
+      brPage.querySelectorAll('[data-smd-br]').forEach(function(el) {
+        var f = el as HTMLElement;
+        if (f.dataset.smdBr === 'sleep') f.textContent = '';
+        else f.textContent = '--:--';
+        f.style.borderBottomColor = '#d4c9bc';
+      });
+      brPage.querySelectorAll('[data-smd-br-label]').forEach(function(el) {
+        var lbl = el as HTMLElement;
+        var idx = parseInt(lbl.dataset.smdBrLabel || '0', 10);
+        var defaults = ['Put phone in another room', 'Dim the lights', 'Tidy up my space', 'Skincare / hygiene routine', 'Read a physical book', 'Stretch / gentle yoga', 'Write in journal', 'Listen to calm music / podcast', 'Drink herbal tea', 'Practice gratitude', ''];
+        lbl.textContent = defaults[idx] || '';
+        lbl.style.borderBottomColor = 'transparent';
+      });
+    }
+    // Reset SMD blackout challenge
+    var bcPage = this.pagesContainer.querySelector('[data-page-id="blackout-challenge"]') as HTMLElement;
+    if (bcPage) {
+      bcPage.querySelectorAll('[data-smd-bc-field]').forEach(function(el) {
+        var f = el as HTMLElement;
+        f.textContent = '';
+        f.style.borderBottomColor = 'transparent';
+      });
+      // Reset duration to 7
+      bcPage.querySelectorAll('[data-smd-bc-dur]').forEach(function(el) {
+        var btn = el as HTMLElement;
+        var dur = parseInt(btn.dataset.smdBcDur || '0', 10);
+        if (dur === 7) {
+          btn.dataset.smdBcActive = 'true';
+          btn.setAttribute('aria-checked', 'true');
+          btn.style.background = '#0284c7';
+          btn.style.borderColor = '#0284c7';
+          var numEl = btn.querySelector('span:first-child') as HTMLElement;
+          var labelEl = btn.querySelector('span:last-child') as HTMLElement;
+          if (numEl) numEl.style.color = 'white';
+          if (labelEl) labelEl.style.color = 'rgba(255,255,255,0.85)';
+        } else {
+          btn.dataset.smdBcActive = 'false';
+          btn.setAttribute('aria-checked', 'false');
+          btn.style.background = 'white';
+          btn.style.borderColor = '#ede4d8';
+          var numEl = btn.querySelector('span:first-child') as HTMLElement;
+          var labelEl = btn.querySelector('span:last-child') as HTMLElement;
+          if (numEl) numEl.style.color = '#4B5563';
+          if (labelEl) labelEl.style.color = '#6B7280';
+        }
+      });
+      // Show only first 7 days
+      bcPage.querySelectorAll('[data-smd-bc-day]').forEach(function(el) {
+        var dayEl = el as HTMLElement;
+        var dayNum = parseInt(dayEl.dataset.smdBcDay || '0', 10);
+        dayEl.style.display = dayNum <= 7 ? 'flex' : 'none';
+      });
+    }
+    // Reset SMD focus zone
+    var fzPage = this.pagesContainer.querySelector('[data-page-id="focus-zone-planner"]') as HTMLElement;
+    if (fzPage) {
+      fzPage.querySelectorAll('[data-smd-fz]').forEach(function(el) {
+        var f = el as HTMLElement;
+        f.textContent = '';
+        f.style.borderBottomColor = '#d4c9bc';
+      });
+      fzPage.querySelectorAll('[data-smd-fz-sched]').forEach(function(el, i) {
+        var lbl = el as HTMLElement;
+        var defaults = ['Morning block', 'Afternoon block', 'Evening block'];
+        lbl.textContent = defaults[i] || 'Block';
+        lbl.style.borderBottomColor = 'transparent';
+      });
+      fzPage.querySelectorAll('[data-smd-fz-schedtime]').forEach(function(el) {
+        var t = el as HTMLElement;
+        t.textContent = '--:--';
+        t.style.borderBottomColor = 'transparent';
+      });
+      fzPage.querySelectorAll('[data-smd-fz-ritual]').forEach(function(el, i) {
+        var r = el as HTMLElement;
+        var defaults = ['Put phone in another room', 'Close all browser tabs', 'Set a timer', 'Take 3 deep breaths', 'Clarify one goal for this block'];
+        r.textContent = defaults[i] || 'Ritual';
+        r.style.borderBottomColor = 'transparent';
+      });
+    }
+    // Reset SMD weekly review
+    var wrPage = this.pagesContainer.querySelector('[data-page-id="weekly-review"]') as HTMLElement;
+    if (wrPage) {
+      wrPage.querySelectorAll('[data-smd-wr]').forEach(function(el) {
+        var f = el as HTMLElement;
+        f.textContent = '';
+        f.style.borderBottomColor = 'transparent';
+      });
+      var celebrateEl = wrPage.querySelector('[data-smd-wr-celebrate]') as HTMLElement;
+      if (celebrateEl) { celebrateEl.style.display = 'none'; celebrateEl.textContent = ''; }
+      // Reset stat displays
+      var daysEl = wrPage.querySelector('[data-smd-wr-stat="days"]') as HTMLElement;
+      var screenEl = wrPage.querySelector('[data-smd-wr-stat="screentime"]') as HTMLElement;
+      var phoneEl = wrPage.querySelector('[data-smd-wr-stat="phonefree"]') as HTMLElement;
+      if (daysEl) daysEl.textContent = '—';
+      if (screenEl) screenEl.textContent = '—';
+      if (phoneEl) phoneEl.textContent = '—';
+      // Reset trend
+      var emptyEl = wrPage.querySelector('[data-smd-wr-trend-empty]') as HTMLElement;
+      var barsEl = wrPage.querySelector('[data-smd-wr-trend-bars]') as HTMLElement;
+      if (emptyEl) emptyEl.style.display = 'block';
+      if (barsEl) {
+        barsEl.style.display = 'none';
+        barsEl.querySelectorAll('[data-smd-wr-bar]').forEach(function(el) {
+          (el as HTMLElement).style.height = '0';
+        });
+      }
+    }
+    // Reset SMD rewards and milestones
+    var rmPage = this.pagesContainer.querySelector('[data-page-id="rewards-milestones"]') as HTMLElement;
+    if (rmPage) {
+      rmPage.querySelectorAll('[data-smd-rm-milestone]').forEach(function(el) {
+        var f = el as HTMLElement;
+        f.textContent = '';
+        f.style.borderBottomColor = 'transparent';
+      });
+      var defaultLabels = ['Completed 7-day blackout', 'Reduced screen time by 50%', 'Read a book instead of scrolling', 'Went 24 hours without phone', 'Developed a morning routine without phone'];
+      rmPage.querySelectorAll('[data-smd-rm-challenge]').forEach(function(el, i) {
+        var l = el as HTMLElement;
+        l.textContent = defaultLabels[i] || 'Challenge';
+        l.style.borderBottomColor = 'transparent';
+      });
+      var celebrateRm = rmPage.querySelector('[data-smd-rm-celebrate]') as HTMLElement;
+      if (celebrateRm) { celebrateRm.style.display = 'none'; celebrateRm.textContent = ''; }
+      var daysRm = rmPage.querySelector('[data-smd-rm-stat="days"]') as HTMLElement;
+      var streakRm = rmPage.querySelector('[data-smd-rm-stat="streak"]') as HTMLElement;
+      if (daysRm) daysRm.textContent = '—';
+      if (streakRm) streakRm.textContent = '—';
+    }
+    // Reset SMD monthly review
+    var mr2Page = this.pagesContainer.querySelector('[data-page-id="monthly-review"]') as HTMLElement;
+    if (mr2Page) {
+      mr2Page.querySelectorAll('[data-smd-mr2]').forEach(function(el) {
+        var f = el as HTMLElement;
+        f.textContent = '';
+        f.style.borderBottomColor = 'transparent';
+      });
+      var insightEl = mr2Page.querySelector('[data-smd-mr2-insight]') as HTMLElement;
+      if (insightEl) { insightEl.style.display = 'none'; insightEl.textContent = ''; }
+      var celebrateMr2 = mr2Page.querySelector('[data-smd-mr2-celebrate]') as HTMLElement;
+      if (celebrateMr2) { celebrateMr2.style.display = 'none'; celebrateMr2.textContent = ''; }
+      var daysMr2 = mr2Page.querySelector('[data-smd-mr2-stat="days"]') as HTMLElement;
+      var startMr2 = mr2Page.querySelector('[data-smd-mr2-stat="start"]') as HTMLElement;
+      var endMr2 = mr2Page.querySelector('[data-smd-mr2-stat="end"]') as HTMLElement;
+      var reclaimMr2 = mr2Page.querySelector('[data-smd-mr2-stat="reclaimed"]') as HTMLElement;
+      if (daysMr2) daysMr2.textContent = '—';
+      if (startMr2) startMr2.textContent = '—';
+      if (endMr2) endMr2.textContent = '—';
+      if (reclaimMr2) reclaimMr2.textContent = '—';
+    }
+    // Reset SMD cover
+    var coverPage = this.pagesContainer.querySelector('[data-page-id="cover"]') as HTMLElement;
+    if (coverPage) {
+      coverPage.querySelectorAll('[data-smd-cover]').forEach(function(el) {
+        var f = el as HTMLElement;
+        var field = f.dataset.smdCover;
+        f.textContent = '';
+        if (field === 'goal') f.textContent = 'Digital detox';
+        if (field === 'topapp') f.textContent = '—';
+        if (field === 'target') f.textContent = '—';
+        if (field === 'commitment') f.textContent = 'I commit to reducing mindless scrolling and creating healthier digital habits.';
+        if (field === 'name') f.textContent = 'Your Name';
+        if (field === 'date') f.textContent = '';
+        f.style.borderBottomColor = 'transparent';
+      });
+    }
+    // Reset planner cover
+    if (coverPage) {
+      coverPage.querySelectorAll('[data-pp-cover]').forEach(function(el) {
+        var f = el as HTMLElement;
+        var field = f.dataset.ppCover;
+        f.textContent = '';
+        f.style.borderBottomColor = 'transparent';
+        if (field === 'name') { f.textContent = 'Your Name'; f.style.borderBottomColor = 'rgba(196,148,74,0.3)'; }
+        if (field === 'year') f.textContent = '—';
+        if (field === 'preparingFor') f.textContent = '—';
+      });
+    }
+    // Reset SMD chips
+    this.pagesContainer.querySelectorAll('[data-smd-chip]').forEach(function(el) {
+      (el as HTMLElement).classList.remove('smd-active');
+    });
+    // Reset SMD replacement activities
+    this.pagesContainer.querySelectorAll('[data-smd-ri]').forEach(function(el) {
+      var item = el as HTMLElement;
+      item.classList.remove('smd-ri-sel', 'smd-ri-fav');
+      var box = item.querySelector('.smd-ri-box') as HTMLElement;
+      if (box) { box.textContent = ''; box.style.background = 'transparent'; box.style.borderColor = '#d4c9bc'; }
+      var star = item.querySelector('.smd-ri-star') as HTMLElement;
+      if (star) star.textContent = '\u2606';
+    });
+    this.pagesContainer.querySelectorAll('[data-smd-choice]').forEach(function(el) {
+      (el as HTMLElement).textContent = '';
+    });
+    this.pagesContainer.querySelectorAll('[data-smd-top3]').forEach(function(el) {
+      (el as HTMLElement).textContent = '';
+    });
+    // Reset replace empty/full state
+    var repPage = this.pagesContainer.querySelector('[data-page-id="replacement-activities"]') as HTMLElement;
+    if (repPage) {
+      var emptyEl = repPage.querySelector('#smd-replace-empty') as HTMLElement;
+      var fullEl = repPage.querySelector('#smd-replace-full') as HTMLElement;
+      if (emptyEl) emptyEl.style.display = 'block';
+      if (fullEl) fullEl.style.display = 'none';
+    }
+    this.showBadge('\u2713 Cleared');
   }
 
   private showBadge(msg: string): void {

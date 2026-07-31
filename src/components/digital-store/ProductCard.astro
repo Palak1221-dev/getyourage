@@ -9,113 +9,188 @@ export interface Props {
 
 const { product: p, link } = Astro.props;
 
-type CatStyle = { containerBg: string; textAccent: string; tagBg: string; tagText: string; icon: string; titleUpper: string; gradient: string };
-const catStyles: Record<string, CatStyle> = {
-  'academic':     { containerBg: '#F5F3FF', textAccent: '#7C3AED', tagBg: '#F3E8FF', tagText: '#7C3AED', icon: '🎓', titleUpper: 'STUDY PLANNER PRO', gradient: 'from-[#F5F3FF] via-[#FAF5FF] to-[#EDE9FE]' },
-  'productivity': { containerBg: '#F0F9FF', textAccent: '#0284C7', tagBg: '#E0F2FE', tagText: '#0284C7', icon: '☀️', titleUpper: 'MASTER YOUR DAY', gradient: 'from-[#F0F9FF] via-[#F0FDF4] to-[#E0F2FE]' },
-  'wellness':     { containerBg: '#F0FDF4', textAccent: '#16A34A', tagBg: '#DCFCE7', tagText: '#16A34A', icon: '🌿', titleUpper: 'WELLNESS JOURNAL', gradient: 'from-[#F0FDF4] via-[#ECFDF5] to-[#DCFCE7]' },
-  'goals':        { containerBg: '#FFF7ED', textAccent: '#EA580C', tagBg: '#FFEDD5', tagText: '#EA580C', icon: '🎯', titleUpper: 'GOAL ROADMAP', gradient: 'from-[#FFF7ED] via-[#FEF3C7] to-[#FFEDD5]' },
+const pagePreviews: Record<string, { title: string; desc: string }[]> = {
+  'study-planner-pro': [
+    { title: 'Semester Overview', desc: '12-week timeline with milestones' },
+    { title: 'Revision Tracker', desc: '3-pass topic mastery' },
+    { title: 'Exam Countdown', desc: 'Days until exam' },
+  ],
+  'master-your-day': [
+    { title: 'Daily Command', desc: 'Hourly schedule 7AM–9PM' },
+    { title: 'Priority Engine', desc: 'Impact × urgency scoring' },
+    { title: 'Habit Streaks', desc: '28-day tracking grid' },
+  ],
+  'wellness-journal': [
+    { title: 'Mood Logger', desc: 'Daily emotional patterns' },
+    { title: 'Habit Grid', desc: '6 habits × 28 days' },
+    { title: 'Gratitude', desc: 'Evening reflection' },
+  ],
+  'social-media-detox': [
+    { title: 'Digital Audit', desc: 'Screen time baseline' },
+    { title: 'Daily Tracker', desc: 'Phone-free hours' },
+    { title: 'Progress Review', desc: '30-day trend' },
+  ],
 };
-const cs = catStyles[p.category] || catStyles['academic'];
-
-const pageCountMap: Record<string, string> = {
-  'study-planner-pro': '25 Pages',
-  'master-your-day': '18 Pages',
-  'wellness-journal': '20 Pages',
-  'goal-roadmap': '22 Pages',
-};
-const pageCount = pageCountMap[p.slug] || '20 Pages';
+const pages = pagePreviews[p.slug] || pagePreviews['study-planner-pro'];
 
 const shortDescMap: Record<string, string> = {
-  'study-planner-pro': 'Your complete exam preparation system.',
-  'master-your-day': 'Plan your day. Get things done.',
-  'wellness-journal': 'Habits, mood, and self-care in one place.',
-  'goal-roadmap': 'Set goals. Track progress. Achieve more.',
+  'study-planner-pro': 'Semester overview, revision tracking, exam countdown, and study analytics — all connected.',
+  'master-your-day': 'Weekly reset, daily command, priority engine, habit streaks, and time audit.',
+  'wellness-journal': 'Habit streaks, mood logging, morning intentions, evening gratitude, and monthly review.',
+  'social-media-detox': 'Digital audit, screen time targets, daily tracking, cravings log, and progress review.',
 };
 const shortDesc = shortDescMap[p.slug] || p.tagline;
 
 const displayPrice = p.price;
-const originalPrice = (displayPrice * 1.5).toFixed(2);
+
+const ctaLabels: Record<string, string> = {
+  'study-planner-pro': 'Open Planner',
+  'master-your-day': 'View System',
+  'wellness-journal': 'Open Journal',
+  'social-media-detox': 'Start Detox',
+};
+const ctaLabel = ctaLabels[p.slug] || 'View Planner';
 ---
 
 <a href={link} class="block group h-full select-none" data-product-card>
-  <article 
-    class="flex flex-col bg-white rounded-3xl border border-stone-200/70 p-4 sm:p-5 shadow-xs hover:shadow-2xl hover:shadow-purple-900/10 hover:border-purple-300/80 hover:-translate-y-1.5 transition-all duration-300 h-full relative overflow-hidden group/card"
+  <article
+    class="flex flex-col bg-white rounded-xl border border-[#ede4d8] p-5 sm:p-6 transition-all duration-400 h-full relative overflow-hidden group/card"
+    style="box-shadow:0 1px 4px rgba(0,0,0,0.03);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease, border-color 0.4s ease"
     data-id={p.id}
   >
-    <!-- TOP VISUAL MOCKUP CONTAINER -->
-    <div 
-      class={`relative w-full h-56 sm:h-60 rounded-2xl overflow-hidden flex items-center justify-center p-5 bg-gradient-to-br ${cs.gradient} transition-all duration-300 group-hover/card:scale-[1.02]`}
-    >
-      <!-- Background Ambient Glow -->
-      <div class="absolute inset-0 bg-white/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+    <!-- HOVER STYLES -->
+    <style>
+      .group[data-product-card]:hover article {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 48px -12px rgba(0,0,0,0.12) !important;
+        border-color: #d4c9bc !important;
+      }
+      .group[data-product-card]:hover .page-stack-inner > div:first-child {
+        transform: rotate(-4.5deg) translateY(-6px) !important;
+      }
+      .group[data-product-card]:hover .page-stack-inner > div:nth-child(2) {
+        transform: rotate(0.5deg) translateY(-1px) !important;
+      }
+      .group[data-product-card]:hover .page-stack-inner > div:nth-child(3) {
+        transform: rotate(3deg) translateY(5px) !important;
+      }
+      .group[data-product-card]:hover .cta-btn {
+        background: #09090b !important;
+        color: #fcf9f2 !important;
+        border-color: #09090b !important;
+      }
+      .group[data-product-card]:hover .cta-arrow {
+        transform: translateX(2px);
+      }
+      .group[data-product-card]:hover .preview-overlay {
+        opacity: 1;
+      }
+    </style>
 
-      <!-- Format Tag Badge -->
-      <div class="absolute top-3 right-3 z-20">
-        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md border border-white/80 text-[10px] font-bold text-stone-700 shadow-2xs">
-          <span>PDF + DOCX</span>
-        </span>
+    <!-- INTERIOR PAGE PREVIEWS (3 stacked pages with depth) -->
+    <div class="relative w-full h-52 sm:h-56 rounded-lg overflow-hidden mb-1" style="background:#f3f0e9;border:1px solid #ede4d8">
+      <!-- Notebook paper edge -->
+      <div class="absolute left-0 top-0 bottom-0 w-[3px]" style="background:linear-gradient(to right, rgba(0,0,0,0.03), transparent)"></div>
+
+      <!-- Page stack -->
+      <div class="absolute inset-0 flex items-center justify-center p-4 sm:p-5">
+        <div class="relative w-full max-w-[200px] page-stack-inner" style="min-height:150px">
+          {pages.map((page, i) => {
+            const fromBottom = pages.length - 1 - i;
+            const rot = fromBottom === 2 ? '2.5deg' : fromBottom === 1 ? '0.5deg' : '-3deg';
+            const ty = fromBottom === 2 ? '6px' : fromBottom === 1 ? '2px' : '0px';
+            const zIdx = fromBottom + 1;
+            const shadowDepth = `${1 + i * 2}px ${3 + i * 3}px rgba(0,0,0,${(0.04 + i * 0.025).toFixed(3)})`;
+            return (
+              <div
+                class="absolute inset-0 rounded-[7px] border flex flex-col justify-between transition-all duration-400"
+                style={{
+                  background: '#fcf9f2',
+                  borderColor: '#e5ddd0',
+                  transform: `rotate(${rot}) translateY(${ty})`,
+                  zIndex: zIdx,
+                  boxShadow: shadowDepth,
+                  transition: 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease',
+                }}
+              >
+                <div class="p-3.5 sm:p-4 flex flex-col h-full justify-between">
+                  <div class="space-y-1.5">
+                    <div class="flex items-center justify-between">
+                      <span class="text-[7px] font-bold uppercase tracking-[0.15em]" style="color:#9CA3AF">{p.category}</span>
+                      <div style="width:14px;height:2px;background:#2563eb;border-radius:1px;opacity:0.4"></div>
+                    </div>
+                    <div class="font-serif text-[11px] font-bold leading-tight" style="color:#09090b">{page.title}</div>
+                    <div class="text-[8px] font-medium leading-relaxed" style="color:#6B7280">{page.desc}</div>
+                  </div>
+                  <div class="flex items-center gap-1.5 mt-2">
+                    <div style="width:5px;height:5px;border-radius:50%;background:#2563eb;opacity:0.5"></div>
+                    <span class="text-[6px] font-medium uppercase tracking-wider" style="color:#9CA3AF">interactive</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
-      <!-- SPIRAL NOTEBOOK MOCKUP -->
-      <div class="relative w-[78%] h-[90%] bg-white rounded-xl shadow-lg border border-stone-200/60 flex items-center justify-between p-4 overflow-hidden group-hover/card:shadow-xl transition-shadow">
-        
-        <!-- Left Spiral Binding Ring -->
-        <div class="absolute left-2 top-3.5 bottom-3.5 flex flex-col justify-between z-20">
-          {Array.from({ length: 9 }).map(() => (
-            <div class="w-2.5 h-2 rounded-full border border-stone-300/80 bg-stone-100 shadow-2xs"></div>
-          ))}
-        </div>
+      <!-- Hover overlay: subtle tint + page count -->
+      <div class="preview-overlay absolute inset-0 flex items-end justify-end opacity-0 transition-all duration-400 pointer-events-none" style="background:linear-gradient(to top, rgba(9,9,11,0.03), transparent 50%)">
+        <span class="mr-2.5 mb-2 text-[8px] font-medium" style="color:#9CA3AF">{pages.length} key pages</span>
+      </div>
 
-        <!-- Cover Content -->
-        <div class="pl-4 w-full flex flex-col items-center justify-center text-center space-y-2 z-10">
-          <span class="text-[10px] font-extrabold uppercase tracking-widest leading-tight px-1" style={`color: ${cs.textAccent}`}>
-            {cs.titleUpper}
+      <!-- Badge (if product has one) -->
+      {p.badge && (
+        <div class="absolute top-2.5 right-2.5">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[7px] font-bold uppercase tracking-wider"
+            style="background:rgba(37,99,235,0.08);color:#2563eb;border:0.5px solid rgba(37,99,235,0.15)">
+            {p.badge}
           </span>
-          <span class="text-2xl filter drop-shadow-2xs transform group-hover/card:scale-110 transition-transform duration-300">{cs.icon}</span>
         </div>
-
-      </div>
+      )}
     </div>
 
-    <!-- CARD BODY CONTENT -->
-    <div class="flex flex-col flex-1 pt-4 space-y-3">
-      
-      <div class="space-y-1">
+    <!-- CARD BODY -->
+    <div class="flex flex-col flex-1 pt-4 space-y-2.5">
+
+      <!-- Name + Rating -->
+      <div class="space-y-0.5">
         <div class="flex items-center justify-between">
-          <h3 class="text-base font-bold text-stone-900 group-hover/card:text-[#7C3AED] transition-colors leading-snug">
+          <h3 class="text-sm sm:text-base font-bold leading-snug" style="color:#09090b;font-family:'Playfair Display',serif;letter-spacing:-0.01em">
             {p.title}
           </h3>
-          <span class="text-amber-500 text-xs font-bold flex items-center gap-0.5">
-            ★ 4.9
+        </div>
+        <div class="flex items-center gap-2 text-[11px] font-medium" style="color:#6B7280">
+          <span style="color:#2563eb">{'\u2605'} {p.rating}</span>
+          <span style="color:#ede4d8">/</span>
+          <span>{p.reviewCount} reviews</span>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <p class="text-xs leading-relaxed line-clamp-2" style="color:#6B7280">
+        {shortDesc}
+      </p>
+
+      <!-- Feature chips -->
+      <div class="flex flex-wrap gap-1.5 pt-0.5">
+        {pages.map(page => (
+          <span class="inline-block text-[8px] font-medium px-2 py-0.5 rounded-full" style="background:#f5f0ea;color:#6B7280;border:0.5px solid #ede4d8">
+            {page.title}
           </span>
-        </div>
-        <p class="text-xs text-stone-500 font-normal leading-relaxed line-clamp-2">
-          {shortDesc}
-        </p>
+        ))}
       </div>
 
-      <!-- Page Count Tag -->
-      <div class="pt-0.5 flex items-center gap-2">
-        <span 
-          class="inline-block text-[11px] font-semibold px-3 py-0.5 rounded-full"
-          style={`background-color: ${cs.tagBg}; color: ${cs.tagText};`}
-        >
-          {pageCount}
-        </span>
-        <span class="text-[11px] text-stone-400 font-medium">• Instant Download</span>
-      </div>
-
-      <!-- Price & Action Button -->
-      <div class="pt-3.5 mt-auto flex items-center justify-between border-t border-stone-100">
+      <!-- Price + Action -->
+      <div class="pt-3 mt-auto flex items-center justify-between border-t border-[#ede4d8]">
         <div class="flex items-baseline gap-1.5">
-          <span class="text-base font-extrabold text-stone-900">${displayPrice.toFixed(2)}</span>
-          <span class="text-xs text-stone-400 line-through font-medium">${originalPrice}</span>
+          <span class="text-base sm:text-lg font-bold" style="color:#09090b">${displayPrice.toFixed(2)}</span>
+          {p.originalPrice && <span class="text-[11px] line-through font-medium" style="color:#9CA3AF">${p.originalPrice.toFixed(2)}</span>}
         </div>
 
-        <span class="inline-flex items-center justify-between gap-2 text-xs font-bold text-[#7C3AED] bg-purple-50/80 border border-purple-200/80 hover:bg-[#7C3AED] hover:text-white px-4 py-1.5 rounded-full transition-all duration-300 group-hover/card:border-[#7C3AED] group-hover/card:bg-[#7C3AED] group-hover/card:text-white shadow-2xs">
-          <span>Customize</span>
-          <span class="text-sm leading-none group-hover/card:translate-x-0.5 transition-transform">&rarr;</span>
+        <span class="cta-btn inline-flex items-center gap-1.5 text-[11px] font-bold px-3.5 py-1.5 rounded-full transition-all duration-300"
+          style="color:#09090b;background:#f5f0ea;border:0.5px solid #ede4d8">
+          <span>{ctaLabel}</span>
+          <svg class="cta-arrow w-3 h-3 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </span>
       </div>
 

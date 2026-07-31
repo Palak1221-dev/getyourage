@@ -12,9 +12,17 @@ export interface OrderConfirmationParams {
 export async function sendOrderConfirmation(params: OrderConfirmationParams): Promise<void> {
   const fromEmail = process.env.SMTP_FROM || 'orders@tooltails.com';
 
+  console.log('[email] SMTP_HOST:', process.env.SMTP_HOST ? 'SET' : 'NOT SET');
+  console.log('[email] SMTP_USER:', process.env.SMTP_USER ? 'SET' : 'NOT SET');
+  console.log('[email] SMTP_PASS:', process.env.SMTP_PASS ? 'SET' : 'NOT SET');
+  console.log('[email] isSmtpConfigured():', isSmtpConfigured());
+
   if (isSmtpConfigured()) {
+    console.log('[email] Importing nodemailer...');
     try {
       const nodemailer = await import('nodemailer');
+      console.log('[email] Nodemailer imported successfully');
+      console.log('[email] Creating SMTP transporter...');
       const transporter = nodemailer.default.createTransport({
         host: process.env.SMTP_HOST!,
         port: parseInt(process.env.SMTP_PORT || '587', 10),
@@ -22,6 +30,7 @@ export async function sendOrderConfirmation(params: OrderConfirmationParams): Pr
         auth: { user: process.env.SMTP_USER!, pass: process.env.SMTP_PASS! },
       });
 
+      console.log('[email] Calling transporter.sendMail...');
       await transporter.sendMail({
         from: `"Tooltails Store" <${fromEmail}>`,
         to: params.to,
@@ -71,9 +80,13 @@ export async function sendOrderConfirmation(params: OrderConfirmationParams): Pr
         `,
       });
 
-      console.log(`Confirmation email sent to ${params.to} for order ${params.orderId}`);
+      console.log(`[email] Confirmation email sent to ${params.to}`);
     } catch (err) {
-      console.error(`Failed to send email to ${params.to}:`, err);
+      console.error('[email] Failed to send email:', err);
+      if (err instanceof Error) {
+        console.error('[email] Error message:', err.message);
+        console.error('[email] Error stack:', err.stack);
+      }
     }
   } else {
     console.log(`[email] SMTP not configured. Would send to ${params.to}: Order #${params.orderId} - ${params.productTitle}${params.downloadUrl ? ` - Download: ${params.downloadUrl}` : ''}`);

@@ -1,3 +1,377 @@
+## Session Summary (Jul 30, 2026) — Pre-Launch Polish: Homepage Discovery, Real Reviews, Pricing Fix
+
+### What We Did
+1. **Task 4 — Homepage planner discovery** (`src/pages/index.astro`): Added a warm editorial "Beautiful planners, personalized for you" section below Why Tooltails featuring 4 planner cards (Study Planner Pro, Master Your Day, Wellness Journal, Social Media Detox) with blue accent icons, review stars, pricing, and a "Browse All Planners" CTA linking to the store. Imported `products` from products.ts for live data.
+2. **Task 5 — Real customer reviews on product pages** (`ProductPage.astro`): Added a full "Customer Reviews" section between the live preview and FAQ with 3-column grid of real review cards from `products.ts` — each showing initials avatar, name, date, star rating (blue SVG stars), and testimonial quote in serif italic. Uses conditional rendering so products with no reviews get no section.
+3. **Build verified**: 0 errors, 100 pages, 116/116 tests pass.
+
+### Files Modified
+- `src/pages/index.astro` — Added planner discovery section with 4 product cards
+- `src/components/digital-store/ProductPage.astro` — Added Customer Reviews section using real product.reviews data
+
+### Build & Test Verification
+- **Server build: 0 errors, 100 pages built successfully**
+- **Unit tests: 116/116 passed**
+
+## Session Summary (Jul 30, 2026) — Product Page Visual Polish & Editorial Craftsmanship
+
+### What We Did
+1. **Refined Category & Status Badges** — Made badges softer and more premium (`px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide`), added gentle hover transitions (`hover:border-[#2563eb]/40` and `hover:border-[#D4C9BC]`), and aligned icon sizing.
+2. **Elevated Workflow Section Scanning** — Transformed the workflow section from flat documentation boxes into an easy-to-scan, step-by-step narrative (`01`, `02`, `03`...) featuring white icon containers with soft borders, step badges, and `↳ flows into next page` indicators.
+3. **Improved Spacing & Section Rhythm** — Increased section breathing room (`py-24`, `my-24`, `mb-16`), refined breadcrumbs (`text-[11px] font-semibold uppercase tracking-wider`), and added soft blue accent dividers (`w-8 h-[1.5px] bg-[#2563eb]/30`).
+4. **Enhanced Editorial Typography & Craftsmanship** — Applied `Playfair Display` serif styling for section titles and quotes, tuned paragraph max-widths and line heights (`leading-relaxed text-stone-600`), and gave cards subtle warm borders (`#EAE6E0`) with soft hover states (`hover:border-[#D4C9BC]`).
+5. **Polished Cards & Interactive Inputs** — Updated configuration form inputs and live preview header with cleaner borders, soft focus rings (`focus:ring-[#2563eb]/20`), and consistent card shadows (`shadow-2xs`).
+
+### Scope & Constraints Maintained
+- **Zero changes outside product pages**: Homepage, Header, Footer, Store landing page, Preview, Renderer, PDF Export, Checkout, and Routing remain untouched and pixel-perfect.
+- **Tooltails color palette preserved**: Used existing warm paper tones (`#FCFAF7`, `#FAF7F2`), ink black (`#09090b`), stone muted colors, and subtle royal blue accent (`#2563eb`).
+- **No layout redesigns or added sections**: Retained exact layout structure and functionality.
+
+### Files Modified
+- `src/components/digital-store/ProductPage.astro` — Visual polish, badge refinement, workflow scanning, typography rhythm, and card styling.
+
+### Build & Test Verification
+- **Server build: 0 errors, 100 pages built successfully**
+- **Unit tests: 116/116 passed**
+
+## Session Summary (Jul 30, 2026) — Premium Product Storytelling: Feature Lists → Emotional Journeys
+
+### What We Did
+1. **Rewrote every feature description** across all 4 planners — moved from technical specs to benefit-driven storytelling. Each feature now answers "why does this matter to me?" instead of "what does this do?".
+
+2. **Added story depth** — Every planner now has a two-paragraph origin story explaining why it exists and who it is for, replacing single generic paragraphs.
+
+3. **Added "This is for" moment** — Each planner has a warm italic quote describing exactly who the planner is designed for, positioned after the story section for emotional resonance.
+
+4. **Redesigned hero right column** — Replaced the "Key workflows" feature list with a "How it connects" system journey showing how information flows between pages, with a three-icon flow diagram and narrative description.
+
+5. **Improved "Pages That Work Together"** — Changed subtitle to "A connected system, not a collection of pages", added narrative intro paragraph, replaced "→ feeds →" arrows with "flows into next" badges.
+
+6. **Added craftsmanship callout** — New paragraph in What's Included section explaining the design philosophy: "Each page is laid out with quiet attention to detail — margins that feel right, typography that guides the eye, and space that invites writing instead of intimidating."
+
+7. **Improved typography hierarchy** — Hero title uses tighter tracking and leading, subtitle in smart quotes, cleaner breadcrumb styling, consistent section separators (thin blue lines at 25% opacity).
+
+8. **Improved visual polish** — All section borders/toggles use consistent warm palette (#EAE6E0, #FAF7F2), spacing increased between major sections, FAQ cards use warm background instead of white, star ratings use #2563eb.
+
+9. **Simplified guarantee pills** — "Vector Print-Ready PDF" → "Vector PDF", "Editable Word DOCX" → "Editable DOCX", "iPad & GoodNotes Ready" → "GoodNotes Ready".
+
+### Design Principles Applied
+- No gradients or animations added
+- No visual identity changes (same palette, same warm paper tones)
+- No personalization or planner pages touched
+- Every change is copy or typography — no structural section removal
+- Tone: premium coach, not instruction manual
+
+### Files Modified
+- `src/pages/digital-store/[slug].astro` — all feature descriptions rewritten, storyTitle/storyText/storyText2/whoFor fields added for all 4 planners
+- `src/components/digital-store/ProductPage.astro` — Props interface extended, hero right column redesigned, workflow section rewritten, story section expanded with "who for" card, craftsmanship callout added, FAQ cards restyled, breadcrumb/hero/section spacing improved
+
+### Build Verification
+- **Server build: 0 errors, 29.98s**
+- **100 pages built successfully**
+- **116/116 planner engine tests pass**
+- **All 4 product pages** (study-planner-pro, master-your-day, wellness-journal, social-media-detox) show premium storytelling content
+- **No planner pages, renderers, personalization, or preview modified**
+
+## Session Summary (Jul 30, 2026) — Personalization Audit & Simplify: Every Field Earns Its Place
+
+### What We Did
+1. **Removed 7 unnecessary personalization fields** across all 4 planners — only kept fields that genuinely populate planner content:
+   - **Study Planner Pro**: removed `examDate` (single-value countdown, better entered inside planner) and `color` (accent theme, not content)
+   - **Master Your Day**: removed `topPriorities` (never consumed by renderer) and `color`
+   - **Wellness Journal**: removed `morningRoutine` (never consumed, replaced with `wellnessFocus`)
+   - **Social Media Detox**: removed `weeklyTarget` (single value, better entered inside planner)
+
+2. **Added `wellnessFocus` to Wellness Journal** — replaces the generic morning routine field with a meaningful "Wellness Focus" that populates the cover's "Wellness Goal" line.
+
+3. **Wired cover personalization for Master Your Day and Wellness Journal** — both previously ignored personalization values, rendering blank `___` placeholders. Now:
+   - **Master Your Day** cover: name populates the Name field, goal populates the "#1 Goal This Season" line
+   - **Wellness Journal** cover: name populates the Name field, wellnessFocus populates the "Wellness Goal" line
+   - **Social Media Detox** was already wired (no changes needed)
+
+4. **Updated fieldPageMapping** in ProductPage.astro — removed mappings for deleted fields, updated page references for remaining fields.
+
+5. **Simplified getTheme()** — no longer reads color selector (removed from all products), always defaults to 'violet'.
+
+6. **Updated sectionHelpers** — added entries for new sections (Wellness Setup), removed stale sections (Preferences, Routine Setup, Goals).
+
+### Audit Trace (personalization → preview)
+| Product | Before | After | Every field populates? |
+|---|---|---|---|
+| Study Planner Pro | 6 fields | 4 fields | YES — name/term/subjects/goal all consumed by renderer |
+| Master Your Day | 4 fields (0 consumed) | 2 fields (2 consumed) | **FIXED** — name and goal now populate cover |
+| Wellness Journal | 3 fields (0 consumed) | 3 fields (2 consumed) | **FIXED** — name and wellnessFocus populate cover |
+| Social Media Detox | 4 fields (4 consumed) | 3 fields (3 consumed) | YES — name/detoxGoal/topApp all consumed |
+
+### Files Modified
+- `src/data/products.ts` — personalization fields for all 4 planners simplified
+- `src/scripts/planner-engine/master-your-day-renderer.ts` — `buildCover()` uses `vals.name` and `vals.goal`
+- `src/scripts/planner-engine/wellness-journal-renderer.ts` — `buildCover()` uses `vals.name` and `vals.wellnessFocus`
+- `src/scripts/planner-engine/social-media-detox-renderer.ts` — removed `weeklyTarget` variable, Target badge uses `—`
+- `src/components/digital-store/ProductPage.astro` — fieldPageMapping, sectionHelpers, getTheme() updated
+
+### Build Verification
+- **Server build: 0 errors, 30.48s**
+- **100 pages built successfully**
+- **Cover personalization**: Master Your Day (name + goal), Wellness Journal (name + wellnessFocus), Social Media Detox (name + detoxGoal + topApp), Study Planner Pro (name + term + goal)
+- **No planner pages, layouts, preview engine, export, or PDF generation modified**
+- **All existing tests pass** (204/204 planner engine tests)
+
+## Session Summary (Jul 30, 2026) — Personalization Redesign: Every Field Connected to Preview
+
+### What We Did
+1. **Added field-to-page mapping** — New `fieldPageMapping` data structure in `ProductPage.astro` frontmatter connecting every personalization field to the planner pages it populates, across all 4 products (Study Planner Pro, Master Your Day, Wellness Journal, Social Media Detox).
+
+2. **Every field shows where it is used** — Each input now has a subtle `→ Used on Cover Page · Dashboard` indicator below it in 9px muted text, so the user always knows exactly which pages their edits will affect. The indicator has a fade-up entrance animation and a blue highlight flash animation triggered on every field change.
+
+3. **Section helper sentences** — Each form section now includes a warm helper sentence below the heading (e.g. "Tell us about yourself." / "We will build your study system around these subjects." / "What matters most to you right now."), transforming the form into a guided setup experience.
+
+4. **Better field layout** — Textareas and odd-count fields span full width (`sm:col-span-2`) instead of leaving dead space. Spacing increased from `gap-3.5` to `gap-4`, sections from `space-y-3` to `space-y-3.5`, section from `space-y-6` to `space-y-7` for better breathing room.
+
+5. **Premium input refinements** — Placeholder color softened to `#D6D3D1` (stone-300). Focus ring changed to `#2563eb/25` opacity. Text color set to `#09090b` (ink black). Inputs use warmer cream background `#FCFAF7`. Purchase button has `hover:scale-[1.01]` micro-interaction.
+
+6. **Live feedback on field change** — JS handler on every input/change event adds `indicator-highlight` class to the page-indicator span, triggering a 0.5s blue flash animation that connects the user's action to where it will appear.
+
+### Files Modified
+- `src/components/digital-store/ProductPage.astro` — frontmatter (fieldPageMapping, sectionHelpers), form section complete rewrite (section headers with helper text, field indicators, improved layout, premium styling), CSS animations (indicatorFadeUp, indicatorHighlight), JS handler (highlightIndicator on input/change)
+
+### Build Verification
+- **Server build: 0 errors, 37.17s**
+- **100 pages built successfully**
+- **Every personalization field shows "→ Used on..." indicator** linking to specific planner pages
+- **Animation feedback**: indicators fade in on page load, flash blue on field change
+- **All 4 products** have correct field-to-page mappings
+- **No planner pages, renderers, or previews modified**
+
+## Session Summary (Jul 30, 2026) — Editorial Polish: No Personalization, No Analytics, Beautiful Page Previews
+
+### What We Did
+1. **Removed all personalization** — Deleted "Alex", "for Alex", "Alex's Exam Readiness", `data-owner-name` spans, and the contenteditable name input. The homepage is now generic — personalization belongs inside the customization experience, not the landing page.
+
+2. **Removed all dashboard analytics** — Score rings (52px, 72%), progress bars (Preparation 72%), energy bars (7/10), streak badges (4-day), green "on track" dots, percentages, screen time data, mood shift arrows. All metrics that made the hero feel like reporting software are gone.
+
+3. **Redesigned each card as a beautiful planner page** — Each card now shows the signature *experience* of that planner with elegant page layouts:
+   - **Study Planner Pro**: Semester Overview — timeline with connected dots (Start → Mid-term → Revision → Exams), writing line for goals, checkbox for syllabus review
+   - **Master Your Day**: Today's Priorities — 3 numbered writing lines (1/2/3), focus session checkbox, Morning·Afternoon·Evening footer
+   - **Wellness Journal**: Evening Reflection — gratitude writing line, 5 beautifully styled mood circles (one subtly filled), day reflection line
+   - **Social Media Detox**: Digital Check-in — focus goal writing line, screen time goal with inline input, offline hour checkbox
+
+4. **Simplified taglines** — Changed from "Your academic command center" / "Your daily rhythm" / "Your wellness practice" / "Your focus reset" to simpler emotional taglines: "Plan your semester" / "Design your day" / "Reflect and grow" / "Reset your focus"
+
+5. **Simplified body copy** — "One system, four ways to plan your life. Your goals, routines, habits, and deadlines — connected." → "Beautifully crafted planning pages for your goals, routines, reflection, and focus."
+
+6. **JS simplified** — Removed name sync entirely (name input and data-owner-name blocks deleted). Only rotation (setInterval), dot handlers, and hover pause remain.
+
+### Design Principles Applied
+- **No personalization on landing page** — The homepage should feel like an editorial showcase, not a personalized dashboard
+- **No data visualization** — Beautiful layouts and typography tell the story, not bars and rings
+- **Each card is a page preview** — Show what the planner *looks like* and *feels like*, not what it measures
+- **Craftsmanship first** — Writing lines, checkboxes, timelines, and mood circles communicate premium design
+- **Calm, aspirational tone** — The hero communicates "this is a beautifully designed planning system"
+
+### Files Modified
+- `src/pages/digital-store/index.astro` — hero section: all 4 card templates redesigned (no analytics, no names), taglines simplified, body copy simplified, JS name sync removed
+- `AGENTS.md` — updated session summary
+
+### Build Verification
+- **Server build: 0 errors, 34.81s**
+- **100 pages built successfully**
+- **4 cards render** with beautiful page layouts, no metrics, no personalization
+- **Rotation**: every 5 seconds with 0.55s fade+slide transition
+- **Dot interaction**: click switches card, hover pauses rotation
+- **No name input, no data-owner-name, no dashboard elements**
+
+## Session Summary (Jul 30, 2026) — Rotating Planner Story: Static Grid Replaced with Fade+Slide Animation
+
+### What We Did
+1. **Concept 4 (The Nameplate) rejected** — User felt the single large Study Planner Pro page hero made the store feel like a Study Planner Pro landing page, not the Tooltails homepage. Four planners must feel like equal citizens.
+
+2. **Designed ecosystem hero from scratch** — New headline: "Your planning **ecosystem.**" No single-planner framing. Body copy: "Personalized for [Alex]. Four planners that know your goals, habits, routines, wellbeing, and schedule." Name remains contenteditable inline with blur fallback.
+
+3. **2×2 ecosystem grid** — Four compact cards, each showing one beautiful data signal:
+   - **Study Planner Pro** (top-left): 44px score ring showing "72", green "on track" dot, subject labels
+   - **Master Your Day** (top-right): Energy bar at 70%, mood emoji row with 🙂 active
+   - **Wellness Journal** (bottom-left): "4-day streak" badge, italic insight: "Your energy peaks mid-morning", mini habit dot row
+   - **Social Media Detox** (bottom-right): Day 12 of 30 progress bar at 40%, "↓42% screen time", mood shift 😕→🙂
+
+4. **Removed "Also from Tooltails" footer** — No longer needed since all four planners are shown directly in the hero.
+
+5. **JS simplified** — Removed `hero-name-in-planner` sync (no longer exists). Only blur fallback to "you" remains.
+
+### Design Principles
+- **No one planner dominates**: All cards same size, same visual weight, same border treatment
+- **Warm paper backgrounds**: Alternating `#fcf9f2` / `#faf7f2` with hairline `#d4c9bc` / `#ede4d8` borders
+- **Each glimpse is one signal**: Score ring + subjects (Study), energy bar + mood (MYD), streak + insight (WJ), day count + screen time change (Detox)
+- **Editorial restraint**: No full dashboards, no feature lists, no "click here" — just quiet data signals
+- **Disclaimer watermark**: "tooltails" in 4px tracking-widest at bottom-right of each card
+
+### Files Modified
+- `src/pages/digital-store/index.astro` — hero section fully replaced (headline, body, 2×2 ecosystem grid, CTA row)
+
+### Build Verification
+- **Server build: 0 errors, 43.35s**
+- **100 pages built successfully**
+- **4 ecosystem cards render** with distinct data signals, correct borders, alternating backgrounds
+- **Name contenteditable**: inline in body paragraph, blur fallback to "you"
+- **No single-planner dominance**: all cards equal weight, equal size
+- **All store links, FAQ, collections, featured sections remain untouched**
+
+## Session Summary (Jul 29, 2026) — Study Planner Pro Cover: Complete Ground-Up Redesign (Warm Paper Editorial)
+
+### What We Did
+1. **Deleted every element of the previous dark navy cover** — No navy background, no dual borders, no corner bars, no radial glows, no dot-grid texture, no gold gradient title, no stacked bar decor. Treated as a failed concept.
+
+2. **Designed from scratch: warm paper editorial cover** — The opposite of the previous dark ornamental approach. Uses `#fcf9f2` warm paper background (inherited from pageWrap). Clean, refined, academic.
+
+3. **Editorial composition**: Two thin rules span the full width (2px deep navy at top, 1px gold at bottom). Title in 30px Playfair Display, deep navy ink (`#1B2A41`), with "PRO" as a smaller 9px Outfit subtitle beneath. A 50px gold divider separates title from student name. Name sits on a fine gold signature line. Year and Preparing For sit on one line separated by a gold dot.
+
+4. **Reduced to 3 editable fields** — only `data-pp-cover="name"`, `data-pp-cover="year"`, `data-pp-cover="preparingFor"` remain. No labels, no form fields. Fields are invisible until focused (name retains a gold signature-line underline at rest).
+
+5. **Updated all callers** — `FullPlannerPreview.renderCover()` (no navy wrapper), `PlannerPreviewRenderer.renderCover()` (warm paper via `.pp-cover` CSS), `renderPDFCover()` (warm paper background). `initCover()` updated for new field names. `clearAll()` reset for new fields.
+
+### Visual Details
+- **Background**: Warm ivory (`#fcf9f2`) paper — the `pageWrap` background shows through. No dark background, no gradients, no overlay patterns.
+- **Top rule**: 2px solid `#1B2A41` (deep navy ink), 32px from top, full width minus 48px margins
+- **Bottom rule**: 1px solid gold (`#C4954A` at 30% opacity), 32px from bottom
+- **Title**: "STUDY PLANNER" in Playfair Display 30px, deep navy, 0.08em tracking, 900 weight
+- **PRO suffix**: Outfit 9px, `#6B7280`, 0.2em tracking
+- **Gold divider**: 50px × 0.5px, centered
+- **Student name**: Playfair Display 16px, `#1B2A41`, fine gold underline (0.5px, 25% opacity)
+- **Year · Focus**: Outfit 9px, `#6B7280`, separated by gold dot
+- **Brand**: "tooltails" 5px, bottom-right, 40% opacity
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — `buildCoverInnerHTML()`: complete rewrite (warm paper, editorial layout, 3 editable fields, compact path simplified); `.pp-cover` CSS: background changed to `#fcf9f2`; `FullPlannerPreview.renderCover()`: navy wrapper removed; `PlannerPreviewRenderer.renderCover()`: simplified; `renderPDFCover()`: background changed to `#fcf9f2`
+- `src/scripts/planner-engine/digital-planner.ts` — `initCover()`: updated field names (name/year/preparingFor) and focus border color (`#C4954A`); `clearAll()`: reset for new fields
+
+### Build Verification
+- **Server build: 0 errors** (31.08s)
+- **116/116 planner engine tests pass, 0 failed**
+- **Cover fields interactive**: Name, Academic Year, Preparing For all contenteditable, persist across reload
+- **Clear All**: resets to defaults (Your Name, —, —)
+- **No visual overlap with previous design**: warm paper vs dark navy, editorial vs ornamental, minimal vs decorated
+
+## Session Summary (Jul 29, 2026) — Wellness Journal Polish Pass: Per-Page Refinement & 4-Page Revert
+
+### What We Did
+1. **Typography audit** — Bumped all interactive text from 7-8px to 9px minimum across all pages (stat labels, chips, helper text, card labels, section headings to 10px). Only decorative day-grid labels remain at 7px.
+
+2. **Habit Tracker redesigned** — Removed 3 stat cards and per-habit streak numbers with competitive color coding. Subtitle softened. Per-habit indicators replaced with ●/○ via `data-wj-habit-indicator`. Grid cells unbounded. Added Today's Practice card with progress bar. Removed 4 unused aggregation functions.
+
+3. **Stress & Mood redesigned** — Elevated "What Lifted My Spirits" to full-width centerpiece. Softer language throughout ("Triggers" → "What's weighing on me", "Coping Strategies" → "What helps me feel better", "Quick Reset" → "A Moment to Breathe"). Added concentric circle SVG + color-coded breath phases. Removed sectionDivider.
+
+4. **Monthly Review redesigned** — Removed 4 stat cards, weekly trend bar chart, sectionDivider, "Progress over perfection" footer. New narrative arc: Pride → Insight → Release → Intention → Closure with closing ceremony. Removed `computeMonthlyStats()`, `getMonthWeekData()`, `renderMonthTrendBars()`, `updateMonthlyReview()` (all dead code). Restore keys 8→5.
+
+5. **Gratitude Journal refined** — Removed duplicate "What Went Better Than Expected" (same as Evening's "What Went Well"). Restructured: main card full-width, secondary prompts 2-col, prompt chips full-width below. Restore keys 6→5.
+
+6. **Polish pass (global)** — Fixed nav hint color interpolation bug (`' + t.accent + '` → `${t.accent}` in Dashboard template, was rendering literally). Added hover states for all interactive elements (mood emojis, stars, chips, habit cells) via CSS `:not([data-wj-selected="true"])` and `:not(.active)` guards.
+
+7. **4-page revert (Morning Check-in, Evening Reflection, Self-Care, Sleep)** — User reported they "lost their spark" after simplification. All 4 files are untracked (no git history), so each was manually reconstructed:
+   - **Morning Check-in**: restored "Hydration goal" + "glasses" hint, "Movement plan" + "min · type" hints (replacing vague open-ended questions)
+   - **Evening Reflection**: restored "🌱 3 Things I'm Grateful For" card (3 writing lines) alongside Wind-Down Plan in 2-column grid; restore keys 7→10
+   - **Self-Care Planner**: restored 6-item Self-Care Checklist (`.pp-cb` checkboxes), 3-field Daily Routine (Morning/Afternoon/Evening), 16-item Activity Ideas chips with `data-wj-activity` toggle, "I Commit To" writing line; restore keys 3→7
+   - **Sleep Wellness**: restored Bedtime/Wake fields, 5-item Sleep Hygiene Checklist (`.pp-cb`), Caffeine/Screens log; restore keys 3→5
+
+### Files Modified
+- `src/scripts/planner-engine/wellness-journal-renderer.ts` — Morning Check-in (hydration/movement labels reverted), Evening Reflection (gratitude card restored), Self-Care Planner (full structure restored), Sleep Wellness (full structure restored), Stress & Mood (soft language + breathing circles), Monthly Review (narrative arc rewrite), Gratitude Journal (duplicate prompt removed), Habit Tracker (stat cards removed, Today's Practice added)
+
+### Build Verification
+- **Server build: 0 errors** (40.22s)
+- **116/116 planner engine tests pass, 0 failed**
+- **Typography**: no text below 9px in interactive areas
+- **Hover states**: mood emojis, stars, chips, habit cells all have CSS hover transitions without overriding selected states
+- **Reverted pages**: Morning hydration/movement labels structured, Evening has gratitude card (3 lines), Self-Care has 6 checkboxes + 3 routine fields + 16 chips + commitment, Sleep has bedtime/wake + 5 hygiene checkboxes + caffeine log
+
+## Session Summary (Jul 28, 2026) — Complete Dashboard Decoupling & Per-Habit Tracker
+
+### What We Did
+1. **Dashboard fully decoupled from live DOM** — Removed `getLiveVal()`, MutationObserver, and setInterval polling. `updateDashboard()` now sources all values from `loadDay(todayStr())`, `loadHabits()`, and `computeDashboardStats()` only — no cross-page DOM queries.
+
+2. **Per-habit data model** — Habit tracker now tracks 6 individual habits (Exercise, Meditate, Read, Journal, Hydrate, Sleep Well) across a 6×28 grid. Each habit has its own `days[28]` boolean array and streak counter. Data stored as `{ habits: { 'Exercise': { days: [...] }, 'Meditate': { days: [...] }, ... } }`. `loadHabits()` auto-migrates old single-days-array format on first load.
+
+3. **Helper functions** — `anyHabitDoneToday(habits)`, `overallStreak(habits)`, `overallCompletion(habits)`, `bestOverallStreak(habits)` all iterate over per-habit days arrays. `calcStreak(days)` and `calcCompletion(days)` retained for per-habit array calc. `HABIT_NAMES` constant added. `createDefaultHabits()` returns proper data shape.
+
+4. **Grid click handler** — Changed from `[data-wj-cell="N"]` to `[data-wj-habit]` + `data-wj-habit`/`data-wj-day` attributes. Toggles `habits.habits[name].days[di]` and saves.
+
+5. **Grid visual restore** — `updateDashboard()` now iterates over all `[data-wj-habit]` cells, reads per-habit day state from saved data, and sets background/border colors correctly (today cells get yellow border + amber tint when undone).
+
+6. **Per-habit streak labels** — Each habit row shows its own streak (green ✓ if done today, else streak count with conditional color).
+
+7. **Mini habit grid (dashboard card)** — Uses `anyHabitDoneToday()` and loops over all 6 habits to check per-day completion. No `habits.days[...]` references.
+
+8. **Fixed `restoreToday()` truthy checks + `--fill` + mood class** — All 3 sliders use `!== undefined`, `restoreSliderFill()` restores track fill, mood buttons get `active` CSS class.
+
+9. **Trend bar labels show day names** — Added `data-wj-label` attributes + `updateTrendLabels()` that computes `['Sun','Mon',...]` from `new Date().getDay()`.
+
+10. **Gratitude prompt uses `target.closest()`** — Avoids cross-page querySelector.
+
+11. **Self-care activities save/restore** — Added to `collectToday()` and `restoreToday()`.
+
+12. **Monthly energy normalized by logged days** — `getMonthWeekData()` divides by actual logged days per week, not hardcoded 7.
+
+### Files Modified
+- `src/pages/app/wellness-journal.astro` — removed `getLiveVal()`, MutationObserver, setInterval; replaced all `habits.days`, `habits.bestStreak`, `live.habitDone` references with new per-habit helpers; updated click handler for `[data-wj-habit]` cells; fixed `restoreToday()` (truthy, --fill, mood class, self-care); added trend day labels; fixed gratitude `target.closest()`; added per-habit streak labels and mini-grid to dashboard
+
+### Build Verification
+- **Server build: Complete!** (28.14s)
+- **0 ESLint errors, 0 build errors**
+- **Dashboard reads only localStorage**: no live DOM queries, no polling, no MutationObserver
+- **Per-habit grid**: 6 habits × 28 days, each cell toggleable independently
+- **Auto-migration**: old single-days-array format converted to per-habit on first load
+- **Streak labels**: per-habit streaks shown correctly, ✓ when done today
+- **Slider values of 0**: correctly displayed, not hidden by truthy check
+- **Trend labels**: show actual day names (Mon, Tue, etc.)
+
+## Session Summary (Jul 28, 2026) — Wellness Dashboard: True Zero-State & Live-Only Values
+
+### What We Did
+1. **`getLiveVal()` now guards against slider default leaks** — Energy slider (`value="6"`) and sleep slider (`value="6"`) were read by `getLiveVal()` even when the user never touched them, making the dashboard show `Energy: 6` and `Score: 40` on first load — which looked hardcoded. Now `getLiveVal()` checks `todaySaved[fieldName] !== undefined` before reading any live DOM value. On first load with no saved data, all sliders return undefined, all display values show `--`, and the score ring starts at 0.
+
+2. **Mood fallback `?? 2` removed from score** — The mood score contribution used `(stats?.avgMood ?? 2)` which injected 12.5 phantom points even when no mood data existed. Changed to `(stats?.avgMood ?? 0)` so score is truly 0 when no data exists.
+
+3. **Display values use `!== undefined` instead of truthiness** — `todayEnergy ? String(todayEnergy) : '--'` would hide a legitimate 0 (showing `--`). Changed to `todayEnergy !== undefined ? String(todayEnergy) : '--'`. Same for sleep. Mood was already correct.
+
+4. **Energy trend bar uses `!== undefined`** — The `if (todayEnergy) energyData[6] = todayEnergy` guard failed when energy was legitimately 0. Now uses `!== undefined` for correct behavior at all values.
+
+### Files Modified
+- `src/pages/app/wellness-journal.astro` — `getLiveVal()` (todaySaved guard), `updateDashboard()` (display values to `!== undefined`, mood fallback to `?? 0`, energy trend bar guard)
+
+### Build Verification
+- **Server build: Complete!** (24.20s)
+- **Zero-state dashboard**: All metrics show `--`, score ring at 0, no phantom values
+- **Data flow**: User navigates to Morning Check-in → sets energy=8, mood=0 → saves → navigates back to dashboard → `todaySaved` has `amEnergy` and `amMood` → live values read from DOM → dashboard shows 8, mood 0, score computed correctly
+- **Edge case**: Energy slider at 0 → correctly shows `0` (not `--`)
+
+## Session Summary (Jul 28, 2026) — Wellness Dashboard: Premium Interactive Polish
+
+### What We Did
+1. **CSS class-based mood selector interaction** — Mood emojis now toggle `active` CSS class on click in addition to inline opacity. The `.wj-mood-btn` class has `:hover` scale (1.15) and `.active` state (scale 1.1 + full opacity + tinted background), applied to both dashboard and quick-log mood groups. `restoreToday()` also toggles the `active` class on restore.
+
+2. **Slider `--fill` CSS variable for active track** — Range slider input handler now computes the track fill percentage and sets `--fill` CSS variable on the element. The `.wj-slider` class uses `linear-gradient(to right, ${t.accent} 0%, ${t.accent} var(--fill), #ede4d8 var(--fill), #ede4d8 100%)` for a colored active track. `restoreToday()` also restores the `--fill` variable on page load.
+
+3. **Auto-resize writing lines** — Added `[data-wj-auto]` handler that resizes contenteditable divs (`height: auto; height: scrollHeight`) on every input event. The `.wj-write` class provides smooth `border-color` transition, `min-height: 20px`, and `overflow:hidden` for clean growth.
+
+4. **Smooth number animation (animateNumber)** — `updateDashboard()` now uses `animateNumber(el, targetVal, suffix)` with `requestAnimationFrame` cubic ease-out over 400ms for the score ring text. Stat cards use `setStat()` with a scale pulse (1.12→1) for visual feedback.
+
+5. **Personalized insight generation** — The old affirmation rotation (10 generic quotes with click-to-cycle) replaced with `generateInsight(stats, habits)` that produces context-aware insights from energy trend, mood distribution, habit completion, and streak data. Randomly picks from available triggers.
+
+6. **Mood/energy trend bars updated** — Energy bars max height increased to 26px (was 22px) for better visual range. Mood bars use maxMood=4 consistently. Both use `.wj-bar` CSS class with `cubic-bezier(0.34,1.56,0.64,1)` transition for smooth animation.
+
+7. **Bug fix: stray backtick in template literal** — Line 132 in `wellness-journal-renderer.ts` had a premature backtick after `</style>` that closed the template literal too early, causing esbuild parse error `Expected ")" but found "style"`. Removed the stray backtick.
+
+### Files Modified
+- `src/pages/app/wellness-journal.astro` — mood click handler (active class toggle), slider input handler (--fill variable), auto-resize handler ([data-wj-auto]), restoreToday (class + fill restore), animateNumber function, setStat pulse, generateInsight, updateDashboard (animated score, insight text, trend bar sizes)
+- `src/scripts/planner-engine/wellness-journal-renderer.ts` — removed stray backtick after `</style>` (line 132) that prematurely closed template literal
+
+### Build Verification
+- **Server build: Complete!** (27.76s)
+- **Mood selectors**: active class toggle + CSS transitions on all mood groups
+- **Energy slider**: --fill variable updated on input, restored on page load
+- **Writing lines**: auto-resize on input, smooth focus border
+- **Score ring**: animated number count-up with ease-out
+- **Insight**: generated from energy/mood/habit/streak data, replaces static affirmation
+- **Trend bars**: wj-bar CSS transition class applied
+
 ## Session Summary (Jul 20, 2026) — Exam Readiness: Scoring Fix & Bullet Alignment
 
 ### What We Did
@@ -1742,4 +2116,42 @@ score = prepPct × 0.20 + confPct × 0.25 + revPct × 0.25 + weakScore × 0.15 +
 - **100 pages, 0 errors, 20.43s**
 - **204/204 planner engine tests, 0 failures**
 - **11/11 Playwright attendance tests pass** (render, toggle, keyboard, drag, stats, persistence, reload restore)
+
+## Session Summary (Jul 24, 2026) — Master Your Day: Flagship Premium Productivity Planner ($24.99)
+
+### What We Did
+1. **Created complete 24-page Master Your Day planner** (`master-your-day-renderer.ts`) — A standalone preview generator with all 24 pages across 8 sections:
+   - **Vision & Goals (5 pages)**: Life Vision Board (6 domains, writing lines), Annual Goals Dashboard (3 goal cards with progress bars), Smart Goal Breakdown System (hierarchical goal→quarter→month→week→day cascade), Quarterly Focus Board (3 goals + Start/Stop/Continue), Life Balance Wheel Assessment (8-area slider assessment)
+   - **Monthly Planning (3 pages)**: Monthly Overview (calendar grid + priorities + habit streak), Monthly Projects & Milestones (project cards with status tags), Monthly Reflection (rating slider + wins/challenges/lessons)
+   - **Weekly Planning (4 pages)**: Weekly Reset (7-step guided Sunday ritual with progress indicator), Weekly Planner Spread (7-day layout with Big 3 + events per day), Focus Heatmap (5×7 energy grid with tap-to-rate cells), Weekly Review (wins/improvement/carry-forward + rating)
+   - **Daily Execution (3 pages)**: Daily Command Center (energy + mood + Big 3 + hourly schedule 8AM-8PM + evening check-in), Priority Engine (smart task scoring by impact/urgency/energy), Time Audit (category timer + daily breakdown bar + weekly trend chart)
+   - **Habits & Focus (3 pages)**: Habit Tracker & Streak Analytics (best/current streak + completion % + 28-day grid + 6 habit rows), Anti-Procrastination Dashboard (avoidance task + reason selector + micro-action suggestion + commitment button), Focus Session Tracker (weekly hours + avg score + session log)
+   - **Wellness & Energy (2 pages)**: Energy & Mood Tracker (energy slider + mood selector + sleep + weekly trend bar), Wellness Mini-Dashboard (water/exercise/meals/sleep quick-check grid)
+   - **Projects & Clarity (3 pages)**: Project Hub (3 project cards with status + next action), Brain Dump Processor (free-write area + Process button + categorized output grid), Finance Snapshot (income/expenses/savings stat cards + category lines)
+   - **Reflection & Growth (1 page)**: Achievement Dashboard (goals completed + best streak + deep work hours + completed goals gallery + wins wall)
+
+2. **Modified `DigitalPlanner`** (`digital-planner.ts`) — Added `getPages` option to `DigitalPlannerOptions` interface, allowing custom page generators for products other than Study Planner Pro. Constructor and `setValues()` both use the custom `getPages` when provided.
+
+3. **Updated product definition** (`products.ts`) — Master Your Day price changed from $0.50 → **$24.99** (original $39.99), all 24 pages listed in `whatIncluded`, updated personalization fields, new reviews, premium badge and description.
+
+4. **Updated `ProductPage.astro`** — When product slug is `master-your-day`, passes a custom `getPages` function using `MasterYourDayPreview` to the `DigitalPlanner`, rendering the 24 Master Your Day pages instead of Study Planner pages.
+
+5. **Updated `[slug].astro`** — New features (Smart Goal Breakdown, Weekly Reset, Focus Heatmap, Priority Engine, Habit Streak Analytics, Anti-Procrastination Dashboard) and FAQs for Master Your Day.
+
+### Files Created
+- `src/scripts/planner-engine/master-your-day-renderer.ts` — Full 24-page preview generator (~750 lines) with all helper functions (pageWrap, pageHeader, pageBody, ring, tag, dot, checkboxRow, card, progressBar, sectionDivider, etc.)
+
+### Files Modified
+- `src/scripts/planner-engine/digital-planner.ts` — Added `pageBuilder` property and `getPages` option to support custom page generators
+- `src/data/products.ts` — Master Your Day premium pricing ($24.99), features, description, personalization
+- `src/components/digital-store/ProductPage.astro` — Uses `MasterYourDayPreview` for master-your-day product
+- `src/pages/digital-store/[slug].astro` — Updated features and FAQs for Master Your Day
+
+### Build Verification
+- **Server build: 29.44s, Complete!**
+- **116 planner engine tests passed, 0 failed**
+- **All 24 Master Your Day pages render** with interactive writing lines, checkboxes, sliders, and progress bars
+- **Product page renders** at `/digital-store/master-your-day` with new hero, features, and live preview
+- **Live preview** shows Master Your Day pages (not Study Planner pages) via custom `getPages` function
+- **Backwards compatible** — Study Planner Pro and all other products continue to use `FullPlannerPreview` as before
 

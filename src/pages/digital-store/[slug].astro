@@ -7,9 +7,9 @@ import { products } from "../../data/products";
 const aliasMap: Record<string, string> = {
   'study-planner': 'study-planner-pro',
   'revision-tracker': 'study-planner-pro',
-  'resume-optimizer-kit': 'goal-roadmap',
+  'resume-optimizer-kit': 'social-media-detox',
   'habit-tracker': 'wellness-journal',
-  'budget-planner': 'goal-roadmap',
+  'budget-planner': 'social-media-detox',
 };
 
 export function getStaticPaths() {
@@ -39,71 +39,92 @@ const slugExtraData: Record<string, {
   faqs: { q: string; a: string }[];
   storyTitle: string;
   storyText: string;
+  storyText2?: string;
+  whoFor?: string;
+  journeyLabel?: string;
+  journeyDesc?: string;
 }> = {
   "study-planner-pro": {
     features: [
-      { icon: '📅', title: 'Smart Semester Overview', description: 'Map out your entire term in minutes. The 12-week overview spread shows every subject, exam, and deadline at a glance.' },
-      { icon: '🎯', title: '3-Pass Revision Tracker', description: 'Track 3 passes per topic across 8 subjects with mastery scoring and weak-topic identification.' },
-      { icon: '⏱️', title: 'Exam Countdown Dashboard', description: 'A dedicated countdown tracker keeps every exam date front and center with weak-topic matrix.' },
-      { icon: '✏️', title: 'Assignment Breakdown Engine', description: 'Milestone checklists with due dates, priority levels, and completion tracking.' },
-      { icon: '📊', title: 'Study Analytics Dashboard', description: 'Hours logged, readiness score, subject velocity — all calculated automatically.' },
-      { icon: '🖨️', title: 'Printable in A4 & US Letter', description: 'Download your personalized planner as a high-quality PDF in both A4 and US Letter formats.' }
+      { icon: '📅', title: 'Semester Overview', description: 'Your entire term on a single spread. Every subject, deadline, and exam mapped so you see the full picture before the first class begins.' },
+      { icon: '🎯', title: '3-Pass Revision Tracker', description: 'Topics you revisit three times — each pass deeper, each one recorded. The tracker surfaces what needs attention before you fall behind.' },
+      { icon: '⏱️', title: 'Exam Countdown Dashboard', description: 'A countdown for every exam and a spotlight for every weak topic. Open this page and know exactly where to focus.' },
+      { icon: '✏️', title: 'Assignment Planner', description: 'Big projects break into milestones. Each milestone has a checkbox, a due date, and a place in your weekly spread.' },
+      { icon: '📊', title: 'Study Analytics', description: 'Hours logged, reading velocity, preparation score — calculated from your entries. No manual formulas.' },
+      { icon: '📄', title: 'Print-Ready Export', description: 'Vector-perfect PDF in A4 and US Letter. Editable DOCX for digital edits. Opens in any reader or GoodNotes.' }
     ],
     faqs: [
-      { q: 'How is this different from a generic planner template?', a: 'Generic planners give you the same layout as everyone else. Study Planner Pro embeds your name, subjects, exam dates, and personal goals into every page.' },
-      { q: 'Can I add my own subjects after the planner is generated?', a: 'Yes. Simply regenerate your planner with updated subjects — your purchase includes 30 days of free regeneration.' },
-      { q: 'What modules are included?', a: 'Semester overview, 12 weekly planner spreads, 3-pass revision tracker, assignment planner, lecture notes, exam countdown, study log, and analytics dashboard.' }
+      { q: 'How is this different from a generic planner template?', a: 'Generic planners give you the same layout as everyone else. Study Planner Pro embeds your name, subjects, and goals into every page — the cover, the semester overview, the weekly spreads, the revision tracker. Your system is yours.' },
+      { q: 'Can I change subjects after generating?', a: 'Yes. Your purchase includes 30 days of free regeneration. Update your subjects and regenerate — the new system keeps all your saved data.' },
+      { q: 'What pages are included?', a: 'Personalized cover, semester overview, 12 weekly spreads, 3-pass revision tracker (up to 8 subjects), assignment planner, lecture notes, exam countdown, study log, and analytics dashboard. Every page connected.' },
+      { q: 'Is there a live web app?', a: 'Yes. After purchase you get access to the full interactive app at /app/study-planner-pro. Open your browser, enter your subjects and dates, and start using it immediately on any device.' }
     ],
-    storyTitle: 'A complete academic operating system that adapts to your courses.',
-    storyText: 'Enter your subjects and exam dates once. Study Planner Pro generates a fully compiled semester system with weekly spreads, revision tracking, assignment planning, and exam countdown — all connected.'
+    storyTitle: 'Designed for students who want to feel in control of their semester.',
+    storyText: 'Study Planner Pro exists because most students spend more time organizing their study materials than actually studying. The semester starts, and suddenly there are six subjects, twenty deadlines, and no single view of everything.',
+    storyText2: 'This planner is that single view. Enter your subjects and dates once. It generates a complete semester system — weekly spreads that reflect your schedule, a revision tracker that monitors topic coverage, an exam countdown that keeps deadlines visible. You stop organizing and start studying.',
+    whoFor: 'For the student who wants every subject, deadline, and exam visible — not scattered across five notebooks and a calendar app.'
   },
   "master-your-day": {
     features: [
-      { icon: '⚡', title: 'Weekly Planning Spread', description: 'Set intentional weekly priorities using the Eisenhower matrix and top-3 focus method.' },
-      { icon: '⏰', title: 'Hourly Time-Blocking Grid', description: 'Color-coded 6 AM — 11 PM grid aligned to your natural energy peaks.' },
-      { icon: '🧠', title: 'Deep Work Session Tracker', description: 'Log flow state sessions with duration, focus score, and distraction tracking.' },
-      { icon: '🗑️', title: 'Brain Dump Clearing Pages', description: 'Structured pages to offload mental clutter and process into actionable tasks.' },
-      { icon: '📈', title: 'Daily Output Velocity Scorecard', description: 'Track completed blocks, tasks done, and productivity trends over time.' },
-      { icon: '🔄', title: 'Time Audit Worksheet', description: 'Find wasted hours and rebalance your weekly schedule for maximum output.' }
+      { icon: '🔄', title: 'Weekly Reset', description: 'A 7-step Sunday ritual that closes the past week and sets up the next one. Wins, challenges, priorities — done in 15 minutes.' },
+      { icon: '⚡', title: 'Daily Command Center', description: 'Your energy, mood, Big 3 priorities, and an hourly schedule that respects your rhythm — morning peak, afternoon slump, evening wind-down.' },
+      { icon: '🌙', title: 'Evening Reflection', description: 'Close your day with clarity. What went well, what distracted you, how you feel — and a plan for better sleep.' },
+      { icon: '🧠', title: 'Priority Engine', description: 'Score tasks by impact, urgency, and energy fit. Know what to work on now and what can wait.' },
+      { icon: '🧩', title: 'Anti-Procrastination Dashboard', description: 'Overwhelming tasks split into micro-actions. Time estimates, reason tags, worst-case analysis. Commit and start moving.' },
+      { icon: '🌿', title: 'Energy & Mood Tracker', description: 'AM and PM check-ins that reveal your patterns. See what drains you, what fuels you, and when you do your best work.' },
+      { icon: '⏱️', title: 'Time Audit', description: 'Log your day in hourly blocks. Compare how you thought you spent it with how it actually went.' },
+      { icon: '🧹', title: 'Brain Dump Processor', description: 'Empty your mind onto the page. Categorize into Tasks, Ideas, Worries, and Later — nothing gets lost.' },
+      { icon: '🔥', title: 'Habit Streak Analytics', description: 'Track 8 habits on a 28-day continuous grid. See your streaks, your gaps, and your growth.' }
     ],
     faqs: [
-      { q: 'How does time-blocking improve productivity?', a: 'Assigning a single task to each block eliminates decision fatigue and context switching — your brain stays in one mode.' },
-      { q: 'What modules are included?', a: 'Weekly planning, daily time-blocking grid, deep work tracker, brain dump, priority matrix, time audit, velocity scorecard, and weekly reflection.' }
+      { q: 'How is this different from a daily planner?', a: 'A daily planner shows you today. Master Your Day is a system that connects your weekly reset to your daily command to your evening reflection. Every page feeds the next, so nothing lives in isolation.' },
+      { q: 'How much time does it take each day?', a: 'Morning check-in: 2-3 minutes. Evening reflection: 2-3 minutes. Weekly Reset: 10-15 minutes on Sunday. Designed to be sustainable, not overwhelming.' },
+      { q: 'What pages are included?', a: '11 connected pages: Cover, Dashboard, Weekly Reset (7-step ritual), Daily Command Center (hourly schedule), Evening Reflection, Priority Engine, Anti-Procrastination Dashboard, Energy & Mood Tracker (AM/PM), Time Audit, Brain Dump Processor, and Habit Streak Analytics (8 habits).' },
+      { q: 'What makes it interactive?', a: 'Energy sliders, mood selectors, star ratings, habit grid cells, commit buttons — all save automatically. It feels like a living system, not a static document.' },
+      { q: 'Is there a live web app?', a: 'Yes. After purchase you get access to the full interactive app at /app/master-your-day. Open your browser and start planning. Works on any device.' }
     ],
-    storyTitle: 'Your complete daily execution system.',
-    storyText: 'Eliminate calendar chaos with structured time blocks, deep work sessions, and output tracking. Plan your week, execute daily, and review your velocity.'
+    storyTitle: 'For anyone who wants to stop managing tasks and start doing meaningful work.',
+    storyText: 'Most productivity systems are designed by people who have never struggled with procrastination. They assume you already know what matters and just need a place to write it down.',
+    storyText2: 'Master Your Day was built differently. It assumes you have competing priorities, fluctuating energy, and a brain that sometimes refuses to start. So it gives you a Sunday ritual to set direction, a daily command center that adapts to your energy, and an evening reflection that captures progress without judgment. Not a system for perfect people. A system for real humans.',
+    whoFor: 'For the person who has tried bullet journals, todo list apps, and productivity systems — and wants something that actually adapts to how real life works.'
   },
   "wellness-journal": {
     features: [
-      { icon: '🌿', title: 'Habit Streak Grid', description: 'Track up to 6 daily habits with a month-long visual streak grid and consistency scoring.' },
-      { icon: '📊', title: 'Mood & Energy Logger', description: 'Log daily mood and energy levels to identify patterns over weeks and months.' },
-      { icon: '🌅', title: 'Morning Intention Pages', description: 'Set daily intentions, hydration goals, and movement targets every morning.' },
-      { icon: '🌙', title: 'Evening Gratitude & Reflection', description: 'End each day with 3 gratitudes, a key lesson, and sleep quality tracking.' },
-      { icon: '🧘', title: 'Self-Care Routine Planner', description: 'Plan and track weekly self-care activities with checklists and rotation prompts.' },
-      { icon: '📋', title: 'Monthly Wellness Review', description: 'Review mood trends, habit consistency, and energy patterns month-over-month.' }
+      { icon: '🌿', title: 'Habit Streak Grid', description: 'Six daily habits on a continuous monthly grid. Watch your consistency grow one day at a time.' },
+      { icon: '📊', title: 'Mood & Energy Logger', description: 'Log how you feel each day. After a month, patterns emerge — you will see what lifts you and what drains you.' },
+      { icon: '🌅', title: 'Morning Check-in', description: 'Set an intention, plan hydration, and choose a movement goal before the day pulls you in every direction.' },
+      { icon: '🌙', title: 'Evening Reflection', description: 'End your day with three gratitudes, one lesson learned, and a quiet wind-down plan.' },
+      { icon: '🧘', title: 'Self-Care Planner', description: 'Weekly self-care planned like you plan work — thoughtfully, intentionally, without guilt.' },
+      { icon: '📋', title: 'Monthly Review', description: 'A full-page review of your mood trends, habit consistency, and energy patterns. Progress over perfection.' }
     ],
     faqs: [
-      { q: 'How much time does daily logging take?', a: 'Only 5 minutes in the morning and 5 minutes before sleep — designed to be sustainable, not overwhelming.' },
-      { q: 'What modules are included?', a: 'Habit tracker with streak grid, mood & energy logger, morning intention pages, evening gratitude, self-care planner, and monthly wellness review.' }
+      { q: 'How much time does daily logging take?', a: 'About 5 minutes in the morning and 5 minutes before sleep. Designed to be sustainable — not a second job.' },
+      { q: 'What modules are included?', a: 'Habit streak grid (6 habits), mood & energy logger, morning check-in, evening gratitude, self-care planner, and monthly wellness review. Every page connects.' },
+      { q: 'Is there a live web app?', a: 'Yes. After purchase you get access to the full interactive app at /app/wellness-journal. Start logging habits and mood directly in your browser on any device.' }
     ],
-    storyTitle: 'Build sustainable wellness habits, one day at a time.',
-    storyText: 'Track habits, log mood, practice gratitude, and plan self-care — all in one beautifully designed journal. The monthly review reveals patterns you never noticed.'
+    storyTitle: 'Wellness happens in the small moments you choose yourself.',
+    storyText: 'Most wellness journals focus on measurement — track this, log that, optimize everything. But wellness is not a data problem. It is an attention problem.',
+    storyText2: 'Wellness Journal gives you a morning check-in to set the tone, an evening reflection to close with gratitude, and a habit tracker that rewards consistency, not perfection. It asks gentle questions and leaves space for honest answers. No guilt, no pressure — just a sustainable practice that helps you show up for yourself.',
+    whoFor: 'For anyone who has tried to build habits before and wants a gentler, more sustainable approach to wellness.'
   },
-  "goal-roadmap": {
+  "social-media-detox": {
     features: [
-      { icon: '🎯', title: 'SMART Goal Worksheet', description: 'Deconstruct long-term dreams into specific, measurable, achievable, relevant, time-bound goals.' },
-      { icon: '🚀', title: '90-Day Execution Sprint', description: '13-week sprint planner with weekly action steps, milestone markers, and review points.' },
-      { icon: '🧭', title: 'Life Vision Board', description: 'Design your ideal future across Health, Wealth, Career, Relationships, Growth, and Joy.' },
-      { icon: '💼', title: 'Career Roadmap', description: 'Map your career trajectory with skill acquisition trackers and role transition plans.' },
-      { icon: '💰', title: '50/30/20 Budget Worksheet', description: 'Allocate income into Needs, Wants, and Savings with expense tracking and savings goals.' },
-      { icon: '📋', title: 'Quarterly Review Pages', description: 'Audit progress, adjust strategy, and set new objectives every 90 days.' }
+      { icon: '📊', title: 'Digital Audit', description: 'Face your baseline without judgment. Screen time, unlocks, peak hours, and triggers — know where you stand.' },
+      { icon: '🎯', title: 'Detox Plan', description: 'Set boundaries that fit your life. Choose offline activities, define app limits, design your new normal.' },
+      { icon: '📱', title: 'Daily Tracker', description: 'Log screen time, phone-free hours, and how you spent your reclaimed time. Simple, honest, daily.' },
+      { icon: '🧠', title: 'Cravings Log', description: 'Recognize the urge before it controls you. Identify triggers. Practice healthier responses.' },
+      { icon: '📈', title: 'Progress Review', description: 'See your screen time trend week over week. Celebrate what is working, adjust what is not.' },
+      { icon: '🌿', title: 'Replacement Activities', description: 'A curated catalog of offline things you actually want to do — read, walk, create, connect.' }
     ],
     faqs: [
-      { q: 'Why 90-day sprints?', a: '90 days is long enough to achieve substantial goals but short enough to maintain daily urgency and focus.' },
-      { q: 'What modules are included?', a: 'Life vision board, SMART goal worksheet, 90-day sprint planner, career roadmap, 50/30/20 budget, savings tracker, and quarterly review pages.' }
+      { q: 'How long does the detox take?', a: 'The planner supports a 4-week journey with daily tracking and weekly reflections. Most people see meaningful change in 30 days.' },
+      { q: 'What modules are included?', a: 'Digital audit, personalized detox plan, daily screen time tracker, cravings & triggers log, replacement activities catalog, and weekly progress reviews.' },
+      { q: 'Is there a live web app?', a: 'Yes. After purchase you get access to the full interactive app at /app/social-media-detox. Track screen time, log cravings, and review progress in your browser on any device.' }
     ],
-    storyTitle: 'Design your ideal life and execute it in 90-day sprints.',
-    storyText: 'Set your vision, break it into 90-day execution sprints, track career and financial progress, and review quarterly. Everything connects to move you forward.'
+    storyTitle: 'You did not lose your focus. Your phone just got better at stealing it.',
+    storyText: 'Social Media Detox was created for people who know they spend too much time on their phone but do not know how to change it. Not through shame or restriction — through awareness and intention.',
+    storyText2: 'Start with a digital audit that shows your baseline without judgment. Design boundaries that fit your actual life, not an idealized version of it. Track daily in a way that feels honest, not punishing. See your progress week after week. The goal is not to quit technology. It is to use it on your terms.',
+    whoFor: 'For anyone who has tried to cut back on screen time and wants a structured, judgment-free approach that actually works.'
   }
 };
 
@@ -123,6 +144,9 @@ const extra = slugExtraData[product.slug] || {
     heroTagline={product.tagline}
     storyTitle={extra.storyTitle}
     storyText={extra.storyText}
+    storyText2={extra.storyText2}
+    whoFor={extra.whoFor}
+    webAppSlug={resolvedSlug}
   />
 </Layout>
 

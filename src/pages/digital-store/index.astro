@@ -6,266 +6,229 @@ import ProductCard from "../../components/digital-store/ProductCard.astro";
 
 <Layout
   title="Personalized Digital Planners & Systems — Tooltails Store"
-  description="AI-powered planners personalized for your goals, routines, and mind. Four flagship systems: Study Planner Pro, Master Your Day, Wellness Journal, and Goal Roadmap."
+  description="Personalized planners built around your goals, routines, and schedule. Four flagship systems: Study Planner Pro, Master Your Day, Wellness Journal, and Social Media Detox."
   hideFooter={true}
 >
-  <div class="digital-store-root min-h-screen bg-[#FAF9FC] text-stone-900 font-sans pb-20 relative overflow-hidden">
-    
-    <!-- Ambient Background Blur Halos -->
-    <div class="absolute top-0 left-1/4 w-96 h-96 bg-purple-200/25 rounded-full blur-3xl pointer-events-none -z-10"></div>
-    <div class="absolute top-40 right-1/4 w-96 h-96 bg-amber-100/20 rounded-full blur-3xl pointer-events-none -z-10"></div>
-
-    <!-- MAIN STOREFRONT CONTAINER -->
+  <div class="digital-store-root min-h-screen bg-[#fcf9f2] text-[#09090b] pb-20 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14 sm:space-y-18 pt-8">
 
-      <!-- HERO SECTION CARD (WARM IVORY BACKGROUND) -->
-      <section class="relative rounded-3xl bg-gradient-to-br from-[#FCFBF8] via-[#FAF9F5] to-[#F5F3EF] p-8 sm:p-14 lg:p-16 overflow-hidden border border-stone-200/70 shadow-xs">
-        
-        <!-- Soft Lavender Radial Glow behind Notebook -->
-        <div class="absolute right-12 top-1/2 -translate-y-1/2 w-96 h-96 bg-radial from-[#F3E8FF]/40 via-purple-50/20 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+      <!-- HERO: Rotating planner story (editorial page previews, no analytics) -->
+      <section class="relative p-8 sm:p-12 lg:p-16 overflow-hidden">
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center relative z-10">
-          
-          <!-- Left Hero Content -->
-          <div class="lg:col-span-7 space-y-8">
-            
-            <!-- Floating Pill Badge -->
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-stone-200/80 text-[#7C3AED] text-xs font-semibold shadow-2xs">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>✨ Digital Planners Made Personal</span>
+        <div class="lg:flex lg:gap-10 xl:gap-14">
+
+          <!-- Left column: editorial text -->
+          <div class="lg:w-[360px] xl:w-[420px] lg:flex-shrink-0">
+
+            <div class="inline-flex items-center gap-2 text-xs font-medium px-3 py-1 rounded-full" style="color:#6B7280;background:#f5f0ea;border:0.5px solid #ede4d8">
+              <span style="color:#2563eb">✦</span> Four systems. One philosophy.
             </div>
 
-            <div class="space-y-4">
-              <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-stone-900 leading-[1.12]">
-                <span class="sr-only">Digital Store Planners — </span>
-                Plan smarter.<br/>
-                Stay <span class="bg-gradient-to-r from-[#7C3AED] via-purple-600 to-indigo-600 bg-clip-text text-transparent">on track.</span>
-              </h1>
-
-              <p class="text-base sm:text-lg text-stone-600 font-normal leading-relaxed max-w-xl">
-                AI-powered planners personalized for your goals, routines, and mind. Crafted with luxury typography and interactive page layouts.
-              </p>
+            <h1 class="text-4xl sm:text-5xl lg:text-[52px] xl:text-6xl font-bold font-serif leading-[1.1] mt-6" style="color:#09090b;font-family:'Playfair Display',serif;letter-spacing:-0.02em">
+              Your planning
+            </h1>
+            <div class="text-4xl sm:text-5xl lg:text-[52px] xl:text-6xl font-bold font-serif leading-[1.1]" style="color:#09090b;font-family:'Playfair Display',serif;letter-spacing:-0.02em">
+              <span style="color:#2563eb">ecosystem.</span>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="flex flex-wrap items-center gap-4 sm:gap-5 pt-1">
-              <a href="#systems" class="px-8 py-4 rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-sm shadow-lg shadow-purple-600/20 hover:shadow-2xl hover:shadow-purple-600/30 hover:-translate-y-0.5 transition-all active:translate-y-0 flex items-center gap-2">
-                <span>Browse Planners</span>
-                <span class="text-base">&rarr;</span>
-              </a>
-              <a href="#how-it-works" class="px-8 py-4 rounded-full bg-white/90 backdrop-blur-xs hover:bg-stone-50 text-[#7C3AED] border border-stone-200/80 font-bold text-sm shadow-2xs hover:-translate-y-0.5 transition-all flex items-center gap-2">
-                <span>How it works</span>
-                <span aria-hidden="true" class="text-xs">&#9655;</span>
-              </a>
-            </div>
-
-            <!-- Trust Bar -->
-            <div class="flex flex-wrap items-center gap-8 pt-4 text-xs font-semibold text-stone-600 border-t border-stone-200/60">
-              <span class="sr-only">Rating 4.9 · 10,000+ Planners Sold</span>
-              <span class="flex items-center gap-2 text-stone-700 font-semibold"><span aria-hidden="true">📥</span> Instant Download</span>
-              <span class="flex items-center gap-2 text-stone-700 font-semibold"><span aria-hidden="true">🖨️</span> Printable PDF</span>
-              <span class="flex items-center gap-2 text-stone-700 font-semibold"><span aria-hidden="true">♾️</span> Lifetime Access</span>
-            </div>
+            <p class="text-sm sm:text-base leading-relaxed mt-4" style="color:#6B7280;font-family:Outfit,sans-serif">
+              Beautifully crafted planning pages for your goals, routines, reflection, and&nbsp;focus.
+            </p>
 
           </div>
 
-          <!-- Right Hero — Luxury Editorial Stationery Presentation -->
-          <div class="lg:col-span-5 flex justify-center lg:justify-end items-center py-4 lg:py-0">
-            <div class="relative w-full max-w-[500px] sm:max-w-[540px] h-[450px] sm:h-[490px] flex items-center justify-center select-none">
+          <!-- Right column: rotating planner card -->
+          <div class="mt-8 sm:mt-10 lg:mt-0 lg:flex-1">
 
-              <!-- Faint Ambient Warm Backdrop Glow -->
-              <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[360px] h-[360px] bg-radial from-purple-100/30 via-amber-50/20 to-transparent blur-3xl rounded-full pointer-events-none -z-20"></div>
+            <!-- Changing tagline above the card -->
+            <div class="h-[18px] mb-4 overflow-hidden">
+              <span id="planner-tagline" class="text-xs font-medium transition-all duration-500 inline-block" style="color:#6B7280">Plan your semester</span>
+            </div>
 
-              <!-- Faint Background Botanical Fine Line Art -->
-              <div class="absolute -top-2 right-2 pointer-events-none text-stone-300/35 z-0">
-                <svg width="95" height="95" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
-                  <path d="M50 90C50 90 45 60 70 30C75 24 85 15 90 10M70 30C60 35 40 30 30 20M50 60C40 62 25 55 15 45"/>
-                  <circle cx="90" cy="10" r="2" fill="currentColor"/>
-                </svg>
+            <!-- Card stack (only one visible at a time) -->
+            <div class="relative" data-planner-stack style="min-height:300px">
+
+              <!-- Card 0 — Study Planner Pro: Semester Overview -->
+              <div id="planner-card-0" class="rounded-xl border p-7 sm:p-8" style="background:#fcf9f2;border-color:#d4c9bc;box-shadow:0 6px 28px -10px rgba(0,0,0,0.08);position:absolute;inset:0;z-index:4;opacity:1;transform:translateY(0) scale(1);transition:opacity 0.55s cubic-bezier(0.4,0,0.2,1), transform 0.55s cubic-bezier(0.4,0,0.2,1)">
+                <div class="flex items-center justify-between mb-5">
+                  <span class="text-[9px] font-bold uppercase tracking-widest" style="color:#2563eb">Study Planner Pro</span>
+                  <span class="text-[8px] font-medium" style="color:#6B7280">semester</span>
+                </div>
+                <div class="text-lg font-bold font-serif mb-5" style="color:#09090b;font-family:'Playfair Display',serif;letter-spacing:-0.01em">Semester Overview</div>
+                <!-- Timeline -->
+                <div class="flex items-center justify-between mb-6 px-1">
+                  <div class="flex flex-col items-center gap-1.5"><span class="w-2 h-2 rounded-full" style="background:#2563eb"></span><span class="text-[7px] font-medium" style="color:#6B7280">Start</span></div>
+                  <div class="flex-1 h-px mx-1" style="background:#ede4d8"></div>
+                  <div class="flex flex-col items-center gap-1.5"><span class="w-2 h-2 rounded-full" style="background:#2563eb"></span><span class="text-[7px] font-medium" style="color:#6B7280">Mid-term</span></div>
+                  <div class="flex-1 h-px mx-1" style="background:#ede4d8"></div>
+                  <div class="flex flex-col items-center gap-1.5"><span class="w-2 h-2 rounded-full" style="background:#d4c9bc"></span><span class="text-[7px] font-medium" style="color:#6B7280">Revision</span></div>
+                  <div class="flex-1 h-px mx-1" style="background:#ede4d8"></div>
+                  <div class="flex flex-col items-center gap-1.5"><span class="w-2 h-2 rounded-full" style="background:#d4c9bc"></span><span class="text-[7px] font-medium" style="color:#6B7280">Exams</span></div>
+                </div>
+                <!-- Writing lines -->
+                <div class="text-[8px] font-medium mb-2" style="color:#6B7280">Key goals this semester</div>
+                <div class="h-px mb-3" style="background:#ede4d8"></div>
+                <div style="height:14px;border-bottom:1px solid #ede4d8" class="mb-3"></div>
+                <div class="flex items-center gap-2"><span style="display:inline-flex;align-items:center;justify-content:center;width:10px;height:10px;border-radius:1.5px;border:1px solid #d4c9bc;flex-shrink:0"></span><span class="text-[8px]" style="color:#9CA3AF">Complete syllabus review</span></div>
+                <div class="absolute bottom-2 right-4 text-[4px] uppercase tracking-widest" style="color:#6B7280;opacity:0.25;font-family:Outfit,sans-serif">tooltails</div>
               </div>
 
-              <!-- Realistic Soft Ground Ambient Shadow -->
-              <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-[84%] h-7 bg-stone-950/12 blur-xl rounded-full pointer-events-none -z-10"></div>
-
-              <!-- MOCKUP STACK CONTAINER (+15% VISUAL WEIGHT) -->
-              <div class="relative w-[295px] sm:w-[335px] h-[390px] sm:h-[435px] flex items-center justify-center">
-
-                <!-- 0. UNDERNEATH PAPER DECK STACK -->
-                <div class="absolute -bottom-2 -left-2 w-[295px] sm:w-[335px] h-[390px] sm:h-[435px] bg-[#FAF7F2] rounded-xl border border-stone-200/90 shadow-sm transform -rotate-1 z-0 opacity-90"></div>
-
-                <!-- 1. LEFT PEEK: PREMIUM MONTHLY PLANNER PAGE (18% Visible) -->
-                <div class="absolute -top-3.5 -left-5 sm:-left-7 w-[285px] sm:w-[325px] h-[380px] sm:h-[425px] bg-[#FCFBF9] rounded-xl border border-stone-200/90 shadow-md shadow-stone-900/5 transform -rotate-4 z-5 opacity-95 p-5 flex flex-col justify-between overflow-hidden select-none">
-                  <div class="space-y-3">
-                    <div class="flex items-center justify-between border-b border-stone-200/50 pb-2">
-                      <span class="text-[8.5px] font-bold tracking-[0.25em] text-stone-500 uppercase font-mono">MONTHLY OVERVIEW</span>
-                      <span class="text-[8px] font-medium text-stone-400">OCTOBER</span>
-                    </div>
-                    <!-- Mini Calendar Matrix -->
-                    <div class="grid grid-cols-7 gap-1 text-center text-[7.5px] text-stone-400 font-mono pt-1">
-                      <span class="font-bold text-stone-600">M</span><span class="font-bold text-stone-600">T</span><span class="font-bold text-stone-600">W</span><span class="font-bold text-stone-600">T</span><span class="font-bold text-stone-600">F</span><span class="font-bold text-stone-600">S</span><span class="font-bold text-stone-600">S</span>
-                      <span>1</span><span>2</span><span>3</span><span class="bg-purple-100 text-purple-700 font-bold rounded-xs">4</span><span>5</span><span>6</span><span>7</span>
-                    </div>
-                  </div>
-                  <span class="text-[8px] font-mono text-stone-300">PAGE 02</span>
+              <!-- Card 1 — Master Your Day: Daily Priorities -->
+              <div id="planner-card-1" class="rounded-xl border p-7 sm:p-8" style="background:#faf7f2;border-color:#ede4d8;box-shadow:0 6px 28px -10px rgba(0,0,0,0.08);position:absolute;inset:0;z-index:1;opacity:0;transform:translateY(12px) scale(0.98);transition:opacity 0.55s cubic-bezier(0.4,0,0.2,1), transform 0.55s cubic-bezier(0.4,0,0.2,1)">
+                <div class="flex items-center justify-between mb-5">
+                  <span class="text-[9px] font-bold uppercase tracking-widest" style="color:#2563eb">Master Your Day</span>
+                  <span class="text-[8px] font-medium" style="color:#6B7280">daily</span>
                 </div>
-
-                <!-- 2. RIGHT PEEK: ELEGANT WEEKLY PLANNER PAGE (18% Visible) -->
-                <div class="absolute -top-2 -right-5 sm:-right-7 w-[285px] sm:w-[325px] h-[380px] sm:h-[425px] bg-[#FCFBF9] rounded-xl border border-stone-200/90 shadow-md shadow-stone-900/5 transform rotate-4 z-10 opacity-95 p-5 flex flex-col justify-between overflow-hidden select-none">
-                  <div class="space-y-3">
-                    <div class="flex items-center justify-between border-b border-stone-200/50 pb-2">
-                      <span class="text-[8.5px] font-bold tracking-[0.25em] text-stone-500 uppercase font-mono">WEEKLY SPREAD</span>
-                      <span class="text-[8px] font-medium text-purple-700/80">WEEK 42</span>
-                    </div>
-                    <div class="space-y-2 text-[8px] font-mono text-stone-400">
-                      <div class="border-b border-stone-200/40 pb-1 flex justify-between">
-                        <span class="font-bold text-stone-600">MONDAY</span>
-                        <span class="text-stone-300">Deep Work</span>
-                      </div>
-                      <div class="border-b border-stone-200/40 pb-1 flex justify-between">
-                        <span class="font-bold text-stone-600">TUESDAY</span>
-                        <span class="text-stone-300">Review</span>
-                      </div>
-                    </div>
-                  </div>
-                  <span class="text-[8px] font-mono text-stone-300 text-right">PAGE 12</span>
+                <div class="text-lg font-bold font-serif mb-5" style="color:#09090b;font-family:'Playfair Display',serif;letter-spacing:-0.01em">Today's Priorities</div>
+                <div class="space-y-3 mb-5">
+                  <div class="flex items-center gap-2"><span class="text-[8px] font-medium" style="color:#9CA3AF">1</span><div style="flex:1;height:14px;border-bottom:1px solid #ede4d8"></div></div>
+                  <div class="flex items-center gap-2"><span class="text-[8px] font-medium" style="color:#9CA3AF">2</span><div style="flex:1;height:14px;border-bottom:1px solid #ede4d8"></div></div>
+                  <div class="flex items-center gap-2"><span class="text-[8px] font-medium" style="color:#9CA3AF">3</span><div style="flex:1;height:14px;border-bottom:1px solid #ede4d8"></div></div>
                 </div>
-
-                <!-- 3. MAIN PREMIUM PLANNER HARDCOVER (The Visual Hero) -->
-                <div class="relative w-[295px] sm:w-[335px] h-[390px] sm:h-[435px] bg-gradient-to-b from-[#FCFBF9] via-[#FAF8F5] to-[#F3EEE6] rounded-xl border border-stone-300/90 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.12),0_4px_12px_rgba(0,0,0,0.04)] z-20 flex flex-col justify-between p-8 sm:p-10 overflow-hidden select-none ring-1 ring-inset ring-black/5">
-
-                  <!-- Metallic Champagne Gold Paper Clip (Top Left) -->
-                  <div class="absolute -top-2.5 left-7 w-3.5 h-7 border border-amber-600/50 bg-amber-100/60 rounded-xs shadow-2xs z-30 pointer-events-none"></div>
-
-                  <!-- Embossed Inner Border Accent -->
-                  <div class="absolute inset-3.5 rounded-lg border border-purple-950/10 pointer-events-none"></div>
-
-                  <!-- Spine Depth / Thickness (Left Edge Hardcover 3D Feel) -->
-                  <div class="absolute left-0 top-0 bottom-0 w-[6px] bg-gradient-to-r from-stone-300/70 via-stone-200/40 to-transparent border-r border-stone-300/40"></div>
-
-                  <!-- Slender Silk Bookmark Ribbon (Top Right) -->
-                  <div class="absolute top-0 right-8 w-2.5 h-12 bg-gradient-to-b from-[#7C3AED] to-[#5B21B6] shadow-xs z-30 pointer-events-none" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 88%, 0 100%);"></div>
-
-                  <!-- Cover Top: Brand & Collection -->
-                  <div class="pt-1 text-center space-y-1">
-                    <span class="text-[10px] font-bold tracking-[0.38em] text-stone-800 uppercase font-sans block">
-                      TOOLTAILS
-                    </span>
-                    <span class="text-[8.5px] font-medium tracking-[0.32em] text-[#7C3AED] uppercase font-mono block">
-                      Digital Planning Collection
-                    </span>
-                  </div>
-
-                  <!-- Cover Center: Editorial Typography Hierarchy -->
-                  <div class="my-auto text-center space-y-3.5 py-6">
-                    <h2 class="text-3xl sm:text-4xl font-serif italic font-normal tracking-tight text-stone-900 leading-tight">
-                      Personal<br/><span class="not-italic font-medium text-stone-800">Planner</span>
-                    </h2>
-
-                    <!-- Delicate Gold Foil Accent Line -->
-                    <div class="w-8 h-px bg-gradient-to-r from-transparent via-amber-500/70 to-transparent mx-auto my-3"></div>
-
-                    <p class="text-[9px] font-serif italic tracking-wide text-stone-500">
-                      Beautifully Personalized
-                    </p>
-                  </div>
-
-                  <!-- Cover Bottom: Whitespace Footer -->
-                  <div class="border-t border-stone-200/70 pt-3 flex items-center justify-between text-[8px] font-mono tracking-widest text-stone-400 uppercase">
-                    <span>SYSTEM NO. 01</span>
-                    <span class="text-[#7C3AED] font-sans font-semibold">HYPERLINKED</span>
-                  </div>
-
+                <div class="flex items-center gap-2 mb-4"><span style="display:inline-flex;align-items:center;justify-content:center;width:10px;height:10px;border-radius:1.5px;border:1px solid #d4c9bc;flex-shrink:0"></span><span class="text-[8px]" style="color:#9CA3AF">Focus session completed</span></div>
+                <div class="flex items-center gap-3 pt-3 border-t text-[7px] font-medium" style="color:#9CA3AF;border-color:#ede4d8">
+                  <span>Morning</span><span style="color:#ede4d8">&middot;</span><span>Afternoon</span><span style="color:#ede4d8">&middot;</span><span>Evening</span>
                 </div>
+                <div class="absolute bottom-2 right-4 text-[4px] uppercase tracking-widest" style="color:#6B7280;opacity:0.25;font-family:Outfit,sans-serif">tooltails</div>
+              </div>
+
+              <!-- Card 2 — Wellness Journal: Evening Reflection -->
+              <div id="planner-card-2" class="rounded-xl border p-7 sm:p-8" style="background:#fcf9f2;border-color:#ede4d8;box-shadow:0 6px 28px -10px rgba(0,0,0,0.08);position:absolute;inset:0;z-index:1;opacity:0;transform:translateY(12px) scale(0.98);transition:opacity 0.55s cubic-bezier(0.4,0,0.2,1), transform 0.55s cubic-bezier(0.4,0,0.2,1)">
+                <div class="flex items-center justify-between mb-5">
+                  <span class="text-[9px] font-bold uppercase tracking-widest" style="color:#2563eb">Wellness Journal</span>
+                  <span class="text-[8px] font-medium" style="color:#6B7280">reflection</span>
+                </div>
+                <div class="text-lg font-bold font-serif mb-5" style="color:#09090b;font-family:'Playfair Display',serif;letter-spacing:-0.01em">Evening Reflection</div>
+                <div class="text-[8px] font-medium mb-2" style="color:#6B7280">Today I'm grateful for&hellip;</div>
+                <div style="height:14px;border-bottom:1px solid #ede4d8" class="mb-5"></div>
+                <div class="flex items-center justify-center gap-2.5 mb-5">
+                  <span class="w-[18px] h-[18px] rounded-full" style="border:1.5px solid #ede4d8"></span>
+                  <span class="w-[18px] h-[18px] rounded-full" style="border:1.5px solid #ede4d8"></span>
+                  <span class="w-[18px] h-[18px] rounded-full" style="border:1.5px solid #2563eb;background:#2563eb;opacity:0.08"></span>
+                  <span class="w-[18px] h-[18px] rounded-full" style="border:1.5px solid #ede4d8"></span>
+                  <span class="w-[18px] h-[18px] rounded-full" style="border:1.5px solid #ede4d8"></span>
+                </div>
+                <div class="text-[8px] font-medium mb-2" style="color:#6B7280">How was my day?</div>
+                <div style="height:14px;border-bottom:1px solid #ede4d8"></div>
+                <div class="absolute bottom-2 right-4 text-[4px] uppercase tracking-widest" style="color:#6B7280;opacity:0.25;font-family:Outfit,sans-serif">tooltails</div>
+              </div>
+
+              <!-- Card 3 — Social Media Detox: Digital Check-in -->
+              <div id="planner-card-3" class="rounded-xl border p-7 sm:p-8" style="background:#faf7f2;border-color:#ede4d8;box-shadow:0 6px 28px -10px rgba(0,0,0,0.08);position:absolute;inset:0;z-index:1;opacity:0;transform:translateY(12px) scale(0.98);transition:opacity 0.55s cubic-bezier(0.4,0,0.2,1), transform 0.55s cubic-bezier(0.4,0,0.2,1)">
+                <div class="flex items-center justify-between mb-5">
+                  <span class="text-[9px] font-bold uppercase tracking-widest" style="color:#2563eb">Social Media Detox</span>
+                  <span class="text-[8px] font-medium" style="color:#6B7280">focus</span>
+                </div>
+                <div class="text-lg font-bold font-serif mb-5" style="color:#09090b;font-family:'Playfair Display',serif;letter-spacing:-0.01em">Digital Check-in</div>
+                <div class="text-[8px] font-medium mb-2" style="color:#6B7280">Today I'll focus on&hellip;</div>
+                <div style="height:14px;border-bottom:1px solid #ede4d8" class="mb-5"></div>
+                <div class="flex items-center gap-2 mb-5">
+                  <span class="text-[8px] font-medium shrink-0" style="color:#6B7280">Screen time goal</span>
+                  <div style="flex:1;max-width:60px;height:14px;border-bottom:1px solid #ede4d8;display:inline-block"></div>
+                  <span class="text-[8px] font-medium" style="color:#9CA3AF">hours</span>
+                </div>
+                <div class="flex items-center gap-2"><span style="display:inline-flex;align-items:center;justify-content:center;width:10px;height:10px;border-radius:1.5px;border:1px solid #d4c9bc;flex-shrink:0"></span><span class="text-[8px]" style="color:#9CA3AF">Offline hour completed</span></div>
+                <div class="absolute bottom-2 right-4 text-[4px] uppercase tracking-widest" style="color:#6B7280;opacity:0.25;font-family:Outfit,sans-serif">tooltails</div>
+              </div>
 
             </div>
+
+            <!-- Dot indicators -->
+            <div class="flex items-center gap-2 mt-4">
+              <button data-planner-dot="0" class="w-2 h-2 rounded-full transition-all duration-300 cursor-pointer" style="background:#2563eb;border:none;padding:0" aria-label="Study Planner Pro"></button>
+              <button data-planner-dot="1" class="w-2 h-2 rounded-full transition-all duration-300 cursor-pointer" style="background:#d4c9bc;border:none;padding:0" aria-label="Master Your Day"></button>
+              <button data-planner-dot="2" class="w-2 h-2 rounded-full transition-all duration-300 cursor-pointer" style="background:#d4c9bc;border:none;padding:0" aria-label="Wellness Journal"></button>
+              <button data-planner-dot="3" class="w-2 h-2 rounded-full transition-all duration-300 cursor-pointer" style="background:#d4c9bc;border:none;padding:0" aria-label="Social Media Detox"></button>
+            </div>
+
           </div>
+
         </div>
 
+        <!-- CTA row (full-width below) -->
+        <div class="mt-10 sm:mt-12 lg:mt-14 pt-5 border-t" style="border-color:#ede4d8">
+          <div class="flex flex-wrap items-center gap-4 mb-5">
+            <a href="#systems" class="px-7 py-3 rounded-full text-sm font-bold transition-all" style="background:#09090b;color:#fcf9f2;font-family:Outfit,sans-serif">
+              Explore the collection &rarr;
+            </a>
+            <a href="#how-it-works" class="px-7 py-3 rounded-full text-sm font-bold transition-all" style="color:#09090b;border:1px solid #d4c9bc;font-family:Outfit,sans-serif">
+              How it works
+            </a>
+          </div>
+          <div class="flex flex-wrap items-center gap-8">
+            <span class="flex items-center gap-2 text-xs font-medium" style="color:#6B7280"><span>📥</span> Instant Download</span>
+            <span class="flex items-center gap-2 text-xs font-medium" style="color:#6B7280"><span>🖨️</span> Printable PDF</span>
+            <span class="flex items-center gap-2 text-xs font-medium" style="color:#6B7280"><span>♾️</span> Lifetime Access</span>
+          </div>
+        </div>
       </section>
 
-      <!-- FEATURE STRIP BAR (5 ITEMS) -->
-      <section class="bg-white/90 backdrop-blur-md rounded-2xl border border-stone-200/70 p-6 sm:p-7 shadow-xs">
+      <!-- FEATURE STRIP -->
+      <section class="rounded-xl border p-6 sm:p-7" style="background:#faf7f2;border-color:#ede4d8">
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
-          
-          <div class="flex items-center gap-3.5 text-left lg:border-r lg:border-stone-200/50 lg:pr-4">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-200/60 text-[#7C3AED] flex items-center justify-center text-xl flex-shrink-0 shadow-2xs">
-              👤
-            </div>
+          <div class="flex items-center gap-3 text-left lg:border-r" style="border-color:#ede4d8">
+            <span class="text-lg flex-shrink-0">👤</span>
             <div>
-              <h4 class="text-xs font-bold text-stone-900">Personalized</h4>
-              <p class="text-[11px] text-stone-500 font-medium">Made just for you</p>
+              <h4 class="text-xs font-bold" style="color:#09090b">Personalized</h4>
+              <p class="text-[11px] font-medium" style="color:#6B7280">Made for you</p>
             </div>
           </div>
-
-          <div class="flex items-center gap-3.5 text-left lg:border-r lg:border-stone-200/50 lg:pr-4">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-200/60 text-[#7C3AED] flex items-center justify-center text-xl flex-shrink-0 shadow-2xs">
-              🖨️
-            </div>
+          <div class="flex items-center gap-3 text-left lg:border-r" style="border-color:#ede4d8">
+            <span class="text-lg flex-shrink-0">🖨️</span>
             <div>
-              <h4 class="text-xs font-bold text-stone-900">Printable</h4>
-              <p class="text-[11px] text-stone-500 font-medium">High quality PDF</p>
+              <h4 class="text-xs font-bold" style="color:#09090b">Printable</h4>
+              <p class="text-[11px] font-medium" style="color:#6B7280">High quality PDF</p>
             </div>
           </div>
-
-          <div class="flex items-center gap-3.5 text-left lg:border-r lg:border-stone-200/50 lg:pr-4">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-200/60 text-[#7C3AED] flex items-center justify-center text-xl flex-shrink-0 shadow-2xs">
-              ⚡
-            </div>
+          <div class="flex items-center gap-3 text-left lg:border-r" style="border-color:#ede4d8">
+            <span class="text-lg flex-shrink-0">⚡</span>
             <div>
-              <h4 class="text-xs font-bold text-stone-900">Instant Download</h4>
-              <p class="text-[11px] text-stone-500 font-medium">Get it right away</p>
+              <h4 class="text-xs font-bold" style="color:#09090b">Instant Download</h4>
+              <p class="text-[11px] font-medium" style="color:#6B7280">Get it right away</p>
             </div>
           </div>
-
-          <div class="flex items-center gap-3.5 text-left lg:border-r lg:border-stone-200/50 lg:pr-4">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-200/60 text-[#7C3AED] flex items-center justify-center text-xl flex-shrink-0 shadow-2xs">
-              📱
-            </div>
+          <div class="flex items-center gap-3 text-left lg:border-r" style="border-color:#ede4d8">
+            <span class="text-lg flex-shrink-0">📱</span>
             <div>
-              <h4 class="text-xs font-bold text-stone-900">Works on iPad</h4>
-              <p class="text-[11px] text-stone-500 font-medium">GoodNotes ready</p>
+              <h4 class="text-xs font-bold" style="color:#09090b">Works on iPad</h4>
+              <p class="text-[11px] font-medium" style="color:#6B7280">GoodNotes ready</p>
             </div>
           </div>
-
-          <div class="flex items-center gap-3.5 text-left">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-200/60 text-[#7C3AED] flex items-center justify-center text-xl flex-shrink-0 shadow-2xs">
-              🔒
-            </div>
+          <div class="flex items-center gap-3 text-left">
+            <span class="text-lg flex-shrink-0">🔒</span>
             <div>
-              <h4 class="text-xs font-bold text-stone-900">Lifetime Access</h4>
-              <p class="text-[11px] text-stone-500 font-medium">Yours forever</p>
+              <h4 class="text-xs font-bold" style="color:#09090b">Lifetime Access</h4>
+              <p class="text-[11px] font-medium" style="color:#6B7280">Yours forever</p>
             </div>
           </div>
-
         </div>
       </section>
 
-      <!-- FEATURED PLANNERS SECTION WITH CATEGORY FILTERS -->
-      <section id="systems" class="space-y-6 pt-2" data-section="collection">
-        
+      <!-- FEATURED PLANNERS -->
+      <section id="systems" class="pt-6 space-y-7" data-section="collection">
         <h3 class="sr-only">Flagship Systems &amp; Collections</h3>
 
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">Featured Planners</h2>
-            <p class="text-xs text-stone-500 font-medium mt-1">Explore our four flagship personalized planning systems.</p>
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div class="space-y-1">
+            <h2 class="text-[22px] sm:text-[28px] font-bold font-serif leading-tight" style="color:#09090b;font-family:'Playfair Display',serif;letter-spacing:-0.01em">Featured Planners</h2>
+            <p class="text-xs font-medium" style="color:#6B7280">Four systems. One design philosophy.</p>
           </div>
 
           <!-- Category Filter Pills -->
-          <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0" id="category-filters">
-            <button data-filter="all" class="px-4 py-1.5 rounded-full text-xs font-bold bg-[#7C3AED] text-white shadow-2xs transition-all cursor-pointer">
-              All Planners
+          <div class="flex items-center gap-2 overflow-x-auto pb-0.5 sm:pb-0" id="category-filters">
+            <button data-filter="all" class="px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0" style="background:#09090b;color:#fcf9f2">
+              All
             </button>
-            <button data-filter="academic" class="px-4 py-1.5 rounded-full text-xs font-bold bg-white text-stone-600 hover:text-stone-900 border border-stone-200 transition-all cursor-pointer">
+            <button data-filter="academic" class="px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0" style="background:transparent;color:#6B7280;border:1px solid #ede4d8">
               Academic
             </button>
-            <button data-filter="productivity" class="px-4 py-1.5 rounded-full text-xs font-bold bg-white text-stone-600 hover:text-stone-900 border border-stone-200 transition-all cursor-pointer">
+            <button data-filter="productivity" class="px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0" style="background:transparent;color:#6B7280;border:1px solid #ede4d8">
               Productivity
             </button>
-            <button data-filter="wellness" class="px-4 py-1.5 rounded-full text-xs font-bold bg-white text-stone-600 hover:text-stone-900 border border-stone-200 transition-all cursor-pointer">
+            <button data-filter="wellness" class="px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0" style="background:transparent;color:#6B7280;border:1px solid #ede4d8">
               Wellness
             </button>
-            <button data-filter="goals" class="px-4 py-1.5 rounded-full text-xs font-bold bg-white text-stone-600 hover:text-stone-900 border border-stone-200 transition-all cursor-pointer">
+            <button data-filter="goals" class="px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0" style="background:transparent;color:#6B7280;border:1px solid #ede4d8">
               Goals
             </button>
           </div>
@@ -278,10 +241,10 @@ import ProductCard from "../../components/digital-store/ProductCard.astro";
           <div data-faq>FAQ Item 3</div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7" id="product-grid">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-7" id="product-grid">
           {products.map(p => (
             <div data-product-item data-category={p.category} data-title={p.title.toLowerCase()} class="h-full transition-all duration-300">
-              <ProductCard product={p} link={`/digital-store/${p.slug}`} badge="featured" />
+              <ProductCard product={p} link={`/digital-store/${p.slug}`} />
             </div>
           ))}
         </div>
@@ -289,182 +252,100 @@ import ProductCard from "../../components/digital-store/ProductCard.astro";
       </section>
 
       <!-- HOW IT WORKS SECTION -->
-      <section id="how-it-works" class="rounded-3xl bg-gradient-to-br from-[#F5F3FF] via-[#FAF8FF] to-[#EDE9FE]/60 p-8 sm:p-12 border border-purple-200/60 space-y-8 shadow-xs relative overflow-hidden">
-        
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">How it works</h2>
-
+      <section id="how-it-works" class="rounded-xl border p-8 sm:p-10 space-y-8" style="background:#faf7f2;border-color:#ede4d8">
+        <h2 class="text-2xl sm:text-3xl font-bold font-serif" style="color:#09090b;font-family:'Playfair Display',serif;letter-spacing:-0.01em">How it works</h2>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          <!-- 3-Step Process with Arrows -->
           <div class="lg:col-span-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-            
-            <div class="flex items-start gap-3.5 flex-1 bg-white/70 backdrop-blur-xs p-4 rounded-2xl border border-purple-100 shadow-2xs">
-              <div class="w-9 h-9 rounded-full bg-[#7C3AED] text-white font-extrabold flex items-center justify-center text-xs flex-shrink-0 shadow-xs">
-                1
-              </div>
+            <div class="flex items-start gap-3.5 flex-1 p-4 rounded-xl" style="background:#fcf9f2;border:1px solid #ede4d8">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#09090b;color:#fcf9f2">1</div>
               <div class="space-y-1">
-                <h4 class="text-xs font-bold text-stone-900">Tell us about yourself</h4>
-                <p class="text-[11px] text-stone-500 font-medium leading-relaxed">Answer a few simple questions.</p>
+                <h4 class="text-xs font-bold" style="color:#09090b">Tell us about yourself</h4>
+                <p class="text-[11px] leading-relaxed" style="color:#6B7280">Answer a few simple questions.</p>
               </div>
             </div>
-
-            <span class="text-purple-400 font-bold hidden sm:inline">&rarr;</span>
-
-            <div class="flex items-start gap-3.5 flex-1 bg-white/70 backdrop-blur-xs p-4 rounded-2xl border border-purple-100 shadow-2xs">
-              <div class="w-9 h-9 rounded-full bg-[#7C3AED] text-white font-extrabold flex items-center justify-center text-xs flex-shrink-0 shadow-xs">
-                2
-              </div>
+            <span class="hidden sm:inline font-bold" style="color:#2563eb">&rarr;</span>
+            <div class="flex items-start gap-3.5 flex-1 p-4 rounded-xl" style="background:#fcf9f2;border:1px solid #ede4d8">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#09090b;color:#fcf9f2">2</div>
               <div class="space-y-1">
-                <h4 class="text-xs font-bold text-stone-900">AI builds your planner</h4>
-                <p class="text-[11px] text-stone-500 font-medium leading-relaxed">Personalized pages just for you.</p>
+                <h4 class="text-xs font-bold" style="color:#09090b">Your details build your planner</h4>
+                <p class="text-[11px] leading-relaxed" style="color:#6B7280">Personalized pages based on what matters to you.</p>
               </div>
             </div>
-
-            <span class="text-purple-400 font-bold hidden sm:inline">&rarr;</span>
-
-            <div class="flex items-start gap-3.5 flex-1 bg-white/70 backdrop-blur-xs p-4 rounded-2xl border border-purple-100 shadow-2xs">
-              <div class="w-9 h-9 rounded-full bg-[#7C3AED] text-white font-extrabold flex items-center justify-center text-xs flex-shrink-0 shadow-xs">
-                3
-              </div>
+            <span class="hidden sm:inline font-bold" style="color:#2563eb">&rarr;</span>
+            <div class="flex items-start gap-3.5 flex-1 p-4 rounded-xl" style="background:#fcf9f2;border:1px solid #ede4d8">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#09090b;color:#fcf9f2">3</div>
               <div class="space-y-1">
-                <h4 class="text-xs font-bold text-stone-900">Download & start</h4>
-                <p class="text-[11px] text-stone-500 font-medium leading-relaxed">Get your PDF and start planning.</p>
+                <h4 class="text-xs font-bold" style="color:#09090b">Download & start</h4>
+                <p class="text-[11px] leading-relaxed" style="color:#6B7280">Get your PDF and start planning.</p>
               </div>
             </div>
-
           </div>
-
-          <!-- Guarantee Card Right -->
-          <div class="lg:col-span-4 bg-white rounded-2xl border border-purple-200/80 p-6 flex items-center gap-4 shadow-sm">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-100 to-indigo-100 text-[#7C3AED] flex items-center justify-center text-2xl flex-shrink-0 shadow-2xs">
-              🎁
-            </div>
+          <div class="lg:col-span-4 rounded-xl p-6 flex items-center gap-4" style="background:#fcf9f2;border:1px solid #d4c9bc">
+            <span class="text-2xl flex-shrink-0">🎁</span>
             <div>
-              <h4 class="text-xs font-bold text-stone-900">30-day happiness guarantee</h4>
-              <p class="text-[11px] text-stone-500 font-medium">Not satisfied? Get a full refund.</p>
+              <h4 class="text-xs font-bold" style="color:#09090b">30-day happiness guarantee</h4>
+              <p class="text-[11px]" style="color:#6B7280">Not satisfied? Get a full refund.</p>
             </div>
           </div>
-
-        </div>
-
-      </section>
-
-      <!-- TESTIMONIALS SECTION -->
-      <section class="bg-white rounded-3xl border border-stone-200/70 p-8 sm:p-10 shadow-xs">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-stone-100">
-          
-          <div class="space-y-3 pt-4 md:pt-0">
-            <span class="text-[#7C3AED] text-2xl font-serif">❝</span>
-            <p class="text-xs font-semibold text-stone-700 leading-relaxed">
-              This planner helped me stay consistent and actually enjoy studying.
-            </p>
-            <div class="flex items-center gap-2 justify-center md:justify-start pt-1">
-              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 text-[10px] font-bold flex items-center justify-center">A</div>
-              <p class="text-[11px] font-bold text-stone-500">— Ananya, Student</p>
-            </div>
-          </div>
-
-          <div class="space-y-3 pt-4 md:pt-0 md:pl-8">
-            <div class="text-[#7C3AED] text-xs tracking-widest font-bold">★★★★★</div>
-            <p class="text-xs font-semibold text-stone-700 leading-relaxed">
-              Best digital planner I've ever used. So well designed and practical.
-            </p>
-            <div class="flex items-center gap-2 justify-center md:justify-start pt-1">
-              <div class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 text-[10px] font-bold flex items-center justify-center">R</div>
-              <p class="text-[11px] font-bold text-stone-500">— Riya, CA Student</p>
-            </div>
-          </div>
-
-          <div class="space-y-3 pt-4 md:pt-0 md:pl-8">
-            <div class="text-[#7C3AED] text-xs tracking-widest font-bold">★★★★★</div>
-            <p class="text-xs font-semibold text-stone-700 leading-relaxed">
-              The customization is amazing. It's like it was made for me!
-            </p>
-            <div class="flex items-center gap-2 justify-center md:justify-start pt-1">
-              <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-bold flex items-center justify-center">M</div>
-              <p class="text-[11px] font-bold text-stone-500">— Mehak, Working Professional</p>
-            </div>
-          </div>
-
         </div>
       </section>
 
-      <!-- FOOTER SECTION (5 COLUMNS MATCHING STORE3) -->
-      <footer class="bg-white rounded-3xl border border-stone-200/70 p-8 sm:p-12 space-y-12 shadow-xs">
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          
-          <!-- Column 1: Brand & Bio -->
-          <div class="space-y-4 lg:col-span-1">
-            <a href="/digital-store" class="text-xl font-extrabold text-stone-900 tracking-tight">
-              Tooltails
-            </a>
-            <p class="text-xs text-stone-500 font-medium leading-relaxed">
-              Digital planners that adapt to you, not the other way around.
-            </p>
-            <div class="flex items-center gap-3 text-stone-400 text-sm">
-              <span class="hover:text-purple-600 cursor-pointer">📷</span>
-              <span class="hover:text-purple-600 cursor-pointer">📌</span>
-              <span class="hover:text-purple-600 cursor-pointer">▶️</span>
+      <!-- TESTIMONIALS -->
+      <section class="rounded-xl border p-8 sm:p-10" style="background:#faf7f2;border-color:#ede4d8">
+        <h3 class="text-xs font-bold text-center mb-8 uppercase tracking-widest" style="color:#6B7280">What our customers say</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {products.flatMap(p => p.reviews?.slice(0, 1) || []).slice(0, 3).map(r => (
+            <div class="space-y-3">
+              <div class="flex items-center gap-0.5">
+                {Array.from({length: 5}).map((_, i) => (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill={i < r.rating ? '#2563eb' : '#EDE4D8'} stroke={i < r.rating ? '#2563eb' : '#EDE4D8'} stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                ))}
+              </div>
+              <p class="text-xs font-serif italic leading-relaxed" style="color:#09090b">&ldquo;{r.text}&rdquo;</p>
+              <div class="flex items-center gap-2 pt-1">
+                <div class="w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold" style="background:#ede4d8;color:#6B7280">{r.initials}</div>
+                <div>
+                  <p class="text-[11px] font-bold" style="color:#6B7280">{r.name}</p>
+                  <span class="text-[9px] font-medium" style="color:#9CA3AF">{r.date}</span>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <!-- Column 2: SHOP -->
-          <div class="space-y-3">
-            <h4 class="text-xs font-extrabold uppercase tracking-wider text-stone-900">SHOP</h4>
-            <ul class="space-y-2 text-xs font-medium text-stone-600">
-              <li><a href="/digital-store" class="hover:text-purple-600 transition-colors">All Planners</a></li>
-              <li><a href="/digital-store/study-planner-pro" class="hover:text-purple-600 transition-colors">Study Planners</a></li>
-              <li><a href="/digital-store/master-your-day" class="hover:text-purple-600 transition-colors">Daily Planners</a></li>
-              <li><a href="/digital-store" class="hover:text-purple-600 transition-colors">Bundles</a></li>
-            </ul>
-          </div>
-
-          <!-- Column 3: COMPANY -->
-          <div class="space-y-3">
-            <h4 class="text-xs font-extrabold uppercase tracking-wider text-stone-900">COMPANY</h4>
-            <ul class="space-y-2 text-xs font-medium text-stone-600">
-              <li><a href="/about" class="hover:text-purple-600 transition-colors">About Us</a></li>
-              <li><a href="/blog" class="hover:text-purple-600 transition-colors">Blog</a></li>
-              <li><a href="/contact" class="hover:text-purple-600 transition-colors">Contact</a></li>
-              <li><a href="/faqs" class="hover:text-purple-600 transition-colors">FAQ</a></li>
-            </ul>
-          </div>
-
-          <!-- Column 4: LEGAL -->
-          <div class="space-y-3">
-            <h4 class="text-xs font-extrabold uppercase tracking-wider text-stone-900">LEGAL</h4>
-            <ul class="space-y-2 text-xs font-medium text-stone-600">
-              <li><a href="/terms" class="hover:text-purple-600 transition-colors">Terms of Use</a></li>
-              <li><a href="/privacy" class="hover:text-purple-600 transition-colors">Privacy Policy</a></li>
-              <li><a href="/privacy" class="hover:text-purple-600 transition-colors">Refund Policy</a></li>
-            </ul>
-          </div>
-
-          <!-- Column 5: Stay in the loop -->
-          <div class="space-y-3 lg:col-span-1">
-            <h4 class="text-xs font-extrabold text-stone-900">Stay in the loop</h4>
-            <p class="text-xs text-stone-500 font-medium leading-relaxed">
-              Get planning tips and new releases in your inbox.
-            </p>
-            <div class="flex items-center gap-2 pt-1">
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                class="w-full px-3.5 py-2 text-xs bg-[#F3F4F6] border border-transparent rounded-xl focus:outline-none focus:bg-white focus:border-purple-300 font-medium text-stone-900 placeholder-stone-400"
-              />
-              <button class="px-4 py-2 rounded-xl bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-bold transition-all flex-shrink-0 cursor-pointer">
-                Subscribe
-              </button>
-            </div>
-          </div>
-
+          ))}
         </div>
+      </section>
 
-        <div class="pt-8 border-t border-stone-100 text-center text-xs text-stone-400 font-medium">
-          &copy; 2026 Tooltails. All rights reserved.
+      <!-- FOOTER -->
+      <footer class="rounded-xl border p-8 sm:p-10 space-y-10" style="background:#faf7f2;border-color:#ede4d8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="space-y-3">
+            <div class="text-base font-bold" style="color:#09090b;font-family:'Playfair Display',serif">Tooltails</div>
+            <p class="text-xs leading-relaxed" style="color:#6B7280">Digital planners that adapt to you, not the other way around.</p>
+          </div>
+          <div class="space-y-3">
+            <h4 class="text-[10px] font-bold uppercase tracking-wider" style="color:#09090b">Shop</h4>
+            <ul class="space-y-2 text-xs" style="color:#6B7280">
+              <li><a href="/digital-store" class="hover:text-[#09090b] transition-colors">All Planners</a></li>
+              <li><a href="/digital-store/study-planner-pro" class="hover:text-[#09090b] transition-colors">Study Planners</a></li>
+              <li><a href="/digital-store/master-your-day" class="hover:text-[#09090b] transition-colors">Daily Planners</a></li>
+            </ul>
+          </div>
+          <div class="space-y-3">
+            <h4 class="text-[10px] font-bold uppercase tracking-wider" style="color:#09090b">Company</h4>
+            <ul class="space-y-2 text-xs" style="color:#6B7280">
+              <li><a href="/about" class="hover:text-[#09090b] transition-colors">About</a></li>
+              <li><a href="/blog" class="hover:text-[#09090b] transition-colors">Blog</a></li>
+              <li><a href="/contact" class="hover:text-[#09090b] transition-colors">Contact</a></li>
+            </ul>
+          </div>
+          <div class="space-y-3">
+            <h4 class="text-[10px] font-bold uppercase tracking-wider" style="color:#09090b">Legal</h4>
+            <ul class="space-y-2 text-xs" style="color:#6B7280">
+              <li><a href="/terms" class="hover:text-[#09090b] transition-colors">Terms</a></li>
+              <li><a href="/privacy" class="hover:text-[#09090b] transition-colors">Privacy</a></li>
+            </ul>
+          </div>
         </div>
-
+        <div class="pt-6 border-t text-center text-xs" style="border-color:#ede4d8;color:#6B7280">&copy; 2026 Tooltails. All rights reserved.</div>
       </footer>
 
     </div>
@@ -481,13 +362,14 @@ import ProductCard from "../../components/digital-store/ProductCard.astro";
         btn.addEventListener('click', () => {
           const filter = btn.getAttribute('data-filter');
 
-          // Active tab styling
           filterButtons.forEach(b => {
-            b.classList.remove('bg-[#7C3AED]', 'text-white');
-            b.classList.add('bg-white', 'text-stone-600', 'border', 'border-stone-200');
+            b.style.background = 'transparent';
+            b.style.color = '#6B7280';
+            b.style.border = '1px solid #ede4d8';
           });
-          btn.classList.remove('bg-white', 'text-stone-600', 'border', 'border-stone-200');
-          btn.classList.add('bg-[#7C3AED]', 'text-white');
+          btn.style.background = '#09090b';
+          btn.style.color = '#fcf9f2';
+          btn.style.border = 'none';
 
           // Filter product items
           productItems.forEach(item => {
@@ -503,5 +385,64 @@ import ProductCard from "../../components/digital-store/ProductCard.astro";
         });
       });
     });
+
+    // ── Hero: rotating planner + name sync ──
+    (function() {
+      var current = 0;
+      var total = 4;
+      var interval = 5000;
+      var timer;
+      var taglines = [
+        'Plan your semester',
+        'Design your day',
+        'Reflect and grow',
+        'Reset your focus'
+      ];
+
+      function showCard(index) {
+        for (var i = 0; i < total; i++) {
+          var card = document.getElementById('planner-card-' + i);
+          var dot = document.querySelector('[data-planner-dot="' + i + '"]');
+          if (i === index) {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0) scale(1)';
+            card.style.zIndex = '4';
+            dot.style.background = '#2563eb';
+          } else {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(12px) scale(0.98)';
+            card.style.zIndex = '1';
+            dot.style.background = '#d4c9bc';
+          }
+        }
+        document.getElementById('planner-tagline').textContent = taglines[index];
+        current = index;
+      }
+
+      function nextCard() {
+        showCard((current + 1) % total);
+      }
+
+      // Start rotation
+      timer = setInterval(nextCard, interval);
+
+      // Pause on hover
+      var stack = document.querySelector('[data-planner-stack]');
+      if (stack) {
+        stack.addEventListener('mouseenter', function() { clearInterval(timer); });
+        stack.addEventListener('mouseleave', function() { timer = setInterval(nextCard, interval); });
+      }
+
+      // Dot click handlers
+      document.querySelectorAll('[data-planner-dot]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          clearInterval(timer);
+          showCard(parseInt(this.getAttribute('data-planner-dot')));
+          timer = setInterval(nextCard, interval);
+        });
+      });
+
+
+    })();
   </script>
 </Layout>

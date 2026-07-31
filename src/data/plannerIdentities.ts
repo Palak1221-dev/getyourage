@@ -207,19 +207,19 @@ export const plannerIdentities: Record<string, PlannerIdentity> = {
   },
 
   // --- GOALS & LIFE ---
-  'goal-setting-workbook': {
-    coverBg: 'bg-gradient-to-br from-[#451A03] via-[#78350F] to-[#92400E] text-amber-100',
-    coverBorder: 'border-2 border-[#FBBF24]',
+  'social-media-detox': {
+    coverBg: 'bg-gradient-to-br from-[#0C4A6E] via-[#0369A1] to-[#0284C7] text-sky-100',
+    coverBorder: 'border-2 border-[#38BDF8]',
     typographyStyle: 'bold-display',
-    titleClass: 'font-serif text-[#FEF3C7] font-black tracking-tight',
-    subClass: 'font-sans text-[#FDE68A] text-[8px] font-bold uppercase',
-    accentRibbon: 'bg-[#F59E0B]',
+    titleClass: 'font-serif text-[#E0F2FE] font-black tracking-tight',
+    subClass: 'font-sans text-[#BAE6FD] text-[8px] font-bold uppercase',
+    accentRibbon: 'bg-[#0284C7]',
     accessory: 'corner-brass',
-    badgeStyle: 'bg-[#D97706] text-amber-950 font-bold',
+    badgeStyle: 'bg-[#0369A1] text-sky-100 font-bold',
     paperTexture: 'leather',
-    illustrationIcon: '🏆',
-    spineStyle: 'bg-[#B45309]',
-    themeName: 'Moleskine Vintage Goal Blueprint'
+    illustrationIcon: '📵',
+    spineStyle: 'bg-[#0369A1]',
+    themeName: 'Digital Detox Blue'
   },
   '90-day-reset-planner': {
     coverBg: 'bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-sky-50',

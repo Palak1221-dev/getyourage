@@ -1,0 +1,1406 @@
+---
+const purchased = true; // server doesn't know client state
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Master Your Day — Tooltails</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..800&family=Playfair+Display:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html,body{width:100%;height:100%;overflow:hidden;font-family:'Outfit',Inter,sans-serif;background:#f5f2ed;color:#374151}
+    #app-container{width:100%;height:100%;overflow:hidden;transition:filter 0.4s ease}
+    #app-container.gated{filter:blur(10px);pointer-events:none;user-select:none}
+    #purchase-gate{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;background:rgba(30,25,20,0.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+    #purchase-gate.show{display:flex}
+    .gate-card{background:#fffcf5;border-radius:24px;padding:40px 44px;max-width:440px;width:90%;text-align:center;box-shadow:0 32px 64px -16px rgba(0,0,0,0.25);border:1px solid #ede4d8;animation:gateIn 0.4s cubic-bezier(0.16,1,0.3,1)}
+    @keyframes gateIn{from{opacity:0;transform:scale(0.92) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+    .gate-card .app-icon{font-size:40px;margin-bottom:8px}
+    .gate-card h1{font-size:20px;font-weight:800;color:#1F2937;font-family:'Playfair Display',Outfit,serif;margin-bottom:4px}
+    .gate-card .sub{font-size:11px;color:#4B5563;font-weight:500;margin-bottom:16px}
+    .gate-card .desc{font-size:10px;color:#4B5563;line-height:1.6;font-weight:500;margin-bottom:20px}
+    .gate-card .features{display:flex;flex-direction:column;gap:6px;margin-bottom:20px;text-align:left}
+    .gate-card .features span{font-size:10px;color:#4B5563;font-weight:500;display:flex;align-items:center;gap:6px}
+    .gate-card .features span::before{content:'✓';color:#059669;font-weight:800;font-size:11px}
+    .gate-btn{display:inline-flex;align-items:center;gap:6px;padding:12px 28px;border-radius:60px;font-size:12px;font-weight:700;border:none;cursor:pointer;text-decoration:none;transition:all 0.15s}
+    .gate-btn.primary{background:#7c3aed;color:#fff;box-shadow:0 4px 16px rgba(124,58,237,0.25)}
+    .gate-btn.primary:hover{background:#6d28d9;transform:translateY(-1px);box-shadow:0 6px 24px rgba(124,58,237,0.3)}
+    .gate-btn.secondary{background:transparent;color:#6B7280;font-size:10px;font-weight:600;padding:8px 16px}
+    .gate-btn.secondary:hover{color:#374151}
+    .gate-divider{height:1px;background:#ede4d8;margin:16px 0}
+    .gate-footer{font-size:9px;color:#6B7280;font-weight:500}
+    .gate-footer a{color:#7c3aed;font-weight:700;text-decoration:none}
+    .gate-footer a:hover{text-decoration:underline}
+    .price-tag{font-size:28px;font-weight:900;color:#1F2937;letter-spacing:-0.02em}
+    .price-tag small{font-size:12px;font-weight:500;color:#6B7280}
+    .saved-badge{position:fixed;bottom:24px;right:24px;z-index:10000;background:#059669;color:#fff;font-size:9px;font-weight:700;padding:6px 14px;border-radius:20px;box-shadow:0 2px 12px rgba(5,150,105,0.25);opacity:0;transition:opacity 0.3s;pointer-events:none}
+    .saved-badge.show{opacity:1}
+    .dp-toolbar .dp-nav-label{color:#6b5f51!important}
+    @keyframes barGrow{from{transform:scaleY(0);transform-origin:bottom}to{transform:scaleY(1);transform-origin:bottom}}
+  </style>
+</head>
+<body>
+  <div id="app-container"></div>
+
+  <div id="purchase-gate">
+    <div class="gate-card">
+      <div class="app-icon">⚡</div>
+      <h1>Master Your Day</h1>
+      <p class="sub">A Complete Productivity System</p>
+      <p class="desc">A complete daily execution system with energy-aware planning, priority scoring, anti-procrastination tools, time audits, and habit streaks — all in one live web app.</p>
+      <div class="features">
+        <span>Weekly Reset — 7-step guided Sunday ritual with heatmap</span>
+        <span>Daily Command Center — Big 3 + 15-row hourly schedule (7AM-9PM)</span>
+        <span>Evening Reflection — accomplishments, focus score, wind-down plan</span>
+        <span>Priority Engine — smart task scoring by impact, urgency, energy</span>
+        <span>Anti-Procrastination Dashboard — commit button + reason tags</span>
+        <span>Habit Tracker — 8 habits, 28-day chain, best streak, stacking plan</span>
+        <span>Everything auto-saves — no setup, no login</span>
+      </div>
+      <div style="margin-bottom:16px">
+        <span class="price-tag">$14.99 <small>one-time</small></span>
+        <div style="font-size:9px;color:#059669;font-weight:700;margin-top:4px">✓ 30-day money-back guarantee</div>
+      </div>
+      <a href="/digital-store/master-your-day#customize" class="gate-btn primary">Get Instant Access →</a>
+      <div class="gate-divider"></div>
+      <p class="gate-footer">Already purchased? <a href="#" id="unlock-btn">Click here to unlock</a></p>
+      <div style="margin-top:8px">
+        <button class="gate-btn secondary" id="preview-btn">Show me a preview first</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="saved-badge" id="saved-badge">✓ Saved</div>
+
+  <script>
+  import { DigitalPlanner } from "../../scripts/planner-engine/digital-planner";
+  import { MasterYourDayPreview, getTheme } from "../../scripts/planner-engine/master-your-day-renderer";
+
+  (function(){
+    const SLUG = 'master-your-day';
+    const STORAGE_KEY = 'tt_purchased_' + SLUG;
+
+    function isPurchased() {
+      try { return localStorage.getItem(STORAGE_KEY) === 'true'; } catch(e) { return false; }
+    }
+
+    var container = document.getElementById('app-container');
+    var gate = document.getElementById('purchase-gate');
+
+    function initMasterYourDay(container: HTMLElement) {
+      // ── Cover: auto-fill start date ──
+      (function() {
+        var dateEl = container.querySelector('[data-myd-cover="date"]');
+        if (dateEl && (dateEl.textContent || '').trim() === '___') {
+          var d = new Date();
+          var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          dateEl.textContent = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+        }
+      })();
+
+      // ── Energy & Mood Analytics Engine ──
+      var ENERGY_PREFIX = 'myd-energy-';
+
+      function todayStr() { var d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+
+      function getDaysAgo(n: number) { var d = new Date(); d.setDate(d.getDate() - n); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+
+      function loadDay(dateStr: string): any { try { return JSON.parse(localStorage.getItem(ENERGY_PREFIX + dateStr) || 'null'); } catch(e) { return null; } }
+
+      function saveDay(dateStr: string, data: any) { try { localStorage.setItem(ENERGY_PREFIX + dateStr, JSON.stringify(data)); } catch(e) {} }
+
+      function collectToday() {
+        var s = container.querySelector('[data-myd-slider="mood-energy"]') as HTMLInputElement;
+        var amEl = container.querySelector('[data-myd-mood="am-mood"][style*="opacity: 1"], [data-myd-mood="am-mood"][style*="opacity:1"]') as HTMLElement;
+        if (!amEl) amEl = container.querySelector('[data-myd-mood="am-mood"]') as HTMLElement;
+        var pmEl = container.querySelector('[data-myd-mood="pm-emo-mood"][style*="opacity: 1"], [data-myd-mood="pm-emo-mood"][style*="opacity:1"]') as HTMLElement;
+        if (!pmEl) pmEl = container.querySelector('[data-myd-mood="pm-emo-mood"]') as HTMLElement;
+        var sq = container.querySelector('[data-myd-star="sleep-quality"][style*="opacity: 1"], [data-myd-star="sleep-quality"][style*="opacity:1"]');
+        var sqVal = sq ? parseInt(sq.getAttribute('data-val') || '0', 10) : 3;
+        var bed = container.querySelector('[data-myd-field="sleep-bed"]') as HTMLElement;
+        var wake = container.querySelector('[data-myd-field="sleep-wake"]') as HTMLElement;
+        var hrs = container.querySelector('[data-myd-field="sleep-hrs"]') as HTMLElement;
+        var ex = container.querySelector('[data-myd-field="exercise"]') as HTMLElement;
+        var rec = container.querySelector('[data-myd-field="recovery"]') as HTMLElement;
+        var note = container.querySelector('[data-myd-field="energy-note"]') as HTMLElement;
+        var plan = container.querySelector('[data-myd-field="energy-plan"]') as HTMLElement;
+        var drainers: string[] = [];
+        container.querySelectorAll('[data-myd-drainer]').forEach(function(el) {
+          if (el.getAttribute('data-myd-selected') === 'true' || el.style.background === '#eef2ff' || el.style.background === 'rgb(238, 242, 255)') drainers.push(el.getAttribute('data-myd-drainer') || '');
+        });
+        // Dashboard writing lines (only read when visible)
+        var dashLines = container.querySelectorAll('[data-dash-auto]') as NodeListOf<HTMLElement>;
+        var dashGrateful = dashLines.length >= 1 ? dashLines[0].textContent || '' : '';
+        var dashGreat = dashLines.length >= 2 ? dashLines[1].textContent || '' : '';
+        var dashWin = dashLines.length >= 3 ? dashLines[2].textContent || '' : '';
+        var dashKind = dashLines.length >= 4 ? dashLines[3].textContent || '' : '';
+        var dashFeel = dashLines.length >= 5 ? dashLines[4].textContent || '' : '';
+        return {
+          energy: s ? parseInt(s.value, 10) : 6,
+          amMood: amEl ? parseInt(amEl.getAttribute('data-val') || '0', 10) : 0,
+          pmMood: pmEl ? parseInt(pmEl.getAttribute('data-val') || '0', 10) : 0,
+          sleepQuality: sqVal,
+          sleepBed: bed ? bed.textContent || '' : '',
+          sleepWake: wake ? wake.textContent || '' : '',
+          sleepHrs: hrs ? hrs.textContent || '' : '',
+          exercise: ex ? ex.textContent || '' : '',
+          recovery: rec ? rec.textContent || '' : '',
+          note: note ? note.textContent || '' : '',
+          tomorrowPlan: plan ? plan.textContent || '' : '',
+          drainers: drainers,
+          dashGrateful: dashGrateful,
+          dashGreat: dashGreat,
+          dashWin: dashWin,
+          dashKind: dashKind,
+          dashFeel: dashFeel
+        };
+      }
+
+      function restoreToday(data: any) {
+        if (!data) return;
+        var s = container.querySelector('[data-myd-slider="mood-energy"]') as HTMLInputElement;
+        if (s && data.energy) { s.value = String(data.energy);
+          var v = container.querySelector('[data-myd-slider-val="mood-energy"]');
+          if (v) v.textContent = String(data.energy); }
+        if (data.amMood !== undefined) {
+          var am = container.querySelector('[data-myd-mood="am-mood"][data-val="' + data.amMood + '"]') as HTMLElement;
+          if (am) { container.querySelectorAll('[data-myd-mood="am-mood"]').forEach(function(el) { (el as HTMLElement).style.opacity = '0.35'; }); am.style.opacity = '1'; }
+        }
+        if (data.pmMood !== undefined) {
+          var pm = container.querySelector('[data-myd-mood="pm-emo-mood"][data-val="' + data.pmMood + '"]') as HTMLElement;
+          if (pm) { container.querySelectorAll('[data-myd-mood="pm-emo-mood"]').forEach(function(el) { (el as HTMLElement).style.opacity = '0.35'; }); pm.style.opacity = '1'; }
+        }
+        if (data.sleepQuality !== undefined) {
+          container.querySelectorAll('[data-myd-star="sleep-quality"]').forEach(function(el) {
+            var v = parseInt(el.getAttribute('data-val') || '0', 10);
+            (el as HTMLElement).style.opacity = v <= data.sleepQuality ? '1' : '0.3';
+          });
+        }
+        var bed = container.querySelector('[data-myd-field="sleep-bed"]');
+        if (bed && data.sleepBed) bed.textContent = data.sleepBed;
+        var wake = container.querySelector('[data-myd-field="sleep-wake"]');
+        if (wake && data.sleepWake) wake.textContent = data.sleepWake;
+        var hrs = container.querySelector('[data-myd-field="sleep-hrs"]');
+        if (hrs && data.sleepHrs) hrs.textContent = data.sleepHrs;
+        var ex = container.querySelector('[data-myd-field="exercise"]');
+        if (ex && data.exercise) ex.textContent = data.exercise;
+        var rec = container.querySelector('[data-myd-field="recovery"]');
+        if (rec && data.recovery) rec.textContent = data.recovery;
+        var note = container.querySelector('[data-myd-field="energy-note"]');
+        if (note && data.note) note.textContent = data.note;
+        var plan = container.querySelector('[data-myd-field="energy-plan"]');
+        if (plan && data.tomorrowPlan) plan.textContent = data.tomorrowPlan;
+        if (data.drainers) {
+          container.querySelectorAll('[data-myd-drainer]').forEach(function(el) {
+            var key = el.getAttribute('data-myd-drainer') || '';
+            if (data.drainers.indexOf(key) >= 0) {
+              el.setAttribute('data-myd-selected', 'true');
+              (el as HTMLElement).style.background = '#eef2ff';
+              (el as HTMLElement).style.borderColor = '#7c3aed';
+              (el as HTMLElement).style.color = '#7c3aed';
+            }
+          });
+        }
+        // Restore dashboard writing lines
+        var dashLines = container.querySelectorAll('[data-dash-auto]') as NodeListOf<HTMLElement>;
+        if (dashLines.length >= 1 && data.dashGrateful) dashLines[0].textContent = data.dashGrateful;
+        if (dashLines.length >= 2 && data.dashGreat) dashLines[1].textContent = data.dashGreat;
+        if (dashLines.length >= 3 && data.dashWin) dashLines[2].textContent = data.dashWin;
+        if (dashLines.length >= 4 && data.dashKind) dashLines[3].textContent = data.dashKind;
+        if (dashLines.length >= 5 && data.dashFeel) dashLines[4].textContent = data.dashFeel;
+      }
+
+      var DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      var _insightIdx = 0;
+      var _trendDetailIdx = -1;
+      var _cachedAnalytics: any = null;
+      var _cachedInsights: any = null;
+      var _cachedHistory: any = null;
+
+      function loadWeekHistory() {
+        var days: any[] = [];
+        for (var i = 6; i >= 0; i--) {
+          var d = getDaysAgo(i);
+          var data = loadDay(d);
+          var dateObj = new Date();
+          dateObj.setDate(dateObj.getDate() - i);
+          var entry: any = { date: d, dayOfWeek: dateObj.getDay(), hasData: !!data };
+          if (data) {
+            entry.energy = data.energy || 0;
+            entry.amMood = data.amMood ?? 0;
+            entry.pmMood = data.pmMood ?? 0;
+            entry.sleepQuality = data.sleepQuality || 0;
+            entry.drainers = data.drainers || [];
+          }
+          days.push(entry);
+        }
+        return days;
+      }
+
+      function computeAnalytics(history: any[]) {
+        var filled = history.filter(function(d) { return d.hasData; });
+        if (filled.length === 0) return null;
+
+        var dayNames = DAY_NAMES;
+        var energies = filled.map(function(d) { return d.energy; });
+        var avg = energies.reduce(function(a, b) { return a + b; }, 0) / energies.length;
+        var maxEn = Math.max.apply(null, energies);
+        var minEn = Math.min.apply(null, energies);
+
+        // Best/worst day by actual day labels
+        var bestDayLabel = '';
+        var worstDayLabel = '';
+        if (filled.length === 1) {
+          bestDayLabel = dayNames[filled[0].dayOfWeek];
+        } else if (filled.length >= 2) {
+          var bestFilled = filled.filter(function(d) { return d.energy === maxEn; });
+          var worstFilled = filled.filter(function(d) { return d.energy === minEn; });
+          bestDayLabel = dayNames[bestFilled[0].dayOfWeek];
+          worstDayLabel = dayNames[worstFilled[0].dayOfWeek];
+        }
+
+        // Mood averages (only from days with recorded moods)
+        var moodDays = filled.filter(function(d) { return d.amMood !== undefined || d.pmMood !== undefined; });
+        var avgAmMood = 0, avgPmMood = 0;
+        if (moodDays.length > 0) {
+          var amValues = moodDays.map(function(d) { return d.amMood ?? 2; });
+          var pmValues = moodDays.map(function(d) { return d.pmMood ?? 2; });
+          avgAmMood = amValues.reduce(function(a, b) { return a + b; }, 0) / amValues.length;
+          avgPmMood = pmValues.reduce(function(a, b) { return a + b; }, 0) / pmValues.length;
+        }
+
+        // Sleep correlation (only with 2+ data points)
+        var sleepCorr = 0;
+        var sleepPairs = filled.filter(function(d) { return d.sleepQuality > 0; });
+        if (sleepPairs.length >= 2) {
+          var withGood = sleepPairs.filter(function(d) { return d.sleepQuality >= 3; });
+          var withBad = sleepPairs.filter(function(d) { return d.sleepQuality < 3; });
+          var avgGood = withGood.length > 0 ? withGood.map(function(d) { return d.energy; }).reduce(function(a, b) { return a + b; }, 0) / withGood.length : 0;
+          var avgBad = withBad.length > 0 ? withBad.map(function(d) { return d.energy; }).reduce(function(a, b) { return a + b; }, 0) / withBad.length : 0;
+          sleepCorr = avgGood - avgBad;
+        }
+
+        // Trend (only with 3+ days)
+        var trend = 0;
+        if (filled.length >= 3) {
+          var recent = energies.slice(-3);
+          trend = (recent[recent.length - 1] - recent[0]) / recent.length;
+        }
+
+        // Energy by actual day of week
+        var dayEnergies: number[][] = [[],[],[],[],[],[],[]];
+        filled.forEach(function(d) { dayEnergies[d.dayOfWeek].push(d.energy); });
+        var dayAvgs = dayEnergies.map(function(arr) {
+          return arr.length > 0 ? arr.reduce(function(a, b) { return a + b; }, 0) / arr.length : 0;
+        });
+
+        // Most common drainers (with frequency)
+        var drainerCount: Record<string, number> = {};
+        filled.forEach(function(d) {
+          (d.drainers || []).forEach(function(dr: string) { drainerCount[dr] = (drainerCount[dr] || 0) + 1; });
+        });
+        var sortedDrainers = Object.keys(drainerCount).sort(function(a, b) { return drainerCount[b] - drainerCount[a]; });
+        var topDrainer = sortedDrainers.length > 0 ? { name: sortedDrainers[0], count: drainerCount[sortedDrainers[0]] } : null;
+
+        return {
+          avg: Math.round(avg * 10) / 10,
+          max: maxEn,
+          min: minEn,
+          count: filled.length,
+          bestDayLabel: bestDayLabel,
+          worstDayLabel: worstDayLabel,
+          avgAmMood: Math.round(avgAmMood * 10) / 10,
+          avgPmMood: Math.round(avgPmMood * 10) / 10,
+          sleepCorr: Math.round(sleepCorr * 10) / 10,
+          trend: Math.round(trend * 10) / 10,
+          topDrainer: topDrainer,
+          dayAvgs: dayAvgs,
+          energies: energies,
+          filled: filled,
+          hasTrend: filled.length >= 3,
+          hasMoodPattern: moodDays.length >= 2,
+          hasSleepCorr: sleepPairs.length >= 2,
+          hasDrainerPattern: sortedDrainers.length > 0
+        };
+      }
+
+      function generateInsights(analytics: any, today: any) {
+        var insights: string[] = [];
+        var actions: string[] = [];
+
+        if (analytics.count === 1) {
+          insights.push('Welcome! You\'ve logged your first day. Keep tracking to discover your energy patterns.');
+          actions.push('Log your energy and mood daily to unlock personalized insights.');
+          return { insights: insights, actions: actions };
+        }
+        if (analytics.count === 2) {
+          insights.push('Two days tracked! We\'re starting to see your baseline. A few more entries and patterns will emerge.');
+          actions.push('A third day of data will reveal your energy trend direction.');
+          return { insights: insights, actions: actions };
+        }
+
+        // 3+ days: energy level
+        if (analytics.avg >= 7) insights.push('Your energy levels are <strong>consistently high</strong> this week. You\'re in a strong productivity window.');
+        else if (analytics.avg >= 5) insights.push('Your energy is <strong>moderate</strong> this week — good capacity with room for strategic breaks.');
+        else insights.push('Your energy has been running <strong>low</strong>. Prioritize rest and focus on what truly matters.');
+
+        // 3+ days: peak time
+        if (analytics.hasMoodPattern) {
+          if (analytics.avgAmMood + 0.5 < analytics.avgPmMood) {
+            insights.push('Your mornings are <strong>consistently stronger</strong> than afternoons. Schedule deep work before noon.');
+          } else if (analytics.avgPmMood + 0.5 < analytics.avgAmMood) {
+            insights.push('Your afternoons are <strong>more productive</strong>. Consider a later start with evening focus blocks.');
+          } else {
+            insights.push('Your mood stays <strong>balanced</strong> throughout the day. You have flexible energy for any schedule.');
+          }
+        }
+
+        // 3+ days: trend
+        if (analytics.hasTrend) {
+          if (analytics.trend > 0.3) actions.push('Your energy is trending <strong>upward</strong>. Keep doing what you\'re doing.');
+          else if (analytics.trend < -0.3) actions.push('Your energy is <strong>declining</strong>. Consider an earlier bedtime and a lighter schedule tomorrow.');
+        }
+
+        // 3+ days: sleep correlation
+        if (analytics.hasSleepCorr) {
+          if (analytics.sleepCorr > 1.5) {
+            insights.push('Good sleep is your <strong>biggest energy lever</strong> — <strong>' + analytics.sleepCorr + ' points higher</strong> after quality rest.');
+            actions.push('Prioritize sleep quality tonight to boost tomorrow\'s energy.');
+          } else if (analytics.sleepCorr > 0.5) {
+            insights.push('Sleep quality <strong>moderately impacts</strong> your energy. A consistent bedtime routine helps.');
+          }
+        }
+
+        // 3+ days: drainer patterns
+        if (analytics.hasDrainerPattern && analytics.topDrainer) {
+          var dName = analytics.topDrainer.name;
+          var dCount = analytics.topDrainer.count;
+          var label = dName.replace(/-/g, ' ');
+          insights.push('Your top energy drain: <strong>' + label + '</strong> (noted ' + dCount + 'x).');
+          if (dName === 'stress') actions.push('Try a 5-minute breathing exercise before your next stressful task.');
+          else if (dName === 'poor-sleep') actions.push('Aim to sleep 30 minutes earlier tonight.');
+          else if (dName === 'too-much-screen') actions.push('Try a 10-minute screen break every 90 minutes.');
+          else if (dName === 'bad-food') actions.push('Swap one processed meal for whole foods tomorrow.');
+          else if (dName === 'exercise') actions.push('You\'re active — even a short walk boosts recovery.');
+          else if (dName === 'sunlight') actions.push('Morning sunlight helps regulate your circadian rhythm.');
+        }
+
+        // 5+ days: deeper observations
+        if (analytics.count >= 5 && analytics.bestDayLabel && analytics.worstDayLabel && analytics.bestDayLabel !== analytics.worstDayLabel) {
+          insights.push('<strong>' + analytics.bestDayLabel + '</strong> tends to be your strongest day. <strong>' + analytics.worstDayLabel + '</strong> is usually lower — plan lighter work then.');
+        }
+
+        // Today-based recommendations
+        if (today) {
+          var sleepNum = parseInt(today.sleepHrs, 10);
+          if (today.sleepHrs && !isNaN(sleepNum) && sleepNum > 0 && sleepNum < 7) {
+            actions.push('You slept <strong>' + today.sleepHrs + ' hours</strong> — below the recommended 7-8. Try 30 minutes earlier tonight.');
+          }
+          var exNum = parseInt(today.exercise, 10);
+          if (today.exercise && !isNaN(exNum) && exNum >= 0 && exNum < 15) {
+            actions.push('Light exercise today (<strong>' + today.exercise + ' min</strong>). Even a 15-minute walk can boost tomorrow\'s energy.');
+          }
+          if (today.pmMood !== undefined && today.amMood !== undefined && today.pmMood > today.amMood) {
+            actions.push('Your mood dipped this afternoon. Schedule a short recharge break after lunch tomorrow.');
+          }
+        }
+
+        return { insights: insights, actions: actions };
+      }
+
+      function renderTrendBars(history: any[], analytics: any) {
+        var barsContainer = container.querySelector('[data-myd-trend-bars]') as HTMLElement;
+        if (!barsContainer) return;
+        var dayNames = DAY_NAMES;
+        var html = '';
+        for (var i = 0; i < 7; i++) {
+          var day = history ? history[i] : null;
+          var hasEntry = !!(day && day.hasData);
+          var h = hasEntry ? day.energy : 0;
+          var isActive = _trendDetailIdx === i;
+
+          if (hasEntry) {
+            var color = h >= 7 ? '#059669' : h >= 5 ? '#d97706' : '#dc2626';
+            html += '<div data-myd-bar="' + i + '" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;transition:all 0.3s cubic-bezier(0.4,0,0.2,1)">'
+              + '<span data-myd-bar-val="' + i + '" style="font-size:9px;font-weight:800;color:#6B7280">' + h + '</span>'
+              + '<div style="width:100%;height:' + Math.max(h * 5, 3) + 'px;border-radius:3px;background:' + (isActive ? '#7c3aed' : color) + ';transition:all 0.4s cubic-bezier(0.4,0,0.2,1);animation:barGrow 0.4s cubic-bezier(0.16,1,0.3,1) ' + (i * 0.05) + 's both"></div>'
+              + '<span style="font-size:8px;font-weight:700;color:' + (isActive ? '#7c3aed' : '#6B7280') + ';transition:color 0.2s">' + dayNames[i] + '</span>'
+              + '</div>';
+          } else {
+            html += '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.4">'
+              + '<span style="font-size:9px;color:#d4c9bc">—</span>'
+              + '<div style="width:100%;height:3px;border-radius:3px;border:1px dashed #e0d8cc;background:transparent"></div>'
+              + '<span style="font-size:8px;font-weight:500;color:#d4c9bc">' + dayNames[i] + '</span>'
+              + '</div>';
+          }
+        }
+        barsContainer.innerHTML = html;
+      }
+
+      function updateEnergyUI(analytics: any, insights: { insights: string[]; actions: string[] }) {
+        _cachedAnalytics = analytics;
+        _cachedInsights = insights;
+
+        var dayNames = DAY_NAMES;
+        var hasData = !!(analytics && analytics.count > 0);
+
+        // Trend insight
+        var trendInsight = container.querySelector('[data-myd-trend-insight]') as HTMLElement;
+        if (trendInsight) {
+          if (hasData && analytics.count >= 3) {
+            var dir = analytics.trend > 0.3 ? '📈 Rising' : analytics.trend < -0.3 ? '📉 Declining' : '➡️ Stable';
+            var detailHtml = '';
+            if (_trendDetailIdx >= 0 && _cachedHistory && _cachedHistory[_trendDetailIdx] && _cachedHistory[_trendDetailIdx].hasData) {
+              var dVal = _cachedHistory[_trendDetailIdx].energy;
+              detailHtml = ' · <span style="font-weight:700;color:#7c3aed">' + dayNames[_trendDetailIdx] + ':</span> <strong>' + dVal + '</strong>/10';
+            }
+            var showWorst = analytics.count >= 2 && analytics.worstDayLabel;
+            trendInsight.innerHTML = '<span data-myd-cycle-trend style="cursor:pointer;padding:2px 6px;border-radius:4px;transition:background 0.15s">'
+              + '<span style="font-weight:700">Trend:</span> ' + dir
+              + ' · <span style="font-weight:700">Best:</span> ' + analytics.bestDayLabel
+              + (showWorst ? ' · <span style="font-weight:700">Lowest:</span> ' + analytics.worstDayLabel : '')
+              + detailHtml
+              + '</span>';
+          } else if (hasData && analytics.count <= 2) {
+            trendInsight.innerHTML = '<span style="color:#4B5563">' + (analytics.count === 1 ? '📝 First day logged! Keep going.' : '📝 Two days in. Patterns forming soon.') + '</span>';
+          } else {
+            trendInsight.innerHTML = '<span style="color:#4B5563">⚡ Log your energy to see your weekly trend.</span>';
+          }
+        }
+
+        // Avg energy
+        var avgEl = container.querySelector('[data-myd-avg-energy]') as HTMLElement;
+        if (avgEl) {
+          if (hasData) {
+            avgEl.textContent = String(analytics.avg);
+            avgEl.style.transition = 'all 0.3s';
+            avgEl.style.transform = 'scale(1.1)';
+            setTimeout(function() { if (avgEl) avgEl.style.transform = 'scale(1)'; }, 200);
+          } else {
+            avgEl.textContent = '—';
+          }
+        }
+
+        // Energy insight card
+        var insightEl = container.querySelector('[data-myd-energy-insight]') as HTMLElement;
+        var actionEl = container.querySelector('[data-myd-insight-action]') as HTMLElement;
+        if (insightEl) {
+          if (hasData && analytics.count >= 3 && insights.insights.length > 0) {
+            _insightIdx = _insightIdx % insights.insights.length;
+            var ci = insights.insights[_insightIdx] || 'Keep tracking for more insights.';
+            insightEl.innerHTML = '<div data-myd-cycle-insight style="cursor:pointer;transition:opacity 0.2s" onmouseenter="this.style.opacity=\'0.8\'" onmouseleave="this.style.opacity=\'1\'">'
+              + '<span style="color:#4B5563;font-weight:600">' + ci + '</span>'
+              + '<span style="display:block;margin-top:4px;font-size:10px;color:#6B7280">'
+              + (_insightIdx + 1) + '/' + insights.insights.length + ' · tap for next →'
+              + '</span></div>';
+          } else if (hasData && analytics.count <= 2) {
+            insightEl.innerHTML = '<span style="color:#4B5563">We\'re still learning your patterns. ' + (analytics.count === 1 ? 'Log a few more days for personalized insights.' : 'One more day will unlock your first trend.') + '</span>';
+          } else {
+            insightEl.innerHTML = '<span style="color:#4B5563">⚡ Track your energy for a few days to unlock personalized insights.</span>';
+          }
+        }
+        if (actionEl) {
+          if (hasData && analytics.count >= 3 && insights.actions.length > 0) {
+            var ai = Math.min(_insightIdx, insights.actions.length - 1);
+            actionEl.innerHTML = '→ ' + (insights.actions[ai] || 'Keep tracking to discover more patterns.');
+          } else if (hasData && analytics.count <= 2) {
+            actionEl.innerHTML = '→ ' + (insights.actions[0] || 'Keep tracking — insights appear after 3 logged days.');
+          } else {
+            actionEl.innerHTML = '';
+          }
+        }
+
+        // Peak/Low time (only with 2+ mood data points)
+        var peakEl = container.querySelector('[data-myd-peak-time]') as HTMLElement;
+        var lowEl = container.querySelector('[data-myd-low-time]') as HTMLElement;
+        var shiftEl = container.querySelector('[data-myd-mood-shift]') as HTMLElement;
+        if (peakEl && hasData && analytics.hasMoodPattern) {
+          peakEl.textContent = analytics.avgAmMood < analytics.avgPmMood ? 'Morning ☀️' : analytics.avgPmMood < analytics.avgAmMood ? 'Afternoon 🌤️' : 'Balanced ⚖️';
+          peakEl.style.opacity = '1';
+        } else if (peakEl) { peakEl.textContent = '—'; peakEl.style.opacity = '0.5'; }
+        if (lowEl && hasData && analytics.hasMoodPattern) {
+          lowEl.textContent = analytics.avgAmMood > analytics.avgPmMood ? 'Morning 🌆' : analytics.avgPmMood > analytics.avgAmMood ? 'Afternoon 🌆' : '—';
+        } else if (lowEl) { lowEl.textContent = '—'; lowEl.style.opacity = '0.5'; }
+        if (shiftEl && hasData && analytics.hasMoodPattern) {
+          var diff = analytics.avgPmMood - analytics.avgAmMood;
+          shiftEl.textContent = diff < -0.3 ? '↗️ improves' : diff > 0.3 ? '↘️ declines' : '➡️ stable';
+          shiftEl.style.opacity = '1';
+        } else if (shiftEl) { shiftEl.textContent = '—'; shiftEl.style.opacity = '0.5'; }
+      }
+
+      function refreshEnergyMood() {
+        var today = collectToday();
+        saveDay(todayStr(), today);
+        _cachedHistory = loadWeekHistory();
+        var analytics = computeAnalytics(_cachedHistory);
+        var insights = analytics ? generateInsights(analytics, today) : { insights: [], actions: [] };
+        renderTrendBars(_cachedHistory, analytics);
+        updateEnergyUI(analytics, insights);
+        updateDashboard();
+      }
+
+      // ── Habit Tracker Engine ──
+      var HABITS_KEY = 'myd-habits';
+
+      var DEFAULT_HABITS = [
+        { name: 'Exercise', icon: '🏋️', days: [], bestStreak: 0, stack: '', trigger: '', reward: '' },
+        { name: 'Read', icon: '📖', days: [], bestStreak: 0, stack: '', trigger: '', reward: '' },
+        { name: 'Meditate', icon: '🧘', days: [], bestStreak: 0, stack: '', trigger: '', reward: '' },
+        { name: 'Journal', icon: '✍️', days: [], bestStreak: 0, stack: '', trigger: '', reward: '' },
+        { name: 'Water', icon: '💧', days: [], bestStreak: 0, stack: '', trigger: '', reward: '' },
+        { name: 'Sleep', icon: '😴', days: [], bestStreak: 0, stack: '', trigger: '', reward: '' },
+        { name: 'No Social', icon: '📵', days: [], bestStreak: 0, stack: '', trigger: '', reward: '' },
+        { name: 'Walk', icon: '🚶', days: [], bestStreak: 0, stack: '', trigger: '', reward: '' },
+      ];
+
+      function createDefaultHabits() {
+        return DEFAULT_HABITS.map(function(h) {
+          return { name: h.name, icon: h.icon, days: new Array(28).fill(false), bestStreak: 0, stack: '', trigger: '', reward: '' };
+        });
+      }
+
+      function loadHabits() {
+        try {
+          var raw = localStorage.getItem(HABITS_KEY);
+          if (raw) {
+            var parsed = JSON.parse(raw);
+            if (Array.isArray(parsed) && parsed.length === 8) {
+              return parsed.map(function(h) {
+                var days = h.days || [];
+                while (days.length < 28) days.push(false);
+                if (days.length > 28) days = days.slice(-28);
+                return { name: h.name || '', icon: h.icon || '📋', days: days, bestStreak: h.bestStreak || 0, stack: h.stack || '', trigger: h.trigger || '', reward: h.reward || '' };
+              });
+            }
+          }
+        } catch(e) {}
+        return createDefaultHabits();
+      }
+
+      function saveHabits(habits) {
+        try { localStorage.setItem(HABITS_KEY, JSON.stringify(habits.map(function(h) { return { name: h.name, icon: h.icon, days: h.days, bestStreak: h.bestStreak, stack: h.stack, trigger: h.trigger, reward: h.reward }; }))); } catch(e) {}
+      }
+
+      function calcStreak(days) {
+        var s = 0;
+        for (var i = days.length - 1; i >= 0; i--) { if (days[i]) s++; else break; }
+        return s;
+      }
+
+      function calcCompletion(days) {
+        var done = 0;
+        for (var i = 0; i < days.length; i++) { if (days[i]) done++; }
+        return Math.round(done / days.length * 100);
+      }
+
+      function refreshHabitTracker() {
+        var habits = loadHabits();
+
+        var doneToday = 0;
+        for (var i = 0; i < 8; i++) { if (habits[i].days[27]) doneToday++; }
+
+        var daysActive = 0;
+        for (var d = 21; d < 28; d++) {
+          for (var i = 0; i < 8; i++) { if (habits[i].days[d]) { daysActive++; break; } }
+        }
+
+        var greetingEl = container.querySelector('[data-myd-greeting]');
+        if (greetingEl) {
+          var hour = new Date().getHours();
+          var timeGreeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+          var msg = '';
+          if (doneToday === 8) msg = timeGreeting + ' — all done <span style="color:#059669">✦</span>';
+          else if (doneToday > 0) msg = timeGreeting + ' — ' + doneToday + ' of 8 done today';
+          else if (daysActive > 0) msg = timeGreeting + ' — ' + daysActive + ' of the last 7 days';
+          else msg = timeGreeting + ' — start your day';
+          greetingEl.innerHTML = msg;
+        }
+
+        var maxStreak = 0, maxStreakIdx = 0;
+        for (var i = 0; i < 8; i++) {
+          var st = calcStreak(habits[i].days);
+          if (st > maxStreak) { maxStreak = st; maxStreakIdx = i; }
+        }
+
+        var allDone = doneToday === 8;
+        var dotEl = container.querySelector('[data-myd-heading-dot]');
+        if (dotEl) { dotEl.style.background = allDone ? '#d97706' : '#059669'; }
+
+        var insightEl = container.querySelector('[data-myd-insight]');
+        if (insightEl) {
+          var insight = '';
+          if (allDone) insight = 'All done today \u2726 \u2014 consistency is built one day at a time.';
+          else if (maxStreak >= 7) insight = '\uD83D\uDD25 ' + maxStreak + '-day streak on ' + habits[maxStreakIdx].name + ' \u2014 momentum is on your side.';
+          else if (doneToday > 0) insight = doneToday + ' of 8 done today \u2014 keep the rhythm going.';
+          else if (daysActive > 0) insight = 'You showed up ' + daysActive + ' of the last 7 days \u2014 that\u2019s what matters.';
+          else insight = 'Start small. One habit at a time builds something real.';
+          insightEl.textContent = insight;
+        }
+
+        var milestonesEl = container.querySelector('[data-myd-milestones]');
+        if (milestonesEl) {
+          var badges = [];
+          for (var i = 0; i < 8; i++) {
+            var st = calcStreak(habits[i].days);
+            var m = null;
+            if (st >= 30) m = { label: '30-day \uD83C\uDFC6', color: '#d97706' };
+            else if (st >= 21) m = { label: '21-day \uD83D\uDCAA', color: '#7c3aed' };
+            else if (st >= 14) m = { label: '14-day \u2B50', color: '#059669' };
+            else if (st >= 7) m = { label: '7-day \uD83D\uDD25', color: '#2563eb' };
+            if (m) {
+              badges.push('<span style="font-size:7px;padding:2px 8px;border-radius:10px;background:' + m.color + '15;color:' + m.color + ';font-weight:600;border:1px solid ' + m.color + '30">' + habits[i].name + ': ' + m.label + '</span>');
+            }
+          }
+          milestonesEl.innerHTML = badges.join('') + (badges.length > 0 ? '' : '');
+        }
+
+        for (var i = 0; i < 8; i++) {
+          var h = habits[i];
+          var rowEl = container.querySelector('[data-myd-row="' + i + '"]');
+          var nameEl = container.querySelector('[data-myd-habit-name="' + i + '"]');
+          var streakEl = container.querySelector('[data-myd-habit-streak="' + i + '"]');
+          var checkEl = container.querySelector('[data-myd-habit-check="' + i + '"]');
+
+          if (nameEl && !nameEl.dataset._mydSet) { nameEl.textContent = h.name; nameEl.dataset._mydSet = '1'; }
+          var s = calcStreak(h.days);
+          var done = h.days[27];
+
+          if (rowEl) rowEl.style.opacity = done ? '0.5' : '1';
+
+          if (streakEl) {
+            if (done) {
+              streakEl.textContent = '\u2713';
+              streakEl.style.color = '#059669';
+            } else {
+              var flourish = s >= 7 ? '\uD83D\uDD25' : s >= 3 ? '\u2B50' : '';
+              streakEl.textContent = flourish ? flourish + s + 'd' : s + 'd';
+              streakEl.style.color = s >= 7 ? '#059669' : s >= 3 ? '#d97706' : s > 0 ? '#6B7280' : '#9CA3AF';
+            }
+          }
+
+          if (checkEl) {
+            checkEl.style.background = done ? '#059669' : '#fff';
+            checkEl.style.borderColor = done ? '#059669' : '#d4c9bc';
+            if (done && !checkEl.querySelector('svg')) {
+              checkEl.innerHTML = '<svg viewBox="0 0 12 12" width="8" height="8" style="display:block"><path d="M2 6l3 3 5-6" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+            } else if (!done) {
+              checkEl.innerHTML = '';
+            }
+          }
+        }
+
+        for (var row = 0; row < 8; row++) {
+          for (var col = 0; col < 28; col++) {
+            var cell = container.querySelector('[data-myd-cell="' + row + '-' + col + '"]');
+            if (!cell) continue;
+            var isDone = habits[row].days[col];
+            var isToday = col === 27;
+            if (isToday) {
+              cell.style.borderColor = '#fde68a';
+              cell.style.background = isDone ? '#2563eb' : '#fef9c3';
+            } else {
+              cell.style.background = isDone ? '#2563eb' : '#f5f0ea';
+              cell.style.borderColor = isDone ? '#2563eb' : '#ede4d8';
+            }
+          }
+        }
+
+        saveHabits(habits);
+        updateDashboard();
+      }
+
+      // ── Dashboard Engine ──
+
+      function computeDashboardStats() {
+        var days: any[] = [];
+        for (var i = 6; i >= 0; i--) {
+          var d = getDaysAgo(i);
+          var data = loadDay(d);
+          if (data) days.push(data);
+        }
+        if (days.length === 0) return null;
+
+        var moodSum = 0, moodCount = 0;
+        var energySum = 0, energyCount = 0;
+        var sleepSum = 0, sleepCount = 0;
+        var energyTrend: number[] = [];
+        var moodTrend: number[] = [];
+        var moodDist = [0, 0, 0, 0, 0];
+
+        for (var j = 0; j < days.length; j++) {
+          var day = days[j];
+          var m = day.amMood !== undefined ? day.amMood : -1;
+          var m2 = day.pmMood !== undefined ? day.pmMood : -1;
+          var en = day.energy || 0;
+          var sh = parseInt(day.sleepHrs, 10);
+          if (m >= 0) { moodSum += m; moodCount++; moodDist[m]++; }
+          if (m2 >= 0 && m2 !== m) { moodSum += m2; moodCount++; moodDist[m2]++; }
+          if (en) { energySum += en; energyCount++; }
+          if (!isNaN(sh) && sh > 0) { sleepSum += sh; sleepCount++; }
+
+          var dm = 0; var dc = 0;
+          if (m >= 0) { dm += m; dc++; }
+          if (m2 >= 0 && m2 !== m) { dm += m2; dc++; }
+          moodTrend.push(dc > 0 ? dm / dc : -1);
+          energyTrend.push(en);
+        }
+
+        while (energyTrend.length < 7) { energyTrend.unshift(0); moodTrend.unshift(-1); }
+
+        var habits = loadHabits();
+        var doneToday = 0;
+        for (var hi = 0; hi < 8; hi++) { if (habits[hi].days[27]) doneToday++; }
+        var habitPctToday = Math.round(doneToday / 8 * 100);
+        var bestStreak = 0;
+        var currentStreak = 0;
+        for (var hi = 0; hi < 8; hi++) {
+          var s = calcStreak(habits[hi].days);
+          if (s > bestStreak) bestStreak = s;
+        }
+        currentStreak = bestStreak;
+
+        // Habit completion over last 28 days
+        var totalDone = 0;
+        for (var hi = 0; hi < 8; hi++) {
+          for (var d = 0; d < 28; d++) { if (habits[hi].days[d]) totalDone++; }
+        }
+        var habitPct28 = Math.round(totalDone / (8 * 28) * 100);
+
+        var avgEnergy = energyCount > 0 ? energySum / energyCount : 0;
+        var avgMood = moodCount > 0 ? moodSum / moodCount : 0;
+        var avgSleep = sleepCount > 0 ? sleepSum / sleepCount : 0;
+
+        var enScore = (avgEnergy / 10) * 30;
+        var moodScore = (avgMood / 4) * 25;
+        var habitScore = (habitPct28 / 100) * 20;
+        var sleepScore = Math.min((avgSleep / 8) * 15, 15);
+        var wellnessScore = Math.round(Math.min(100, enScore + moodScore + habitScore + sleepScore));
+
+        return {
+          wellnessScore: wellnessScore,
+          avgMood: Math.round(avgMood * 10) / 10,
+          avgEnergy: Math.round(avgEnergy * 10) / 10,
+          avgSleep: Math.round(avgSleep * 10) / 10,
+          habitPct: habitPctToday,
+          bestStreak: bestStreak,
+          currentStreak: currentStreak,
+          moodCount: moodCount,
+          energyCount: energyCount,
+          dayCount: days.length,
+          energyTrend: energyTrend,
+          moodTrend: moodTrend,
+          moodDist: moodDist
+        };
+      }
+
+      function animateDashNumber(el: HTMLElement, target: number, suffix: string) {
+        var oldStr = el.getAttribute('data-dash-prev') || el.textContent || '0';
+        var oldVal = parseFloat(oldStr.replace(/[^0-9.-]/g, '')) || 0;
+        if (oldVal === target) { el.textContent = target + suffix; return; }
+        var start = oldVal;
+        var duration = 400;
+        var startTime = Date.now();
+        el.setAttribute('data-dash-prev', String(target));
+        function tick() {
+          var elapsed = Date.now() - startTime;
+          var t = Math.min(elapsed / duration, 1);
+          var ease = 1 - Math.pow(1 - t, 3);
+          var current = Math.round(start + (target - start) * ease);
+          el.textContent = current + suffix;
+          if (t < 1) requestAnimationFrame(tick);
+        }
+        tick();
+      }
+
+      function setDashStat(name: string, val: string) {
+        var el = container.querySelector('[data-dash-stat="' + name + '"]') as HTMLElement;
+        if (!el) return;
+        if (el.textContent !== val) {
+          el.style.transform = 'scale(1.12)';
+          el.style.transition = 'transform 0.2s cubic-bezier(0.34,1.56,0.64,1)';
+          clearTimeout(el._dashPulse);
+          el._dashPulse = setTimeout(function() { el.style.transform = 'scale(1)'; }, 300);
+          el.textContent = val;
+        }
+      }
+
+      function generateDashInsight(stats: any, habits: any[]): string {
+        if (!stats || stats.dayCount === 0) return 'Log your first day to see personalized insights.';
+        var insights: string[] = [];
+        if (stats.energyCount >= 2) {
+          var eData = stats.energyTrend || [];
+          var tE = eData[6] || 0;
+          var yE = eData[5] || 0;
+          if (tE > 0 && yE > 0) {
+            if (tE > yE) insights.push('Your energy is higher than yesterday.');
+            else if (tE < yE) insights.push('Your energy dipped slightly today.');
+            else insights.push('Your energy is consistent with yesterday.');
+          }
+          if (stats.avgEnergy >= 7) insights.push('Your energy has been strong lately.');
+          else if (stats.avgEnergy <= 4) insights.push('Consider rest — your energy has been low.');
+        }
+        if (stats.moodCount >= 2) {
+          var pos = stats.moodDist[0] + stats.moodDist[1];
+          var neg = stats.moodDist[3] + stats.moodDist[4];
+          if (pos > neg && pos > 0) insights.push('Your recent moods lean positive.');
+          else if (neg > pos && neg > 0) insights.push('You\'ve logged some tough moments. Be kind to yourself.');
+        }
+        if (stats.dayCount >= 2) {
+          if (stats.habitPct >= 60) insights.push('Habit consistency is building momentum.');
+          else if (stats.habitPct < 30) insights.push('Starting small is still progress.');
+        }
+        if (stats.currentStreak >= 3) insights.push('You\'re on a ' + stats.currentStreak + '-day streak. Keep going!');
+        if (stats.bestStreak >= 7) insights.push('Your best streak of ' + stats.bestStreak + ' days shows what you\'re capable of.');
+        return insights.length > 0 ? insights[Math.floor(Math.random() * insights.length)] : 'Keep going — every small step adds up.';
+      }
+
+      function updateDashboard() {
+        var stats = computeDashboardStats();
+        var habits = loadHabits();
+
+        setDashStat('mood-avg', stats ? String(stats.avgMood) : '--');
+        setDashStat('energy-avg', stats ? String(stats.avgEnergy) : '--');
+        setDashStat('sleep-avg', stats ? String(stats.avgSleep) : '--');
+        setDashStat('habit-pct', stats ? String(stats.habitPct) + '%' : '--');
+        setDashStat('streak', stats ? String(stats.bestStreak) + 'd' : '--');
+
+        // Score ring
+        var arc = container.querySelector('[data-dash-score-arc]') as SVGCircleElement;
+        var scoreText = container.querySelector('[data-dash-score-text]') as SVGTextElement;
+        var scoreVal = stats ? stats.wellnessScore : 0;
+        var circ = 2 * Math.PI * 42;
+        if (arc) arc.setAttribute('stroke-dashoffset', String(circ - (scoreVal / 100) * circ));
+        if (scoreText) animateDashNumber(scoreText, scoreVal, '');
+
+        // Mood distribution
+        var moodTot = stats ? stats.moodDist.reduce(function(a, b) { return a + b; }, 0) : 0;
+        for (var d = 0; d < 5; d++) {
+          var bar = container.querySelector('[data-dash-mood-bar="' + d + '"]') as HTMLElement;
+          var count = container.querySelector('[data-dash-mood-count="' + d + '"]') as HTMLElement;
+          if (bar) {
+            var pct = moodTot > 0 ? (stats!.moodDist[d] / moodTot) * 100 : 0;
+            bar.style.width = pct + '%';
+          }
+          if (count) count.textContent = stats ? String(stats.moodDist[d]) : '0';
+        }
+
+        // Energy trend bars
+        var energyBars = container.querySelectorAll('[data-dash-trend-energy] > div') as NodeListOf<HTMLElement>;
+        var energyData = stats ? stats.energyTrend : [0,0,0,0,0,0,0];
+        var maxEnergyVal = Math.max.apply(null, energyData) || 1;
+        energyBars.forEach(function(bar: HTMLElement, i: number) {
+          var val = energyData[i] || 0;
+          var h = Math.max((val / maxEnergyVal) * 26, val > 0 ? 6 : 3);
+          bar.style.height = h + 'px';
+          bar.style.background = val >= 7 ? '#059669' : val >= 5 ? '#d97706' : '#6B7280';
+        });
+
+        // Mood trend bars
+        var moodBars = container.querySelectorAll('[data-dash-trend-mood] > div') as NodeListOf<HTMLElement>;
+        var moodData = stats ? stats.moodTrend : [-1,-1,-1,-1,-1,-1,-1];
+        moodBars.forEach(function(bar: HTMLElement, i: number) {
+          var val = moodData[i];
+          if (val < 0) { bar.style.height = '3px'; bar.style.background = '#ede4d8'; return; }
+          bar.style.height = Math.max((val / 4) * 18, 4) + 'px';
+          bar.style.background = val >= 3 ? '#059669' : val >= 2 ? '#d97706' : '#dc2626';
+        });
+
+        // Current streak
+        var csEl = container.querySelector('[data-dash-stat="current-streak"]');
+        if (csEl) csEl.textContent = stats ? stats.currentStreak + 'd' : '0d';
+
+        // Mini habit grid (last 7 days)
+        var miniCells = container.querySelectorAll('[data-dash-habit-mini] > div') as NodeListOf<HTMLElement>;
+        miniCells.forEach(function(cell: HTMLElement, i: number) {
+          var col = 21 + i;
+          if (col >= 28) return;
+          var anyDone = false;
+          for (var hi = 0; hi < 8; hi++) { if (habits[hi].days[col]) { anyDone = true; break; } }
+          cell.style.background = anyDone ? '#059669' : '#f0ece6';
+          cell.style.borderColor = anyDone ? '#059669' : '#ede4d8';
+        });
+
+        // Insight
+        var insightEl = container.querySelector('[data-dash-insight]') as HTMLElement;
+        if (insightEl) insightEl.textContent = generateDashInsight(stats, habits);
+
+        // Data status
+        var dayCountEl = container.querySelector('[data-dash-day-count]');
+        if (dayCountEl) dayCountEl.textContent = stats ? String(stats.dayCount) : '0';
+        var statusEl = container.querySelector('[data-dash-data-status]');
+        if (statusEl) {
+          statusEl.textContent = stats ? (stats.dayCount + ' of 7 days recorded') : 'no data yet';
+          statusEl.style.color = stats ? '#059669' : '#9CA3AF';
+        }
+      }
+
+      // ── Event Handlers ──
+
+      // Range slider input (energy sync + auto-save)
+      container.addEventListener('input', function(e: Event) {
+        var target = e.target as HTMLInputElement;
+        if (!target.matches) return;
+        if (target.matches('input[type="range"][data-myd-slider]')) {
+          var name = target.getAttribute('data-myd-slider');
+          var valEl = container.querySelector('[data-myd-slider-val="' + name + '"]') as HTMLElement;
+          if (valEl) {
+            var txt = valEl.textContent || '';
+            var idx = txt.indexOf('/');
+            valEl.textContent = idx >= 0 ? target.value + txt.substring(idx) : target.value;
+          }
+          if (name === 'mood-energy') refreshEnergyMood();
+        }
+      });
+
+      // Click handlers (mood, star, drainer, reason, habit, commit, process, peak time)
+      container.addEventListener('click', function(e: Event) {
+        var target = e.target as HTMLElement;
+        if (!target.matches) return;
+
+        // Mood selector → save + refresh
+        if (target.matches('[data-myd-mood]')) {
+          var group = target.getAttribute('data-myd-mood');
+          container.querySelectorAll('[data-myd-mood="' + group + '"]').forEach(function(el) {
+            (el as HTMLElement).style.opacity = '0.35';
+          });
+          target.style.opacity = '1';
+          if (group === 'am-mood' || group === 'pm-emo-mood') refreshEnergyMood();
+          return;
+        }
+
+        // Star rating → save + refresh
+        if (target.matches('[data-myd-star]')) {
+          var group = target.getAttribute('data-myd-star');
+          var val = parseInt(target.getAttribute('data-val') || '0', 10);
+          container.querySelectorAll('[data-myd-star="' + group + '"]').forEach(function(el) {
+            var elVal = parseInt(el.getAttribute('data-val') || '0', 10);
+            (el as HTMLElement).style.opacity = elVal <= val ? '1' : '0.3';
+          });
+          if (group === 'sleep-quality') refreshEnergyMood();
+          return;
+        }
+
+        // Energy drainer tags (toggle select)
+        if (target.matches('[data-myd-drainer]')) {
+          var isSelected = target.getAttribute('data-myd-selected') === 'true';
+          if (isSelected) {
+            target.removeAttribute('data-myd-selected');
+            target.style.background = 'transparent';
+            target.style.borderColor = '#d4c9bc';
+            target.style.color = '#6B7280';
+          } else {
+            target.setAttribute('data-myd-selected', 'true');
+            target.style.background = '#eef2ff';
+            target.style.borderColor = '#7c3aed';
+            target.style.color = '#7c3aed';
+          }
+          refreshEnergyMood();
+          return;
+        }
+
+        // Anti-procrastination reason tags
+        if (target.matches('[data-myd-reason]')) {
+          container.querySelectorAll('[data-myd-reason]').forEach(function(el) {
+            (el as HTMLElement).style.background = 'transparent';
+            (el as HTMLElement).style.borderColor = '#d4c9bc';
+            (el as HTMLElement).style.color = '#6B7280';
+          });
+          target.style.background = '#ede9fe';
+          target.style.borderColor = '#7c3aed';
+          target.style.color = '#7c3aed';
+          return;
+        }
+
+        // Habit cell toggle (28-day grid)
+        if (target.matches('[data-myd-cell]')) {
+          var parts = target.getAttribute('data-myd-cell').split('-');
+          var row = parseInt(parts[0], 10);
+          var col = parseInt(parts[1], 10);
+          var habits = loadHabits();
+          habits[row].days[col] = !habits[row].days[col];
+          var s = calcStreak(habits[row].days);
+          if (s > habits[row].bestStreak) habits[row].bestStreak = s;
+          saveHabits(habits);
+          refreshHabitTracker();
+          refreshEnergyMood();
+          return;
+        }
+
+        // Habit checkbox toggle (log today)
+        if (target.matches('[data-myd-habit-check]')) {
+          var idx = parseInt(target.getAttribute('data-myd-habit-check'), 10);
+          var habits = loadHabits();
+          habits[idx].days[27] = !habits[idx].days[27];
+          var s = calcStreak(habits[idx].days);
+          if (s > habits[idx].bestStreak) habits[idx].bestStreak = s;
+          saveHabits(habits);
+          refreshHabitTracker();
+          refreshEnergyMood();
+          return;
+        }
+
+        // Commit button
+        if (target.matches('[data-myd-commit]')) {
+          target.textContent = '✓ Committed';
+          target.style.background = '#059669';
+          setTimeout(function() {
+            target.textContent = 'I Commit to This';
+            target.style.background = '';
+          }, 3000);
+          return;
+        }
+
+        // Process brain dump
+        if (target.matches('[data-myd-process]')) {
+          target.textContent = '✓ Processed';
+          target.style.background = '#059669';
+          setTimeout(function() {
+            target.textContent = 'Process';
+            target.style.background = '';
+          }, 2000);
+          return;
+        }
+
+        // Trend bar click — show detail for that day
+        if (target.matches('[data-myd-bar]') || target.closest('[data-myd-bar]')) {
+          var barEl = target.matches('[data-myd-bar]') ? target : target.closest('[data-myd-bar]') as HTMLElement;
+          var idx = parseInt(barEl.getAttribute('data-myd-bar') || '0', 10);
+          _trendDetailIdx = _trendDetailIdx === idx ? -1 : idx;
+          refreshEnergyMood();
+          return;
+        }
+
+        // Cycle insight
+        if (target.matches('[data-myd-cycle-insight]') || target.closest('[data-myd-cycle-insight]')) {
+          _insightIdx = (_insightIdx + 1) % Math.max((_cachedInsights?.insights?.length || 1), 1);
+          updateEnergyUI(_cachedAnalytics, _cachedInsights);
+          return;
+        }
+
+        // Cycle trend view
+        if (target.matches('[data-myd-cycle-trend]') || target.closest('[data-myd-cycle-trend]')) {
+          _trendDetailIdx = -1;
+          refreshEnergyMood();
+          return;
+        }
+
+        // Tomorrow's peak time selector
+        if (target.matches('[data-myd-peak-select]')) {
+          container.querySelectorAll('[data-myd-peak-select]').forEach(function(el) {
+            (el as HTMLElement).style.opacity = '0.5';
+            (el as HTMLElement).style.transform = 'scale(1)';
+          });
+          target.style.opacity = '1';
+          target.style.transform = 'scale(1.05)';
+          return;
+        }
+      });
+
+      // Auto-save on contenteditable blur (sleep/exercise/notes/habit fields)
+      container.addEventListener('blur', function(e: Event) {
+        var target = e.target as HTMLElement;
+        if (!target.matches) return;
+        // Habit name edit
+        if (target.matches('[data-myd-habit-name]')) {
+          var idx = parseInt(target.getAttribute('data-myd-habit-name'), 10);
+          var habits = loadHabits();
+          habits[idx].name = target.textContent || '';
+          saveHabits(habits);
+          return;
+        }
+        if (target.matches('[data-myd-field]') || target.matches('[contenteditable="true"]')) {
+          // Debounce: wait a moment after blur to save latest content
+          clearTimeout((container as any)._saveTimer);
+          (container as any)._saveTimer = setTimeout(function() { refreshEnergyMood(); }, 300);
+        }
+      }, true);
+
+      // Keyboard enter in contenteditable triggers blur
+      container.addEventListener('keydown', function(e: Event) {
+        var ke = e as KeyboardEvent;
+        if (ke.key === 'Enter') {
+          var target = e.target as HTMLElement;
+          if (target.matches && target.matches('[contenteditable="true"]')) {
+            setTimeout(function() { target.blur(); }, 0);
+          }
+        }
+      });
+
+      // ── Priority Engine ──
+      var PRIORITY_KEY = 'myd-priority-queue';
+      var _taskIdCounter = 0;
+
+      function getQuadrant(score: number) {
+        if (score >= 80) return { label: 'Do Now', color: '#dc2626' };
+        if (score >= 50) return { label: 'Schedule', color: '#d97706' };
+        if (score >= 25) return { label: 'Delegate', color: '#0284c7' };
+        return { label: 'Delete', color: '#6B7280' };
+      }
+
+      function pScore(im: number, ur: number) { return Math.round(im * ur * 3.8); }
+
+      function loadPriorityTasks(): any[] {
+        try {
+          var raw = localStorage.getItem(PRIORITY_KEY);
+          if (raw) return JSON.parse(raw);
+        } catch(e) {}
+        return [
+          { id: ++_taskIdCounter, name: '___', impact: 5, urgency: 5, score: 95, time: '___', done: false },
+          { id: ++_taskIdCounter, name: '___', impact: 4, urgency: 5, score: 82, time: '___', done: false },
+          { id: ++_taskIdCounter, name: '___', impact: 4, urgency: 4, score: 68, time: '___', done: false },
+          { id: ++_taskIdCounter, name: '___', impact: 3, urgency: 3, score: 45, time: '___', done: false },
+          { id: ++_taskIdCounter, name: '___', impact: 2, urgency: 2, score: 30, time: '___', done: false }
+        ];
+      }
+
+      function savePriorityTasks(tasks: any[]) {
+        try { localStorage.setItem(PRIORITY_KEY, JSON.stringify(tasks)); } catch(e) {}
+      }
+
+      function renderPriorityQueue() {
+        var qEl = container.querySelector('[data-myd-priority-queue]') as HTMLElement;
+        if (!qEl) return;
+        var tasks = loadPriorityTasks();
+        var html = '';
+        for (var i = 0; i < tasks.length; i++) {
+          var t = tasks[i];
+          var q = getQuadrant(t.score);
+          var scoreColor = t.score >= 70 ? '#059669' : t.score >= 40 ? '#d97706' : '#6B7280';
+          html += '<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;border:1px solid #ede4d8;background:#fffcf5">' +
+            '<div style="display:flex;align-items:center;gap:4px;min-width:28px">' +
+              '<span style="font-size:10px;font-weight:800;color:' + scoreColor + '">' + t.score + '</span>' +
+            '</div>' +
+            '<span data-pc="' + t.id + '" style="width:12px;height:12px;border-radius:2px;border:1.5px solid ' + (t.done ? '#10b981;background:#10b981' : '#d4c9bc') + ';display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;transition:all 0.2s">' +
+              (t.done ? '<svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>' : '') +
+            '</span>' +
+            '<span style="flex:1;min-height:16px;border-bottom:1px solid #ede4d8;line-height:16px;font-size:9px;padding:0;outline:none" contenteditable="true" data-pn="' + t.id + '">' + t.name + '</span>' +
+            '<span style="display:flex;align-items:center;gap:2px;font-size:8px;color:#6B7280">🕐 <span style="display:inline-block;min-width:16px;min-height:14px;border-bottom:1px solid #ede4d8;line-height:14px;font-size:8px;padding:0;outline:none" contenteditable="true" data-pt="' + t.id + '">' + t.time + '</span></span>' +
+            '<span style="font-size:8px;font-weight:600;padding:2px 8px;border-radius:4px;background:' + q.color + '15;color:' + q.color + '">' + q.label + '</span>' +
+          '</div>';
+        }
+        qEl.innerHTML = html;
+
+        // Wire checkboxes
+        qEl.querySelectorAll('[data-pc]').forEach(function(el: HTMLElement) {
+          el.addEventListener('click', function() {
+            var id = parseInt(el.getAttribute('data-pc'), 10);
+            var tasks = loadPriorityTasks();
+            for (var j = 0; j < tasks.length; j++) {
+              if (tasks[j].id === id) { tasks[j].done = !tasks[j].done; break; }
+            }
+            savePriorityTasks(tasks);
+            renderPriorityQueue();
+          });
+        });
+
+        // Wire name edits
+        qEl.querySelectorAll('[data-pn]').forEach(function(el: HTMLElement) {
+          el.addEventListener('blur', function() {
+            var id = parseInt(el.getAttribute('data-pn'), 10);
+            var tasks = loadPriorityTasks();
+            for (var j = 0; j < tasks.length; j++) {
+              if (tasks[j].id === id) { tasks[j].name = el.textContent || ''; break; }
+            }
+            savePriorityTasks(tasks);
+          });
+        });
+
+        // Wire time edits
+        qEl.querySelectorAll('[data-pt]').forEach(function(el: HTMLElement) {
+          el.addEventListener('blur', function() {
+            var id = parseInt(el.getAttribute('data-pt'), 10);
+            var tasks = loadPriorityTasks();
+            for (var j = 0; j < tasks.length; j++) {
+              if (tasks[j].id === id) { tasks[j].time = el.textContent || ''; break; }
+            }
+            savePriorityTasks(tasks);
+          });
+        });
+      }
+
+      // Add button
+      var addBtn = container.querySelector('[data-myd-priority-add]') as HTMLElement;
+      if (addBtn) {
+        function getPrioritySliderVal(name: string): number {
+          var s = container.querySelector('[data-myd-slider="' + name + '"]') as HTMLInputElement;
+          return s ? parseInt(s.value, 10) : 3;
+        }
+        function resetPrioritySlider(name: string, val: number): void {
+          var s = container.querySelector('[data-myd-slider="' + name + '"]') as HTMLInputElement;
+          var d = container.querySelector('[data-myd-slider-val="' + name + '"]');
+          if (s) s.value = String(val);
+          if (d) d.textContent = String(val);
+        }
+        addBtn.addEventListener('click', function() {
+          var nameEl = container.querySelector('[data-myd-priority-input]') as HTMLElement;
+          var name = (nameEl ? nameEl.textContent || '' : '').replace(/_/g, '').trim();
+          var impact = getPrioritySliderVal('priority-impact');
+          var urgency = getPrioritySliderVal('priority-urgency');
+          var tasks = loadPriorityTasks();
+          tasks.push({ id: ++_taskIdCounter, name: name || '___', impact: impact, urgency: urgency, score: pScore(impact, urgency), time: '___', done: false });
+          savePriorityTasks(tasks);
+          renderPriorityQueue();
+          if (nameEl) nameEl.textContent = '___';
+          resetPrioritySlider('priority-impact', 3);
+          resetPrioritySlider('priority-urgency', 3);
+        });
+      }
+
+      // Optimize button
+      var optBtn = container.querySelector('[data-myd-priority-optimize]') as HTMLElement;
+      if (optBtn) {
+        optBtn.addEventListener('click', function() {
+          var tasks = loadPriorityTasks();
+          tasks.sort(function(a, b) { return b.score - a.score; });
+          savePriorityTasks(tasks);
+          renderPriorityQueue();
+          var badge = document.getElementById('saved-badge');
+          if (badge) { badge.textContent = '✓ Queue optimized'; badge.classList.add('show');
+            clearTimeout(badge._optTimer); badge._optTimer = setTimeout(function() { badge.classList.remove('show'); }, 2000); }
+        });
+      }
+
+      // Import from Brain Dump
+      var importBtn = container.querySelector('[data-myd-priority-import]') as HTMLElement;
+      if (importBtn) {
+        importBtn.addEventListener('click', function() {
+          var brainDumpArea = container.querySelector('[data-myd-process]');
+          if (!brainDumpArea) {
+            var badge = document.getElementById('saved-badge');
+            if (badge) { badge.textContent = '⚠ Open Brain Dump page first'; badge.classList.add('show');
+              clearTimeout(badge._imTimer); badge._imTimer = setTimeout(function() { badge.classList.remove('show'); }, 2500); }
+            return;
+          }
+          var lines: string[] = [];
+          // Collect all writing line content from Brain Dump page
+          var dumpContainer = container.querySelector('[data-page-id="brain-dump"]');
+          if (dumpContainer) {
+            dumpContainer.querySelectorAll('[contenteditable="true"]').forEach(function(el: HTMLElement) {
+              var t = (el.textContent || '').trim();
+              if (t && t !== '___' && t.length > 1) lines.push(t);
+            });
+          }
+          if (lines.length === 0) {
+            var badge = document.getElementById('saved-badge');
+            if (badge) { badge.textContent = '⚠ No items in Brain Dump'; badge.classList.add('show');
+              clearTimeout(badge._imTimer); badge._imTimer = setTimeout(function() { badge.classList.remove('show'); }, 2500); }
+            return;
+          }
+          var tasks = loadPriorityTasks();
+          for (var k = 0; k < lines.length; k++) {
+            tasks.push({ id: ++_taskIdCounter, name: lines[k], impact: 3, urgency: 3, score: pScore(3, 3), time: '___', done: false });
+          }
+          savePriorityTasks(tasks);
+          renderPriorityQueue();
+          var badge = document.getElementById('saved-badge');
+          if (badge) { badge.textContent = '✓ Imported ' + lines.length + ' tasks'; badge.classList.add('show');
+            clearTimeout(badge._imTimer); badge._imTimer = setTimeout(function() { badge.classList.remove('show'); }, 3000); }
+        });
+      }
+
+      // ── Init ──
+      renderPriorityQueue();
+      var todayData = loadDay(todayStr());
+      restoreToday(todayData);
+      refreshEnergyMood();
+      refreshHabitTracker();
+      updateDashboard();
+
+      // MutationObserver: refresh dashboard when switching to it
+      (function() {
+        var mo = new MutationObserver(function() {
+          var active = container.querySelector('.digital-planner-page.active');
+          if (active && active.getAttribute('data-page-id') === 'dashboard') {
+            updateDashboard();
+          }
+        });
+        mo.observe(container, { subtree: true, attributes: true, attributeFilter: ['class'] });
+      })();
+
+      // Sidebar click fallback
+      container.addEventListener('click', function(e: Event) {
+        var item = (e.target as HTMLElement).closest('[data-page="dashboard"]');
+        if (item) setTimeout(function() { updateDashboard(); }, 50);
+      });
+
+      // Auto-resize dash writing lines
+      container.addEventListener('input', function(e: Event) {
+        var target = e.target as HTMLElement;
+        if (target.matches && target.matches('[data-dash-auto]')) {
+          target.style.height = 'auto';
+          target.style.height = Math.max(target.scrollHeight, 20) + 'px';
+        }
+      });
+    }
+
+    function initApp() {
+      if (container.__dp_mounted) return;
+      container.__dp_mounted = true;
+
+      const dp = new DigitalPlanner(
+        container,
+        {},
+        getTheme('amber'),
+        'Master Your Day',
+        '⚡',
+        {
+          sidebar: true,
+          getPages: function(v: any, t: any, title?: string, icon?: string) {
+            var preview = new MasterYourDayPreview(v, t, title, icon);
+            return preview.getPageList();
+          }
+        }
+      );
+      dp.mount();
+
+      setTimeout(function() {
+        var title = container.querySelector('.digital-planner-sidebar-title');
+        if (title) title.innerHTML = '⚡ Master Your Day';
+        initMasterYourDay(container);
+      }, 0);
+    }
+
+    if (isPurchased()) {
+      gate.classList.remove('show');
+      gate.style.display = 'none';
+      initApp();
+    } else {
+      gate.classList.add('show');
+      initApp();
+      container.classList.add('gated');
+    }
+
+    document.getElementById('unlock-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      try { localStorage.setItem(STORAGE_KEY, 'true'); } catch(e) {}
+      gate.classList.remove('show');
+      gate.style.display = 'none';
+      container.classList.remove('gated');
+      var badge = document.getElementById('saved-badge');
+      if (badge) { badge.textContent = '✓ Unlocked'; badge.classList.add('show');
+        clearTimeout(badge._hide); badge._hide = setTimeout(function() { badge.classList.remove('show'); }, 2000); }
+    });
+
+    var previewActive = false;
+    document.getElementById('preview-btn').addEventListener('click', function() {
+      if (!previewActive) {
+        gate.style.display = 'none';
+        container.classList.remove('gated');
+        previewActive = true;
+        this.textContent = 'Back to purchase';
+      } else {
+        gate.style.display = 'flex';
+        container.classList.add('gated');
+        previewActive = false;
+        this.textContent = 'Show me a preview first';
+      }
+    });
+  })();
+  </script>
+</body>
+</html>

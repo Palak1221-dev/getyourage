@@ -160,7 +160,12 @@ const smtpEnabled = isSmtpConfigured();
         document.getElementById('order-id')!.textContent = paymentId || sessionId || 'Completed';
       }
 
-      try { localStorage.removeItem('tt_cart'); } catch (e) {}
+      try {
+        localStorage.removeItem('tt_cart');
+        if (productSlug) {
+          localStorage.setItem('tt_purchased_' + productSlug, 'true');
+        }
+      } catch (e) {}
     })();
   </script>
 </Layout>

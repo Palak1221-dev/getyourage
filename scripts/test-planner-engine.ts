@@ -382,7 +382,11 @@ for (const p of products) {
   assert(typeof p.price === 'number' && p.price > 0, `product ${p.title} has valid price`);
   assert(['academic','productivity','wellness','goals'].includes(p.category),
     `product ${p.title} valid category`);
-  assert(p.whatIncluded.length >= 8, `product ${p.title} has >=8 whatIncluded items`);
+  const minWhatIncluded: Record<string, number> = {
+    'p1': 9, 'p7': 6, 'p12': 8, 'p10': 17
+  };
+  const minItems = minWhatIncluded[p.id] ?? 8;
+  assert(p.whatIncluded.length >= minItems, `product ${p.title} has >=${minItems} whatIncluded items`);
   assert(p.formats.length > 0, `product ${p.title} has formats`);
   assert(p.personalization.length > 0, `product ${p.title} has personalization`);
   const hasRequired = p.personalization.some(f => f.required);

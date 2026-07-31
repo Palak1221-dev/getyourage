@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wellness Journal — Tooltails</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..800&family=Playfair+Display:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html,body{width:100%;height:100%;overflow:hidden;font-family:'Outfit',Inter,sans-serif;background:#f5f2ed;color:#374151}
+    [data-wj-mood]:not(.active):hover,[data-wj-star]:hover{opacity:0.7!important}
+    [data-wj-trigger]:not([data-wj-selected="true"]):hover,[data-wj-cope]:not([data-wj-selected="true"]):hover,[data-wj-activity]:not([data-wj-selected="true"]):hover,[data-wj-prompt]:hover{border-color:#b5a99a!important;background:#faf7f2!important}
+    [data-wj-habit]:hover{transform:scale(1.08);z-index:2;position:relative}
+    #app-container{width:100%;height:100%;overflow:hidden;transition:filter 0.4s ease}
+    #app-container.gated{filter:blur(10px);pointer-events:none;user-select:none}
+    #purchase-gate{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;background:rgba(30,25,20,0.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+    #purchase-gate.show{display:flex}
+    .gate-card{background:#fffcf5;border-radius:24px;padding:40px 44px;max-width:440px;width:90%;text-align:center;box-shadow:0 32px 64px -16px rgba(0,0,0,0.25);border:1px solid #ede4d8;animation:gateIn 0.4s cubic-bezier(0.16,1,0.3,1)}
+    @keyframes gateIn{from{opacity:0;transform:scale(0.92) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+    .gate-card .app-icon{font-size:40px;margin-bottom:8px}
+    .gate-card h1{font-size:20px;font-weight:800;color:#1F2937;font-family:'Playfair Display',Outfit,serif;margin-bottom:4px}
+    .gate-card .sub{font-size:11px;color:#6B7280;font-weight:500;margin-bottom:16px}
+    .gate-card .desc{font-size:10px;color:#6B7280;line-height:1.6;font-weight:500;margin-bottom:20px}
+    .gate-card .features{display:flex;flex-direction:column;gap:6px;margin-bottom:20px;text-align:left}
+    .gate-card .features span{font-size:10px;color:#4B5563;font-weight:500;display:flex;align-items:center;gap:6px}
+    .gate-card .features span::before{content:'✓';color:#059669;font-weight:800;font-size:11px}
+    .gate-btn{display:inline-flex;align-items:center;gap:6px;padding:12px 28px;border-radius:60px;font-size:12px;font-weight:700;border:none;cursor:pointer;text-decoration:none;transition:all 0.15s}
+    .gate-btn.primary{background:#059669;color:#fff;box-shadow:0 4px 16px rgba(5,150,105,0.25)}
+    .gate-btn.primary:hover{background:#047857;transform:translateY(-1px);box-shadow:0 6px 24px rgba(5,150,105,0.3)}
+    .gate-btn.secondary{background:transparent;color:#6B7280;font-size:10px;font-weight:600;padding:8px 16px}
+    .gate-btn.secondary:hover{color:#374151}
+    .gate-divider{height:1px;background:#ede4d8;margin:16px 0}
+    .gate-footer{font-size:9px;color:#9CA3AF;font-weight:500}
+    .gate-footer a{color:#059669;font-weight:700;text-decoration:none}
+    .gate-footer a:hover{text-decoration:underline}
+    .price-tag{font-size:28px;font-weight:900;color:#1F2937;letter-spacing:-0.02em}
+    .price-tag small{font-size:12px;font-weight:500;color:#6B7280}
+    .saved-badge{position:fixed;bottom:24px;right:24px;z-index:10000;background:#059669;color:#fff;font-size:9px;font-weight:700;padding:6px 14px;border-radius:20px;box-shadow:0 2px 12px rgba(5,150,105,0.25);opacity:0;transition:opacity 0.3s;pointer-events:none}
+    .saved-badge.show{opacity:1}
+    .dp-toolbar .dp-nav-label{color:#6b5f51!important}
+  </style>
+</head>
+<body>
+  <div id="app-container"></div>
+
+  <div id="purchase-gate">
+    <div class="gate-card">
+      <div class="app-icon">🌿</div>
+      <h1>Wellness Journal</h1>
+      <p class="sub">Your Self-Care Companion</p>
+      <p class="desc">A daily wellness system combining habit tracking, mood logging, gratitude journaling, self-care routines, and monthly wellness reviews — all in one live web app.</p>
+      <div class="features">
+        <span>Habit Streak Grid — track 6 habits with monthly streaks</span>
+        <span>Mood &amp; Energy Logger — daily check-ins with trend patterns</span>
+        <span>Morning Intention + Evening Gratitude prompts</span>
+        <span>Self-Care Planner with routines and checklists</span>
+        <span>Monthly Wellness Review with trend analysis</span>
+        <span>Everything saves automatically, nothing to set up</span>
+      </div>
+      <div style="margin-bottom:16px">
+        <span class="price-tag">$8.00 <small>one-time</small></span>
+        <div style="font-size:9px;color:#059669;font-weight:700;margin-top:4px">✓ 30-day money-back guarantee</div>
+      </div>
+      <a href="/digital-store/wellness-journal#customize" class="gate-btn primary">Get Instant Access →</a>
+      <div class="gate-divider"></div>
+      <p class="gate-footer">Already purchased? <a href="#" id="unlock-btn">Click here to unlock</a></p>
+      <div style="margin-top:8px">
+        <button class="gate-btn secondary" id="preview-btn">Show me a preview first</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="saved-badge" id="saved-badge">✓ Saved</div>
+
+  <script>
+  import { DigitalPlanner } from "../../scripts/planner-engine/digital-planner";
+  import { WellnessJournalPreview, getTheme } from "../../scripts/planner-engine/wellness-journal-renderer";
+
+  (function(){
+    const SLUG = 'wellness-journal';
+    const STORAGE_KEY = 'tt_purchased_' + SLUG;
+
+    function isPurchased() {
+      try { return localStorage.getItem(STORAGE_KEY) === 'true'; } catch(e) { return false; }
+    }
+
+    var container = document.getElementById('app-container');
+    var gate = document.getElementById('purchase-gate');
+
+    function initWellnessJournal(container: HTMLElement) {
+      // ── Cover: auto-fill start date ──
+      (function() {
+        var dateEl = container.querySelector('[data-wj-cover="date"]');
+        if (dateEl && (dateEl.textContent || '').trim() === '___') {
+          var d = new Date();
+          var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          dateEl.textContent = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+        }
+      })();
+
+      // ── Page-specific storage ──
+      var PAGE_KEYS: Record<string, string> = {
+        'wj-cover': 'wj-cv-', 'wj-dashboard': 'wj-dash-', 'wj-morning': 'wj-am-',
+        'wj-evening': 'wj-pm-', 'wj-gratitude': 'wj-grat-', 'wj-selfcare': 'wj-sc-',
+        'wj-sleep': 'wj-slp-', 'wj-stress': 'wj-str-', 'wj-review': 'wj-review-',
+        'wj-habits': 'wj-hab-'
+      };
+
+      function todayStr() { var d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+
+      function getDaysAgo(n: number) { var d = new Date(); d.setDate(d.getDate() - n); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+
+      function loadPageData(prefix: string, dateStr?: string): any {
+        try { return JSON.parse(localStorage.getItem(prefix + (dateStr || todayStr())) || 'null'); } catch(e) { return null; }
+      }
+      function savePageData(prefix: string, data: any, dateStr?: string) {
+        try { localStorage.setItem(prefix + (dateStr || todayStr()), JSON.stringify(data)); } catch(e) {}
+      }
+
+      function getSelectedMood(pageEl: HTMLElement, group: string): number | undefined {
+        var els = pageEl.querySelectorAll('[data-wj-mood="' + group + '"]');
+        var selected: HTMLElement | null = null;
+        els.forEach(function(el) {
+          var h = el as HTMLElement;
+          var o = parseFloat(h.style.opacity);
+          if (isNaN(o)) o = 0;
+          if (o >= 0.9) selected = h;
+        });
+        return selected ? parseInt(selected.getAttribute('data-val') || '2', 10) : undefined;
+      }
+
+      function getSelectedStarValue(pageEl: HTMLElement): number {
+        var els = pageEl.querySelectorAll('[data-wj-star]');
+        var val = 0;
+        els.forEach(function(el) {
+          var h = el as HTMLElement;
+          var o = parseFloat(h.style.opacity);
+          if (isNaN(o)) o = 0;
+          if (o >= 0.9) {
+            var v = parseInt(h.getAttribute('data-wj-star') || '0', 10);
+            if (v > val) val = v;
+          }
+        });
+        return val;
+      }
+
+      function getSelectedChips(pageEl: HTMLElement, attr: string): string[] {
+        var result: string[] = [];
+        pageEl.querySelectorAll('[data-' + attr + ']').forEach(function(el) {
+          if (el.getAttribute('data-wj-selected') === 'true') result.push(el.getAttribute('data-' + attr) || '');
+        });
+        return result;
+      }
+
+      function restoreSliderFill(el: HTMLInputElement) {
+        var min = parseInt(el.min, 10) || 1;
+        var max = parseInt(el.max, 10) || 10;
+        var pct = Math.round((parseInt(el.value, 10) - min) / (max - min) * 100);
+        el.style.setProperty('--fill', pct + '%');
+      }
+
+      function saveCurrentPage(pageId: string) {
+        if (!pageId) return;
+        var prefix = PAGE_KEYS[pageId];
+        if (!prefix) return;
+        var pageEl = container.querySelector('[data-page-id="' + pageId + '"]') as HTMLElement;
+        if (!pageEl) return;
+        var data: any = {};
+        // Morning Check-in
+        if (pageId === 'wj-morning') {
+          var amEn = pageEl.querySelector('[data-wj-slider="am-energy"]') as HTMLInputElement;
+          if (amEn) data.amEnergy = parseInt(amEn.value, 10);
+          var amMood = getSelectedMood(pageEl, 'am-mood');
+          if (amMood !== undefined) data.amMood = amMood;
+          var lines = pageEl.querySelectorAll('[contenteditable="true"]');
+          if (lines[0]) data.intention = (lines[0] as HTMLElement).textContent || '';
+          if (lines[1]) data.priorityWellbeing = (lines[1] as HTMLElement).textContent || '';
+          if (lines[2]) data.affirmation = (lines[2] as HTMLElement).textContent || '';
+          if (lines[3]) data.word = (lines[3] as HTMLElement).textContent || '';
+          if (lines[4]) data.hydration = (lines[4] as HTMLElement).textContent || '';
+          if (lines[5]) data.movement = (lines[5] as HTMLElement).textContent || '';
+        }
+        // Evening Reflection
+        if (pageId === 'wj-evening') {
+          var dr = getSelectedStarValue(pageEl);
+          if (dr > 0) data.dayRating = dr;
+          var pmMood = getSelectedMood(pageEl, 'pm-mood');
+          if (pmMood !== undefined) data.pmMood = pmMood;
+          var lines = pageEl.querySelectorAll('[contenteditable="true"]');
+          for (var ei = 0; ei < lines.length; ei++) { data['line' + ei] = (lines[ei] as HTMLElement).textContent || ''; }
+        }
+        // Cover
+        if (pageId === 'wj-cover') {
+          var lines = pageEl.querySelectorAll('[contenteditable="true"]');
+          for (var ci = 0; ci < lines.length; ci++) { data['line' + ci] = (lines[ci] as HTMLElement).textContent || ''; }
+        }
+        // Dashboard — only saves the daily intention
+        if (pageId === 'wj-dashboard') {
+          var intentEl = pageEl.querySelector('[data-wj-intent]') as HTMLElement;
+          if (intentEl) data.intention = (intentEl.textContent || '').replace(/___/g, '').trim();
+          data.timestamp = new Date().toISOString();
+        }
+        // Gratitude
+        if (pageId === 'wj-gratitude') {
+          var lines = pageEl.querySelectorAll('[contenteditable="true"]');
+          for (var gi = 0; gi < lines.length; gi++) { data['line' + gi] = (lines[gi] as HTMLElement).textContent || ''; }
+        }
+        // Self-Care
+        if (pageId === 'wj-selfcare') {
+          var lines = pageEl.querySelectorAll('[contenteditable="true"]');
+          for (var si = 0; si < lines.length; si++) { data['line' + si] = (lines[si] as HTMLElement).textContent || ''; }
+        }
+        // Sleep Wellness
+        if (pageId === 'wj-sleep') {
+          var sq = pageEl.querySelector('[data-wj-slider="sleep-quality"]') as HTMLInputElement;
+          if (sq) data.sleepQuality = parseInt(sq.value, 10);
+          var lines = pageEl.querySelectorAll('[contenteditable="true"]');
+          for (var sli = 0; sli < lines.length; sli++) { data['line' + sli] = (lines[sli] as HTMLElement).textContent || ''; }
+        }
+        // Stress & Mood
+        if (pageId === 'wj-stress') {
+          var sl = pageEl.querySelector('[data-wj-slider="stress-level"]') as HTMLInputElement;
+          if (sl) data.stressLevel = parseInt(sl.value, 10);
+          var sm = getSelectedMood(pageEl, 'stress-mood');
+          if (sm !== undefined) data.stressMood = sm;
+          var triggers = getSelectedChips(pageEl, 'wj-trigger');
+          if (triggers.length > 0) data.triggers = triggers;
+          var coping = getSelectedChips(pageEl, 'wj-cope');
+          if (coping.length > 0) data.coping = coping;
+          var lines = pageEl.querySelectorAll('[contenteditable="true"]');
+          if (lines[0]) data.lifted = (lines[0] as HTMLElement).textContent || '';
+        }
+        // Monthly Review
+        if (pageId === 'wj-review') {
+          var lines = pageEl.querySelectorAll('[contenteditable="true"]');
+          for (var ri = 0; ri < lines.length; ri++) { data['line' + ri] = (lines[ri] as HTMLElement).textContent || ''; }
+        }
+        // Habit Tracker — only the focus habit writing line (grid data uses separate wj-habits key)
+        if (pageId === 'wj-habits') {
+          var lines = pageEl.querySelectorAll('[contenteditable="true"]');
+          for (var hi = 0; hi < lines.length; hi++) { data['line' + hi] = (lines[hi] as HTMLElement).textContent || ''; }
+        }
+        savePageData(prefix, data);
+      }
+
+      function restoreContenteditableLines(pageEl: HTMLElement, data: any, keys: string[]) {
+        var lines = pageEl.querySelectorAll('[contenteditable="true"]') as NodeListOf<HTMLElement>;
+        for (var cli = 0; cli < lines.length && cli < keys.length; cli++) {
+          var val = data[keys[cli]];
+          if (val && lines[cli]) lines[cli].textContent = val;
+        }
+      }
+
+      function restoreCurrentPage(pageId: string) {
+        var prefix = PAGE_KEYS[pageId];
+        if (!prefix) return;
+        var data = loadPageData(prefix);
+        if (!data) return;
+        var pageEl = container.querySelector('[data-page-id="' + pageId + '"]') as HTMLElement;
+        if (!pageEl) return;
+        // Morning Check-in
+        if (pageId === 'wj-morning') {
+          var amEn = pageEl.querySelector('[data-wj-slider="am-energy"]') as HTMLInputElement;
+          if (amEn && data.amEnergy !== undefined) { amEn.value = String(data.amEnergy); restoreSliderFill(amEn);
+            var v = pageEl.querySelector('[data-wj-slider-val="am-energy"]');
+            if (v) v.textContent = String(data.amEnergy); }
+          if (data.amMood !== undefined) {
+            var am = pageEl.querySelector('[data-wj-mood="am-mood"][data-val="' + data.amMood + '"]') as HTMLElement;
+            if (am) { pageEl.querySelectorAll('[data-wj-mood="am-mood"]').forEach(function(el) { var h = el as HTMLElement; h.style.opacity = '0.35'; h.classList.remove('active'); }); am.style.opacity = '1'; am.classList.add('active'); }
+          }
+          restoreContenteditableLines(pageEl, data, ['intention','priorityWellbeing','affirmation','word','hydration','movement']);
+        }
+        // Evening Reflection
+        if (pageId === 'wj-evening') {
+          if (data.pmMood !== undefined) {
+            var pm = pageEl.querySelector('[data-wj-mood="pm-mood"][data-val="' + data.pmMood + '"]') as HTMLElement;
+            if (pm) { pageEl.querySelectorAll('[data-wj-mood="pm-mood"]').forEach(function(el) { var h = el as HTMLElement; h.style.opacity = '0.35'; h.classList.remove('active'); }); pm.style.opacity = '1'; pm.classList.add('active'); }
+          }
+          if (data.dayRating !== undefined && data.dayRating > 0) {
+            pageEl.querySelectorAll('[data-wj-star]').forEach(function(el) {
+              var val = parseInt(el.getAttribute('data-wj-star') || '0', 10);
+              (el as HTMLElement).style.opacity = val <= data.dayRating ? '1' : '0.3';
+            });
+          }
+          restoreContenteditableLines(pageEl, data, ['line0','line1','line2','line3','line4','line5','line6','line7','line8','line9']);
+        }
+        // Dashboard — only restores the daily intention
+        if (pageId === 'wj-dashboard') {
+          var intentEl = pageEl.querySelector('[data-wj-intent]') as HTMLElement;
+          if (intentEl && data.intention) {
+            intentEl.textContent = data.intention;
+            var indicator = pageEl.querySelector('[data-wj-saved-indicator]') as HTMLElement;
+            if (indicator) indicator.style.display = 'inline';
+          }
+        }
+        // Gratitude Journal
+        if (pageId === 'wj-gratitude') {
+          restoreContenteditableLines(pageEl, data, ['line0','line1','line2','line3','line4']);
+        }
+        // Self-Care Planner
+        if (pageId === 'wj-selfcare') {
+          restoreContenteditableLines(pageEl, data, ['line0','line1','line2','line3','line4','line5','line6']);
+        }
+        // Sleep Wellness
+        if (pageId === 'wj-sleep') {
+          var sq = pageEl.querySelector('[data-wj-slider="sleep-quality"]') as HTMLInputElement;
+          if (sq && data.sleepQuality !== undefined) { sq.value = String(data.sleepQuality); restoreSliderFill(sq);
+            var sqv = pageEl.querySelector('[data-wj-slider-val="sleep-quality"]');
+            if (sqv) sqv.textContent = String(data.sleepQuality); }
+          restoreContenteditableLines(pageEl, data, ['line0','line1','line2','line3','line4']);
+        }
+        // Stress & Mood
+        if (pageId === 'wj-stress') {
+          var sl = pageEl.querySelector('[data-wj-slider="stress-level"]') as HTMLInputElement;
+          if (sl && data.stressLevel !== undefined) { sl.value = String(data.stressLevel); restoreSliderFill(sl);
+            var slv = pageEl.querySelector('[data-wj-slider-val="stress-level"]');
+            if (slv) slv.textContent = String(data.stressLevel); }
+          if (data.stressMood !== undefined) {
+            var sm = pageEl.querySelector('[data-wj-mood="stress-mood"][data-val="' + data.stressMood + '"]') as HTMLElement;
+            if (sm) { pageEl.querySelectorAll('[data-wj-mood="stress-mood"]').forEach(function(el) { var h = el as HTMLElement; h.style.opacity = '0.35'; h.classList.remove('active'); }); sm.style.opacity = '1'; sm.classList.add('active'); }
+          }
+          if (data.triggers) {
+            pageEl.querySelectorAll('[data-wj-trigger]').forEach(function(el) {
+              if (data.triggers.indexOf(el.getAttribute('data-wj-trigger') || '') >= 0) {
+                el.setAttribute('data-wj-selected', 'true'); (el as HTMLElement).style.background = '#ecfdf5';
+                (el as HTMLElement).style.borderColor = '#059669'; (el as HTMLElement).style.color = '#059669';
+              }
+            });
+          }
+          if (data.coping) {
+            pageEl.querySelectorAll('[data-wj-cope]').forEach(function(el) {
+              if (data.coping.indexOf(el.getAttribute('data-wj-cope') || '') >= 0) {
+                el.setAttribute('data-wj-selected', 'true'); (el as HTMLElement).style.background = '#ecfdf5';
+                (el as HTMLElement).style.borderColor = '#059669'; (el as HTMLElement).style.color = '#059669';
+              }
+            });
+          }
+          if (data.lifted) {
+            var liftedEl = pageEl.querySelector('[contenteditable="true"]') as HTMLElement;
+            if (liftedEl) liftedEl.textContent = data.lifted;
+          }
+        }
+        // Monthly Review
+        if (pageId === 'wj-review') {
+          restoreContenteditableLines(pageEl, data, ['line0','line1','line2','line3','line4']);
+        }
+        // Habit Tracker — focus habit writing line
+        if (pageId === 'wj-habits') {
+          restoreContenteditableLines(pageEl, data, ['line0']);
+        }
+        // Cover
+        if (pageId === 'wj-cover') {
+          restoreContenteditableLines(pageEl, data, ['line0','line1','line2','line3']);
+        }
+      }
+
+      // ── Habit Data (Per-Habit 28-Day Tracking) ──
+      var HABITS_KEY = 'wj-habits';
+      var HABIT_NAMES = ['Exercise', 'Meditate', 'Read', 'Journal', 'Hydrate', 'Sleep Well'];
+
+      function createDefaultHabits(): any {
+        var habits: any = {};
+        HABIT_NAMES.forEach(function(name) { habits[name] = { days: new Array(28).fill(false) }; });
+        return { habits: habits };
+      }
+
+      function loadHabits(): any {
+        try {
+          var raw = localStorage.getItem(HABITS_KEY);
+          if (raw) {
+            var parsed = JSON.parse(raw);
+            // Migration from old format (single days array)
+            if (parsed.days && !parsed.habits) {
+              var oldDays = parsed.days || [];
+              while (oldDays.length < 28) oldDays.push(false);
+              if (oldDays.length > 28) oldDays = oldDays.slice(-28);
+              var habits: any = {};
+              HABIT_NAMES.forEach(function(name) { habits[name] = { days: oldDays.slice() }; });
+              parsed.habits = habits;
+              delete parsed.days;
+              delete parsed.bestStreak;
+              try { localStorage.setItem(HABITS_KEY, JSON.stringify(parsed)); } catch(e) {}
+            }
+            // Ensure all habit keys exist
+            if (parsed.habits) {
+              HABIT_NAMES.forEach(function(name) {
+                if (!parsed.habits[name]) parsed.habits[name] = { days: new Array(28).fill(false) };
+                var d = parsed.habits[name].days || [];
+                while (d.length < 28) d.push(false);
+                if (d.length > 28) d = d.slice(-28);
+                parsed.habits[name].days = d;
+              });
+            }
+            return parsed;
+          }
+        } catch(e) {}
+        return createDefaultHabits();
+      }
+
+      function saveHabits(h: any) {
+        try { localStorage.setItem(HABITS_KEY, JSON.stringify({ habits: h.habits })); } catch(e) {}
+      }
+
+      function calcStreak(days: boolean[]) {
+        var s = 0;
+        for (var i = days.length - 1; i >= 0; i--) { if (days[i]) s++; else break; }
+        return s;
+      }
+
+      // ── UI Update Functions ──
+
+      var DAILY_PROMPTS = [
+        'What would make today feel meaningful?',
+        'What do I need most right now?',
+        'One thing I will protect my energy for today.',
+        'What intention will guide my decisions today?',
+        'How can I approach today with curiosity?',
+        'What matters most about today?',
+        'What kind of presence do I want to bring today?',
+        'One small thing I can do for myself today.',
+        'What am I looking forward to today?',
+        'How can I be a friend to myself today?',
+        'What would make today a good day, no matter what happens?',
+        'What deserves my attention today?',
+        'What can I let go of today?',
+        'What would I do today if I were being kind to myself?',
+        'What truth do I need to remember today?',
+        'What boundary will I honor today?',
+        'What would feel like progress today?',
+        'How do I want to feel at the end of today?',
+        'What question is on my mind today?',
+        'What would I tell someone I love about today?'
+      ];
+
+      function getTodayPrompt(): string {
+        var now = new Date();
+        var start = new Date(now.getFullYear(), 0, 0);
+        var dayOfYear = Math.floor((now.getTime() - start.getTime()) / 86400000);
+        return DAILY_PROMPTS[dayOfYear % DAILY_PROMPTS.length];
+      }
+
+      function getGreeting(): string {
+        var h = new Date().getHours();
+        if (h < 12) return 'Good morning.';
+        if (h < 17) return 'Good afternoon.';
+        return 'Good evening.';
+      }
+
+      function getDateStr(): string {
+        var d = new Date();
+        var weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        return weekdays[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate();
+      }
+
+      function updateDashboard() {
+        var pageEl = container.querySelector('[data-page-id="wj-dashboard"]') as HTMLElement;
+        if (!pageEl) return;
+
+        // Greeting & date
+        var greetingEl = pageEl.querySelector('[data-wj-greeting]') as HTMLElement;
+        if (greetingEl) greetingEl.textContent = getGreeting();
+        var dateEl = pageEl.querySelector('[data-wj-date]') as HTMLElement;
+        if (dateEl) dateEl.textContent = getDateStr();
+
+        // Daily prompt
+        var promptEl = pageEl.querySelector('[data-wj-prompt-text]') as HTMLElement;
+        if (promptEl) promptEl.textContent = getTodayPrompt();
+
+        // Check if today's intention is saved
+        var todayData = loadPageData('wj-dash-') || {};
+        var hasIntention = !!(todayData.intention);
+        var indicator = pageEl.querySelector('[data-wj-saved-indicator]') as HTMLElement;
+        if (indicator) indicator.style.display = hasIntention ? 'inline' : 'none';
+
+        var statusEl = pageEl.querySelector('[data-wj-status-message]') as HTMLElement;
+        if (statusEl) {
+          statusEl.textContent = hasIntention
+            ? 'You have set your intention for today.'
+            : 'Set your intention to begin.';
+        }
+
+        // Navigation hints (show when checked in)
+        var goMorning = pageEl.querySelector('[data-wj-go-morning]') as HTMLElement;
+        var goEvening = pageEl.querySelector('[data-wj-go-evening]') as HTMLElement;
+        if (goMorning) goMorning.style.display = hasIntention ? 'inline' : 'none';
+        if (goEvening) goEvening.style.display = hasIntention ? 'inline' : 'none';
+      }
+
+      function updateHabitTracker() {
+        var hData = loadHabits();
+        var todayIdx = 27;
+
+        container.querySelectorAll('[data-wj-habit]').forEach(function(cell: Element) {
+          var hc = cell as HTMLElement;
+          var hi = parseInt(cell.getAttribute('data-wj-habit') || '0', 10);
+          var di = parseInt(cell.getAttribute('data-wj-day') || '0', 10);
+          var hName = HABIT_NAMES[hi];
+          var isDone = hData.habits[hName] && hData.habits[hName].days[di];
+          var isToday = di === todayIdx;
+          if (isToday) {
+            hc.style.borderColor = '#fde68a';
+            hc.style.background = isDone ? '#059669' : '#fef9c3';
+          } else {
+            hc.style.background = isDone ? '#059669' : '#f5f0ea';
+            hc.style.borderColor = isDone ? '#059669' : '#ede4d8';
+          }
+        });
+
+        for (var hj = 0; hj < HABIT_NAMES.length; hj++) {
+          var indEl = container.querySelector('[data-wj-habit-indicator="' + hj + '"]') as HTMLElement;
+          if (indEl) {
+            if (hData.habits[HABIT_NAMES[hj]].days[todayIdx]) {
+              indEl.textContent = '\u25CF';
+              indEl.style.color = '#059669';
+            } else {
+              indEl.textContent = '\u25CB';
+              indEl.style.color = '#d4c9bc';
+            }
+          }
+        }
+
+        var doneCount = 0;
+        for (var hk = 0; hk < HABIT_NAMES.length; hk++) {
+          if (hData.habits[HABIT_NAMES[hk]].days[todayIdx]) doneCount++;
+        }
+        var barEl = container.querySelector('[data-wj-today-bar]') as HTMLElement;
+        if (barEl) barEl.style.width = Math.round(doneCount / 6 * 100) + '%';
+        var textEl = container.querySelector('[data-wj-today-text]') as HTMLElement;
+        if (textEl) textEl.textContent = 'You\'ve done ' + doneCount + ' of 6 habits today';
+      }
+
+      function updatePage(pageId: string) {
+        if (pageId === 'wj-dashboard') updateDashboard();
+        else if (pageId === 'wj-habits') updateHabitTracker();
+      }
+
+      // ── Event Handlers ──
+
+      function handlePageInput(target: HTMLElement) {
+        var pageEl = target.closest('[data-page-id]') as HTMLElement;
+        var pageId = pageEl ? pageEl.getAttribute('data-page-id') : '';
+        if (pageId) {
+          saveCurrentPage(pageId);
+          updatePage(pageId);
+        }
+      }
+
+      // Range slider input
+      container.addEventListener('input', function(e: Event) {
+        var target = e.target as HTMLInputElement;
+        if (!target.matches) return;
+        if (target.matches('input[type="range"][data-wj-slider]')) {
+          var name = target.getAttribute('data-wj-slider');
+          var valEl = container.querySelector('[data-wj-slider-val="' + name + '"]') as HTMLElement;
+          if (valEl) valEl.textContent = target.value;
+          var min = parseInt(target.min, 10) || 1;
+          var max = parseInt(target.max, 10) || 10;
+          var pct = Math.round((parseInt(target.value, 10) - min) / (max - min) * 100);
+          target.style.setProperty('--fill', pct + '%');
+          handlePageInput(target);
+        }
+      });
+
+      // Click handlers
+      container.addEventListener('click', function(e: Event) {
+        var target = e.target as HTMLElement;
+        if (!target.matches) return;
+
+        // Mood selector
+        if (target.matches('[data-wj-mood]')) {
+          var group = target.getAttribute('data-wj-mood');
+          var pageEl = target.closest('[data-page-id]') as HTMLElement;
+          pageEl.querySelectorAll('[data-wj-mood="' + group + '"]').forEach(function(el) {
+            var h = el as HTMLElement;
+            h.style.opacity = '0.35';
+            h.classList.remove('active');
+          });
+          target.style.opacity = '1';
+          target.classList.add('active');
+          handlePageInput(target);
+          return;
+        }
+
+        // Day rating stars
+        if (target.matches('[data-wj-star]')) {
+          var val = parseInt(target.getAttribute('data-wj-star') || '0', 10);
+          var parent = target.parentElement;
+          if (parent) {
+            parent.querySelectorAll('[data-wj-star]').forEach(function(el) {
+              var elVal = parseInt(el.getAttribute('data-wj-star') || '0', 10);
+              (el as HTMLElement).style.opacity = elVal <= val ? '1' : '0.3';
+            });
+          }
+          handlePageInput(target);
+          return;
+        }
+
+        // Habit grid cell toggle (per-habit) — saves to independent wj-habits key
+        if (target.matches('[data-wj-habit]')) {
+          var hi = parseInt(target.getAttribute('data-wj-habit') || '0', 10);
+          var di = parseInt(target.getAttribute('data-wj-day') || '27', 10);
+          var hj = loadHabits();
+          var hName = HABIT_NAMES[hi];
+          hj.habits[hName].days[di] = !hj.habits[hName].days[di];
+          saveHabits(hj);
+          updateDashboard();
+          updateHabitTracker();
+          return;
+        }
+
+        // Trigger chips (toggle select)
+        if (target.matches('[data-wj-trigger]')) {
+          var isSelected = target.getAttribute('data-wj-selected') === 'true';
+          if (isSelected) {
+            target.removeAttribute('data-wj-selected');
+            target.style.background = 'transparent';
+            target.style.borderColor = '#d4c9bc';
+            target.style.color = '#6B7280';
+          } else {
+            target.setAttribute('data-wj-selected', 'true');
+            target.style.background = '#ecfdf5';
+            target.style.borderColor = '#059669';
+            target.style.color = '#059669';
+          }
+          handlePageInput(target);
+          return;
+        }
+
+        // Coping strategy chips (toggle select)
+        if (target.matches('[data-wj-cope]')) {
+          var isSelected = target.getAttribute('data-wj-selected') === 'true';
+          if (isSelected) {
+            target.removeAttribute('data-wj-selected');
+            target.style.background = 'transparent';
+            target.style.borderColor = '#d4c9bc';
+            target.style.color = '#6B7280';
+          } else {
+            target.setAttribute('data-wj-selected', 'true');
+            target.style.background = '#ecfdf5';
+            target.style.borderColor = '#059669';
+            target.style.color = '#059669';
+          }
+          handlePageInput(target);
+          return;
+        }
+
+        // Auto-resize writing lines on input
+        if (target.matches('[data-wj-auto]')) {
+          target.style.height = 'auto';
+          target.style.height = Math.max(target.scrollHeight, 20) + 'px';
+          return;
+        }
+
+        // Gratitude prompt chips → insert into first empty writing line in current page
+        if (target.matches('[data-wj-prompt]')) {
+          var promptText = target.getAttribute('data-wj-prompt') || '';
+          var currentPage = target.closest('[data-page-id]') as HTMLElement;
+          if (currentPage) {
+            var lines = currentPage.querySelectorAll('[contenteditable="true"]');
+            for (var k = 0; k < lines.length; k++) {
+              var line = lines[k] as HTMLElement;
+              var text = (line.textContent || '').trim();
+              if (!text || text === '___') {
+                line.textContent = promptText + '...';
+                setTimeout(function() { line.blur(); }, 0);
+                break;
+              }
+            }
+          }
+          return;
+        }
+
+        // Self-care activity chips (toggle selected)
+        if (target.matches('[data-wj-activity]')) {
+          var isSelected = target.getAttribute('data-wj-selected') === 'true';
+          if (isSelected) {
+            target.removeAttribute('data-wj-selected');
+            target.style.background = 'transparent';
+            target.style.borderColor = '#d4c9bc';
+            target.style.color = '#6B7280';
+          } else {
+            target.setAttribute('data-wj-selected', 'true');
+            target.style.background = '#ecfdf5';
+            target.style.borderColor = '#059669';
+            target.style.color = '#059669';
+          }
+          return;
+        }
+      });
+
+      // Auto-save on contenteditable blur — saves only the current page
+      container.addEventListener('blur', function(e: Event) {
+        var target = e.target as HTMLElement;
+        if (!target.matches) return;
+        if (target.matches('[contenteditable="true"]')) {
+          var pageEl = target.closest('[data-page-id]') as HTMLElement;
+          var pageId = pageEl ? pageEl.getAttribute('data-page-id') : '';
+          if (pageId) {
+            clearTimeout((container as any)._wjSaveTimer);
+            (container as any)._wjSaveTimer = setTimeout(function() {
+              saveCurrentPage(pageId || '');
+              updatePage(pageId || '');
+            }, 300);
+          }
+        }
+      }, true);
+
+      // Keyboard enter in contenteditable triggers blur
+      container.addEventListener('keydown', function(e: Event) {
+        var ke = e as KeyboardEvent;
+        if (ke.key === 'Enter') {
+          var target = e.target as HTMLElement;
+          if (target.matches && target.matches('[contenteditable="true"]')) {
+            setTimeout(function() { target.blur(); }, 0);
+          }
+        }
+      });
+
+      // ── Init — restore all pages independently ──
+      var allInteractivePages = ['wj-cover', 'wj-morning', 'wj-evening', 'wj-dashboard', 'wj-gratitude', 'wj-selfcare', 'wj-sleep', 'wj-stress', 'wj-review', 'wj-habits'];
+      for (var pi = 0; pi < allInteractivePages.length; pi++) {
+        restoreCurrentPage(allInteractivePages[pi]);
+      }
+      updateDashboard();
+
+      // Navigate to a page by clicking its sidebar item
+      function navigateToPage(pageId: string) {
+        var sidebarItem = container.querySelector('[data-page="' + pageId + '"]') as HTMLElement;
+        if (sidebarItem) sidebarItem.click();
+      }
+
+      // Update when navigating to a page
+      container.addEventListener('click', function(e: Event) {
+        var item = (e.target as HTMLElement).closest('[data-page-id="wj-dashboard"]') || 
+                   (e.target as HTMLElement).closest('[data-page-id="wj-review"]') ||
+                   (e.target as HTMLElement).closest('[data-page-id="wj-habits"]');
+        if (item) {
+          setTimeout(function() {
+            var pageId = item.getAttribute('data-page-id') || '';
+            if (pageId === 'wj-dashboard') updateDashboard();
+            else if (pageId === 'wj-habits') updateHabitTracker();
+          }, 50);
+        }
+        // Nav hint clicks → navigate to page
+        var navTarget: HTMLElement | null = null;
+        if ((e.target as HTMLElement).matches('[data-wj-go-morning]')) navTarget = e.target as HTMLElement;
+        else if ((e.target as HTMLElement).matches('[data-wj-go-evening]')) navTarget = e.target as HTMLElement;
+        if (navTarget) {
+          var pid = navTarget.getAttribute('data-wj-go-morning') ? 'wj-morning' : 'wj-evening';
+          navigateToPage(pid);
+        }
+      });
+    }
+
+    function initApp() {
+      if (container.__dp_mounted) return;
+      container.__dp_mounted = true;
+
+      const dp = new DigitalPlanner(
+        container,
+        {},
+        getTheme('emerald'),
+        'Wellness Journal',
+        '🌿',
+        {
+          sidebar: true,
+          getPages: function(v: any, t: any, title?: string, icon?: string) {
+            var preview = new WellnessJournalPreview(v, t, title, icon);
+            return preview.getPageList();
+          }
+        }
+      );
+      dp.mount();
+
+      setTimeout(function() {
+        var title = container.querySelector('.digital-planner-sidebar-title');
+        if (title) title.innerHTML = '🌿 Wellness Journal';
+        initWellnessJournal(container);
+      }, 0);
+    }
+
+    if (isPurchased()) {
+      gate.classList.remove('show');
+      gate.style.display = 'none';
+      initApp();
+    } else {
+      gate.classList.add('show');
+      initApp();
+      container.classList.add('gated');
+    }
+
+    document.getElementById('unlock-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      try { localStorage.setItem(STORAGE_KEY, 'true'); } catch(e) {}
+      gate.classList.remove('show');
+      gate.style.display = 'none';
+      container.classList.remove('gated');
+      var badge = document.getElementById('saved-badge');
+      if (badge) { badge.textContent = '✓ Unlocked'; badge.classList.add('show');
+        clearTimeout(badge._hide); badge._hide = setTimeout(function() { badge.classList.remove('show'); }, 2000); }
+    });
+
+    var previewActive = false;
+    document.getElementById('preview-btn').addEventListener('click', function() {
+      if (!previewActive) {
+        gate.style.display = 'none';
+        container.classList.remove('gated');
+        previewActive = true;
+        this.textContent = 'Back to purchase';
+      } else {
+        gate.style.display = 'flex';
+        container.classList.add('gated');
+        previewActive = false;
+        this.textContent = 'Show me a preview first';
+      }
+    });
+  })();
+  </script>
+</body>
+</html>

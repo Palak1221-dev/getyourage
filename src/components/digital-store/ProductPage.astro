@@ -1,6 +1,5 @@
 ---
 import type { Product } from "../../data/products";
-import PlannerPreviewStack from './PlannerPreviewStack.astro';
 
 interface Props {
   product: Product;
@@ -10,15 +9,51 @@ interface Props {
   heroTagline?: string;
   storyTitle?: string;
   storyText?: string;
+  storyText2?: string;
+  whoFor?: string;
+  webAppSlug?: string;
 }
 
-const { product, features, faqs, heroTagline, storyTitle, storyText, mockupIndex = 0 } = Astro.props;
+const { product, features, faqs, heroTagline, storyTitle, storyText, storyText2, whoFor, mockupIndex = 0, webAppSlug } = Astro.props;
+
+const webAppHref = webAppSlug ? `/app/${webAppSlug}` : '';
 
 const sections = [...new Set(product.personalization.map(f => f.section))];
 const sortedFields = [...product.personalization].sort((a, b) => (a.required === b.required ? 0 : a.required ? -1 : 1));
 const suffix = product.id;
 const storyHeading = storyTitle || `Thoughtfully designed for the way you work.`;
 const storyDesc = storyText || product.longDescription.split('. ').slice(0, 2).join('. ') + '.';
+
+const sectionHelpers: Record<string, string> = {
+  'Personal Info': 'Tell us about yourself.',
+  'Goal Setup': 'What matters most to you right now.',
+  'Wellness Setup': 'What does well-being mean to you right now.',
+  'Habit Setup': 'Choose the habits that matter most.',
+  'Detox Setup': 'Define what freedom looks like.',
+  'Usage': 'Which app pulls at your attention the most.',
+};
+
+const fieldPageMapping: Record<string, Record<string, string>> = {
+  'study-planner-pro': {
+    name: 'Cover Page · Dashboard · Weekly Spread',
+    term: 'Cover Page · Semester Overview',
+    goal: 'Cover Page · Goal Setting',
+  },
+  'master-your-day': {
+    name: 'Cover Page · Dashboard',
+    goal: 'Cover Page · Goal Breakdown',
+  },
+  'wellness-journal': {
+    name: 'Cover Page · Dashboard',
+    wellnessFocus: 'Cover Page · Weekly Check-in',
+    habits: 'Habit Grid · Dashboard',
+  },
+  'social-media-detox': {
+    name: 'Cover Page · Dashboard',
+    detoxGoal: 'Cover Page · Digital Audit',
+    topApp: 'Cover Page · Usage Log',
+  },
+};
 
 const catLabelMap: Record<string, { label: string; icon: string }> = {
   academic: { label: 'Academic System', icon: '📖' },
@@ -36,10 +71,10 @@ const categoryPreviewCards: Record<string, { icon: string; title: string; desc: 
     { icon: '📍', title: 'Exam Countdown Dashboard', desc: 'Persistent countdown wall with weak-topic matrix for focused preparation.' }
   ],
   productivity: [
-    { icon: '⚡', title: 'Personalized Productivity Cover', desc: 'Custom compiled around your name, peak focus hours, and weekly priorities.' },
-    { icon: '⏰', title: 'Hourly Time-Blocking Grid', desc: 'Color-coded 6 AM — 11 PM slots aligned with your circadian energy peaks.' },
-    { icon: '🎯', title: 'Eisenhower Priority Matrix', desc: 'Filter daily tasks into Must-Do, Delegate, Schedule, and Eliminate.' },
-    { icon: '📈', title: 'Deep Work Session Tracker', desc: 'Log focus sessions, track output velocity, and review weekly wins.' }
+    { icon: '🔄', title: 'Weekly Reset Ritual', desc: 'A guided 7-step Sunday ritual to celebrate wins, learn from challenges, and set up a focused week.' },
+    { icon: '📅', title: 'Weekly Planner Spread', desc: 'Day-by-day view of priorities, events, and tasks — the dashboard you\'ll check every day.' },
+    { icon: '⚡', title: 'Daily Command Center', desc: 'Your Big 3 priorities, hourly schedule, and evening check-in in one compact page.' },
+    { icon: '🧠', title: 'Priority Engine', desc: 'Smart task triage scoring by impact, urgency, and energy fit — never wonder what to work on.' }
   ],
   wellness: [
     { icon: '🌿', title: 'Personalized Wellness Cover', desc: 'Your name, habit targets, and daily intention set in a calming design.' },
@@ -61,174 +96,253 @@ const renderStars = (n: number) =>
   Array.from({ length: 5 }, (_, i) =>
     i < Math.round(n) ? '★' : '☆'
   ).join('');
+
+const renderFaqAnswer = (answer: string) =>
+  answer.replace(
+    /(\/app\/[a-z0-9-]+)/g,
+    '<a href="$1" class="font-semibold text-[#2563eb] hover:underline">$1</a>'
+  );
 ---
 <div class="digital-store-root text-stone-900 bg-[#FCFAF7] min-h-screen">
-<section class="bg-gradient-to-b from-[#FCFBF8] via-[#FAF9F5] to-[#F5F3EF] border-b border-[#EAE6E0] pb-14 pt-2">
+<section class="bg-gradient-to-b from-[#FCFBF8] via-[#FAF9F5] to-[#F5F3EF] border-b border-[#EDE4D8] pb-16 pt-2">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 text-xs font-semibold text-stone-500 py-6 border-b border-stone-200/60 mb-8">
-      <a href="/" class="hover:text-[#7C3AED] transition-colors">Home</a>
-      <span class="text-stone-300">/</span>
-      <a href="/digital-store" class="hover:text-[#7C3AED] transition-colors">Store</a>
-      <span class="text-stone-300">/</span>
-      <span class="text-stone-900 font-bold">{product.title}</span>
+    <nav class="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider py-3 border-b mb-10" style="color:#A8A29E;border-color:#EDE4D8">
+      <a href="/" class="hover:text-[#2563eb] transition-colors">Home</a>
+      <span style="color:#D4C9BC">/</span>
+      <a href="/digital-store" class="hover:text-[#2563eb] transition-colors">Store</a>
+      <span style="color:#D4C9BC">/</span>
+      <span class="font-bold text-stone-900" style="color:#09090b">{product.title}</span>
     </nav>
 
     <!-- Product Landing Hero -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center mb-12">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center mb-16">
       
       <!-- Hero Left Column -->
-      <div class="lg:col-span-7 space-y-7">
+      <div class="lg:col-span-7 space-y-8">
         
         <!-- Soft Pill Badges -->
-        <div class="flex items-center gap-2 flex-wrap">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#EEF2FF] text-[#7C3AED] border border-purple-200/80 shadow-2xs">
-            {catInfo.icon} {catInfo.label}
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all hover:border-[#2563eb]/40 shadow-2xs" style="background:#EFF6FF;color:#2563eb;border:1px solid #BFDBFE">
+            <span class="text-sm">{catInfo.icon}</span>
+            <span>{catInfo.label}</span>
           </span>
           {product.badge && (
-            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-[#7C3AED] text-white shadow-xs">
-              ✨ {product.badge}
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide shadow-2xs" style="background:#2563eb;color:#FFFFFF">
+              <span class="text-xs">✨</span>
+              <span>{product.badge}</span>
             </span>
           )}
-          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs">
-            🤖 AI Personalized
-          </span>
-          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-stone-100 text-stone-700 border border-stone-200/80 shadow-2xs">
-            📥 Instant Download
+
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all hover:border-[#D4C9BC] shadow-2xs" style="background:#FAF7F2;color:#6B7280;border:1px solid #EDE4D8">
+            <span class="text-xs">📥</span>
+            <span>Instant Download</span>
           </span>
         </div>
 
         <!-- Title & Subtitle -->
-        <div class="space-y-3">
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-stone-900 leading-[1.08] font-serif">
+        <div class="space-y-4">
+          <h1 class="text-4xl sm:text-5xl lg:text-[3.4rem] font-bold tracking-tight leading-[1.08] font-serif text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">
             {product.title}
           </h1>
 
-          <p class="text-lg sm:text-xl text-stone-600 leading-relaxed font-medium font-serif italic">
-            "{heroTagline || product.tagline}"
+          <p class="text-lg sm:text-xl leading-relaxed font-normal font-serif italic max-w-2xl text-stone-600" style="color:#57534E">
+            &ldquo;{heroTagline || product.tagline}&rdquo;
           </p>
         </div>
 
-        <p class="text-sm sm:text-base text-stone-600 leading-relaxed font-normal max-w-2xl">
+        <p class="text-sm sm:text-base leading-relaxed max-w-xl text-stone-600" style="color:#6B7280">
           {product.description}
         </p>
 
         <!-- Pricing & Ratings -->
-        <div class="flex items-center flex-wrap gap-x-6 gap-y-3 pt-1">
-          <div class="flex items-baseline gap-2">
-            <span class="text-3xl font-bold text-stone-900 font-heading">${product.price.toFixed(2)}</span>
-            <span class="text-xs text-stone-400 font-semibold uppercase tracking-wider">One-Time Download</span>
+        <div class="flex items-center flex-wrap gap-x-6 gap-y-3 pt-2">
+          <div class="flex items-baseline gap-2.5">
+            <span class="text-3xl font-bold text-stone-900" style="color:#09090b">${product.price.toFixed(2)}</span>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-stone-400" style="color:#A8A29E">One-Time</span>
             {product.originalPrice && (
-              <span class="text-sm text-stone-400 line-through font-medium ml-1">${product.originalPrice.toFixed(2)}</span>
+              <span class="text-sm line-through font-medium text-stone-300" style="color:#D4C9BC">${product.originalPrice.toFixed(2)}</span>
             )}
           </div>
-          <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white border border-stone-200/80 shadow-2xs">
-            <span class="text-[#7C3AED] text-sm font-bold">{renderStars(product.rating)}</span>
-            <span class="text-xs text-stone-700 font-bold">{product.rating}</span>
-            <span class="text-xs text-stone-400 font-normal">({product.reviewCount} reviews)</span>
+          <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl border border-[#EDE4D8] bg-white shadow-2xs hover:border-[#D4C9BC] transition-all">
+            <span class="text-xs font-bold" style="color:#2563eb">{renderStars(product.rating)}</span>
+            <span class="text-xs font-bold text-stone-900" style="color:#09090b">{product.rating}</span>
+            <span class="text-xs text-stone-400" style="color:#A8A29E">({product.reviewCount})</span>
           </div>
         </div>
 
-        <!-- Action CTAs (Matching Homepage Exact Styling) -->
-        <div class="flex flex-wrap items-center gap-4 pt-2">
-          <a href="#customize" class="px-8 py-4 rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-sm shadow-lg shadow-purple-600/20 hover:shadow-2xl hover:shadow-purple-600/30 hover:-translate-y-0.5 transition-all active:translate-y-0 flex items-center gap-2">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-            <span>Customize Yours Live</span>
-            <span class="text-base">&rarr;</span>
+        <!-- Action CTAs -->
+        <div class="flex flex-wrap items-center gap-4 pt-1">
+          <a href="#customize" class="px-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 flex items-center gap-2.5 shadow-sm hover:scale-[1.01] active:scale-[0.99]" style="background:#09090b;color:#fcf9f2">
+            Configure Your System
+            <span class="text-base leading-none">&rarr;</span>
           </a>
-          <a href="#whats-included" class="px-8 py-4 rounded-full bg-white/90 backdrop-blur-xs hover:bg-stone-50 text-[#7C3AED] border border-purple-200/80 font-bold text-sm shadow-2xs hover:-translate-y-0.5 transition-all flex items-center gap-2">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>What's Included</span>
+          <a href="#whats-included" class="px-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 flex items-center gap-2 border border-[#D4C9BC] hover:border-[#09090b] hover:bg-white" style="color:#09090b">
+            See workflows
           </a>
+          {webAppHref && (
+            <a href={webAppHref} class="px-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 flex items-center gap-2 border border-[#2563eb]/30 hover:border-[#2563eb] hover:bg-white" style="color:#2563eb;background:#EFF6FF">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Launch Live Web App
+            </a>
+          )}
         </div>
 
         <!-- Guarantee Pills -->
-        <div class="flex flex-wrap items-center gap-6 pt-4 border-t border-stone-200/60 text-xs text-stone-600 font-medium">
-          <span class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">&#10003;</span> Vector Print-Ready PDF</span>
-          <span class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">&#10003;</span> Editable Word DOCX</span>
-          <span class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">&#10003;</span> iPad & GoodNotes Ready</span>
+        <div class="flex flex-wrap items-center gap-6 pt-5 text-xs font-medium text-stone-500" style="border-top:1px solid #EDE4D8;color:#6B7280">
+          <span class="flex items-center gap-1.5"><span style="color:#059669;font-weight:bold">&#10003;</span> Vector PDF</span>
+          <span class="flex items-center gap-1.5"><span style="color:#059669;font-weight:bold">&#10003;</span> Editable DOCX</span>
+          <span class="flex items-center gap-1.5"><span style="color:#059669;font-weight:bold">&#10003;</span> GoodNotes Ready</span>
         </div>
 
       </div>
 
-      <!-- Hero Right Column: Layered Stationery Mockup -->
+      <!-- Hero Right Column: System Journey Preview -->
       <div class="lg:col-span-5 flex justify-center">
         <div class="w-full max-w-[440px]">
-          <PlannerPreviewStack category={product.category} icon={product.icon} title={product.title} />
+          <div class="relative rounded-2xl border p-6.5 space-y-4.5 shadow-2xs transition-all duration-200 hover:border-[#D4C9BC]" style="background:#FAF7F2;border-color:#EDE4D8">
+            <div class="flex items-center gap-2">
+              <span class="w-5 h-[1.5px] rounded-full" style="background:#2563eb;opacity:0.4"></span>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-stone-400" style="color:#9CA3AF">How it connects</span>
+              <span class="flex-1 h-[1.5px] rounded-full" style="background:#2563eb;opacity:0.15"></span>
+            </div>
+            <div class="text-center space-y-3 py-1">
+              <div class="flex items-center justify-center gap-3">
+                {features.slice(0, 3).map((f, i) => (
+                  <>
+                    <div class="w-9 h-9 rounded-xl bg-white border border-[#EDE4D8] shadow-2xs flex items-center justify-center text-base flex-shrink-0">
+                      {f.icon}
+                    </div>
+                    {i < 2 && <span class="text-xs font-bold" style="color:#2563eb;opacity:0.5">→</span>}
+                  </>
+                ))}
+              </div>
+              <p class="text-[11px] leading-relaxed font-medium px-2 text-stone-600" style="color:#6B7280">
+                {whoFor || 'One entry flows into every page. Your system, connected.'}
+              </p>
+            </div>
+            <div class="pt-3 border-t space-y-1.5" style="border-color:#EDE4D8">
+              {features.slice(0, 4).map(f => (
+                <div class="flex items-start gap-2.5 p-2 rounded-xl transition-colors hover:bg-white/80">
+                  <span class="text-[10px] flex-shrink-0 mt-0.5" style="color:#2563eb">●</span>
+                  <div>
+                    <span class="text-xs font-bold text-stone-900" style="color:#09090b">{f.title}</span>
+                    <span class="text-[11px] ml-1 font-normal text-stone-500" style="color:#6B7280">— {f.description}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div class="text-center pt-1">
+              <span class="text-[10px] font-semibold text-stone-400" style="color:#9CA3AF">+ {features.length - 4} more workflows</span>
+            </div>
+          </div>
         </div>
       </div>
 
     </div>
 
 
-    <!-- SEE EVERY PAGE SHOWCASE -->
-    <div id="example-pages" class="scroll-mt-20 my-20">
-      <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
-        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-[#EEF2FF] text-[#7C3AED] border border-purple-200/80 shadow-2xs uppercase tracking-wider">
-          ✨ Interactive Layouts
-        </span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-stone-900 font-serif">See Every Page in Your Download</h2>
-        <p class="text-xs text-stone-500 font-medium">
-          Every page is dynamically generated and compiled around your name, schedule, and targets.
+    <!-- CONNECTED WORKFLOWS: How Pages Work Together -->
+    <div id="how-it-works" class="scroll-mt-20 my-24">
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-3.5">
+        <div class="w-8 h-[1.5px] mx-auto rounded-full" style="background:#2563eb;opacity:0.3"></div>
+        <h2 class="text-3xl sm:text-4xl font-bold font-serif leading-tight text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">
+          <span class="block">A connected system,</span>
+          <span class="block font-normal italic text-stone-500" style="color:#6B7280">not a collection of pages</span>
+        </h2>
+        <p class="text-sm font-normal max-w-lg mx-auto leading-relaxed text-stone-600" style="color:#6B7280">
+          Every page in this planner has a purpose. Information enters in one place and flows through the rest — so you never enter the same thing twice.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {previewCards.map((c, idx) => (
-          <div class="bg-white border border-[#EAE6E0] rounded-2xl p-5 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between h-[270px]">
-            <div class="space-y-2">
-              <span class="text-2xl">{c.icon}</span>
-              <h3 class="text-sm font-bold text-stone-900 font-serif">{c.title}</h3>
-              <p class="text-xs text-stone-600 leading-relaxed font-medium">{c.desc}</p>
+      <div class="max-w-4xl mx-auto space-y-4">
+        {features.map((f, i) => (
+          <div class="group relative flex items-start gap-4 sm:gap-5 p-5 sm:p-6 rounded-2xl transition-all duration-200 shadow-2xs hover:border-[#D4C9BC] hover:bg-white" style="background:#FAF7F2;border:1px solid #EDE4D8">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 shadow-2xs transition-colors group-hover:border-[#BFDBFE]" style="background:#FFFFFF;color:#2563eb;border:1px solid #EDE4D8">
+              {f.icon}
             </div>
-            <div class="pt-3 border-t border-[#EAE6E0] flex items-center justify-between text-[10px] text-[#7C3AED] font-bold">
-              <span>Layout Spread 0{idx + 1}</span>
-              <span>✓ AI Compiled</span>
+            <div class="min-w-0 flex-1 space-y-1">
+              <div class="flex items-center gap-2.5 flex-wrap">
+                <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded" style="background:#09090b0a;color:#78716C">0{i + 1}</span>
+                <h3 class="text-base font-bold text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">{f.title}</h3>
+                {i < features.length - 1 && (
+                  <span class="text-[10px] font-medium px-2.5 py-0.5 rounded-full inline-flex items-center gap-1" style="background:#EFF6FF;color:#2563eb;border:1px solid #BFDBFE">
+                    <span>↳</span> flows into next page
+                  </span>
+                )}
+              </div>
+              <p class="text-xs sm:text-sm leading-relaxed text-stone-600 font-normal" style="color:#6B7280">{f.description}</p>
             </div>
           </div>
         ))}
       </div>
     </div>
 
+    <!-- STORY + WHO IT'S FOR -->
+    <div class="max-w-4xl mx-auto my-24 space-y-12">
+      <div class="text-center max-w-3xl mx-auto space-y-5">
+        <div class="w-8 h-[1.5px] mx-auto rounded-full" style="background:#2563eb;opacity:0.3"></div>
+        <h2 class="text-3xl sm:text-4xl font-bold font-serif leading-tight text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">
+          {storyHeading}
+        </h2>
+        <p class="text-sm sm:text-base leading-relaxed font-normal text-stone-600" style="color:#6B7280">
+          {storyDesc}
+        </p>
+        {storyText2 && (
+          <p class="text-sm sm:text-base leading-relaxed font-normal text-stone-600" style="color:#6B7280">
+            {storyText2}
+          </p>
+        )}
+      </div>
 
-    <!-- PHILOSOPHY / STORY SECTION -->
-    <div class="max-w-3xl mx-auto text-center my-20 space-y-4">
-      <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-[#EEF2FF] text-[#7C3AED] border border-purple-200/80 shadow-2xs uppercase tracking-wider">
-        💡 The Philosophy
-      </span>
-      <h2 class="text-3xl sm:text-4xl font-bold text-stone-900 font-serif">
-        {storyHeading}
-      </h2>
-      <p class="text-sm text-stone-600 leading-relaxed font-medium">
-        {storyDesc}
-      </p>
+      {whoFor && (
+        <div class="max-w-2xl mx-auto p-7 rounded-2xl text-center transition-all shadow-2xs hover:border-[#D4C9BC]" style="background:#FAF7F2;border:1px solid #EDE4D8">
+          <div class="flex items-center gap-2 justify-center mb-2.5">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-stone-400" style="color:#9CA3AF">Designed For You</span>
+          </div>
+          <p class="text-base sm:text-lg leading-relaxed font-serif italic text-stone-900" style="color:#09090b">
+            &ldquo;{whoFor}&rdquo;
+          </p>
+        </div>
+      )}
     </div>
 
   </div>
 </section>
 
 <!-- WHAT'S INCLUDED SECTION -->
-<section id="whats-included" class="scroll-mt-20 py-20 bg-[#FCFAF7] border-b border-[#EAE6E0]">
+<section id="whats-included" class="scroll-mt-20 py-24" style="background:#FAF7F2;border-bottom:1px solid #EDE4D8;border-top:1px solid #EDE4D8">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
     
-    <div class="text-center max-w-2xl mx-auto space-y-3">
-      <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-[#EEF2FF] text-[#7C3AED] border border-purple-200/80 shadow-2xs uppercase tracking-wider">
-        📦 Package Details
-      </span>
-      <h2 class="text-3xl sm:text-4xl font-bold text-stone-900 font-serif">What's Included in Your Custom Download</h2>
-      <p class="text-xs text-stone-500 font-medium">
-        Engineered with precision for printing, tablet annotation, or digital editing.
+    <div class="text-center max-w-2xl mx-auto space-y-3.5">
+      <div class="w-8 h-[1.5px] mx-auto rounded-full" style="background:#2563eb;opacity:0.3"></div>
+      <h2 class="text-3xl sm:text-4xl font-bold font-serif leading-tight text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">
+        <span class="block">Everything included</span>
+        <span class="block text-sm font-normal mt-2 font-sans text-stone-500" style="color:#6B7280">Every page, explained</span>
+      </h2>
+    </div>
+
+    <!-- Craftsmanship callout -->
+    <div class="max-w-3xl mx-auto text-center px-4">
+      <p class="text-xs sm:text-sm leading-relaxed font-serif italic text-stone-600" style="color:#6B7280">
+        Each page is laid out with quiet attention to detail — 
+        margins that feel right, typography that guides the eye, 
+        and space that invites writing instead of intimidating. 
+        The system takes your entries — your name, your goals — 
+        and weaves them into every page so nothing feels generic.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {features.map(f => (
-        <div class="p-6 rounded-2xl bg-white border border-[#EAE6E0] shadow-xs space-y-3 flex flex-col justify-between">
-          <div class="space-y-3">
-            <span class="text-3xl">{f.icon}</span>
-            <h3 class="text-base font-bold text-stone-900 font-serif">{f.title}</h3>
-            <p class="text-xs text-stone-600 leading-relaxed font-medium">{f.description}</p>
+        <div class="p-6.5 rounded-2xl bg-white border border-[#EDE4D8] shadow-2xs space-y-4 flex flex-col justify-between transition-all duration-200 hover:border-[#D4C9BC] hover:shadow-xs">
+          <div class="space-y-3.5">
+            <div class="w-10 h-10 rounded-xl bg-[#FCFAF7] border border-[#EDE4D8] flex items-center justify-center text-xl text-stone-800 shadow-2xs">
+              {f.icon}
+            </div>
+            <h3 class="text-sm font-bold text-stone-900" style="color:#09090b">{f.title}</h3>
+            <p class="text-xs leading-relaxed font-normal text-stone-600" style="color:#6B7280">{f.description}</p>
           </div>
         </div>
       ))}
@@ -238,19 +352,19 @@ const renderStars = (n: number) =>
 </section>
 
 <!-- CUSTOMIZATION FORM & LIVE PREVIEW BUILDER -->
-<section id="customize" class="scroll-mt-20 py-20 bg-[#FCFAF7]">
+<section id="customize" class="scroll-mt-20 py-24" style="background:#FCFAF7">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
-    <!-- Editorial Section Header -->
-    <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">
-      <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-[#EEF2FF] text-[#7C3AED] border border-purple-200/80 shadow-2xs uppercase tracking-widest">
-        ⚙️ PERSONALIZATION ENGINE
+    <!-- Section Header -->
+    <div class="text-center max-w-2xl mx-auto mb-16 space-y-3.5">
+      <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-2xs" style="background:#EFF6FF;color:#2563eb;border:1px solid #BFDBFE">
+        ⚙️ CONFIGURE YOUR SYSTEM
       </span>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 font-serif tracking-tight leading-tight">
-        Personalize Your {product.title}
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif tracking-tight leading-tight text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">
+        Set Up Your {product.title}
       </h2>
-      <p class="text-sm text-stone-600 font-normal max-w-xl mx-auto leading-relaxed">
-        Your planner updates live as you customize every detail.
+      <p class="text-sm max-w-xl mx-auto leading-relaxed text-stone-600" style="color:#6B7280">
+        Every change updates the preview instantly. See your planner come together in real time.
       </p>
     </div>
 
@@ -258,19 +372,29 @@ const renderStars = (n: number) =>
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
       
       <!-- Left Compact Configuration Form Sidebar (5 cols / 41.7% width) -->
-      <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 border border-[#EAE6E0] shadow-sm space-y-6">
-        
-        {sections.map(sec => (
-          <div class="space-y-3">
-            <h3 class="text-xs font-bold text-stone-800 uppercase tracking-widest border-b border-[#EAE6E0] pb-2 font-sans flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-[#7C3AED]"></span>
-              {sec}
-            </h3>
+      <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 border border-[#EDE4D8] shadow-2xs space-y-7">
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-              {sortedFields.filter(f => f.section === sec).map(f => (
-                <div class="space-y-1">
-                  <label for={`pf-${f.id}-${suffix}`} class="block text-[11px] font-bold text-stone-800">
+        {sections.map(sec => {
+          const secFields = sortedFields.filter(f => f.section === sec);
+          if (secFields.length === 0) return null;
+          return (
+          <div class="space-y-3.5">
+            <div class="border-b pb-2.5" style="border-color:#EDE4D8">
+              <h3 class="text-xs font-bold uppercase tracking-widest flex items-center gap-2 text-stone-900" style="color:#09090b">
+                <span class="w-2 h-2 rounded-full inline-block flex-shrink-0" style="background:#2563eb"></span>
+                <span>{sec}</span>
+              </h3>
+              {sectionHelpers[sec] && (
+                <p class="text-[11px] text-stone-500 font-medium leading-relaxed mt-1">
+                  {sectionHelpers[sec]}
+                </p>
+              )}
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {secFields.map(f => (
+                <div class={`space-y-1.5 ${(f.type === 'textarea' || (secFields.length % 2 !== 0 && secFields.indexOf(f) === secFields.length - 1)) ? 'sm:col-span-2' : ''}`}>
+                  <label for={`pf-${f.id}-${suffix}`} class="block text-[11px] font-bold text-stone-900" style="color:#09090b">
                     {f.label} {f.required && <span class="text-rose-500">*</span>}
                   </label>
                   {f.type === 'text' && (
@@ -280,14 +404,16 @@ const renderStars = (n: number) =>
                       data-field-id={f.id}
                       placeholder={f.placeholder}
                       value={f.defaultValue || ''}
-                      class="w-full px-3.5 py-2.5 text-xs bg-[#FCFAF7] border border-[#EAE6E0] rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/30 focus:border-[#7C3AED] focus:bg-white transition-all text-stone-900 shadow-2xs"
+                      class="w-full px-3.5 py-2.5 text-xs bg-[#FCFAF7] border border-[#EDE4D8] rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 focus:border-[#2563eb] focus:bg-white transition-all placeholder:text-stone-300 shadow-2xs"
+                      style="color:#09090b"
                     />
                   )}
                   {f.type === 'select' && (
                     <select
                       id={`pf-${f.id}-${suffix}`}
                       data-field-id={f.id}
-                      class="w-full px-3.5 py-2.5 text-xs bg-[#FCFAF7] border border-[#EAE6E0] rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/30 focus:border-[#7C3AED] focus:bg-white transition-all text-stone-900 shadow-2xs"
+                      class="w-full px-3.5 py-2.5 text-xs bg-[#FCFAF7] border border-[#EDE4D8] rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 focus:border-[#2563eb] focus:bg-white transition-all shadow-2xs"
+                      style="color:#09090b"
                     >
                       {f.options?.map(opt => (
                         <option value={opt.value} selected={opt.value === f.defaultValue}>{opt.label}</option>
@@ -300,17 +426,28 @@ const renderStars = (n: number) =>
                       data-field-id={f.id}
                       placeholder={f.placeholder}
                       rows={2}
-                      class="w-full px-3.5 py-2.5 text-xs bg-[#FCFAF7] border border-[#EAE6E0] rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/30 focus:border-[#7C3AED] focus:bg-white transition-all text-stone-900 resize-none shadow-2xs"
+                      class="w-full px-3.5 py-2.5 text-xs bg-[#FCFAF7] border border-[#EDE4D8] rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 focus:border-[#2563eb] focus:bg-white transition-all resize-none shadow-2xs placeholder:text-stone-300"
+                      style="color:#09090b"
                     ></textarea>
                   )}
+
+                  {(() => {
+                    const fieldPage = fieldPageMapping[product.slug]?.[f.id];
+                    return fieldPage ? (
+                      <span class="block text-[10px] text-stone-400 font-medium tracking-wide leading-relaxed transition-all duration-300 page-indicator">
+                        <span class="text-stone-300 mr-0.5">&rarr;</span> Used on {fieldPage}
+                      </span>
+                    ) : null;
+                  })()}
                 </div>
               ))}
             </div>
           </div>
-        ))}
+          );
+        })}
 
         <!-- Direct Purchase Button -->
-        <div class="pt-4 border-t border-[#EAE6E0] space-y-2.5">
+        <div class="pt-5 border-t space-y-3" style="border-color:#EDE4D8">
           <button
             id={`pf-purchase-btn-${suffix}`}
             data-product-id={product.id}
@@ -319,31 +456,35 @@ const renderStars = (n: number) =>
             data-product-price={product.price.toFixed(2)}
             data-product-icon={product.icon}
             data-what-included={JSON.stringify(product.whatIncluded)}
-            class="w-full py-3.5 px-6 text-sm font-bold text-white bg-[#7C3AED] hover:bg-[#6D28D9] rounded-full shadow-lg shadow-purple-600/20 hover:shadow-2xl hover:shadow-purple-600/30 hover:-translate-y-0.5 transition-all active:translate-y-0 flex items-center justify-center gap-2 cursor-pointer"
+            class="w-full py-3.5 px-6 text-sm font-bold text-white rounded-full transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01] active:scale-[0.99] shadow-xs"
+            style="background:#09090b"
+            onmouseover="this.style.background='#1f2937'"
+            onmouseout="this.style.background='#09090b'"
           >
-            <span>🛒</span> Download Custom {product.title} &mdash; ${product.price.toFixed(2)}
+            <span>Get {product.title}</span>
+            <span class="text-lg leading-none">&rarr;</span>
           </button>
-          <div class="flex items-center justify-between text-xs text-stone-500 font-medium px-1">
-            <span>📥 Instant PDF + DOCX access</span>
-            <span>⚡ Lifetime access & free updates</span>
+          <div class="flex items-center justify-between text-[10px] font-medium px-0.5" style="color:#A8A29E">
+            <span>Instant PDF + DOCX access</span>
+            <span>Lifetime updates</span>
           </div>
         </div>
 
       </div>
 
       <!-- Right Large Immersive Live Preview Showcase (7 cols / 58.3% width) -->
-      <div class="lg:col-span-7 bg-white rounded-3xl p-5 sm:p-6 border border-[#EAE6E0] shadow-sm space-y-3.5">
-        <div class="flex items-center justify-between text-xs text-stone-800 font-bold border-b border-[#EAE6E0] pb-3">
-          <span class="flex items-center gap-2 font-serif text-sm">
-            <span class="w-2.5 h-2.5 rounded-full bg-[#7C3AED] animate-pulse"></span>
-            Live Interactive Preview
+      <div class="lg:col-span-7 bg-white rounded-3xl p-5 sm:p-6 border border-[#EDE4D8] shadow-2xs space-y-3.5">
+        <div class="flex items-center justify-between text-xs text-stone-800 font-bold border-b border-[#EDE4D8] pb-3">
+          <span class="flex items-center gap-2 font-serif text-sm text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">
+            <span class="w-2.5 h-2.5 rounded-full" style="background:#2563eb;animation:pulse 2s infinite"></span>
+            Live System Preview
           </span>
-          <span class="text-[#7C3AED] bg-purple-50 px-3 py-1 rounded-full border border-purple-100 font-semibold text-[11px] flex items-center gap-1">
-            ✨ Live Renderer
+          <span class="px-3 py-1 rounded-full text-[11px] font-semibold shadow-2xs" style="background:#EFF6FF;color:#2563eb;border:1px solid #BFDBFE">
+            ⚡ Updates in real time
           </span>
         </div>
         
-        <div id={`digital-planner-preview-container-${suffix}`} class="bg-[#FCFAF7] rounded-2xl text-stone-900 h-[680px] lg:h-[760px] flex flex-col items-center justify-center shadow-inner overflow-hidden border border-[#EAE6E0]">
+        <div id={`digital-planner-preview-container-${suffix}`} class="bg-[#FCFAF7] rounded-2xl text-stone-900 h-[680px] lg:h-[760px] flex flex-col items-center justify-center shadow-inner overflow-hidden border border-[#EDE4D8]">
           <div class="text-center space-y-2 p-6">
             <span class="text-3xl animate-bounce inline-block">{product.icon}</span>
             <p class="text-xs font-bold text-stone-700 font-serif">Compiling Live Canvas...</p>
@@ -357,20 +498,54 @@ const renderStars = (n: number) =>
   </div>
 </section>
 
+<!-- REVIEWS SECTION -->
+{product.reviews && product.reviews.length > 0 && (
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-[#EDE4D8]">
+  <div class="text-center mb-16 space-y-3.5">
+    <div class="w-8 h-[1.5px] mx-auto rounded-full" style="background:#2563eb;opacity:0.3"></div>
+    <h2 class="text-3xl font-bold font-serif leading-tight text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">Customer Reviews</h2>
+    <div class="flex items-center justify-center gap-2">
+      <span class="text-sm font-bold" style="color:#2563eb">{renderStars(product.rating)}</span>
+      <span class="text-sm font-bold text-stone-900" style="color:#09090b">{product.rating}</span>
+      <span class="text-xs font-medium" style="color:#A8A29E">({product.reviewCount} reviews)</span>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {product.reviews.map(r => (
+      <div class="rounded-2xl p-6 space-y-4 transition-all shadow-2xs hover:border-[#D4C9BC] flex flex-col" style="background:#FCFAF7;border:1px solid #EDE4D8">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold" style="background:#2563eb/10;color:#2563eb">{r.initials}</div>
+          <div>
+            <p class="text-xs font-bold text-stone-900" style="color:#09090b">{r.name}</p>
+            <span class="text-[10px] font-medium" style="color:#A8A29E">{r.date}</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-0.5">
+          {Array.from({length: 5}).map((_, i) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill={i < r.rating ? '#2563eb' : '#EDE4D8'} stroke={i < r.rating ? '#2563eb' : '#EDE4D8'} stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          ))}
+        </div>
+        <p class="text-xs leading-relaxed font-serif italic flex-1" style="color:#6B7280">&ldquo;{r.text}&rdquo;</p>
+      </div>
+    ))}
+  </div>
+</section>
+)}
+
 <!-- FAQ ACCORDION SECTION -->
-<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-[#EAE6E0]">
-  <div class="text-center mb-12 space-y-3">
-    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-[#EEF2FF] text-[#7C3AED] border border-purple-200/80 shadow-2xs uppercase tracking-wider">
-      ❓ Got Questions?
-    </span>
-    <h2 class="text-3xl font-bold text-stone-900 font-serif">Frequently Asked Questions</h2>
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-[#EDE4D8]">
+  <div class="text-center mb-16 space-y-3.5">
+    <div class="w-8 h-[1.5px] mx-auto rounded-full" style="background:#2563eb;opacity:0.3"></div>
+    <h2 class="text-3xl font-bold font-serif leading-tight text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">Questions &amp; Answers</h2>
+    <p class="text-xs text-stone-500 font-medium">Everything you need to know about the system.</p>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     {faqs.map(faq => (
-      <div data-faq class="bg-white border border-stone-200/80 rounded-2xl p-6 shadow-xs space-y-2">
-        <h3 class="text-sm font-bold text-stone-900">{faq.q}</h3>
-        <p class="text-xs text-stone-600 font-medium leading-relaxed">{faq.a}</p>
+      <div data-faq class="p-6.5 rounded-2xl space-y-2.5 transition-all shadow-2xs hover:border-[#D4C9BC]" style="background:#FAF7F2;border:1px solid #EDE4D8">
+        <h3 class="text-sm font-bold text-stone-900" style="color:#09090b">{faq.q}</h3>
+        <p class="text-xs font-normal leading-relaxed text-stone-600" style="color:#6B7280" set:html={renderFaqAnswer(faq.a)} />
       </div>
     ))}
   </div>
@@ -380,6 +555,9 @@ const renderStars = (n: number) =>
 
 <script>
 import { DigitalPlanner } from "../../scripts/planner-engine/digital-planner";
+import { MasterYourDayPreview, getTheme as mydTheme } from "../../scripts/planner-engine/master-your-day-renderer";
+import { WellnessJournalPreview, getTheme as wjTheme } from "../../scripts/planner-engine/wellness-journal-renderer";
+import { SocialMediaDetoxPreview, getTheme as smdTheme } from "../../scripts/planner-engine/social-media-detox-renderer";
 
 function initPlannerPreview() {
   const buyBtn = document.querySelector('button[data-product-id]') as HTMLButtonElement | null;
@@ -388,8 +566,13 @@ function initPlannerPreview() {
   const productId = buyBtn.dataset.productId || '';
   const productTitle = buyBtn.dataset.productTitle || 'Personalized Planner';
   const productIcon = buyBtn.dataset.productIcon || '📅';
+  const slug = buyBtn.dataset.productSlug || '';
   const suffix = productId;
   const container = document.getElementById(`digital-planner-preview-container-${suffix}`);
+
+  const isMasterYourDay = slug === 'master-your-day' || productId === 'p7';
+  const isWellnessJournal = slug === 'wellness-journal' || productId === 'p12';
+  const isSocialMediaDetox = slug === 'social-media-detox' || productId === 'p10';
 
   if (container && !(container as any).__dp_mounted) {
     (container as any).__dp_mounted = true;
@@ -406,20 +589,48 @@ function initPlannerPreview() {
       };
 
       const getTheme = (): string => {
-        const colorEl = document.querySelector(`select[id^="pf-accentColor-"]`) as HTMLSelectElement | null;
-        return colorEl ? colorEl.value : 'violet';
+        return 'violet';
       };
 
-      const dp = new DigitalPlanner(container, getValues(), getTheme(), productTitle, productIcon, { sidebar: false });
+      const dpOptions: any = { sidebar: false };
+      if (isMasterYourDay) {
+        dpOptions.getPages = (values: any, theme: string, title?: string, icon?: string) => {
+          const preview = new MasterYourDayPreview(values, mydTheme(theme), title, icon);
+          return preview.getPageList();
+        };
+      } else if (isWellnessJournal) {
+        dpOptions.getPages = (values: any, theme: string, title?: string, icon?: string) => {
+          const preview = new WellnessJournalPreview(values, wjTheme(theme), title, icon);
+          return preview.getPageList();
+        };
+      } else if (isSocialMediaDetox) {
+        dpOptions.getPages = (values: any, theme: string, title?: string, icon?: string) => {
+          const preview = new SocialMediaDetoxPreview(values, smdTheme(theme), title, icon);
+          return preview.getPageList();
+        };
+      }
+
+      const dp = new DigitalPlanner(container, getValues(), getTheme(), productTitle, productIcon, dpOptions);
       dp.mount();
 
       const updateLive = () => {
         dp.setValues(getValues(), getTheme(), productTitle, productIcon);
       };
 
+      const highlightIndicator = (el: HTMLElement) => {
+        const indicator = el.parentElement?.querySelector('.page-indicator') as HTMLElement | null;
+        if (indicator) {
+          indicator.classList.remove('indicator-highlight');
+          void indicator.offsetWidth;
+          indicator.classList.add('indicator-highlight');
+        }
+      };
+
       inputs.forEach(inp => {
         inp.addEventListener('input', updateLive);
         inp.addEventListener('change', updateLive);
+        inp.addEventListener('input', () => highlightIndicator(inp));
+        inp.addEventListener('change', () => highlightIndicator(inp));
       });
     } catch (e) {
       console.warn('Live preview initialized error:', e);
@@ -454,6 +665,22 @@ document.addEventListener('astro:page-load', initPlannerPreview);
 </script>
 
 <style is:global>
+  /* Page indicator animation */
+  @keyframes indicatorFadeUp {
+    from { opacity: 0; transform: translateY(3px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes indicatorHighlight {
+    0%, 100% { color: #A8A29E; }
+    40% { color: #2563eb; transform: translateX(2px); }
+  }
+  .page-indicator {
+    animation: indicatorFadeUp 0.5s ease-out both;
+  }
+  .indicator-highlight {
+    animation: indicatorHighlight 0.5s ease-out;
+  }
+
   /* Live Preview PDF Viewer Layout & Sizing Fixes */
   [id^="digital-planner-preview-container"] {
     width: 100% !important;
@@ -462,7 +689,7 @@ document.addEventListener('astro:page-load', initPlannerPreview);
     overflow: hidden !important;
     position: relative !important;
     background: #FCFAF7 !important;
-    border: 1px solid #EAE6E0 !important;
+    border: 1px solid #EDE4D8 !important;
     display: flex !important;
     flex-direction: column !important;
   }
@@ -486,7 +713,7 @@ document.addEventListener('astro:page-load', initPlannerPreview);
   /* Toolbar PDF Viewer Styling */
   [id^="digital-planner-preview-container"] .dp-toolbar {
     background: #FFFFFF !important;
-    border-bottom: 1px solid #EAE6E0 !important;
+    border-bottom: 1px solid #EDE4D8 !important;
     padding: 8px 12px !important;
     display: flex !important;
     align-items: center !important;
@@ -506,7 +733,7 @@ document.addEventListener('astro:page-load', initPlannerPreview);
 
   [id^="digital-planner-preview-container"] .dp-nav-select {
     background: #FCFAF7 !important;
-    border: 1px solid #EAE6E0 !important;
+    border: 1px solid #EDE4D8 !important;
     border-radius: 6px !important;
     padding: 3px 6px !important;
     font-size: 11px !important;
@@ -515,15 +742,15 @@ document.addEventListener('astro:page-load', initPlannerPreview);
   }
 
   [id^="digital-planner-preview-container"] .dp-zoom-btn.active {
-    background: #7C3AED !important;
+    background: #2563eb !important;
     color: #FFFFFF !important;
-    border-color: #7C3AED !important;
+    border-color: #2563eb !important;
     border-radius: 6px !important;
   }
 
   [id^="digital-planner-preview-container"] .dp-export-btn {
-    background: #7C3AED !important;
-    border-color: #7C3AED !important;
+    background: #09090b !important;
+    border-color: #09090b !important;
     border-radius: 6px !important;
     padding: 4px 10px !important;
     font-size: 11px !important;

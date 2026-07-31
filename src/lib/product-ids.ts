@@ -8,7 +8,7 @@ const dodoProductIdMap: Record<string, string> = {
 const knownNames: Record<string, string> = {
   'study-planner-pro': 'p1',
   'master-your-day': 'p7',
-  'goal-roadmap': 'p10',
+  'social-media-detox': 'p10',
   'wellness-journal': 'p12',
   'study-planner': 'p1',
   'revision-tracker': 'p1',

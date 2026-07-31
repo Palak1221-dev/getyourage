@@ -6,7 +6,7 @@ import Layout from "../../layouts/Layout.astro";
   title="Checkout | Tooltails Store"
   description="Complete your order securely with Dodo Payments."
 >
-  <div class="digital-store-root min-h-screen py-10">
+  <div class="digital-store-root min-h-screen py-10 bg-[#FCFAF7]">
     <div class="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-8">
       
       <!-- Header -->
@@ -28,11 +28,11 @@ import Layout from "../../layouts/Layout.astro";
         <div class="lg:col-span-7 space-y-6">
 
           <!-- Email & Secure Payment Card -->
-          <div id="checkout-form-container" class="bg-white border border-stone-200/80 rounded-2xl p-6 shadow-xs space-y-6">
+          <div id="checkout-form-container" class="bg-white border border-[#EDE4D8] rounded-2xl p-6 shadow-2xs space-y-6">
 
             <!-- Customer Email -->
             <div class="space-y-3">
-              <h3 class="text-xs font-bold text-stone-400 uppercase tracking-wider border-b border-stone-100 pb-2 flex items-center gap-2">
+              <h3 class="text-xs font-bold text-stone-400 uppercase tracking-wider border-b pb-2 flex items-center gap-2" style="border-color:#EDE4D8">
                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
@@ -40,13 +40,13 @@ import Layout from "../../layouts/Layout.astro";
               </h3>
               <div>
                 <label for="checkout-email" class="block text-xs font-bold text-stone-700 mb-1">Email Address <span class="text-rose-500">*</span></label>
-                <input type="email" id="checkout-email" placeholder="you@example.com" autocomplete="email" class="w-full px-3.5 py-2.5 text-sm bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/30 focus:border-[#7C3AED] transition-colors text-stone-800 placeholder:text-stone-400 font-medium touch-manipulation" required />
+                <input type="email" id="checkout-email" placeholder="you@example.com" autocomplete="email" class="w-full px-3.5 py-2.5 text-sm bg-[#FCFAF7] border border-[#EDE4D8] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2563eb]/25 focus:border-[#2563eb] transition-colors text-stone-800 placeholder:text-stone-400 font-medium touch-manipulation shadow-2xs" required />
                 <p class="text-[10px] text-stone-400 mt-1 font-medium">Your download links and receipt will be sent here.</p>
                 <p id="checkout-email-error" class="text-[10px] text-rose-500 font-medium mt-1 hidden" aria-live="polite"></p>
               </div>
             </div>
 
-            <div class="border-t border-stone-100"></div>
+            <div class="border-t" style="border-color:#EDE4D8"></div>
 
             <!-- Secure Payment via Dodo -->
             <div class="space-y-4">
@@ -58,10 +58,10 @@ import Layout from "../../layouts/Layout.astro";
                 Secure Payment
               </h3>
 
-              <div class="bg-[#F5F3FF] border border-purple-200/60 rounded-xl p-4 space-y-3">
+              <div class="bg-[#EFF6FF] border border-[#BFDBFE] rounded-xl p-4 space-y-3">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-xl bg-white border border-purple-200 flex items-center justify-center flex-shrink-0 shadow-xs">
-                    <svg class="w-5 h-5 text-[#7C3AED]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <div class="w-10 h-10 rounded-xl bg-white border border-[#BFDBFE] flex items-center justify-center flex-shrink-0 shadow-2xs">
+                    <svg class="w-5 h-5 text-[#2563eb]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                     </svg>
                   </div>
@@ -71,7 +71,7 @@ import Layout from "../../layouts/Layout.astro";
                   </div>
                 </div>
 
-                <div class="flex items-center gap-3 text-[10px] text-stone-500 font-medium pt-1 border-t border-purple-200/40">
+                <div class="flex items-center gap-3 text-[10px] text-stone-500 font-medium pt-1 border-t border-[#BFDBFE]/40">
                   <span class="flex items-center gap-1">
                     <svg class="w-3 h-3 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                     SSL Encrypted
@@ -89,7 +89,7 @@ import Layout from "../../layouts/Layout.astro";
             </div>
 
             <!-- Pay Button -->
-            <button id="checkout-pay-btn" class="w-full py-4 text-xs font-bold text-white bg-[#7C3AED] hover:bg-[#6D28D9] transition-all rounded-xl shadow-lg shadow-purple-600/20 hover:shadow-2xl hover:shadow-purple-600/30 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer touch-manipulation flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-lg">
+            <button id="checkout-pay-btn" class="w-full py-4 text-xs font-bold text-white bg-[#09090b] hover:bg-[#1f2937] transition-all rounded-full shadow-xs hover:scale-[1.01] active:scale-[0.99] cursor-pointer touch-manipulation flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
               <span id="pay-btn-text">Proceed to Secure Checkout</span>
               <span id="pay-btn-spinner" class="hidden">
                 <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
@@ -109,8 +109,8 @@ import Layout from "../../layouts/Layout.astro";
 
         <!-- Right Column: Order Summary -->
         <div class="lg:col-span-5">
-          <div class="bg-white border border-stone-200/80 rounded-2xl p-5 shadow-xs space-y-4">
-            <h2 class="text-xs font-bold text-stone-400 uppercase tracking-wider border-b border-stone-100 pb-2 flex items-center gap-2">
+          <div class="bg-white border border-[#EDE4D8] rounded-2xl p-5 shadow-2xs space-y-4">
+            <h2 class="text-xs font-bold text-stone-400 uppercase tracking-wider border-b pb-2 flex items-center gap-2" style="border-color:#EDE4D8">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
               </svg>
@@ -121,23 +121,23 @@ import Layout from "../../layouts/Layout.astro";
               <!-- Dynamically populated items -->
             </div>
 
-            <div class="border-t border-stone-100 pt-4 space-y-2 text-xs">
+            <div class="border-t pt-4 space-y-2 text-xs" style="border-color:#EDE4D8">
               <div class="flex items-center justify-between text-stone-500 font-medium">
                 <span>Subtotal</span>
                 <span id="summary-subtotal">$0.00</span>
               </div>
               <div class="flex items-center justify-between text-stone-500 font-medium">
-                <span>AI Personalization</span>
-                <span class="text-[#7C3AED] font-bold">Included Free</span>
+                <span>Personalization</span>
+                <span class="text-[#2563eb] font-bold">Included Free</span>
               </div>
-              <div class="flex items-center justify-between text-sm font-bold text-stone-900 pt-2 border-t border-stone-100">
+              <div class="flex items-center justify-between text-sm font-bold text-stone-900 pt-2 border-t" style="border-color:#EDE4D8">
                 <span>Total</span>
-                <span id="summary-total" class="text-[#7C3AED] font-bold">$0.00</span>
+                <span id="summary-total" class="text-[#09090b] font-bold">$0.00</span>
               </div>
             </div>
 
             <!-- Trust Badges -->
-            <div class="pt-4 border-t border-stone-100 space-y-2 text-[10px] text-stone-500 font-medium">
+            <div class="pt-4 border-t space-y-2 text-[10px] text-stone-500 font-medium" style="border-color:#EDE4D8">
               <div class="flex items-center gap-2">
                 <span class="text-emerald-500 font-bold" aria-hidden="true">✓</span> 30-Day Money Back Guarantee
               </div>
@@ -163,8 +163,8 @@ import Layout from "../../layouts/Layout.astro";
 
 <style>
   .digital-store-root {
-    color: var(--ds-text, #1c1917);
-    background: var(--ds-bg, #faf7f2);
+    color: var(--ds-text, #09090b);
+    background: var(--ds-bg, #FCFAF7);
   }
 </style>
 
@@ -221,7 +221,7 @@ import Layout from "../../layouts/Layout.astro";
     if (!summaryItems || !summarySubtotal || !summaryTotal) return;
 
     if (cartItems.length === 0) {
-      summaryItems.innerHTML = `<div class="text-xs text-stone-400 font-medium py-4 text-center">Your cart is empty. <a href="/digital-store" class="text-[#7C3AED] underline">Browse planners</a></div>`;
+      summaryItems.innerHTML = `<div class="text-xs text-stone-400 font-medium py-4 text-center">Your cart is empty. <a href="/digital-store" class="text-[#2563eb] underline">Browse planners</a></div>`;
       summarySubtotal.textContent = '$0.00';
       summaryTotal.textContent = '$0.00';
       return;
@@ -232,7 +232,7 @@ import Layout from "../../layouts/Layout.astro";
       const price = Number(item.price) || 0;
       subtotal += price;
       return `
-        <div class="flex items-center justify-between p-2.5 bg-stone-50 rounded-xl border border-stone-200/60 text-xs">
+        <div class="flex items-center justify-between p-2.5 rounded-xl border border-[#EDE4D8] text-xs" style="background:#FAF7F2">
           <div class="flex items-center gap-2">
             <span class="text-base" aria-hidden="true">${item.icon || '\uD83D\uDCC4'}</span>
             <div>
