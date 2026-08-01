@@ -9,7 +9,7 @@ import type { CurrencyCode } from '../../data/pricing';
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
-    const { productId, quantity = 1, customerEmail, customerName, metadata = {} } = body;
+    const { productId, quantity = 1, customerEmail, customerName, metadata = {}, personalization = {} } = body;
     const currency: CurrencyCode = isCurrencyCode(body.currency) ? body.currency : 'USD';
 
     if (!productId) {
@@ -18,6 +18,9 @@ export const POST: APIRoute = async ({ request }) => {
     if (!customerEmail) {
       return new Response(JSON.stringify({ error: 'Missing customerEmail' }), { status: 400 });
     }
+
+    const personalizationObj: Record<string, string> =
+      personalization && typeof personalization === 'object' ? personalization : {};
 
     const product = products.find(p => p.id === productId || p.slug === productId);
     if (!product) {
@@ -64,6 +67,7 @@ export const POST: APIRoute = async ({ request }) => {
         price: unitPrice,
         icon: product.icon,
         quantity,
+        personalization: personalizationObj,
       }],
       totalAmount,
       currency

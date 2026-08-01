@@ -422,5 +422,39 @@ for (const p of products) {
   assert(p.price > 0 && p.price < 100, `product ${p.id} price ${p.price} is between $1-$99`);
 }
 
+console.log('\n=== order-access ===');
+
+const orderAccess = await import('../src/lib/order-access.ts');
+const { generateOrderId, signOrderAccessToken, verifyOrderAccessToken, orderAccessCookieName } = orderAccess;
+
+// Test 38: Order IDs are cryptographically strong (UUID v4), unique, and keep the ORD- prefix
+const oid1 = generateOrderId();
+const oid2 = generateOrderId();
+assert(oid1.startsWith('ORD-'), 'order ID prefix preserved');
+assert(/^ORD-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(oid1), 'order ID is a UUID v4');
+assert(oid1 !== oid2, 'order IDs are unique');
+assert(oid1.length >= 40, 'order ID is long enough to be unguessable');
+
+// Test 39: Tokens verify for the right order only
+const tok = signOrderAccessToken(oid1);
+assert(verifyOrderAccessToken(tok, oid1), 'valid token for matching order');
+assert(!verifyOrderAccessToken(tok, oid2), 'token rejected for different order');
+assert(!verifyOrderAccessToken(tok, 'ORD-other'), 'token rejected for unknown order');
+
+// Test 40: Tampered / malformed / expired tokens are rejected
+const [tokPayload, tokSig] = tok.split('.');
+assert(!verifyOrderAccessToken(tokPayload + '.' + tokSig.replace(/./g, 'x').slice(1), oid1), 'tampered signature rejected');
+assert(!verifyOrderAccessToken(oid1, oid1), 'raw ID is not a valid token');
+assert(!verifyOrderAccessToken('', oid1), 'empty token rejected');
+assert(!verifyOrderAccessToken(null, oid1), 'null token rejected');
+assert(!verifyOrderAccessToken('a.b', oid1), 'two-part junk token rejected');
+assert(!verifyOrderAccessToken('onlyone', oid1), 'single-part token rejected');
+const expiredPayload = Buffer.from(JSON.stringify({ oid: oid1, exp: Date.now() - 1000 })).toString('base64url');
+assert(!verifyOrderAccessToken(expiredPayload + '.' + tokPayload, oid1), 'expired payload rejected');
+
+// Test 41: Cookie name is deterministic and scoped per order
+assert(orderAccessCookieName(oid1) === `tt_order_access_${oid1}`, 'cookie name scoped to order');
+assert(orderAccessCookieName(oid1) !== orderAccessCookieName(oid2), 'cookie names differ per order');
+
 console.log(`\n\x1b[1mResults: ${passed} passed, ${failed} failed\x1b[0m\n`);
 if (failed > 0) process.exit(1);

@@ -192,7 +192,6 @@ const renderFaqAnswer = (answer: string) =>
         <!-- Guarantee Pills -->
         <div class="flex flex-wrap items-center gap-6 pt-5 text-xs font-medium text-stone-500" style="border-top:1px solid #EDE4D8;color:#6B7280">
           <span class="flex items-center gap-1.5"><span style="color:#059669;font-weight:bold">&#10003;</span> Vector PDF</span>
-          <span class="flex items-center gap-1.5"><span style="color:#059669;font-weight:bold">&#10003;</span> Editable DOCX</span>
           <span class="flex items-center gap-1.5"><span style="color:#059669;font-weight:bold">&#10003;</span> GoodNotes Ready</span>
         </div>
 
@@ -467,7 +466,7 @@ const renderFaqAnswer = (answer: string) =>
             <span class="text-lg leading-none">&rarr;</span>
           </button>
           <div class="flex items-center justify-between text-[10px] font-medium px-0.5" style="color:#A8A29E">
-            <span>Instant PDF + DOCX access</span>
+            <span>Instant PDF access</span>
             <span>Lifetime updates</span>
           </div>
         </div>
@@ -579,11 +578,11 @@ function initPlannerPreview() {
   if (container && !(container as any).__dp_mounted) {
     (container as any).__dp_mounted = true;
     try {
-      const inputs = document.querySelectorAll(`input[id^="pf-"], select[id^="pf-"]`);
+      const inputs = document.querySelectorAll(`input[id^="pf-"], select[id^="pf-"], textarea[id^="pf-"]`);
       const getValues = (): Record<string, string> => {
         const values: Record<string, string> = {};
         inputs.forEach(inp => {
-          const el = inp as HTMLInputElement | HTMLSelectElement;
+          const el = inp as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
           const fid = el.dataset.fieldId;
           if (fid) values[fid] = el.value;
         });
@@ -649,7 +648,17 @@ function initPlannerPreview() {
     const priceAttr = currency === 'INR' ? 'productPriceInr' : 'productPrice';
     const pprice = Number(buyBtn.dataset[priceAttr] ?? buyBtn.dataset.productPrice);
 
-    const item = { id: pid, title: ptitle, slug: pslug, price: pprice, currency, icon: picon, quantity: 1 };
+    let personalization: Record<string, string> = {};
+    try {
+      const inputs = document.querySelectorAll(`input[id^="pf-"], select[id^="pf-"], textarea[id^="pf-"]`);
+      inputs.forEach(inp => {
+        const el = inp as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+        const fid = el.dataset.fieldId;
+        if (fid) personalization[fid] = el.value;
+      });
+    } catch (e) {}
+
+    const item = { id: pid, title: ptitle, slug: pslug, price: pprice, currency, icon: picon, quantity: 1, personalization };
     try {
       const existing = JSON.parse(localStorage.getItem('tt_cart') || '[]');
       existing.push(item);

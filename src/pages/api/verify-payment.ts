@@ -1,8 +1,9 @@
 import type { APIRoute } from 'astro';
 import { verifyPayment, getCheckoutSession } from '../../lib/dodo';
 import { orderStore } from '../../lib/orders';
+import { setOrderAccessCookie } from '../../lib/order-access';
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, cookies }) => {
   try {
     const body = await request.json();
     const { paymentId, sessionId } = body;
@@ -56,6 +57,7 @@ export const POST: APIRoute = async ({ request }) => {
           dodoPaymentId: resolvedPaymentId,
           downloadUrl: `/api/orders/${order.id}/download`,
         });
+        setOrderAccessCookie(cookies, order.id);
         orderId = order.id;
       }
     }

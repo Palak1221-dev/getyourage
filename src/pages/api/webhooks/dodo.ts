@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import DodoPayments from 'dodopayments';
 import { orderStore, formatProductTitle } from '../../../lib/orders';
 import { sendOrderConfirmation } from '../../../lib/email';
+import { signOrderAccessToken } from '../../../lib/order-access';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -62,7 +63,7 @@ export const POST: APIRoute = async ({ request }) => {
             to: customerEmail || order.customerEmail,
             orderId: order.id,
             productTitle: formatProductTitle(order.items),
-            downloadUrl: `${process.env.PUBLIC_SITE_URL || 'https://tooltails.com'}${downloadUrl}`,
+            downloadUrl: `${process.env.PUBLIC_SITE_URL || 'https://tooltails.com'}${downloadUrl}?token=${signOrderAccessToken(order.id)}`,
           });
         } else {
           const sessionId = data.checkout_session_id || metadata.sessionId || '';
@@ -83,7 +84,7 @@ export const POST: APIRoute = async ({ request }) => {
                 to: customerEmail || foundOrder.customerEmail,
                 orderId: foundOrder.id,
                 productTitle: formatProductTitle(foundOrder.items),
-                downloadUrl: `${process.env.PUBLIC_SITE_URL || 'https://tooltails.com'}${downloadUrl}`,
+                downloadUrl: `${process.env.PUBLIC_SITE_URL || 'https://tooltails.com'}${downloadUrl}?token=${signOrderAccessToken(foundOrder.id)}`,
               });
             }
           }

@@ -1,4 +1,139 @@
-## Session Summary (Aug 1, 2026) — Server-Verified App Page Gating (HttpOnly Access Cookie)
+# Session Summary (Aug 1, 2026) — Planner PDF E2E Audit Fixes: SPP A4 Overflow + WJ Dynamic Habits
+
+### What We Did
+1. **SPP A4 overflow fixed** (`src/scripts/planner-engine/preview-renderer.ts`) — The real PDF E2E audit (Chromium `page.pdf()`, same engine as customer "Save as PDF") found two Study Planner Pro pages taller than the A4 printable area (~1026px at 679px print width), creating phantom overflow pages (27 total instead of 25). Tightened vertical spacing only — no sections removed, no redesign, all content preserved:
+   - **Attendance Heatmap**: 1141px → **993px** (stat/streak card padding 10→8px, card margins 12→10px, progress-bar height 8→6px + margin 12→8px, legend margin 8→6px, weekday padding 2→1px + gap 3→2px, grid gap 3→2px, writing-section padding/margins tightened, line heights 16→15px)
+   - **Exam Strategy**: 1087px → **988px** (section-card padding 10→8px + margins 6→5px, timeline row padding 7→6px, stats card padding 10→8px + row margins 14→10px, readiness card padding 14→10px, section/timeline header margins 8→6px, priority margins 14→10px, recommendation card padding 12→10px, bottom checklist/worry card padding 10→8px, checklist row padding 3→2px)
+   - Heights measured at print width (679px) via a Chromium harness (`measure-print.mjs`), which is authoritative — earlier 1141px/1087px figures were measured at 900px viewport, not print width.
+
+2. **WJ Habit Tracker wired to personalization** (`src/scripts/planner-engine/wellness-journal-renderer.ts`) — `buildHabitTracker(t)` → `buildHabitTracker(t, values?)` (line ~148); `getPageList()` call site passes `this.values`. Customer habits from `values['habits']` are parsed (split `[,\n;]+`, trim/filter, dedupe), capped at the 6-slot layout (`slice(0, 6)`), and HTML-escaped via existing `esc()`. Fallbacks: empty/missing → original 6 defaults (`Exercise, Meditate, Read, Journal, Hydrate, Sleep Well`). "Today's Practice" text is singular ("0 of 1 habit") when exactly 1 habit. Verified at DOM level (5/3/8/none habits all render correctly).
+
+### Constraints Respected
+- Modified ONLY the two verified issues; no redesigns, no architecture/payment/download/personalization-flow changes; all sections, visual design, and spacing preserved "as much as possible"
+- Renderer files only; no client-store components, no payment/webhook/email code
+
+### Files Modified
+- `src/scripts/planner-engine/preview-renderer.ts` — `renderAttendance()` + `renderExamStrategy()` spacing compaction (Fix 1)
+- `src/scripts/planner-engine/wellness-journal-renderer.ts` — `buildHabitTracker(t, values)` dynamic habits (Fix 2)
+
+### Build & Test Verification
+- **Real PDF E2E** (esbuild bundle + Chromium print + pdf-parse + pixel analysis): **ALL_VERIFICATIONS_PASS** across all 4 planners:
+  - Study Planner Pro: 25/25 pages (was 27), no blanks, no clipping, name/term/goal personalization, no corruption
+  - Master Your Day: 11/11, no blanks/clipping, name/goal, no corruption
+  - Wellness Journal: 10/10, no blanks/clipping, name/focus + all 5 customer habits rendered, no corruption
+  - Social Media Detox: 15/15, no blanks/clipping, name/goal/Instagram, no corruption
+- Title checks use render aliases (headers render letter-spaced `S T U DY`, custom cover pages, "My Week {range}" weekly spreads, "Monthly Reflection" review page, WJ "Dashboard"→"Wellness Journal") — the strict-substring checker's earlier "FAIL missing titles" were confirmed false positives via direct text dumps
+- **Server build: Complete, 0 errors** (only pre-existing `getStaticPaths()` warnings)
+- **Planner engine tests: 132/132 passed**; scoring stability tests pass
+
+# Session Summary (Aug 1, 2026) — Order Retrieval & Download Authorization Hardening
+
+### What We Did
+1. **Strong order IDs** — `src/lib/orders.ts` `create()` no longer emits the enumerable `'ORD-' + Date.now().toString(36) + '-' + Math.random()...` id (~1.7M entropy). Order IDs are now capability tokens: `'ORD-' + randomUUID()` (v4, 122 bits) via the new `generateOrderId()` in `src/lib/order-access.ts`. Unknown IDs return 404 (no information leak).
+
+2. **Auth-before-retrieval** — `GET /api/orders/[id]` previously returned the full order (email, name, items, payment IDs) to anyone. It now requires a valid HMAC-signed capability token presented either as an HttpOnly cookie (`tt_order_access_<orderId>`) or as a `?token=` query param, verified with `timingSafeEqual` for the exact order ID; otherwise 401.
+
+3. **Auth-before-download** — `GET /api/orders/[id]/download` keeps its 404/403 (refunded/pending) checks but now 401s unless authorized. On authorized query-token access it promotes the token to an HttpOnly cookie before the 302 to `/download/<id>`.
+
+4. **New email-verification gate** — `POST /api/orders/[id]/unlock` lets a customer who only has their emailed link (lost the browser cookie) prove ownership by submitting the order's `customerEmail`; on match it sets the access cookie and returns `{ unlocked: true }`. Wrong email → 403; non-completed order → 404; malformed email → 400.
+
+5. **New `src/lib/order-access.ts`** — mirrors the existing `src/lib/access.ts` pattern: HMAC-SHA256 base64url capability tokens with `{ oid, exp }` payload + signature, 30-day TTL, constant-time compare. Secret chain: `ORDER_ACCESS_SECRET` → `PLANNER_ACCESS_SECRET` → `DODO_WEBHOOK_SECRET` → `'tooltails-order-access'`.
+
+6. **Cookies issued at purchase time** — `POST /api/verify-payment` now sets the access cookie via `setOrderAccessCookie(cookies, order.id)` on a verified payment; the Dodo webhook's emailed `downloadUrl` now carries `?token=${signOrderAccessToken(order.id)}` in both matched branches. `src/pages/download/[id].astro` authorizes from cookie or token (promoting token → cookie) and otherwise renders an email-gate UI that POSTs to `/api/orders/<id>/unlock`.
+
+### Constraints Respected
+- Supabase schema (`001_create_orders.sql`) unchanged — `id TEXT PRIMARY KEY` already accommodates UUID ids
+- Payment flow (`src/lib/dodo.ts`), webhook signature verification, currency/pricing, and planner engines untouched
+- Client-side `pdf-collector.ts` `createOrderFromState` ID intentionally untouched (client export utility, not the DB order store; its test asserting `order.id.startsWith('ORD-')` still holds)
+
+### Files Modified
+- `src/lib/order-access.ts` — created (UUID ids, HMAC tokens, cookie name/helper)
+- `src/lib/orders.ts` — `create()` now uses `generateOrderId()` (UUID v4)
+- `src/pages/api/orders/[id].ts` — secured: 401 unless cookie/query token verifies for that order
+- `src/pages/api/orders/[id]/download.ts` — secured: 401 unless authorized; promotes token → cookie before 302
+- `src/pages/api/orders/[id]/unlock.ts` — created (email-ownership gate)
+- `src/pages/api/verify-payment.ts` — sets order access cookie on verified payment
+- `src/pages/api/webhooks/dodo.ts` — emailed download URLs carry signed `?token=`
+- `src/pages/download/[id].astro` — auth gate (cookie/token) + email-verify fallback UI; planner renders only when authorized
+- `scripts/test-planner-engine.ts` — added Tests 38–41 (order-access unit tests)
+
+### Build & Test Verification
+- **Unit tests: 132/132 passed** (was 116; +16 order-access tests)
+- **Server build: Complete, 0 errors** (only pre-existing `getStaticPaths()` warnings)
+- **End-to-end handler verification (19/19)**: esbuild-bundled the real route handlers with an injected in-memory `orderStore` mock and exercised every path — retrieval 401 without auth / 401 with a different order's cookie / 401 with tampered token / 200 with valid cookie / 200 with valid query token / 404 unknown; download 401 unauth / 401 wrong-order cookie / 401 bad token / 302 valid cookie / 302 valid token with HttpOnly cookie set / 403 pending / 404 unknown; unlock 403 wrong email / 200 matching email with cookie set / 404 non-completed / 400 malformed email.
+
+# Session Summary (Aug 1, 2026) — Customer-Facing DOCX Claims Removed (Store/Planner Only)
+
+### What We Did
+1. **Audited all 54 `docx`/`DOCX` references** across the codebase and removed every customer-facing DOCX claim from the digital store and planner products. The store only ever ships vector PDF (A4 + US Letter); DOCX was a fictional claim and is now gone from all UI copy.
+
+2. **Edited `src/data/products.ts`** — Removed "and editable DOCX" from the `whatIncluded` list of the 3 store products that still referenced it (study-planner-pro, wellness-journal, social-media-detox) and removed the `{ type: 'docx', label: 'DOCX (Editable)' }` entry from their `formats` arrays. The `ProductFormat` type union (line 13) is internal typing only and left untouched.
+
+3. **Edited `src/components/digital-store/ProductPage.astro`** — Removed the "Editable DOCX" guarantee pill (was between "Vector PDF" and "GoodNotes Ready") and changed the footer microcopy "Instant PDF + DOCX access" → "Instant PDF access".
+
+4. **Edited `src/pages/digital-store/[slug].astro`** — Feature card "Vector-perfect PDF in A4 and US Letter. **Editable DOCX for digital edits.** Opens in any reader or GoodNotes." → dropped the DOCX sentence. Fallback FAQ "Includes vector PDF (A4 + US Letter) and editable Word DOCX files." → "Includes vector PDF (A4 + US Letter) files."
+
+5. **Edited `src/pages/digital-store/checkout.astro`** — Header subtitle "…personalized vector PDF & DOCX planners." → "…personalized vector PDF planners."; trust badge "Instant PDF + DOCX Download" → "Instant PDF Download"; cart item subtitle "Personalized PDF & DOCX" → "Personalized PDF".
+
+6. **Edited `src/components/digital-store/` supporting components** — `CareerProductPage.astro` (hero copy "editable DOCX templates" → "PDF templates", stat card "DOCX / Editable Files" → "PDF / Print-Ready Files", "PDF + DOCX" → "PDF"), `BudgetPlannerPage.astro` ("printable PDF + DOCX files" → "printable PDF files"), `DeepFocusPage.astro` & `WellnessJournalPage.astro` ("PDF + DOCX" → "PDF"), `QuickPreviewModal.astro` ("Print-Ready PDF + DOCX" → "Print-Ready PDF", removed "Editable Word (.docx)" format chip), `CompanionEcosystem.astro` ("Instant PDF & DOCX downloads" → "Instant PDF downloads"), `SystemComparisonDrawer.astro` ("Editable DOCX" comparison row → "Lifetime Updates").
+
+### Constraints Respected
+- **Store/planner customer-facing copy only** — per user decision, real DOCX functionality stays untouched: resume-checker upload parsing (`resume-checker.ts` + FAQ/copy in `resume-checker.astro`), study-schedule import (`study-schedule.ts` parseDOCX + accept attributes), and any blog/legal copy.
+- **No export logic modified** — `src/scripts/planner-engine/` format unions (`types.ts:34`, `pdf-collector.ts:4,49`, `index.ts:47`), `products.ts` type union, and `test-planner-engine.ts` docx assertion (line 272) all remain as-is.
+- No pricing, payment, Supabase, or personalization changes.
+
+### Files Modified
+- `src/data/products.ts` — 3× whatIncluded + 3× formats arrays de-DOCX'd
+- `src/components/digital-store/ProductPage.astro` — guarantee pill removed, "Instant PDF access"
+- `src/pages/digital-store/[slug].astro` — feature + FAQ copy
+- `src/pages/digital-store/checkout.astro` — subtitle, trust badge, cart item subtitle
+- `src/components/digital-store/CareerProductPage.astro` — hero copy, stat card, price label
+- `src/components/digital-store/BudgetPlannerPage.astro` — hero copy
+- `src/components/digital-store/DeepFocusPage.astro` — price label
+- `src/components/digital-store/WellnessJournalPage.astro` — price label
+- `src/components/digital-store/QuickPreviewModal.astro` — footer + format chip
+- `src/components/digital-store/CompanionEcosystem.astro` — bundle microcopy
+- `src/components/digital-store/SystemComparisonDrawer.astro` — comparison row
+
+### Build & Test Verification
+- **Server build: 0 errors, Complete!** (40.60s)
+- **Unit tests: 116/116 passed**
+- **Final grep**: only 15 `docx` matches remain, all in internal code/typing or real import functionality (study-schedule.ts parseDOCX, resume-checker.ts parseDOCX, planner-engine format unions, products.ts type union, test assertion). Zero DOCX references remain in any store/planner customer-facing surface.
+
+## Session Summary (Aug 1, 2026) — End-to-End Personalization Persistence
+
+### What We Did
+1. **Captured form values into cart items** (`src/components/digital-store/ProductPage.astro`) — The Buy button handler now reads every customization field (`input`/`select`/`textarea` with `id^="pf-"` and `data-field-id`) and stores them as a `personalization` object on the cart item (previously only product id/title/price were saved). The live preview's `getValues()` also now includes `textarea` fields so previews stay in sync with downloads.
+
+2. **Carried personalization through checkout** (`src/pages/digital-store/checkout.astro`) — The `CartItem` interface gained an optional `personalization?: Record<string, string>`, and the `POST /api/create-checkout` body now includes `personalization: item.personalization || {}`.
+
+3. **Persisted personalization on the order** (`src/lib/orders.ts`, `src/pages/api/create-checkout.ts`) — Added optional `personalization?: Record<string, string>` to the `OrderItem` interface and stamped it onto the order item at checkout creation. Because Supabase `orders.items` is a JSONB column (`supabase/migrations/001_create_orders.sql:17`), the field persists with no schema change.
+
+4. **Rendered the download from saved values** (`src/pages/download/[id].astro`) — The download page now merges the customer's saved `order.items[0].personalization` over product defaults (`{ ...defaultValues, ...savedValues }`), so the renderer receives the exact values the customer entered before checkout. Fallback remains `name: 'Student'` when nothing was saved (older orders).
+
+### Constraints Respected
+- No changes to payment flow (`src/lib/dodo.ts`), webhooks (`src/pages/api/webhooks/dodo.ts`), verify-payment, access control (HttpOnly cookie), downloads, or security
+- No currency/pricing changes; no Supabase schema changes (JSONB already flexible)
+- Payment-success unlock flow untouched
+
+### Files Modified
+- `src/components/digital-store/ProductPage.astro` — buy-handler captures all `pf-*` field values into cart `personalization`; preview `getValues()` includes `textarea`
+- `src/lib/orders.ts` — `OrderItem.personalization?: Record<string, string>`
+- `src/pages/api/create-checkout.ts` — destructures + validates `personalization` from body, stamps onto order item
+- `src/pages/digital-store/checkout.astro` — `CartItem.personalization` type + POST body includes it
+- `src/pages/download/[id].astro` — merges saved personalization over defaults before rendering
+
+### Build & Test Verification
+- **Server build: 0 errors, Complete!**
+- **Unit tests: 116/116 passed**
+- **End-to-end renderer verification (4/4 products)**: simulated the full download flow (order `personalization` → merge → `buildPreview` → `getPageList()`) and confirmed each customer's actual data appears in rendered output:
+  - Study Planner Pro (25 pages): name "Ananya Sharma", term, goal all present (incl. cover `data-pp-cover="name"`)
+  - Master Your Day (11 pages): name "Rahul Verma", goal on cover
+  - Wellness Journal (10 pages): name "Priya Patel", wellnessFocus on cover
+  - Social Media Detox (15 pages): name "Arjun Mehta", detoxGoal, topApp on cover
+- Note: verification scripts used an esbuild-bundled DOM shim because the renderer `esc()` helper needs `document`; node's raw ESM loader can't resolve the renderers' extensionless `./types` imports.
+
+# Session Summary (Aug 1, 2026) — Server-Verified App Page Gating (HttpOnly Access Cookie)
 
 ### What We Did
 1. **Replaced client-only purchase gating on all 4 app pages** (`/app/study-planner-pro`, `/app/master-your-day`, `/app/wellness-journal`, `/app/social-media-detox`) — removed the `localStorage` `tt_purchased_<slug>` bypass flag. Access is now granted only when the server verifies an HMAC-signed HttpOnly cookie on each SSR render.

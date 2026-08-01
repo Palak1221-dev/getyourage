@@ -67,10 +67,10 @@ export const products: Product[] = [
       '30-day exam countdown dashboard with weak-topic matrix',
       'Daily study session log with time and subject tracking',
       'Study analytics dashboard with hours logged and readiness score',
-      'Printable PDF (A4 + US Letter) and editable DOCX',
+      'Printable PDF (A4 + US Letter)',
       '30 days of free regenerations'
     ],
-    formats: [{ type: 'pdf', label: 'PDF (A4 + US Letter)' }, { type: 'printable', label: 'Printable' }, { type: 'docx', label: 'DOCX (Editable)' }],
+    formats: [{ type: 'pdf', label: 'PDF (A4 + US Letter)' }, { type: 'printable', label: 'Printable' }],
     personalization: [
       { id: 'name', label: 'Your Name', type: 'text', placeholder: 'Alex Johnson', required: true, section: 'Personal Info' },
       { id: 'term', label: 'Semester / Term', type: 'text', placeholder: 'Fall 2026', defaultValue: 'Fall 2026', required: true, section: 'Personal Info' },
@@ -130,10 +130,10 @@ export const products: Product[] = [
       'Sleep quality and unwind log',
       'Weekly wellness check-in',
       'Monthly wellness review and trend analysis',
-      'Printable PDF (A4 + US Letter) and editable DOCX',
+      'Printable PDF (A4 + US Letter)',
       '30 days of free regenerations'
     ],
-    formats: [{ type: 'pdf', label: 'PDF (A4 + US Letter)' }, { type: 'printable', label: 'Printable' }, { type: 'docx', label: 'DOCX (Editable)' }],
+    formats: [{ type: 'pdf', label: 'PDF (A4 + US Letter)' }, { type: 'printable', label: 'Printable' }],
     personalization: [
       { id: 'name', label: 'Your Name', type: 'text', placeholder: 'Maya Rivera', required: true, section: 'Personal Info' },
       { id: 'wellnessFocus', label: 'Your Wellness Focus', type: 'text', placeholder: 'Build a consistent morning routine and stress habits', required: true, section: 'Wellness Setup' },
@@ -169,10 +169,10 @@ export const products: Product[] = [
       'Weekly progress review with trend tracking',
       'Rewards & milestones celebration tracker',
       'Monthly digital wellness review',
-      'Printable PDF (A4 + US Letter) and editable DOCX',
+      'Printable PDF (A4 + US Letter)',
       '30 days of free regenerations'
     ],
-    formats: [{ type: 'pdf', label: 'PDF (A4 + US Letter)' }, { type: 'printable', label: 'Printable' }, { type: 'docx', label: 'DOCX (Editable)' }],
+    formats: [{ type: 'pdf', label: 'PDF (A4 + US Letter)' }, { type: 'printable', label: 'Printable' }],
     personalization: [
       { id: 'name', label: 'Your Name', type: 'text', placeholder: 'Alex Johnson', required: true, section: 'Personal Info' },
       { id: 'detoxGoal', label: 'Your Detox Goal', type: 'text', placeholder: 'Reduce screen time to 2 hrs/day', required: true, section: 'Detox Setup' },

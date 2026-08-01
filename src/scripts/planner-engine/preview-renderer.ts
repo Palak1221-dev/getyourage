@@ -1736,7 +1736,7 @@ private subjectList(): string[] {
       this.pageHeader('Attendance Heatmap', monthName) +
       this.pageBody(
         '<style>' +
-        '.att-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin:0 0 14px}' +
+        '.att-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin:0 0 12px}' +
         '.att-cell{aspect-ratio:1;border-radius:6px;border:1.5px solid #e5e0d8;background:#ffffff;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#2d2a27;cursor:pointer;transition:all 200ms ease;user-select:none;-webkit-user-select:none;position:relative;outline:none}' +
         '.att-cell:hover{background:#eff6ff;border-color:' + ac + '44;transform:scale(1.04);z-index:1}' +
         '.att-cell:focus-visible{box-shadow:0 0 0 2px ' + ac + ',0 0 0 4px #ffffff}' +
@@ -1752,69 +1752,69 @@ private subjectList(): string[] {
         '.att-cell.att-toggle{animation:att-pop 300ms ease}' +
         '</style>' +
         // Stat cards
-        '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 12px">' +
-          '<div style="background:#faf7f2;border-radius:10px;padding:10px 6px;text-align:center;border:1px solid #ede4d8;box-shadow:0 1px 3px rgba(0,0,0,0.02)">' +
+        '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 10px">' +
+          '<div style="background:#faf7f2;border-radius:10px;padding:8px 6px;text-align:center;border:1px solid #ede4d8;box-shadow:0 1px 3px rgba(0,0,0,0.02)">' +
             '<div style="font-size:20px;font-weight:800;color:' + ac + ';line-height:1.1" data-att-stat="pct">0%</div>' +
             '<div style="font-size:7px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.08em;margin-top:3px">Attendance</div>' +
           '</div>' +
-          '<div style="background:#faf7f2;border-radius:10px;padding:10px 6px;text-align:center;border:1px solid #ede4d8;box-shadow:0 1px 3px rgba(0,0,0,0.02)">' +
+          '<div style="background:#faf7f2;border-radius:10px;padding:8px 6px;text-align:center;border:1px solid #ede4d8;box-shadow:0 1px 3px rgba(0,0,0,0.02)">' +
             '<div style="font-size:20px;font-weight:800;color:#2d2a27;line-height:1.1" data-att-stat="present">0</div>' +
             '<div style="font-size:7px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.08em;margin-top:3px">Present</div>' +
           '</div>' +
-          '<div style="background:#faf7f2;border-radius:10px;padding:10px 6px;text-align:center;border:1px solid #ede4d8;box-shadow:0 1px 3px rgba(0,0,0,0.02)">' +
+          '<div style="background:#faf7f2;border-radius:10px;padding:8px 6px;text-align:center;border:1px solid #ede4d8;box-shadow:0 1px 3px rgba(0,0,0,0.02)">' +
             '<div style="font-size:20px;font-weight:800;color:#6B7280;line-height:1.1" data-att-stat="absent">0</div>' +
             '<div style="font-size:7px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.08em;margin-top:3px">Absent</div>' +
           '</div>' +
-          '<div style="background:#faf7f2;border-radius:10px;padding:10px 6px;text-align:center;border:1px solid #ede4d8;box-shadow:0 1px 3px rgba(0,0,0,0.02)">' +
+          '<div style="background:#faf7f2;border-radius:10px;padding:8px 6px;text-align:center;border:1px solid #ede4d8;box-shadow:0 1px 3px rgba(0,0,0,0.02)">' +
             '<div style="font-size:20px;font-weight:800;color:#6B7280;line-height:1.1" data-att-stat="days-left">' + daysInMonth + '</div>' +
             '<div style="font-size:7px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.08em;margin-top:3px">Days Left</div>' +
           '</div>' +
         '</div>' +
         // Streak cards
-        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 12px">' +
-          '<div style="background:linear-gradient(135deg,' + ac + '0a,' + ac + '03);border-radius:10px;padding:10px 12px;border:1px solid ' + ac + '22">' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 10px">' +
+          '<div style="background:linear-gradient(135deg,' + ac + '0a,' + ac + '03);border-radius:10px;padding:8px 12px;border:1px solid ' + ac + '22">' +
             '<div style="font-size:7px;font-weight:700;color:' + ac + ';text-transform:uppercase;letter-spacing:0.08em">Current Streak</div>' +
             '<div style="display:flex;align-items:baseline;gap:4px;margin-top:3px"><span data-att-stat="streak-current" style="font-size:22px;font-weight:800;color:#2d2a27;line-height:1">0</span><span style="font-size:8px;color:#6B7280;font-weight:500;margin-left:2px">days</span></div>' +
           '</div>' +
-          '<div style="background:linear-gradient(135deg,#f59e0b0a,#f59e0b04);border-radius:10px;padding:10px 12px;border:1px solid #f59e0b22">' +
+          '<div style="background:linear-gradient(135deg,#f59e0b0a,#f59e0b04);border-radius:10px;padding:8px 12px;border:1px solid #f59e0b22">' +
             '<div style="font-size:7px;font-weight:700;color:#f59e0b;text-transform:uppercase;letter-spacing:0.08em">Best Streak</div>' +
             '<div style="display:flex;align-items:baseline;gap:4px;margin-top:3px"><span data-att-stat="streak-best" style="font-size:22px;font-weight:800;color:#2d2a27;line-height:1">0</span><span style="font-size:8px;color:#6B7280;font-weight:500;margin-left:2px">days</span></div>' +
           '</div>' +
         '</div>' +
         // Progress bar
-        '<div style="margin:0 0 12px">' +
+        '<div style="margin:0 0 8px">' +
           '<div style="display:flex;justify-content:space-between;font-size:8px;font-weight:600;color:#6B7280;margin-bottom:4px"><span data-att-stat="progress-label">Monthly Progress</span><span data-att-stat="progress-frac">0/' + daysInMonth + '</span></div>' +
-          '<div style="height:8px;background:#ede4d8;border-radius:5px;overflow:hidden;position:relative">' +
+          '<div style="height:6px;background:#ede4d8;border-radius:5px;overflow:hidden;position:relative">' +
             '<div data-att-stat="progress-bar" style="position:absolute;top:0;left:0;height:100%;width:0%;background:linear-gradient(90deg,' + ac + ',' + ac + 'cc);border-radius:5px;transition:width 400ms ease"></div>' +
           '</div>' +
         '</div>' +
         // Legend + grid header
-        '<div style="display:flex;align-items:center;gap:10px;margin:0 0 8px">' +
+        '<div style="display:flex;align-items:center;gap:10px;margin:0 0 6px">' +
           '<div style="display:flex;align-items:center;gap:4px;font-size:7px;font-weight:600;color:#6B7280"><span style="width:8px;height:8px;border-radius:2px;background:' + ac + ';border:1px solid ' + ac + '"></span>Present</div>' +
           '<div style="display:flex;align-items:center;gap:4px;font-size:7px;font-weight:600;color:#6B7280"><span style="width:8px;height:8px;border-radius:2px;background:#ffffff;border:1.5px solid #e5e0d8"></span>Absent</div>' +
           '<div style="flex:1"></div>' +
           '<div style="font-size:7px;color:#4B5563;font-weight:500">Click to toggle</div>' +
         '</div>' +
         // Weekday headers
-        '<div style="display:flex;gap:3px;margin:0 0 2px">' +
-          weekDayLabels.map(function(d) { return '<div style="flex:1;text-align:center;font-size:7px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.05em;padding:2px 0">' + d + '</div>'; }).join('') +
+        '<div style="display:flex;gap:2px;margin:0 0 2px">' +
+          weekDayLabels.map(function(d) { return '<div style="flex:1;text-align:center;font-size:7px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.05em;padding:1px 0">' + d + '</div>'; }).join('') +
         '</div>' +
         // Calendar grid
         '<div class="att-grid" data-att-grid="' + dateStr + '">' +
           cells +
         '</div>' +
         // Writing section
-        '<div style="font-size:11px;font-weight:700;color:#2d2a27;margin-bottom:6px;font-family:\'Playfair Display\',Outfit,serif">My Attendance Goal</div>' +
-        '<div style="background:#faf7f2;border-radius:8px;padding:10px 12px;border:1px solid #ede4d8;margin:0 0 12px">' +
-          '<div style="font-size:8px;font-weight:700;color:#4B5563;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px">I want to attend ___ days this month</div>' +
-          '<div style="height:16px;border-bottom:1.5px solid #d4c9bc;margin-bottom:4px"></div>' +
-          '<div style="height:16px;border-bottom:1.5px solid #d4c9bc"></div>' +
+        '<div style="font-size:11px;font-weight:700;color:#2d2a27;margin-bottom:5px;font-family:\'Playfair Display\',Outfit,serif">My Attendance Goal</div>' +
+        '<div style="background:#faf7f2;border-radius:8px;padding:8px 12px;border:1px solid #ede4d8;margin:0 0 10px">' +
+          '<div style="font-size:8px;font-weight:700;color:#4B5563;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">I want to attend ___ days this month</div>' +
+          '<div style="height:15px;border-bottom:1.5px solid #d4c9bc;margin-bottom:3px"></div>' +
+          '<div style="height:15px;border-bottom:1.5px solid #d4c9bc"></div>' +
         '</div>' +
-        '<div style="background:#faf7f2;border-radius:8px;padding:10px 12px;border:1px solid #ede4d8">' +
-          '<div style="font-size:8px;font-weight:700;color:#4B5563;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px">If I miss a class, the reason was…</div>' +
-          '<div style="height:16px;border-bottom:1.5px solid #d4c9bc;margin-bottom:4px"></div>' +
-          '<div style="height:16px;border-bottom:1.5px solid #d4c9bc;margin-bottom:4px"></div>' +
-          '<div style="height:16px;border-bottom:1.5px solid #d4c9bc"></div>' +
+        '<div style="background:#faf7f2;border-radius:8px;padding:8px 12px;border:1px solid #ede4d8">' +
+          '<div style="font-size:8px;font-weight:700;color:#4B5563;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">If I miss a class, the reason was…</div>' +
+          '<div style="height:15px;border-bottom:1.5px solid #d4c9bc;margin-bottom:3px"></div>' +
+          '<div style="height:15px;border-bottom:1.5px solid #d4c9bc;margin-bottom:3px"></div>' +
+          '<div style="height:15px;border-bottom:1.5px solid #d4c9bc"></div>' +
         '</div>'
       )
     );
@@ -2370,8 +2370,8 @@ private subjectList(): string[] {
     const _self = this;
     function renderSectionCard(i: number): string {
       const key = 'exam-strategy-conf-' + i;
-      return '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:10px 12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
-        '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">' +
+      return '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:8px 12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">' +
           '<div style="display:flex;align-items:center;gap:6px;flex:1;min-width:0">' +
             '<span style="width:6px;height:6px;border-radius:50%;background:' + NB + ';flex-shrink:0"></span>' +
             '<span style="height:16px;border-bottom:1.5px solid ' + cardBorder + ';font-size:11px;font-weight:500;color:#2d2a27;padding:0 4px;line-height:16px;display:inline-block;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" data-er="exam-strategy-section-name-' + i + '">Section ' + (i + 1) + '</span>' +
@@ -2382,7 +2382,7 @@ private subjectList(): string[] {
             '<input type="range" min="1" max="10" value="5" step="1" data-er-range="exam-strategy-conf-' + i + '" style="width:60px;accent-color:' + NB + ';">' +
           '</div>' +
         '</div>' +
-        '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">' +
+        '<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">' +
           '<span style="font-size:8px;font-weight:600;color:' + NC + ';white-space:nowrap">Est:</span>' +
           '<span style="height:14px;border-bottom:1.5px solid ' + cardBorder + ';font-size:8px;font-weight:500;color:#374151;padding:0 2px;line-height:14px;display:inline-block;min-width:20px">___</span>' +
           '<span style="font-size:8px;color:' + NC + '">min</span>' +
@@ -2405,7 +2405,7 @@ private subjectList(): string[] {
       const labels = ['Completed', 'Missed', 'Today', 'Upcoming', 'Upcoming'];
       const color = colors[i];
       const label = labels[i];
-      return `<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;background:${isToday ? '#eff6ff' : 'white'};border:1px solid ${isToday ? '#bfdbfe' : cardBorder}">
+      return `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;background:${isToday ? '#eff6ff' : 'white'};border:1px solid ${isToday ? '#bfdbfe' : cardBorder}">
         <div style="display:flex;align-items:center;gap:4px;flex-shrink:0;width:50px">
           <span style="width:8px;height:8px;border-radius:50%;background:${color};flex-shrink:0"></span>
           <span style="font-size:8px;font-weight:600;color:${color}">Day ${i + 1}</span>
@@ -2434,22 +2434,22 @@ private subjectList(): string[] {
       this.pageHeader('Exam Strategy', '') +
       this.pageBody(
         // Stats row
-        '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 14px">' +
-          '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:10px 8px;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
+        '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 10px">' +
+          '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:8px 8px;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
             '<div style="font-size:20px;font-weight:800;color:' + NB + '" data-exam-stat="readiness">0%</div>' +
             '<div style="font-size:8px;font-weight:600;color:' + NC + ';text-transform:uppercase;letter-spacing:0.05em;margin-top:2px">Readiness</div></div>' +
-          '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:10px 8px;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
+          '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:8px 8px;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
             '<div style="font-size:20px;font-weight:800;color:' + NA + '"><span style="height:22px;border-bottom:1.5px solid ' + NA + '33;font-weight:500;font-size:20px;padding:0;line-height:22px;display:inline-block;min-width:24px">___</span></div>' +
             '<div style="font-size:8px;font-weight:600;color:' + NC + ';text-transform:uppercase;letter-spacing:0.05em;margin-top:2px">Days Left</div></div>' +
-          '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:10px 8px;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
+          '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:8px 8px;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
             '<div style="font-size:20px;font-weight:800;color:' + NG + '"><span style="height:22px;border-bottom:1.5px solid ' + NG + '33;font-weight:500;font-size:20px;padding:0;line-height:22px;display:inline-block;min-width:24px">___/3</span></div>' +
             '<div style="font-size:8px;font-weight:600;color:' + NC + ';text-transform:uppercase;letter-spacing:0.05em;margin-top:2px">Sections</div></div>' +
-          '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:10px 8px;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
+          '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:8px 8px;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
             '<div style="font-size:20px;font-weight:800;color:#374151"><span style="height:22px;border-bottom:1.5px solid #37415133;font-weight:500;font-size:20px;padding:0;line-height:22px;display:inline-block;min-width:24px">___h</span></div>' +
             '<div style="font-size:8px;font-weight:600;color:' + NC + ';text-transform:uppercase;letter-spacing:0.05em;margin-top:2px">Time Total</div></div>' +
         '</div>' +
         // Readiness card with ring
-        '<div style="display:flex;align-items:center;gap:16px;background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:12px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.04);margin:0 0 14px">' +
+        '<div style="display:flex;align-items:center;gap:16px;background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:12px;padding:10px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.04);margin:0 0 10px">' +
           '<div data-exam-ring style="position:relative;display:inline-block">' +
             '<svg width="72" height="72" viewBox="0 0 72 72" style="transform:rotate(-90deg);display:block">' +
               '<circle cx="36" cy="36" r="32" fill="none" stroke="#e5e7eb" stroke-width="3"/>' +
@@ -2474,43 +2474,43 @@ private subjectList(): string[] {
           '</div>' +
         '</div>' +
         // Section Planner cards
-        '<div style="font-size:10px;font-weight:700;color:#374151;margin-bottom:8px;display:flex;align-items:center;gap:6px">' +
+        '<div style="font-size:10px;font-weight:700;color:#374151;margin-bottom:6px;display:flex;align-items:center;gap:6px">' +
           '<span style="width:4px;height:4px;border-radius:50%;background:' + NB + '"></span>Plan Each Section' +
         '</div>' +
-        '<div style="display:flex;flex-direction:column;gap:6px;margin:0 0 14px">' +
+        '<div style="display:flex;flex-direction:column;gap:5px;margin:0 0 10px">' +
           sectionsHtml +
         '</div>' +
         // Priority Matrix
-        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 14px">' +
-          '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:10px 12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
-            '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 10px">' +
+          '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:8px 12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
+            '<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">' +
               '<span style="font-size:12px">⚡</span>' +
               '<span style="font-size:9px;font-weight:700;color:#374151">Strong Areas</span>' +
             '</div>' +
-            '<div style="font-size:8px;color:' + NC + ';margin-bottom:6px" data-exam-stat="strong-areas">Enter section confidences above</div>' +
+            '<div style="font-size:8px;color:' + NC + ';margin-bottom:5px" data-exam-stat="strong-areas">Enter section confidences above</div>' +
             '<div style="height:14px;border-bottom:1.5px solid ' + cardBorder + ';margin-bottom:3px"></div>' +
             '<div style="height:14px;border-bottom:1.5px solid ' + cardBorder + '"></div>' +
           '</div>' +
-          '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:10px 12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
-            '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">' +
+          '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:8px 12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
+            '<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">' +
               '<span style="font-size:12px">⚠️</span>' +
               '<span style="font-size:9px;font-weight:700;color:#374151">Areas to Improve</span>' +
             '</div>' +
-            '<div style="font-size:8px;color:' + NC + ';margin-bottom:6px" data-exam-stat="weak-areas">Enter section confidences above</div>' +
+            '<div style="font-size:8px;color:' + NC + ';margin-bottom:5px" data-exam-stat="weak-areas">Enter section confidences above</div>' +
             '<div style="height:14px;border-bottom:1.5px solid ' + cardBorder + ';margin-bottom:3px"></div>' +
             '<div style="height:14px;border-bottom:1.5px solid ' + cardBorder + '"></div>' +
           '</div>' +
         '</div>' +
         // Revision Timeline
-        '<div style="font-size:10px;font-weight:700;color:#374151;margin-bottom:8px;display:flex;align-items:center;gap:6px">' +
+        '<div style="font-size:10px;font-weight:700;color:#374151;margin-bottom:6px;display:flex;align-items:center;gap:6px">' +
           '<span style="width:4px;height:4px;border-radius:50%;background:' + NB + '"></span>Revision Timeline' +
           '<span style="font-size:7px;font-weight:500;color:' + NC + ';margin-left:auto">Next 5 days</span>' +
         '</div>' +
-        '<div style="display:flex;flex-direction:column;gap:5px;margin:0 0 14px">' +
+        '<div style="display:flex;flex-direction:column;gap:4px;margin:0 0 10px">' +
           timelineHtml +
         '</div>' +
         // Smart Recommendations
-        '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:12px 14px;box-shadow:0 1px 2px rgba(0,0,0,0.03);margin:0 0 14px;border-left:3px solid ' + NB + '">' +
+        '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:10px 14px;box-shadow:0 1px 2px rgba(0,0,0,0.03);margin:0 0 10px;border-left:3px solid ' + NB + '">' +
           '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">' +
             '<span style="font-size:12px">🧠</span>' +
             '<span style="font-size:9px;font-weight:700;color:#374151">Smart Recommendations</span>' +
@@ -2519,8 +2519,8 @@ private subjectList(): string[] {
         '</div>' +
         // Bottom row: Checklist + Notes
         '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">' +
-          '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:10px 12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
-            '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">' +
+          '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:8px 12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
+            '<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">' +
               '<span style="font-size:11px">📋</span>' +
               '<span style="font-size:9px;font-weight:700;color:#374151">Exam Day Checklist</span>' +
             '</div>' +
@@ -2528,7 +2528,7 @@ private subjectList(): string[] {
               (function(n: number): string {
                 var r = '';
                 for (var i = 0; i < n; i++) {
-                  r += '<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px dashed #f3f4f6">' +
+                  r += '<div style="display:flex;align-items:center;gap:6px;padding:2px 0;border-bottom:1px dashed #f3f4f6">' +
                     '<span class="pp-cb" style="width:12px;height:12px;border:1.5px solid #d4c9bc;border-radius:3px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;background:transparent;transition:all 150ms ease"></span>' +
                     '<span style="height:14px;border-bottom:1.5px solid ' + cardBorder + ';font-size:8px;font-weight:500;color:#374151;padding:0 4px;line-height:14px;display:inline-block;flex:1;min-width:0">___</span></div>';
                 }
@@ -2536,8 +2536,8 @@ private subjectList(): string[] {
               })(5) +
             '</div>' +
           '</div>' +
-          '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:10px 12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
-            '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">' +
+          '<div style="background:' + cardBg + ';border:1px solid ' + cardBorder + ';border-radius:10px;padding:8px 12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)">' +
+            '<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">' +
               '<span style="font-size:11px">💭</span>' +
               '<span style="font-size:9px;font-weight:700;color:#374151">My Biggest Worry</span>' +
             '</div>' +

@@ -145,9 +145,20 @@ function buildDashboard(t: typeof THEME[string]): string {
   `));
 }
 
-function buildHabitTracker(t: typeof THEME[string]): string {
-  const HABIT_NAMES = ['Exercise', 'Meditate', 'Read', 'Journal', 'Hydrate', 'Sleep Well'];
+function buildHabitTracker(t: typeof THEME[string], values?: Record<string, string>): string {
+  const rawHabits = values && values['habits'] ? values['habits'] : '';
+  const habitNames = rawHabits
+    .split(/[,\n;]+/)
+    .map((h: string) => h.trim())
+    .filter((h: string) => h.length > 0)
+    .slice(0, 6);
+  const HABIT_NAMES = habitNames.length > 0
+    ? habitNames
+    : ['Exercise', 'Meditate', 'Read', 'Journal', 'Hydrate', 'Sleep Well'];
   const dayLabels = ['28','','','','','','','','','','','','','','','','','','','','','','','','','','','1'];
+  const todayText = HABIT_NAMES.length === 1
+    ? 'You\u2019ve done 0 of 1 habit today'
+    : 'You\u2019ve done 0 of ' + HABIT_NAMES.length + ' habits today';
   return pageWrap(pageHeader('Habit Tracker', 'Gentle daily awareness, not perfection') + pageBody(`
     <div style="background:linear-gradient(135deg,${t.accent}08,${t.accent}15);border-radius:14px;padding:16px;margin-bottom:14px;border:1px solid ${t.accent}20">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
@@ -157,7 +168,7 @@ function buildHabitTracker(t: typeof THEME[string]): string {
       <div style="display:flex;height:6px;border-radius:3px;background:#ede4d8;overflow:hidden;margin-bottom:8px">
         <div style="height:100%;border-radius:3px;background:${t.accent};width:0%;transition:width 0.4s ease" data-wj-today-bar></div>
       </div>
-      <div style="font-size:9px;color:#6B7280" data-wj-today-text>You've done 0 of 6 habits today</div>
+      <div style="font-size:9px;color:#6B7280" data-wj-today-text>${todayText}</div>
       <div style="font-size:8px;color:#9CA3AF;margin-top:2px;font-style:italic">Every moment is a fresh start.</div>
     </div>
     <div style="font-size:10px;font-weight:600;color:#4B5563;margin-bottom:6px">Monthly Pattern</div>
@@ -166,7 +177,7 @@ function buildHabitTracker(t: typeof THEME[string]): string {
     </div>
     ${HABIT_NAMES.map((name, hi) => `
     <div style="display:flex;align-items:center;gap:3px;padding:2px 0">
-      <span style="width:72px;font-size:9px;font-weight:600;color:#374151;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${name}</span>
+      <span style="width:72px;font-size:9px;font-weight:600;color:#374151;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(name)}">${esc(name)}</span>
       ${Array.from({length:28}, (_, di) => `
       <span data-wj-habit="${hi}" data-wj-day="${di}" style="flex:1;aspect-ratio:1;border-radius:3px;background:#f5f0ea;border:1px solid #ede4d8;cursor:pointer;display:inline-block;min-width:14px;transition:all 0.15s"></span>`).join('')}
       <span style="width:24px;text-align:center;flex-shrink:0;font-size:12px;line-height:1" data-wj-habit-indicator="${hi}">○</span>
@@ -369,7 +380,7 @@ export class WellnessJournalPreview {
     return [
       { id: 'wj-cover', title: 'Cover', html: buildCover(t, this.values) },
       { id: 'wj-dashboard', title: 'Dashboard', html: buildDashboard(t) },
-      { id: 'wj-habits', title: 'Habit Tracker', html: buildHabitTracker(t) },
+      { id: 'wj-habits', title: 'Habit Tracker', html: buildHabitTracker(t, this.values) },
       { id: 'wj-morning', title: 'Morning Check-in', html: buildMorningCheckin(t) },
       { id: 'wj-evening', title: 'Evening Reflection', html: buildEveningReflection(t) },
       { id: 'wj-gratitude', title: 'Gratitude Journal', html: buildGratitudeJournal(t) },

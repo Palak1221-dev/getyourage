@@ -1,4 +1,5 @@
 import { getSupabase } from './supabase';
+import { generateOrderId } from './order-access';
 import type { Order, OrderItem } from './orders';
 
 // ── Database Row Shape ──
@@ -75,7 +76,7 @@ export class SupabaseOrderRepository implements OrderRepository {
   }
 
   async create(sessionId: string, email: string, name: string, items: OrderItem[], amount: number, currency: string): Promise<Order> {
-    const id = 'ORD-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+    const id = generateOrderId();
     const now = new Date().toISOString();
 
     const order: Order = {

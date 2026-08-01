@@ -1,6 +1,7 @@
 ---
 import { orderStore } from '../../lib/orders';
 import { products } from '../../data/products';
+import { verifyOrderAccessToken, setOrderAccessCookie, orderAccessCookieName } from '../../lib/order-access';
 
 export const prerender = false;
 
@@ -21,6 +22,16 @@ if (order.status !== 'completed') {
   return new Response(JSON.stringify({ error: msg }), { status: 403, headers: { 'Content-Type': 'application/json' } });
 }
 
+const cookieToken = Astro.cookies.get(orderAccessCookieName(order.id))?.value;
+const queryToken = Astro.url.searchParams.get('token');
+const cookieOk = verifyOrderAccessToken(cookieToken, order.id);
+const queryOk = verifyOrderAccessToken(queryToken, order.id);
+const authorized = cookieOk || queryOk;
+
+if (queryOk && !cookieOk) {
+  setOrderAccessCookie(Astro.cookies, order.id);
+}
+
 const slug = order.items[0]?.productSlug || '';
 const product = products.find(p => p.slug === slug);
 const title = product?.title || 'Personalized Planner';
@@ -33,111 +44,216 @@ for (const f of fields) {
 }
 if (!defaultValues['name']) defaultValues['name'] = 'Student';
 
-const defaultTheme = fields.find(f => f.id === 'color' || f.id === 'accentColor')?.defaultValue || 'violet';
+// Customer's saved personalization (captured at checkout) wins over product defaults
+const savedValues: Record<string, string> = order.items[0]?.personalization || {};
+const values: Record<string, string> = { ...defaultValues, ...savedValues };
+if (!values['name']) values['name'] = 'Student';
 
-console.log(`Download served: order ${order.id}, product ${slug}`);
+const defaultTheme = fields.find(f => f.id === 'color' || f.id === 'accentColor')?.defaultValue || 'violet';
 ---
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Download — {title} | Tooltails</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Outfit', 'Inter', sans-serif; background: #f5f2ed; color: #374151; }
-    #loading {
-      display: flex; align-items: center; justify-content: center;
-      min-height: 100vh; flex-direction: column; gap: 16px;
-    }
-    .spinner {
-      width: 32px; height: 32px;
-      border: 3px solid #ede4d8;
-      border-top-color: #7C3AED;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    #loading p { font-size: 14px; color: #6b5f51; font-weight: 600; }
-    #planner-content { display: none; }
-    #planner-content.ready { display: block; }
-    .planner-page-wrap { max-width: 820px; margin: 0 auto; padding: 20px 0; }
-    .print-bar {
-      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-      background: #1c1917; color: white;
-      padding: 12px 24px; border-radius: 12px;
-      display: flex; align-items: center; gap: 16px;
-      z-index: 1000; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    }
-    .print-bar button {
-      background: #7C3AED; color: white;
-      border: none; padding: 10px 24px;
-      border-radius: 8px; font-size: 13px; font-weight: 700;
-      cursor: pointer; transition: background 0.15s;
-    }
-    .print-bar button:hover { background: #6D28D9; }
-    .print-bar .hint { font-size: 11px; color: #a8a29e; }
-    @media print {
-      body { background: white !important; }
-      .print-bar { display: none !important; }
-      #loading { display: none !important; }
-      #planner-content { display: block !important; }
-      .planner-page-wrap { max-width: none; padding: 0; }
-      @page { margin: 0.5in 0.6in; }
-    }
-  </style>
+  <title>{authorized ? `Download — ${title} | Tooltails` : 'Download — Verify Email | Tooltails'}</title>
+  {authorized ? (
+    <>
+      <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Outfit', 'Inter', sans-serif; background: #f5f2ed; color: #374151; }
+        #loading {
+          display: flex; align-items: center; justify-content: center;
+          min-height: 100vh; flex-direction: column; gap: 16px;
+        }
+        .spinner {
+          width: 32px; height: 32px;
+          border: 3px solid #ede4d8;
+          border-top-color: #7C3AED;
+          border-radius: 50%;
+          animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        #loading p { font-size: 14px; color: #6b5f51; font-weight: 600; }
+        #planner-content { display: none; }
+        #planner-content.ready { display: block; }
+        .planner-page-wrap { max-width: 820px; margin: 0 auto; padding: 20px 0; }
+        .print-bar {
+          position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+          background: #1c1917; color: white;
+          padding: 12px 24px; border-radius: 12px;
+          display: flex; align-items: center; gap: 16px;
+          z-index: 1000; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .print-bar button {
+          background: #7C3AED; color: white;
+          border: none; padding: 10px 24px;
+          border-radius: 8px; font-size: 13px; font-weight: 700;
+          cursor: pointer; transition: background 0.15s;
+        }
+        .print-bar button:hover { background: #6D28D9; }
+        .print-bar .hint { font-size: 11px; color: #a8a29e; }
+        @media print {
+          body { background: white !important; }
+          .print-bar { display: none !important; }
+          #loading { display: none !important; }
+          #planner-content { display: block !important; }
+          .planner-page-wrap { max-width: none; padding: 0; }
+          @page { margin: 0.5in 0.6in; }
+        }
+      </style>
+    </>
+  ) : (
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        font-family: 'Outfit', 'Inter', -apple-system, sans-serif;
+        background: #faf7f2; color: #374151;
+        min-height: 100vh; display: flex; align-items: center; justify-content: center;
+        padding: 24px;
+      }
+      .gate-card {
+        background: #fff; border: 1px solid #eae3d8; border-radius: 20px;
+        max-width: 420px; width: 100%; padding: 40px 32px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.06); text-align: center;
+      }
+      .gate-card .icon { font-size: 36px; margin-bottom: 12px; }
+      .gate-card h1 { font-size: 20px; font-weight: 800; color: #1c1917; margin-bottom: 8px; font-family: 'Playfair Display', serif; }
+      .gate-card p { font-size: 13px; color: #78716c; line-height: 1.6; margin-bottom: 24px; }
+      .gate-card form { display: flex; flex-direction: column; gap: 12px; }
+      .gate-card input {
+        padding: 12px 16px; border: 1px solid #e7e5e4; border-radius: 12px;
+        font-size: 14px; outline: none; background: #fcfaf7; color: #1c1917;
+      }
+      .gate-card input:focus { border-color: #7C3AED; box-shadow: 0 0 0 3px rgba(124,58,237,0.12); }
+      .gate-card button {
+        padding: 12px 16px; border: none; border-radius: 12px;
+        background: #7C3AED; color: #fff; font-size: 14px; font-weight: 700;
+        cursor: pointer; transition: background 0.15s;
+      }
+      .gate-card button:hover { background: #6D28D9; }
+      .gate-card .msg { font-size: 12px; min-height: 18px; }
+      .gate-card .msg.error { color: #dc2626; }
+      .gate-card .msg.success { color: #16a34a; }
+      .gate-card .back { display: block; margin-top: 20px; font-size: 12px; color: #a8a29e; text-decoration: none; }
+    </style>
+  )}
 </head>
 <body>
-  <div id="loading">
-    <div class="spinner"></div>
-    <p>Generating your {title}...</p>
-  </div>
+  {authorized ? (
+    <>
+      <div id="loading">
+        <div class="spinner"></div>
+        <p>Generating your {title}...</p>
+      </div>
 
-  <div id="planner-content"></div>
+      <div id="planner-content"></div>
 
-  <div class="print-bar" id="print-bar">
-    <span class="hint">Your planner is ready</span>
-    <button id="save-pdf-btn">Save as PDF</button>
-    <span class="hint">or press <kbd>Ctrl+P</kbd></span>
-  </div>
+      <div class="print-bar" id="print-bar">
+        <span class="hint">Your planner is ready</span>
+        <button id="save-pdf-btn">Save as PDF</button>
+        <span class="hint">or press <kbd>Ctrl+P</kbd></span>
+      </div>
 
-  <script type="application/json" id="download-data">{JSON.stringify({ defaultValues, defaultTheme, title, icon })}</script>
+      <script type="application/json" id="download-data">{JSON.stringify({ defaultValues: values, defaultTheme, title, icon, slug })}</script>
 
-  <script type="module">
-    import { FullPlannerPreview, getTheme } from '../../scripts/planner-engine/preview-renderer';
+      <script type="module">
+        import { FullPlannerPreview, getTheme } from '../../scripts/planner-engine/preview-renderer';
+        import { MasterYourDayPreview, getTheme as mydTheme } from '../../scripts/planner-engine/master-your-day-renderer';
+        import { WellnessJournalPreview, getTheme as wjTheme } from '../../scripts/planner-engine/wellness-journal-renderer';
+        import { SocialMediaDetoxPreview, getTheme as smdTheme } from '../../scripts/planner-engine/social-media-detox-renderer';
 
-    const container = document.getElementById('planner-content');
-    const loading = document.getElementById('loading');
-    const saveBtn = document.getElementById('save-pdf-btn');
+        function buildPreview(slug: string, values: Record<string, string>, theme: string, title: string, icon: string) {
+          switch (slug) {
+            case 'master-your-day':
+              return new MasterYourDayPreview(values, mydTheme(theme), title, icon);
+            case 'wellness-journal':
+              return new WellnessJournalPreview(values, wjTheme(theme), title, icon);
+            case 'social-media-detox':
+              return new SocialMediaDetoxPreview(values, smdTheme(theme), title, icon);
+            default:
+              return new FullPlannerPreview(values, getTheme(theme), title, icon);
+          }
+        }
 
-    try {
-      const data = JSON.parse(document.getElementById('download-data').textContent);
+        const container = document.getElementById('planner-content');
+        const loading = document.getElementById('loading');
+        const saveBtn = document.getElementById('save-pdf-btn');
 
-      const preview = new FullPlannerPreview(data.defaultValues, getTheme(data.defaultTheme), data.title, data.icon);
-      const pages = preview.getPageList();
+        try {
+          const data = JSON.parse(document.getElementById('download-data').textContent);
 
-      const wrapper = document.createElement('div');
-      wrapper.className = 'planner-page-wrap';
-      wrapper.innerHTML = pages
-        .map(p => `<div>${p.html}</div>`)
-        .join('<div style="page-break-after:always;height:0;margin:0;padding:0"></div>');
-      container.appendChild(wrapper);
+          const preview = buildPreview(data.slug, data.defaultValues, data.defaultTheme, data.title, data.icon);
+          const pages = preview.getPageList();
 
-      loading.style.display = 'none';
-      container.classList.add('ready');
+          const wrapper = document.createElement('div');
+          wrapper.className = 'planner-page-wrap';
+          wrapper.innerHTML = pages
+            .map(p => `<div>${p.html}</div>`)
+            .join('<div style="page-break-after:always;height:0;margin:0;padding:0"></div>');
+          container.appendChild(wrapper);
 
-      saveBtn.addEventListener('click', () => window.print());
+          loading.style.display = 'none';
+          container.classList.add('ready');
 
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setTimeout(() => window.print(), 200);
+          saveBtn.addEventListener('click', () => window.print());
+
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              setTimeout(() => window.print(), 200);
+            });
+          });
+        } catch (e) {
+          console.error('Download generation failed:', e);
+          loading.innerHTML = `<p style="color:#dc2626">Failed to generate your planner. <a href="/digital-store" style="color:#7C3AED;text-decoration:underline">Return to store</a></p>`;
+        }
+      </script>
+    </>
+  ) : (
+    <div class="gate-card">
+      <div class="icon">🔒</div>
+      <h1>Verify your email</h1>
+      <p>Enter the email you used at checkout to unlock your download. This keeps your personalized planner private.</p>
+      <form id="unlock-form">
+        <input type="email" id="unlock-email" placeholder="you@example.com" required autocomplete="email">
+        <button type="submit">Unlock Download</button>
+      </form>
+      <div class="msg" id="unlock-msg" aria-live="polite"></div>
+      <a class="back" href="/digital-store">Return to store</a>
+    </div>
+    <script is:inline>
+      (function () {
+        const form = document.getElementById('unlock-form');
+        const email = document.getElementById('unlock-email');
+        const msg = document.getElementById('unlock-msg');
+        const orderId = {JSON.stringify(order.id)};
+        form.addEventListener('submit', async function (ev) {
+          ev.preventDefault();
+          msg.className = 'msg';
+          msg.textContent = 'Verifying...';
+          try {
+            const res = await fetch('/api/orders/' + encodeURIComponent(orderId) + '/unlock', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: email.value.trim() }),
+            });
+            const data = await res.json();
+            if (res.ok && data.unlocked) {
+              msg.className = 'msg success';
+              msg.textContent = 'Unlocked! Loading your planner...';
+              window.location.reload();
+            } else {
+              msg.className = 'msg error';
+              msg.textContent = data.error || 'Could not unlock this order.';
+            }
+          } catch (err) {
+            msg.className = 'msg error';
+            msg.textContent = 'Something went wrong. Please try again.';
+          }
         });
-      });
-    } catch (e) {
-      console.error('Download generation failed:', e);
-      loading.innerHTML = `<p style="color:#dc2626">Failed to generate your planner. <a href="/digital-store" style="color:#7C3AED;text-decoration:underline">Return to store</a></p>`;
-    }
-  </script>
+      })();
+    </script>
+  )}
 </body>
 </html>

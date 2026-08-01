@@ -51,7 +51,7 @@ const slugExtraData: Record<string, {
       { icon: '⏱️', title: 'Exam Countdown Dashboard', description: 'A countdown for every exam and a spotlight for every weak topic. Open this page and know exactly where to focus.' },
       { icon: '✏️', title: 'Assignment Planner', description: 'Big projects break into milestones. Each milestone has a checkbox, a due date, and a place in your weekly spread.' },
       { icon: '📊', title: 'Study Analytics', description: 'Hours logged, reading velocity, preparation score — calculated from your entries. No manual formulas.' },
-      { icon: '📄', title: 'Print-Ready Export', description: 'Vector-perfect PDF in A4 and US Letter. Editable DOCX for digital edits. Opens in any reader or GoodNotes.' }
+      { icon: '📄', title: 'Print-Ready Export', description: 'Vector-perfect PDF in A4 and US Letter. Opens in any reader or GoodNotes.' }
     ],
     faqs: [
       { q: 'How is this different from a generic planner template?', a: 'Generic planners give you the same layout as everyone else. Study Planner Pro embeds your name, subjects, and goals into every page — the cover, the semester overview, the weekly spreads, the revision tracker. Your system is yours.' },
@@ -130,7 +130,7 @@ const slugExtraData: Record<string, {
 
 const extra = slugExtraData[product.slug] || {
   features: [],
-  faqs: [{ q: 'What is included in the download?', a: 'Includes vector PDF (A4 + US Letter) and editable Word DOCX files.' }],
+  faqs: [{ q: 'What is included in the download?', a: 'Includes vector PDF (A4 + US Letter) files.' }],
   storyTitle: `Master your goals with ${product.title}.`,
   storyText: product.longDescription.split('. ').slice(0, 2).join('. ') + '.'
 };

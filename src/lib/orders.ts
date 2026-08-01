@@ -22,6 +22,7 @@ export interface OrderItem {
   price: number;
   icon: string;
   quantity: number;
+  personalization?: Record<string, string>;
 }
 
 export interface Order {
