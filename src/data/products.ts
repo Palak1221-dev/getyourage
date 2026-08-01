@@ -148,7 +148,7 @@ export const products: Product[] = [
 
   // ── SOCIAL MEDIA DETOX ──
   {
-    id: 'p10', slug: 'social-media-detox', category: 'goals', price: 9.99, prices: { USD: 9.99, INR: 399 }, dodoProductIds: { USD: 'pdt_0NjngaC7iuVS9esTr9tGY', INR: 'pdt_0NkQ9uAZEo8fkWfP1TdxI' }, previewType: 'workbook', icon: '📵',
+    id: 'p10', slug: 'social-media-detox', category: 'goals', price: 9.99, prices: { USD: 9.99, INR: 15 }, dodoProductIds: { USD: 'pdt_0NjngaC7iuVS9esTr9tGY', INR: 'pdt_0NkQ9uAZEo8fkWfP1TdxI' }, previewType: 'workbook', icon: '📵',
     title: 'Social Media Detox', subtitle: 'Digital wellbeing, screen time tracking, and mindful tech use', tagline: 'Reclaim your time and attention with a structured digital detox system.',
     description: 'Social Media Detox is your complete digital wellbeing system. Audit your current usage, set meaningful boundaries, track daily screen time, log cravings, and reflect on the benefits of a healthier relationship with technology.',
     longDescription: 'Social Media Detox helps you break free from compulsive scrolling and rebuild your relationship with technology. Start with a digital audit to understand your baseline — screen time, unlocks, peak usage, and triggers. Design a personalized detox plan with boundaries, replacement activities, and daily screen time targets. Track each day with screen time logs, phone-free hours, and mood checks. Log cravings and triggering situations to understand your patterns. Review weekly progress, celebrate wins, and adjust your approach.',
