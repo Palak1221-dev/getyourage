@@ -169,6 +169,9 @@ import Layout from "../../layouts/Layout.astro";
 </style>
 
 <script>
+  import { formatAmount } from '../../scripts/currency';
+  import type { CurrencyCode } from '../../data/pricing';
+
   const payBtn = document.getElementById('checkout-pay-btn') as HTMLButtonElement;
   const payBtnText = document.getElementById('pay-btn-text');
   const payBtnSpinner = document.getElementById('pay-btn-spinner');
@@ -187,9 +190,14 @@ import Layout from "../../layouts/Layout.astro";
     icon: string;
     quantity: number;
     productId?: string;
+    currency?: string;
   }
 
   let cartItems: CartItem[] = [];
+
+  function itemCurrency(item: CartItem): CurrencyCode {
+    return item.currency === 'INR' ? 'INR' : 'USD';
+  }
 
   function loadCart() {
     try {
@@ -222,12 +230,13 @@ import Layout from "../../layouts/Layout.astro";
 
     if (cartItems.length === 0) {
       summaryItems.innerHTML = `<div class="text-xs text-stone-400 font-medium py-4 text-center">Your cart is empty. <a href="/digital-store" class="text-[#2563eb] underline">Browse planners</a></div>`;
-      summarySubtotal.textContent = '$0.00';
-      summaryTotal.textContent = '$0.00';
+      summarySubtotal.textContent = formatAmount(0, 'USD');
+      summaryTotal.textContent = formatAmount(0, 'USD');
       return;
     }
 
     let subtotal = 0;
+    const currency = itemCurrency(cartItems[0]);
     summaryItems.innerHTML = cartItems.map(item => {
       const price = Number(item.price) || 0;
       subtotal += price;
@@ -240,13 +249,13 @@ import Layout from "../../layouts/Layout.astro";
               <div class="text-[10px] text-stone-400">Personalized PDF &amp; DOCX</div>
             </div>
           </div>
-          <span class="font-bold text-stone-900">$${price.toFixed(2)}</span>
+          <span class="font-bold text-stone-900">${formatAmount(price, itemCurrency(item))}</span>
         </div>
       `;
     }).join('');
 
-    summarySubtotal.textContent = `$${subtotal.toFixed(2)}`;
-    summaryTotal.textContent = `$${subtotal.toFixed(2)}`;
+    summarySubtotal.textContent = formatAmount(subtotal, currency);
+    summaryTotal.textContent = formatAmount(subtotal, currency);
   }
 
   renderSummary();
@@ -290,6 +299,7 @@ import Layout from "../../layouts/Layout.astro";
             price: item.price,
             icon: item.icon,
             quantity: item.quantity || 1,
+            currency: itemCurrency(item),
             customerEmail: email,
             customerName: email.split('@')[0],
           }),

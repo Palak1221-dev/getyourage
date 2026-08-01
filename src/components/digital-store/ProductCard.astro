@@ -183,8 +183,8 @@ const ctaLabel = ctaLabels[p.slug] || 'View Planner';
       <!-- Price + Action -->
       <div class="pt-3 mt-auto flex items-center justify-between border-t border-[#ede4d8]">
         <div class="flex items-baseline gap-1.5">
-          <span class="text-base sm:text-lg font-bold" style="color:#09090b">${displayPrice.toFixed(2)}</span>
-          {p.originalPrice && <span class="text-[11px] line-through font-medium" style="color:#9CA3AF">${p.originalPrice.toFixed(2)}</span>}
+          <span class="text-base sm:text-lg font-bold" style="color:#09090b" data-price data-usd={p.prices?.USD?.toFixed(2)} data-inr={p.prices?.INR}>${displayPrice.toFixed(2)}</span>
+          {p.originalPrice && <span class="text-[11px] line-through font-medium" style="color:#9CA3AF" data-original-price>${p.originalPrice.toFixed(2)}</span>}
         </div>
 
         <span class="cta-btn inline-flex items-center gap-1.5 text-[11px] font-bold px-3.5 py-1.5 rounded-full transition-all duration-300"

@@ -60,7 +60,7 @@
         <span>Everything saves automatically, nothing to set up</span>
       </div>
       <div style="margin-bottom:16px">
-        <span class="price-tag">$8.00 <small>one-time</small></span>
+        <span class="price-tag"><span data-price data-usd="9.99" data-inr="399">$9.99</span> <small>one-time</small></span>
         <div style="font-size:9px;color:#059669;font-weight:700;margin-top:4px">✓ 30-day money-back guarantee</div>
       </div>
       <a href="/digital-store/wellness-journal#customize" class="gate-btn primary">Get Instant Access →</a>
@@ -77,6 +77,9 @@
   <script>
   import { DigitalPlanner } from "../../scripts/planner-engine/digital-planner";
   import { WellnessJournalPreview, getTheme } from "../../scripts/planner-engine/wellness-journal-renderer";
+  import { setupCurrencyEngine } from "../../scripts/currency";
+
+  setupCurrencyEngine();
 
   (function(){
     const SLUG = 'wellness-journal';

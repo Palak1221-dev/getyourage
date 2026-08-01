@@ -1,3 +1,47 @@
+## Session Summary (Jul 31, 2026) — Regional Pricing: INR Support with Fixed Regional Prices
+
+### What We Did
+1. **Centralized pricing model** — Extended the `Product` interface in `src/data/products.ts` with `prices: Record<string, number>` and `dodoProductIds: Record<string, string>`, plus a new `src/data/pricing.ts` config (currency metadata, `formatPrice()`, `CURRENCY_STORAGE_KEY`, `CURRENCY_EVENT`). Future currencies (EUR, GBP, etc.) are added by editing one centralized object per product — no conversion logic anywhere.
+
+2. **Required regional prices applied** — Study Planner Pro `$19.99`/`₹799`, Master Your Day `$14.99`/`₹599`, Wellness Journal `$9.99`/`₹399`, Social Media Detox `$9.99`/`₹399`. Wellness Journal (was `$8.00`) and Social Media Detox (was `$12.99`) USD prices corrected to `$9.99` to match spec; app gate pages hardcoded `$8.00` prices also fixed to `$9.99`.
+
+3. **Client currency engine** (`src/scripts/currency.ts`) — Auto-detects India (`Intl timeZone === 'Asia/Kolkata'` or `en-IN`/regional language) on first visit and persists to localStorage under `tt_currency`. Never overrides a manual choice. `applyCurrency()` rewrites every `[data-price]` element from `data-usd`/`data-inr` attributes and hides `[data-original-price]` in INR mode. Exposes a global `window.TooltailsCurrency` for cart/add-to-cart handlers.
+
+4. **Premium header currency selector** (`Header.astro`) — A ThemeToggle-styled USD/INR dropdown (symbol + code, chevron rotate, outside-click close) that re-renders all prices live on change. The mini-cart drawer and subtotal now format per item currency (`formatAmount(item.price, item.currency)`).
+
+5. **All price surfaces wired** — Homepage planner cards, `ProductCard.astro`, `ProductPage.astro` hero price + buy button (with `data-product-price-usd`/`data-product-price-inr`), `checkout.astro` summary, and all 4 app gate pages (`study-planner-pro`, `master-your-day`, `wellness-journal`, `social-media-detox`) render currency-aware prices via `data-price` attributes.
+
+6. **Cart & checkout carry currency** — Add-to-cart handlers store the numeric price in the active currency plus a `currency` field. `checkout.astro` renders the summary in the item's currency and POSTs `currency` to the API.
+
+7. **Currency-aware checkout API** (`create-checkout.ts`) — Reads `currency` (default USD), resolves the per-currency Dodo Product ID via `resolveDodoProductId(productId, currency)`, uses `product.prices[currency]` for the unit price, stamps metadata with `currency`, and records the order with the real currency (was hardcoded `'USD'`).
+
+8. **Per-currency Dodo Product IDs** — `product-ids.ts` now resolves from `products.ts` `dodoProductIds[currency]`. USD IDs already exist for all 4 products. INR Dodo product IDs are NOT yet created in the Dodo dashboard (empty strings) — an INR checkout returns a clear 400 error message directing to add `dodoProductIds["INR"]` in `src/data/products.ts`.
+
+### Constraints Respected
+- **No currency conversion/exchange rates** — fixed regional prices only
+- **Payment flow untouched** — `src/lib/dodo.ts` unchanged (per-currency Dodo product IDs carry the currency; `billing_currency` omitted per SDK note that it's ignored when adaptive pricing is disabled)
+- **No Supabase/webhook/email/download/planner/personalization changes**; editorial design preserved
+- USD always shown except when India is detected/selected; INR only for India users
+
+### Files Modified
+- `src/data/pricing.ts` — created (currency config + `formatPrice`)
+- `src/data/products.ts` — `prices` + `dodoProductIds` on Product interface + all 4 products; WJ/SMD USD corrected to 9.99
+- `src/scripts/currency.ts` — created (detect, persist, event-driven re-render)
+- `src/lib/product-ids.ts` — per-currency Dodo ID resolution from products data
+- `src/components/ui/Header.astro` — currency selector + currency-aware cart
+- `src/components/digital-store/ProductPage.astro` — currency-aware hero price, buy button attrs, cart item currency
+- `src/components/digital-store/ProductCard.astro` — currency-aware price span
+- `src/pages/index.astro` — homepage planner card prices
+- `src/pages/digital-store/checkout.astro` — currency-aware summary + POST currency
+- `src/pages/api/create-checkout.ts` — per-currency Dodo ID + price + order currency
+- `src/pages/app/{study-planner-pro,master-your-day,wellness-journal,social-media-detox}.astro` — gate prices fixed to $9.99/$19.99/$14.99 + currency engine + data attrs
+
+### Build & Test Verification
+- **Server build: 0 errors, Complete!**
+- **Unit tests: 116/116 passed**
+- **SSR verified (astro dev)**: `/`, `/digital-store`, `/digital-store/wellness-journal`, `/digital-store/checkout`, `/app/study-planner-pro` all render 200 with correct `data-usd`/`data-inr` attributes (SPP 19.99/799, WJ/SMD 9.99/399)
+- **NOTE**: `npm run test:store` fails on "Heading exists" because `test-digital-store.ts` serves static `dist/` but all pages are SSR (Vercel adapter) — pre-existing, unrelated to this change
+
 ## Session Summary (Jul 30, 2026) — Pre-Launch Polish: Homepage Discovery, Real Reviews, Pricing Fix
 
 ### What We Did
@@ -12,6 +56,22 @@
 ### Build & Test Verification
 - **Server build: 0 errors, 100 pages built successfully**
 - **Unit tests: 116/116 passed**
+
+### Follow-up (Aug 1, 2026) — Goal Roadmap Removed; Social Media Detox Confirmed as 4th Product
+- User clarified the 4th store product is **Social Media Detox** (`/app/social-media-detox`, `p10`), not Goal Roadmap.
+- Deleted the orphaned leftover gate page `src/pages/app/goal-roadmap.astro` and its renderer `src/scripts/planner-engine/goal-roadmap-renderer.ts`. They were unreferenced anywhere in the site and linked to a non-existent store product (`/digital-store/goal-roadmap`). Social Media Detox is fully wired (store product p10, homepage card, Header nav, currency-aware gate page with INR data attrs).
+- Rebuild after removal: server build Complete, 0 errors; 116/116 tests pass.
+
+### Follow-up (Aug 1, 2026) — INR Dodo Product IDs Wired In
+- User created the INR-priced products in Dodo Payments and provided the 4 new INR Product IDs.
+- Updated ONLY `dodoProductIds.INR` in `src/data/products.ts` (single centralized edit per product); USD IDs preserved verbatim; no other business logic touched.
+  - Study Planner Pro INR → `pdt_0NkQ9JH6AU2Ui056Faj6j` (USD unchanged)
+  - Master Your Day INR → `pdt_0NkQ9VnrwhFK2Wnt9K114` (USD unchanged)
+  - Wellness Journal INR → `pdt_0NkQ9ezkXY7TeAPXrJ2Dv` (USD unchanged)
+  - Social Media Detox INR → `pdt_0NkQ9uAZEo8fkWfP1TdxI` (corrected from `pdt_0NjngaC7iuVS9esTr9tGY` which was a copy of the USD ID; user provided the real INR variant)
+- Backend selection is automatic via `resolveDodoProductId(productId, currency)` in `src/lib/product-ids.ts`: reads `product.dodoProductIds[currency]` (USD default, unknown currency falls back to USD). `create-checkout.ts` passes the body's `currency` through — no code change needed.
+- Verification: functional resolver test passed for all 8 ID/currency combos (11 assertions incl. default & unknown-currency fallback); server build Complete 0 errors; 116/116 tests pass; all 8 IDs confirmed present in built `.vercel/output` server bundles.
+- Client surfaces (homepage, store, product pages, cart, checkout) carry `currency` end-to-end; only the API reads the Product ID, keyed by the same currency.
 
 ## Session Summary (Jul 30, 2026) — Product Page Visual Polish & Editorial Craftsmanship
 

@@ -1,9 +1,5 @@
-const dodoProductIdMap: Record<string, string> = {
-  'p1': 'pdt_0NjnftTMCarA0cgDoHKjw',
-  'p7': 'pdt_0Njng9pf8kj31sXC9u20c',
-  'p10': 'pdt_0NjngaC7iuVS9esTr9tGY',
-  'p12': 'pdt_0Njng19ufRxOW0jigjgl2',
-};
+import { products } from '../data/products';
+import { isCurrencyCode } from '../data/pricing';
 
 const knownNames: Record<string, string> = {
   'study-planner-pro': 'p1',
@@ -17,11 +13,18 @@ const knownNames: Record<string, string> = {
   'resume-optimizer-kit': 'p10',
 };
 
-export function resolveDodoProductId(internalId: string): string {
-  const resolvedId = knownNames[internalId] || internalId;
-  const dodoId = dodoProductIdMap[resolvedId];
-  if (!dodoId) {
+export function resolveDodoProductId(internalId: string, currency = 'USD'): string {
+  const normalized = knownNames[internalId] || internalId;
+  const product = products.find(p => p.id === normalized || p.slug === normalized);
+  if (!product) {
     throw new Error(`Unknown product: "${internalId}". No Dodo Product ID mapped.`);
+  }
+  const code = isCurrencyCode(currency) ? currency : 'USD';
+  const dodoId = product.dodoProductIds?.[code];
+  if (!dodoId) {
+    throw new Error(
+      `No Dodo Product ID mapped for "${product.slug}" in currency "${code}". Add dodoProductIds["${code}"] in src/data/products.ts.`
+    );
   }
   return dodoId;
 }

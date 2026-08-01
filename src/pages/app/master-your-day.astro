@@ -63,7 +63,7 @@ const purchased = true; // server doesn't know client state
         <span>Everything auto-saves — no setup, no login</span>
       </div>
       <div style="margin-bottom:16px">
-        <span class="price-tag">$14.99 <small>one-time</small></span>
+        <span class="price-tag"><span data-price data-usd="14.99" data-inr="599">$14.99</span> <small>one-time</small></span>
         <div style="font-size:9px;color:#059669;font-weight:700;margin-top:4px">✓ 30-day money-back guarantee</div>
       </div>
       <a href="/digital-store/master-your-day#customize" class="gate-btn primary">Get Instant Access →</a>
@@ -80,6 +80,9 @@ const purchased = true; // server doesn't know client state
   <script>
   import { DigitalPlanner } from "../../scripts/planner-engine/digital-planner";
   import { MasterYourDayPreview, getTheme } from "../../scripts/planner-engine/master-your-day-renderer";
+  import { setupCurrencyEngine } from "../../scripts/currency";
+
+  setupCurrencyEngine();
 
   (function(){
     const SLUG = 'master-your-day';

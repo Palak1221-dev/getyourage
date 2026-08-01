@@ -57,7 +57,7 @@
         <span>Study Analytics with hours logged and readiness score</span>
       </div>
       <div style="margin-bottom:16px">
-        <span class="price-tag">$19.99 <small>one-time</small></span>
+        <span class="price-tag"><span data-price data-usd="19.99" data-inr="799">$19.99</span> <small>one-time</small></span>
         <div style="font-size:9px;color:#059669;font-weight:700;margin-top:4px">✓ 30-day money-back guarantee</div>
       </div>
       <a href="/digital-store/study-planner-pro#customize" class="gate-btn primary">Get Instant Access →</a>
@@ -74,6 +74,9 @@
   <script>
   import { DigitalPlanner } from "../../scripts/planner-engine/digital-planner";
   import { getTheme } from "../../scripts/planner-engine/preview-renderer";
+  import { setupCurrencyEngine } from "../../scripts/currency";
+
+  setupCurrencyEngine();
 
   (function(){
     const SLUG = 'study-planner-pro';

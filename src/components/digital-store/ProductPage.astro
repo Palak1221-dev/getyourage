@@ -159,10 +159,10 @@ const renderFaqAnswer = (answer: string) =>
         <!-- Pricing & Ratings -->
         <div class="flex items-center flex-wrap gap-x-6 gap-y-3 pt-2">
           <div class="flex items-baseline gap-2.5">
-            <span class="text-3xl font-bold text-stone-900" style="color:#09090b">${product.price.toFixed(2)}</span>
+            <span class="text-3xl font-bold text-stone-900" style="color:#09090b" data-price data-usd={product.prices?.USD?.toFixed(2)} data-inr={product.prices?.INR}>{product.price.toFixed(2)}</span>
             <span class="text-[10px] font-bold uppercase tracking-widest text-stone-400" style="color:#A8A29E">One-Time</span>
             {product.originalPrice && (
-              <span class="text-sm line-through font-medium text-stone-300" style="color:#D4C9BC">${product.originalPrice.toFixed(2)}</span>
+              <span class="text-sm line-through font-medium text-stone-300" style="color:#D4C9BC" data-original-price>{product.originalPrice.toFixed(2)}</span>
             )}
           </div>
           <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl border border-[#EDE4D8] bg-white shadow-2xs hover:border-[#D4C9BC] transition-all">
@@ -454,6 +454,8 @@ const renderFaqAnswer = (answer: string) =>
             data-product-slug={product.slug}
             data-product-title={product.title}
             data-product-price={product.price.toFixed(2)}
+            data-product-price-usd={product.prices?.USD?.toFixed(2)}
+            data-product-price-inr={product.prices?.INR}
             data-product-icon={product.icon}
             data-what-included={JSON.stringify(product.whatIncluded)}
             class="w-full py-3.5 px-6 text-sm font-bold text-white rounded-full transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01] active:scale-[0.99] shadow-xs"
@@ -641,15 +643,19 @@ function initPlannerPreview() {
     const pid = buyBtn.dataset.productId;
     const pslug = buyBtn.dataset.productSlug;
     const ptitle = buyBtn.dataset.productTitle;
-    const pprice = Number(buyBtn.dataset.productPrice);
     const picon = buyBtn.dataset.productIcon;
 
+    const currency = (window as any).TooltailsCurrency?.getCurrency?.() || 'USD';
+    const priceAttr = currency === 'INR' ? 'productPriceInr' : 'productPrice';
+    const pprice = Number(buyBtn.dataset[priceAttr] ?? buyBtn.dataset.productPrice);
+
+    const item = { id: pid, title: ptitle, slug: pslug, price: pprice, currency, icon: picon, quantity: 1 };
     try {
       const existing = JSON.parse(localStorage.getItem('tt_cart') || '[]');
-      existing.push({ id: pid, title: ptitle, slug: pslug, price: pprice, icon: picon, quantity: 1 });
+      existing.push(item);
       localStorage.setItem('tt_cart', JSON.stringify(existing));
     } catch (e) {
-      localStorage.setItem('tt_cart', JSON.stringify([{ id: pid, title: ptitle, slug: pslug, price: pprice, icon: picon, quantity: 1 }]));
+      localStorage.setItem('tt_cart', JSON.stringify([item]));
     }
 
     window.location.href = '/digital-store/checkout';

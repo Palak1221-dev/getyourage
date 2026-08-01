@@ -126,6 +126,31 @@ const isToolActive = toolItems.some(item => isActive(item.href));
 
     <div class="flex items-center gap-2">
       <ThemeToggle />
+
+      <!-- Currency Selector -->
+      <div class="relative" id="currency-select">
+        <button
+          id="currency-btn"
+          class="relative inline-flex h-9 items-center gap-1.5 rounded-md border border-hairline bg-canvas px-2.5 text-[12px] font-semibold text-ink transition-colors hover:bg-canvas-soft-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/40 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas z-50"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-label="Select currency"
+        >
+          <span id="currency-label">$ USD</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" id="currency-chevron" class="transition-transform"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div
+          id="currency-menu"
+          class="absolute right-0 top-full mt-1.5 w-32 overflow-hidden rounded-lg border border-hairline bg-canvas shadow-xl py-1 opacity-0 translate-y-1 pointer-events-none transition-all duration-150"
+        >
+          <button data-currency-option="USD" class="w-full flex items-center justify-between px-3 py-2 text-[12px] font-semibold text-body hover:text-ink hover:bg-canvas-soft-2 transition-colors">
+            $ USD
+          </button>
+          <button data-currency-option="INR" class="w-full flex items-center justify-between px-3 py-2 text-[12px] font-semibold text-body hover:text-ink hover:bg-canvas-soft-2 transition-colors">
+            ₹ INR
+          </button>
+        </div>
+      </div>
       
       <!-- Cart Button -->
       <button id="cart-btn" class="p-2 text-body hover:text-ink rounded-md hover:bg-canvas-soft-2 relative transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link/40 cursor-pointer" aria-label="Open cart">
@@ -247,6 +272,75 @@ const isToolActive = toolItems.some(item => isActive(item.href));
   // State and shared logic defined outside to persist across astro:after-swap if needed,
   // but we mostly want to avoid listener accumulation on 'document'.
   
+  import { getCurrency, setCurrency, setupCurrencyEngine, applyCurrency, formatAmount, CURRENCY_EVENT } from '../../scripts/currency';
+  import type { CurrencyCode } from '../../data/pricing';
+
+  const setupCurrencySelector = () => {
+    const btn = document.getElementById('currency-btn');
+    const menu = document.getElementById('currency-menu');
+    const label = document.getElementById('currency-label');
+    const chevron = document.getElementById('currency-chevron');
+    if (!btn || !menu) return;
+
+    const syncLabel = (code: CurrencyCode) => {
+      if (label) label.textContent = code === 'INR' ? '₹ INR' : '$ USD';
+      menu.querySelectorAll<HTMLElement>('[data-currency-option]').forEach(opt => {
+        const active = opt.dataset.currencyOption === code;
+        opt.classList.toggle('text-link', active);
+        opt.classList.toggle('bg-link/5', active);
+      });
+    };
+
+    const closeMenu = () => {
+      menu.classList.add('opacity-0', 'translate-y-1', 'pointer-events-none');
+      btn.setAttribute('aria-expanded', 'false');
+      chevron?.classList.remove('rotate-180');
+    };
+
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      const isOpen = !menu.classList.contains('pointer-events-none');
+      if (isOpen) {
+        closeMenu();
+      } else {
+        menu.classList.remove('opacity-0', 'translate-y-1', 'pointer-events-none');
+        btn.setAttribute('aria-expanded', 'true');
+        chevron?.classList.add('rotate-180');
+      }
+    };
+
+    menu.querySelectorAll<HTMLElement>('[data-currency-option]').forEach(opt => {
+      opt.onclick = (e) => {
+        e.stopPropagation();
+        const code = opt.dataset.currencyOption;
+        if (code === 'USD' || code === 'INR') {
+          setCurrency(code);
+          syncLabel(code);
+        }
+        closeMenu();
+      };
+    });
+
+    if (!(window as any).tooltailsCurrencyDocInitialized) {
+      document.addEventListener('click', (e) => {
+        const currentBtn = document.getElementById('currency-btn');
+        const currentMenu = document.getElementById('currency-menu');
+        if (!currentBtn || !currentMenu || currentMenu.classList.contains('pointer-events-none')) return;
+        if (!currentMenu.contains(e.target as Node) && !currentBtn.contains(e.target as Node)) {
+          currentMenu.classList.add('opacity-0', 'translate-y-1', 'pointer-events-none');
+          currentBtn.setAttribute('aria-expanded', 'false');
+          document.getElementById('currency-chevron')?.classList.remove('rotate-180');
+        }
+      });
+      (window as any).tooltailsCurrencyDocInitialized = true;
+    }
+
+    window.addEventListener(CURRENCY_EVENT, () => {
+      const current = getCurrency();
+      if (label) syncLabel(current);
+    });
+  };
+
   const setupMobileMenu = () => {
     const btn = document.getElementById('mobile-menu-btn');
     const menu = document.getElementById('mobile-menu');
@@ -372,7 +466,6 @@ const isToolActive = toolItems.some(item => isActive(item.href));
         this.updateUI();
         this.open();
       }
-
       removeItem(id: string) {
         this.items = this.items.filter(i => i.id !== id);
         this.save();
@@ -384,7 +477,12 @@ const isToolActive = toolItems.some(item => isActive(item.href));
       }
 
       getSubtotal() {
-        return this.items.reduce((sum, item) => sum + item.price, 0);
+        return this.items.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
+      }
+
+      getCurrency() {
+        const c = this.items.find(i => i.currency);
+        return c && c.currency === 'INR' ? 'INR' : 'USD';
       }
 
       open() {
@@ -433,7 +531,7 @@ const isToolActive = toolItems.some(item => isActive(item.href));
         }
 
         if (subtotalEl) {
-          subtotalEl.textContent = '$' + this.getSubtotal().toFixed(2);
+          subtotalEl.textContent = formatAmount(this.getSubtotal(), this.getCurrency());
         }
 
         if (container) {
@@ -454,7 +552,7 @@ const isToolActive = toolItems.some(item => isActive(item.href));
                 </div>
                 <div class="min-w-0 flex-1">
                   <p class="text-xs font-bold text-stone-800 truncate font-heading">${item.title}</p>
-                  <p class="text-[10px] font-extrabold text-blue-600 mt-0.5 font-sans">$${item.price.toFixed(2)}</p>
+                  <p class="text-[10px] font-extrabold text-blue-600 mt-0.5 font-sans">${formatAmount(item.price, item.currency === 'INR' ? 'INR' : 'USD')}</p>
                   <a href="/digital-store/${item.slug}" class="text-[9px] font-medium text-stone-400 hover:text-blue-600 underline mt-1 block">Customize page</a>
                 </div>
                 <button onclick="window.TooltailsCart.removeItem('${item.id}')" class="w-7 h-7 rounded-lg hover:bg-rose-50 hover:text-rose-600 text-stone-400 flex items-center justify-center transition-all cursor-pointer">
@@ -470,6 +568,7 @@ const isToolActive = toolItems.some(item => isActive(item.href));
     const cart = new TooltailsCartManager();
     (window as any).TooltailsCart = cart;
     cart.updateUI();
+    window.addEventListener(CURRENCY_EVENT, () => cart.updateUI());
 
     const cartBtn = document.getElementById('cart-btn');
     const closeCartBtn = document.getElementById('close-cart-btn');
@@ -488,12 +587,17 @@ const isToolActive = toolItems.some(item => isActive(item.href));
   };
 
   // Run on initial load
+  setupCurrencyEngine();
+  setupCurrencySelector();
   setupMobileMenu();
   setupGlow();
   setupCart();
 
   // Run on view transitions
   document.addEventListener('astro:after-swap', () => {
+    setupCurrencyEngine();
+    setupCurrencySelector();
+    applyCurrency();
     setupMobileMenu();
     setupGlow();
     setupCart();

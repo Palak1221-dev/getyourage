@@ -3,11 +3,14 @@ import { createCheckoutSession } from '../../lib/dodo';
 import { orderStore } from '../../lib/orders';
 import { resolveDodoProductId } from '../../lib/product-ids';
 import { products } from '../../data/products';
+import { isCurrencyCode } from '../../data/pricing';
+import type { CurrencyCode } from '../../data/pricing';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
     const { productId, quantity = 1, customerEmail, customerName, metadata = {} } = body;
+    const currency: CurrencyCode = isCurrencyCode(body.currency) ? body.currency : 'USD';
 
     if (!productId) {
       return new Response(JSON.stringify({ error: 'Missing productId' }), { status: 400 });
@@ -23,12 +26,12 @@ export const POST: APIRoute = async ({ request }) => {
 
     let dodoProductId: string;
     try {
-      dodoProductId = resolveDodoProductId(productId);
+      dodoProductId = resolveDodoProductId(productId, currency);
     } catch (err: any) {
       return new Response(JSON.stringify({ error: err.message }), { status: 400 });
     }
 
-    const unitPrice = product.price;
+    const unitPrice = product.prices?.[currency] ?? product.price;
     const totalAmount = unitPrice * quantity;
 
     const siteUrl = process.env.PUBLIC_SITE_URL || 'http://localhost:4324';
@@ -43,6 +46,7 @@ export const POST: APIRoute = async ({ request }) => {
         productTitle: product.title,
         productSlug: product.slug,
         price: String(unitPrice),
+        currency,
         icon: product.icon,
       },
       returnUrl: `${siteUrl}/payment-success?session_id={CHECKOUT_SESSION_ID}&product_slug=${encodeURIComponent(product.slug)}`,
@@ -62,7 +66,7 @@ export const POST: APIRoute = async ({ request }) => {
         quantity,
       }],
       totalAmount,
-      'USD'
+      currency
     );
 
     return new Response(JSON.stringify({
