@@ -156,59 +156,7 @@ const defaultTheme = fields.find(f => f.id === 'color' || f.id === 'accentColor'
         <span class="hint">or press <kbd>Ctrl+P</kbd></span>
       </div>
 
-      <script type="application/json" id="download-data">{JSON.stringify({ defaultValues: values, defaultTheme, title, icon, slug })}</script>
-
-      <script type="module">
-        import { FullPlannerPreview, getTheme } from '../../scripts/planner-engine/preview-renderer';
-        import { MasterYourDayPreview, getTheme as mydTheme } from '../../scripts/planner-engine/master-your-day-renderer';
-        import { WellnessJournalPreview, getTheme as wjTheme } from '../../scripts/planner-engine/wellness-journal-renderer';
-        import { SocialMediaDetoxPreview, getTheme as smdTheme } from '../../scripts/planner-engine/social-media-detox-renderer';
-
-        function buildPreview(slug: string, values: Record<string, string>, theme: string, title: string, icon: string) {
-          switch (slug) {
-            case 'master-your-day':
-              return new MasterYourDayPreview(values, mydTheme(theme), title, icon);
-            case 'wellness-journal':
-              return new WellnessJournalPreview(values, wjTheme(theme), title, icon);
-            case 'social-media-detox':
-              return new SocialMediaDetoxPreview(values, smdTheme(theme), title, icon);
-            default:
-              return new FullPlannerPreview(values, getTheme(theme), title, icon);
-          }
-        }
-
-        const container = document.getElementById('planner-content');
-        const loading = document.getElementById('loading');
-        const saveBtn = document.getElementById('save-pdf-btn');
-
-        try {
-          const data = JSON.parse(document.getElementById('download-data').textContent);
-
-          const preview = buildPreview(data.slug, data.defaultValues, data.defaultTheme, data.title, data.icon);
-          const pages = preview.getPageList();
-
-          const wrapper = document.createElement('div');
-          wrapper.className = 'planner-page-wrap';
-          wrapper.innerHTML = pages
-            .map(p => `<div>${p.html}</div>`)
-            .join('<div style="page-break-after:always;height:0;margin:0;padding:0"></div>');
-          container.appendChild(wrapper);
-
-          loading.style.display = 'none';
-          container.classList.add('ready');
-
-          saveBtn.addEventListener('click', () => window.print());
-
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              setTimeout(() => window.print(), 200);
-            });
-          });
-        } catch (e) {
-          console.error('Download generation failed:', e);
-          loading.innerHTML = `<p style="color:#dc2626">Failed to generate your planner. <a href="/digital-store" style="color:#7C3AED;text-decoration:underline">Return to store</a></p>`;
-        }
-      </script>
+      <script type="application/json" id="download-data" set:html={JSON.stringify({ defaultValues: values, defaultTheme, title, icon, slug })}></script>
     </>
   ) : (
     <div class="gate-card">
@@ -255,5 +203,62 @@ const defaultTheme = fields.find(f => f.id === 'color' || f.id === 'accentColor'
       })();
     </script>
   )}
+
+  <script>
+    import { FullPlannerPreview, getTheme } from '../../scripts/planner-engine/preview-renderer';
+    import { MasterYourDayPreview, getTheme as mydTheme } from '../../scripts/planner-engine/master-your-day-renderer';
+    import { WellnessJournalPreview, getTheme as wjTheme } from '../../scripts/planner-engine/wellness-journal-renderer';
+    import { SocialMediaDetoxPreview, getTheme as smdTheme } from '../../scripts/planner-engine/social-media-detox-renderer';
+
+    function buildPreview(slug: string, values: Record<string, string>, theme: string, title: string, icon: string) {
+      switch (slug) {
+        case 'master-your-day':
+          return new MasterYourDayPreview(values, mydTheme(theme), title, icon);
+        case 'wellness-journal':
+          return new WellnessJournalPreview(values, wjTheme(theme), title, icon);
+        case 'social-media-detox':
+          return new SocialMediaDetoxPreview(values, smdTheme(theme), title, icon);
+        default:
+          return new FullPlannerPreview(values, getTheme(theme), title, icon);
+      }
+    }
+
+    (function initDownloadPlanner() {
+      const dataEl = document.getElementById('download-data');
+      if (!dataEl) return;
+
+      const container = document.getElementById('planner-content');
+      const loading = document.getElementById('loading');
+      const saveBtn = document.getElementById('save-pdf-btn');
+
+      try {
+        const data = JSON.parse(dataEl.textContent);
+
+        const preview = buildPreview(data.slug, data.defaultValues, data.defaultTheme, data.title, data.icon);
+        const pages = preview.getPageList();
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'planner-page-wrap';
+        wrapper.innerHTML = pages
+          .map(p => `<div>${p.html}</div>`)
+          .join('<div style="page-break-after:always;height:0;margin:0;padding:0"></div>');
+        container.appendChild(wrapper);
+
+        loading.style.display = 'none';
+        container.classList.add('ready');
+
+        saveBtn.addEventListener('click', () => window.print());
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            setTimeout(() => window.print(), 200);
+          });
+        });
+      } catch (e) {
+        console.error('Download generation failed:', e);
+        loading.innerHTML = `<p style="color:#dc2626">Failed to generate your planner. <a href="/digital-store" style="color:#7C3AED;text-decoration:underline">Return to store</a></p>`;
+      }
+    })();
+  </script>
 </body>
 </html>
