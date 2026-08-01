@@ -1,3 +1,37 @@
+## Session Summary (Aug 1, 2026) — Server-Verified App Page Gating (HttpOnly Access Cookie)
+
+### What We Did
+1. **Replaced client-only purchase gating on all 4 app pages** (`/app/study-planner-pro`, `/app/master-your-day`, `/app/wellness-journal`, `/app/social-media-detox`) — removed the `localStorage` `tt_purchased_<slug>` bypass flag. Access is now granted only when the server verifies an HMAC-signed HttpOnly cookie on each SSR render.
+
+2. **Created `src/lib/access.ts`** — `accessCookieName(slug)` (`tt_access_<slug>`), `signAccessToken(email, slug)` and `verifyAccessToken(token, slug)` (HMAC-SHA256 base64url, 30-day TTL, `timingSafeEqual`, slug + expiry bound). Secret = `PLANNER_ACCESS_SECRET` → `DODO_WEBHOOK_SECRET` → fallback string.
+
+3. **Created `POST /api/access/unlock`** — validates email format + slug whitelist, looks up `orderStore.getByEmail(email)`, requires a `completed` order with an item `productSlug === slug`, then sets the HttpOnly cookie (`secure` in PROD, `sameSite: 'lax'`, 30-day maxAge) and returns `{ unlocked: true }`.
+
+4. **Added `previewOnly` mode to `DigitalPlanner`** (`digital-planner.ts`) — read-only render: hides Export/Clear toolbar buttons, skips Ctrl/Cmd+S save, skips `makeWritable()`/`restoreSavedData()`, and no-ops `loadSavedData()` (returns `{}`), `persistSavedData()`, `saveAll()`, `clearAll()`, `exportAll()` so no localStorage writes happen for non-buyers.
+
+5. **Wired all 4 app pages identically** — SSR frontmatter reads `Astro.cookies.get(accessCookieName(slug))` and verifies it → `accessGranted`; `<body data-access="granted|denied">`; gate card got an injected "Already purchased?" email unlock form (`#unlock-form` / `#unlock-email` / `#unlock-submit` / `#unlock-msg`) that POSTs to `/api/access/unlock` and reloads on success; client IIFE uses `ACCESS = document.body.dataset.access === 'granted'`, passes `previewOnly: !ACCESS`, and removed the old `isPurchased()`/`localStorage` unlock click. Per-page init (`initMasterYourDay`, `initWellnessJournal`) only runs `if (ACCESS)` so their localStorage read/write logic never fires for non-buyers. Preview toggle ("Show me a preview first") still works — it shows the read-only preview blurred behind the gate.
+
+6. **Updated `payment-success.astro`** — replaced the legacy `localStorage.setItem('tt_purchased_<slug>', 'true')` with a server-side call to `/api/access/unlock` using the verified payment's `customerEmail` (hoisted `customerEmail` out of the try block so it's in scope), so a fresh purchase immediately issues the HttpOnly access cookie.
+
+### Constraints Respected
+- No currency/pricing, payment flow (`src/lib/dodo.ts`), download, Supabase/webhook/email/planner content changes
+- Download endpoint (`/api/orders/[id]/download`) already enforced `order.status === 'completed'` — unchanged
+- `localStorage` flags (`tt_purchased_*`) fully removed from app pages; no client-side trust anymore
+
+### Files Modified
+- `src/lib/access.ts` — created (HMAC token sign/verify + cookie name helper)
+- `src/pages/api/access/unlock.ts` — created (email → purchase lookup → HttpOnly cookie)
+- `src/scripts/planner-engine/digital-planner.ts` — `previewOnly` option + guards (mount/renderAll/save/clear/export/localStorage)
+- `src/pages/app/{study-planner-pro,master-your-day,wellness-journal,social-media-detox}.astro` — SSR gate + unlock form + `previewOnly: !ACCESS` wiring
+- `src/pages/payment-success.astro` — unlock cookie issued server-side after payment verify
+
+### Build & Test Verification
+- **Server build: 0 errors, Complete!**
+- **Unit tests: 116/116 passed**
+- **Token logic**: valid / wrong-slug / tampered-token all behave correctly (unit-level check)
+- **SSR verified (astro dev)**: `/app/wellness-journal` with no cookie → `data-access="denied"`; with valid `tt_access_wellness-journal` cookie → `data-access="granted"` (verified via curl; PowerShell Invoke-WebRequest mangles Cookie headers)
+- **Unlock endpoint**: invalid email → 400; unknown slug → 400 "Unknown product."; valid email w/o order → graceful 500 (Supabase not configured in local dev)
+
 ## Session Summary (Jul 31, 2026) — Regional Pricing: INR Support with Fixed Regional Prices
 
 ### What We Did

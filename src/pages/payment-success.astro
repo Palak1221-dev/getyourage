@@ -114,6 +114,8 @@ const smtpEnabled = isSmtpConfigured();
       const downloadBtn = document.getElementById('download-planner-btn') as HTMLAnchorElement;
       const downloadBtnText = document.getElementById('download-btn-text');
 
+      let customerEmail = '';
+
       if (!sessionId && !paymentId) {
         if (loadingEl) loadingEl.classList.add('hidden');
         if (contentEl) {
@@ -137,6 +139,7 @@ const smtpEnabled = isSmtpConfigured();
         });
 
         const result = await resp.json();
+        customerEmail = result.customerEmail || '';
 
         if (loadingEl) loadingEl.classList.add('hidden');
 
@@ -162,8 +165,14 @@ const smtpEnabled = isSmtpConfigured();
 
       try {
         localStorage.removeItem('tt_cart');
-        if (productSlug) {
-          localStorage.setItem('tt_purchased_' + productSlug, 'true');
+        if (productSlug && customerEmail) {
+          try {
+            await fetch('/api/access/unlock', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: customerEmail, slug: productSlug }),
+            });
+          } catch (e) {}
         }
       } catch (e) {}
     })();

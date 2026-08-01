@@ -12,6 +12,8 @@ export interface DigitalPlannerOptions {
   sidebar?: boolean;
   /** Custom page generator (for products other than Study Planner Pro) */
   getPages?: (values: Record<string, string>, theme: any, title?: string, icon?: string) => PageEntry[];
+  /** Render a read-only preview: no editing, no autosave, no export, no localStorage writes */
+  previewOnly?: boolean;
 }
 
 export class DigitalPlanner {
@@ -30,6 +32,7 @@ export class DigitalPlanner {
   private navJumpEl!: HTMLSelectElement;
   private zoomBtns!: NodeListOf<HTMLElement>;
   private pageBuilder: (values: Record<string, string>, theme: any, title?: string, icon?: string) => PageEntry[];
+  private previewOnly: boolean;
   private studyStreakDocListeners: {
     mousemove: ((e: MouseEvent) => void) | null;
     mouseup: (() => void) | null;
@@ -42,6 +45,7 @@ export class DigitalPlanner {
   constructor(container: HTMLElement, values: Record<string, string>, theme: any, title?: string, icon?: string, options?: DigitalPlannerOptions) {
     this.container = container;
     this.options = options || {};
+    this.previewOnly = options?.previewOnly || false;
     this.styleId = 'dp-style-' + Math.random().toString(36).slice(2, 8);
     this.container = container;
     this.pageBuilder = options?.getPages || ((values, theme, title, icon) => {
@@ -216,9 +220,17 @@ export class DigitalPlanner {
     // Render all pages
     this.renderAll();
 
+    if (this.previewOnly) {
+      const exportBtn = toolbar.querySelector('[data-action="export"]') as HTMLElement | null;
+      const clearBtn = toolbar.querySelector('[data-action="clear"]') as HTMLElement | null;
+      if (exportBtn) exportBtn.style.display = 'none';
+      if (clearBtn) clearBtn.style.display = 'none';
+    }
+
     // Keyboard shortcut
     document.addEventListener('keydown', (e) => {
       if (e.key === 's' && (e.ctrlKey || e.metaKey)) {
+        if (this.previewOnly) return;
         e.preventDefault();
         this.saveAll();
         this.showBadge('✓ Saved');
@@ -336,8 +348,10 @@ export class DigitalPlanner {
       pageDiv.dataset.pageId = p.id;
       pageDiv.innerHTML = p.html;
       this.pagesContainer.appendChild(pageDiv);
+      if (this.previewOnly) return;
       this.makeWritable(pageDiv, p.id);
     });
+    if (this.previewOnly) return;
     this.restoreSavedData();
       this.initSubjectNames();
       this.initExamSubjectNames();
@@ -3616,6 +3630,7 @@ private navigateTo(id: string): void {
 
   // Persistence
   private loadSavedData(): void {
+    if (this.previewOnly) { this.savedData = {}; return; }
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) this.savedData = JSON.parse(raw);
@@ -3623,6 +3638,7 @@ private navigateTo(id: string): void {
   }
 
   private persistSavedData(): void {
+    if (this.previewOnly) return;
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(this.savedData)); } catch {}
   }
 
@@ -3634,6 +3650,7 @@ private navigateTo(id: string): void {
   }
 
   private saveAll(): void {
+    if (this.previewOnly) return;
     this.pagesContainer.querySelectorAll('[data-write-key]').forEach((el) => {
       const key = (el as HTMLElement).dataset.writeKey!;
       this.savedData[key] = (el as HTMLElement).innerHTML;
@@ -3694,6 +3711,7 @@ private navigateTo(id: string): void {
   }
 
   private clearAll(): void {
+    if (this.previewOnly) return;
     if (!confirm('Clear all your writing from every page?')) return;
     this.savedData = {};
     this.persistSavedData();
@@ -4132,6 +4150,7 @@ private navigateTo(id: string): void {
   }
 
   exportAll(): void {
+    if (this.previewOnly) return;
     this.saveAll();
     const printWin = window.open('', '_blank');
     if (!printWin) { alert('Please allow popups to export.'); return; }

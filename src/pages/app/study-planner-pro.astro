@@ -1,3 +1,10 @@
+---
+import { verifyAccessToken, accessCookieName } from "../../lib/access";
+
+const slug = 'study-planner-pro';
+const token = Astro.cookies.get(accessCookieName(slug))?.value;
+const accessGranted = !!token && verifyAccessToken(token, slug);
+---
 <!doctype html>
 <html lang="en">
 <head>
@@ -39,7 +46,7 @@
     .dp-toolbar .dp-nav-label{color:#6b5f51!important}
   </style>
 </head>
-<body>
+<body data-access={accessGranted ? 'granted' : 'denied'}>
   <div id="app-container"></div>
 
   <div id="purchase-gate">
@@ -63,6 +70,11 @@
       <a href="/digital-store/study-planner-pro#customize" class="gate-btn primary">Get Instant Access →</a>
       <div class="gate-divider"></div>
       <p class="gate-footer">Already purchased? <a href="#" id="unlock-btn">Click here to unlock</a></p>
+      <div id="unlock-form" style="display:none;margin-top:14px;text-align:left">
+        <input id="unlock-email" type="email" placeholder="Enter the email you paid with" style="width:100%;padding:10px 14px;border:1px solid #ede4d8;border-radius:10px;font-size:11px;background:#fff;color:#1F2937;box-sizing:border-box;outline:none;font-family:inherit" />
+        <button id="unlock-submit" class="gate-btn primary" style="width:100%;justify-content:center;margin-top:10px">Verify Purchase</button>
+        <div id="unlock-msg" style="font-size:10px;color:#b91c1c;font-weight:600;margin-top:8px;display:none"></div>
+      </div>
       <div style="margin-top:8px">
         <button class="gate-btn secondary" id="preview-btn">Show me a preview first</button>
       </div>
@@ -80,11 +92,7 @@
 
   (function(){
     const SLUG = 'study-planner-pro';
-    const STORAGE_KEY = 'tt_purchased_' + SLUG;
-
-    function isPurchased() {
-      try { return localStorage.getItem(STORAGE_KEY) === 'true'; } catch(e) { return false; }
-    }
+    const ACCESS = document.body.dataset.access === 'granted';
 
     var container = document.getElementById('app-container');
     var gate = document.getElementById('purchase-gate');
@@ -99,7 +107,7 @@
         getTheme('violet'),
         'Study Planner Pro',
         '📅',
-        { sidebar: true }
+        { sidebar: true, previewOnly: !ACCESS }
       );
       dp.mount();
 
@@ -109,7 +117,7 @@
       }, 0);
     }
 
-    if (isPurchased()) {
+    if (ACCESS) {
       gate.classList.remove('show');
       gate.style.display = 'none';
       initApp();
@@ -119,15 +127,41 @@
       container.classList.add('gated');
     }
 
+    var unlockForm = document.getElementById('unlock-form');
     document.getElementById('unlock-btn').addEventListener('click', function(e) {
       e.preventDefault();
-      try { localStorage.setItem(STORAGE_KEY, 'true'); } catch(e) {}
-      gate.classList.remove('show');
-      gate.style.display = 'none';
-      container.classList.remove('gated');
-      var badge = document.getElementById('saved-badge');
-      if (badge) { badge.textContent = '✓ Unlocked'; badge.classList.add('show');
-        clearTimeout(badge._hide); badge._hide = setTimeout(function() { badge.classList.remove('show'); }, 2000); }
+      if (unlockForm) unlockForm.style.display = 'block';
+    });
+
+    var unlockSubmit = document.getElementById('unlock-submit');
+    if (unlockSubmit) unlockSubmit.addEventListener('click', async function() {
+      var emailEl = document.getElementById('unlock-email') as HTMLInputElement;
+      var msgEl = document.getElementById('unlock-msg');
+      var email = emailEl ? emailEl.value.trim() : '';
+      if (!email || !email.includes('@')) {
+        if (msgEl) { msgEl.textContent = 'Please enter a valid email address.'; msgEl.style.display = 'block'; }
+        return;
+      }
+      unlockSubmit.disabled = true;
+      unlockSubmit.textContent = 'Verifying…';
+      if (msgEl) msgEl.style.display = 'none';
+      try {
+        var resp = await fetch('/api/access/unlock', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, slug: SLUG })
+        });
+        var data = await resp.json();
+        if (resp.ok && data.unlocked) {
+          window.location.reload();
+          return;
+        }
+        if (msgEl) { msgEl.textContent = data.error || 'No purchase found for this email.'; msgEl.style.display = 'block'; }
+      } catch (err) {
+        if (msgEl) { msgEl.textContent = 'Something went wrong. Please try again.'; msgEl.style.display = 'block'; }
+      }
+      unlockSubmit.disabled = false;
+      unlockSubmit.textContent = 'Verify Purchase';
     });
 
     var previewActive = false;
