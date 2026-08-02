@@ -103,17 +103,17 @@ const renderFaqAnswer = (answer: string) =>
     '<a href="$1" class="font-semibold text-[#2563eb] hover:underline">$1</a>'
   );
 ---
-<div class="digital-store-root text-stone-900 bg-[#FCFAF7] min-h-screen">
-<section class="bg-gradient-to-b from-[#FCFBF8] via-[#FAF9F5] to-[#F5F3EF] border-b border-[#EDE4D8] pb-16 pt-2">
+<div class="digital-store-root text-stone-900 bg-[var(--ds-bg)] min-h-screen">
+<section class="bg-gradient-to-b from-[var(--ds-bg)] via-[var(--ds-bg)] to-[var(--ds-bg-soft)] border-b border-[var(--ds-border)] pb-16 pt-2">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider py-3 border-b mb-10" style="color:#A8A29E;border-color:#EDE4D8">
+    <nav class="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider py-3 border-b mb-10" style="color:var(--ds-text-muted);border-color:var(--ds-border)">
       <a href="/" class="hover:text-[#2563eb] transition-colors">Home</a>
-      <span style="color:#D4C9BC">/</span>
+      <span style="color:var(--ds-border-strong)">/</span>
       <a href="/digital-store" class="hover:text-[#2563eb] transition-colors">Store</a>
-      <span style="color:#D4C9BC">/</span>
-      <span class="font-bold text-stone-900" style="color:#09090b">{product.title}</span>
+      <span style="color:var(--ds-border-strong)">/</span>
+      <span class="font-bold text-stone-900" style="color:var(--ds-text)">{product.title}</span>
     </nav>
 
     <!-- Product Landing Hero -->
@@ -124,7 +124,7 @@ const renderFaqAnswer = (answer: string) =>
         
         <!-- Soft Pill Badges -->
         <div class="flex items-center gap-2.5 flex-wrap">
-          <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all hover:border-[#2563eb]/40 shadow-2xs" style="background:#EFF6FF;color:#2563eb;border:1px solid #BFDBFE">
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all hover:border-[#2563eb]/40 shadow-2xs" style="background:var(--ds-blue-soft);color:#2563eb;border:1px solid var(--ds-blue-border)">
             <span class="text-sm">{catInfo.icon}</span>
             <span>{catInfo.label}</span>
           </span>
@@ -135,7 +135,7 @@ const renderFaqAnswer = (answer: string) =>
             </span>
           )}
 
-          <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all hover:border-[#D4C9BC] shadow-2xs" style="background:#FAF7F2;color:#6B7280;border:1px solid #EDE4D8">
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all hover:border-[#D4C9BC] shadow-2xs" style="background:var(--ds-bg-soft);color:var(--ds-text-secondary);border:1px solid var(--ds-border)">
             <span class="text-xs">📥</span>
             <span>Instant Download</span>
           </span>
@@ -143,46 +143,46 @@ const renderFaqAnswer = (answer: string) =>
 
         <!-- Title & Subtitle -->
         <div class="space-y-4">
-          <h1 class="text-4xl sm:text-5xl lg:text-[3.4rem] font-bold tracking-tight leading-[1.08] font-serif text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">
+          <h1 class="text-4xl sm:text-5xl lg:text-[3.4rem] font-bold tracking-tight leading-[1.08] font-serif text-stone-900" style="color:var(--ds-text);font-family:'Playfair Display',serif">
             {product.title}
           </h1>
 
-          <p class="text-lg sm:text-xl leading-relaxed font-normal font-serif italic max-w-2xl text-stone-600" style="color:#57534E">
+          <p class="text-lg sm:text-xl leading-relaxed font-normal font-serif italic max-w-2xl text-stone-600" style="color:var(--ds-text-secondary)">
             &ldquo;{heroTagline || product.tagline}&rdquo;
           </p>
         </div>
 
-        <p class="text-sm sm:text-base leading-relaxed max-w-xl text-stone-600" style="color:#6B7280">
+        <p class="text-sm sm:text-base leading-relaxed max-w-xl text-stone-600" style="color:var(--ds-text-secondary)">
           {product.description}
         </p>
 
         <!-- Pricing & Ratings -->
         <div class="flex items-center flex-wrap gap-x-6 gap-y-3 pt-2">
           <div class="flex items-baseline gap-2.5">
-            <span class="text-3xl font-bold text-stone-900" style="color:#09090b" data-price data-usd={product.prices?.USD?.toFixed(2)} data-inr={product.prices?.INR}>{product.price.toFixed(2)}</span>
-            <span class="text-[10px] font-bold uppercase tracking-widest text-stone-400" style="color:#A8A29E">One-Time</span>
+            <span class="text-3xl font-bold text-stone-900" style="color:var(--ds-text)" data-price data-usd={product.prices?.USD?.toFixed(2)} data-inr={product.prices?.INR}>{product.price.toFixed(2)}</span>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-stone-400" style="color:var(--ds-text-muted)">One-Time</span>
             {product.originalPrice && (
-              <span class="text-sm line-through font-medium text-stone-300" style="color:#D4C9BC" data-original-price>{product.originalPrice.toFixed(2)}</span>
+              <span class="text-sm line-through font-medium text-stone-300" style="color:var(--ds-text-faint)" data-original-price>{product.originalPrice.toFixed(2)}</span>
             )}
           </div>
-          <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl border border-[#EDE4D8] bg-white shadow-2xs hover:border-[#D4C9BC] transition-all">
+          <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl border border-[var(--ds-border)] bg-[var(--ds-card)] shadow-2xs hover:border-[var(--ds-border-strong)] transition-all">
             <span class="text-xs font-bold" style="color:#2563eb">{renderStars(product.rating)}</span>
-            <span class="text-xs font-bold text-stone-900" style="color:#09090b">{product.rating}</span>
-            <span class="text-xs text-stone-400" style="color:#A8A29E">({product.reviewCount})</span>
+            <span class="text-xs font-bold text-stone-900" style="color:var(--ds-text)">{product.rating}</span>
+            <span class="text-xs text-stone-400" style="color:var(--ds-text-muted)">({product.reviewCount})</span>
           </div>
         </div>
 
         <!-- Action CTAs -->
         <div class="flex flex-wrap items-center gap-4 pt-1">
-          <a href="#customize" class="px-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 flex items-center gap-2.5 shadow-sm hover:scale-[1.01] active:scale-[0.99]" style="background:#09090b;color:#fcf9f2">
+          <a href="#customize" class="px-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 flex items-center gap-2.5 shadow-sm hover:scale-[1.01] active:scale-[0.99]" style="background:var(--ds-btn);color:var(--ds-btn-text)">
             Configure Your System
             <span class="text-base leading-none">&rarr;</span>
           </a>
-          <a href="#whats-included" class="px-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 flex items-center gap-2 border border-[#D4C9BC] hover:border-[#09090b] hover:bg-white" style="color:#09090b">
+          <a href="#whats-included" class="px-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 flex items-center gap-2 border border-[var(--ds-border-strong)] hover:border-[var(--ds-text)] hover:bg-[var(--ds-card)]" style="color:var(--ds-text)">
             See workflows
           </a>
           {webAppHref && (
-            <a href={webAppHref} class="px-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 flex items-center gap-2 border border-[#2563eb]/30 hover:border-[#2563eb] hover:bg-white" style="color:#2563eb;background:#EFF6FF">
+            <a href={webAppHref} class="px-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 flex items-center gap-2 border border-[#2563eb]/30 hover:border-[#2563eb] hover:bg-[var(--ds-card)]" style="color:#2563eb;background:var(--ds-blue-soft)">
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
               Launch Live Web App
             </a>
@@ -190,7 +190,7 @@ const renderFaqAnswer = (answer: string) =>
         </div>
 
         <!-- Guarantee Pills -->
-        <div class="flex flex-wrap items-center gap-6 pt-5 text-xs font-medium text-stone-500" style="border-top:1px solid #EDE4D8;color:#6B7280">
+        <div class="flex flex-wrap items-center gap-6 pt-5 text-xs font-medium text-stone-500" style="border-top:1px solid var(--ds-border);color:var(--ds-text-secondary)">
           <span class="flex items-center gap-1.5"><span style="color:#059669;font-weight:bold">&#10003;</span> Vector PDF</span>
           <span class="flex items-center gap-1.5"><span style="color:#059669;font-weight:bold">&#10003;</span> GoodNotes Ready</span>
         </div>
@@ -200,40 +200,40 @@ const renderFaqAnswer = (answer: string) =>
       <!-- Hero Right Column: System Journey Preview -->
       <div class="lg:col-span-5 flex justify-center">
         <div class="w-full max-w-[440px]">
-          <div class="relative rounded-2xl border p-6.5 space-y-4.5 shadow-2xs transition-all duration-200 hover:border-[#D4C9BC]" style="background:#FAF7F2;border-color:#EDE4D8">
+          <div class="relative rounded-2xl border p-6.5 space-y-4.5 shadow-2xs transition-all duration-200 hover:border-[var(--ds-border-strong)]" style="background:var(--ds-bg-soft);border-color:var(--ds-border)">
             <div class="flex items-center gap-2">
               <span class="w-5 h-[1.5px] rounded-full" style="background:#2563eb;opacity:0.4"></span>
-              <span class="text-[10px] font-bold uppercase tracking-widest text-stone-400" style="color:#9CA3AF">How it connects</span>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-stone-400" style="color:var(--ds-text-faint)">How it connects</span>
               <span class="flex-1 h-[1.5px] rounded-full" style="background:#2563eb;opacity:0.15"></span>
             </div>
             <div class="text-center space-y-3 py-1">
               <div class="flex items-center justify-center gap-3">
                 {features.slice(0, 3).map((f, i) => (
                   <>
-                    <div class="w-9 h-9 rounded-xl bg-white border border-[#EDE4D8] shadow-2xs flex items-center justify-center text-base flex-shrink-0">
+                    <div class="w-9 h-9 rounded-xl bg-[var(--ds-card)] border border-[var(--ds-border)] shadow-2xs flex items-center justify-center text-base flex-shrink-0">
                       {f.icon}
                     </div>
                     {i < 2 && <span class="text-xs font-bold" style="color:#2563eb;opacity:0.5">→</span>}
                   </>
                 ))}
               </div>
-              <p class="text-[11px] leading-relaxed font-medium px-2 text-stone-600" style="color:#6B7280">
+              <p class="text-[11px] leading-relaxed font-medium px-2 text-stone-600" style="color:var(--ds-text-secondary)">
                 {whoFor || 'One entry flows into every page. Your system, connected.'}
               </p>
             </div>
-            <div class="pt-3 border-t space-y-1.5" style="border-color:#EDE4D8">
+            <div class="pt-3 border-t space-y-1.5" style="border-color:var(--ds-border)">
               {features.slice(0, 4).map(f => (
-                <div class="flex items-start gap-2.5 p-2 rounded-xl transition-colors hover:bg-white/80">
+                <div class="flex items-start gap-2.5 p-2 rounded-xl transition-colors hover:bg-[var(--ds-warm)]">
                   <span class="text-[10px] flex-shrink-0 mt-0.5" style="color:#2563eb">●</span>
                   <div>
-                    <span class="text-xs font-bold text-stone-900" style="color:#09090b">{f.title}</span>
-                    <span class="text-[11px] ml-1 font-normal text-stone-500" style="color:#6B7280">— {f.description}</span>
+                    <span class="text-xs font-bold text-stone-900" style="color:var(--ds-text)">{f.title}</span>
+                    <span class="text-[11px] ml-1 font-normal text-stone-500" style="color:var(--ds-text-secondary)">— {f.description}</span>
                   </div>
                 </div>
               ))}
             </div>
             <div class="text-center pt-1">
-              <span class="text-[10px] font-semibold text-stone-400" style="color:#9CA3AF">+ {features.length - 4} more workflows</span>
+              <span class="text-[10px] font-semibold text-stone-400" style="color:var(--ds-text-faint)">+ {features.length - 4} more workflows</span>
             </div>
           </div>
         </div>
@@ -246,32 +246,32 @@ const renderFaqAnswer = (answer: string) =>
     <div id="how-it-works" class="scroll-mt-20 my-24">
       <div class="text-center max-w-2xl mx-auto mb-16 space-y-3.5">
         <div class="w-8 h-[1.5px] mx-auto rounded-full" style="background:#2563eb;opacity:0.3"></div>
-        <h2 class="text-3xl sm:text-4xl font-bold font-serif leading-tight text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">
+        <h2 class="text-3xl sm:text-4xl font-bold font-serif leading-tight text-stone-900" style="color:var(--ds-text);font-family:'Playfair Display',serif">
           <span class="block">A connected system,</span>
-          <span class="block font-normal italic text-stone-500" style="color:#6B7280">not a collection of pages</span>
+          <span class="block font-normal italic text-stone-500" style="color:var(--ds-text-secondary)">not a collection of pages</span>
         </h2>
-        <p class="text-sm font-normal max-w-lg mx-auto leading-relaxed text-stone-600" style="color:#6B7280">
+        <p class="text-sm font-normal max-w-lg mx-auto leading-relaxed text-stone-600" style="color:var(--ds-text-secondary)">
           Every page in this planner has a purpose. Information enters in one place and flows through the rest — so you never enter the same thing twice.
         </p>
       </div>
 
       <div class="max-w-4xl mx-auto space-y-4">
         {features.map((f, i) => (
-          <div class="group relative flex items-start gap-4 sm:gap-5 p-5 sm:p-6 rounded-2xl transition-all duration-200 shadow-2xs hover:border-[#D4C9BC] hover:bg-white" style="background:#FAF7F2;border:1px solid #EDE4D8">
-            <div class="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 shadow-2xs transition-colors group-hover:border-[#BFDBFE]" style="background:#FFFFFF;color:#2563eb;border:1px solid #EDE4D8">
+          <div class="group relative flex items-start gap-4 sm:gap-5 p-5 sm:p-6 rounded-2xl transition-all duration-200 shadow-2xs hover:border-[var(--ds-border-strong)] hover:bg-[var(--ds-card)]" style="background:var(--ds-bg-soft);border:1px solid var(--ds-border)">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 shadow-2xs transition-colors group-hover:border-[#BFDBFE]" style="background:var(--ds-card);color:#2563eb;border:1px solid var(--ds-border)">
               {f.icon}
             </div>
             <div class="min-w-0 flex-1 space-y-1">
               <div class="flex items-center gap-2.5 flex-wrap">
-                <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded" style="background:#09090b0a;color:#78716C">0{i + 1}</span>
-                <h3 class="text-base font-bold text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">{f.title}</h3>
+                <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded" style="background:var(--ds-badge-bg);color:var(--ds-badge-text)">0{i + 1}</span>
+                <h3 class="text-base font-bold text-stone-900" style="color:var(--ds-text);font-family:'Playfair Display',serif">{f.title}</h3>
                 {i < features.length - 1 && (
-                  <span class="text-[10px] font-medium px-2.5 py-0.5 rounded-full inline-flex items-center gap-1" style="background:#EFF6FF;color:#2563eb;border:1px solid #BFDBFE">
+                  <span class="text-[10px] font-medium px-2.5 py-0.5 rounded-full inline-flex items-center gap-1" style="background:var(--ds-blue-soft);color:#2563eb;border:1px solid var(--ds-blue-border)">
                     <span>↳</span> flows into next page
                   </span>
                 )}
               </div>
-              <p class="text-xs sm:text-sm leading-relaxed text-stone-600 font-normal" style="color:#6B7280">{f.description}</p>
+              <p class="text-xs sm:text-sm leading-relaxed text-stone-600 font-normal" style="color:var(--ds-text-secondary)">{f.description}</p>
             </div>
           </div>
         ))}
@@ -282,25 +282,25 @@ const renderFaqAnswer = (answer: string) =>
     <div class="max-w-4xl mx-auto my-24 space-y-12">
       <div class="text-center max-w-3xl mx-auto space-y-5">
         <div class="w-8 h-[1.5px] mx-auto rounded-full" style="background:#2563eb;opacity:0.3"></div>
-        <h2 class="text-3xl sm:text-4xl font-bold font-serif leading-tight text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">
+        <h2 class="text-3xl sm:text-4xl font-bold font-serif leading-tight text-stone-900" style="color:var(--ds-text);font-family:'Playfair Display',serif">
           {storyHeading}
         </h2>
-        <p class="text-sm sm:text-base leading-relaxed font-normal text-stone-600" style="color:#6B7280">
+        <p class="text-sm sm:text-base leading-relaxed font-normal text-stone-600" style="color:var(--ds-text-secondary)">
           {storyDesc}
         </p>
         {storyText2 && (
-          <p class="text-sm sm:text-base leading-relaxed font-normal text-stone-600" style="color:#6B7280">
+          <p class="text-sm sm:text-base leading-relaxed font-normal text-stone-600" style="color:var(--ds-text-secondary)">
             {storyText2}
           </p>
         )}
       </div>
 
       {whoFor && (
-        <div class="max-w-2xl mx-auto p-7 rounded-2xl text-center transition-all shadow-2xs hover:border-[#D4C9BC]" style="background:#FAF7F2;border:1px solid #EDE4D8">
+        <div class="max-w-2xl mx-auto p-7 rounded-2xl text-center transition-all shadow-2xs hover:border-[var(--ds-border-strong)]" style="background:var(--ds-bg-soft);border:1px solid var(--ds-border)">
           <div class="flex items-center gap-2 justify-center mb-2.5">
-            <span class="text-[10px] font-bold uppercase tracking-widest text-stone-400" style="color:#9CA3AF">Designed For You</span>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-stone-400" style="color:var(--ds-text-faint)">Designed For You</span>
           </div>
-          <p class="text-base sm:text-lg leading-relaxed font-serif italic text-stone-900" style="color:#09090b">
+          <p class="text-base sm:text-lg leading-relaxed font-serif italic text-stone-900" style="color:var(--ds-text)">
             &ldquo;{whoFor}&rdquo;
           </p>
         </div>
@@ -311,20 +311,20 @@ const renderFaqAnswer = (answer: string) =>
 </section>
 
 <!-- WHAT'S INCLUDED SECTION -->
-<section id="whats-included" class="scroll-mt-20 py-24" style="background:#FAF7F2;border-bottom:1px solid #EDE4D8;border-top:1px solid #EDE4D8">
+<section id="whats-included" class="scroll-mt-20 py-24" style="background:var(--ds-bg-soft);border-bottom:1px solid var(--ds-border);border-top:1px solid var(--ds-border)">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
     
     <div class="text-center max-w-2xl mx-auto space-y-3.5">
       <div class="w-8 h-[1.5px] mx-auto rounded-full" style="background:#2563eb;opacity:0.3"></div>
-      <h2 class="text-3xl sm:text-4xl font-bold font-serif leading-tight text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">
+      <h2 class="text-3xl sm:text-4xl font-bold font-serif leading-tight text-stone-900" style="color:var(--ds-text);font-family:'Playfair Display',serif">
         <span class="block">Everything included</span>
-        <span class="block text-sm font-normal mt-2 font-sans text-stone-500" style="color:#6B7280">Every page, explained</span>
+        <span class="block text-sm font-normal mt-2 font-sans text-stone-500" style="color:var(--ds-text-secondary)">Every page, explained</span>
       </h2>
     </div>
 
     <!-- Craftsmanship callout -->
     <div class="max-w-3xl mx-auto text-center px-4">
-      <p class="text-xs sm:text-sm leading-relaxed font-serif italic text-stone-600" style="color:#6B7280">
+      <p class="text-xs sm:text-sm leading-relaxed font-serif italic text-stone-600" style="color:var(--ds-text-secondary)">
         Each page is laid out with quiet attention to detail — 
         margins that feel right, typography that guides the eye, 
         and space that invites writing instead of intimidating. 
@@ -335,13 +335,13 @@ const renderFaqAnswer = (answer: string) =>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {features.map(f => (
-        <div class="p-6.5 rounded-2xl bg-white border border-[#EDE4D8] shadow-2xs space-y-4 flex flex-col justify-between transition-all duration-200 hover:border-[#D4C9BC] hover:shadow-xs">
+        <div class="p-6.5 rounded-2xl bg-[var(--ds-card)] border border-[var(--ds-border)] shadow-2xs space-y-4 flex flex-col justify-between transition-all duration-200 hover:border-[var(--ds-border-strong)] hover:shadow-xs">
           <div class="space-y-3.5">
-            <div class="w-10 h-10 rounded-xl bg-[#FCFAF7] border border-[#EDE4D8] flex items-center justify-center text-xl text-stone-800 shadow-2xs">
+            <div class="w-10 h-10 rounded-xl bg-[var(--ds-card-2)] border border-[var(--ds-border)] flex items-center justify-center text-xl text-stone-800 shadow-2xs">
               {f.icon}
             </div>
-            <h3 class="text-sm font-bold text-stone-900" style="color:#09090b">{f.title}</h3>
-            <p class="text-xs leading-relaxed font-normal text-stone-600" style="color:#6B7280">{f.description}</p>
+            <h3 class="text-sm font-bold text-stone-900" style="color:var(--ds-text)">{f.title}</h3>
+            <p class="text-xs leading-relaxed font-normal text-stone-600" style="color:var(--ds-text-secondary)">{f.description}</p>
           </div>
         </div>
       ))}
@@ -351,18 +351,18 @@ const renderFaqAnswer = (answer: string) =>
 </section>
 
 <!-- CUSTOMIZATION FORM & LIVE PREVIEW BUILDER -->
-<section id="customize" class="scroll-mt-20 py-24" style="background:#FCFAF7">
+<section id="customize" class="scroll-mt-20 py-24" style="background:var(--ds-bg)">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- Section Header -->
     <div class="text-center max-w-2xl mx-auto mb-16 space-y-3.5">
-      <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-2xs" style="background:#EFF6FF;color:#2563eb;border:1px solid #BFDBFE">
+      <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-2xs" style="background:var(--ds-blue-soft);color:#2563eb;border:1px solid var(--ds-blue-border)">
         ⚙️ CONFIGURE YOUR SYSTEM
       </span>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif tracking-tight leading-tight text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif tracking-tight leading-tight text-stone-900" style="color:var(--ds-text);font-family:'Playfair Display',serif">
         Set Up Your {product.title}
       </h2>
-      <p class="text-sm max-w-xl mx-auto leading-relaxed text-stone-600" style="color:#6B7280">
+      <p class="text-sm max-w-xl mx-auto leading-relaxed text-stone-600" style="color:var(--ds-text-secondary)">
         Every change updates the preview instantly. See your planner come together in real time.
       </p>
     </div>
@@ -371,15 +371,15 @@ const renderFaqAnswer = (answer: string) =>
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
       
       <!-- Left Compact Configuration Form Sidebar (5 cols / 41.7% width) -->
-      <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 border border-[#EDE4D8] shadow-2xs space-y-7">
+      <div class="lg:col-span-5 bg-[var(--ds-card)] rounded-3xl p-6 sm:p-7 border border-[var(--ds-border)] shadow-2xs space-y-7">
 
         {sections.map(sec => {
           const secFields = sortedFields.filter(f => f.section === sec);
           if (secFields.length === 0) return null;
           return (
           <div class="space-y-3.5">
-            <div class="border-b pb-2.5" style="border-color:#EDE4D8">
-              <h3 class="text-xs font-bold uppercase tracking-widest flex items-center gap-2 text-stone-900" style="color:#09090b">
+            <div class="border-b pb-2.5" style="border-color:var(--ds-border)">
+              <h3 class="text-xs font-bold uppercase tracking-widest flex items-center gap-2 text-stone-900" style="color:var(--ds-text)">
                 <span class="w-2 h-2 rounded-full inline-block flex-shrink-0" style="background:#2563eb"></span>
                 <span>{sec}</span>
               </h3>
@@ -393,7 +393,7 @@ const renderFaqAnswer = (answer: string) =>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {secFields.map(f => (
                 <div class={`space-y-1.5 ${(f.type === 'textarea' || (secFields.length % 2 !== 0 && secFields.indexOf(f) === secFields.length - 1)) ? 'sm:col-span-2' : ''}`}>
-                  <label for={`pf-${f.id}-${suffix}`} class="block text-[11px] font-bold text-stone-900" style="color:#09090b">
+                  <label for={`pf-${f.id}-${suffix}`} class="block text-[11px] font-bold text-stone-900" style="color:var(--ds-text)">
                     {f.label} {f.required && <span class="text-rose-500">*</span>}
                   </label>
                   {f.type === 'text' && (
@@ -403,16 +403,16 @@ const renderFaqAnswer = (answer: string) =>
                       data-field-id={f.id}
                       placeholder={f.placeholder}
                       value={f.defaultValue || ''}
-                      class="w-full px-3.5 py-2.5 text-xs bg-[#FCFAF7] border border-[#EDE4D8] rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 focus:border-[#2563eb] focus:bg-white transition-all placeholder:text-stone-300 shadow-2xs"
-                      style="color:#09090b"
+                      class="w-full px-3.5 py-2.5 text-xs bg-[var(--ds-card-2)] border border-[var(--ds-border)] rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 focus:border-[#2563eb] focus:bg-[var(--ds-card)] transition-all placeholder:text-stone-300 shadow-2xs"
+                      style="color:var(--ds-text)"
                     />
                   )}
                   {f.type === 'select' && (
                     <select
                       id={`pf-${f.id}-${suffix}`}
                       data-field-id={f.id}
-                      class="w-full px-3.5 py-2.5 text-xs bg-[#FCFAF7] border border-[#EDE4D8] rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 focus:border-[#2563eb] focus:bg-white transition-all shadow-2xs"
-                      style="color:#09090b"
+                      class="w-full px-3.5 py-2.5 text-xs bg-[var(--ds-card-2)] border border-[var(--ds-border)] rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 focus:border-[#2563eb] focus:bg-[var(--ds-card)] transition-all shadow-2xs"
+                      style="color:var(--ds-text)"
                     >
                       {f.options?.map(opt => (
                         <option value={opt.value} selected={opt.value === f.defaultValue}>{opt.label}</option>
@@ -425,8 +425,8 @@ const renderFaqAnswer = (answer: string) =>
                       data-field-id={f.id}
                       placeholder={f.placeholder}
                       rows={2}
-                      class="w-full px-3.5 py-2.5 text-xs bg-[#FCFAF7] border border-[#EDE4D8] rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 focus:border-[#2563eb] focus:bg-white transition-all resize-none shadow-2xs placeholder:text-stone-300"
-                      style="color:#09090b"
+                      class="w-full px-3.5 py-2.5 text-xs bg-[var(--ds-card-2)] border border-[var(--ds-border)] rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 focus:border-[#2563eb] focus:bg-[var(--ds-card)] transition-all resize-none shadow-2xs placeholder:text-stone-300"
+                      style="color:var(--ds-text)"
                     ></textarea>
                   )}
 
@@ -446,7 +446,7 @@ const renderFaqAnswer = (answer: string) =>
         })}
 
         <!-- Direct Purchase Button -->
-        <div class="pt-5 border-t space-y-3" style="border-color:#EDE4D8">
+        <div class="pt-5 border-t space-y-3" style="border-color:var(--ds-border)">
           <button
             id={`pf-purchase-btn-${suffix}`}
             data-product-id={product.id}
@@ -458,14 +458,14 @@ const renderFaqAnswer = (answer: string) =>
             data-product-icon={product.icon}
             data-what-included={JSON.stringify(product.whatIncluded)}
             class="w-full py-3.5 px-6 text-sm font-bold text-white rounded-full transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01] active:scale-[0.99] shadow-xs"
-            style="background:#09090b"
-            onmouseover="this.style.background='#1f2937'"
-            onmouseout="this.style.background='#09090b'"
+            style="background:var(--ds-btn)"
+            onmouseover="this.style.background='var(--ds-btn-hover)'"
+            onmouseout="this.style.background='var(--ds-btn)'"
           >
             <span>Get {product.title}</span>
             <span class="text-lg leading-none">&rarr;</span>
           </button>
-          <div class="flex items-center justify-between text-[10px] font-medium px-0.5" style="color:#A8A29E">
+          <div class="flex items-center justify-between text-[10px] font-medium px-0.5" style="color:var(--ds-text-muted)">
             <span>Instant PDF access</span>
             <span>Lifetime updates</span>
           </div>
@@ -474,18 +474,18 @@ const renderFaqAnswer = (answer: string) =>
       </div>
 
       <!-- Right Large Immersive Live Preview Showcase (7 cols / 58.3% width) -->
-      <div class="lg:col-span-7 bg-white rounded-3xl p-5 sm:p-6 border border-[#EDE4D8] shadow-2xs space-y-3.5">
-        <div class="flex items-center justify-between text-xs text-stone-800 font-bold border-b border-[#EDE4D8] pb-3">
-          <span class="flex items-center gap-2 font-serif text-sm text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">
+      <div class="lg:col-span-7 bg-[var(--ds-card)] rounded-3xl p-5 sm:p-6 border border-[var(--ds-border)] shadow-2xs space-y-3.5">
+        <div class="flex items-center justify-between text-xs text-stone-800 font-bold border-b border-[var(--ds-border)] pb-3">
+          <span class="flex items-center gap-2 font-serif text-sm text-stone-900" style="color:var(--ds-text);font-family:'Playfair Display',serif">
             <span class="w-2.5 h-2.5 rounded-full" style="background:#2563eb;animation:pulse 2s infinite"></span>
             Live System Preview
           </span>
-          <span class="px-3 py-1 rounded-full text-[11px] font-semibold shadow-2xs" style="background:#EFF6FF;color:#2563eb;border:1px solid #BFDBFE">
+          <span class="px-3 py-1 rounded-full text-[11px] font-semibold shadow-2xs" style="background:var(--ds-blue-soft);color:#2563eb;border:1px solid var(--ds-blue-border)">
             ⚡ Updates in real time
           </span>
         </div>
         
-        <div id={`digital-planner-preview-container-${suffix}`} class="bg-[#FCFAF7] rounded-2xl text-stone-900 h-[680px] lg:h-[760px] flex flex-col items-center justify-center shadow-inner overflow-hidden border border-[#EDE4D8]">
+        <div id={`digital-planner-preview-container-${suffix}`} class="bg-[var(--ds-bg)] rounded-2xl text-stone-900 h-[680px] lg:h-[760px] flex flex-col items-center justify-center shadow-inner overflow-hidden border border-[var(--ds-border)]">
           <div class="text-center space-y-2 p-6">
             <span class="text-3xl animate-bounce inline-block">{product.icon}</span>
             <p class="text-xs font-bold text-stone-700 font-serif">Compiling Live Canvas...</p>
@@ -501,33 +501,33 @@ const renderFaqAnswer = (answer: string) =>
 
 <!-- REVIEWS SECTION -->
 {product.reviews && product.reviews.length > 0 && (
-<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-[#EDE4D8]">
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-[var(--ds-border)]">
   <div class="text-center mb-16 space-y-3.5">
     <div class="w-8 h-[1.5px] mx-auto rounded-full" style="background:#2563eb;opacity:0.3"></div>
-    <h2 class="text-3xl font-bold font-serif leading-tight text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">Customer Reviews</h2>
+    <h2 class="text-3xl font-bold font-serif leading-tight text-stone-900" style="color:var(--ds-text);font-family:'Playfair Display',serif">Customer Reviews</h2>
     <div class="flex items-center justify-center gap-2">
       <span class="text-sm font-bold" style="color:#2563eb">{renderStars(product.rating)}</span>
-      <span class="text-sm font-bold text-stone-900" style="color:#09090b">{product.rating}</span>
-      <span class="text-xs font-medium" style="color:#A8A29E">({product.reviewCount} reviews)</span>
+      <span class="text-sm font-bold text-stone-900" style="color:var(--ds-text)">{product.rating}</span>
+      <span class="text-xs font-medium" style="color:var(--ds-text-muted)">({product.reviewCount} reviews)</span>
     </div>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     {product.reviews.map(r => (
-      <div class="rounded-2xl p-6 space-y-4 transition-all shadow-2xs hover:border-[#D4C9BC] flex flex-col" style="background:#FCFAF7;border:1px solid #EDE4D8">
+      <div class="rounded-2xl p-6 space-y-4 transition-all shadow-2xs hover:border-[var(--ds-border-strong)] flex flex-col" style="background:var(--ds-card-2);border:1px solid var(--ds-border)">
         <div class="flex items-center gap-2">
           <div class="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold" style="background:#2563eb/10;color:#2563eb">{r.initials}</div>
           <div>
-            <p class="text-xs font-bold text-stone-900" style="color:#09090b">{r.name}</p>
-            <span class="text-[10px] font-medium" style="color:#A8A29E">{r.date}</span>
+            <p class="text-xs font-bold text-stone-900" style="color:var(--ds-text)">{r.name}</p>
+            <span class="text-[10px] font-medium" style="color:var(--ds-text-muted)">{r.date}</span>
           </div>
         </div>
         <div class="flex items-center gap-0.5">
           {Array.from({length: 5}).map((_, i) => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill={i < r.rating ? '#2563eb' : '#EDE4D8'} stroke={i < r.rating ? '#2563eb' : '#EDE4D8'} stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill={i < r.rating ? '#2563eb' : 'var(--ds-border)'} stroke={i < r.rating ? '#2563eb' : 'var(--ds-border)'} stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           ))}
         </div>
-        <p class="text-xs leading-relaxed font-serif italic flex-1" style="color:#6B7280">&ldquo;{r.text}&rdquo;</p>
+        <p class="text-xs leading-relaxed font-serif italic flex-1" style="color:var(--ds-text-secondary)">&ldquo;{r.text}&rdquo;</p>
       </div>
     ))}
   </div>
@@ -535,18 +535,18 @@ const renderFaqAnswer = (answer: string) =>
 )}
 
 <!-- FAQ ACCORDION SECTION -->
-<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-[#EDE4D8]">
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-[var(--ds-border)]">
   <div class="text-center mb-16 space-y-3.5">
     <div class="w-8 h-[1.5px] mx-auto rounded-full" style="background:#2563eb;opacity:0.3"></div>
-    <h2 class="text-3xl font-bold font-serif leading-tight text-stone-900" style="color:#09090b;font-family:'Playfair Display',serif">Questions &amp; Answers</h2>
+    <h2 class="text-3xl font-bold font-serif leading-tight text-stone-900" style="color:var(--ds-text);font-family:'Playfair Display',serif">Questions &amp; Answers</h2>
     <p class="text-xs text-stone-500 font-medium">Everything you need to know about the system.</p>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     {faqs.map(faq => (
-      <div data-faq class="p-6.5 rounded-2xl space-y-2.5 transition-all shadow-2xs hover:border-[#D4C9BC]" style="background:#FAF7F2;border:1px solid #EDE4D8">
-        <h3 class="text-sm font-bold text-stone-900" style="color:#09090b">{faq.q}</h3>
-        <p class="text-xs font-normal leading-relaxed text-stone-600" style="color:#6B7280" set:html={renderFaqAnswer(faq.a)} />
+      <div data-faq class="p-6.5 rounded-2xl space-y-2.5 transition-all shadow-2xs hover:border-[var(--ds-border-strong)]" style="background:var(--ds-bg-soft);border:1px solid var(--ds-border)">
+        <h3 class="text-sm font-bold text-stone-900" style="color:var(--ds-text)">{faq.q}</h3>
+        <p class="text-xs font-normal leading-relaxed text-stone-600" style="color:var(--ds-text-secondary)" set:html={renderFaqAnswer(faq.a)} />
       </div>
     ))}
   </div>
@@ -593,7 +593,7 @@ function initPlannerPreview() {
         return 'violet';
       };
 
-      const dpOptions: any = { sidebar: false };
+      const dpOptions: any = { sidebar: false, coverEditablePreview: true };
       if (isMasterYourDay) {
         dpOptions.getPages = (values: any, theme: string, title?: string, icon?: string) => {
           const preview = new MasterYourDayPreview(values, mydTheme(theme), title, icon);
@@ -703,8 +703,8 @@ document.addEventListener('astro:page-load', initPlannerPreview);
     border-radius: 1rem !important;
     overflow: hidden !important;
     position: relative !important;
-    background: #FCFAF7 !important;
-    border: 1px solid #EDE4D8 !important;
+    background: var(--ds-bg) !important;
+    border: 1px solid var(--ds-border) !important;
     display: flex !important;
     flex-direction: column !important;
   }
@@ -720,15 +720,15 @@ document.addEventListener('astro:page-load', initPlannerPreview);
     height: 100% !important;
     display: flex !important;
     flex-direction: column !important;
-    background: #FAF7F2 !important;
+    background: var(--ds-bg-soft) !important;
     border-radius: 1rem !important;
     overflow: hidden !important;
   }
 
   /* Toolbar PDF Viewer Styling */
   [id^="digital-planner-preview-container"] .dp-toolbar {
-    background: #FFFFFF !important;
-    border-bottom: 1px solid #EDE4D8 !important;
+    background: var(--ds-card) !important;
+    border-bottom: 1px solid var(--ds-border) !important;
     padding: 8px 12px !important;
     display: flex !important;
     align-items: center !important;
@@ -747,13 +747,13 @@ document.addEventListener('astro:page-load', initPlannerPreview);
   }
 
   [id^="digital-planner-preview-container"] .dp-nav-select {
-    background: #FCFAF7 !important;
-    border: 1px solid #EDE4D8 !important;
+    background: var(--ds-card-2) !important;
+    border: 1px solid var(--ds-border) !important;
     border-radius: 6px !important;
     padding: 3px 6px !important;
     font-size: 11px !important;
     font-weight: 600 !important;
-    color: #171717 !important;
+    color: var(--ds-text) !important;
   }
 
   [id^="digital-planner-preview-container"] .dp-zoom-btn.active {
@@ -764,11 +764,41 @@ document.addEventListener('astro:page-load', initPlannerPreview);
   }
 
   [id^="digital-planner-preview-container"] .dp-export-btn {
-    background: #09090b !important;
-    border-color: #09090b !important;
+    background: var(--ds-btn) !important;
+    border-color: var(--ds-btn) !important;
     border-radius: 6px !important;
     padding: 4px 10px !important;
     font-size: 11px !important;
+  }
+
+  [id^="digital-planner-preview-container"] .dp-preview-badge {
+    background: var(--ds-blue-soft) !important;
+    border: 1px solid var(--ds-blue-border) !important;
+    color: #2563eb !important;
+    font-size: 9px !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  /* Touch-friendly planner toolbar controls on small/tablet screens (>=44px hit area) */
+  @media (max-width: 1024px) {
+    [id^="digital-planner-preview-container"] .dp-nav-btn {
+      width: 44px !important;
+      height: 44px !important;
+    }
+    [id^="digital-planner-preview-container"] .dp-nav-select {
+      min-height: 44px !important;
+    }
+    [id^="digital-planner-preview-container"] .dp-zoom-btn {
+      min-height: 44px !important;
+      padding: 8px 10px !important;
+    }
+    [id^="digital-planner-preview-container"] .dp-export-btn {
+      min-height: 44px !important;
+      padding: 10px 12px !important;
+    }
+    [id^="digital-planner-preview-container"] .dp-toolbar {
+      padding: 8px 10px !important;
+    }
   }
 
   /* Main Area & Scroll Container */
@@ -777,7 +807,7 @@ document.addEventListener('astro:page-load', initPlannerPreview);
     display: flex !important;
     min-height: 0 !important;
     overflow: hidden !important;
-    background: #FAF7F2 !important;
+    background: var(--ds-bg-soft) !important;
   }
 
   [id^="digital-planner-preview-container"] .digital-planner-main {

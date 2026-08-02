@@ -9,7 +9,7 @@ import ProductCard from "../../components/digital-store/ProductCard.astro";
   description="Personalized planners built around your goals, routines, and schedule. Four flagship systems: Study Planner Pro, Master Your Day, Wellness Journal, and Social Media Detox."
   hideFooter={true}
 >
-  <div class="digital-store-root min-h-screen bg-[#fcf9f2] text-[#09090b] pb-20 relative">
+  <div class="digital-store-root min-h-screen bg-[var(--ds-bg)] text-[var(--ds-text)] pb-20 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14 sm:space-y-18 pt-8">
 
       <!-- HERO: Rotating planner story (editorial page previews, no analytics) -->
@@ -20,18 +20,18 @@ import ProductCard from "../../components/digital-store/ProductCard.astro";
           <!-- Left column: editorial text -->
           <div class="lg:w-[360px] xl:w-[420px] lg:flex-shrink-0">
 
-            <div class="inline-flex items-center gap-2 text-xs font-medium px-3 py-1 rounded-full" style="color:#6B7280;background:#f5f0ea;border:0.5px solid #ede4d8">
+            <div class="inline-flex items-center gap-2 text-xs font-medium px-3 py-1 rounded-full" style="color:var(--ds-text-secondary);background:var(--ds-warm);border:0.5px solid var(--ds-border)">
               <span style="color:#2563eb">✦</span> Four systems. One philosophy.
             </div>
 
-            <h1 class="text-4xl sm:text-5xl lg:text-[52px] xl:text-6xl font-bold font-serif leading-[1.1] mt-6" style="color:#09090b;font-family:'Playfair Display',serif;letter-spacing:-0.02em">
+            <h1 class="text-4xl sm:text-5xl lg:text-[52px] xl:text-6xl font-bold font-serif leading-[1.1] mt-6" style="color:var(--ds-text);font-family:'Playfair Display',serif;letter-spacing:-0.02em">
               Your planning
             </h1>
-            <div class="text-4xl sm:text-5xl lg:text-[52px] xl:text-6xl font-bold font-serif leading-[1.1]" style="color:#09090b;font-family:'Playfair Display',serif;letter-spacing:-0.02em">
+            <div class="text-4xl sm:text-5xl lg:text-[52px] xl:text-6xl font-bold font-serif leading-[1.1]" style="color:var(--ds-text);font-family:'Playfair Display',serif;letter-spacing:-0.02em">
               <span style="color:#2563eb">ecosystem.</span>
             </div>
 
-            <p class="text-sm sm:text-base leading-relaxed mt-4" style="color:#6B7280;font-family:Outfit,sans-serif">
+            <p class="text-sm sm:text-base leading-relaxed mt-4" style="color:var(--ds-text-secondary);font-family:Outfit,sans-serif">
               Beautifully crafted planning pages for your goals, routines, reflection, and&nbsp;focus.
             </p>
 
@@ -42,7 +42,7 @@ import ProductCard from "../../components/digital-store/ProductCard.astro";
 
             <!-- Changing tagline above the card -->
             <div class="h-[18px] mb-4 overflow-hidden">
-              <span id="planner-tagline" class="text-xs font-medium transition-all duration-500 inline-block" style="color:#6B7280">Plan your semester</span>
+              <span id="planner-tagline" class="text-xs font-medium transition-all duration-500 inline-block" style="color:var(--ds-text-secondary)">Plan your semester</span>
             </div>
 
             <!-- Card stack (only one visible at a time) -->
@@ -136,9 +136,9 @@ import ProductCard from "../../components/digital-store/ProductCard.astro";
             <!-- Dot indicators -->
             <div class="flex items-center gap-2 mt-4">
               <button data-planner-dot="0" class="w-2 h-2 rounded-full transition-all duration-300 cursor-pointer" style="background:#2563eb;border:none;padding:0" aria-label="Study Planner Pro"></button>
-              <button data-planner-dot="1" class="w-2 h-2 rounded-full transition-all duration-300 cursor-pointer" style="background:#d4c9bc;border:none;padding:0" aria-label="Master Your Day"></button>
-              <button data-planner-dot="2" class="w-2 h-2 rounded-full transition-all duration-300 cursor-pointer" style="background:#d4c9bc;border:none;padding:0" aria-label="Wellness Journal"></button>
-              <button data-planner-dot="3" class="w-2 h-2 rounded-full transition-all duration-300 cursor-pointer" style="background:#d4c9bc;border:none;padding:0" aria-label="Social Media Detox"></button>
+              <button data-planner-dot="1" class="w-2 h-2 rounded-full transition-all duration-300 cursor-pointer" style="background:var(--ds-border-strong);border:none;padding:0" aria-label="Master Your Day"></button>
+              <button data-planner-dot="2" class="w-2 h-2 rounded-full transition-all duration-300 cursor-pointer" style="background:var(--ds-border-strong);border:none;padding:0" aria-label="Wellness Journal"></button>
+              <button data-planner-dot="3" class="w-2 h-2 rounded-full transition-all duration-300 cursor-pointer" style="background:var(--ds-border-strong);border:none;padding:0" aria-label="Social Media Detox"></button>
             </div>
 
           </div>
@@ -146,59 +146,59 @@ import ProductCard from "../../components/digital-store/ProductCard.astro";
         </div>
 
         <!-- CTA row (full-width below) -->
-        <div class="mt-10 sm:mt-12 lg:mt-14 pt-5 border-t" style="border-color:#ede4d8">
+        <div class="mt-10 sm:mt-12 lg:mt-14 pt-5 border-t" style="border-color:var(--ds-border)">
           <div class="flex flex-wrap items-center gap-4 mb-5">
-            <a href="#systems" class="px-7 py-3 rounded-full text-sm font-bold transition-all" style="background:#09090b;color:#fcf9f2;font-family:Outfit,sans-serif">
+            <a href="#systems" class="px-7 py-3 rounded-full text-sm font-bold transition-all" style="background:var(--ds-btn);color:var(--ds-btn-text);font-family:Outfit,sans-serif">
               Explore the collection &rarr;
             </a>
-            <a href="#how-it-works" class="px-7 py-3 rounded-full text-sm font-bold transition-all" style="color:#09090b;border:1px solid #d4c9bc;font-family:Outfit,sans-serif">
+            <a href="#how-it-works" class="px-7 py-3 rounded-full text-sm font-bold transition-all" style="color:var(--ds-text);border:1px solid var(--ds-border-strong);font-family:Outfit,sans-serif">
               How it works
             </a>
           </div>
           <div class="flex flex-wrap items-center gap-8">
-            <span class="flex items-center gap-2 text-xs font-medium" style="color:#6B7280"><span>📥</span> Instant Download</span>
-            <span class="flex items-center gap-2 text-xs font-medium" style="color:#6B7280"><span>🖨️</span> Printable PDF</span>
-            <span class="flex items-center gap-2 text-xs font-medium" style="color:#6B7280"><span>♾️</span> Lifetime Access</span>
+            <span class="flex items-center gap-2 text-xs font-medium" style="color:var(--ds-text-secondary)"><span>📥</span> Instant Download</span>
+            <span class="flex items-center gap-2 text-xs font-medium" style="color:var(--ds-text-secondary)"><span>🖨️</span> Printable PDF</span>
+            <span class="flex items-center gap-2 text-xs font-medium" style="color:var(--ds-text-secondary)"><span>♾️</span> Lifetime Access</span>
           </div>
         </div>
       </section>
 
       <!-- FEATURE STRIP -->
-      <section class="rounded-xl border p-6 sm:p-7" style="background:#faf7f2;border-color:#ede4d8">
+      <section class="rounded-xl border p-6 sm:p-7" style="background:var(--ds-bg-soft);border-color:var(--ds-border)">
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
-          <div class="flex items-center gap-3 text-left lg:border-r" style="border-color:#ede4d8">
+          <div class="flex items-center gap-3 text-left lg:border-r" style="border-color:var(--ds-border)">
             <span class="text-lg flex-shrink-0">👤</span>
             <div>
-              <h4 class="text-xs font-bold" style="color:#09090b">Personalized</h4>
-              <p class="text-[11px] font-medium" style="color:#6B7280">Made for you</p>
+              <h4 class="text-xs font-bold" style="color:var(--ds-text)">Personalized</h4>
+              <p class="text-[11px] font-medium" style="color:var(--ds-text-secondary)">Made for you</p>
             </div>
           </div>
-          <div class="flex items-center gap-3 text-left lg:border-r" style="border-color:#ede4d8">
+          <div class="flex items-center gap-3 text-left lg:border-r" style="border-color:var(--ds-border)">
             <span class="text-lg flex-shrink-0">🖨️</span>
             <div>
-              <h4 class="text-xs font-bold" style="color:#09090b">Printable</h4>
-              <p class="text-[11px] font-medium" style="color:#6B7280">High quality PDF</p>
+              <h4 class="text-xs font-bold" style="color:var(--ds-text)">Printable</h4>
+              <p class="text-[11px] font-medium" style="color:var(--ds-text-secondary)">High quality PDF</p>
             </div>
           </div>
-          <div class="flex items-center gap-3 text-left lg:border-r" style="border-color:#ede4d8">
+          <div class="flex items-center gap-3 text-left lg:border-r" style="border-color:var(--ds-border)">
             <span class="text-lg flex-shrink-0">⚡</span>
             <div>
-              <h4 class="text-xs font-bold" style="color:#09090b">Instant Download</h4>
-              <p class="text-[11px] font-medium" style="color:#6B7280">Get it right away</p>
+              <h4 class="text-xs font-bold" style="color:var(--ds-text)">Instant Download</h4>
+              <p class="text-[11px] font-medium" style="color:var(--ds-text-secondary)">Get it right away</p>
             </div>
           </div>
-          <div class="flex items-center gap-3 text-left lg:border-r" style="border-color:#ede4d8">
+          <div class="flex items-center gap-3 text-left lg:border-r" style="border-color:var(--ds-border)">
             <span class="text-lg flex-shrink-0">📱</span>
             <div>
-              <h4 class="text-xs font-bold" style="color:#09090b">Works on iPad</h4>
-              <p class="text-[11px] font-medium" style="color:#6B7280">GoodNotes ready</p>
+              <h4 class="text-xs font-bold" style="color:var(--ds-text)">Works on iPad</h4>
+              <p class="text-[11px] font-medium" style="color:var(--ds-text-secondary)">GoodNotes ready</p>
             </div>
           </div>
           <div class="flex items-center gap-3 text-left">
             <span class="text-lg flex-shrink-0">🔒</span>
             <div>
-              <h4 class="text-xs font-bold" style="color:#09090b">Lifetime Access</h4>
-              <p class="text-[11px] font-medium" style="color:#6B7280">Yours forever</p>
+              <h4 class="text-xs font-bold" style="color:var(--ds-text)">Lifetime Access</h4>
+              <p class="text-[11px] font-medium" style="color:var(--ds-text-secondary)">Yours forever</p>
             </div>
           </div>
         </div>
@@ -210,25 +210,25 @@ import ProductCard from "../../components/digital-store/ProductCard.astro";
 
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div class="space-y-1">
-            <h2 class="text-[22px] sm:text-[28px] font-bold font-serif leading-tight" style="color:#09090b;font-family:'Playfair Display',serif;letter-spacing:-0.01em">Featured Planners</h2>
-            <p class="text-xs font-medium" style="color:#6B7280">Four systems. One design philosophy.</p>
+            <h2 class="text-[22px] sm:text-[28px] font-bold font-serif leading-tight" style="color:var(--ds-text);font-family:'Playfair Display',serif;letter-spacing:-0.01em">Featured Planners</h2>
+            <p class="text-xs font-medium" style="color:var(--ds-text-secondary)">Four systems. One design philosophy.</p>
           </div>
 
           <!-- Category Filter Pills -->
           <div class="flex items-center gap-2 overflow-x-auto pb-0.5 sm:pb-0" id="category-filters">
-            <button data-filter="all" class="px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0" style="background:#09090b;color:#fcf9f2">
+            <button data-filter="all" class="px-4 py-2.5 min-h-11 inline-flex items-center justify-center rounded-full text-xs font-bold transition-all cursor-pointer shrink-0" style="background:var(--ds-btn);color:var(--ds-btn-text)">
               All
             </button>
-            <button data-filter="academic" class="px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0" style="background:transparent;color:#6B7280;border:1px solid #ede4d8">
+            <button data-filter="academic" class="px-4 py-2.5 min-h-11 inline-flex items-center justify-center rounded-full text-xs font-bold transition-all cursor-pointer shrink-0" style="background:transparent;color:var(--ds-text-secondary);border:1px solid var(--ds-border)">
               Academic
             </button>
-            <button data-filter="productivity" class="px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0" style="background:transparent;color:#6B7280;border:1px solid #ede4d8">
+            <button data-filter="productivity" class="px-4 py-2.5 min-h-11 inline-flex items-center justify-center rounded-full text-xs font-bold transition-all cursor-pointer shrink-0" style="background:transparent;color:var(--ds-text-secondary);border:1px solid var(--ds-border)">
               Productivity
             </button>
-            <button data-filter="wellness" class="px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0" style="background:transparent;color:#6B7280;border:1px solid #ede4d8">
+            <button data-filter="wellness" class="px-4 py-2.5 min-h-11 inline-flex items-center justify-center rounded-full text-xs font-bold transition-all cursor-pointer shrink-0" style="background:transparent;color:var(--ds-text-secondary);border:1px solid var(--ds-border)">
               Wellness
             </button>
-            <button data-filter="goals" class="px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0" style="background:transparent;color:#6B7280;border:1px solid #ede4d8">
+            <button data-filter="goals" class="px-4 py-2.5 min-h-11 inline-flex items-center justify-center rounded-full text-xs font-bold transition-all cursor-pointer shrink-0" style="background:transparent;color:var(--ds-text-secondary);border:1px solid var(--ds-border)">
               Goals
             </button>
           </div>
@@ -252,61 +252,61 @@ import ProductCard from "../../components/digital-store/ProductCard.astro";
       </section>
 
       <!-- HOW IT WORKS SECTION -->
-      <section id="how-it-works" class="rounded-xl border p-8 sm:p-10 space-y-8" style="background:#faf7f2;border-color:#ede4d8">
-        <h2 class="text-2xl sm:text-3xl font-bold font-serif" style="color:#09090b;font-family:'Playfair Display',serif;letter-spacing:-0.01em">How it works</h2>
+      <section id="how-it-works" class="rounded-xl border p-8 sm:p-10 space-y-8" style="background:var(--ds-bg-soft);border-color:var(--ds-border)">
+        <h2 class="text-2xl sm:text-3xl font-bold font-serif" style="color:var(--ds-text);font-family:'Playfair Display',serif;letter-spacing:-0.01em">How it works</h2>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div class="lg:col-span-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div class="flex items-start gap-3.5 flex-1 p-4 rounded-xl" style="background:#fcf9f2;border:1px solid #ede4d8">
-              <div class="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#09090b;color:#fcf9f2">1</div>
+            <div class="flex items-start gap-3.5 flex-1 p-4 rounded-xl" style="background:var(--ds-card-2);border:1px solid var(--ds-border)">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:var(--ds-btn);color:var(--ds-btn-text)">1</div>
               <div class="space-y-1">
-                <h4 class="text-xs font-bold" style="color:#09090b">Tell us about yourself</h4>
-                <p class="text-[11px] leading-relaxed" style="color:#6B7280">Answer a few simple questions.</p>
+                <h4 class="text-xs font-bold" style="color:var(--ds-text)">Tell us about yourself</h4>
+                <p class="text-[11px] leading-relaxed" style="color:var(--ds-text-secondary)">Answer a few simple questions.</p>
               </div>
             </div>
             <span class="hidden sm:inline font-bold" style="color:#2563eb">&rarr;</span>
-            <div class="flex items-start gap-3.5 flex-1 p-4 rounded-xl" style="background:#fcf9f2;border:1px solid #ede4d8">
-              <div class="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#09090b;color:#fcf9f2">2</div>
+            <div class="flex items-start gap-3.5 flex-1 p-4 rounded-xl" style="background:var(--ds-card-2);border:1px solid var(--ds-border)">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:var(--ds-btn);color:var(--ds-btn-text)">2</div>
               <div class="space-y-1">
-                <h4 class="text-xs font-bold" style="color:#09090b">Your details build your planner</h4>
-                <p class="text-[11px] leading-relaxed" style="color:#6B7280">Personalized pages based on what matters to you.</p>
+                <h4 class="text-xs font-bold" style="color:var(--ds-text)">Your details build your planner</h4>
+                <p class="text-[11px] leading-relaxed" style="color:var(--ds-text-secondary)">Personalized pages based on what matters to you.</p>
               </div>
             </div>
             <span class="hidden sm:inline font-bold" style="color:#2563eb">&rarr;</span>
-            <div class="flex items-start gap-3.5 flex-1 p-4 rounded-xl" style="background:#fcf9f2;border:1px solid #ede4d8">
-              <div class="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#09090b;color:#fcf9f2">3</div>
+            <div class="flex items-start gap-3.5 flex-1 p-4 rounded-xl" style="background:var(--ds-card-2);border:1px solid var(--ds-border)">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:var(--ds-btn);color:var(--ds-btn-text)">3</div>
               <div class="space-y-1">
-                <h4 class="text-xs font-bold" style="color:#09090b">Download & start</h4>
-                <p class="text-[11px] leading-relaxed" style="color:#6B7280">Get your PDF and start planning.</p>
+                <h4 class="text-xs font-bold" style="color:var(--ds-text)">Download & start</h4>
+                <p class="text-[11px] leading-relaxed" style="color:var(--ds-text-secondary)">Get your PDF and start planning.</p>
               </div>
             </div>
           </div>
-          <div class="lg:col-span-4 rounded-xl p-6 flex items-center gap-4" style="background:#fcf9f2;border:1px solid #d4c9bc">
+          <div class="lg:col-span-4 rounded-xl p-6 flex items-center gap-4" style="background:var(--ds-card-2);border:1px solid var(--ds-border-strong)">
             <span class="text-2xl flex-shrink-0">🎁</span>
             <div>
-              <h4 class="text-xs font-bold" style="color:#09090b">30-day happiness guarantee</h4>
-              <p class="text-[11px]" style="color:#6B7280">Not satisfied? Get a full refund.</p>
+              <h4 class="text-xs font-bold" style="color:var(--ds-text)">30-day happiness guarantee</h4>
+              <p class="text-[11px]" style="color:var(--ds-text-secondary)">Not satisfied? Get a full refund.</p>
             </div>
           </div>
         </div>
       </section>
 
       <!-- TESTIMONIALS -->
-      <section class="rounded-xl border p-8 sm:p-10" style="background:#faf7f2;border-color:#ede4d8">
-        <h3 class="text-xs font-bold text-center mb-8 uppercase tracking-widest" style="color:#6B7280">What our customers say</h3>
+      <section class="rounded-xl border p-8 sm:p-10" style="background:var(--ds-bg-soft);border-color:var(--ds-border)">
+        <h3 class="text-xs font-bold text-center mb-8 uppercase tracking-widest" style="color:var(--ds-text-secondary)">What our customers say</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           {products.flatMap(p => p.reviews?.slice(0, 1) || []).slice(0, 3).map(r => (
             <div class="space-y-3">
               <div class="flex items-center gap-0.5">
                 {Array.from({length: 5}).map((_, i) => (
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill={i < r.rating ? '#2563eb' : '#EDE4D8'} stroke={i < r.rating ? '#2563eb' : '#EDE4D8'} stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill={i < r.rating ? '#2563eb' : 'var(--ds-border)'} stroke={i < r.rating ? '#2563eb' : 'var(--ds-border)'} stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                 ))}
               </div>
-              <p class="text-xs font-serif italic leading-relaxed" style="color:#09090b">&ldquo;{r.text}&rdquo;</p>
+              <p class="text-xs font-serif italic leading-relaxed" style="color:var(--ds-text)">&ldquo;{r.text}&rdquo;</p>
               <div class="flex items-center gap-2 pt-1">
-                <div class="w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold" style="background:#ede4d8;color:#6B7280">{r.initials}</div>
+                <div class="w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold" style="background:var(--ds-border);color:var(--ds-text-secondary)">{r.initials}</div>
                 <div>
-                  <p class="text-[11px] font-bold" style="color:#6B7280">{r.name}</p>
-                  <span class="text-[9px] font-medium" style="color:#9CA3AF">{r.date}</span>
+                  <p class="text-[11px] font-bold" style="color:var(--ds-text-secondary)">{r.name}</p>
+                  <span class="text-[9px] font-medium" style="color:var(--ds-text-faint)">{r.date}</span>
                 </div>
               </div>
             </div>
@@ -315,37 +315,37 @@ import ProductCard from "../../components/digital-store/ProductCard.astro";
       </section>
 
       <!-- FOOTER -->
-      <footer class="rounded-xl border p-8 sm:p-10 space-y-10" style="background:#faf7f2;border-color:#ede4d8">
+      <footer class="rounded-xl border p-8 sm:p-10 space-y-10" style="background:var(--ds-bg-soft);border-color:var(--ds-border)">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div class="space-y-3">
-            <div class="text-base font-bold" style="color:#09090b;font-family:'Playfair Display',serif">Tooltails</div>
-            <p class="text-xs leading-relaxed" style="color:#6B7280">Digital planners that adapt to you, not the other way around.</p>
+            <div class="text-base font-bold" style="color:var(--ds-text);font-family:'Playfair Display',serif">Tooltails</div>
+            <p class="text-xs leading-relaxed" style="color:var(--ds-text-secondary)">Digital planners that adapt to you, not the other way around.</p>
           </div>
           <div class="space-y-3">
-            <h4 class="text-[10px] font-bold uppercase tracking-wider" style="color:#09090b">Shop</h4>
-            <ul class="space-y-2 text-xs" style="color:#6B7280">
-              <li><a href="/digital-store" class="hover:text-[#09090b] transition-colors">All Planners</a></li>
-              <li><a href="/digital-store/study-planner-pro" class="hover:text-[#09090b] transition-colors">Study Planners</a></li>
-              <li><a href="/digital-store/master-your-day" class="hover:text-[#09090b] transition-colors">Daily Planners</a></li>
+            <h4 class="text-[10px] font-bold uppercase tracking-wider" style="color:var(--ds-text)">Shop</h4>
+            <ul class="space-y-2 text-xs" style="color:var(--ds-text-secondary)">
+              <li><a href="/digital-store" class="hover:text-[var(--ds-text)] transition-colors">All Planners</a></li>
+              <li><a href="/digital-store/study-planner-pro" class="hover:text-[var(--ds-text)] transition-colors">Study Planners</a></li>
+              <li><a href="/digital-store/master-your-day" class="hover:text-[var(--ds-text)] transition-colors">Daily Planners</a></li>
             </ul>
           </div>
           <div class="space-y-3">
-            <h4 class="text-[10px] font-bold uppercase tracking-wider" style="color:#09090b">Company</h4>
-            <ul class="space-y-2 text-xs" style="color:#6B7280">
-              <li><a href="/about" class="hover:text-[#09090b] transition-colors">About</a></li>
-              <li><a href="/blog" class="hover:text-[#09090b] transition-colors">Blog</a></li>
-              <li><a href="/contact" class="hover:text-[#09090b] transition-colors">Contact</a></li>
+            <h4 class="text-[10px] font-bold uppercase tracking-wider" style="color:var(--ds-text)">Company</h4>
+            <ul class="space-y-2 text-xs" style="color:var(--ds-text-secondary)">
+              <li><a href="/about" class="hover:text-[var(--ds-text)] transition-colors">About</a></li>
+              <li><a href="/blog" class="hover:text-[var(--ds-text)] transition-colors">Blog</a></li>
+              <li><a href="/contact" class="hover:text-[var(--ds-text)] transition-colors">Contact</a></li>
             </ul>
           </div>
           <div class="space-y-3">
-            <h4 class="text-[10px] font-bold uppercase tracking-wider" style="color:#09090b">Legal</h4>
-            <ul class="space-y-2 text-xs" style="color:#6B7280">
-              <li><a href="/terms" class="hover:text-[#09090b] transition-colors">Terms</a></li>
-              <li><a href="/privacy" class="hover:text-[#09090b] transition-colors">Privacy</a></li>
+            <h4 class="text-[10px] font-bold uppercase tracking-wider" style="color:var(--ds-text)">Legal</h4>
+            <ul class="space-y-2 text-xs" style="color:var(--ds-text-secondary)">
+              <li><a href="/terms" class="hover:text-[var(--ds-text)] transition-colors">Terms</a></li>
+              <li><a href="/privacy" class="hover:text-[var(--ds-text)] transition-colors">Privacy</a></li>
             </ul>
           </div>
         </div>
-        <div class="pt-6 border-t text-center text-xs" style="border-color:#ede4d8;color:#6B7280">&copy; 2026 Tooltails. All rights reserved.</div>
+        <div class="pt-6 border-t text-center text-xs" style="border-color:var(--ds-border);color:var(--ds-text-secondary)">&copy; 2026 Tooltails. All rights reserved.</div>
       </footer>
 
     </div>
@@ -364,11 +364,11 @@ import ProductCard from "../../components/digital-store/ProductCard.astro";
 
           filterButtons.forEach(b => {
             b.style.background = 'transparent';
-            b.style.color = '#6B7280';
-            b.style.border = '1px solid #ede4d8';
+            b.style.color = 'var(--ds-text-secondary)';
+            b.style.border = '1px solid var(--ds-border)';
           });
-          btn.style.background = '#09090b';
-          btn.style.color = '#fcf9f2';
+          btn.style.background = 'var(--ds-btn)';
+          btn.style.color = 'var(--ds-btn-text)';
           btn.style.border = 'none';
 
           // Filter product items
@@ -412,7 +412,7 @@ import ProductCard from "../../components/digital-store/ProductCard.astro";
             card.style.opacity = '0';
             card.style.transform = 'translateY(12px) scale(0.98)';
             card.style.zIndex = '1';
-            dot.style.background = '#d4c9bc';
+            dot.style.background = 'var(--ds-border-strong)';
           }
         }
         document.getElementById('planner-tagline').textContent = taglines[index];

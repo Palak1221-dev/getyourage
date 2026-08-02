@@ -27,6 +27,29 @@
   --color-dark-hairline: #27272a; /* zinc-800 */
   --color-dark-mute: #9ca3af; /* gray-400 - lighter for dark mode readability */
   --color-dark-body: #e5e7eb; /* gray-200 - crisp body copy contrast */
+
+  /* Digital Store Palette (light defaults — dark overrides in @layer base) */
+  --ds-bg: #fcf9f2;
+  --ds-bg-soft: #faf7f2;
+  --ds-card: #ffffff;
+  --ds-card-2: #fcf9f2;
+  --ds-warm: #f5f0ea;
+  --ds-border: #ede4d8;
+  --ds-border-strong: #d4c9bc;
+  --ds-border-soft: #e5ddd0;
+  --ds-blue-soft: #EFF6FF;
+  --ds-blue-border: #BFDBFE;
+  --ds-text: #09090b;
+  --ds-text-secondary: #6b7280;
+  --ds-text-muted: #a8a29e;
+  --ds-text-faint: #9ca3af;
+  --ds-btn: #09090b;
+  --ds-btn-hover: #1f2937;
+  --ds-btn-text: #fcf9f2;
+  --ds-badge-bg: rgba(9,9,11,0.06);
+  --ds-badge-text: #78716c;
+  --ds-blue: #2563eb;
+  --ds-blue-hover: #1d4ed8;
   
   /* Gradient Stops */
   --color-develop-start: #2563eb;
@@ -81,6 +104,29 @@
     --color-hairline: var(--color-dark-hairline);
     --color-mute: var(--color-dark-mute);
     --color-body: var(--color-dark-body);
+
+    /* Digital Store dark palette — layered dark surfaces, no pure black */
+    --ds-bg: #0B0D12;
+    --ds-bg-soft: #131722;
+    --ds-card: #181D2A;
+    --ds-card-2: #131722;
+    --ds-warm: #1E2432;
+    --ds-border: rgba(255,255,255,0.08);
+    --ds-border-strong: rgba(255,255,255,0.14);
+    --ds-border-soft: rgba(255,255,255,0.06);
+    --ds-blue-soft: rgba(37,99,235,0.16);
+    --ds-blue-border: rgba(37,99,235,0.35);
+    --ds-text: #F5F7FA;
+    --ds-text-secondary: #B5BDCA;
+    --ds-text-muted: #8B95A7;
+    --ds-text-faint: #6f7a8c;
+    --ds-btn: #2563eb;
+    --ds-btn-hover: #3b82f6;
+    --ds-btn-text: #ffffff;
+    --ds-badge-bg: rgba(255,255,255,0.08);
+    --ds-badge-text: #aab4c3;
+    --ds-blue: #2563eb;
+    --ds-blue-hover: #3b82f6;
   }
 }
 
@@ -103,4 +149,33 @@
   .card-shadow-lg {
     box-shadow: 0px 2px 2px rgba(0,0,0,0.1), 0px 8px 16px -4px rgba(0,0,0,0.1);
   }
+}
+
+/* ── Digital Store dark-mode helpers ──────────────────────────────
+   The store pages use hardcoded warm-paper hexes + stone utility
+   classes. These rules drive those surfaces from the --ds-* tokens
+   so dark mode flips them without touching the markup's design. */
+@layer components {
+  .digital-store-root {
+    color: var(--ds-text);
+    background: var(--ds-bg);
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  :root[data-theme="dark"] .digital-store-root .text-stone-900 { color: var(--ds-text) !important; }
+  :root[data-theme="dark"] .digital-store-root .text-stone-800 { color: var(--ds-text) !important; }
+  :root[data-theme="dark"] .digital-store-root .text-stone-700,
+  :root[data-theme="dark"] .digital-store-root .text-stone-600 { color: var(--ds-text-secondary) !important; }
+  :root[data-theme="dark"] .digital-store-root .text-stone-500,
+  :root[data-theme="dark"] .digital-store-root .text-stone-400 { color: var(--ds-text-muted) !important; }
+  :root[data-theme="dark"] .digital-store-root .text-stone-300 { color: var(--ds-text-faint) !important; }
+  :root[data-theme="dark"] .digital-store-root .bg-white { background-color: var(--ds-card) !important; }
+  :root[data-theme="dark"] .digital-store-root .bg-stone-50,
+  :root[data-theme="dark"] .digital-store-root .bg-stone-50\/30 { background-color: var(--ds-warm) !important; }
+  :root[data-theme="dark"] .digital-store-root .border-stone-200,
+  :root[data-theme="dark"] .digital-store-root .border-stone-200\/80,
+  :root[data-theme="dark"] .digital-store-root .border-stone-100 { border-color: var(--ds-border) !important; }
+  :root[data-theme="dark"] .digital-store-root .border-stone-300 { border-color: var(--ds-border-strong) !important; }
+  :root[data-theme="dark"] .digital-store-root .placeholder\:text-stone-300::placeholder { color: var(--ds-text-faint) !important; }
+  :root[data-theme="dark"] .digital-store-root .placeholder\:text-stone-400::placeholder { color: var(--ds-text-muted) !important; }
 }

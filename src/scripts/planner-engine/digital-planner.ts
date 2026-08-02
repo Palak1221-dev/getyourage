@@ -14,6 +14,8 @@ export interface DigitalPlannerOptions {
   getPages?: (values: Record<string, string>, theme: any, title?: string, icon?: string) => PageEntry[];
   /** Render a read-only preview: no editing, no autosave, no export, no localStorage writes */
   previewOnly?: boolean;
+  /** Render a cover-editable preview: only the Cover page stays editable, all other pages are strict read-only */
+  coverEditablePreview?: boolean;
 }
 
 export class DigitalPlanner {
@@ -33,6 +35,7 @@ export class DigitalPlanner {
   private zoomBtns!: NodeListOf<HTMLElement>;
   private pageBuilder: (values: Record<string, string>, theme: any, title?: string, icon?: string) => PageEntry[];
   private previewOnly: boolean;
+  private coverEditablePreview: boolean;
   private studyStreakDocListeners: {
     mousemove: ((e: MouseEvent) => void) | null;
     mouseup: (() => void) | null;
@@ -46,6 +49,7 @@ export class DigitalPlanner {
     this.container = container;
     this.options = options || {};
     this.previewOnly = options?.previewOnly || false;
+    this.coverEditablePreview = options?.coverEditablePreview || false;
     this.styleId = 'dp-style-' + Math.random().toString(36).slice(2, 8);
     this.container = container;
     this.pageBuilder = options?.getPages || ((values, theme, title, icon) => {
@@ -161,6 +165,15 @@ export class DigitalPlanner {
       }
       .dp-export-btn:hover { background:#6d28d9; }
 
+      /* --- Preview Mode badge --- */
+      .dp-preview-badge {
+        display:inline-flex; align-items:center; gap:4px;
+        padding:3px 9px; border-radius:20px;
+        font-size:9px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
+        color:#6b5f51; background:#f5f0ea; border:1px solid #ede4d8;
+        white-space:nowrap; flex-shrink:0;
+      }
+
       /* --- Badge --- */
       .digital-planner-badge {
         position:fixed; bottom:20px; right:20px;
@@ -220,7 +233,7 @@ export class DigitalPlanner {
     // Render all pages
     this.renderAll();
 
-    if (this.previewOnly) {
+    if (this.previewOnly || this.coverEditablePreview) {
       const exportBtn = toolbar.querySelector('[data-action="export"]') as HTMLElement | null;
       const clearBtn = toolbar.querySelector('[data-action="clear"]') as HTMLElement | null;
       if (exportBtn) exportBtn.style.display = 'none';
@@ -230,7 +243,7 @@ export class DigitalPlanner {
     // Keyboard shortcut
     document.addEventListener('keydown', (e) => {
       if (e.key === 's' && (e.ctrlKey || e.metaKey)) {
-        if (this.previewOnly) return;
+        if (this.previewOnly || this.coverEditablePreview) return;
         e.preventDefault();
         this.saveAll();
         this.showBadge('✓ Saved');
@@ -289,6 +302,7 @@ export class DigitalPlanner {
       <button class="dp-nav-btn" data-action="clear" title="Clear All">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
       </button>
+      ${this.coverEditablePreview ? `<span class="dp-preview-badge">Preview Mode</span>` : ''}
     `;
 
     tb.addEventListener('click', (e) => {
@@ -342,41 +356,56 @@ export class DigitalPlanner {
 
   private renderAll(): void {
     this.pagesContainer.innerHTML = '';
+    const activeId = this.pages.some(p => p.id === this.currentId) ? this.currentId : (this.pages[0]?.id || this.currentId);
     this.pages.forEach((p) => {
       const pageDiv = document.createElement('div');
-      pageDiv.className = 'digital-planner-page' + (p.id === this.currentId ? ' active' : '');
+      pageDiv.className = 'digital-planner-page' + (p.id === activeId ? ' active' : '');
       pageDiv.dataset.pageId = p.id;
       pageDiv.innerHTML = p.html;
       this.pagesContainer.appendChild(pageDiv);
       if (this.previewOnly) return;
+      if (this.coverEditablePreview) {
+        const isCover = p.id === 'cover' || p.id === 'wj-cover';
+        if (!isCover) {
+          this.makePageReadOnly(pageDiv);
+          return;
+        }
+        this.makeWritable(pageDiv, p.id);
+        return;
+      }
       this.makeWritable(pageDiv, p.id);
     });
     if (this.previewOnly) return;
-    this.restoreSavedData();
-      this.initSubjectNames();
-      this.initExamSubjectNames();
-      this.pages.forEach(p => this.initCheckboxes(p.id));
-      this.initCircleSelectors();
-      this.initProgressBars();
-      this.initHabitGrid();
-      this.initExamReadiness();
-      this.initExamStrategy();
-      this.initAttendance();
-      this.initWeeklyGrid();
-      this.initEnergyTrackers();
-      this.initStudyStreak();
-      this.initSMDCover();
+    if (this.coverEditablePreview) {
       this.initCover();
-      this.initSMDChips();
-      this.initSMDReplacements();
-      this.initSMDAppDeepDive();
-      this.initSMDMorningRitual();
-      this.initSMDBedtimeRitual();
-      this.initSMDBackout();
-      this.initSMDFocusZone();
-      this.initSMDWeeklyReview();
-      this.initSMDRewards();
-      this.initSMDMonthlyReview();
+      this.initSMDCover();
+      return;
+    }
+    this.restoreSavedData();
+    this.initSubjectNames();
+    this.initExamSubjectNames();
+    this.pages.forEach(p => this.initCheckboxes(p.id));
+    this.initCircleSelectors();
+    this.initProgressBars();
+    this.initHabitGrid();
+    this.initExamReadiness();
+    this.initExamStrategy();
+    this.initAttendance();
+    this.initWeeklyGrid();
+    this.initEnergyTrackers();
+    this.initStudyStreak();
+    this.initSMDCover();
+    this.initCover();
+    this.initSMDChips();
+    this.initSMDReplacements();
+    this.initSMDAppDeepDive();
+    this.initSMDMorningRitual();
+    this.initSMDBedtimeRitual();
+    this.initSMDBackout();
+    this.initSMDFocusZone();
+    this.initSMDWeeklyReview();
+    this.initSMDRewards();
+    this.initSMDMonthlyReview();
   }
 
 
@@ -973,9 +1002,14 @@ export class DigitalPlanner {
 
 private navigateTo(id: string): void {
     this.currentId = id;
-    this.currentIndex = this.pages.findIndex(p => p.id === id);
+    let idx = this.pages.findIndex(p => p.id === id);
+    if (idx === -1) {
+      idx = 0;
+      this.currentId = this.pages[0]?.id || id;
+    }
+    this.currentIndex = idx;
     this.pagesContainer.querySelectorAll('.digital-planner-page').forEach(el => el.classList.remove('active'));
-    const page = this.pagesContainer.querySelector(`[data-page-id="${id}"]`);
+    const page = this.pagesContainer.querySelector(`[data-page-id="${this.currentId}"]`);
     if (page) page.classList.add('active');
     if (this.sidebarNavWrap) {
       this.sidebarNavWrap.querySelectorAll('.digital-planner-nav-item').forEach(el => el.classList.remove('active'));
@@ -1161,8 +1195,17 @@ private navigateTo(id: string): void {
     }
   }
 
-  private makeWritable(container: HTMLElement, pageId: string): void {
-    const candidates = container.querySelectorAll('div, span');
+  /** Make a page fully read-only: strip contenteditable, block interaction, default cursor */
+  private makePageReadOnly(pageDiv: HTMLElement): void {
+    pageDiv.querySelectorAll('[contenteditable]').forEach((el) => el.removeAttribute('contenteditable'));
+    pageDiv.querySelectorAll('[tabindex]').forEach((el) => el.removeAttribute('tabindex'));
+    pageDiv.querySelectorAll('[role]').forEach((el) => el.removeAttribute('role'));
+    pageDiv.style.userSelect = 'none';
+    pageDiv.style.cursor = 'default';
+    pageDiv.style.pointerEvents = 'none';
+  }
+
+  private makeWritable(container: HTMLElement, pageId: string): void {    const candidates = container.querySelectorAll('div, span');
     let lineIndex = 0;
     candidates.forEach((el) => {
       const style = el.getAttribute('style') || '';
@@ -3630,7 +3673,7 @@ private navigateTo(id: string): void {
 
   // Persistence
   private loadSavedData(): void {
-    if (this.previewOnly) { this.savedData = {}; return; }
+    if (this.previewOnly || this.coverEditablePreview) { this.savedData = {}; return; }
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) this.savedData = JSON.parse(raw);
@@ -3638,7 +3681,7 @@ private navigateTo(id: string): void {
   }
 
   private persistSavedData(): void {
-    if (this.previewOnly) return;
+    if (this.previewOnly || this.coverEditablePreview) return;
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(this.savedData)); } catch {}
   }
 
@@ -3650,7 +3693,7 @@ private navigateTo(id: string): void {
   }
 
   private saveAll(): void {
-    if (this.previewOnly) return;
+    if (this.previewOnly || this.coverEditablePreview) return;
     this.pagesContainer.querySelectorAll('[data-write-key]').forEach((el) => {
       const key = (el as HTMLElement).dataset.writeKey!;
       this.savedData[key] = (el as HTMLElement).innerHTML;
@@ -3711,7 +3754,7 @@ private navigateTo(id: string): void {
   }
 
   private clearAll(): void {
-    if (this.previewOnly) return;
+    if (this.previewOnly || this.coverEditablePreview) return;
     if (!confirm('Clear all your writing from every page?')) return;
     this.savedData = {};
     this.persistSavedData();
@@ -4150,7 +4193,7 @@ private navigateTo(id: string): void {
   }
 
   exportAll(): void {
-    if (this.previewOnly) return;
+    if (this.previewOnly || this.coverEditablePreview) return;
     this.saveAll();
     const printWin = window.open('', '_blank');
     if (!printWin) { alert('Please allow popups to export.'); return; }
