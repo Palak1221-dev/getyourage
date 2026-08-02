@@ -1,6 +1,8 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const glob = import.meta.glob('../../../content/resume-checker-blog/*.md', { eager: true });
   const entries = Object.entries(glob).map(([path, mod]) => {
@@ -46,7 +48,7 @@ const breadcrumbSchema = {
 };
 ---
 
-<Layout title={frontmatter.title} description={frontmatter.description}>
+<Layout title={frontmatter.title} description={frontmatter.description} image="/og-resume-checker-blog.png">
 	<article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 animate-fade-up">
     <div class="mb-8">
       <div class="flex items-center gap-3 text-xs font-mono text-mute mb-4">

@@ -79,6 +79,10 @@ const defaultTheme = fields.find(f => f.id === 'color' || f.id === 'accentColor'
         #planner-content { display: none; }
         #planner-content.ready { display: block; }
         .planner-page-wrap { max-width: 820px; margin: 0 auto; padding: 20px 0; }
+        .planner-page { margin-bottom: 36px; }
+        .planner-page:last-child { margin-bottom: 0; }
+        @media (max-width: 1024px) { .planner-page { margin-bottom: 28px; } }
+        @media (max-width: 640px) { .planner-page { margin-bottom: 22px; } }
         .print-bar {
           position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
           background: #1c1917; color: white;
@@ -100,6 +104,7 @@ const defaultTheme = fields.find(f => f.id === 'color' || f.id === 'accentColor'
           #loading { display: none !important; }
           #planner-content { display: block !important; }
           .planner-page-wrap { max-width: none; padding: 0; }
+          .planner-page { margin-bottom: 0 !important; }
           @page { margin: 0.5in 0.6in; }
         }
       </style>
@@ -240,7 +245,7 @@ const defaultTheme = fields.find(f => f.id === 'color' || f.id === 'accentColor'
         const wrapper = document.createElement('div');
         wrapper.className = 'planner-page-wrap';
         wrapper.innerHTML = pages
-          .map(p => `<div>${p.html}</div>`)
+          .map(p => `<div class="planner-page">${p.html}</div>`)
           .join('<div style="page-break-after:always;height:0;margin:0;padding:0"></div>');
         container.appendChild(wrapper);
 

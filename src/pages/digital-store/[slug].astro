@@ -2,15 +2,9 @@
 import Layout from "../../layouts/Layout.astro";
 import ProductPage from "../../components/digital-store/ProductPage.astro";
 
-import { products } from "../../data/products";
+import { products, productAliases } from "../../data/products";
 
-const aliasMap: Record<string, string> = {
-  'study-planner': 'study-planner-pro',
-  'revision-tracker': 'study-planner-pro',
-  'resume-optimizer-kit': 'social-media-detox',
-  'habit-tracker': 'wellness-journal',
-  'budget-planner': 'social-media-detox',
-};
+export const prerender = true;
 
 export function getStaticPaths() {
   const mainPaths = products.map(product => ({
@@ -18,7 +12,7 @@ export function getStaticPaths() {
     props: { product }
   }));
 
-  const aliasPaths = Object.entries(aliasMap).map(([alias, targetSlug]) => {
+  const aliasPaths = Object.entries(productAliases).map(([alias, targetSlug]) => {
     const targetProduct = products.find(p => p.slug === targetSlug) || products[0];
     return {
       params: { slug: alias },
@@ -30,7 +24,7 @@ export function getStaticPaths() {
 }
 
 const slug = Astro.params.slug || '';
-const resolvedSlug = aliasMap[slug] || slug;
+const resolvedSlug = productAliases[slug] || slug;
 const resolvedProduct = products.find(p => p.slug === resolvedSlug);
 const product = Astro.props.product || (resolvedProduct ? { ...resolvedProduct, slug } : products[0]);
 
@@ -136,7 +130,7 @@ const extra = slugExtraData[product.slug] || {
 };
 ---
 
-<Layout title={`${product.title} — Personalized System | Tooltails`} description={product.description}>
+<Layout title={`${product.title} — Personalized System | Tooltails`} description={product.description} image={product.ogImage || '/og-image.png'}>
   <ProductPage
     product={product}
     features={extra.features}

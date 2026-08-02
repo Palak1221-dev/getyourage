@@ -3,6 +3,8 @@ import { getCollection, render } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import PomodoroHeader from '../../../components/pomodoro/PomodoroHeader.astro';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
 	const posts = await getCollection('pomodoro-blog');
 	return posts.map((post) => ({
@@ -44,7 +46,7 @@ const breadcrumbSchema = {
 };
 ---
 
-<Layout title={post.data.title} description={post.data.description}>
+<Layout title={post.data.title} description={post.data.description} image="/og-pomodoro-blog.png">
 
 	<article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10">
     <div class="mb-8">

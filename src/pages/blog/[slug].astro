@@ -2,6 +2,8 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post) => ({
@@ -42,7 +44,7 @@ const breadcrumbSchema = {
 };
 ---
 
-<Layout title={post.data.title} description={post.data.description}>
+<Layout title={post.data.title} description={post.data.description} image="/og-blog.png">
 	<article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
     <div class="mb-12">
       <h1 class="text-4xl md:text-5xl font-bold text-ink mb-4 tracking-tight">{post.data.title}</h1>

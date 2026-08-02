@@ -48,12 +48,13 @@ export interface Product {
   badge?: string;
   previewType: 'planner' | 'workbook' | 'tracker' | 'journal' | 'guide';
   icon: string;
+  ogImage?: string;
 }
 
 export const products: Product[] = [
   // ── STUDY PLANNER PRO ──
   {
-    id: 'p1', slug: 'study-planner-pro', category: 'academic', price: 19.99, prices: { USD: 19.99, INR: 799 }, dodoProductIds: { USD: 'pdt_0NjnftTMCarA0cgDoHKjw', INR: 'pdt_0NkQ9JH6AU2Ui056Faj6j' }, previewType: 'planner', icon: '📅',
+    id: 'p1', slug: 'study-planner-pro', category: 'academic', price: 19.99, prices: { USD: 19.99, INR: 799 }, dodoProductIds: { USD: 'pdt_0NjnftTMCarA0cgDoHKjw', INR: 'pdt_0NkQ9JH6AU2Ui056Faj6j' }, previewType: 'planner', icon: '📅', ogImage: '/og-study-planner-pro.png',
     title: 'Study Planner Pro', subtitle: 'Your complete academic command center', tagline: 'A personalized semester system with revision tracking, assignment planning, lecture notes, exam countdowns, study schedules, and analytics — all in one.',
     description: 'An all-in-one academic system that replaces 6 separate products. Study Planner Pro includes a semester overview, revision tracker, assignment planner, lecture note templates, exam countdown dashboard, study session log, and academic analytics.',
     longDescription: 'Study Planner Pro is a complete academic operating system. Enter your name, subjects, and exam dates once, and get a fully compiled planner with personalized weekly spreads, a revision tracker that monitors 3-pass topic coverage, an assignment breakdown engine, Cornell-style lecture note templates, a 30-day exam countdown, and an analytics dashboard that tracks your study velocity and readiness score.',
@@ -85,7 +86,7 @@ export const products: Product[] = [
 
   // ── MASTER YOUR DAY ──
   {
-    id: 'p7', slug: 'master-your-day', category: 'productivity', price: 14.99, prices: { USD: 14.99, INR: 599 }, dodoProductIds: { USD: 'pdt_0Njng9pf8kj31sXC9u20c', INR: 'pdt_0NkQ9VnrwhFK2Wnt9K114' }, previewType: 'planner', icon: '⚡',
+    id: 'p7', slug: 'master-your-day', category: 'productivity', price: 14.99, prices: { USD: 14.99, INR: 599 }, dodoProductIds: { USD: 'pdt_0Njng9pf8kj31sXC9u20c', INR: 'pdt_0NkQ9VnrwhFK2Wnt9K114' }, previewType: 'planner', icon: '⚡', ogImage: '/og-master-your-day.png',
     title: 'Master Your Day', subtitle: 'Your complete daily execution system with energy-aware planning',     tagline: 'A connected productivity system with weekly reset, energy-aware daily planning, priority engine, time audit, habit streaks, and anti-procrastination tools.',
     description: 'Master Your Day is a complete productivity system that connects your weekly reset to your daily command center to your evening reflection. With 11 connected pages including weekly reset, energy tracking, priority engine, time audit, habit streaks, and anti-procrastination tools — designed to be sustainable, not overwhelming.',
     longDescription: 'Master Your Day is not a collection of pages. It is a system. A daily ritual that takes less than 10 minutes, connects everything (weekly reset to daily command to evening reflection), adapts to your energy, never punishes you for missing days, and actually helps you DO the work. Features 11 connected tools: Weekly Reset, Daily Command Center, Evening Reflection, Priority Engine, Anti-Procrastination Dashboard, Energy & Mood Tracker, Time Audit, Brain Dump Processor, and Habit Streak Analytics.',
@@ -116,7 +117,7 @@ export const products: Product[] = [
 
   // ── WELLNESS JOURNAL ──
   {
-    id: 'p12', slug: 'wellness-journal', category: 'wellness', price: 9.99, prices: { USD: 9.99, INR: 399 }, dodoProductIds: { USD: 'pdt_0Njng19ufRxOW0jigjgl2', INR: 'pdt_0NkQ9ezkXY7TeAPXrJ2Dv' }, previewType: 'journal', icon: '🌿',
+    id: 'p12', slug: 'wellness-journal', category: 'wellness', price: 9.99, prices: { USD: 9.99, INR: 399 }, dodoProductIds: { USD: 'pdt_0Njng19ufRxOW0jigjgl2', INR: 'pdt_0NkQ9ezkXY7TeAPXrJ2Dv' }, previewType: 'journal', icon: '🌿', ogImage: '/og-wellness-journal.png',
     title: 'Wellness Journal', subtitle: 'Habits, mood, gratitude, and self-care system', tagline: 'A daily wellness system combining habit tracking, mood logging, gratitude journaling, self-care routines, and monthly wellness planning.',
     description: 'Wellness Journal is your complete self-care system. Track daily habits, log mood patterns, practice gratitude, plan self-care routines, and review monthly wellness trends.',
     longDescription: 'Wellness Journal helps you build lasting wellness habits through structured daily and weekly practices. Track up to 6 daily habits with visual streak grids, log your mood and energy levels to identify patterns, write morning intentions and evening gratitudes, plan self-care routines, and review monthly wellness reports. All in one beautifully designed journal.',
@@ -148,7 +149,7 @@ export const products: Product[] = [
 
   // ── SOCIAL MEDIA DETOX ──
   {
-    id: 'p10', slug: 'social-media-detox', category: 'goals', price: 0.5, prices: { USD: 0.5, INR: 15 }, dodoProductIds: { USD: 'pdt_0NjngaC7iuVS9esTr9tGY', INR: 'pdt_0NkQ9uAZEo8fkWfP1TdxI' }, previewType: 'workbook', icon: '📵',
+    id: 'p10', slug: 'social-media-detox', category: 'goals', price: 0.5, prices: { USD: 0.5, INR: 15 }, dodoProductIds: { USD: 'pdt_0NjngaC7iuVS9esTr9tGY', INR: 'pdt_0NkQ9uAZEo8fkWfP1TdxI' }, previewType: 'workbook', icon: '📵', ogImage: '/og-social-media-detox.png',
     title: 'Social Media Detox', subtitle: 'Digital wellbeing, screen time tracking, and mindful tech use', tagline: 'Reclaim your time and attention with a structured digital detox system.',
     description: 'Social Media Detox is your complete digital wellbeing system. Audit your current usage, set meaningful boundaries, track daily screen time, log cravings, and reflect on the benefits of a healthier relationship with technology.',
     longDescription: 'Social Media Detox helps you break free from compulsive scrolling and rebuild your relationship with technology. Start with a digital audit to understand your baseline — screen time, unlocks, peak usage, and triggers. Design a personalized detox plan with boundaries, replacement activities, and daily screen time targets. Track each day with screen time logs, phone-free hours, and mood checks. Log cravings and triggering situations to understand your patterns. Review weekly progress, celebrate wins, and adjust your approach.',
@@ -185,6 +186,14 @@ export const products: Product[] = [
     ]
   }
 ];
+
+export const productAliases: Record<string, string> = {
+  'study-planner': 'study-planner-pro',
+  'revision-tracker': 'study-planner-pro',
+  'resume-optimizer-kit': 'social-media-detox',
+  'habit-tracker': 'wellness-journal',
+  'budget-planner': 'social-media-detox',
+};
 
 export const categoryMeta: Record<string, { label: string; icon: string; description: string }> = {
   'academic': { label: 'Academic', icon: '📖', description: 'Complete semester and exam success system.' },
