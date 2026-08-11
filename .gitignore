@@ -52,5 +52,14 @@ test-session-restore.cjs
 # Generated preview/PDF output
 pdf-test-output/
 
+# Generated marketplace preview/build/video assets
+marketplace-assets/
+marketplace-dist/
+marketplace-packages/
+marketplace-videos/
+
+# Generated gallery audit output
+gallery-audit.json
+
 # Local diagnostic output
 planner-ui-diagnostics.json
