@@ -1,4 +1,4 @@
-import { calculateOverallScore } from './scoring-engine';
+import { calculateOverallScore, detectGhostJob } from './scoring-engine';
 
 (function () {
   const resumeInput = document.getElementById('resume-input') as HTMLTextAreaElement;
@@ -475,64 +475,6 @@ import { calculateOverallScore } from './scoring-engine';
       quantified: details.filter(d => d.hasQuantified).length,
       details,
     };
-  }
-
-  function detectGhostJob(text: string): { risk: 'low' | 'medium' | 'high'; score: number; reasons: string[]; label: string } {
-    const lower = text.toLowerCase();
-    const reasons: string[] = [];
-    
-    // 1. Placeholder check (Templates)
-    if (/\[insert|\[company\]|insert company|your email|email@company/i.test(lower)) {
-      reasons.push('Contains draft placeholders (e.g. "[Company Name]")');
-    }
-    // 2. Vague job titles
-    if (/\b(ninja|rockstar|guru|wizard|unicorn|superhero)\b/i.test(lower)) {
-      reasons.push('Vague or buzzword-heavy job title ("ninja", "rockstar", etc.)');
-    }
-    // 3. Evergreen / Pipeline postings
-    if (/we are always looking for|rolling basis|ongoing recruitment|evergreen|pipeline|resume bank|build our talent pool/i.test(lower)) {
-      reasons.push('Evergreen listing — likely used for resume farming rather than active hiring');
-    }
-    // 4. No company context
-    if (!/about (us|the company|our team|who we are)|our mission|company overview/i.test(lower)) {
-      reasons.push('Missing company background or organizational context');
-    }
-    // 5. Missing compensation transparency
-    if (!/\$[\d,]+.*(?:k|year|annum|annual|salary|compensation|base)|salary.*range|pay.*range/i.test(lower)) {
-      reasons.push('No compensation details or salary range provided');
-    }
-    // 6. Urgency language/Spam signals
-    if (/urgent(?:ly)?\s+(?:hiring|need|required|fill)|immediate\s+(?:start|join|hire)/i.test(lower)) {
-      reasons.push('Suspicious urgency language ("urgently hiring", "immediate start")');
-    }
-    // 7. Generic Copy-Paste JDs
-    const genericPhrases = [
-      'work with cross-functional teams', 
-      'collaborate with stakeholders', 
-      'participate in agile ceremonies', 
-      'fast-paced environment', 
-      'work with various teams', 
-      'multiple stakeholders',
-      'detail-oriented self-starter',
-      'excellent written and verbal communication'
-    ];
-    const genericCount = genericPhrases.filter(p => lower.includes(p)).length;
-    if (genericCount >= 3) {
-      reasons.push('Overly generic responsibilities (contains multiple copy-paste clichés)');
-    }
-    // 8. No Reporting/Team Structure
-    if (!/report(?:s|ing)\s+to|team of|manage\s+\d+|lead\s+(?:a\s+)?team|collaborate with/i.test(lower)) {
-      reasons.push('No reporting structure, team size, or supervisor role described');
-    }
-    // 9. Unrealistic Requirements
-    if (/10\+ years.*(?:react|node|python|typescript|aws|kubernetes|docker|cloud)/i.test(lower) && !/director|vp|principal|staff|architect|senior manager/i.test(lower)) {
-      reasons.push('Unrealistic experience requirements for a non-executive role');
-    }
-
-    const score = Math.min(reasons.length * 20, 100);
-    const risk = reasons.length >= 4 ? 'high' : reasons.length >= 2 ? 'medium' : 'low';
-    const label = risk === 'high' ? 'High Risk' : risk === 'medium' ? 'Medium Risk' : 'Legitimate Listing';
-    return { risk, score, reasons, label };
   }
 
   function getKeywordFrequency(words: string[]): Map<string, number> {
@@ -1016,6 +958,14 @@ import { calculateOverallScore } from './scoring-engine';
           desc: 'High probability of resume harvesting, outdated role data, or evergreen hiring pool.',
           icon: '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-rose-500 shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>' 
         },
+        unknown: { 
+          bg: 'bg-slate-500/5 dark:bg-slate-500/10', 
+          txt: 'text-slate-600 dark:text-slate-400', 
+          border: 'border-slate-500/20', 
+          badge: 'bg-slate-500/10 text-slate-600 dark:text-slate-400',
+          desc: 'Not enough detail in the job description to assess ghost-job signals. Use your own judgment.',
+          icon: '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-slate-500 shrink-0"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>' 
+        },
       };
       const c = colors[gj.risk] || colors.low;
       
@@ -1101,6 +1051,65 @@ import { calculateOverallScore } from './scoring-engine';
       const ago = Math.round((Date.now() - saved.timestamp) / 60000);
       lastEl.textContent = ago < 1 ? 'Just now' : ago < 60 ? `${ago}m ago` : `${Math.round(ago / 60)}h ago`;
       lastEl.classList.remove('hidden');
+    }
+
+    // ATS Compatibility + Requirement Breakdown
+    const atsScoreValue = document.getElementById('ats-score-value');
+    if (atsScoreValue) atsScoreValue.textContent = `${r.atsScore}%`;
+
+    const reqCoverage = document.getElementById('requirement-coverage-list');
+    if (reqCoverage && (r as any).requirementMatches) {
+      const reqMatches = (r as any).requirementMatches as Array<{
+        text: string;
+        type: string;
+        importance: string;
+        level: string;
+        evidence?: string;
+        gap?: boolean;
+      }>;
+      if (reqMatches.length > 0) {
+        const levelStyles: Record<string, { text: string; bg: string; border: string; label: string }> = {
+          EXACT: { text: 'text-emerald-700 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-950/40', border: 'border-emerald-500/20', label: 'Matched' },
+          EQUIVALENT: { text: 'text-emerald-700 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-950/40', border: 'border-emerald-500/20', label: 'Equivalent' },
+          PARTIAL: { text: 'text-amber-700 dark:text-amber-400', bg: 'bg-amber-50 dark:bg-amber-950/40', border: 'border-amber-500/20', label: 'Partial' },
+          RELATED: { text: 'text-sky-700 dark:text-sky-400', bg: 'bg-sky-50 dark:bg-sky-950/40', border: 'border-sky-500/20', label: 'Related' },
+          MISSING: { text: 'text-rose-700 dark:text-rose-400', bg: 'bg-rose-50 dark:bg-rose-950/40', border: 'border-rose-500/20', label: 'Missing' },
+          CONFLICT: { text: 'text-rose-700 dark:text-rose-400', bg: 'bg-rose-50 dark:bg-rose-950/40', border: 'border-rose-500/20', label: 'Conflict' },
+        };
+        const impLabel: Record<string, string> = { REQUIRED: 'Required', PREFERRED: 'Preferred', NICE_TO_HAVE: 'Nice to have', RESPONSIBILITY: 'Responsibility' };
+        reqCoverage.innerHTML = reqMatches.map(m => {
+          const s = levelStyles[m.level] || levelStyles.MISSING;
+          const imp = impLabel[m.importance] || m.importance;
+          const impColor = m.importance === 'REQUIRED'
+            ? 'text-rose-600 dark:text-rose-400'
+            : m.importance === 'PREFERRED' ? 'text-amber-600 dark:text-amber-400' : 'text-[var(--rc-text-muted)]';
+          return `
+            <div class="flex items-start gap-2.5 p-2.5 rounded-lg border ${s.border} ${s.bg}">
+              <span class="inline-flex px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${impColor} shrink-0 mt-px">${imp}</span>
+              <div class="flex-1 min-w-0">
+                <p class="text-[11px] font-semibold text-[var(--rc-text-primary)] leading-snug">${m.text}</p>
+                ${m.evidence ? `<p class="text-[10px] text-[var(--rc-text-muted)] mt-0.5 italic truncate">${m.evidence}</p>` : ''}
+              </div>
+              <span class="inline-flex px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${s.text} border ${s.border} shrink-0">${s.label}</span>
+            </div>
+          `;
+        }).join('');
+      } else {
+        reqCoverage.innerHTML = '<p class="text-[11px] text-[var(--rc-text-muted)]">No requirements were extracted from this job description.</p>';
+      }
+    }
+
+    const criticalGapsEl = document.getElementById('critical-gaps-list');
+    if (criticalGapsEl && (r as any).criticalGaps) {
+      const gaps = (r as any).criticalGaps as string[];
+      criticalGapsEl.innerHTML = gaps.length > 0
+        ? gaps.map(g => `
+            <div class="flex items-start gap-2 p-2.5 rounded-lg border border-rose-200/40 bg-rose-50/50">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-rose-500 shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span class="text-[11px] text-rose-700 dark:text-rose-400 leading-snug">${g}</span>
+            </div>
+          `).join('')
+        : '<p class="text-[11px] text-emerald-700 dark:text-emerald-400">No critical gaps — all required requirements are met.</p>';
     }
 
     // 1. Top 3 Reasons Your Score Is Not Higher

@@ -1,3 +1,31 @@
+# Session Summary (Aug 10, 2026) — ATS/Job-Match Calibration Audit: Residual Ordering Ties Closed to 64/66 + All Scoring Tests Green
+
+### What We Did
+Continued tightening the resume matching engine (`src/scripts/resume-matching-engine.ts`) against the calibration audit (`scripts/eval-resume.ts`). Session start: ~9 ordering failures + failing scoring tests; end: **64/66 evals passed, 0 failed** (2 accepted documented limitations), **40/40 scoring tests passed**, **132/132 planner-engine tests passed**, server build Complete.
+
+1. **Communication-behavior evidence** (`buildResumeProfile`) — A resume whose role bullets literally perform frontline communication ("scheduled meetings and answered phones", "greeted/checked in guests", "resolved customer/guest requests", "liaised with", "communicated with") now evidences the `communication` skill even when the word never appears. Fixes **Marketing Manager: Weak(admin) 14 > Unrelated(ICU nurse) 9** via the "Excellent communication skills" requirement. Bounded regex, no bare-keyword inflation.
+
+2. **Profession head-noun matching** (`roleHeadNoun()` + `other_explicit_requirement` branch of `resolveRequirementMatch`) — A posting title line with no taxonomy concepts ("Frontend Engineer") is PARTIAL-satisfied when a resume role ends in the same profession noun ("Software Engineer"). Fixes the `test-scoring.ts` "Synonymous resume ≥ 70" regression (60 → passes) without weakening the adversarial "title inflation" case (that JD title is `type seniority`, excluded).
+
+3. **User-insight customer-facing bridge tried and REVERTED** — Granting PARTIAL to "user research"/"usability testing" for customer-service evidence over-corrected: Design Weak 3→16, vaulting past Moderate (7). Confirmed broad rules are too blunt for the residual ties; removed.
+
+### Accepted documented limitations (validated against exact scores)
+Two ordering ties the engine structurally cannot separate — both candidates output **zero** signal for the JD (score at the floor), so no honest generalization distinguishes them:
+- **Design**: Weak(customer-service agent) 3 vs Unrelated(mechanical design engineer) 3
+- **Operations**: Weak(front-desk receptionist) 5 vs Unrelated(graphic designer) 5
+
+Recorded in `runChecks()` via a `KNOWN_LIMITATIONS` table (with rationale per pair) and printed under "Documented limitations (accepted, not failures)" — they do NOT fail the check command (exit 0) but stay visible. Per user decision: engine stays honest; no eval-coupled credit rules were invented.
+
+### Files Modified
+- `src/scripts/resume-matching-engine.ts` — `COMMUNICATION_AFFIRMING` block extended with behavior-evidence rule; `roleHeadNoun()` added; `other_explicit_requirement` branch adds profession-noun PARTIAL
+- `scripts/eval-resume.ts` — `runChecks()` documents the two accepted ties + prints them separately
+
+### Build & Test Verification
+- `eval-resume.ts check`: **64 passed, 0 failed**, 2 documented limitations, exit 0
+- `test-scoring.ts`: **40/40** (synonymy ≥70 restored; adversarial, ghost-job, backward-compat all green)
+- `test-planner-engine.ts`: **132/132**
+- `astro build`: Complete, server built in 46.11s
+
 # Session Summary (Aug 1, 2026) — Planner PDF E2E Audit Fixes: SPP A4 Overflow + WJ Dynamic Habits
 
 ### What We Did

@@ -1,3 +1,9 @@
+import { analyzeMatch, computeAtsScore, detectGhostJob } from './resume-matching-engine.ts';
+import type { RequirementMatch, GhostAssessment } from './resume-matching-engine.ts';
+
+export { detectGhostJob } from './resume-matching-engine.ts';
+export type { GhostAssessment } from './resume-matching-engine.ts';
+
 export const ACTIVE_VERBS = [
   'accelerated', 'achieved', 'acquired', 'adapted', 'addressed', 'administered', 'advised',
   'advocated', 'aligned', 'allocated', 'analyzed', 'answered', 'anticipated', 'applied',
@@ -199,7 +205,7 @@ export function detectSections(text: string): { name: string; found: boolean; re
 export function extractBullets(text: string): string[] {
   return text.split('\n')
     .map(l => l.trim())
-    .filter(l => (l.length > 10 && /^[-•*‣⁃–—>]\s/.test(l)) || (l.length > 10 && /^\d+[.)]\s/.test(l)));
+    .filter(l => (l.length > 10 && /^[-•*‣⁃–—>|]\s/.test(l)) || (l.length > 10 && /^\d+[.)]\s/.test(l)));
 }
 
 export function analyzeBulletQuality(bullets: string[]): {
@@ -209,7 +215,7 @@ export function analyzeBulletQuality(bullets: string[]): {
   details: { text: string; hasAction: boolean; hasQuantified: boolean; suggestedVerb?: string }[];
 } {
   const details = bullets.map(b => {
-    const firstWord = b.replace(/^[-•*‣⁃–—>\d.)\s]+/, '').split(' ')[0]?.toLowerCase() || '';
+    const firstWord = b.replace(/^[-•*‣⁃–—>|\d.)\s]+/, '').split(' ')[0]?.toLowerCase() || '';
     const hasAction = ACTIVE_VERBS.includes(firstWord);
     const hasQuantified = /\d+/.test(b);
     let suggestedVerb: string | undefined;
@@ -307,8 +313,20 @@ export function gradeScore(score: number): { letter: string; label: string; colo
   return { letter: 'F', label: 'Major Gaps', color: 'var(--rc-error)' };
 }
 
+export interface RequirementMatchSummary {
+  text: string;
+  type: string;
+  importance: string;
+  level: string;
+  matchStrength: number;
+  evidence: string;
+  gap: boolean;
+}
+
 export interface AnalysisResult {
   overall: number;
+  jobMatch: number;
+  atsScore: number;
   grade: { letter: string; label: string; color: string };
   scoreKeyword: number;
   scoreSkills: number;
@@ -332,11 +350,23 @@ export interface AnalysisResult {
   sectionScores: any;
   redFlags: any[];
   formatFlags: string[];
+  requirementMatches: RequirementMatchSummary[];
+  criticalGaps: string[];
+  matchedConcepts: string[];
+  missingConcepts: string[];
+  requirementsByImportance: Record<string, { total: number; matched: number; score: number }>;
 }
 
 export function calculateOverallScore(resumeText: string, jdText: string): AnalysisResult {
   const resume = resumeText.trim();
   const jd = jdText.trim();
+
+  // ---------------------------------------------------------------
+  // Semantic Job Match: requirement-level analysis from the engine.
+  // `overall` IS the Job Match score (primary ring).
+  // ---------------------------------------------------------------
+  const analysis = analyzeMatch(resume, jd);
+  const overall = analysis.jobMatch;
 
   const resumeWords = extractWords(resume);
   const jdWords = extractWords(jd);
@@ -344,50 +374,7 @@ export function calculateOverallScore(resumeText: string, jdText: string): Analy
   const jdKeywords = extractKeywords(jd);
   const resumePhrases = extractPhrases(resume);
   const jdPhrases = extractPhrases(jd);
-  
-  // Required vs Preferred skills parsing
-  const jdLines = jdText.split('\n');
-  let currentZone: 'required' | 'preferred' = 'required';
-  const requiredJdSkills: string[] = [];
-  const preferredJdSkills: string[] = [];
-  
-  // Treat skills under: Preferred, Nice to Have, Bonus, Good to Have as preferred.
-  // Treat skills under: Requirements, Must Have, Qualifications, Required Skills as required.
-  // If the JD does not explicitly separate them, default is required.
-  const hasPreferredKeywords = /\b(preferred|nice to have|bonus|good to have)\b/i.test(jdText);
 
-  jdLines.forEach(line => {
-    const lowerLine = line.toLowerCase();
-    
-    if (hasPreferredKeywords) {
-      if (/\b(preferred|nice to have|bonus|good to have)\b/i.test(lowerLine)) {
-        currentZone = 'preferred';
-      } else if (/\b(requirements|must have|qualifications|required skills|essential)\b/i.test(lowerLine)) {
-        currentZone = 'required';
-      }
-    } else {
-      currentZone = 'required';
-    }
-    
-    const skillsInLine = COMMON_SKILLS.filter(s => new RegExp('\\b' + s.replace(/[.+/-]/g, '\\$&') + '\\b', 'i').test(lowerLine));
-    skillsInLine.forEach(skill => {
-      if (currentZone === 'preferred') {
-        if (!preferredJdSkills.includes(skill)) preferredJdSkills.push(skill);
-      } else {
-        if (!requiredJdSkills.includes(skill)) {
-          requiredJdSkills.push(skill);
-          const idx = preferredJdSkills.indexOf(skill);
-          if (idx !== -1) preferredJdSkills.splice(idx, 1);
-        }
-      }
-    });
-  });
-
-  const jdSkills = [...new Set([...requiredJdSkills, ...preferredJdSkills])];
-  const resumeSkills = findSkills(resume);
-  const matchedSkills = jdSkills.filter(s => resumeSkills.includes(s));
-  const missingSkills = jdSkills.filter(s => !resumeSkills.includes(s));
-  
   const sections = detectSections(resume);
   const sectionsMap = new Map(sections.map(s => [s.name, s.found]));
   const bullets = extractBullets(resume);
@@ -400,99 +387,29 @@ export function calculateOverallScore(resumeText: string, jdText: string): Analy
     else missingWords.add(kw);
   }
 
-  // Experience recency bonus mapping
-  const resumeLines = resumeText.split('\n');
-  const skillRecencyMap = new Map<string, number>();
-  let currentLineYear = 2023; // default baseline
-  resumeLines.forEach(line => {
-    const yearMatch = line.match(/\b(20\d\d)\b/);
-    if (yearMatch) {
-      currentLineYear = parseInt(yearMatch[1], 10);
-    } else if (/\b(present|current|now)\b/i.test(line)) {
-      currentLineYear = new Date().getFullYear();
-    }
-    
-    const skillsInLine = COMMON_SKILLS.filter(s => new RegExp('\\b' + s.replace(/[.+/-]/g, '\\$&') + '\\b', 'i').test(line.toLowerCase()));
-    skillsInLine.forEach(skill => {
-      const isRecent = currentLineYear >= 2024;
-      const multiplier = isRecent ? 1.3 : 1.0;
-      const existing = skillRecencyMap.get(skill) || 1.1;
-      skillRecencyMap.set(skill, Math.max(existing, multiplier));
-    });
-  });
+  // Keyword score: exact-term presence only, no phantom dilution padding.
+  const baseJdKeywordsCount = Math.max(jdKeywords.size, 1);
+  const keywordMatchRate = baseJdKeywordsCount > 0 ? matchedWords.size / baseJdKeywordsCount : 0;
+  const scoreKeyword = Math.round(keywordMatchRate * 100);
 
-  // 1. Required vs Preferred skills weighted rate + Recency bonus
-  let matchedSkillsWeight = 0;
-  let totalSkillsWeight = 0;
-  
-  requiredJdSkills.forEach(s => {
-    const recencyBonus = skillRecencyMap.get(s) || 1.1;
-    totalSkillsWeight += 2 * 1.3;
-    if (resumeSkills.includes(s)) {
-      matchedSkillsWeight += 2 * recencyBonus;
-    }
-  });
-  
-  preferredJdSkills.forEach(s => {
-    const recencyBonus = skillRecencyMap.get(s) || 1.1;
-    totalSkillsWeight += 1 * 1.3;
-    if (resumeSkills.includes(s)) {
-      matchedSkillsWeight += 1 * recencyBonus;
-    }
-  });
-
-  const baseJdSkillsCount = Math.max(jdSkills.length, 8);
-  const skillsRate = baseJdSkillsCount > 0 
-    ? (totalSkillsWeight > 0 ? (matchedSkillsWeight / totalSkillsWeight) * (jdSkills.length / baseJdSkillsCount) : 0.5)
-    : 0.5;
-
-  // 2. Phrase matching over single words (weighted match rate)
-  let matchedPhrasesWeight = 0;
-  let totalPhrasesWeight = 0;
+  // Phrase score: bounded to 2-3 word phrases that actually appear.
   const matchedPhrases: string[] = [];
   const missingPhrases: string[] = [];
-  
   jdPhrases.forEach(phrase => {
-    const wordsCount = phrase.split(' ').length;
-    const weight = wordsCount === 3 ? 3.0 : wordsCount === 2 ? 2.0 : 1.0;
-    totalPhrasesWeight += weight;
-    
-    const isMatched = resumePhrases.some(rp => rp === phrase || rp.includes(phrase));
-    if (isMatched) {
-      matchedPhrasesWeight += weight;
-      matchedPhrases.push(phrase);
-    } else {
-      missingPhrases.push(phrase);
-    }
+    if (resumePhrases.some(rp => rp === phrase || rp.includes(phrase))) matchedPhrases.push(phrase);
+    else missingPhrases.push(phrase);
   });
+  const phraseMatchRate = jdPhrases.length > 0 ? matchedPhrases.length / jdPhrases.length : 0;
 
-  const baseJdPhrasesCount = Math.max(jdPhrases.length, 6);
-  const phraseMatchRate = baseJdPhrasesCount > 0 
-    ? (totalPhrasesWeight > 0 ? (matchedPhrasesWeight / totalPhrasesWeight) * (jdPhrases.length / baseJdPhrasesCount) : 0)
-    : 0;
-
-  const baseJdKeywordsCount = Math.max(jdKeywords.size, 10);
-  const keywordMatchRate = baseJdKeywordsCount > 0 ? matchedWords.size / baseJdKeywordsCount : 0;
-
-  const resumeFreq = getKeywordFrequency(resumeWords);
-  const keywordDensity = jdKeywords.size > 0
-    ? [...jdKeywords].map(kw => ({
-      keyword: kw,
-      count: resumeFreq.get(kw) || 0,
-      present: matchedWords.has(kw),
-    })).sort((a, b) => b.count - a.count)
-    : [];
-
-  const scoreKeyword = Math.round(keywordMatchRate * 100);
-  
-  // Calculate skills score, penalize missing required skills extra to have a much larger impact
+  // Skills score: semantic requirement concept matches (EXACT/EQUIVALENT/PARTIAL/RELATED).
+  const skillTypes = new Set(['skill', 'soft-skill', 'methodology', 'certification', 'tool', 'platform', 'database', 'framework', 'language', 'domain', 'leadership']);
+  const skillReqs = analysis.requirementMatches.filter(m => skillTypes.has(m.type));
+  const matchedSkills = [...new Set(skillReqs.filter(m => !m.gap).flatMap(m => m.concepts))];
+  const missingSkills = [...new Set(skillReqs.filter(m => m.gap).flatMap(m => m.concepts))];
+  const skillsRate = skillReqs.length > 0 ? skillReqs.filter(m => !m.gap).length / skillReqs.length : 0.5;
   let scoreSkills = Math.round(skillsRate * 100);
-  let missingRequiredCount = 0;
-  requiredJdSkills.forEach(s => {
-    if (!resumeSkills.includes(s)) missingRequiredCount++;
-  });
-  const requiredPenalty = Math.min(missingRequiredCount * 5, 25);
-  scoreSkills = Math.max(0, scoreSkills - requiredPenalty);
+  const missingRequiredCount = analysis.requirementMatches.filter(m => m.importance === 'REQUIRED' && m.gap && skillTypes.has(m.type)).length;
+  scoreSkills = Math.max(0, scoreSkills - Math.min(missingRequiredCount * 4, 25));
 
   const scorePhrases = Math.round(phraseMatchRate * 100);
 
@@ -520,26 +437,21 @@ export function calculateOverallScore(resumeText: string, jdText: string): Analy
   if ((resume.match(/\u0000/g) || []).length > 0) formatFlags.push('Contains null characters');
   const scoreFormat = Math.round(Math.max(0, 100 - formatFlags.length * 25));
 
-  // 4. Experience quality scoring (quantified, revenue, scale, leadership)
+  // Experience score: years + seniority vs. requirement, plus bullet quality. No skills double-count.
   let totalQualityPoints = 0;
   bullets.forEach(b => {
     const lower = b.toLowerCase();
     let pts = 0;
     if (/\d+/.test(b)) pts += 1.0;
-    if (/\b(revenue|sales|profit|growth|margin|\$|income|earnings|revenue-impact)\b/i.test(lower)) pts += 1.0;
-    if (/\b(scale|users|million|transactions|traffic|latency|concurrent|databases|gb|tb|scale-up|millions)\b/i.test(lower)) pts += 1.0;
+    if (/\b(revenue|sales|profit|growth|margin|\$|income|earnings)\b/i.test(lower)) pts += 1.0;
+    if (/\b(scale|users|million|transactions|traffic|latency|concurrent|databases|gb|tb|millions)\b/i.test(lower)) pts += 1.0;
     if (/\b(led|managed|directed|mentored|coordinated|guided|facilitated|squad|team|leadership|supervised|headed)\b/i.test(lower)) pts += 1.0;
     totalQualityPoints += pts;
   });
-  
-  const experienceQualityScore = bullets.length > 0 
+  const experienceQualityScore = bullets.length > 0
     ? Math.min(totalQualityPoints / (bullets.length * 1.5), 1.0)
     : 0.5;
 
-  // Direct skills match ratio (no more 40% perfect score threshold)
-  const skillsRatio = jdSkills.length > 0 ? matchedSkills.length / jdSkills.length : 0.5;
-  
-  // Experience years comparison
   const requiredYears = extractYearsOfExperience(jdText);
   const candidateYears = estimateResumeYears(resumeText);
   let experienceRatio = 1.0;
@@ -548,43 +460,38 @@ export function calculateOverallScore(resumeText: string, jdText: string): Analy
   } else {
     experienceRatio = Math.min(bullets.length / 10, 1);
   }
-  
-  // Seniority keyword match check
+
+  // Seniority is captured by the requirement matcher, not a blunt -25 penalty.
   const isSeniorJD = /\b(senior|lead|principal|staff|manager|director|architect|head|vp)\b/i.test(jdText);
   const isSeniorResume = /\b(senior|lead|principal|staff|manager|director|architect|head|vp)\b/i.test(resumeText);
-  let seniorityPenalty = 0;
-  if (isSeniorJD && !isSeniorResume) {
-    seniorityPenalty = 25;
-  }
+  let seniorityRatio = 1.0;
+  if (isSeniorJD && !isSeniorResume) seniorityRatio = 0.75;
 
-  const scoreExperience = Math.round(Math.max(0, (skillsRatio * 0.4 + experienceRatio * 0.3 + experienceQualityScore * 0.3) * 100 - seniorityPenalty));
-
-  // 5. Capped Category Influence
-  const overall = Math.round(
-    scoreKeyword * 0.25 +    // Keywords cap = 40% (25% keywords + 15% phrases)
-    scorePhrases * 0.15 +
-    scoreSkills * 0.30 +     // Skills cap = 30%
-    scoreExperience * 0.20 + // Experience cap = 20%
-    (scoreSections * 0.04 + scoreFormat * 0.02 + scoreContent * 0.04) // Structure cap = 10%
-  );
+  const scoreExperience = Math.round(Math.max(0, (experienceRatio * 0.5 + experienceQualityScore * 0.5) * seniorityRatio * 100));
 
   const grade = gradeScore(overall);
 
+  // ---------------------------------------------------------------
+  // Recommendations: grounded in requirement gaps first, structure second.
+  // ---------------------------------------------------------------
   const tips: { priority: string; category: string; title: string; action: string; detail: string }[] = [];
   const topMissing = [...missingWords].slice(0, 5);
   const topMissingSkills = missingSkills.slice(0, 6);
 
-  if (keywordMatchRate < 0.4) tips.push({
+  const requiredGaps = analysis.requirementMatches.filter(m => m.importance === 'REQUIRED' && m.gap);
+  const preferredGaps = analysis.requirementMatches.filter(m => m.importance === 'PREFERRED' && m.gap);
+
+  if (requiredGaps.length > 0) tips.push({
     priority: 'high', category: 'keywords',
-    title: 'Add missing keywords to your resume',
-    action: `Insert ${topMissing.length > 0 ? topMissing.join(', ') : 'relevant terms from the job description'} into your summary and experience sections.`,
-    detail: `Only ${matchedWords.size} of ${jdKeywords.size} job keywords found. ATS systems rank resumes higher when they contain exact keyword matches from the description.`
+    title: `Close ${requiredGaps.length} required ${requiredGaps.length === 1 ? 'gap' : 'gaps'}`,
+    action: `Add these required items to your resume: ${requiredGaps.slice(0, 5).map(g => g.text).join('; ')}${requiredGaps.length > 5 ? ` and ${requiredGaps.length - 5} more` : ''}.`,
+    detail: `These are called out as required in the job description and were not detected in your resume — they carry the most weight in screening.`
   });
-  if (phraseMatchRate < 0.3) tips.push({
-    priority: 'high', category: 'keywords',
-    title: 'Mirror job description phrases',
-    action: 'Find 3-5 exact phrases from the job description and work them naturally into your experience bullets.',
-    detail: 'Some ATS engines use phrase-level matching — identical phrases (not just words) score higher than synonyms.'
+  if (preferredGaps.length > 0) tips.push({
+    priority: 'medium', category: 'skills',
+    title: `Add ${preferredGaps.length} preferred ${preferredGaps.length === 1 ? 'skill' : 'skills'}`,
+    action: `Weave in: ${preferredGaps.slice(0, 5).map(g => g.text).join('; ')}${preferredGaps.length > 5 ? ` and ${preferredGaps.length - 5} more` : ''}.`,
+    detail: 'Preferred requirements do not sink your score if missing, but covering them strengthens your candidacy against competitive applicants.'
   });
   const missingReq = sections.filter(s => s.required && !s.found);
   if (missingReq.length > 0) tips.push({
@@ -605,7 +512,7 @@ export function calculateOverallScore(resumeText: string, jdText: string): Analy
     action: 'Include specific numbers — percentages improved, dollar amounts saved, time reduced, team size led, or revenue generated.',
     detail: `Only ${bulletQuality.quantified} of ${bullets.length} bullets have quantified results. Metrics are one of the strongest signals for both ATS ranking and recruiter attention.`
   });
-  if (missingSkills.length > 0) tips.push({
+  if (missingSkills.length > 0 && preferredGaps.length === 0) tips.push({
     priority: 'medium', category: 'skills',
     title: `Incorporate ${topMissingSkills.length} missing skills`,
     action: `Add ${topMissingSkills.join(', ')}${missingSkills.length > 6 ? ` and ${missingSkills.length - 6} more` : ''} to your skills section or weave them into relevant experience bullets.`,
@@ -633,6 +540,7 @@ export function calculateOverallScore(resumeText: string, jdText: string): Analy
   };
 
   const redFlags: { severity: string; title: string; desc: string }[] = [];
+  if (requiredGaps.length > 0) redFlags.push({ severity: 'critical', title: `${requiredGaps.length} required ${requiredGaps.length === 1 ? 'requirement is' : 'requirements are'} not met`, desc: requiredGaps.slice(0, 3).map(g => g.text).join('; ') + (requiredGaps.length > 3 ? ' and more.' : '.') });
   const missingReqSections = sections.filter(s => s.required && !s.found);
   if (missingReqSections.length > 0) redFlags.push({ severity: 'critical', title: `Missing ${missingReqSections.map(s => s.name).join(', ')} section${missingReqSections.length > 1 ? 's' : ''}`, desc: 'Required sections not detected. Most ATS systems expect Contact, Experience, Education, and Skills sections.' });
   if (resumeLen < 150) redFlags.push({ severity: 'critical', title: 'Resume too short', desc: `${resumeLen} words — too little content for ATS to evaluate. Target 300–600 words.` });
@@ -646,11 +554,34 @@ export function calculateOverallScore(resumeText: string, jdText: string): Analy
   if (phraseMatchRate < 0.2) redFlags.push({ severity: 'warning', title: 'No phrase-level matching', desc: 'Your resume does not mirror any exact phrases from the job description. ATS systems reward direct phrase matches.' });
   if (!sectionsMap.get('Summary')) redFlags.push({ severity: 'info', title: 'No summary section', desc: 'A professional summary helps ATS and recruiters quickly understand your profile.' });
 
+  const requirementMatches: RequirementMatchSummary[] = analysis.requirementMatches.map(m => ({
+    text: m.text,
+    type: m.type,
+    importance: m.importance,
+    level: m.level,
+    matchStrength: m.matchStrength,
+    evidence: m.evidence,
+    gap: m.gap,
+  }));
+
+  const resumeFreq = getKeywordFrequency(resumeWords);
+  const keywordDensity = jdKeywords.size > 0
+    ? [...jdKeywords].map(kw => ({
+      keyword: kw,
+      count: resumeFreq.get(kw) || 0,
+      present: matchedWords.has(kw),
+    })).sort((a, b) => b.count - a.count)
+    : [];
+
   return {
-    overall, grade, scoreKeyword, scoreSkills, scoreContent, scoreSections, scoreBullets, scoreFormat, scoreExperience,
+    overall, jobMatch: analysis.jobMatch, atsScore: analysis.atsScore, grade,
+    scoreKeyword, scoreSkills, scoreContent, scoreSections, scoreBullets, scoreFormat, scoreExperience,
     matchedWords, missingWords, matchedPhrases, missingPhrases, matchedSkills, missingSkills,
     keywordDensity, sections, bulletQuality, tips, resumeWords: resumeWords.length, jdWords: jdWords.length,
-    sectionScores, redFlags, formatFlags
+    sectionScores, redFlags, formatFlags,
+    requirementMatches, criticalGaps: analysis.criticalGaps,
+    matchedConcepts: analysis.matchedConcepts, missingConcepts: analysis.missingConcepts,
+    requirementsByImportance: analysis.requirementsByImportance,
   };
 }
 
