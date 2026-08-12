@@ -1,4 +1,53 @@
-# Session Summary (Aug 10, 2026) — ATS/Job-Match Calibration Audit: Residual Ordering Ties Closed to 64/66 + All Scoring Tests Green
+# Session Summary (Aug 12, 2026) — Resume Checker Explainer Audit: Truthful "Met Counts", No-NoOp Simulate Buttons & Reusable Audit Harness
+
+### What We Did
+Follow-up audit of the Job Match / Requirement Coverage / "Top 3 Improvements" UI (built earlier this session). All changes are UI-layer only; matching engine (`resume-matching-engine.ts`) and scoring model (`scoring-engine.ts`) remain frozen.
+
+1. **Built `scripts/audit-explainer.ts`** — a reusable re-audit harness with 12 real resume/JD cases across 6 industries (SWE, Design, Marketing, Finance/CPA, Sales/Series 7, Operations + ghost in each). It drives `calculateOverallScore()` plus the UI's own helpers (buildCriticalGaps, buildTop3, findMissingTerm, levelWhy, projectScoreDelta, escStr, gapAdvice) and flags: misleading "met" counts, simulate buttons that change nothing, stale "Add X to resume" recommendations, XSS in JD/resume-derived text, and near-empty-JD behavior. Final run: **0 unresolvable findings** (1 remaining note is a documented frozen-engine design quirk, no longer surfaced by the UI).
+
+2. **Honest "met in full" counting in `#match-why`** — previously when required items were only PARTIAL/RELATED the panel still claimed "X of Y required ... met" or "met in full". Now counts only EXACT/EQUIVALENT as "in full" and distinguishes partials: e.g. SWE-Excellent now reads "7 of 10 required met in full and 2 partially" (was "9 of 10 ... in full"); stale-React case now "1 of 4 required met in full and 3 partially" (was misleading "4 of 4 met (100%)").
+
+3. **No-OP simulate buttons eliminated** — the "Simulate adding {term}" builder now gates on `KEYWORD_CREDIT_TYPES` (skill, methodology, soft_skill, domain_experience, leadership) — the only requirement types verified to actually earn engine credit from a bare keyword. For education, skill_years/years, seniority, license, certification gaps the `term` is now `''` (no button) and `gapAdvice()` returns honest, type-aware actions: certification/license → "If you hold this credential, list it explicitly in a Certifications section — the engine only credits explicit license or certification evidence."; education → "Add the exact degree or credential to your Education section."; else → "Add concrete evidence of this requirement to your experience section." Fixes FIN no-CPA (education) and Series 7 (license) gaps that previously offered "Simulate adding cpa/series 7".
+
+4. **Stale skill_years recommendation removed** — "5+ years with React" (skill_years type) no longer renders a button or a bare-keyword add; it gets generic evidence advice. The "Add React to your resume" top-3 card for a stale React skill was replaced with the same honest evidence action.
+
+5. **Escaping probe tightened** — harness now only flags if `escStr()` output still contains raw HTML (it never does); all top-3 title/desc/action and critical-gap text is HTML-escaped at render.
+
+### Files Modified
+- `src/scripts/resume-checker.ts` — `KEYWORD_CREDIT_TYPES` whitelist + `gapAdvice()` (type-aware term + action); match-why counts EXACT/EQUIVALENT as full and PARTIAL/RELATED separately; critical-gap and top-3 actions use gapAdvice; near-empty-JD copy no longer claims "all required requirements are met" when zero requirements were extracted
+- `scripts/audit-explainer.ts` — created (12-case re-audit harness, fully typed IO, prints detailed probes + FINAL FINDINGS summary)
+
+### Build & Test Verification
+- `npm run build`: prebuild **40/40 scoring tests passed**, **132/132 planner-engine tests passed**; **64/64 eval-resume checks passed** (2 accepted documented tie limitations); server build **Complete, 0 errors** (39.09s)
+
+# Session Summary (Aug 12, 2026) — Resume Checker: Job Match Wiring + Evidence-Based Requirement Breakdown & Truthful Score Simulation
+
+### What We Did
+All changes are UI-layer only (`resume-checker.astro` + `resume-checker.ts`). The matching engine (`resume-matching-engine.ts`) and scoring model (`scoring-engine.ts`) were left UNTOUCHED (frozen per directive).
+
+1. **Job Match value wired** — The "Job Match" stat in the ATS Compatibility card previously rendered a static `—` with no id and was never populated. Added `id="job-match-value"` and set it to `${r.jobMatch}%` in `renderResults()` (resume-checker.ts:1107), reset to `—` in `resetDashboard()`.
+
+2. **"Why this score?" explainer** — New `#match-why` panel under the ATS stat grid. Builds a truthful explanation from `requirementsByImportance`: "You met X of Y required / preferred / nice-to-have requirements (N%)" with Job Match defined as a weighted average (required items carry most weight).
+
+3. **Requirement Coverage grouped + evidence-backed** — `requirement-coverage-list` now renders three subsections (Strong · Partial · Missing) with counts, and every requirement shows a per-level "why" line (`levelWhy()`: EXACT/EQUIVALENT/PARTIAL/RELATED/MISSING/CONFLICT explanations) plus the matched evidence in quoted italic — not just a one-line truncated badge. Added `escStr()` HTML-escaping for all resume/JD-derived text (previously injected raw).
+
+4. **Critical Gaps enriched** — Critical gaps (`REQUIRED` + `level === 'MISSING'`) now render each with a **"Simulate adding {term}"** button (term resolved from `findMissingTerm()` against `missingSkills`/`missingConcepts`) and an inline `.simulate-result` output cell.
+
+5. **Truthful, evidence-based "Top 3 Improvements"** — Replaced the hardcoded 5 generic categories (Low Keyword Match, Important Skills Gaps, etc.) that were always shown regardless of the actual gap. New card ranks REAL evidence: critical missing-required requirements first ("Missing required: {term}" with the exact requirement text), then only the category reasons whose computed sub-scores actually indicate a deficit (Keyword Match <60 with real matched/total counts, Missing Skills with the actual missing list, Bullet Impact with real quantified/actionVerb counts, Section Completeness, Experience Alignment). Header renamed to "Top 3 Improvements Backed by Your Score". Requirement-derived cards carry simulate buttons.
+
+6. **Truthful score-impact simulation** — (a) Sandbox ("Test Impact") no longer fakes `uniqueMatches.length * 3.5` boosts; it now re-runs the real `calculateOverallScore()` on the resume with the terms appended and reports the actual projected delta ("recomputed by the full engine"). (b) New delegated click handler for all `[data-simulate-term]` buttons recomputes the full engine projection inline; when a bare keyword adds nothing it honestly says "No score change — a bare keyword mention isn't enough for this requirement; back it with a role bullet showing real usage."
+
+### Constraints Respected
+- **No engine/scoring-model edits** — `resume-matching-engine.ts`, `scoring-engine.ts` untouched; no eval-coupled or invented credit rules
+- No new dependencies; no backend/payment/planner changes
+
+### Files Modified
+- `src/pages/resume-checker.astro` — `job-match-value` id, `#match-why` panel, "Top 3 Improvements Backed by Your Score" header
+- `src/scripts/resume-checker.ts` — `escStr`, `findMissingTerm`, `levelWhy`, `projectScoreDelta` helpers; Job Match + explainer wiring; grouped requirement coverage; enriched critical gaps; evidence-based recommendations; delegated simulate handler; truthful sandbox (`calculateOverallScore` re-run)
+- `AGENTS.md` — session summary
+
+### Build & Test Verification
+- `npm run build`: prebuild **40/40 scoring tests passed**, **132/132 planner-engine tests passed**; server build **Complete, 0 errors** (32.26s)
 
 ### What We Did
 Continued tightening the resume matching engine (`src/scripts/resume-matching-engine.ts`) against the calibration audit (`scripts/eval-resume.ts`). Session start: ~9 ordering failures + failing scoring tests; end: **64/66 evals passed, 0 failed** (2 accepted documented limitations), **40/40 scoring tests passed**, **132/132 planner-engine tests passed**, server build Complete.

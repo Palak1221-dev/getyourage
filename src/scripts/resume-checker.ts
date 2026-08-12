@@ -1,4 +1,5 @@
 import { calculateOverallScore, detectGhostJob } from './scoring-engine';
+import { buildRecommendations, applyEdit } from './resume-improver.ts';
 
 (function () {
   const resumeInput = document.getElementById('resume-input') as HTMLTextAreaElement;
@@ -91,6 +92,13 @@ import { calculateOverallScore, detectGhostJob } from './scoring-engine';
     const percentileRank = document.getElementById('percentile-rank');
     if (percentileRank) percentileRank.textContent = '';
 
+    const jobMatchValue = document.getElementById('job-match-value');
+    if (jobMatchValue) jobMatchValue.textContent = '—';
+    const atsScoreValueReset = document.getElementById('ats-score-value');
+    if (atsScoreValueReset) atsScoreValueReset.textContent = '—';
+    const matchWhyReset = document.getElementById('match-why');
+    if (matchWhyReset) { matchWhyReset.innerHTML = ''; matchWhyReset.classList.add('hidden'); }
+
     const keywordBarValue = document.getElementById('score-bar-keyword-value');
     const keywordBarFill = document.getElementById('score-bar-keyword-fill');
     if (keywordBarValue) keywordBarValue.textContent = '0%';
@@ -123,6 +131,11 @@ import { calculateOverallScore, detectGhostJob } from './scoring-engine';
     if (benchmarkBar) { benchmarkBar.innerHTML = ''; benchmarkBar.classList.add('hidden'); }
     const ghostBadge = document.getElementById('ghost-job-badge');
     if (ghostBadge) { ghostBadge.innerHTML = ''; ghostBadge.classList.add('hidden'); }
+    const recsListReset = document.getElementById('rc-recommendations-list');
+    if (recsListReset) {
+      recsListReset.innerHTML = '<p class="text-[11px] text-[var(--rc-text-muted)]">Run an analysis to see evidence-backed improvements.</p>';
+    }
+    currentRecs = [];
     const suggestionsPanel = document.getElementById('bullet-opt-suggestions');
     if (suggestionsPanel) suggestionsPanel.classList.add('hidden');
     const bulletOptResult = document.getElementById('bullet-opt-result');
@@ -411,6 +424,84 @@ import { calculateOverallScore, detectGhostJob } from './scoring-engine';
   let insightTimeout1: any = null;
   let insightTimeout2: any = null;
   let currentResult: any = null;
+  let currentRecs: Array<{
+    kind: string;
+    importance: string;
+    requirementText: string;
+    term: string;
+    title: string;
+    why: string;
+    action: string;
+    suggested: string | null;
+    edit: { kind: string; term?: string; summaryLine?: string; original?: string; replacement?: string } | null;
+    doNotAdd: boolean;
+    requiresNewInfo: boolean;
+    scoreImpact: { current: number; projected: number; delta: number } | null;
+  }> = [];
+
+  function escStr(s: string): string {
+    if (!s) return '';
+    return String(s).replace(/[&<>"']/g, (ch) => {
+      const map: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+      return map[ch];
+    });
+  }
+
+  function findMissingTerm(reqText: string): string {
+    if (!currentResult) return '';
+    const text = reqText.toLowerCase();
+    const candidates: string[] = [
+      ...((currentResult as any).missingSkills || []),
+      ...Array.from((currentResult as any).missingConcepts || []),
+    ].filter((c: string) => c && c.length >= 2);
+    candidates.sort((a, b) => b.length - a.length);
+    return candidates.find((c: string) => text.includes(c.toLowerCase())) || '';
+  }
+
+  function levelWhy(level: string): string {
+    switch (level) {
+      case 'EXACT': return 'Your resume evidences this requirement directly in your work history.';
+      case 'EQUIVALENT': return 'You demonstrate an equivalent capability in place of the exact term.';
+      case 'PARTIAL': return 'This requirement is present but only partially matched — not enough for full credit.';
+      case 'RELATED': return 'A related concept was found, but not the exact requirement itself.';
+      case 'CONFLICT': return 'Your resume appears to conflict with this requirement.';
+      default: return 'No evidence of this requirement was found in your resume.';
+    }
+  }
+
+  function projectScoreDelta(term: string): { current: number; projected: number; delta: number } {
+    if (!currentResult) return { current: 0, projected: 0, delta: 0 };
+    const resume = resumeInput.value;
+    const jd = jdInput.value;
+    if (!resume.trim() || !jd.trim()) return { current: currentResult.overall, projected: currentResult.overall, delta: 0 };
+    const augmented = `${resume.trim()}\n\nOptimized Skills & Keywords: ${term}`;
+    const sim = calculateOverallScore(augmented, jd);
+    return { current: currentResult.overall, projected: sim.overall, delta: Math.round(sim.overall - currentResult.overall) };
+  }
+
+  // Requirement types where a bare keyword added to the Skills line actually earns
+  // engine credit (verified against the scoring engine). For every other type —
+  // skill_years/years, education, seniority, license, certification, etc. — a bare
+  // keyword either changes nothing or would only be satisfied by real evidence, so
+  // the UI must not offer a "Simulate adding X" button for them.
+  const KEYWORD_CREDIT_TYPES = new Set(['skill', 'methodology', 'soft_skill', 'domain_experience', 'leadership']);
+
+  // Returns the term to simulate (only for keyword-credit types) and an honest,
+  // type-aware recommended action for a missing required requirement.
+  function gapAdvice(m: { type: string; text: string }): { term: string; action: string } {
+    const term = KEYWORD_CREDIT_TYPES.has(m.type) ? findMissingTerm(m.text) : '';
+    let action: string;
+    if (term) {
+      action = `Add "${term}" to your Skills section and back it with a role bullet describing real usage.`;
+    } else if (m.type === 'certification' || m.type === 'license') {
+      action = 'If you hold this credential, list it explicitly in a Certifications section — the engine only credits explicit license or certification evidence.';
+    } else if (m.type === 'education') {
+      action = 'Add the exact degree or credential to your Education section.';
+    } else {
+      action = 'Add concrete evidence of this requirement to your experience section.';
+    }
+    return { term, action };
+  }
 
   function extractWords(text: string): string[] {
     return text.toLowerCase().replace(/[^a-z0-9\s+#./-]/g, ' ').split(/\s+/).filter(w => w.length > 1 && !STOP_WORDS.has(w));
@@ -592,11 +683,90 @@ import { calculateOverallScore, detectGhostJob } from './scoring-engine';
       ghostJob,
     };
 
+    // Evidence-backed recommendations built on the frozen engine's own outputs.
+    // Every suggestion is derived from text already in the resume/JD and each
+    // score projection re-runs the real scoring engine.
+    try {
+      const recResult = buildRecommendations(resume, jd);
+      currentRecs = recResult.recommendations || [];
+    } catch (err) {
+      console.error('[RC] buildRecommendations failed:', err);
+      currentRecs = [];
+    }
+
     saveSession(resume, jd, currentResult);
     saveBestScore(jd, currentResult.overall);
 
     console.log('[RC] analysis complete, calling renderResults, overall:', currentResult.overall);
     renderResults(currentResult, resume, jd);
+  }
+
+  function renderRecommendations(recs: typeof currentRecs, resumeText: string, jdText: string) {
+    currentRecs = recs;
+    const list = document.getElementById('rc-recommendations-list');
+    if (!list) return;
+    if (!recs || recs.length === 0) {
+      list.innerHTML = '<p class="text-[11px] text-emerald-700 dark:text-emerald-400 font-medium">Nothing to change — every requirement is already backed by strong, recent evidence in your resume.</p>';
+      return;
+    }
+
+    const kindConfig: Record<string, { label: string; badge: string; dot: string; border: string }> = {
+      missing_required: { label: 'Missing required', badge: 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-500/20', dot: 'bg-rose-500', border: 'border-rose-200/40 dark:border-rose-900/40' },
+      missing_evidence: { label: 'Gap', badge: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20', dot: 'bg-amber-500', border: 'border-amber-200/40 dark:border-amber-900/40' },
+      skill_not_evidenced: { label: 'Not evidenced', badge: 'bg-sky-500/10 text-sky-700 dark:text-sky-400 border-sky-500/20', dot: 'bg-sky-500', border: 'border-sky-200/40 dark:border-sky-900/40' },
+      partial_requirement: { label: 'Partial match', badge: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20', dot: 'bg-amber-500', border: 'border-amber-200/40 dark:border-amber-900/40' },
+      recency_stale: { label: 'Dated', badge: 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20', dot: 'bg-slate-500', border: 'border-slate-200/40 dark:border-slate-700/40' },
+      skill_years_gap: { label: 'Years gap', badge: 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20', dot: 'bg-slate-500', border: 'border-slate-200/40 dark:border-slate-700/40' },
+      multi_concept: { label: 'Related', badge: 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20', dot: 'bg-slate-500', border: 'border-slate-200/40 dark:border-slate-700/40' },
+      missing_metrics: { label: 'Add metric', badge: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20', dot: 'bg-amber-500', border: 'border-amber-200/40 dark:border-amber-900/40' },
+      unclear_strong_evidence: { label: 'Tighten', badge: 'bg-sky-500/10 text-sky-700 dark:text-sky-400 border-sky-500/20', dot: 'bg-sky-500', border: 'border-sky-200/40 dark:border-sky-900/40' },
+      weak_evidence: { label: 'Weak opening', badge: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20', dot: 'bg-amber-500', border: 'border-amber-200/40 dark:border-amber-900/40' },
+      buried_older_role: { label: 'Older role', badge: 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20', dot: 'bg-slate-500', border: 'border-slate-200/40 dark:border-slate-700/40' },
+    };
+
+    list.innerHTML = recs.map((rec, idx) => {
+      const cfg = kindConfig[rec.kind] || kindConfig.missing_evidence;
+      const impLabel = rec.importance === 'REQUIRED' ? 'Required' : rec.importance === 'PREFERRED' ? 'Preferred' : 'Nice to have';
+      const impColor = rec.importance === 'REQUIRED' ? 'text-rose-600 dark:text-rose-400' : rec.importance === 'PREFERRED' ? 'text-amber-600 dark:text-amber-400' : 'text-[var(--rc-text-muted)]';
+      const suggestedEmpty = !(rec.suggested && rec.suggested.length > 0);
+
+      let impactHtml = '';
+      let applyHtml = '';
+      if (rec.scoreImpact && typeof rec.scoreImpact.delta === 'number') {
+        const d = rec.scoreImpact.delta;
+        const cls = d > 0 ? 'text-emerald-700 dark:text-emerald-400' : d < 0 ? 'text-rose-600 dark:text-rose-400' : 'text-amber-600 dark:text-amber-400';
+        impactHtml = `<span class="text-[10px] font-semibold ${cls}">Projected ${rec.scoreImpact.current}% &rarr; ${rec.scoreImpact.projected}% (${d > 0 ? '+' : ''}${d}%)</span>`;
+      }
+      // Offer a one-click "Apply to resume" only for edits that are fully verbatim-derived
+      // (no user-supplied placeholder metric required). Mirrors the module's gating rule.
+      if (rec.edit && !rec.doNotAdd && !(rec.suggested || '').includes('[')) {
+        applyHtml = `<button type="button" data-apply-recommendation="${idx}" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[var(--rc-primary)]/10 text-[var(--rc-primary)] border border-[var(--rc-primary)]/20 hover:bg-[var(--rc-primary)]/20 text-[9px] font-bold transition-colors cursor-pointer select-none">Apply to resume</button>`;
+      }
+
+      const suggestedHtml = rec.suggested
+        ? `<p class="text-[10px] text-[var(--rc-text-muted)] italic leading-relaxed mt-1">&quot;${escStr(rec.suggested)}&quot;</p>`
+        : '';
+
+      return `
+        <div class="p-3 rounded-xl border ${cfg.border} bg-[var(--rc-card-bg)] hover:border-[var(--rc-border-strong)] transition-colors">
+          <div class="flex items-start gap-2.5">
+            <span class="w-1.5 h-1.5 rounded-full ${cfg.dot} mt-1.5 shrink-0"></span>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-xs font-bold text-[var(--rc-text-primary)]">${escStr(rec.title)}</span>
+                <span class="inline-flex px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider border ${cfg.badge}">${cfg.label}</span>
+                <span class="inline-flex px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${impColor}">${impLabel}</span>
+              </div>
+              <p class="text-[10px] text-[var(--rc-text-muted)] leading-relaxed mt-1">${escStr(rec.requirementText)}</p>
+              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed mt-1">${escStr(rec.why)}</p>
+              ${suggestedHtml}
+              <p class="text-[10px] text-[var(--rc-text-muted)] leading-relaxed mt-1"><span class="font-semibold text-[var(--rc-text-primary)]">Fix:</span> ${escStr(rec.action)}</p>
+              <div class="mt-1.5 flex items-center gap-2 flex-wrap">${impactHtml}${applyHtml}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
   }
 
   function renderResults(r: typeof currentResult, resumeText?: string, jdText?: string) {
@@ -1057,6 +1227,44 @@ import { calculateOverallScore, detectGhostJob } from './scoring-engine';
     const atsScoreValue = document.getElementById('ats-score-value');
     if (atsScoreValue) atsScoreValue.textContent = `${r.atsScore}%`;
 
+    const jobMatchValue = document.getElementById('job-match-value');
+    if (jobMatchValue) jobMatchValue.textContent = `${r.jobMatch}%`;
+
+    const matchWhy = document.getElementById('match-why');
+    if (matchWhy) {
+      const reqs = (r as any).requirementMatches || [];
+      const impOrder: Array<[string, string]> = [
+        ['REQUIRED', 'required'],
+        ['PREFERRED', 'preferred'],
+        ['NICE_TO_HAVE', 'nice-to-have'],
+        ['RESPONSIBILITY', 'responsibility'],
+      ];
+      const byKey: Record<string, { total: number; full: number; partial: number }> = {};
+      reqs.forEach((m: any) => {
+        const k = byKey[m.importance] || (byKey[m.importance] = { total: 0, full: 0, partial: 0 });
+        k.total++;
+        if (m.level === 'EXACT' || m.level === 'EQUIVALENT') k.full++;
+        else if (m.level === 'PARTIAL' || m.level === 'RELATED') k.partial++;
+      });
+      const parts: string[] = [];
+      for (const [key, label] of impOrder) {
+        const b = byKey[key];
+        if (!b || b.total === 0) continue;
+        const emph = (s: string) => `<strong class="text-[var(--rc-text-primary)]">${s}</strong>`;
+        if (b.full === b.total) parts.push(emph(`all ${b.total} ${label}`) + ` requirements met in full`);
+        else if (b.full > 0 && b.partial > 0) parts.push(emph(`${b.full} of ${b.total} ${label}`) + ` met in full and ${b.partial} partially`);
+        else if (b.full > 0) parts.push(emph(`${b.full} of ${b.total} ${label}`) + ` met in full`);
+        else if (b.partial > 0) parts.push(emph(`${b.partial} of ${b.total} ${label}`) + ` met only partially`);
+        else parts.push(emph(`none of the ${b.total} ${label}`) + ` requirements met`);
+      }
+      if (parts.length > 0) {
+        matchWhy.innerHTML = `<span class="font-bold text-[var(--rc-text-primary)]">Why this score?</span> Job Match is a weighted average across all requirements — required items carry the most weight. ${parts.join('. ')}.`;
+        matchWhy.classList.remove('hidden');
+      } else {
+        matchWhy.classList.add('hidden');
+      }
+    }
+
     const reqCoverage = document.getElementById('requirement-coverage-list');
     if (reqCoverage && (r as any).requirementMatches) {
       const reqMatches = (r as any).requirementMatches as Array<{
@@ -1077,7 +1285,12 @@ import { calculateOverallScore, detectGhostJob } from './scoring-engine';
           CONFLICT: { text: 'text-rose-700 dark:text-rose-400', bg: 'bg-rose-50 dark:bg-rose-950/40', border: 'border-rose-500/20', label: 'Conflict' },
         };
         const impLabel: Record<string, string> = { REQUIRED: 'Required', PREFERRED: 'Preferred', NICE_TO_HAVE: 'Nice to have', RESPONSIBILITY: 'Responsibility' };
-        reqCoverage.innerHTML = reqMatches.map(m => {
+        const groups: Array<{ key: string; title: string; color: string; levels: string[] }> = [
+          { key: 'strong', title: 'Strong', color: 'text-emerald-700 dark:text-emerald-400', levels: ['EXACT', 'EQUIVALENT'] },
+          { key: 'partial', title: 'Partial', color: 'text-amber-700 dark:text-amber-400', levels: ['PARTIAL', 'RELATED'] },
+          { key: 'missing', title: 'Missing', color: 'text-rose-700 dark:text-rose-400', levels: ['MISSING', 'CONFLICT'] },
+        ];
+        const renderReq = (m: any, showWhy: boolean) => {
           const s = levelStyles[m.level] || levelStyles.MISSING;
           const imp = impLabel[m.importance] || m.importance;
           const impColor = m.importance === 'REQUIRED'
@@ -1087,10 +1300,24 @@ import { calculateOverallScore, detectGhostJob } from './scoring-engine';
             <div class="flex items-start gap-2.5 p-2.5 rounded-lg border ${s.border} ${s.bg}">
               <span class="inline-flex px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${impColor} shrink-0 mt-px">${imp}</span>
               <div class="flex-1 min-w-0">
-                <p class="text-[11px] font-semibold text-[var(--rc-text-primary)] leading-snug">${m.text}</p>
-                ${m.evidence ? `<p class="text-[10px] text-[var(--rc-text-muted)] mt-0.5 italic truncate">${m.evidence}</p>` : ''}
+                <p class="text-[11px] font-semibold text-[var(--rc-text-primary)] leading-snug">${escStr(m.text)}</p>
+                ${showWhy ? `<p class="text-[10px] text-[var(--rc-text-secondary)] mt-0.5 leading-snug">${levelWhy(m.level)}</p>` : ''}
+                ${m.evidence ? `<p class="text-[10px] text-[var(--rc-text-muted)] mt-0.5 italic leading-snug">&quot;${escStr(m.evidence)}&quot;</p>` : ''}
               </div>
               <span class="inline-flex px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${s.text} border ${s.border} shrink-0">${s.label}</span>
+            </div>
+          `;
+        };
+        reqCoverage.innerHTML = groups.map(g => {
+          const list = reqMatches.filter(m => g.levels.includes(m.level));
+          if (list.length === 0) return '';
+          return `
+            <div>
+              <div class="flex items-center gap-1.5 mb-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-current ${g.color} shrink-0"></span>
+                <span class="text-[10px] font-bold uppercase tracking-wider ${g.color}">${g.title} — ${list.length}</span>
+              </div>
+              <div class="space-y-1.5">${list.map(m => renderReq(m, true)).join('')}</div>
             </div>
           `;
         }).join('');
@@ -1100,70 +1327,109 @@ import { calculateOverallScore, detectGhostJob } from './scoring-engine';
     }
 
     const criticalGapsEl = document.getElementById('critical-gaps-list');
-    if (criticalGapsEl && (r as any).criticalGaps) {
-      const gaps = (r as any).criticalGaps as string[];
+    if (criticalGapsEl && (r as any).requirementMatches) {
+      const gaps = (r as any).requirementMatches.filter((m: any) => m.importance === 'REQUIRED' && m.gap) as Array<{
+        text: string;
+        level: string;
+        evidence?: string;
+      }>;
       criticalGapsEl.innerHTML = gaps.length > 0
-        ? gaps.map(g => `
-            <div class="flex items-start gap-2 p-2.5 rounded-lg border border-rose-200/40 bg-rose-50/50">
-              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-rose-500 shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <span class="text-[11px] text-rose-700 dark:text-rose-400 leading-snug">${g}</span>
-            </div>
-          `).join('')
-        : '<p class="text-[11px] text-emerald-700 dark:text-emerald-400">No critical gaps — all required requirements are met.</p>';
+        ? gaps.map(g => {
+            const term = gapAdvice(g).term;
+            const simulateBtn = term
+              ? `<button type="button" data-simulate-term="${escStr(term)}" data-simulate-label="${escStr(g.text)}" class="mt-1.5 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-rose-600 hover:bg-rose-700 text-white text-[9px] font-bold transition-colors cursor-pointer select-none shadow-sm"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Simulate adding ${escStr(term)}</button><span class="simulate-result mt-1.5 text-[10px] font-semibold text-[var(--rc-text-primary)]"></span>`
+              : '';
+            return `
+              <div class="flex items-start gap-2 p-2.5 rounded-lg border border-rose-200/40 bg-rose-50/50">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-rose-500 shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <div class="min-w-0 flex-1">
+                  <span class="text-[11px] text-rose-700 dark:text-rose-400 leading-snug">${escStr(g.text)}</span>
+                  <div class="flex items-center gap-2 flex-wrap">${simulateBtn}</div>
+                </div>
+              </div>
+            `;
+          }).join('')
+        : `<p class="text-[11px] text-emerald-700 dark:text-emerald-400">${(r as any).requirementMatches.length > 0 ? 'No critical gaps — all required requirements are met.' : 'No critical gaps detected.'}</p>`;
     }
 
-    // 1. Top 3 Reasons Your Score Is Not Higher
+    // 1. Top 3 Improvements Backed by Your Score (evidence-based)
     const topReasonsList = document.getElementById('top-reasons-list');
     if (topReasonsList) {
-      const reasons = [
-        {
-          title: 'Low Keyword Match',
-          score: r.scoreKeyword,
-          desc: 'Your resume lacks critical keywords from the job description.',
-          action: 'Use the Score Optimizer Sandbox below to simulate and test matching keywords.'
-        },
-        {
-          title: 'Important Skills Gaps',
-          score: r.scoreSkills,
-          desc: 'Several key skills listed in the job description are missing.',
-          action: 'Incorporate missing skills like ' + (r.missingSkills.slice(0, 2).join(', ') || 'required tools') + '.'
-        },
-        {
-          title: 'Bullet Points Need Impact',
-          score: r.scoreBullets,
-          desc: 'Your bullet points lack active verbs or measurable metrics.',
-          action: 'Revise weak bullets using our line-by-line critiques in ATS Diagnostics below.'
-        },
-        {
-          title: 'Incomplete Sections',
-          score: r.scoreSections,
-          desc: 'Standard sections (e.g. Summary or Projects) are missing or sparse.',
-          action: 'Ensure Summary, Experience, Skills, and Projects are complete.'
-        },
-        {
-          title: 'Experience Alignment Gap',
-          score: r.scoreExperience,
-          desc: 'The depth or structure of your work history doesn\'t match the JD requirements.',
-          action: 'Reframe work experience to highlight responsibilities matching the JD.'
-        }
-      ];
-      
-      // Sort to get the worst 3 gaps
-      reasons.sort((a, b) => a.score - b.score);
+      const reasons: Array<{ title: string; score: number; desc: string; action: string; severity: 'critical' | 'high' | 'medium'; simulate?: { term: string; label: string } }> = [];
+
+      const reqMatches: Array<{ text: string; type: string; importance: string; level: string; gap?: boolean }> = (r as any).requirementMatches || [];
+      const criticalReqs = reqMatches.filter(m => m.importance === 'REQUIRED' && m.gap);
+      criticalReqs.slice(0, 3).forEach(m => {
+        const advice = gapAdvice(m);
+        reasons.push({
+          title: 'Missing required: ' + (advice.term || m.text),
+          score: 0,
+          desc: `${m.text}. This is a required requirement with no evidence in your resume.`,
+          action: advice.action,
+          severity: 'critical',
+          simulate: advice.term ? { term: advice.term, label: m.text } : undefined,
+        });
+      });
+
+      const totalKw = r.matchedWords.size + r.missingWords.size;
+      if (r.scoreKeyword < 60 && totalKw > 0) reasons.push({
+        title: `Low Keyword Match (${r.scoreKeyword}%)`,
+        score: r.scoreKeyword,
+        desc: `Only ${r.matchedWords.size} of ${totalKw} job-description keywords appear in your resume.`,
+        action: 'Mirror the exact phrases the JD uses in your summary and skills sections.',
+        severity: 'high',
+      });
+
+      if (r.scoreSkills < 60 && r.missingSkills.length > 0) reasons.push({
+        title: `Missing Skills (${r.scoreSkills}%)`,
+        score: r.scoreSkills,
+        desc: `${r.missingSkills.length} skills from the job description are absent: ${r.missingSkills.slice(0, 3).join(', ')}.`,
+        action: 'Add the missing skills where truthful, backed by real usage.',
+        severity: 'high',
+      });
+
+      if (r.scoreBullets < 60) reasons.push({
+        title: `Bullet Impact (${r.scoreBullets}%)`,
+        score: r.scoreBullets,
+        desc: `Only ${r.bulletQuality.quantified} of ${r.bulletQuality.total} bullets are quantified; ${r.bulletQuality.actionVerbs} use action verbs.`,
+        action: 'Add metrics (%, $, time) and strong action verbs to weak bullets.',
+        severity: 'medium',
+      });
+
+      if (r.scoreSections < 60) reasons.push({
+        title: `Section Completeness (${r.scoreSections}%)`,
+        score: r.scoreSections,
+        desc: 'Required sections like Summary or Experience are missing or sparse.',
+        action: 'Ensure Summary, Experience, Skills, and Projects sections are complete.',
+        severity: 'medium',
+      });
+
+      if (r.scoreExperience < 60) reasons.push({
+        title: `Experience Alignment (${r.scoreExperience}%)`,
+        score: r.scoreExperience,
+        desc: 'Your work history doesn\'t closely mirror the responsibilities in the JD.',
+        action: 'Reframe experience bullets to highlight responsibilities matching the JD.',
+        severity: 'medium',
+      });
+
+      const sevRank: Record<string, number> = { critical: 0, high: 1, medium: 2 };
+      reasons.sort((a, b) => (sevRank[a.severity] - sevRank[b.severity]) || (a.score - b.score));
       const top3 = reasons.slice(0, 3);
-      
+
+      const sevColor: Record<string, string> = { critical: 'bg-rose-500', high: 'bg-amber-500', medium: 'bg-sky-500' };
       topReasonsList.innerHTML = top3.map(reason => `
         <div class="p-3.5 rounded-xl border border-rose-100 bg-rose-50/15 flex flex-col justify-between hover:border-rose-200 transition-colors select-none">
           <div>
             <div class="flex items-center gap-1.5 mb-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0"></span>
-              <span class="text-xs font-bold text-[var(--rc-text-primary)]">${reason.title}</span>
+              <span class="w-1.5 h-1.5 rounded-full ${sevColor[reason.severity]} shrink-0"></span>
+              <span class="text-xs font-bold text-[var(--rc-text-primary)]">${escStr(reason.title)}</span>
             </div>
-            <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed">${reason.desc}</p>
+            <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed">${escStr(reason.desc)}</p>
           </div>
           <div class="mt-2.5 pt-2 border-t border-[var(--rc-border)]/50">
             <span class="text-[10px] font-semibold text-rose-700/80 block">Fix:</span>
-            <p class="text-[10px] text-[var(--rc-text-muted)] leading-relaxed mt-0.5">${reason.action}</p>
+            <p class="text-[10px] text-[var(--rc-text-muted)] leading-relaxed mt-0.5">${escStr(reason.action)}</p>
+            ${reason.simulate ? `<div class="mt-1.5 flex items-center gap-2 flex-wrap"><button type="button" data-simulate-term="${escStr(reason.simulate.term)}" data-simulate-label="${escStr(reason.simulate.label)}" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-rose-600 hover:bg-rose-700 text-white text-[9px] font-bold transition-colors cursor-pointer select-none shadow-sm"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Simulate adding ${escStr(reason.simulate.term)}</button><span class="simulate-result text-[10px] font-semibold text-[var(--rc-text-primary)]"></span></div>` : ''}
           </div>
         </div>
       `).join('');
@@ -1350,6 +1616,8 @@ import { calculateOverallScore, detectGhostJob } from './scoring-engine';
         suggestionsPanel.classList.add('hidden');
       }
     }
+
+    renderRecommendations(currentRecs, resumeText, jdText);
 
     const dashSections = document.querySelectorAll('#dashboard > *');
     dashSections.forEach((el, i) => {
@@ -1554,79 +1822,96 @@ import { calculateOverallScore, detectGhostJob } from './scoring-engine';
     }
 
     // Split by commas
-    const terms = val.split(',').map(t => t.trim().toLowerCase()).filter(t => t.length > 0);
+    const terms = val.split(',').map(t => t.trim()).filter(t => t.length > 0);
     if (terms.length === 0) {
       if (sandboxResult) sandboxResult.classList.add('hidden');
       return;
     }
 
-    const matchedSkills: string[] = [];
-    const matchedWords: string[] = [];
-
-    const missingSkillsArr = currentResult.missingSkills.map((s: string) => s.toLowerCase());
-    const missingWordsArr = Array.from(currentResult.missingWords).map((w: any) => w.toLowerCase());
-
-    terms.forEach(term => {
-      const skillMatchIndex = missingSkillsArr.findIndex((s: string) => s === term || s.includes(term) || term.includes(s));
-      if (skillMatchIndex !== -1) {
-        matchedSkills.push(currentResult.missingSkills[skillMatchIndex]);
-      } else {
-        const wordMatchIndex = missingWordsArr.findIndex((w: string) => w === term || w.includes(term) || term.includes(w));
-        if (wordMatchIndex !== -1) {
-          matchedWords.push(Array.from(currentResult.missingWords)[wordMatchIndex] as string);
-        }
-      }
-    });
-
-    const uniqueMatches = Array.from(new Set([...matchedSkills, ...matchedWords]));
-    
-    if (uniqueMatches.length === 0) {
+    const currentResumeText = resumeInput.value.trim();
+    const jdText = jdInput.value;
+    if (!currentResumeText || !jdText.trim()) {
       if (sandboxResult) {
-        sandboxResult.innerHTML = `
-          <div class="flex-grow select-none">
-            <span class="font-bold text-amber-600">0% Simulated Score Impact</span>
-            <p class="text-[10px] text-[var(--rc-text-secondary)] mt-0.5">Tested terms do not match any identified missing keywords or skills.</p>
-          </div>
-        `;
+        sandboxResult.innerHTML = `<span class="text-rose-500 font-semibold select-none">Both resume and job description are required to simulate.</span>`;
         sandboxResult.classList.remove('hidden');
       }
-    } else {
-      const boost = Math.min(uniqueMatches.length * 3.5, 100 - currentResult.overall);
-      const newScore = Math.min(currentResult.overall + Math.round(boost), 100);
-      const isActuallyBoosted = Math.round(boost) > 0;
+      return;
+    }
 
-      if (sandboxResult) {
-        sandboxResult.innerHTML = `
-          <div class="flex-grow select-none">
-            <span class="font-bold ${isActuallyBoosted ? 'text-emerald-600' : 'text-indigo-600'}">${isActuallyBoosted ? '+' + Math.round(boost) + '%' : '0%'} simulated score increase</span>
-            <p class="text-[10px] text-[var(--rc-text-secondary)] mt-0.5">
-              Adding <span class="font-semibold text-[var(--rc-text-primary)]">${uniqueMatches.join(', ')}</span> would raise your score to <span class="font-bold text-[var(--rc-text-primary)]">${newScore}%</span>.
-            </p>
-          </div>
-          ${isActuallyBoosted ? `
-          <button id="sandbox-apply-btn" type="button" class="px-2.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold transition-colors cursor-pointer shrink-0 select-none shadow-sm flex items-center gap-1">
-            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-white"><polyline points="20 6 9 17 4 12"/></svg>
-            Add to Resume
-          </button>
-          ` : ''}
-        `;
-        sandboxResult.classList.remove('hidden');
+    // Truthful simulation: re-run the actual scoring engine with the terms appended.
+    const appendage = `\n\nOptimized Skills & Keywords: ${terms.join(', ')}`;
+    const sim = calculateOverallScore(currentResumeText + appendage, jdText);
+    const delta = Math.round(sim.overall - currentResult.overall);
+    const newScore = Math.min(sim.overall, 100);
+    const isBoosted = delta > 0;
 
-        const applyBtn = document.getElementById('sandbox-apply-btn');
-        applyBtn?.addEventListener('click', () => {
-          const currentResumeText = resumeInput.value;
-          const appendage = `\n\nOptimized Skills & Keywords: ${uniqueMatches.join(', ')}`;
-          resumeInput.value = currentResumeText + appendage;
-          updateCounts();
-          
-          if (sandboxInput) sandboxInput.value = '';
-          sandboxResult.classList.add('hidden');
-          
-          scheduleAnalysis(true);
-        });
-      }
+    if (sandboxResult) {
+      sandboxResult.innerHTML = `
+        <div class="flex-grow select-none">
+          <span class="font-bold ${isBoosted ? 'text-emerald-600' : 'text-amber-600'}">${isBoosted ? '+' + delta + '%' : '0%'} simulated score change</span>
+          <p class="text-[10px] text-[var(--rc-text-secondary)] mt-0.5">
+            Adding <span class="font-semibold text-[var(--rc-text-primary)]">${escStr(terms.join(', '))}</span> is projected to move your score to <span class="font-bold text-[var(--rc-text-primary)]">${newScore}%</span> (recomputed by the full engine).
+          </p>
+        </div>
+        ${isBoosted ? `
+        <button id="sandbox-apply-btn" type="button" class="px-2.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold transition-colors cursor-pointer shrink-0 select-none shadow-sm flex items-center gap-1">
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-white"><polyline points="20 6 9 17 4 12"/></svg>
+          Add to Resume
+        </button>
+        ` : ''}
+      `;
+      sandboxResult.classList.remove('hidden');
+
+      const applyBtn = document.getElementById('sandbox-apply-btn');
+      applyBtn?.addEventListener('click', () => {
+        resumeInput.value = currentResumeText + appendage;
+        updateCounts();
+
+        if (sandboxInput) sandboxInput.value = '';
+        sandboxResult.classList.add('hidden');
+
+        scheduleAnalysis(true);
+      });
     }
   }
+
+  // --- Requirement-level "Simulate adding X" buttons (created dynamically by renderResults) ---
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('[data-simulate-term]') as HTMLElement | null;
+    if (!btn || !currentResult) return;
+    const term = btn.getAttribute('data-simulate-term') || '';
+    if (!term) return;
+    const resultEl = btn.parentElement?.querySelector('.simulate-result');
+    if (!resultEl) return;
+    const { current, projected, delta } = projectScoreDelta(term);
+    if (delta > 0) {
+      resultEl.innerHTML = `Projected ${current}% &rarr; <strong>${projected}%</strong> <span class="text-emerald-600 dark:text-emerald-400 font-bold">(+${delta}%)</span>`;
+    } else {
+      resultEl.innerHTML = `<span class="text-amber-600 dark:text-amber-400">No score change</span> — a bare keyword mention isn't enough for this requirement; back it with a role bullet showing real usage.`;
+    }
+    btn.disabled = true;
+    btn.classList.add('opacity-60', 'cursor-default');
+  });
+
+  // --- "Apply to resume" buttons (evidence-backed edits from the improve module) ---
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('[data-apply-recommendation]') as HTMLElement | null;
+    if (!btn) return;
+    const idx = Number(btn.getAttribute('data-apply-recommendation'));
+    const rec = currentRecs[idx];
+    if (!rec || !rec.edit) return;
+    const applied = applyEdit(resumeInput.value, rec.edit);
+    if (applied === resumeInput.value) {
+      btn.textContent = 'Nothing to apply';
+      btn.disabled = true;
+      btn.classList.add('opacity-60', 'cursor-default');
+      return;
+    }
+    resumeInput.value = applied;
+    updateCounts();
+    updateInputOverlays();
+    scheduleAnalysis(true);
+  });
 
   // --- Custom Checklist changes form ---
   const customTipsForm = document.getElementById('custom-tips-form');

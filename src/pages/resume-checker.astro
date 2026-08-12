@@ -843,7 +843,7 @@ const faqSchema = {
               <div class="flex items-center justify-between p-3.5 rounded-xl border border-[var(--rc-border)] bg-[var(--rc-card-bg)]">
                 <div>
                   <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--rc-text-muted)] block">Job Match</span>
-                  <span class="text-lg font-black text-[var(--rc-text-primary)] tabular-nums">—</span>
+                  <span id="job-match-value" class="text-lg font-black text-[var(--rc-text-primary)] tabular-nums">—</span>
                 </div>
                 <span class="text-[10px] text-[var(--rc-text-muted)]">Semantic fit vs. requirements</span>
               </div>
@@ -855,6 +855,8 @@ const faqSchema = {
                 <span class="text-[10px] text-[var(--rc-text-muted)]">Structure &amp; machine readability</span>
               </div>
             </div>
+
+            <p id="match-why" class="hidden text-[11px] text-[var(--rc-text-secondary)] leading-relaxed mb-4 p-3 rounded-xl border border-[var(--rc-border)]/40 bg-[var(--rc-card-bg)]"></p>
 
             <div class="space-y-2.5 mb-4">
               <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--rc-text-muted)] block">Requirement Coverage</span>
@@ -882,10 +884,24 @@ const faqSchema = {
           <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-5 md:p-6">
             <div class="flex items-center gap-2.5 mb-4">
               <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-error)]"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">Top 3 Reasons Your ATS Score Is Not Higher</h3>
+              <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">Top 3 Improvements Backed by Your Score</h3>
             </div>
             <div id="top-reasons-list" class="grid grid-cols-1 md:grid-cols-3 gap-3">
               <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- 2b. Improve My Resume (evidence-backed edits) -->
+          <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-5 md:p-6">
+            <div class="flex items-center gap-2.5 mb-1">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)]"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">Improve My Resume</h3>
+            </div>
+            <p class="text-[11px] text-[var(--rc-text-muted)] leading-relaxed mb-3">
+              Concrete, evidence-backed edits drawn from your resume and the job description. Each "Apply to resume" re-runs the real scoring engine so the projected change is exactly what you'll see.
+            </p>
+            <div id="rc-recommendations-list" class="space-y-2">
+              <p class="text-[11px] text-[var(--rc-text-muted)]">Run an analysis to see evidence-backed improvements.</p>
             </div>
           </div>
 
