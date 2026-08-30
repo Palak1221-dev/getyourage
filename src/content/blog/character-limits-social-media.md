@@ -19,7 +19,7 @@ Each social platform has specific character limits to manage layouts and keep fe
 
 > **Check social limits while drafting**
 > Use the Tooltails Word Counter sidebar limit indicators to keep your posts within safe visual boundaries.
-> [Write Social Posts](/word-counter)
+> [Write Social Posts](/word-counter/)
 
 ## Frequently Asked Questions
 

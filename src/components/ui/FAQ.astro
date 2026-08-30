@@ -26,13 +26,16 @@ const faqSchema = {
 };
 ---
 
-<div class:list={['space-y-6', className]}>
-  <h2 class="text-2xl font-bold text-ink mb-8">Frequently Asked Questions</h2>
-  <div class="grid gap-6">
+<div class:list={['space-y-5', className]}>
+  <div class="flex items-center gap-3">
+    <h2 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Frequently Asked Questions</h2>
+    <div class="h-px w-full bg-hairline"></div>
+  </div>
+  <div class="grid gap-4">
     {items.map((item) => (
-      <div class="border-b border-hairline pb-6">
-        <h3 class="text-lg font-semibold text-ink mb-2">{item.question}</h3>
-        <p class="text-body leading-relaxed">{item.answer}</p>
+      <div class="border-b border-hairline pb-4">
+        <h3 class="text-sm font-semibold text-ink tracking-tight mb-1.5">{item.question}</h3>
+        <p class="text-sm text-body leading-relaxed">{item.answer}</p>
       </div>
     ))}
   </div>

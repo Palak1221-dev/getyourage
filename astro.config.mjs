@@ -9,6 +9,7 @@ export default defineConfig({
   site: 'https://tooltails.com',
   output: 'server',
   adapter: vercel(),
+  trailingSlash: 'always',
   devToolbar: {
     enabled: false
   },

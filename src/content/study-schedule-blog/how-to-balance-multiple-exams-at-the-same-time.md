@@ -22,7 +22,7 @@ Equal distribution sounds fair, but it is almost always wrong. Here is why.
 
 **Different subjects need different methods.** Math requires practice problems. History requires memorizing timelines. Literature requires essay writing. Treating them the same means one or more subjects will get a method that does not match its needs.
 
-The [Tooltails Study Scheduler](/study-schedule) handles multiple exams by weighting them differently. When you add multiple exams with different dates, the scheduler allocates study time proportionally — more time to exams that are sooner or higher priority.
+The [Tooltails Study Scheduler](/study-schedule/) handles multiple exams by weighting them differently. When you add multiple exams with different dates, the scheduler allocates study time proportionally — more time to exams that are sooner or higher priority.
 
 ## Step 1: Audit Your Exam Landscape
 
@@ -90,7 +90,7 @@ Once you know your priorities, allocate your available study hours across subjec
 
 The revision buffer is the most important row. Reserve about 30-40% of your time for reviewing older material across all subjects. Without this buffer, you will learn topics for one exam and forget them while studying for another.
 
-The [Study Scheduler](/study-schedule) automates this allocation. You enter your exams with dates and weights, and the scheduler calculates the optimal time split, including revision time for each subject.
+The [Study Scheduler](/study-schedule/) automates this allocation. You enter your exams with dates and weights, and the scheduler calculates the optimal time split, including revision time for each subject.
 
 ## Step 4: Create a Rotating Schedule
 
@@ -143,7 +143,7 @@ The biggest risk of multi-exam preparation is burnout. The physical and mental f
 
 **Schedule one full rest day per week.** No studying at all. Your brain needs time to consolidate everything you have learned. Skipping rest to "catch up" is counterproductive — you will lose more in efficiency than you gain in hours.
 
-**Set a hard study hour limit.** For most students, 5 hours of quality study per day is the maximum for sustained multi-week preparation. Beyond that, you are trading long-term performance for short-term hours. The [study planner](/study-schedule) lets you set a daily hours limit and sticks to it when generating your schedule.
+**Set a hard study hour limit.** For most students, 5 hours of quality study per day is the maximum for sustained multi-week preparation. Beyond that, you are trading long-term performance for short-term hours. The [study planner](/study-schedule/) lets you set a daily hours limit and sticks to it when generating your schedule.
 
 **Track your readiness, not just your time.** It is easy to clock 5 hours and feel accomplished, even if you spent half of that rereading notes passively. Check your readiness score for each subject weekly. If a subject shows no progress despite hours of study, change your method — do not add more hours.
 
@@ -177,8 +177,8 @@ Notice that Biology preparation scaled up after Calculus was under control. The 
 
 **What if one exam is much harder than the others?** Allocate extra time to the hard exam, but do not neglect the easier ones. A simple approach: give the hard exam 50% of your time, and distribute the remaining 50% across the others by importance. The hard exam gets more attention, but the easy ones still get enough to maintain your advantage.
 
-**How do I decide which exam to study for first?** Use the urgency-importance matrix. Start with exams that are both urgent (close date) and important (high weight). Then fill in less urgent but still important exams. Leave low-urgency, low-importance exams for your remaining time. Use the [Study Scheduler](/study-schedule) to input all your exams at once and let the tool suggest the optimal order.
+**How do I decide which exam to study for first?** Use the urgency-importance matrix. Start with exams that are both urgent (close date) and important (high weight). Then fill in less urgent but still important exams. Leave low-urgency, low-importance exams for your remaining time. Use the [Study Scheduler](/study-schedule/) to input all your exams at once and let the tool suggest the optimal order.
 
 **What do I do if I fall behind on one subject?** Do not steal time from other subjects to catch up. Instead, triage the subject you are behind on: identify the highest-yield topics (the ones most likely to appear on the exam and that you are weakest at) and focus on those. Accept that you may not cover everything perfectly and aim for 80% coverage of the most important material.
 
-**Ready to balance your multiple exams?** Add all your exam dates and subjects to the [Study Scheduler](/study-schedule) and get a personalized multi-exam study plan in seconds. Prioritize, schedule, and track your readiness across every subject — all in one place.
+**Ready to balance your multiple exams?** Add all your exam dates and subjects to the [Study Scheduler](/study-schedule/) and get a personalized multi-exam study plan in seconds. Prioritize, schedule, and track your readiness across every subject — all in one place.

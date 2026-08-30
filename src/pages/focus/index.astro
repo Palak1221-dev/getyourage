@@ -1,4 +1,4 @@
-﻿---
+---
 import Layout from "../../layouts/Layout.astro";
 
 import FAQ from "../../components/ui/FAQ.astro";
@@ -43,7 +43,7 @@ const appSchema = {
   "operatingSystem": "Web",
   "applicationCategory": "ProductivityApplication",
   "description": "An offline-first focus workspace with goal planning, checkpoint tracking, completion analytics, ambient sounds, and streak heatmaps — all in your browser.",
-  "url": Astro.url.origin + "/focus",
+  "url": Astro.url.origin + "/focus/",
   "featureList": [
     "Goal-Oriented Focus Timer (Intention over raw seconds)",
     "Checkpoint Decomposer (Milestone checklist)",
@@ -1199,13 +1199,13 @@ const appSchema = {
       <div class="max-w-[1200px] mx-auto text-center">
         <h2 class="text-2xl font-bold text-ink mb-12">Try our other productivity tools</h2>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="/pomodoro-timer" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+          <a href="/pomodoro-timer/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
             Pomodoro Timer
           </a>
-          <a href="/age-calculator" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+          <a href="/age-calculator/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
             Exact Age Calculator
           </a>
-          <a href="/word-counter" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+          <a href="/word-counter/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
             Word Counter
           </a>
         </div>

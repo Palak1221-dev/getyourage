@@ -22,7 +22,7 @@ For most presenters, a 5-minute speech falls between **550 and 750 words**. The 
 
 > **Want to measure your draft's speaking time?**
 > Paste your text into the ToolTails Word Counter to calculate reading time and speaking speed instantly.
-> [Check Word Count Now](/word-counter)
+> [Test your script with our free Word Counter](/word-counter/)
 
 ## Word Count Pacing Reference Table
 

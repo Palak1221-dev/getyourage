@@ -10,6 +10,11 @@ interface Props {
 	robots?: string;
 	hideHeader?: boolean;
 	hideFooter?: boolean;
+	/** Suppress all third-party analytics (Google Analytics + Microsoft Clarity
+	 * session recording) on pages where users paste private content. Clarity is
+	 * a session recorder — it captures the DOM and typed/pasted text, so it must
+	 * never run where document content is entered. */
+	privacy?: boolean;
 }
 
 const { 
@@ -18,8 +23,15 @@ const {
 	image = "/og-image.png",
 	robots = "index, follow",
 	hideHeader = false,
-	hideFooter = false
+	hideFooter = false,
+	privacy = false
 } = Astro.props;
+
+const rawPath = Astro.url.pathname;
+const pathnameWithSlash = (rawPath.endsWith('/') || rawPath.split('/').pop()?.includes('.'))
+	? rawPath
+	: `${rawPath}/`;
+const canonicalURL = new URL(pathnameWithSlash, Astro.site || 'https://tooltails.com');
 ---
 
 <!doctype html>
@@ -43,24 +55,28 @@ const {
 		
 		<meta name="google-site-verification" content="HqIOnKHLOIvy2wNB3_XF45mMl8q6q7oywDCWVqvFlUQ" />
 		
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-KR0XE0DH6F"></script>
-		<script is:inline>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
+		{!privacy && (
+			<>
+				<!-- Google tag (gtag.js) -->
+				<script async src="https://www.googletagmanager.com/gtag/js?id=G-KR0XE0DH6F"></script>
+				<script is:inline>
+					window.dataLayer = window.dataLayer || [];
+					function gtag(){dataLayer.push(arguments);}
+					gtag('js', new Date());
 
-			gtag('config', 'G-KR0XE0DH6F');
-		</script>
+					gtag('config', 'G-KR0XE0DH6F');
+				</script>
 
-		<!-- Microsoft Clarity -->
-		<script type="text/javascript" is:inline>
-			(function(c,l,a,r,i,t,y){
-				c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-				t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-				y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-			})(window, document, "clarity", "script", "xaww0799qh");
-		</script>
+				<!-- Microsoft Clarity -->
+				<script type="text/javascript" is:inline>
+					(function(c,l,a,r,i,t,y){
+						c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+						t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+						y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+					})(window, document, "clarity", "script", "xaww0799qh");
+				</script>
+			</>
+		)}
 
 		<title>{title}</title>
 		<meta name="description" content={description} />
@@ -69,8 +85,12 @@ const {
 		<!-- Preconnect for third-party origins -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link rel="preconnect" href="https://www.googletagmanager.com" />
-		<link rel="preconnect" href="https://www.clarity.ms" />
+		{!privacy && (
+			<>
+				<link rel="preconnect" href="https://www.googletagmanager.com" />
+				<link rel="preconnect" href="https://www.clarity.ms" />
+			</>
+		)}
 		<link rel="preconnect" href="https://cdn.jsdelivr.net" />
 		
 		<!-- Storefront & Editorial Fonts -->
@@ -84,7 +104,7 @@ const {
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:url" content={Astro.url} />
+		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:image" content={Astro.url.origin + image} />
 		<meta property="og:site_name" content="Tooltails" />
 
@@ -95,7 +115,7 @@ const {
 		<meta property="twitter:image" content={Astro.url.origin + image} />
 		<meta property="twitter:site" content="@tooltails" />
 		
-		<link rel="canonical" href={Astro.url} />
+		<link rel="canonical" href={canonicalURL} />
 		<script is:inline>
 			const theme = (() => {
 				if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {

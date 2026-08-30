@@ -38,4 +38,4 @@ By laying out the exact sequence, you don't have to think about "what's next". Y
 
 In Tooltails Focus, we integrated a checkpoint checklist directly into the goal card. Spend 2 minutes before every session writing your checkpoints. You'll be amazed at how much faster you finish.
 
-Try the [Tooltails Focus Timer](/focus) to start breaking down your goals today. If you prefer a simpler approach, our [Pomodoro Timer](/pomodoro-timer) offers a classic time-blocking experience.
+Try the [Tooltails Focus Timer](/focus/) to start breaking down your goals today. If you prefer a simpler approach, our [Pomodoro Timer](/pomodoro-timer/) offers a classic time-blocking experience.

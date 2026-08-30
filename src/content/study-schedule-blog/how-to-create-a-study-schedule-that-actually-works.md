@@ -22,7 +22,7 @@ Understanding why schedules fail is the first step to building one that works.
 
 ### Step 1: Audit Your Available Time
 
-Before you plan what to study, know when you can study. For one week, track how you spend your time. Use a simple log or the [Tooltails Study Scheduler](/study-schedule) to calculate your available hours automatically.
+Before you plan what to study, know when you can study. For one week, track how you spend your time. Use a simple log or the [Tooltails Study Scheduler](/study-schedule/) to calculate your available hours automatically.
 
 Be realistic. Count only hours when you can genuinely focus. Subtract meals, breaks, travel, and buffer time.
 
@@ -34,7 +34,7 @@ Not all subjects are equal. Rank them by:
 - How much it counts toward your grade
 - How confident you currently feel
 
-Your closest and most important exams should get the most time. Use the exam countdown feature in the [study planner](/study-schedule) to visualize how many days remain for each subject.
+Your closest and most important exams should get the most time. Use the exam countdown feature in the [study planner](/study-schedule/) to visualize how many days remain for each subject.
 
 ### Step 3: Break Subjects into Bite-Sized Topics
 
@@ -48,7 +48,7 @@ Once you have your topics and available time, distribute them evenly. Do not cra
 
 A good rule of thumb: spend no more than 1.5 hours on any single topic per day. Beyond that, diminishing returns set in.
 
-The [Tooltails Study Scheduler](/study-schedule) automates this distribution for you — just add your exam dates, subjects, and study hours, and it builds the plan.
+The [Tooltails Study Scheduler](/study-schedule/) automates this distribution for you — just add your exam dates, subjects, and study hours, and it builds the plan.
 
 ## Incorporate Revision
 
@@ -78,4 +78,4 @@ Your study schedule should include revision sessions at set intervals:
 
 **What if I fall behind?** Adjust your schedule rather than abandon it. Move uncompleted topics to the next available slot.
 
-**Ready to build your study schedule?** Use the [free Study Scheduler](/study-schedule) to generate a personalized plan in seconds.
+**Ready to build your study schedule?** Use the [free Study Scheduler](/study-schedule/) to generate a personalized plan in seconds.

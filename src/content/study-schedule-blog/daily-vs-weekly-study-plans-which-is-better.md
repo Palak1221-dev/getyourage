@@ -20,7 +20,7 @@ A daily study plan assigns specific topics to specific time slots on specific da
 
 2. **Helps with accountability.** A daily plan makes it obvious when you skip a session. That clarity can be motivating — or guilt-inducing, which some students need.
 
-3. **Works well with spaced repetition.** If you need to revise topic A on day 1, day 3, and day 7, a daily plan lets you schedule those exact dates. The [Study Scheduler](/study-schedule) uses daily planning by default — it distributes each topic across specific calendar dates with built-in revision intervals.
+3. **Works well with spaced repetition.** If you need to revise topic A on day 1, day 3, and day 7, a daily plan lets you schedule those exact dates. The [Study Scheduler](/study-schedule/) uses daily planning by default — it distributes each topic across specific calendar dates with built-in revision intervals.
 
 4. **Builds momentum.** Completing a daily plan creates a sense of progress. Each checked box reinforces the habit.
 
@@ -88,7 +88,7 @@ The right answer depends on your situation.
 - You need a quick start without spending hours on setup
 - You have less than 20 days and need to stay flexible
 
-The [Tooltails Study Scheduler](/study-schedule) supports both approaches. You can generate a detailed daily plan automatically, or use the readiness score to track whether you are on pace at a weekly level. Look at both views in the planner tabs and see which one better reflects how you actually work.
+The [Tooltails Study Scheduler](/study-schedule/) supports both approaches. You can generate a detailed daily plan automatically, or use the readiness score to track whether you are on pace at a weekly level. Look at both views in the planner tabs and see which one better reflects how you actually work.
 
 ## The Hybrid Approach: Best of Both
 
@@ -100,7 +100,7 @@ Many students get the best results by combining the two methods.
 
 **Step 3: Assign specific topics to each block.** At the start of each study block, decide exactly which topic you will cover. Write it down before you begin. This gives you daily structure without the fragility of a full day-by-day plan.
 
-**Step 4: Track revision dates.** Use a [smart study planner](/study-schedule) to log what you studied and when. The tool will tell you when each topic needs revision, so your weekly goals naturally include review sessions.
+**Step 4: Track revision dates.** Use a [smart study planner](/study-schedule/) to log what you studied and when. The tool will tell you when each topic needs revision, so your weekly goals naturally include review sessions.
 
 This hybrid approach gives you the flexibility of weekly planning with the precision of daily work.
 
@@ -140,4 +140,4 @@ Your plan is not permanent. Every Sunday, spend 10 minutes reviewing what worked
 
 **Does the Study Scheduler allow both daily and weekly views?** Yes. The scheduler generates daily topic assignments automatically, and the dashboard shows your weekly readiness score so you can see whether you are ahead or behind pace.
 
-**Ready to build your study plan?** Whether you prefer daily or weekly planning, the [Study Scheduler](/study-schedule) generates a personalized plan based on your exam dates and available hours. Try both views and see what sticks.
+**Ready to build your study plan?** Whether you prefer daily or weekly planning, the [Study Scheduler](/study-schedule/) generates a personalized plan based on your exam dates and available hours. Try both views and see what sticks.

@@ -18,7 +18,7 @@ Readability metrics help authors ensure their writing matches the comprehension 
 
 > **Test your readability instantly**
 > Type or paste your draft into the Tooltails Word Counter to compute Flesch-Kincaid grade levels in real time.
-> [Analyze Readability Score](/word-counter)
+> [Check your score with our free Word Counter & Text Analyzer](/word-counter/)
 
 ## Frequently Asked Questions
 

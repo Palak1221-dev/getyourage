@@ -22,7 +22,7 @@ Most standard speakers speak at a rate of 130 WPM. Over a 10-minute span, this r
 
 > **Need to check your draft's speaking time?**
 > Use the ToolTails Word Counter to calculate reading time and speaking speed instantly.
-> [Check Word Count Now](/word-counter)
+> [Check Word Count Now](/word-counter/)
 
 ## Pacing Reference Table for 10-Minute Speeches
 

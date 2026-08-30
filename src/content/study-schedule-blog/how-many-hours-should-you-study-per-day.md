@@ -65,7 +65,7 @@ A typical split: 2-2.5 hours of new learning, 1-1.5 hours of practice or revisio
 
 At this level, you need to be careful about burnout. Even if you can sit at a desk for 6 hours, you are probably not learning effectively for all 6. Break the day into smaller blocks with genuine breaks in between.
 
-The [Tooltails Study Scheduler](/study-schedule) lets you set your hours per day and distributes your subjects evenly across them. If you choose 5 hours, it will spread topics so you never have two heavy subjects back to back.
+The [Tooltails Study Scheduler](/study-schedule/) lets you set your hours per day and distributes your subjects evenly across them. If you choose 5 hours, it will spread topics so you never have two heavy subjects back to back.
 
 ### Maximum Intensity (6+ Hours Per Day)
 
@@ -109,7 +109,7 @@ The ranges above are general guidelines. Your actual optimal study time could be
 
 **Week 3: Add another hour or stabilize.** If 3 hours felt comfortable, try 4. If 3 hours was your limit, stay there. Pushing past your threshold will reduce your total output.
 
-**Use the planner to check your pacing.** The [study planner](/study-schedule) shows how many hours you have logged and your resulting readiness score. If your readiness score stays flat despite adding hours, you are past the point of diminishing returns.
+**Use the planner to check your pacing.** The [study planner](/study-schedule/) shows how many hours you have logged and your resulting readiness score. If your readiness score stays flat despite adding hours, you are past the point of diminishing returns.
 
 ## Uh-Oh: You Are Studying Too Much
 
@@ -132,7 +132,7 @@ A common mistake is to multiply your daily study hours by the number of remainin
 
 Every hour of new material requires roughly 20-30 minutes of revision spread over the following days. Accounting for revision reduces your effective "new learning" capacity by 20-30%. If you plan to study 4 hours per day, only about 3 hours of that should be new content. The remaining hour is revision of previously covered topics.
 
-The [Study Scheduler](/study-schedule) handles this automatically. When you set your hours per day, the scheduler allocates time for both new learning and revision based on the subjects you have added.
+The [Study Scheduler](/study-schedule/) handles this automatically. When you set your hours per day, the scheduler allocates time for both new learning and revision based on the subjects you have added.
 
 ## Frequently Asked Questions
 
@@ -144,4 +144,4 @@ The [Study Scheduler](/study-schedule) handles this automatically. When you set 
 
 **Does the Study Scheduler let me customize my hours per day?** Yes. You set your preferred hours per day and the scheduler builds a plan around that number. You can adjust it anytime as your energy levels change.
 
-**Ready to find your ideal study pace?** Enter your exam dates, subjects, and target hours in the [Study Scheduler](/study-schedule) and get a personalized daily study plan that balances learning and revision.
+**Ready to find your ideal study pace?** Enter your exam dates, subjects, and target hours in the [Study Scheduler](/study-schedule/) and get a personalized daily study plan that balances learning and revision.

@@ -42,4 +42,4 @@ Based on your selection, the engine generates a tailor-made recovery plan:
 
 By accepting these recovery steps, you treat focus as a muscle that needs recovery, leading to more sustainable flow states and healthier work habits.
 
-Start a recovery-aware session with the [Tooltails Focus Timer](/focus), or learn more about the science of focus on our [Focus Blog](/focus/blog).
+Start a recovery-aware session with the [Tooltails Focus Timer](/focus/), or learn more about the science of focus on our [Focus Blog](/focus/blog/).

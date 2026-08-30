@@ -21,7 +21,7 @@ This means a 1,000-word draft takes about 5 minutes to read silently, but will t
 
 > **Calculate reading and speaking times instantly**
 > Paste your script into the Tooltails Word Counter to get real-time timing indicators.
-> [Calculate Speech Pacing](/word-counter)
+> [Calculate your timing with our free Word Counter](/word-counter/)
 
 ## Frequently Asked Questions
 

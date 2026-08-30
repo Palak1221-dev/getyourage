@@ -12,7 +12,7 @@ This guide outlines a complete exam countdown plan, from 30 days out to the nigh
 
 Without a timeline, studying becomes reactive. You open a textbook, read whatever feels urgent, and hope it sticks. A countdown strategy flips this: you decide in advance what to study and when.
 
-The [Tooltails Study Scheduler](/study-schedule) includes an automatic countdown tracker that shows exactly how many days remain for each exam, helping you stay aware of your timeline.
+The [Tooltails Study Scheduler](/study-schedule/) includes an automatic countdown tracker that shows exactly how many days remain for each exam, helping you stay aware of your timeline.
 
 ## The 30-Day Exam Countdown
 
@@ -26,7 +26,7 @@ At this stage, your goal is not deep learning. It is understanding the full scop
 - Identify your weakest areas
 - Set a daily study hour target
 
-Use the [study planner](/study-schedule) to add your exam date and subjects. The scheduler will calculate how many hours you need per day to cover everything.
+Use the [study planner](/study-schedule/) to add your exam date and subjects. The scheduler will calculate how many hours you need per day to cover everything.
 
 ### 20 to 11 Days Out: Intensive Learning
 
@@ -68,7 +68,7 @@ At this point, do not try to learn anything new. Focus on review and confidence.
 
 ## Track Your Progress
 
-A countdown is only useful if you track it. The Tooltails [Study Scheduler](/study-schedule) shows your readiness score as you log sessions, so you always know exactly where you stand.
+A countdown is only useful if you track it. The Tooltails [Study Scheduler](/study-schedule/) shows your readiness score as you log sessions, so you always know exactly where you stand.
 
 ## Frequently Asked Questions
 
@@ -76,6 +76,6 @@ A countdown is only useful if you track it. The Tooltails [Study Scheduler](/stu
 
 **What if I have more than 30 days?** Use the extra time for deeper learning. Spend more days on difficult topics and add extra revision cycles.
 
-**How do I handle multiple exams in the same week?** Shift your schedule so the earlier exam gets priority in the final week. Use the multi-exam support in the [study planner](/study-schedule) to balance study time across exams.
+**How do I handle multiple exams in the same week?** Shift your schedule so the earlier exam gets priority in the final week. Use the multi-exam support in the [study planner](/study-schedule/) to balance study time across exams.
 
-**Ready to start your countdown?** Enter your exam date in the [Study Scheduler](/study-schedule) and get your personalized countdown plan today.
+**Ready to start your countdown?** Enter your exam date in the [Study Scheduler](/study-schedule/) and get your personalized countdown plan today.

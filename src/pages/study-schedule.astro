@@ -1,19 +1,19 @@
-﻿---
+---
 import Layout from "../layouts/Layout.astro";
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com" },
-    { "@type": "ListItem", "position": 2, "name": "Exam Coach", "item": "https://tooltails.com/study-schedule" }
+    { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Study Schedule Generator", "item": "https://tooltails.com/study-schedule/" }
   ]
 };
 
 const appSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Tooltails Exam Coach – Know Your Readiness",
+  "name": "Tooltails Study Schedule Generator",
   "operatingSystem": "All",
   "applicationCategory": "EducationalApplication",
   "description": "An intelligent exam coach that shows your readiness score, predicts when you'll finish, and adapts as you study. Free, no login.",
@@ -25,16 +25,16 @@ const appSchema = {
 const webPageSchema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "Exam Coach – Know Your Readiness | Tooltails",
+  "name": "Study Schedule Generator — Plan Your Exam Prep",
   "description": "Your intelligent exam coach. See your readiness score, your path to exam day, and exactly what to study next. Free, no login.",
-  "url": "https://tooltails.com/study-schedule"
+  "url": "https://tooltails.com/study-schedule/"
 };
 
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "Tooltails Exam Coach",
-  "url": "https://tooltails.com/study-schedule",
+  "name": "Tooltails Study Schedule Generator",
+  "url": "https://tooltails.com/study-schedule/",
   "description": "Your intelligent exam coach. Readiness score, study forecast, smart review, and streak tracking."
 };
 
@@ -57,7 +57,7 @@ const faqSchema = {
 ---
 
 <Layout
-  title="Exam Coach – Know Your Exam Readiness | Free Tooltails"
+  title="Study Schedule Generator — Plan Your Exam Prep"
   description="Your intelligent exam coach. See your exam readiness score, your path to exam day, and exactly what to study next. Free, no login required."
   image="/og-image.png"
 >

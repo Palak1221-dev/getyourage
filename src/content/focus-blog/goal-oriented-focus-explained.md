@@ -36,4 +36,4 @@ By decomposing the goal before the timer starts, you remove the decision fatigue
 
 Try starting your next session by setting one specific outcome, and watch how your daily shipping rate increases.
 
-Ready to put this into practice? Use the [Tooltails Focus Timer](/focus) to set outcome-driven goals and track your completion rate. For quick timed sessions, try the [Pomodoro Timer](/pomodoro-timer) as a complementary tool.
+Ready to put this into practice? Use the [Tooltails Focus Timer](/focus/) to set outcome-driven goals and track your completion rate. For quick timed sessions, try the [Pomodoro Timer](/pomodoro-timer/) as a complementary tool.

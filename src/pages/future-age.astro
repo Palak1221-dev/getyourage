@@ -19,14 +19,18 @@ const faqItems = [
   {
     question: "Can I calculate age on a specific date?",
     answer: "Yes, you can select any exact day, month, and year in the future (or past, as long as it's after your birth date) to find your precise age on that day."
+  },
+  {
+    question: "Is my data private?",
+    answer: "Yes. All calculation processing runs locally in your browser. No birth date or target date details leave your device."
   }
 ];
 
-
+const canonicalUrl = "https://tooltails.com/future-age/";
 ---
 
 <Layout 
-  title="Future Age Calculator - Calculate Your Age on Any Future Date" 
+  title="Future Age Calculator — Calculate Your Age on Any Future Date" 
   description="Find out exactly how old you will be on any future date. Calculate future age in years, months, weeks, and days."
 >
   <!-- Hero Section (Matching Homepage Design) -->
@@ -34,8 +38,8 @@ const faqItems = [
     <div class="max-w-[1200px] mx-auto px-6">
       <div class="grid grid-cols-1 lg:grid-cols-[1fr,460px] gap-6 lg:gap-16 items-start">
         <div class="text-center lg:text-left lg:pt-2">
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-ink mb-3 leading-[1.1]">
-            Future Age Calculator
+          <h1 class="text-3xl md:text-5xl font-bold tracking-tighter text-ink mb-3 leading-[1.1]">
+            Future Age Calculator — Calculate Your Age on Any Future Date
           </h1>
           <p class="text-base md:text-lg text-body leading-relaxed max-w-lg mx-auto lg:mx-0 mb-6">
             Find out exactly how old you will be on any future date. Calculate future age in years, months, weeks, and days.
@@ -77,13 +81,13 @@ const faqItems = [
     <div class="max-w-[1200px] mx-auto px-6 text-center">
       <h2 class="text-2xl font-bold text-ink mb-8">Try our other calculators</h2>
       <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a href="/age-difference" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/age-difference/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
           Try our Age Difference Calculator
         </a>
-        <a href="/birthday-countdown" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/birthday-countdown/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
           Try our Birthday Countdown Calculator
         </a>
-        <a href="/word-counter" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/word-counter/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
           Word Counter
         </a>
       </div>
@@ -96,12 +100,38 @@ const faqItems = [
       <FAQ items={faqItems} />
     </div>
   </section>
+
   <script type="application/ld+json" is:inline set:html={JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com" },
-      { "@type": "ListItem", "position": 2, "name": "Future Age Calculator", "item": "https://tooltails.com/future-age" }
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Future Age Calculator", "item": canonicalUrl }
+        ]
+      },
+      {
+        "@type": "WebApplication",
+        "name": "Future Age Calculator",
+        "url": canonicalUrl,
+        "description": "Find out exactly how old you will be on any future date.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": faqItems.map(item => ({
+          "@type": "Question",
+          "name": item.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": item.answer
+          }
+        }))
+      }
     ]
   })} />
 </Layout>
+
