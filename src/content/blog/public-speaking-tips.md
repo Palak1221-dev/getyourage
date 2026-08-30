@@ -73,3 +73,10 @@ Technology fails. Audiences ask tough questions. You'll lose your place. Prepare
 The audience doesn't know what you planned to say. If you handle a recovery smoothly, they won't even notice.
 
 Public speaking is a skill, not a talent. Every presentation you give makes you better. Seek opportunities to speak, collect feedback, and keep refining your approach.
+
+
+---
+
+## Estimating Speech Pacing
+
+To measure your presentation length accurately, estimate your timing with our [Word Counter and speaking time calculator](/word-counter/) and review our [5-minute speech word count guidelines](/blog/how-many-words-5-minute-speech/).

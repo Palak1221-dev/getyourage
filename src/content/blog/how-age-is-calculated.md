@@ -1,4 +1,4 @@
-﻿---
+---
 title: "How Age Is Calculated From Date of Birth (The Exact Math)"
 description: "Learn how chronological age is calculated from date of birth. Understand calendar deltas, varying month lengths, leap year rules, and elapsed duration math."
 pubDate: "2026-08-30"
@@ -77,7 +77,7 @@ Total Days    = floor(Total Hours / 24)
 Total Weeks   = floor(Total Days / 7)
 ```
 
-Because timestamp duration measures the total elapsed interval, leap days and differing month lengths are naturally accounted for in the cumulative day count.
+Because timestamp duration measures the total elapsed interval, leap days and differing month lengths are naturally accounted for in the cumulative day count. If you need to calculate the elapsed time between arbitrary dates without calendar borrowing, you can use our [Date Duration Calculator](/duration/).
 
 ---
 

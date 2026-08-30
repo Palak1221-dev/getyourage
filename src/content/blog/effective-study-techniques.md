@@ -65,3 +65,10 @@ Review your study plan weekly and adjust based on what's working. The best techn
 ## Protect Your Focus
 
 Deep study requires deep focus. Study in a distraction-free environment. Put your phone in another room. Use website blockers during study sessions. Research shows that even having your phone visible on your desk reduces cognitive capacity — not because you check it, but because your brain is resisting the temptation.
+
+
+---
+
+## Structuring Your Study Plan
+
+To turn spaced repetition into a structured daily plan, generate a timetable with the [Tooltails Study Schedule Generator](/study-schedule/) and time your focus intervals with our [Pomodoro study timer](/pomodoro-timer/).

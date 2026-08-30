@@ -198,7 +198,7 @@ Even good students make these mistakes. Recognize and avoid them.
 
 **Mistake 3: Comparing your preparation to others.** Someone in your class claims to have studied 12 hours straight. Another says they have finished all the past papers. None of this matters for your preparation. You do not know their baseline knowledge, their efficiency, or whether they are exaggerating. Run your own race.
 
-**Mistake 4: Sacrificing sleep for study time.** Every hour of study time that replaces sleep is a net negative. Sleep is when your brain consolidates memories. If you study for 6 hours but sleep only 4, you will remember less than if you studied for 4 hours and slept for 7. The [Study Scheduler](/study-schedule/) helps here by optimizing your daily time so you never need to pull all-nighters.
+**Mistake 4: Sacrificing sleep for study time.** Every hour of study time that replaces sleep is a net negative. Sleep is when your brain consolidates memories. If you study for 6 hours but sleep only 4, you will remember less than if you studied for 4 hours and slept for 7. The Study Scheduler helps here by optimizing your daily time so you never need to pull all-nighters.
 
 ## Frequently Asked Questions
 
@@ -206,7 +206,7 @@ Even good students make these mistakes. Recognize and avoid them.
 
 **What is the single most effective revision technique?** Active recall — forcing yourself to retrieve information from memory without looking at your notes. It beats rereading, highlighting, summarizing, and most other techniques by a wide margin. Combine active recall with spaced repetition for the best results.
 
-**How do I balance studying for multiple exams at the same time?** Rotate subjects daily rather than studying one subject for a full week. Mixing subjects (interleaving) improves your ability to distinguish concepts and choose the right approach for each type of problem. Use a planner that can handle multiple exams simultaneously, like the [Tooltails Study Scheduler](/study-schedule/).
+**How do I balance studying for multiple exams at the same time?** Rotate subjects daily rather than studying one subject for a full week. Mixing subjects (interleaving) improves your ability to distinguish concepts and choose the right approach for each type of problem. Use a planner that can handle multiple exams simultaneously, like the Tooltails Study Scheduler.
 
 **Should I take breaks during study sessions?** Yes. The Pomodoro Technique (25 minutes focus, 5 minutes break) works well for most students. The key is taking real breaks — stand up, walk away from your desk, look at something far away (20 feet for 20 seconds reduces eye strain). Do not spend your breaks on social media; that does not give your brain rest.
 
@@ -214,4 +214,7 @@ Even good students make these mistakes. Recognize and avoid them.
 
 **How can I tell if my exam preparation is working?** Use a readiness score — a metric that combines your topic coverage with your retention rate. If your coverage is high but your retention is low, you are moving too fast without enough revision. If your retention is high but coverage is low, you are spending too long on each topic. The Study Scheduler tracks both so you can see at a glance whether your strategy needs adjustment.
 
-**Ready to start your exam preparation?** Set up your study plan in the [Study Scheduler](/study-schedule/), track your readiness score, and walk into your exam knowing you are prepared.
+**Ready to start your exam preparation?** Set up your study plan in the Study Scheduler, track your readiness score, and walk into your exam knowing you are prepared.
+
+
+To organize your revision cycles systematically, see our framework on the [best revision timetable structure](/study-schedule/blog/best-revision-schedule-for-exam-success/).

@@ -16,3 +16,6 @@ ATS engines look for exact-match terms. Rather than writing general statements, 
 
 ## 3. Emphasize Required Skills
 Qualifications are not weighted equally. Ensure that required technologies listed under requirements headers are front-loaded in your experience bullets and skills list, as they carry double the weight of optional or preferred plusses.
+
+
+You can test your draft with the [Tooltails ATS Resume Checker](/resume-checker/) and strengthen your bullet points using our catalog of [high-impact action verbs](/resume-checker/blog/top-ats-friendly-action-verbs/).

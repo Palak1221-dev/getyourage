@@ -18,7 +18,7 @@ Regardless of how valuable your ideas are, if your text is difficult to read, yo
 
 > **Check your readability score live**
 > Use the Tooltails Word Counter readability metrics to monitor Flesch-Kincaid levels as you write.
-> [Measure Readability Free](/word-counter/)
+> [free readability analyzer and Word Counter](/word-counter/)
 
 ## Frequently Asked Questions
 

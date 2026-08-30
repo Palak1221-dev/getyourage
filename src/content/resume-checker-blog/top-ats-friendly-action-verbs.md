@@ -16,3 +16,6 @@ The first word of every bullet point on your resume is one of the most heavily s
 * **For Efficiency & Savings**: *Optimized, Reduced, Consolidated, Streamlined, Trimmed, Maximized.*
 
 Ensure at least 80% of your experience bullets open with a strong action verb to maintain a high scoring tier.
+
+
+After selecting active verbs, follow our guide on [quantifying resume accomplishments](/resume-checker/blog/quantifying-achievements-on-resume/) and evaluate your full document with the [Tooltails Resume Checker](/resume-checker/).

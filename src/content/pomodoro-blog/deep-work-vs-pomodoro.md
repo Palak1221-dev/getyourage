@@ -58,7 +58,7 @@ Here is a practical protocol for combining both approaches:
 
 **Step 2: Block deep work time.** Reserve 2-4 hours for deep work. During this time, no meetings, no email, no Slack.
 
-**Step 3: Execute with Pomodoro.** Within your deep work block, use the [Tooltails Pomodoro Timer](https://tooltails.com/pomodoro-timer) to work in focused intervals. For deep work, consider extending intervals to 50 minutes with 10-minute breaks.
+**Step 3: Execute with Pomodoro.** Within your deep work block, use the [Tooltails Pomodoro Timer](/pomodoro-timer/) to work in focused intervals. For deep work, consider extending intervals to 50 minutes with 10-minute breaks.
 
 **Step 4: Protect your deep work.** Your productivity score and streak data help you quantify the value of your deep work time. Use this data to justify protecting your focus blocks.
 
@@ -81,4 +81,7 @@ Here is a practical protocol for combining both approaches:
 
 **Is 25 minutes enough for deep work?** For some types of deep work, 25 minutes is too short. Consider using longer intervals (50-90 minutes) for cognitively demanding tasks while keeping the Pomodoro structure of scheduled breaks.
 
-**What if I cannot do deep work every day?** That is normal. Aim for 2-4 hours of deep work per day, and use the remaining time for shallow tasks, learning, and recovery. Use our [Pomodoro Timer](https://tooltails.com/pomodoro-timer) to track your deep work hours.
+**What if I cannot do deep work every day?** That is normal. Aim for 2-4 hours of deep work per day, and use the remaining time for shallow tasks, learning, and recovery. Use our [Pomodoro Timer](/pomodoro-timer/) to track your deep work hours.
+
+
+To learn more about milestone-driven focus, see our guide on [outcome-oriented focus methods](/focus/blog/goal-oriented-focus-explained/).

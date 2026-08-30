@@ -13,3 +13,6 @@ Modern ATS parsers utilize Natural Language Processing (NLP) to check **phrase-l
 * **Analyze the Sentence Structure**: Look for common verb-noun pairings in the JD.
 * **Avoid Keyword Blocks**: Do not list 50 standalone tools at the bottom. Instead, weave them directly into your achievements: *"Designed event-driven messaging pipelines using RabbitMQ and Redis..."*
 * **Keep Readability High**: If your resume gets past the ATS, it must still satisfy a human recruiter. Write for the human first, then tweak phrases for the machine.
+
+
+Ensure you distinguish between [required and preferred skills](/resume-checker/blog/required-vs-preferred-skills-on-resume/) and verify your keyword coverage using the [Tooltails ATS Resume Checker](/resume-checker/).

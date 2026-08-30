@@ -13,3 +13,6 @@ ATS algorithms do not count all skills equally. Required skills carry a higher w
 1. **Front-load Core Skills**: Place the skills mentioned under "Requirements" or "Qualifications" at the very top of your technical list.
 2. **Weave Them Into Experience**: Do not just list keywords in a footer grid. Weave them into your work history bullets so the parser can associate the skills with dates and actual projects.
 3. **Handle Gaps Strategically**: If you lack a preferred skill (like GraphQL), it has minor impact. But missing a core skill (like React) will significantly drop your match rating.
+
+
+To check how your qualifications match a target job description, use our [resume skill matching tool](/resume-checker/) alongside our guide on [optimizing resume keywords](/resume-checker/blog/resume-keywords-optimization/).

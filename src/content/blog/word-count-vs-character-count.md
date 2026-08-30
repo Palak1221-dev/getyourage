@@ -24,7 +24,7 @@ A **character** is the smallest possible unit of written text. This includes let
 
 > **Instantly analyze your draft's structure**
 > Our free Word Counter displays exact words, characters with spaces, and characters without spaces side by side.
-> [Check Your Text Now](/word-counter/)
+> [Word Counter and character analyzer](/word-counter/)
 
 ## Word Count vs Character Count Comparison
 

@@ -14,7 +14,7 @@ The ADHD brain responds well to certain types of structure. The Pomodoro Techniq
 
 **Reduced overwhelm.** Large tasks feel paralyzing. Committing to just 25 minutes makes even the most daunting project feel manageable. The technique breaks work into units that the ADHD brain can handle.
 
-**Frequent rewards.** Each completed Pomodoro provides a sense of accomplishment. The visual progress tracking and productivity score in our [Pomodoro Timer](https://tooltails.com/pomodoro-timer) deliver the dopamine hits that help maintain motivation.
+**Frequent rewards.** Each completed Pomodoro provides a sense of accomplishment. The visual progress tracking and productivity score in our [Pomodoro Timer](/pomodoro-timer/) deliver the dopamine hits that help maintain motivation.
 
 **Built-in breaks.** ADHD brains need more frequent opportunities to reset. The 5-minute break between intervals provides a scheduled outlet for restlessness, reducing the urge to fidget or switch tasks.
 
@@ -40,7 +40,7 @@ Here is how to adapt the technique for ADHD-friendly use:
 
 ## Building a Streak Habit
 
-Consistency is more important than volume for ADHD productivity. Our [Pomodoro Timer](https://tooltails.com/pomodoro-timer) tracks your daily streak, providing a visual reminder of your commitment. Even one Pomodoro on a difficult day counts as a win.
+Consistency is more important than volume for ADHD productivity. Our [Pomodoro Timer](/pomodoro-timer/) tracks your daily streak, providing a visual reminder of your commitment. Even one Pomodoro on a difficult day counts as a win.
 
 **Start with one.** Commit to just one Pomodoro per day for the first week. Once that feels automatic, add a second. Building the habit slowly prevents overwhelm and sets you up for long-term success.
 

@@ -76,3 +76,10 @@ Like any skill, reading comprehension improves with deliberate practice. Set asi
 The ultimate test of comprehension is the ability to explain something to someone else. After finishing a book or article, try to explain the main ideas to a friend or colleague. If you struggle, you've identified what you don't fully understand — go back and reread those sections.
 
 Improving your reading comprehension is one of the highest-leverage investments you can make. Better reading leads to better thinking, better learning, and better decisions.
+
+
+---
+
+## Assessing Text Complexity
+
+To assess the structural difficulty of reference materials, explore standard [Flesch-Kincaid readability scoring](/blog/what-is-good-readability-score/).

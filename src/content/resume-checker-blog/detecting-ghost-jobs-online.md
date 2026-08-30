@@ -14,3 +14,6 @@ Applying to jobs takes time. Submitting custom-tailored resumes to ghost jobs wa
 2. **Missing Salary/Location Details**: Fake JDs are often vague, lacking clear compensation metrics or division context.
 3. **Copy-Paste Responsibilities**: Look for extremely generic templates that contain clichés like *"work with cross-functional teams"* without specifying team roles.
 4. **Draft Placeholders**: Check if JDs have accidental brackets like `[Company Name]` or `[Insert Date]`.
+
+
+When applying to verified openings, tailor your document and check keyword alignment using the [Tooltails Resume Checker](/resume-checker/).

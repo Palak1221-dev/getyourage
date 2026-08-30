@@ -104,7 +104,7 @@ Notice the pattern: every day includes at least one review from a previous day. 
 - **Week 3:** 40% new learning, 60% revision
 - **Week 4:** 20% new learning, 80% revision
 
-This ratio shift is automatic when you use a [smart revision scheduler](/study-schedule/). You set your total study hours per day, and the tool divides them between new topics and reviews based on your progress.
+This ratio shift is automatic when you use a smart revision scheduler. You set your total study hours per day, and the tool divides them between new topics and reviews based on your progress.
 
 ## Revision Techniques Ranked by Effectiveness
 
@@ -141,7 +141,7 @@ Reviewing the same topic three times in one day is much less effective than revi
 
 If you spend 30 minutes re-reading a topic from scratch, you are not reviewing — you are relearning. That is a sign that you waited too long between reviews.
 
-**Fix:** Shrink your review interval. If you have forgotten an entire topic, add it to your list with a shorter next-review window. The [Study Scheduler](/study-schedule/) automatically shortens intervals when your readiness score drops for a topic.
+**Fix:** Shrink your review interval. If you have forgotten an entire topic, add it to your list with a shorter next-review window. The Study Scheduler automatically shortens intervals when your readiness score drops for a topic.
 
 ### Mistake 4: Skipping the First 24-Hour Review
 
@@ -160,7 +160,7 @@ Here is how to build your personalized revision schedule from scratch.
 - Tier 2: Moderate weight or moderate difficulty
 - Tier 3: Low weight or easy topics
 
-**Step 3: Determine your available revision time.** Be honest about how many hours you can study each day. The [study planner](/study-schedule/) helps you input your daily capacity and distributes topics accordingly.
+**Step 3: Determine your available revision time.** Be honest about how many hours you can study each day. The study planner helps you input your daily capacity and distributes topics accordingly.
 
 **Step 4: Schedule initial learning sessions.** Start with Tier 1 topics, then Tier 2, then Tier 3. Allocate your first 1-2 weeks to Phase 1 learning.
 
@@ -178,4 +178,7 @@ Here is how to build your personalized revision schedule from scratch.
 
 **Does the Study Scheduler work for professional certification exams?** Yes. The revision schedule is subject-agnostic. Whether you are studying for a college midterm, a medical board exam, or a tech certification, the same spaced-repetition principles apply. Add your exam date and topics, and the scheduler builds the optimal revision timeline.
 
-**Ready to build your revision schedule?** Enter your exam dates and subjects in the [Study Scheduler](/study-schedule/) and get a complete spaced-repetition plan in seconds. Start today and walk into your exam prepared.
+**Ready to build your revision schedule?** Enter your exam dates and subjects in the Study Scheduler and get a complete spaced-repetition plan in seconds. Start today and walk into your exam prepared.
+
+
+For strategies on pacing yourself early in the semester, review our guide on [spaced revision versus last-minute cramming](/study-schedule/blog/how-to-avoid-last-minute-exam-cramming/).

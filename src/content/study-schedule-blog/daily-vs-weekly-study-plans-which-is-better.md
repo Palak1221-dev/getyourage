@@ -100,7 +100,7 @@ Many students get the best results by combining the two methods.
 
 **Step 3: Assign specific topics to each block.** At the start of each study block, decide exactly which topic you will cover. Write it down before you begin. This gives you daily structure without the fragility of a full day-by-day plan.
 
-**Step 4: Track revision dates.** Use a [smart study planner](/study-schedule/) to log what you studied and when. The tool will tell you when each topic needs revision, so your weekly goals naturally include review sessions.
+**Step 4: Track revision dates.** Use a smart study planner to log what you studied and when. The tool will tell you when each topic needs revision, so your weekly goals naturally include review sessions.
 
 This hybrid approach gives you the flexibility of weekly planning with the precision of daily work.
 
@@ -140,4 +140,6 @@ Your plan is not permanent. Every Sunday, spend 10 minutes reviewing what worked
 
 **Does the Study Scheduler allow both daily and weekly views?** Yes. The scheduler generates daily topic assignments automatically, and the dashboard shows your weekly readiness score so you can see whether you are ahead or behind pace.
 
-**Ready to build your study plan?** Whether you prefer daily or weekly planning, the [Study Scheduler](/study-schedule/) generates a personalized plan based on your exam dates and available hours. Try both views and see what sticks.
+**Ready to build your study plan?** Whether you prefer daily or weekly planning, the Study Scheduler generates a personalized plan based on your exam dates and available hours. Try both views and see what sticks.
+
+To structure daily task execution with milestone timers, try our [Focus Goals Timer](/focus/).

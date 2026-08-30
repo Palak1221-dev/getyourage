@@ -77,3 +77,10 @@ The best stress management technique is the one you actually use. Have multiple 
 ## Know When to Seek Support
 
 Stress is a normal part of life, but persistent stress that interferes with your ability to function may require professional support. If you're experiencing chronic sleep problems, anxiety, depression, or physical symptoms, talk to a healthcare provider. Managing stress isn't a solo endeavor.
+
+
+---
+
+## Rest & Recovery
+
+Prevent cognitive fatigue during intensive projects with [structured rest breaks with our Pomodoro Timer](/pomodoro-timer/).

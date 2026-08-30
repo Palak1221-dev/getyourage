@@ -25,7 +25,7 @@ Different types of work support different numbers of daily Pomodoros:
 
 **Students.** 4-8 Pomodoros is realistic during exam periods. Each Pomodoro covers one study block. With breaks included, 8 Pomodoros takes roughly 4 hours of total time (including breaks).
 
-**Software developers.** 6-10 Pomodoros is common for developers who have focused deep work time. Meetings and collaboration reduce available Pomodoro slots. Use our [Pomodoro Timer](https://tooltails.com/pomodoro-timer) to track how many focus sessions you complete on meeting-heavy vs. meeting-light days.
+**Software developers.** 6-10 Pomodoros is common for developers who have focused deep work time. Meetings and collaboration reduce available Pomodoro slots. Use our [Pomodoro Timer](/pomodoro-timer/) to track how many focus sessions you complete on meeting-heavy vs. meeting-light days.
 
 **Writers and content creators.** 4-8 Pomodoros is typical. Writing is cognitively demanding, and quality often matters more than quantity. A single productive Pomodoro of writing can produce 500-1000 words.
 
@@ -60,7 +60,7 @@ Follow this four-week process to discover your optimal daily Pomodoro target:
 
 ## The Role of Your Daily Goal
 
-Our [Pomodoro Timer](https://tooltails.com/pomodoro-timer) lets you set a daily goal and tracks your completion percentage. Use this feature to gamify your target. But remember: the goal is a guide, not a requirement. Some days you will exceed it; other days you will fall short. What matters is showing up consistently.
+Our [Pomodoro Timer](/pomodoro-timer/) lets you set a daily goal and tracks your completion percentage. Use this feature to gamify your target. But remember: the goal is a guide, not a requirement. Some days you will exceed it; other days you will fall short. What matters is showing up consistently.
 
 ## Frequently Asked Questions
 

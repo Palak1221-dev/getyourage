@@ -16,7 +16,7 @@ The Pomodoro Technique is simple to learn but surprisingly easy to implement inc
 
 **The problem.** You complete a Pomodoro and decide to skip the break because you are "in flow." You power through, but by the third consecutive Pomodoro without a break, your focus quality drops significantly.
 
-**The fix.** Respect the break timer as much as the work timer. The break is not optional. It is a structural component of the technique that prevents mental fatigue. If you are in deep focus when the timer rings, take at least 60 seconds to reset. Use our [Pomodoro Timer](https://tooltails.com/pomodoro-timer) with Auto-Start disabled to ensure you take your full break.
+**The fix.** Respect the break timer as much as the work timer. The break is not optional. It is a structural component of the technique that prevents mental fatigue. If you are in deep focus when the timer rings, take at least 60 seconds to reset. Use our [Pomodoro Timer](/pomodoro-timer/) with Auto-Start disabled to ensure you take your full break.
 
 ## Mistake 3: Working Past the Timer
 
@@ -34,7 +34,7 @@ The Pomodoro Technique is simple to learn but surprisingly easy to implement inc
 
 **The problem.** You start a Pomodoro with a vague goal like "work on the report." Ten minutes in, you are still deciding which section to tackle. Fifteen minutes in, you switch to a different task.
 
-**The fix.** Before each Pomodoro, define one specific, actionable task. Write it down. "Write the methodology section (500 words)" is better than "work on methodology." The clearer the goal, the easier it is to focus. Enter your task in the [Pomodoro Timer](https://tooltails.com/pomodoro-timer) before starting.
+**The fix.** Before each Pomodoro, define one specific, actionable task. Write it down. "Write the methodology section (500 words)" is better than "work on methodology." The clearer the goal, the easier it is to focus. Enter your task in the [Pomodoro Timer](/pomodoro-timer/) before starting.
 
 ## Mistake 6: Using Pomodoro for Everything
 
@@ -46,7 +46,7 @@ The Pomodoro Technique is simple to learn but surprisingly easy to implement inc
 
 **The problem.** You complete your Pomodoros for the day and close the timer without reviewing what worked and what did not. You repeat the same patterns day after day without improvement.
 
-**The fix.** Spend two minutes at the end of each day reviewing your session history. How many Pomodoros did you complete? Which tasks took longer than expected? When were you most productive? Use the analytics from the [Tooltails Pomodoro Timer](https://tooltails.com/pomodoro-timer) to identify patterns and make data-driven adjustments to your workflow.
+**The fix.** Spend two minutes at the end of each day reviewing your session history. How many Pomodoros did you complete? Which tasks took longer than expected? When were you most productive? Use the analytics from the [Tooltails Pomodoro Timer](/pomodoro-timer/) to identify patterns and make data-driven adjustments to your workflow.
 
 ## Frequently Asked Questions
 

@@ -132,7 +132,7 @@ A common mistake is to multiply your daily study hours by the number of remainin
 
 Every hour of new material requires roughly 20-30 minutes of revision spread over the following days. Accounting for revision reduces your effective "new learning" capacity by 20-30%. If you plan to study 4 hours per day, only about 3 hours of that should be new content. The remaining hour is revision of previously covered topics.
 
-The [Study Scheduler](/study-schedule/) handles this automatically. When you set your hours per day, the scheduler allocates time for both new learning and revision based on the subjects you have added.
+The Study Scheduler handles this automatically. When you set your hours per day, the scheduler allocates time for both new learning and revision based on the subjects you have added.
 
 ## Frequently Asked Questions
 
@@ -144,4 +144,6 @@ The [Study Scheduler](/study-schedule/) handles this automatically. When you set
 
 **Does the Study Scheduler let me customize my hours per day?** Yes. You set your preferred hours per day and the scheduler builds a plan around that number. You can adjust it anytime as your energy levels change.
 
-**Ready to find your ideal study pace?** Enter your exam dates, subjects, and target hours in the [Study Scheduler](/study-schedule/) and get a personalized daily study plan that balances learning and revision.
+**Ready to find your ideal study pace?** Enter your exam dates, subjects, and target hours in the Study Scheduler and get a personalized daily study plan that balances learning and revision.
+
+To structure your daily hours across long-term goals, see our comparison of [daily versus weekly study scheduling](/study-schedule/blog/daily-vs-weekly-study-plans-which-is-better/).

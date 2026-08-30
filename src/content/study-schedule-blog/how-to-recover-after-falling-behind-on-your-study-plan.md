@@ -158,7 +158,7 @@ This situation requires an honest conversation with yourself. You cannot cover 3
 
 Recovery is not a one-time event. The habits you build during recovery determine whether you will need to recover again.
 
-**Audit your plan weekly.** Every Sunday, spend 10 minutes reviewing what worked and what did not. Did you overestimate your energy on Tuesday? Did Thursday's interruption throw off the rest of the week? Adjust next week's plan accordingly. The [study planner](/study-schedule/) makes this easy with its weekly view and readiness tracking.
+**Audit your plan weekly.** Every Sunday, spend 10 minutes reviewing what worked and what did not. Did you overestimate your energy on Tuesday? Did Thursday's interruption throw off the rest of the week? Adjust next week's plan accordingly. The study planner makes this easy with its weekly view and readiness tracking.
 
 **Build margin into every day.** Assume each day will have one interruption. A 30-minute phone call. A delayed bus. A headache. If your schedule has zero slack, every interruption causes a cascade of missed targets. Build 30-60 minutes of unscheduled time into each day.
 
@@ -172,10 +172,13 @@ Recovery is not a one-time event. The habits you build during recovery determine
 
 **How do I handle the guilt of falling behind?** Guilt is a signal that you care. That is a good thing. But dwelling on guilt is counterproductive. Acknowledge it, learn from what caused the gap, and channel that energy into the triage and rebuild steps above. Action is the antidote to guilt.
 
-**What if I have multiple exams and I am behind on all of them?** Prioritize by exam date and weight. The exam that is soonest and counts the most gets recovery attention first. Accept that you may need to reduce the depth of coverage on lower-priority exams. The Tooltails [Study Scheduler](/study-schedule/) helps you visualize all your exams side by side with countdown clocks, making it easier to decide where to focus.
+**What if I have multiple exams and I am behind on all of them?** Prioritize by exam date and weight. The exam that is soonest and counts the most gets recovery attention first. Accept that you may need to reduce the depth of coverage on lower-priority exams. The Tooltails Study Scheduler helps you visualize all your exams side by side with countdown clocks, making it easier to decide where to focus.
 
 **Can I catch up by studying on rest days?** You can, but you should not. Rest days are when your brain consolidates memories. Skipping them for catch-up creates a short-term gain (you covered one more topic) and a long-term loss (you remember less of everything else). Use rest days only for catch-up if you took an unscheduled break earlier in the week.
 
 **How many topics can I realistically cover per day?** Most students can learn 1-2 new topics per day at full depth (60-90 minutes each) or 3-4 topics at summary level. Pushing beyond this leads to diminishing returns — you cover more topics but retain less from each. Quality always beats quantity during recovery.
 
-**Ready to reset your study plan?** Use the [free Study Scheduler](/study-schedule/) to triage your topics, rebuild your schedule with built-in buffer, and get back on track today. No guilt, no panic — just a clear plan forward.
+**Ready to reset your study plan?** Use the free Study Scheduler to triage your topics, rebuild your schedule with built-in buffer, and get back on track today. No guilt, no panic — just a clear plan forward.
+
+
+If you have fallen behind schedule, review our strategies on [avoiding panic cramming](/study-schedule/blog/how-to-avoid-last-minute-exam-cramming/).

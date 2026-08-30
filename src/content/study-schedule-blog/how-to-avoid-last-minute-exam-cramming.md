@@ -70,7 +70,7 @@ Spend the first two weeks creating a clear picture of every exam, subject, and t
 - Break each subject into specific, testable topics
 - Estimate how much time each topic needs
 
-You can do this in the [Study Scheduler](/study-schedule/) by adding each exam and subject. The tool automatically calculates how many hours per week you need to cover everything with room for revision.
+You can do this in the Study Scheduler by adding each exam and subject. The tool automatically calculates how many hours per week you need to cover everything with room for revision.
 
 ### Week 3-6: First Pass Learning
 
@@ -119,7 +119,7 @@ Sometimes life gets in the way and you fall behind. Do not panic and do not turn
 
 **Accept the 80/20 rule.** In many exams, 20% of the content accounts for 80% of the questions. If you are behind, focus on that 20%. Use past papers to identify which topics are most heavily weighted.
 
-**Update your schedule.** Do not abandon your [study planner](/study-schedule/) when you fall behind. Adjust the dates, reduce the revision intervals, and commit to a realistic plan going forward. A revised schedule beats a cram session every time.
+**Update your schedule.** Do not abandon your study planner when you fall behind. Adjust the dates, reduce the revision intervals, and commit to a realistic plan going forward. A revised schedule beats a cram session every time.
 
 ## A Note on Exam Anxiety
 
@@ -137,4 +137,6 @@ The best antidote is proof. Every time you log a study session in your planner, 
 
 **How can I stop procrastinating enough to study early?** Use the two-minute rule: commit to two minutes of studying. Open your notes, read one paragraph. That is it. The hardest barrier is inertia, and two minutes is too small to resist. Once moving, you will usually continue.
 
-**Ready to build a study plan that eliminates cramming?** Use the [free Study Scheduler](/study-schedule/) to generate a spaced-repetition schedule based on your exams and subjects. Add your first exam now and see how early planning changes everything.
+**Ready to build a study plan that eliminates cramming?** Use the free Study Scheduler to generate a spaced-repetition schedule based on your exams and subjects. Add your first exam now and see how early planning changes everything.
+
+To build a realistic long-term study calendar, explore our [structured revision timetable](/study-schedule/blog/best-revision-schedule-for-exam-success/) framework.

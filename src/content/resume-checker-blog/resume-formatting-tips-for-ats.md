@@ -17,3 +17,6 @@ This breaks dates and prevents the system from recognizing your tenure.
 * **Convert Tabs to Spaces**: Tab characters can break layout alignment during conversion.
 * **Standard Bullet Points**: Use standard solid dot (`•`) or dash (`-`) markers. Special icons or custom SVGs can fail to render.
 * **Standard Fonts**: Stick to common cross-platform fonts like Arial, Calibri, or Helvetica.
+
+
+When choosing your layout, stick with a clean [chronological resume format](/resume-checker/blog/chronological-vs-functional-resumes/) and run your draft through the [Tooltails Resume Checker](/resume-checker/) to detect formatting flags before applying.

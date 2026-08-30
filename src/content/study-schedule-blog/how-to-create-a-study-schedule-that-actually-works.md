@@ -48,7 +48,7 @@ Once you have your topics and available time, distribute them evenly. Do not cra
 
 A good rule of thumb: spend no more than 1.5 hours on any single topic per day. Beyond that, diminishing returns set in.
 
-The [Tooltails Study Scheduler](/study-schedule/) automates this distribution for you — just add your exam dates, subjects, and study hours, and it builds the plan.
+The Tooltails Study Scheduler automates this distribution for you — just add your exam dates, subjects, and study hours, and it builds the plan.
 
 ## Incorporate Revision
 
@@ -78,4 +78,6 @@ Your study schedule should include revision sessions at set intervals:
 
 **What if I fall behind?** Adjust your schedule rather than abandon it. Move uncompleted topics to the next available slot.
 
-**Ready to build your study schedule?** Use the [free Study Scheduler](/study-schedule/) to generate a personalized plan in seconds.
+**Ready to build your study schedule?** Use the free Study Scheduler to generate a personalized plan in seconds.
+
+For comprehensive exam preparation steps, see our [complete revision guide](/study-schedule/blog/complete-guide-to-exam-preparation-and-revision/).

@@ -16,7 +16,7 @@ Data indicates that articles containing 1,500 to 2,500 words consistently perfor
 
 > **Check your blog post length instantly**
 > Use the Tooltails Word Counter to track paragraphs, keyword density, and word count targets.
-> [Analyze Your Blog Draft](/word-counter/)
+> [free Word Counter and text analyzer](/word-counter/)
 
 ## Quality Over Quantity
 

@@ -17,7 +17,7 @@ We read text silently much faster than we can speak it out loud.
 - **Reading Speed** averages **200 WPM**.
 - **Speaking Speed** averages **130 WPM**.
 
-This means a 1,000-word draft takes about 5 minutes to read silently, but will take closer to 7.5 to 8 minutes to deliver as a presentation.
+This means a 1,000-word draft takes about 5 minutes to read silently, but will take closer to 7.5 to 8 minutes to deliver as a presentation. For specific presentation timing benchmarks, check our [speech word count calculations](/blog/how-many-words-5-minute-speech/).
 
 > **Calculate reading and speaking times instantly**
 > Paste your script into the Tooltails Word Counter to get real-time timing indicators.

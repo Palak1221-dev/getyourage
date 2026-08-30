@@ -48,7 +48,7 @@ Your physical environment significantly impacts your ability to focus. Here are 
 
 **Dedicated workspace.** If possible, use a separate room for work. When your Pomodoro starts, you are in "work mode." When it ends, you step away.
 
-**Visual timer.** Keep the [Tooltails Pomodoro Timer](https://tooltails.com/pomodoro-timer) visible on your screen. The visual progress ring helps you stay oriented during each session.
+**Visual timer.** Keep the [Tooltails Pomodoro Timer](/pomodoro-timer/) visible on your screen. The visual progress ring helps you stay oriented during each session.
 
 **Break triggers.** Use your breaks as cues to change your environment. During short breaks, stand up and stretch. During long breaks, go outside or do a household task that creates a clear separation between work blocks.
 

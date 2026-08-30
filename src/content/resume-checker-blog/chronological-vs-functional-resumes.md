@@ -12,3 +12,6 @@ ATS parsers are designed to map skills to timelines. They need to calculate *how
 ## Stick to Reverse-Chronological Layouts
 * **Link Roles to Achievements**: Keep all bullets tied directly to a specific company and date range.
 * **Format Dates Clearly**: Use standard formats like `MM/YYYY - MM/YYYY` or `Year - Present`. Custom date formats can cause parsing calculation failures.
+
+
+Before submitting either layout, test your document with the [Tooltails Resume Checker](/resume-checker/) to verify parsing accuracy, and follow our [resume formatting guidelines](/resume-checker/blog/resume-formatting-tips-for-ats/) to avoid common layout errors.

@@ -24,7 +24,7 @@ Follow this workflow for maximum effectiveness:
 
 **Before your first Pomodoro:** Review your task list and define exactly what you will work on. Break large features into Pomodoro-sized chunks. A good rule of thumb: if a task takes more than 4 Pomodoros, break it down further.
 
-**During your Pomodoro:** Close all communication tools (Slack, email, Teams). Put your phone face down. If you are working on a team, set your status to "Focusing" or "Do Not Disturb." Use the [Tooltails Pomodoro Timer](https://tooltails.com/pomodoro-timer) to track your session.
+**During your Pomodoro:** Close all communication tools (Slack, email, Teams). Put your phone face down. If you are working on a team, set your status to "Focusing" or "Do Not Disturb." Use the [Tooltails Pomodoro Timer](/pomodoro-timer/) to track your session.
 
 **During your break:** Step away from the keyboard. Stand up, stretch, walk around. Your brain continues to work on problems subconsciously during breaks — many developers report having breakthroughs while on a walk or making tea.
 
@@ -70,6 +70,6 @@ This schedule provides 5 focused Pomodoros in the morning when energy is highest
 
 **What if I am in flow when the timer rings?** It is tempting to keep going, but respecting the break is important for long-term sustainability. Document your next step and take the break. The flow state will return.
 
-**How do I handle meetings with Pomodoro?** Block your calendar for focus time. Schedule meetings back-to-back to preserve uninterrupted Pomodoro blocks. Our [Pomodoro Timer](https://tooltails.com/pomodoro-timer) tracks your daily focus minutes so you can protect your deep work time.
+**How do I handle meetings with Pomodoro?** Block your calendar for focus time. Schedule meetings back-to-back to preserve uninterrupted Pomodoro blocks. Our [Pomodoro Timer](/pomodoro-timer/) tracks your daily focus minutes so you can protect your deep work time.
 
 **Can I use Pomodoro for agile sprints?** Yes. Pomodoro intervals align well with agile development. Use each Pomodoro as a mini-sprint within your larger sprint cycle.

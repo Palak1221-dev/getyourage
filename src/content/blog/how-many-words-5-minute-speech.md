@@ -46,7 +46,7 @@ In a live environment, you will naturally pause for slides, audience laughter, o
 
 ### 3. Practice Out Loud
 
-Reading silently is much faster than speaking. Always time your draft by reading it aloud at your normal presentation volume, pacing, and hand gestures to ensure an accurate test.
+Reading silently is much faster than speaking. To understand why silent pacing differs from vocal delivery, explore our comparison of [reading speed versus speaking rate](/blog/reading-time-vs-speaking-time/). Always time your draft by reading it aloud at your normal presentation volume, pacing, and hand gestures to ensure an accurate test.
 
 ## Frequently Asked Questions
 

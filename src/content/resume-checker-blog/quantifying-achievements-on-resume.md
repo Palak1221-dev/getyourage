@@ -18,3 +18,6 @@ Always search for:
 1. **Revenue impact** (e.g., base sales, savings in dollars, budget management)
 2. **Scale metrics** (e.g., codebase size, transaction rates, user volume)
 3. **Leadership markers** (e.g., team size, coordination roles)
+
+
+Pair your metrics with strong [ATS-friendly action verbs](/resume-checker/blog/top-ats-friendly-action-verbs/) and evaluate your bullet point score using our [ATS resume scoring tool](/resume-checker/).

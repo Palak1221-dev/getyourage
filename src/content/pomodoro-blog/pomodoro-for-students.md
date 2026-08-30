@@ -26,7 +26,7 @@ Follow these steps to create an effective study routine:
 
 2. **Define one specific study task.** Instead of "study biology," define "review Chapter 7 on cellular respiration and complete practice questions 1-10."
 
-3. **Set your timer for 25 minutes.** Use the [Tooltails Pomodoro Timer](https://tooltails.com/pomodoro-timer) to track your sessions.
+3. **Set your timer for 25 minutes.** Use the [Tooltails Pomodoro Timer](/pomodoro-timer/) to track your sessions.
 
 4. **Study without interruption.** If a distracting thought arises, write it down and return to it during your break.
 
@@ -70,7 +70,7 @@ This schedule keeps you productive throughout the day while preventing burnout.
 
 **Using breaks for social media.** Checking Instagram or TikTok during breaks activates your brain and prevents true rest. Your brain needs downtime to consolidate information.
 
-**Not tracking progress.** Use [our Pomodoro Timer](https://tooltails.com/pomodoro-timer) to track completed sessions and build a study streak. Seeing your progress motivates consistency.
+**Not tracking progress.** Use [our Pomodoro Timer](/pomodoro-timer/) to track completed sessions and build a study streak. Seeing your progress motivates consistency.
 
 ## Frequently Asked Questions
 

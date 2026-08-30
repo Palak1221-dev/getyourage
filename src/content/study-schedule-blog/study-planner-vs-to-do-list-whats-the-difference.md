@@ -94,7 +94,7 @@ Students who rely solely on to-do lists for exam preparation encounter four recu
 
 **Problem 3: Last-item neglect.** On a to-do list, items near the bottom are frequently skipped. When you are tired, you do the first three things and postpone the rest. Over weeks, the same subjects get postponed repeatedly. A study planner rotates subjects so nothing is consistently deprioritized.
 
-**Problem 4: No progress signal.** A checked box tells you that you did something. It does not tell you whether you are on track for the exam. The [Study Scheduler](/study-schedule/) shows your readiness score — a percentage that reflects how much material you have covered and retained across all subjects. This is a much more useful signal than a checked box.
+**Problem 4: No progress signal.** A checked box tells you that you did something. It does not tell you whether you are on track for the exam. The Study Scheduler shows your readiness score — a percentage that reflects how much material you have covered and retained across all subjects. This is a much more useful signal than a checked box.
 
 ## The Hidden Cost of Using Only a Study Planner
 
@@ -102,7 +102,7 @@ Study planners are powerful, but they have drawbacks too.
 
 **Rigidity.** A study plan assigns specific topics to specific days. If you miss a day, the whole schedule can feel broken. Students often abandon their plan after one missed session. The fix is to build buffer days into your plan (the Study Scheduler does this automatically).
 
-**Overhead.** Creating a detailed study plan takes time. You need to list topics, calculate hours, set revision intervals. Many students skip planning because it feels like work. That is why the [free Study Scheduler](/study-schedule/) exists — it does the planning for you in seconds.
+**Overhead.** Creating a detailed study plan takes time. You need to list topics, calculate hours, set revision intervals. Many students skip planning because it feels like work. That is why the free Study Scheduler exists — it does the planning for you in seconds.
 
 **Not designed for small tasks.** A study planner is overkill for "email the professor" or "buy highlighters." These tasks clutter the planner and distract from the main study sessions. They belong on a to-do list.
 
@@ -147,7 +147,7 @@ Here is a quick guide based on what you are preparing for.
 
 If you have always used a to-do list and want to try a study planner, here is how to make the transition.
 
-**Start with one subject.** Do not try to plan your entire semester at once. Pick the subject you are most worried about and build a study plan for it. Use the [Study Scheduler](/study-schedule/) to generate the plan in seconds. Follow it for one week.
+**Start with one subject.** Do not try to plan your entire semester at once. Pick the subject you are most worried about and build a study plan for it. Use the Study Scheduler to generate the plan in seconds. Follow it for one week.
 
 **Notice the difference.** After one week, compare your experience to using a to-do list. Are you covering more material? Do you feel less anxious about forgetting to review? Are you spending less time deciding what to study?
 
@@ -163,8 +163,11 @@ If you have always used a to-do list and want to try a study planner, here is ho
 
 **Should I plan every hour of my day?** No. Leave buffer time. A study plan should fill 60-70% of your available study time. The rest is buffer for interruptions, overflows, and rest. A plan that fills 100% of your time will break the first time something unexpected happens.
 
-**How do I handle unexpected tasks that conflict with my study plan?** Put them on your to-do list and do them during your next admin block. If the task is genuinely urgent, swap it with a lower-priority study session, but do not skip the session entirely — reschedule it. The [study planner](/study-schedule/) lets you drag sessions to new dates if you need to adjust.
+**How do I handle unexpected tasks that conflict with my study plan?** Put them on your to-do list and do them during your next admin block. If the task is genuinely urgent, swap it with a lower-priority study session, but do not skip the session entirely — reschedule it. The study planner lets you drag sessions to new dates if you need to adjust.
 
 **I have used a to-do list for years. Will a study planner really make a difference?** For exam preparation, yes. The difference is not about organization — it is about memory. A to-do list helps you track what to do. A study planner helps you remember what you learned. They serve different cognitive functions, and exam success depends on the second one.
 
-**Ready to try a real study planner?** The [Study Scheduler](/study-schedule/) generates a complete, personalized plan based on your exam dates and subjects. Add your first exam and see the difference a structured plan makes compared to a simple list.
+**Ready to try a real study planner?** The Study Scheduler generates a complete, personalized plan based on your exam dates and subjects. Add your first exam and see the difference a structured plan makes compared to a simple list.
+
+
+For single-session execution alongside your planner, pair your study plan with the [Focus Goals Timer](/focus/).

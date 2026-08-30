@@ -71,3 +71,10 @@ Batching reduces the number of times you context-switch and gives you longer str
 Ask yourself at the end of each week: "Did my technology use this week align with my values?" If you spent 10 hours on social media but only 2 hours on creative work, your tools aren't serving you. Adjust accordingly.
 
 Digital minimalism is a practice, not a one-time fix. Your relationship with technology will need ongoing maintenance, especially as new tools and habits emerge. Be patient, be intentional, and remember: you control your technology — it shouldn't control you.
+
+
+---
+
+## Intentional Focus Tools
+
+Protect your concentration during deep work sessions using the [Tooltails Focus Goals Timer](/focus/).

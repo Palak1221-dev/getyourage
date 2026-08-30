@@ -72,7 +72,7 @@ The best approach for many people is to combine Pomodoro and time blocking. Use 
 
 1. **Plan your blocks.** At the start of each day, identify your key tasks and assign them to time blocks.
 
-2. **Execute with Pomodoro.** Within each deep work block, use the [Tooltails Pomodoro Timer](https://tooltails.com/pomodoro-timer) to work in focused intervals.
+2. **Execute with Pomodoro.** Within each deep work block, use the [Tooltails Pomodoro Timer](/pomodoro-timer/) to work in focused intervals.
 
 3. **Review and adjust.** At the end of each day, review both your block adherence and your Pomodoro completion rate.
 

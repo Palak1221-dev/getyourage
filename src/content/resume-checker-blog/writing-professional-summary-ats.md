@@ -14,3 +14,6 @@ A professional summary sits at the top of your resume. When structured correctly
 1. **The Hook**: Your title, years of experience, and core technologies.
 2. **The Impact**: A metric showing your most significant career win.
 3. **The Target**: What you specialize in and aim to build for their team.
+
+
+Review our strategies for [natural keyword integration](/resume-checker/blog/resume-keywords-optimization/) and test your summary section with an [ATS resume checker](/resume-checker/).

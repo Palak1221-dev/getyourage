@@ -68,7 +68,7 @@ At this point, do not try to learn anything new. Focus on review and confidence.
 
 ## Track Your Progress
 
-A countdown is only useful if you track it. The Tooltails [Study Scheduler](/study-schedule/) shows your readiness score as you log sessions, so you always know exactly where you stand.
+A countdown is only useful if you track it. The Tooltails Study Scheduler shows your readiness score as you log sessions, so you always know exactly where you stand.
 
 ## Frequently Asked Questions
 
@@ -76,6 +76,8 @@ A countdown is only useful if you track it. The Tooltails [Study Scheduler](/stu
 
 **What if I have more than 30 days?** Use the extra time for deeper learning. Spend more days on difficult topics and add extra revision cycles.
 
-**How do I handle multiple exams in the same week?** Shift your schedule so the earlier exam gets priority in the final week. Use the multi-exam support in the [study planner](/study-schedule/) to balance study time across exams.
+**How do I handle multiple exams in the same week?** Shift your schedule so the earlier exam gets priority in the final week. Use the multi-exam support in the study planner to balance study time across exams.
 
-**Ready to start your countdown?** Enter your exam date in the [Study Scheduler](/study-schedule/) and get your personalized countdown plan today.
+**Ready to start your countdown?** Enter your exam date in the Study Scheduler and get your personalized countdown plan today.
+
+For managing overlapping deadlines, see our guide on [balancing multiple exam deadlines](/study-schedule/blog/how-to-balance-multiple-exams-at-the-same-time/).

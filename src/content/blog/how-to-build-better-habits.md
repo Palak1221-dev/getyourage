@@ -63,3 +63,10 @@ Missing one day is an accident. Missing two days is the start of a new habit —
 ## Be Patient
 
 Building a habit takes time — typically 18 to 254 days, with an average of 66 days for a new behavior to become automatic. Don't judge your progress after one week. Trust the process, focus on showing up, and let time do the work.
+
+
+---
+
+## Tracking Consistency
+
+Build accountability and momentum by tracking [daily focus streaks and goal tracking](/focus/).

@@ -14,3 +14,6 @@ There is a massive amount of misinformation online regarding how Applicant Track
 
 ## Myth 3: "Keyword stuffing works"
 * **Reality**: Stuffing irrelevant terms in small fonts will get you flagged. Recruiters review the parsed text. If your skills don't align with actual chronological accomplishments, they will reject the profile.
+
+
+Rather than trying to trick the software, run your document through an [ATS resume checker](/resume-checker/) to identify genuine skill gaps, and focus on natural [resume keyword optimization](/resume-checker/blog/resume-keywords-optimization/) that reflects your true experience.

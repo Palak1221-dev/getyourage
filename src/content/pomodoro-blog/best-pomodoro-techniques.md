@@ -39,7 +39,7 @@ The task-batched Pomodoro technique groups related tasks into blocks. For exampl
 - Block 3 (2 Pomodoros): Review and edit work
 - Block 4 (1 Pomodoro): Plan tomorrow's tasks
 
-By batching similar tasks, you reduce context switching overhead and maintain higher quality output. Use our [Pomodoro Timer](https://tooltails.com/pomodoro-timer) to track each batch and review your productivity patterns over time.
+By batching similar tasks, you reduce context switching overhead and maintain higher quality output. Use our [Pomodoro Timer](/pomodoro-timer/) to track each batch and review your productivity patterns over time.
 
 ## The Pomodoro Sprint
 
@@ -63,7 +63,7 @@ Use longer intervals (30-50 minutes) for:
 - Problem-solving
 - Learning complex topics
 
-Our [Pomodoro Timer](https://tooltails.com/pomodoro-timer) lets you customize focus and break durations to match your workflow exactly.
+Our [Pomodoro Timer](/pomodoro-timer/) lets you customize focus and break durations to match your workflow exactly.
 
 ## Pomodoro with Time Blocking
 
@@ -89,7 +89,7 @@ This micro-review cycle, borrowed from agile methodologies, creates continuous i
 
 ## Getting Started with Our Timer
 
-Ready to try these techniques? The [Tooltails Pomodoro Timer](https://tooltails.com/pomodoro-timer) is free, requires no login, and works offline. Set your task, choose your duration, and start building your productivity streak today.
+Ready to try these techniques? The [Tooltails Pomodoro Timer](/pomodoro-timer/) is free, requires no login, and works offline. Set your task, choose your duration, and start building your productivity streak today.
 
 ## Frequently Asked Questions
 

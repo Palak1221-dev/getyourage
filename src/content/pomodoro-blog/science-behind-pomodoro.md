@@ -30,7 +30,7 @@ Dopamine is a neurotransmitter associated with motivation, reward, and pleasure.
 
 - **Small wins.** Each completed Pomodoro is a measurable achievement. The satisfaction of checking off a session provides a dopamine boost.
 
-- **Progress tracking.** Watching your daily productivity score rise and your streak grow creates a feedback loop that keeps you motivated. Our [Pomodoro Timer](https://tooltails.com/pomodoro-timer) provides visual progress tracking to amplify this effect.
+- **Progress tracking.** Watching your daily productivity score rise and your streak grow creates a feedback loop that keeps you motivated. Our [Pomodoro Timer](/pomodoro-timer/) provides visual progress tracking to amplify this effect.
 
 - **Anticipation of breaks.** Knowing a break is coming creates positive anticipation, which also triggers dopamine. This makes it easier to maintain focus during the work interval.
 
@@ -72,7 +72,7 @@ The Pomodoro Technique incorporates several gamification elements that increase 
 - **Streaks.** Maintaining a daily streak creates a powerful motivation to show up consistently.
 - **Progress bars.** Visual progress indicators provide immediate feedback on goal completion.
 
-These elements tap into the brain's reward system and make productivity feel like a game. Use the [Tooltails Pomodoro Timer](https://tooltails.com/pomodoro-timer) to track all of these metrics and leverage the science of gamification.
+These elements tap into the brain's reward system and make productivity feel like a game. Use the [Tooltails Pomodoro Timer](/pomodoro-timer/) to track all of these metrics and leverage the science of gamification.
 
 ## Frequently Asked Questions
 
