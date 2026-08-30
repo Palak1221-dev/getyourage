@@ -22,7 +22,7 @@ const tools = [
   {
     title: "Age Calculator",
     description: "Calculate your exact age for school, work, or just for fun. Find out exactly how many days you've been alive.",
-    href: "/age-calculator",
+    href: "/age-calculator/",
     icon: "clock",
     popular: true,
     tag: "Calculators"
@@ -30,14 +30,14 @@ const tools = [
   {
     title: "Age Difference",
     description: "Find the age gap between friends, siblings, or partners instantly. Great for family history and curiosity.",
-    href: "/age-difference",
+    href: "/age-difference/",
     icon: "users",
     tag: "Date & Time"
   },
   {
     title: "Birthday Countdown",
     description: "Track the days until your next big celebration. Perfect for planning surprises and counting down with kids.",
-    href: "/birthday-countdown",
+    href: "/birthday-countdown/",
     icon: "gift",
     popular: true,
     tag: "Date & Time"
@@ -45,21 +45,21 @@ const tools = [
   {
     title: "Duration Calculator",
     description: "Measure the exact time between two dates for project planning, travel, or milestone tracking.",
-    href: "/duration",
+    href: "/duration/",
     icon: "calendar",
     tag: "Calculators"
   },
   {
     title: "Future Age",
     description: "Curious how old you'll be in 2030 or on your next graduation? Find out exactly when you'll reach any age.",
-    href: "/future-age",
+    href: "/future-age/",
     icon: "forward",
     tag: "Calculators"
   },
   {
     title: "Pomodoro Timer",
     description: "Boost your productivity with task tracking, focus analytics, custom break intervals, and streaks.",
-    href: "/pomodoro-timer",
+    href: "/pomodoro-timer/",
     icon: "timer",
     popular: true,
     tag: "Productivity"
@@ -67,7 +67,7 @@ const tools = [
   {
     title: "Focus Goals Timer",
     description: "Outcome-based timer focusing on shipping goals, decomposing milestones, streaks, and recovery planning.",
-    href: "/focus",
+    href: "/focus/",
     icon: "target",
     popular: true,
     tag: "Productivity"
@@ -75,7 +75,7 @@ const tools = [
   {
     title: "Word Counter",
     description: "Count words, characters, sentences, reading time, and keyword density instantly.",
-    href: "/word-counter",
+    href: "/word-counter/",
     icon: "file-text",
     popular: true,
     tag: "Productivity"
@@ -83,7 +83,7 @@ const tools = [
   {
     title: "Study Schedule Generator",
     description: "Generate a personalized study plan, track exam readiness, and download printable planner pages — all in one place.",
-    href: "/study-schedule",
+    href: "/study-schedule/",
     icon: "book",
     popular: true,
     tag: "Productivity"
@@ -91,10 +91,17 @@ const tools = [
   {
     title: "Resume Checker",
     description: "Optimize your resume for ATS systems, match keywords, and get a score with actionable improvement suggestions.",
-    href: "/resume-checker",
+    href: "/resume-checker/",
     icon: "clipboard-check",
     popular: true,
     tag: "Productivity"
+  },
+  {
+    title: "Smart Document Generator",
+    description: "Turn long text into a professionally structured PDF with locally detected titles, headings, lists, tables, and references.",
+    href: "/ai-document-generator/",
+    icon: "document",
+    tag: "Generators"
   },
 ];
 
@@ -262,6 +269,9 @@ const whyTooltails = [
                 {tool.icon === 'clipboard-check' && (
                   <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>
                 )}
+                {tool.icon === 'document' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>
+                )}
               </div>
               
               <div class="mb-2">
@@ -367,7 +377,7 @@ const whyTooltails = [
       </div>
 
       <div class="flex justify-center">
-        <a href="/digital-store" class="inline-flex items-center justify-center px-8 h-14 text-base font-bold rounded-pill bg-[#09090b] text-[#FCFAF7] hover:bg-[#2563eb] transition-all active:scale-[0.98] shadow-xl shadow-ink/10 group">
+        <a href="/digital-store/" class="inline-flex items-center justify-center px-8 h-14 text-base font-bold rounded-pill bg-[#09090b] text-[#FCFAF7] hover:bg-[#2563eb] transition-all active:scale-[0.98] shadow-xl shadow-ink/10 group">
           Browse All Planners
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-x-1 transition-transform"><line x1="5" x2="19" y1="12" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
@@ -452,14 +462,6 @@ const whyTooltails = [
     "@type": "WebSite",
     "name": "Tooltails",
     "url": "https://tooltails.com",
-    "description": "Free online tools for word counting, age calculation, productivity timers, study planning, resume checking, and more. Fast, private, and mobile-friendly.",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": "https://tooltails.com/search?q={search_term_string}"
-      },
-      "query-input": "required name=search_term_string"
-    }
+    "description": "Free online tools for word counting, age calculation, productivity timers, study planning, resume checking, and more. Fast, private, and mobile-friendly."
   })} />
 </Layout>

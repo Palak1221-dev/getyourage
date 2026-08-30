@@ -4,8 +4,6 @@ description: "Why do reading time and speaking time differ? Learn how to calcula
 pubDate: "2026-06-14"
 ---
 
-# Reading Time vs Speaking Time Explained
-
 Why do reading time and speaking time calculations differ, and how can you use them to pace your writing?
 
 If you copy a text draft, you will notice that its estimated reading time is significantly shorter than its estimated speaking time. Let's look at why this happens.
@@ -30,28 +28,3 @@ The average silent reading speed for adults is around 200 to 250 words per minut
 
 **What is the average speaking speed?**
 The average speaking speed for presentations, lectures, and podcasts is approximately 130 to 150 words per minute (WPM). Spoken speech is slower because of vocal pacing, articulation, and pauses.
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is the average reading speed?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The average silent reading speed for adults is around 200 to 250 words per minute (WPM). ToolTails uses a standard speed of 200 WPM to estimate reading times."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the average speaking speed?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The average speaking speed for presentations, lectures, and podcasts is approximately 130 to 150 words per minute (WPM). Spoken speech is slower because of vocal pacing, articulation, and pauses."
-      }
-    }
-  ]
-}
-</script>

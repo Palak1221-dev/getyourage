@@ -4,8 +4,6 @@ description: "What readability score should you aim for? Learn what makes a good
 pubDate: "2026-06-13"
 ---
 
-# What Is a Good Readability Score?
-
 Understanding Flesch-Kincaid readability indices and how to score your writing for different audiences.
 
 Readability metrics help authors ensure their writing matches the comprehension level of their intended audience. Let's look at what scores to target.
@@ -27,28 +25,3 @@ A score between 60 and 70 is considered standard and is ideal for broad public a
 
 **What does a Flesch-Kincaid grade level of 8 mean?**
 It means the text is written at a level that a typical US eighth-grader (around 13-14 years old) can easily comprehend. This is the recommended benchmark for professional web content.
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is a good Flesch Reading Ease score?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A score between 60 and 70 is considered standard and is ideal for broad public audiences. This matches a 7th to 8th-grade reading level."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a Flesch-Kincaid grade level of 8 mean?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "It means the text is written at a level that a typical US eighth-grader (around 13-14 years old) can easily comprehend. This is the recommended benchmark for professional web content."
-      }
-    }
-  ]
-}
-</script>

@@ -4,8 +4,6 @@ description: "Planning a 10-minute presentation? Discover how many words are in 
 pubDate: "2026-06-19"
 ---
 
-# How Many Words Is a 10 Minute Speech?
-
 Planning a 10-minute presentation? Learn how speaking rates alter your timing, how to structure your slides, and optimal word counts.
 
 A 10-minute speech is one of the most common formats in professional and academic settings. It is long enough to provide meaningful depth on a subject, but short enough that you must remain focused.
@@ -54,36 +52,3 @@ A 1,300-word speech represents approximately 2.6 pages typed double-spaced, or 1
 
 **How do I pace a 10-minute presentation?**
 Break it down: 1.5 minutes for introduction, 7 minutes for your three core points, and 1.5 minutes for a summary and call-to-action.
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is the word count for a 10-minute speech?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A standard 10-minute speech is between 1,100 and 1,500 words. At an average conversational speed of 130 WPM, you will need approximately 1,300 words."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How many pages is a 1,300-word speech?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A 1,300-word speech represents approximately 2.6 pages typed double-spaced, or 1.3 pages single-spaced, using standard margins and 12-point fonts."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I pace a 10-minute presentation?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Break it down: 1.5 minutes for introduction, 7 minutes for your three core points, and 1.5 minutes for a summary and call-to-action."
-      }
-    }
-  ]
-}
-</script>

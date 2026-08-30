@@ -1,10 +1,8 @@
-﻿---
+---
 title: "How to Turn Raw Text and Notes into a Structured PDF Document"
 description: "Learn how to structure unformatted text, notes, and meeting minutes into clean documents. Master heading hierarchy, lists, tables, and browser-based PDF formatting."
 pubDate: "2026-08-30"
 ---
-
-# How to Turn Raw Text and Notes into a Structured PDF Document
 
 When taking notes during meetings, lectures, or brainstorming sessions, information is almost always captured as unformatted plain text. Converting those raw notes into a clean, readable document often requires tedious manual adjustments in traditional word processors.
 

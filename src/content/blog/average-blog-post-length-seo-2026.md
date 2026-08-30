@@ -4,8 +4,6 @@ description: "What is the ideal blog post length for SEO ranking in 2026? Find o
 pubDate: "2026-06-17"
 ---
 
-# Average Blog Post Length for SEO in 2026
-
 What is the ideal word count target to rank on search engine results pages in 2026? Let's look at the data.
 
 SEO writing standards have changed. Search engines now focus on helpful, original, and deeply informative content.
@@ -29,28 +27,3 @@ In 2026, the optimal blog post length is between 1,500 and 2,500 words. Pushing 
 
 **Do shorter posts rank on Google?**
 Yes, shorter posts (500-1,000 words) can rank if they address search intent directly, particularly for simple definitions or quick answers.
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How long should an SEO blog post be in 2026?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "In 2026, the optimal blog post length is between 1,500 and 2,500 words. Pushing for comprehensive, high-quality answers yields better search visibility than shallow content."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do shorter posts rank on Google?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, shorter posts (500-1,000 words) can rank if they address search intent directly, particularly for simple definitions or quick answers."
-      }
-    }
-  ]
-}
-</script>

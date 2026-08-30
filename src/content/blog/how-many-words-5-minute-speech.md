@@ -4,8 +4,6 @@ description: "How many words are in a 5-minute speech? Learn standard speaking s
 pubDate: "2026-06-20"
 ---
 
-# How Many Words Is a 5 Minute Speech?
-
 If you have a 5-minute presentation coming up, knowing your target word count is critical. Here is how speaking rates impact your timing.
 
 Whether you are preparing a corporate presentation, a wedding toast, or a class project, keeping your speech within the designated 5-minute limit is a challenge. Going over time can look unprofessional, while finishing too quickly might leave your audience confused.
@@ -58,36 +56,3 @@ Yes, 750 words requires speaking at a fast pace of 150 WPM. To ensure your audie
 
 **How many pages is a 5-minute speech?**
 A 5-minute speech (about 650 words) is approximately 1.3 pages when typed double-spaced, or 0.6 pages single-spaced using standard 12-point font.
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How do I calculate words for a 5-minute speech?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Multiply your target speaking speed in words per minute (WPM) by 5. For example, at an average speed of 130 WPM, a 5-minute speech is 650 words."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is 750 words too long for a 5-minute speech?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, 750 words requires speaking at a fast pace of 150 WPM. To ensure your audience understands your message, it is better to aim for 600 to 650 words and speak at a conversational pace."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How many pages is a 5-minute speech?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A 5-minute speech (about 650 words) is approximately 1.3 pages when typed double-spaced, or 0.6 pages single-spaced using standard 12-point font."
-      }
-    }
-  ]
-}
-</script>

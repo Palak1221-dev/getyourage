@@ -1,10 +1,8 @@
-﻿---
+---
 title: "How ATS Resume Checkers Evaluate Candidates: 7 Key Factors Explained"
 description: "Understand how ATS resume checkers evaluate job applications. Learn about keyword matching, skill requirements, bullet metrics, and formatting checks."
 pubDate: "2026-08-30"
 ---
-
-# How ATS Resume Checkers Evaluate Candidates: 7 Key Factors Explained
 
 Many employers use **Applicant Tracking Systems (ATS)** to collect, organize, and search candidate resumes. While ATS capabilities and screening workflows vary widely across different software platforms and employer configurations, most systems share the common goal of parsing resume text into structured information so recruiters can filter and review applicants more efficiently.
 

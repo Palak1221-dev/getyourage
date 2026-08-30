@@ -25,6 +25,8 @@ export default defineConfig({
         if (page.includes('/payment-')) return false;
         // Exclude gated planner apps (noindex, nofollow)
         if (page.includes('/app/')) return false;
+        // Exclude noindex Smart Document Generator editor and workspace routes
+        if (page.includes('/ai-document-generator/editor') || page.includes('/ai-document-generator/workspace')) return false;
         return true;
       }
     })

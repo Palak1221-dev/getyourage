@@ -1,10 +1,8 @@
-﻿---
+---
 title: "How to Build an Exam Study Schedule: A Step-by-Step Framework"
 description: "Learn how to build a realistic exam study schedule. Discover topic breakdown methods, daily hour allocation, confidence tracking, and readiness forecasting."
 pubDate: "2026-08-30"
 ---
-
-# How to Build an Exam Study Schedule: A Step-by-Step Framework
 
 A study plan often fails when it relies on unrealistic targets—such as attempting long, uninterrupted study sessions every day without factoring in subject difficulty, rest days, or retention tracking. When unexpected delays occur, rigid schedules can quickly become unmanageable.
 
