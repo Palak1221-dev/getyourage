@@ -46,20 +46,22 @@ const canonicalUrl = "https://tooltails.com/birthday-countdown/";
   title="Birthday Countdown — Days Until Your Next Birthday" 
   description="See exactly how many days, weeks, and months are left until your next birthday. Find out what day of the week your birthday falls on this year."
 >
-  <div class="max-w-[1200px] mx-auto px-4 py-6 md:py-10">
-    <div class="max-w-4xl mx-auto text-center mb-6">
-      <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-ink mb-4">
-        Birthday Countdown — Days Until Your Next Birthday
-      </h1>
-      <p class="text-lg md:text-xl text-body leading-relaxed max-w-[700px] mx-auto mb-4">
-        Can't wait for your next birthday? Enter your birth date to see the live countdown and fun facts about your upcoming special day.
-      </p>
-      <div class="mb-6 flex justify-center">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 md:py-8">
+    <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-ink mb-1.5 leading-tight">
+          Birthday Countdown — Days Until Your Next Birthday
+        </h1>
+        <p class="text-body text-sm sm:text-base max-w-2xl leading-relaxed">
+          Can't wait for your next birthday? Enter your birth date to see the live countdown and fun facts about your upcoming special day.
+        </p>
+      </div>
+      <div class="shrink-0 self-start sm:self-auto">
         <HowToUseModal toolName="Birthday Countdown" steps={howToUseSteps} tip={howToUseTip} />
       </div>
     </div>
 
-    <div class="max-w-[800px] mx-auto">
+    <div class="w-full">
       <BirthdayCountdown />
     </div>
 

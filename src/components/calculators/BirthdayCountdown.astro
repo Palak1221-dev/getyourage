@@ -4,41 +4,66 @@ import Button from "../ui/Button.astro";
 import Input from "../ui/Input.astro";
 ---
 
-<Card elevation="lg" padding="xl" class="max-w-2xl mx-auto">
-  <form id="birthday-form" class="space-y-6">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-canvas border border-hairline-strong rounded-[2.5rem] shadow-md overflow-hidden p-6 sm:p-8 md:p-10 relative group transition-all duration-300 focus-within:shadow-xl focus-within:border-link focus-within:ring-4 focus-within:ring-link/20">
+  <div class="absolute top-0 right-0 w-80 h-80 bg-link/5 rounded-full translate-x-1/3 -translate-y-1/3 blur-3xl group-focus-within:bg-link/15 transition-colors duration-500 pointer-events-none"></div>
+  <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-80 group-hover:opacity-100 transition-opacity"></div>
+
+  <!-- Workspace Header / Toolbar -->
+  <div class="flex items-center justify-between gap-3 pb-6 mb-6 border-b border-hairline relative z-10">
+    <div class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-full bg-link/10 text-link flex items-center justify-center shadow-inner">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 8v3"/><path d="M17 8v3"/><path d="M7 4h.01"/><path d="M12 4h.01"/><path d="M17 4h.01"/></svg>
+      </div>
+      <div>
+        <span class="text-[11px] font-extrabold text-ink uppercase tracking-wider block leading-none">Birthday Countdown</span>
+        <span class="text-[10px] text-mute font-medium leading-none">Track your next celebration milestone</span>
+      </div>
+    </div>
+    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-canvas-soft border border-hairline text-mute text-[10px] font-bold uppercase tracking-wider">
+      <span class="w-1.5 h-1.5 rounded-full bg-link"></span>
+      Client-Side
+    </span>
+  </div>
+
+  <form id="birthday-form" class="space-y-6 relative z-10">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       <Input label="Day" type="number" id="dob-day" placeholder="01" min="1" max="31" required />
       <Input label="Month" type="number" id="dob-month" placeholder="01" min="1" max="12" required />
       <Input label="Year" type="number" id="dob-year" placeholder="1995" min={new Date().getFullYear() - 130} max={new Date().getFullYear()} required />
     </div>
 
-    <div class="flex flex-col sm:flex-row gap-4">
-      <Button type="submit" class="flex-grow shadow-lg shadow-link/20">Show Countdown</Button>
-      <Button variant="secondary" id="reset-btn">Reset</Button>
+    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+      <Button type="submit" class="flex-grow py-3.5 px-8 rounded-full shadow-lg shadow-link/20 font-bold text-sm sm:text-base justify-center active:scale-98 transition-all cursor-pointer">Show Countdown</Button>
+      <Button variant="secondary" id="reset-btn" class="py-3.5 px-6 rounded-full text-sm font-semibold justify-center transition-all cursor-pointer">Reset</Button>
     </div>
   </form>
 
-  <div id="result-container" class="mt-12 hidden space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 scroll-mt-24">
-    <div class="text-center">
-      <h3 class="text-mute font-mono text-xs uppercase tracking-widest mb-2">Days until next birthday</h3>
+  <div id="result-container" class="mt-10 pt-8 border-t border-hairline hidden space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 scroll-mt-24 relative z-10">
+    <!-- Hero Primary Result -->
+    <div class="bg-canvas-soft/40 border border-hairline p-6 sm:p-8 rounded-[2rem] text-center relative overflow-hidden group/hero">
+      <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-60"></div>
+      <h3 class="text-mute font-bold text-[10px] sm:text-[11px] uppercase tracking-[0.25em] mb-4">Days Until Next Birthday</h3>
       <div class="flex flex-wrap justify-center items-baseline gap-2">
-        <span id="res-days" class="text-6xl font-bold tracking-tighter text-link">0</span>
-        <span class="text-2xl font-semibold text-body">days left</span>
+        <span id="res-days" class="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tighter text-link leading-none">0</span>
+        <span class="text-base sm:text-lg font-bold text-mute uppercase tracking-wider">days left</span>
       </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-4 pt-8 border-t border-hairline">
-      <div class="p-4 bg-canvas-soft rounded-md border border-hairline text-center">
-        <span class="block text-xs font-mono text-mute uppercase mb-1">Birthday Weekday</span>
-        <span id="res-weekday" class="text-xl font-bold text-ink">-</span>
+    <!-- Companion Metric Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="bg-canvas border border-hairline p-5 rounded-[1.75rem] shadow-sm relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-link/40 group/metric">
+        <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-60 group-hover/metric:opacity-100 transition-opacity"></div>
+        <span class="block text-[9px] sm:text-[10px] font-bold text-mute uppercase tracking-widest leading-none mb-2">Birthday Weekday</span>
+        <span id="res-weekday" class="text-2xl sm:text-3xl font-extrabold tracking-tighter text-ink">-</span>
       </div>
-      <div class="p-4 bg-canvas-soft rounded-md border border-hairline text-center">
-        <span class="block text-xs font-mono text-mute uppercase mb-1">Age Turning</span>
-        <span id="res-age" class="text-xl font-bold text-ink">0</span>
+      <div class="bg-canvas border border-hairline p-5 rounded-[1.75rem] shadow-sm relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-link/40 group/metric">
+        <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-60 group-hover/metric:opacity-100 transition-opacity"></div>
+        <span class="block text-[9px] sm:text-[10px] font-bold text-mute uppercase tracking-widest leading-none mb-2">Age Turning</span>
+        <span id="res-age" class="text-2xl sm:text-3xl font-extrabold tracking-tighter text-ink">0</span>
       </div>
     </div>
   </div>
-</Card>
+</div>
 
 <script>
   import { getNextBirthdayCountdown } from "../../utils/dateUtils";

@@ -4,46 +4,84 @@ import Button from "../ui/Button.astro";
 import Input from "../ui/Input.astro";
 ---
 
-<Card elevation="lg" padding="xl" class="max-w-2xl mx-auto">
-  <form id="diff-form" class="space-y-8">
-    <div class="space-y-4">
-      <h3 class="text-sm font-mono uppercase tracking-widest text-mute">Person 1</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Input label="Day" type="number" id="p1-day" placeholder="01" min="1" max="31" required />
-        <Input label="Month" type="number" id="p1-month" placeholder="01" min="1" max="12" required />
-        <Input label="Year" type="number" id="p1-year" placeholder="1995" min={new Date().getFullYear() - 130} max={new Date().getFullYear()} required />
+<div class="bg-canvas border border-hairline-strong rounded-[2.5rem] shadow-md overflow-hidden p-6 sm:p-8 md:p-10 relative group transition-all duration-300 focus-within:shadow-xl focus-within:border-link focus-within:ring-4 focus-within:ring-link/20">
+  <div class="absolute top-0 right-0 w-80 h-80 bg-link/5 rounded-full translate-x-1/3 -translate-y-1/3 blur-3xl group-focus-within:bg-link/15 transition-colors duration-500 pointer-events-none"></div>
+  <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-80 group-hover:opacity-100 transition-opacity"></div>
+
+  <!-- Workspace Header / Toolbar -->
+  <div class="flex items-center justify-between gap-3 pb-6 mb-6 border-b border-hairline relative z-10">
+    <div class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-full bg-link/10 text-link flex items-center justify-center shadow-inner">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div>
+        <span class="text-[11px] font-extrabold text-ink uppercase tracking-wider block leading-none">Age Gap Comparison</span>
+        <span class="text-[10px] text-mute font-medium leading-none">Compare two distinct dates of birth</span>
+      </div>
+    </div>
+    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-canvas-soft border border-hairline text-mute text-[10px] font-bold uppercase tracking-wider">
+      <span class="w-1.5 h-1.5 rounded-full bg-link"></span>
+      Client-Side
+    </span>
+  </div>
+
+  <form id="diff-form" class="space-y-6 relative z-10">
+    <!-- Person 1 & Person 2 side-by-side or stacked capsules -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+      <!-- Person 1 Capsule -->
+      <div class="bg-canvas-soft/40 border border-hairline rounded-2xl p-4 sm:p-5 relative">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-6 h-6 rounded-full bg-link/10 text-link text-xs font-bold flex items-center justify-center">1</span>
+          <h3 class="text-xs font-extrabold uppercase tracking-wider text-ink">Person 1</h3>
+        </div>
+        <div class="grid grid-cols-3 gap-2.5">
+          <Input label="Day" type="number" id="p1-day" placeholder="01" min="1" max="31" required />
+          <Input label="Month" type="number" id="p1-month" placeholder="01" min="1" max="12" required />
+          <Input label="Year" type="number" id="p1-year" placeholder="1995" min={new Date().getFullYear() - 130} max={new Date().getFullYear()} required />
+        </div>
+      </div>
+
+      <!-- Person 2 Capsule -->
+      <div class="bg-canvas-soft/40 border border-hairline rounded-2xl p-4 sm:p-5 relative">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-6 h-6 rounded-full bg-link/10 text-link text-xs font-bold flex items-center justify-center">2</span>
+          <h3 class="text-xs font-extrabold uppercase tracking-wider text-ink">Person 2</h3>
+        </div>
+        <div class="grid grid-cols-3 gap-2.5">
+          <Input label="Day" type="number" id="p2-day" placeholder="01" min="1" max="31" required />
+          <Input label="Month" type="number" id="p2-month" placeholder="01" min="1" max="12" required />
+          <Input label="Year" type="number" id="p2-year" placeholder="1995" min="1900" max={new Date().getFullYear()} required />
+        </div>
       </div>
     </div>
 
-    <div class="space-y-4">
-      <h3 class="text-sm font-mono uppercase tracking-widest text-mute">Person 2</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Input label="Day" type="number" id="p2-day" placeholder="01" min="1" max="31" required />
-        <Input label="Month" type="number" id="p2-month" placeholder="01" min="1" max="12" required />
-        <Input label="Year" type="number" id="p2-year" placeholder="1995" min="1900" max={new Date().getFullYear()} required />
-      </div>
-    </div>
-
-    <div class="flex flex-col sm:flex-row gap-4 pt-4">
-      <Button type="submit" class="flex-grow shadow-lg shadow-link/20">Calculate Difference</Button>
-      <Button variant="secondary" id="reset-btn">Reset</Button>
+    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+      <Button type="submit" class="flex-grow py-3.5 px-8 rounded-full shadow-lg shadow-link/20 font-bold text-sm sm:text-base justify-center active:scale-98 transition-all cursor-pointer">Calculate Difference</Button>
+      <Button variant="secondary" id="reset-btn" class="py-3.5 px-6 rounded-full text-sm font-semibold justify-center transition-all cursor-pointer">Reset</Button>
     </div>
   </form>
 
-  <div id="result-container" class="mt-12 hidden space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 scroll-mt-24">
-    <div class="text-center">
-      <h3 class="text-mute font-mono text-xs uppercase tracking-widest mb-2">The difference is</h3>
-      <div class="flex flex-wrap justify-center items-baseline gap-2">
-        <span id="res-years" class="text-6xl font-bold tracking-tighter text-link">0</span>
-        <span class="text-2xl font-semibold text-body">years</span>
-        <span id="res-months" class="text-6xl font-bold tracking-tighter text-link">0</span>
-        <span class="text-2xl font-semibold text-body">months</span>
-        <span id="res-days" class="text-6xl font-bold tracking-tighter text-link">0</span>
-        <span class="text-2xl font-semibold text-body">days</span>
+  <div id="result-container" class="mt-10 pt-8 border-t border-hairline hidden space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 scroll-mt-24 relative z-10">
+    <div class="bg-canvas-soft/40 border border-hairline p-6 sm:p-8 rounded-[2rem] text-center relative overflow-hidden group/hero">
+      <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-60"></div>
+      <h3 class="text-mute font-bold text-[10px] sm:text-[11px] uppercase tracking-[0.25em] mb-4">The Difference Is</h3>
+      <div class="flex flex-wrap justify-center items-baseline gap-x-4 sm:gap-x-6 gap-y-2">
+        <div class="flex items-baseline gap-1.5">
+          <span id="res-years" class="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tighter text-link leading-none">0</span>
+          <span class="text-base sm:text-lg font-bold text-mute uppercase tracking-wider">years</span>
+        </div>
+        <div class="flex items-baseline gap-1.5">
+          <span id="res-months" class="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tighter text-link leading-none">0</span>
+          <span class="text-base sm:text-lg font-bold text-mute uppercase tracking-wider">months</span>
+        </div>
+        <div class="flex items-baseline gap-1.5">
+          <span id="res-days" class="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tighter text-link leading-none">0</span>
+          <span class="text-base sm:text-lg font-bold text-mute uppercase tracking-wider">days</span>
+        </div>
       </div>
     </div>
   </div>
-</Card>
+</div>
 
 <script>
   import { calculateAgeDifference } from "../../utils/dateUtils";

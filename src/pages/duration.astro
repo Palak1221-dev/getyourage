@@ -46,20 +46,22 @@ const canonicalUrl = "https://tooltails.com/duration/";
   title="Date Duration Calculator — Calculate Time Between Two Dates" 
   description="Calculate the exact duration between any two dates in years, months, and days. Free, instant, and 100% browser-based date duration tool."
 >
-  <div class="max-w-[1200px] mx-auto px-4 py-6 md:py-10">
-    <div class="max-w-4xl mx-auto text-center mb-6">
-      <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-ink mb-4">
-        Date Duration Calculator — Calculate Time Between Two Dates
-      </h1>
-      <p class="text-lg md:text-xl text-body leading-relaxed max-w-[700px] mx-auto mb-4">
-        Need to know exactly how much time is between two dates? Use our precision tool to calculate years, months, and days between any two points in time.
-      </p>
-      <div class="mb-6 flex justify-center">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 md:py-8">
+    <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-ink mb-1.5 leading-tight">
+          Date Duration Calculator — Calculate Time Between Two Dates
+        </h1>
+        <p class="text-body text-sm sm:text-base max-w-2xl leading-relaxed">
+          Need to know exactly how much time is between two dates? Use our precision tool to calculate years, months, and days between any two points in time.
+        </p>
+      </div>
+      <div class="shrink-0 self-start sm:self-auto">
         <HowToUseModal toolName="Date Duration Calculator" steps={howToUseSteps} tip={howToUseTip} />
       </div>
     </div>
 
-    <div class="max-w-[800px] mx-auto">
+    <div class="w-full">
       <DateDurationCalculator />
     </div>
 

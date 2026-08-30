@@ -4,93 +4,116 @@ import Button from "../ui/Button.astro";
 import Input from "../ui/Input.astro";
 ---
 
-<Card elevation="lg" padding="md" class="w-full shadow-2xl ring-1 ring-hairline">
-  <form id="age-form" class="space-y-3">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-canvas border border-hairline-strong rounded-[2.5rem] shadow-md overflow-hidden p-6 sm:p-8 md:p-10 relative group transition-all duration-300 focus-within:shadow-xl focus-within:border-link focus-within:ring-4 focus-within:ring-link/20">
+  <div class="absolute top-0 right-0 w-80 h-80 bg-link/5 rounded-full translate-x-1/3 -translate-y-1/3 blur-3xl group-focus-within:bg-link/15 transition-colors duration-500 pointer-events-none"></div>
+  <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-80 group-hover:opacity-100 transition-opacity"></div>
+
+  <!-- Workspace Header / Toolbar -->
+  <div class="flex items-center justify-between gap-3 pb-6 mb-6 border-b border-hairline relative z-10">
+    <div class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-full bg-link/10 text-link flex items-center justify-center shadow-inner">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+      </div>
+      <div>
+        <span class="text-[11px] font-extrabold text-ink uppercase tracking-wider block leading-none">Date of Birth</span>
+        <span class="text-[10px] text-mute font-medium leading-none">Enter your birth date details below</span>
+      </div>
+    </div>
+    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-canvas-soft border border-hairline text-mute text-[10px] font-bold uppercase tracking-wider">
+      <span class="w-1.5 h-1.5 rounded-full bg-link"></span>
+      Client-Side
+    </span>
+  </div>
+
+  <form id="age-form" class="space-y-6 relative z-10">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       <Input label="Day" type="number" id="dob-day" placeholder="01" min="1" max="31" required />
       <Input label="Month" type="number" id="dob-month" placeholder="01" min="1" max="12" required />
       <Input label="Year" type="number" id="dob-year" placeholder="1995" min={new Date().getFullYear() - 130} max={new Date().getFullYear()} required />
     </div>
 
-    <div class="flex flex-col sm:flex-row gap-4">
-      <Button type="submit" class="flex-grow shadow-lg shadow-link/20">Calculate My Exact Age</Button>
-      <Button variant="secondary" id="reset-btn">Reset</Button>
+    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+      <Button type="submit" class="flex-grow py-3.5 px-8 rounded-full shadow-lg shadow-link/20 font-bold text-sm sm:text-base justify-center active:scale-98 transition-all cursor-pointer">Calculate My Exact Age</Button>
+      <Button variant="secondary" id="reset-btn" class="py-3.5 px-6 rounded-full text-sm font-semibold justify-center transition-all cursor-pointer">Reset</Button>
     </div>
   </form>
 
-  <div id="result-container" class="mt-12 hidden space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700 scroll-mt-24">
-    <!-- Primary Result -->
-    <div class="text-center">
-      <h3 class="text-mute font-mono text-[10px] uppercase tracking-[0.2em] mb-4">Your Exact Age</h3>
-      <div class="flex flex-wrap justify-center items-baseline gap-x-4 gap-y-2">
-        <div class="flex items-baseline gap-1">
-          <span id="res-years" class="text-6xl md:text-7xl font-bold tracking-tighter text-link leading-none">0</span>
-          <span class="text-lg font-medium text-mute">yrs</span>
+  <div id="result-container" class="mt-10 pt-8 border-t border-hairline hidden space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 scroll-mt-24 relative z-10">
+    <!-- Hero Primary Result Showcase -->
+    <div class="bg-canvas-soft/40 border border-hairline p-6 sm:p-8 rounded-[2rem] text-center relative overflow-hidden group/hero">
+      <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-60"></div>
+      <h3 class="text-mute font-bold text-[10px] sm:text-[11px] uppercase tracking-[0.25em] mb-4">Your Exact Age</h3>
+      <div class="flex flex-wrap justify-center items-baseline gap-x-4 sm:gap-x-6 gap-y-2">
+        <div class="flex items-baseline gap-1.5">
+          <span id="res-years" class="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tighter text-link leading-none">0</span>
+          <span class="text-base sm:text-lg font-bold text-mute uppercase tracking-wider">yrs</span>
         </div>
-        <div class="flex items-baseline gap-1">
-          <span id="res-months" class="text-6xl md:text-7xl font-bold tracking-tighter text-ink leading-none">0</span>
-          <span class="text-lg font-medium text-mute">mos</span>
+        <div class="flex items-baseline gap-1.5">
+          <span id="res-months" class="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tighter text-ink leading-none">0</span>
+          <span class="text-base sm:text-lg font-bold text-mute uppercase tracking-wider">mos</span>
         </div>
-        <div class="flex items-baseline gap-1">
-          <span id="res-days" class="text-6xl md:text-7xl font-bold tracking-tighter text-ink leading-none">0</span>
-          <span class="text-lg font-medium text-mute">days</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Granular Statistics -->
-    <div class="space-y-4">
-      <h4 class="text-xs font-bold text-ink uppercase tracking-wider">Life Statistics</h4>
-      <div class="grid grid-cols-2 md:grid-cols-2 gap-3">
-        <div class="p-4 bg-canvas-soft-2/50 rounded-xl border border-hairline group hover:border-link transition-colors">
-          <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Total Days</span>
-          <span id="res-total-days" class="text-xl font-bold text-link tracking-tight">0</span>
-        </div>
-        <div class="p-4 bg-canvas-soft-2/50 rounded-xl border border-hairline group hover:border-link transition-colors">
-          <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Total Weeks</span>
-          <span id="res-total-weeks" class="text-xl font-bold text-link tracking-tight">0</span>
-        </div>
-        <div class="p-4 bg-canvas-soft-2/50 rounded-xl border border-hairline group hover:border-link transition-colors">
-          <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Total Hours</span>
-          <span id="res-total-hours" class="text-xl font-bold text-link tracking-tight">0</span>
-        </div>
-        <div class="p-4 bg-canvas-soft-2/50 rounded-xl border border-hairline group hover:border-link transition-colors">
-          <span class="block text-[10px] font-mono text-mute uppercase mb-1 tracking-wider">Total Seconds</span>
-          <span id="res-total-seconds" class="text-xl font-bold text-link tracking-tight">0</span>
+        <div class="flex items-baseline gap-1.5">
+          <span id="res-days" class="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tighter text-ink leading-none">0</span>
+          <span class="text-base sm:text-lg font-bold text-mute uppercase tracking-wider">days</span>
         </div>
       </div>
     </div>
 
-    <!-- Fun Facts / Next Milestone -->
-    <div class="p-5 bg-link/5 rounded-xl border border-link/10">
-      <h4 class="text-xs font-bold text-link uppercase tracking-wider mb-3">Upcoming Milestone</h4>
-      <div class="flex justify-between items-center">
-        <div>
-          <p class="text-sm text-body leading-tight">Next Birthday in <span id="res-next-days" class="font-bold text-link">0</span> days</p>
-          <p class="text-[11px] text-mute mt-1">Turning <span id="res-next-age" class="font-bold text-link">0</span> on a <span id="res-next-weekday" class="font-bold text-link">-</span></p>
+    <!-- Granular Statistics Grid -->
+    <div>
+      <h4 class="text-[10px] font-extrabold text-body uppercase tracking-[0.2em] mb-4">Lifetime Statistics</h4>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div class="bg-canvas border border-hairline p-4 sm:p-5 rounded-[1.75rem] shadow-sm relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-link/40 group/metric">
+          <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-60 group-hover/metric:opacity-100 transition-opacity"></div>
+          <span class="block text-[9px] sm:text-[10px] font-bold text-mute uppercase tracking-widest leading-none mb-2">Total Days</span>
+          <span id="res-total-days" class="text-2xl sm:text-3xl font-extrabold tracking-tighter text-ink">0</span>
         </div>
-        <div id="res-progress-circle" class="relative w-12 h-12 flex items-center justify-center">
-            <svg class="w-full h-full -rotate-90">
-                <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="4" fill="transparent" class="text-link/10" />
-                <circle id="res-progress-bar" cx="24" cy="24" r="20" stroke="currentColor" stroke-width="4" fill="transparent" stroke-dasharray="125.6" stroke-dashoffset="125.6" class="text-link transition-all duration-1000" />
-            </svg>
+        <div class="bg-canvas border border-hairline p-4 sm:p-5 rounded-[1.75rem] shadow-sm relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-link/40 group/metric">
+          <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-60 group-hover/metric:opacity-100 transition-opacity"></div>
+          <span class="block text-[9px] sm:text-[10px] font-bold text-mute uppercase tracking-widest leading-none mb-2">Total Weeks</span>
+          <span id="res-total-weeks" class="text-2xl sm:text-3xl font-extrabold tracking-tighter text-ink">0</span>
         </div>
+        <div class="bg-canvas border border-hairline p-4 sm:p-5 rounded-[1.75rem] shadow-sm relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-link/40 group/metric">
+          <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-60 group-hover/metric:opacity-100 transition-opacity"></div>
+          <span class="block text-[9px] sm:text-[10px] font-bold text-mute uppercase tracking-widest leading-none mb-2">Total Hours</span>
+          <span id="res-total-hours" class="text-2xl sm:text-3xl font-extrabold tracking-tighter text-ink">0</span>
+        </div>
+        <div class="bg-canvas border border-hairline p-4 sm:p-5 rounded-[1.75rem] shadow-sm relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-link/40 group/metric">
+          <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-60 group-hover/metric:opacity-100 transition-opacity"></div>
+          <span class="block text-[9px] sm:text-[10px] font-bold text-mute uppercase tracking-widest leading-none mb-2">Total Seconds</span>
+          <span id="res-total-seconds" class="text-2xl sm:text-3xl font-extrabold tracking-tighter text-ink">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upcoming Milestone Card -->
+    <div class="p-5 sm:p-6 bg-link/5 rounded-[2rem] border border-link/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative overflow-hidden">
+      <div>
+        <span class="text-[10px] font-extrabold text-link uppercase tracking-[0.2em] block mb-1">Upcoming Milestone</span>
+        <p class="text-base sm:text-lg font-bold text-ink leading-tight">Next Birthday in <span id="res-next-days" class="text-link">0</span> days</p>
+        <p class="text-xs sm:text-sm text-mute mt-1">Turning <span id="res-next-age" class="font-bold text-ink">0</span> on a <span id="res-next-weekday" class="font-bold text-ink">-</span></p>
+      </div>
+      <div id="res-progress-circle" class="relative w-14 h-14 flex items-center justify-center shrink-0 self-center sm:self-auto">
+        <svg class="w-full h-full -rotate-90">
+          <circle cx="28" cy="28" r="22" stroke="currentColor" stroke-width="4.5" fill="transparent" class="text-link/10" />
+          <circle id="res-progress-bar" cx="28" cy="28" r="22" stroke="currentColor" stroke-width="4.5" fill="transparent" stroke-dasharray="138.2" stroke-dashoffset="138.2" class="text-link transition-all duration-1000" />
+        </svg>
       </div>
     </div>
 
     <!-- Actions -->
-    <div class="flex flex-col sm:flex-row gap-3">
-      <Button variant="secondary" size="md" id="copy-btn" class="flex-grow gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+      <Button variant="secondary" size="md" id="copy-btn" class="flex-grow gap-2 py-3 rounded-full justify-center text-xs sm:text-sm font-semibold cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
         Copy Results
       </Button>
-      <Button variant="secondary" size="md" id="share-btn" class="flex-grow gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>
+      <Button variant="secondary" size="md" id="share-btn" class="flex-grow gap-2 py-3 rounded-full justify-center text-xs sm:text-sm font-semibold cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>
         Share Link
       </Button>
     </div>
   </div>
-</Card>
+</div>
 
 <script>
   import { calculateAge, getNextBirthdayCountdown } from "../../utils/dateUtils";
