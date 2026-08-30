@@ -21,61 +21,60 @@ const appSchema = {
   "browserRequirements": "Requires JavaScript"
 };
 
+const faqItems = [
+  {
+    question: "What is an ATS resume checker?",
+    answer: "An ATS (Applicant Tracking System) resume checker analyzes how well your resume matches a job description by comparing keywords, skills, and formatting requirements used by hiring software."
+  },
+  {
+    question: "How is the ATS score calculated?",
+    answer: "The ATS score is calculated across four key categories with strict influence limits: Keywords (up to 40%, covering exact terms and multi-word phrases), Skills alignment (up to 30%, prioritizing required skills over preferred ones), Experience relevance (up to 20%, evaluating duration, seniority matching, and bullet point impact metrics), and Structure (up to 10%, checking sections, length, and format compatibility)."
+  },
+  {
+    question: "What sections should a resume have for ATS?",
+    answer: "ATS-friendly resumes typically include: Contact Information, Professional Summary, Work Experience, Skills, Education, and optionally Certifications and Projects. Avoid tables, columns, and graphics."
+  },
+  {
+    question: "Is this resume checker free?",
+    answer: "Yes, this ATS resume checker is completely free with real-time analysis. No sign-up or credit card required."
+  },
+  {
+    question: "How does the Sandbox tool help optimize my score?",
+    answer: "The Sandbox lets you test-fit new keywords or skills and instantly see their simulated impact on your overall match score before you manually modify your resume document."
+  },
+  {
+    question: "What is a \"Ghost Job\" and how is it detected?",
+    answer: "A ghost job is a job listing that is not actively being filled. We scan for template placeholders, evergreen phrases (\"always looking to hire\"), lack of salary info, and copy-paste clichés to flag risk."
+  },
+  {
+    question: "Will this checker read PDF and DOCX files?",
+    answer: "Yes, the file importer supports .pdf, .docx, and .txt formats up to 5MB. You can upload either your resume, the job description, or both."
+  },
+  {
+    question: "Does formatting like tables or columns hurt my score?",
+    answer: "Yes. Columns, tables, text boxes, and charts can scramble your text during parsing, causing critical contact details or job histories to be misread by ATS parsers."
+  },
+  {
+    question: "How often should I optimize my resume?",
+    answer: "You should customize your resume for every single job application. Tailoring your keywords and skills to match each unique job description is the single most effective way to pass recruiters' automated screenings."
+  },
+  {
+    question: "Is my resume data saved or shared?",
+    answer: "No. All parsing and analysis are performed locally inside your browser sessions. Your data is stored securely in your local browser storage and is never uploaded to remote servers or shared with third parties."
+  }
+];
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is an ATS resume checker?",
-      "acceptedAnswer": { "@type": "Answer", "text": "An ATS (Applicant Tracking System) resume checker analyzes how well your resume matches a job description by comparing keywords, skills, and formatting requirements used by hiring software." }
-    },
-    {
-      "@type": "Question",
-      "name": "How is the ATS score calculated?",
-      "acceptedAnswer": { "@type": "Answer", "text": "The ATS score is calculated across 7 dimensions: keyword match (30%), skill alignment (20%), content quality (15%), section completeness (10%), bullet effectiveness (10%), formatting compatibility (5%), and experience relevance (10%)." }
-    },
-    {
-      "@type": "Question",
-      "name": "What sections should a resume have for ATS?",
-      "acceptedAnswer": { "@type": "Answer", "text": "ATS-friendly resumes typically include: Contact Information, Professional Summary, Work Experience, Skills, Education, and optionally Certifications and Projects. Avoid tables, columns, and graphics." }
-    },
-    {
-      "@type": "Question",
-      "name": "Is this resume checker free?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes, this ATS resume checker is completely free with real-time analysis. No sign-up or credit card required." }
-    },
-    {
-      "@type": "Question",
-      "name": "How does the Sandbox tool help optimize my score?",
-      "acceptedAnswer": { "@type": "Answer", "text": "The Sandbox lets you test-fit new keywords or skills and instantly see their simulated impact on your overall match score before you manually modify your resume document." }
-    },
-    {
-      "@type": "Question",
-      "name": "What is a \"Ghost Job\" and how is it detected?",
-      "acceptedAnswer": { "@type": "Answer", "text": "A ghost job is a job listing that is not actively being filled. We scan for template placeholders, evergreen phrases (\"always looking to hire\"), lack of salary info, and copy-paste clichés to flag risk." }
-    },
-    {
-      "@type": "Question",
-      "name": "Will this checker read PDF and DOCX files?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes, you can upload PDF or DOCX files directly or paste text into the editor." }
-    },
-    {
-      "@type": "Question",
-      "name": "Does formatting like tables or columns hurt my score?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Columns, tables, text boxes, and charts can scramble your text during parsing, causing critical contact details or job histories to be misread by ATS parsers." }
-    },
-    {
-      "@type": "Question",
-      "name": "How often should I optimize my resume?",
-      "acceptedAnswer": { "@type": "Answer", "text": "You should customize your resume for every single job application. Tailoring your keywords and skills to match each unique job description is the single most effective way to pass recruiters' automated screenings." }
-    },
-    {
-      "@type": "Question",
-      "name": "Is my resume data saved or shared?",
-      "acceptedAnswer": { "@type": "Answer", "text": "No. All parsing and analysis are performed locally inside your browser sessions. Your data is stored securely in your local browser storage and is never uploaded to remote servers or shared with third parties." }
+  "mainEntity": faqItems.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
     }
-  ]
+  }))
 };
 ---
 
@@ -1026,83 +1025,32 @@ const faqSchema = {
 
         </div>
 
-        <!-- FAQs Section for SEO (Always Visible) -->
+        <!-- FAQs Section for SEO (Accordion Style) -->
         <section class="mt-8 pt-6 border-t border-[var(--rc-border)]/30 animate-fade-up select-none">
-          <h2 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight mb-4 flex items-center gap-2">
-            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)]"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            Frequently Asked Questions
-          </h2>
+          <div class="flex items-center gap-3 mb-6">
+            <h2 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight flex items-center gap-2">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)]"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Frequently Asked Questions
+            </h2>
+            <div class="h-px flex-1 bg-[var(--rc-border)]/30"></div>
+          </div>
           
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
-              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">What is an ATS resume checker?</h3>
-              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
-                An ATS (Applicant Tracking System) resume checker analyzes how well your resume matches a job description by comparing keywords, skills, and formatting requirements used by hiring software.
-              </p>
-            </div>
-            
-            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
-              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">How is the ATS score calculated?</h3>
-              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
-                The ATS score is calculated across four key categories with strict influence limits: Keywords (up to 40%, covering exact terms and multi-word phrases), Skills alignment (up to 30%, prioritizing required skills over preferred ones), Experience relevance (up to 20%, evaluating duration, seniority matching, and bullet point impact metrics), and Structure (up to 10%, checking sections, length, and format compatibility).
-              </p>
-            </div>
-
-            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
-              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">What sections should a resume have for ATS?</h3>
-              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
-                ATS-friendly resumes typically include: Contact Information, Professional Summary, Work Experience, Skills, Education, and optionally Certifications and Projects. Avoid tables, columns, and graphics.
-              </p>
-            </div>
-
-            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
-              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">Is this resume checker free?</h3>
-              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
-                Yes, this ATS resume checker is completely free with real-time analysis. No sign-up or credit card required.
-              </p>
-            </div>
-
-            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
-              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">How does the Sandbox tool help optimize my score?</h3>
-              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
-                The Sandbox lets you test-fit new keywords or skills and instantly see their simulated impact on your overall match score before you manually modify your resume document.
-              </p>
-            </div>
-
-            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
-              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">What is a "Ghost Job" and how is it detected?</h3>
-              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
-                A ghost job is a job listing that is not actively being filled. We scan for template placeholders, evergreen phrases ("always looking to hire"), lack of salary info, and copy-paste clichés to flag risk.
-              </p>
-            </div>
-
-            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
-              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">Will this checker read PDF and DOCX files?</h3>
-              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
-                Yes, the file importer supports .pdf, .docx, and .txt formats up to 5MB. You can upload either your resume, the job description, or both.
-              </p>
-            </div>
-
-            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
-              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">Does formatting like tables or columns hurt my score?</h3>
-              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
-                Yes. Columns, tables, text boxes, and charts can scramble your text during parsing, causing critical contact details or job histories to be misread by ATS parsers.
-              </p>
-            </div>
-
-            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
-              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">How often should I optimize my resume?</h3>
-              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
-                You should customize your resume for every single job application. Tailoring your keywords and skills to match each unique job description is the single most effective way to pass recruiters' automated screenings.
-              </p>
-            </div>
-
-            <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-4 space-y-1">
-              <h3 class="text-xs font-bold text-[var(--rc-text-primary)]">Is my resume data saved or shared?</h3>
-              <p class="text-[11px] text-[var(--rc-text-secondary)] leading-relaxed font-medium">
-                No. All parsing and analysis are performed locally inside your browser sessions. Your data is stored securely in your local browser storage and is never uploaded to remote servers or shared with third parties.
-              </p>
-            </div>
+          <div class="space-y-3">
+            {faqItems.map((item) => (
+              <details class="group bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl overflow-hidden shadow-sm transition-all hover:shadow-md hover:border-[var(--rc-primary)]/20 [&_summary::-webkit-details-marker]:hidden">
+                <summary class="flex items-center justify-between px-5 py-3.5 cursor-pointer hover:bg-[var(--rc-bg-muted)] transition-colors select-none">
+                  <span class="text-xs font-bold text-[var(--rc-text-primary)] tracking-tight">{item.question}</span>
+                  <div class="w-5 h-5 rounded-full border border-[var(--rc-border)] flex items-center justify-center transition-transform group-open:rotate-180 group-hover:bg-[var(--rc-card-bg)] shrink-0 ml-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-[var(--rc-text-secondary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </div>
+                </summary>
+                <div class="px-5 py-4 text-[11px] text-[var(--rc-text-secondary)] leading-relaxed border-t border-[var(--rc-border)]/30 bg-[var(--rc-card-bg)]">
+                  {item.answer}
+                </div>
+              </details>
+            ))}
           </div>
         </section>
 

@@ -38,21 +38,60 @@ const websiteSchema = {
   "description": "Your intelligent exam coach. Readiness score, study forecast, smart review, and streak tracking."
 };
 
+const faqItems = [
+  {
+    question: "How does the Study Scheduler work?",
+    answer: "The Study Scheduler asks you to add your exams with target dates, list your subjects and topics, and set your preferred study hours per day. It then automatically distributes your topics across the available days, calculates your exam readiness score, and generates a personalized daily and weekly study plan. You can track your progress, log study sessions, and download a printable PDF planner."
+  },
+  {
+    question: "Can I create a study plan for multiple exams?",
+    answer: "Yes, you can add as many exams as you need. Each exam gets its own countdown tracker and your subjects can be tagged to specific exams. The scheduler allocates study time across all your exams based on their dates and your available study hours."
+  },
+  {
+    question: "How is the readiness score calculated?",
+    answer: "Your readiness score combines three factors: topics covered (35%), schedule density (20%), and average confidence (45%). Confidence gets the most weight because deep understanding matters more than speed."
+  },
+  {
+    question: "Can I download my study plan as a PDF?",
+    answer: "Yes, once you generate your study plan, you can download a beautifully designed multi-page PDF that includes a cover page, daily schedule, weekly roadmap, and revision tracker."
+  },
+  {
+    question: "Is the Study Scheduler free?",
+    answer: "Yes, the Study Scheduler is completely free to use. There are no sign-up requirements, no credit card needed, and no usage limits."
+  },
+  {
+    question: "How many subjects can I add?",
+    answer: "There is no limit. You can add as many subjects as you need, each with its own set of topics, difficulty level, and priority."
+  },
+  {
+    question: "Can I track revision sessions?",
+    answer: "Yes. After generating your plan, you can log study sessions for any topic and set your confidence level. The system schedules revision reminders based on your progress."
+  },
+  {
+    question: "Does the planner work for competitive exams?",
+    answer: "Yes. Break down large subjects into manageable topics, set daily study hours, and track progress toward full syllabus coverage with the revision tracker."
+  },
+  {
+    question: "Can I use it on mobile?",
+    answer: "Yes, the Study Scheduler is fully responsive. The form stacks vertically, buttons are touch-sized, and the generated plan adapts to any screen."
+  },
+  {
+    question: "How often should I update my study plan?",
+    answer: "Regenerate your plan whenever your study hours change, you add topics, or exam dates shift. The scheduler adjusts dynamically to redistribute your workload."
+  }
+];
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": [
-    { "@type": "Question", "name": "How does the Study Scheduler work?", "acceptedAnswer": { "@type": "Answer", "text": "The Study Scheduler asks you to add your exams with target dates, list your subjects and topics, and set your preferred study hours per day. It then automatically distributes your topics across the available days, calculates your exam readiness score, and generates a personalized daily and weekly study plan." } },
-    { "@type": "Question", "name": "Can I create a study plan for multiple exams?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, you can add as many exams as you need. Each exam gets its own countdown tracker and your subjects can be tagged to specific exams. The scheduler allocates study time across all your exams based on their dates and your available study hours." } },
-    { "@type": "Question", "name": "How is the readiness score calculated?", "acceptedAnswer": { "@type": "Answer", "text": "Your readiness score combines three factors: topics covered (35%), schedule density (20%), and average confidence (45%). Confidence gets the most weight because deep understanding matters more than speed." } },
-    { "@type": "Question", "name": "Can I download my study plan as a PDF?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, once you generate your study plan, you can download a beautifully designed multi-page PDF that includes a cover page, daily schedule, weekly roadmap, and revision tracker." } },
-    { "@type": "Question", "name": "Is the Study Scheduler free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, the Study Scheduler is completely free to use. There are no sign-up requirements, no credit card needed, and no usage limits." } },
-    { "@type": "Question", "name": "How many subjects can I add?", "acceptedAnswer": { "@type": "Answer", "text": "There is no limit. You can add as many subjects as you need, each with its own set of topics, difficulty level, and priority." } },
-    { "@type": "Question", "name": "Can I track revision sessions?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. After generating your plan, you can log study sessions for any topic and set your confidence level. The system schedules revision reminders based on your progress." } },
-    { "@type": "Question", "name": "Does the planner work for competitive exams?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Break down large subjects into manageable topics, set daily study hours, and track progress toward full syllabus coverage with the revision tracker." } },
-    { "@type": "Question", "name": "Can I use it on mobile?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, the Study Scheduler is fully responsive. The form stacks vertically, buttons are touch-sized, and the generated plan adapts to any screen." } },
-    { "@type": "Question", "name": "How often should I update my study plan?", "acceptedAnswer": { "@type": "Answer", "text": "Regenerate your plan whenever your study hours change, you add topics, or exam dates shift. The scheduler adjusts dynamically to redistribute your workload." } }
-  ]
+  "mainEntity": faqItems.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
 };
 ---
 
@@ -630,81 +669,28 @@ Stay consistent. Review often. You've got this.
 
 <!-- ===== FAQ SECTION ===== -->
 <div class="max-w-[1200px] mx-auto px-4 sm:px-8 py-16 md:py-24">
-  <div class="text-center mb-12">
-    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Frequently Asked Questions</h2>
-    <p class="text-base md:text-lg text-slate-500 mt-2 max-w-2xl mx-auto">Everything you need to know about the Tooltails Study Scheduler.</p>
-  </div>
-  <div class="max-w-3xl mx-auto space-y-0 divide-y divide-slate-200/60">
-    <details class="group py-5 open:pb-6">
-      <summary class="flex items-center justify-between cursor-pointer list-none text-base font-bold text-slate-800 hover:text-violet-700 transition-colors">
-        How does the Study Scheduler work?
-        <svg class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform shrink-0 ml-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-      </summary>
-      <p class="mt-3 text-sm text-slate-500 leading-relaxed">The Study Scheduler asks you to add your exams with target dates, list your subjects and topics, and set your preferred study hours per day. It then automatically distributes your topics across the available days, calculates your exam readiness score, and generates a personalized daily and weekly study plan. You can track your progress, log study sessions, and download a printable PDF planner.</p>
-    </details>
-    <details class="py-5">
-      <summary class="flex items-center justify-between cursor-pointer list-none text-base font-bold text-slate-800 hover:text-violet-700 transition-colors">
-        Can I create a study plan for multiple exams?
-        <svg class="w-4 h-4 text-slate-400 shrink-0 ml-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-      </summary>
-      <p class="mt-3 text-sm text-slate-500 leading-relaxed">Yes, you can add as many exams as you need. Each exam gets its own countdown tracker and your subjects can be tagged to specific exams. The scheduler allocates study time across all your exams based on their dates and your available study hours.</p>
-    </details>
-    <details class="py-5">
-      <summary class="flex items-center justify-between cursor-pointer list-none text-base font-bold text-slate-800 hover:text-violet-700 transition-colors">
-        How is the readiness score calculated?
-        <svg class="w-4 h-4 text-slate-400 shrink-0 ml-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-      </summary>
-      <p class="mt-3 text-sm text-slate-500 leading-relaxed">Your readiness score combines three factors: topics covered (35%), schedule density (20%), and average confidence (45%). Confidence gets the most weight because deep understanding matters more than speed.</p>
-    </details>
-    <details class="py-5">
-      <summary class="flex items-center justify-between cursor-pointer list-none text-base font-bold text-slate-800 hover:text-violet-700 transition-colors">
-        Can I download my study plan as a PDF?
-        <svg class="w-4 h-4 text-slate-400 shrink-0 ml-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-      </summary>
-      <p class="mt-3 text-sm text-slate-500 leading-relaxed">Yes, once you generate your study plan, you can download a beautifully designed multi-page PDF that includes a cover page, daily schedule, weekly roadmap, and revision tracker.</p>
-    </details>
-    <details class="py-5">
-      <summary class="flex items-center justify-between cursor-pointer list-none text-base font-bold text-slate-800 hover:text-violet-700 transition-colors">
-        Is the Study Scheduler free?
-        <svg class="w-4 h-4 text-slate-400 shrink-0 ml-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-      </summary>
-      <p class="mt-3 text-sm text-slate-500 leading-relaxed">Yes, the Study Scheduler is completely free to use. There are no sign-up requirements, no credit card needed, and no usage limits.</p>
-    </details>
-    <details class="py-5">
-      <summary class="flex items-center justify-between cursor-pointer list-none text-base font-bold text-slate-800 hover:text-violet-700 transition-colors">
-        How many subjects can I add?
-        <svg class="w-4 h-4 text-slate-400 shrink-0 ml-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-      </summary>
-      <p class="p-3 text-sm text-slate-500 leading-relaxed">There is no limit. You can add as many subjects as you need, each with its own set of topics, difficulty level, and priority.</p>
-    </details>
-    <details class="py-5">
-      <summary class="flex items-center justify-between cursor-pointer list-none text-base font-bold text-slate-800 hover:text-violet-700 transition-colors">
-        Can I track revision sessions?
-        <svg class="w-4 h-4 text-slate-400 shrink-0 ml-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-      </summary>
-      <p class="mt-3 text-sm text-slate-500 leading-relaxed">Yes. After generating your plan, you can log study sessions for any topic and set your confidence level. The system schedules revision reminders based on your progress.</p>
-    </details>
-    <details class="py-5">
-      <summary class="flex items-center justify-between cursor-pointer list-none text-base font-bold text-slate-800 hover:text-violet-700 transition-colors">
-        Does the planner work for competitive exams?
-        <svg class="w-4 h-4 text-slate-400 shrink-0 ml-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-      </summary>
-      <p class="mt-3 text-sm text-slate-500 leading-relaxed">Yes. Break down large subjects into manageable topics, set daily study hours, and track progress toward full syllabus coverage with the revision tracker.</p>
-    </details>
-    <details class="py-5">
-      <summary class="flex items-center justify-between cursor-pointer list-none text-base font-bold text-slate-800 hover:text-violet-700 transition-colors">
-        Can I use it on mobile?
-        <svg class="w-4 h-4 text-slate-400 shrink-0 ml-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-      </summary>
-      <p class="mt-3 text-sm text-slate-500 leading-relaxed">Yes, the Study Scheduler is fully responsive. The form stacks vertically, buttons are touch-sized, and the generated plan adapts to any screen.</p>
-    </details>
-    <details class="py-5">
-      <summary class="flex items-center justify-between cursor-pointer list-none text-base font-bold text-slate-800 hover:text-violet-700 transition-colors">
-        How often should I update my study plan?
-        <svg class="w-4 h-4 text-slate-400 shrink-0 ml-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-      </summary>
-      <p class="mt-3 text-sm text-slate-500 leading-relaxed">Regenerate your plan whenever your study hours change, you add topics, or exam dates shift. The scheduler adjusts dynamically to redistribute your workload.</p>
-    </details>
+  <div class="max-w-3xl mx-auto">
+    <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">Frequently Asked Questions</h2>
+      <div class="hidden sm:block h-px w-full bg-hairline"></div>
+    </div>
+    <div class="space-y-3">
+      {faqItems.map((item) => (
+        <details class="group bg-canvas border border-hairline rounded-3xl overflow-hidden shadow-sm transition-all hover:shadow-md hover:border-link/20 [&_summary::-webkit-details-marker]:hidden">
+          <summary class="flex items-center justify-between px-6 py-4 cursor-pointer hover:bg-canvas-soft transition-colors select-none">
+            <span class="text-sm font-bold text-ink tracking-tight">{item.question}</span>
+            <div class="w-6 h-6 rounded-full border border-hairline flex items-center justify-center transition-transform group-open:rotate-180 group-hover:bg-canvas shrink-0 ml-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </summary>
+          <div class="px-6 py-5 text-sm text-body leading-relaxed border-t border-hairline bg-canvas/50">
+            {item.answer}
+          </div>
+        </details>
+      ))}
+    </div>
   </div>
 </div>
 

@@ -26,17 +26,26 @@ const faqSchema = {
 };
 ---
 
-<div class:list={['space-y-5', className]}>
-  <div class="flex items-center gap-3">
-    <h2 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Frequently Asked Questions</h2>
+<div class:list={['space-y-4', className]}>
+  <div class="flex items-center gap-3 mb-2">
+    <h2 class="text-base sm:text-lg font-bold text-ink tracking-tight">Frequently Asked Questions</h2>
     <div class="h-px w-full bg-hairline"></div>
   </div>
-  <div class="grid gap-4">
+  <div class="space-y-3">
     {items.map((item) => (
-      <div class="border-b border-hairline pb-4">
-        <h3 class="text-sm font-semibold text-ink tracking-tight mb-1.5">{item.question}</h3>
-        <p class="text-sm text-body leading-relaxed">{item.answer}</p>
-      </div>
+      <details class="group bg-canvas border border-hairline rounded-3xl overflow-hidden shadow-sm transition-all hover:shadow-md hover:border-link/20 [&_summary::-webkit-details-marker]:hidden">
+        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer hover:bg-canvas-soft transition-colors select-none">
+          <span class="text-sm font-bold text-ink tracking-tight">{item.question}</span>
+          <div class="w-6 h-6 rounded-full border border-hairline flex items-center justify-center transition-transform group-open:rotate-180 group-hover:bg-canvas shrink-0 ml-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+        </summary>
+        <div class="px-6 py-5 text-sm text-body leading-relaxed border-t border-hairline bg-canvas/50">
+          {item.answer}
+        </div>
+      </details>
     ))}
   </div>
 </div>
