@@ -1,5 +1,26 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import HowToUseModal from "../components/ui/HowToUseModal.astro";
+
+const howToUseSteps = [
+  {
+    title: "Input Resume",
+    description: "Paste your resume text or upload a .pdf, .docx, or .txt file into the resume card."
+  },
+  {
+    title: "Input Job Description",
+    description: "Paste the target job description into the matching card."
+  },
+  {
+    title: "Review ATS Match Score",
+    description: "Inspect your 0–100 Match Score, letter grade, and category breakdowns across Keywords, Skills, Experience, and Formatting."
+  },
+  {
+    title: "Use the Sandbox & Export",
+    description: "Test-fit missing keywords in Sandbox mode to see real-time score improvements, then click \"Download PDF Report\" to export your results."
+  }
+];
+const howToUseTip = "Click \"Load sample →\" to explore a demo evaluation with preloaded tech resume and job description data.";
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -531,6 +552,7 @@ const faqSchema = {
         <!-- Toolbar: minimal -->
         <div class="flex items-center justify-between mb-2.5">
           <div class="flex items-center gap-3">
+            <HowToUseModal toolName="Resume Checker" steps={howToUseSteps} tip={howToUseTip} />
             <span id="live-status-indicator" class="hidden inline-flex items-center gap-1.5 text-xs text-[var(--rc-primary)] font-semibold">
               <span class="flex gap-0.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-[var(--rc-primary)] animate-pulse-dot"></span>

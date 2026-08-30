@@ -2,6 +2,23 @@
 import Layout from "../layouts/Layout.astro";
 import AgeCalculator from "../components/calculators/AgeCalculator.astro";
 import FAQ from "../components/ui/FAQ.astro";
+import HowToUseModal from "../components/ui/HowToUseModal.astro";
+
+const howToUseSteps = [
+  {
+    title: "Enter Birth Date",
+    description: "Select your birth day, month, and 4-digit year from the input fields."
+  },
+  {
+    title: "Calculate Exact Age",
+    description: "Click \"Calculate My Exact Age\" to run calendar-accurate math with complete leap-year accounting."
+  },
+  {
+    title: "Explore Lifetime Metrics",
+    description: "View your exact age in completed years, months, and days, plus cumulative statistics in total days, weeks, hours, seconds, and an upcoming birthday countdown."
+  }
+];
+const howToUseTip = "All date math runs 100% locally in your browser—your birth date is never transmitted, stored, or shared.";
 
 const faqItems = [
   {
@@ -37,9 +54,13 @@ const canonicalUrl = "https://tooltails.com/age-calculator/";
           <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-ink mb-3 leading-[1.1]">
             Age Calculator — Calculate Your Exact Age
           </h1>
-          <p class="text-base md:text-lg text-body leading-relaxed max-w-lg mx-auto lg:mx-0 mb-6">
+          <p class="text-base md:text-lg text-body leading-relaxed max-w-lg mx-auto lg:mx-0 mb-4">
             Calculate your exact age in years, months, days, weeks, and seconds instantly. Processed 100% privately in your browser.
           </p>
+          
+          <div class="mb-6 flex justify-center lg:justify-start">
+            <HowToUseModal toolName="Age Calculator" steps={howToUseSteps} tip={howToUseTip} />
+          </div>
           
           <!-- Trust Signals Desktop -->
           <div class="hidden lg:flex items-center gap-8 text-[12px] font-bold text-mute uppercase tracking-[0.2em]">

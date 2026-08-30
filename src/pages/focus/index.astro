@@ -1,7 +1,27 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-
 import FAQ from "../../components/ui/FAQ.astro";
+import HowToUseModal from "../../components/ui/HowToUseModal.astro";
+
+const howToUseSteps = [
+  {
+    title: "Set Your Outcome",
+    description: "Enter your primary session goal and a brief \"Why\" statement in the Workspace tab."
+  },
+  {
+    title: "Break Down Milestones",
+    description: "Add 2–4 checklist milestones you plan to complete during the work block."
+  },
+  {
+    title: "Start Focusing",
+    description: "Launch the timer and check off milestones as you complete them."
+  },
+  {
+    title: "Review Progress & Journal",
+    description: "Switch to the Progress tab to inspect weekly completion streaks or the Journal tab to write session notes."
+  }
+];
+const howToUseTip = "Focus emphasizes shipping concrete milestones rather than merely watching the clock tick.";
 
 // FAQ Items for SEO
 const faqItems = [
@@ -76,22 +96,25 @@ const appSchema = {
     <span id="global-success-rate" class="hidden">0%</span>
 
     <!-- Minimal header -->
-        <div class="flex items-center justify-between mb-3 md:mb-5 select-none">
+    <div class="flex items-center justify-between mb-3 md:mb-5 select-none gap-2">
+      <div class="flex items-center gap-3">
         <h1 class="text-xl md:text-3xl font-extrabold tracking-tight text-ink">
           Focus
         </h1>
-        <div class="flex items-center gap-2">
-          <div role="tablist" class="flex items-center gap-1.5 bg-canvas-soft-2/80 rounded-full p-0.5">
-        <button id="tab-btn-workspace" role="tab" aria-selected="true" aria-controls="tab-workspace" class="tab-btn px-4 py-2 sm:py-1.5 min-h-[44px] text-sm font-semibold rounded-full bg-canvas text-ink shadow-sm focus-visible:outline-none transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('workspace')" aria-label="Open workspace tab">
-          Timer
-        </button>
-        <button id="tab-btn-analytics" role="tab" aria-selected="false" aria-controls="tab-analytics" class="tab-btn px-4 py-2 sm:py-1.5 min-h-[44px] text-sm font-semibold rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('analytics')" aria-label="Open progress analytics tab">
-          Progress
-        </button>
-        <button id="tab-btn-premium" role="tab" aria-selected="false" aria-controls="tab-premium" class="tab-btn px-4 py-2 sm:py-1.5 min-h-[44px] text-sm font-semibold rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('premium')" aria-label="Open growth and coaching tab">
-          Journal
-        </button>
+        <HowToUseModal toolName="Focus" steps={howToUseSteps} tip={howToUseTip} />
       </div>
+      <div class="flex items-center gap-2">
+        <div role="tablist" class="flex items-center gap-1.5 bg-canvas-soft-2/80 rounded-full p-0.5">
+          <button id="tab-btn-workspace" role="tab" aria-selected="true" aria-controls="tab-workspace" class="tab-btn px-4 py-2 sm:py-1.5 min-h-[44px] text-sm font-semibold rounded-full bg-canvas text-ink shadow-sm focus-visible:outline-none transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('workspace')" aria-label="Open workspace tab">
+            Timer
+          </button>
+          <button id="tab-btn-analytics" role="tab" aria-selected="false" aria-controls="tab-analytics" class="tab-btn px-4 py-2 sm:py-1.5 min-h-[44px] text-sm font-semibold rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('analytics')" aria-label="Open progress analytics tab">
+            Progress
+          </button>
+          <button id="tab-btn-premium" role="tab" aria-selected="false" aria-controls="tab-premium" class="tab-btn px-4 py-2 sm:py-1.5 min-h-[44px] text-sm font-semibold rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('premium')" aria-label="Open growth and coaching tab">
+            Journal
+          </button>
+        </div>
       </div>
     </div>
 

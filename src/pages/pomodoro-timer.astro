@@ -2,6 +2,23 @@
 import Layout from "../layouts/Layout.astro";
 import Input from "../components/ui/Input.astro";
 import Button from "../components/ui/Button.astro";
+import HowToUseModal from "../components/ui/HowToUseModal.astro";
+
+const howToUseSteps = [
+  {
+    title: "Select a Focus Mode",
+    description: "Choose Pomodoro (25 min), Short Break (5 min), or Long Break (15 min)."
+  },
+  {
+    title: "Set Your Task",
+    description: "Type a custom task in the input box or click a quick-start template (Study, Writing, Coding, or Reading)."
+  },
+  {
+    title: "Run the Timer",
+    description: "Click Start to begin focusing. Mark tasks as complete to increase your daily sessions, build streaks, and boost your Focus Score."
+  }
+];
+const howToUseTip = "Adjust interval durations and sound alerts in the timer settings menu.";
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -50,10 +67,13 @@ const websiteSchema = {
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
   <!-- ===== HERO SECTION ===== -->
-  <div class="max-w-[1440px] mx-auto px-4 pt-1 pb-0">
+  <div class="max-w-[1440px] mx-auto px-4 pt-1 pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
     <div>
       <h1 class="text-pretty text-2xl sm:text-3xl md:text-4xl font-black tracking-tighter text-ink leading-tight">Pomodoro Timer — Focus on <span class="bg-gradient-to-r from-link via-blue-500 to-indigo-600 bg-clip-text text-transparent font-black">one thing</span>.</h1>
       <p class="text-xs sm:text-sm text-ink/75 font-medium leading-relaxed mt-1">A premium focus space designed to protect your attention, rhythm, and flow.</p>
+    </div>
+    <div class="shrink-0 self-start sm:self-auto">
+      <HowToUseModal toolName="Pomodoro Timer" steps={howToUseSteps} tip={howToUseTip} />
     </div>
   </div>
 

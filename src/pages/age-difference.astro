@@ -2,6 +2,23 @@
 import Layout from "../layouts/Layout.astro";
 import AgeDifferenceCalculator from "../components/calculators/AgeDifferenceCalculator.astro";
 import FAQ from "../components/ui/FAQ.astro";
+import HowToUseModal from "../components/ui/HowToUseModal.astro";
+
+const howToUseSteps = [
+  {
+    title: "Enter Person 1's Date",
+    description: "Input the birth day, month, and year for the first individual."
+  },
+  {
+    title: "Enter Person 2's Date",
+    description: "Input the birth day, month, and year for the second individual."
+  },
+  {
+    title: "Compare Age Gap",
+    description: "Click \"Calculate Difference\" to see who is older, the exact difference in years, months, and days, and the total days between both dates."
+  }
+];
+const howToUseTip = "Dates are automatically sorted chronologically, so you can enter the individuals in any order.";
 
 const faqItems = [
   {
@@ -34,9 +51,12 @@ const canonicalUrl = "https://tooltails.com/age-difference/";
       <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-ink mb-4">
         Age Difference Calculator — Compare Two Birth Dates
       </h1>
-      <p class="text-lg md:text-xl text-body leading-relaxed max-w-[700px] mx-auto mb-6">
+      <p class="text-lg md:text-xl text-body leading-relaxed max-w-[700px] mx-auto mb-4">
         Find the exact age gap between friends, partners, or family members. Simply enter two dates of birth below to see the precise difference.
       </p>
+      <div class="mb-6 flex justify-center">
+        <HowToUseModal toolName="Age Difference Calculator" steps={howToUseSteps} tip={howToUseTip} />
+      </div>
     </div>
 
     <div class="max-w-[800px] mx-auto">

@@ -2,6 +2,27 @@
 import Layout from "../layouts/Layout.astro";
 import WordCounter from "../components/calculators/WordCounter.astro";
 import FAQ from "../components/ui/FAQ.astro";
+import HowToUseModal from "../components/ui/HowToUseModal.astro";
+
+const howToUseSteps = [
+  {
+    title: "Paste or Type Text",
+    description: "Enter or paste your text directly into the main editor, or format existing text using the Upper, Lower, or Title case buttons."
+  },
+  {
+    title: "Use One-Click Cleanup",
+    description: "Clean extra whitespace, remove blank lines, fix punctuation spacing, or eliminate repeated words using the Cleanup toolbar."
+  },
+  {
+    title: "Monitor Live Metrics",
+    description: "View real-time word, character, sentence, and paragraph counts alongside Reading Time (200 WPM) and Speaking Time (130 WPM)."
+  },
+  {
+    title: "Check Readability & Limits",
+    description: "Review your Flesch-Kincaid Reading Level, top keyword densities, and live character progress bars for Twitter/X, LinkedIn, Instagram, and Meta descriptions."
+  }
+];
+const howToUseTip = "Use Copy to grab your cleaned text or Clear to start fresh. Press Ctrl+Z to undo any cleanup action.";
 
 const faqItems = [
   {
@@ -54,11 +75,16 @@ const faqItems = [
   <!-- Title + Editor + Sidebar -->
   <section class="px-4 sm:px-6 pt-4 pb-2">
     <div class="max-w-7xl mx-auto flex flex-col gap-3">
-      <div class="mb-4">
-        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-ink mb-1.5">Word Counter — Count Words & Characters</h1>
-        <p class="text-body text-sm max-w-2xl leading-relaxed">
-          Analyze your text in real time with our privacy-first character counter, reading time calculator, and text analyzer.
-        </p>
+      <div class="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-ink mb-1.5">Word Counter — Count Words & Characters</h1>
+          <p class="text-body text-sm max-w-2xl leading-relaxed">
+            Analyze your text in real time with our privacy-first character counter, reading time calculator, and text analyzer.
+          </p>
+        </div>
+        <div class="shrink-0 self-start sm:self-auto">
+          <HowToUseModal toolName="Word Counter" steps={howToUseSteps} tip={howToUseTip} />
+        </div>
       </div>
       <WordCounter />
     </div>

@@ -2,6 +2,23 @@
 import Layout from "../layouts/Layout.astro";
 import DateDurationCalculator from "../components/calculators/DateDurationCalculator.astro";
 import FAQ from "../components/ui/FAQ.astro";
+import HowToUseModal from "../components/ui/HowToUseModal.astro";
+
+const howToUseSteps = [
+  {
+    title: "Enter Start Date",
+    description: "Input the starting day, month, and year."
+  },
+  {
+    title: "Enter End Date",
+    description: "Input the target ending day, month, and year."
+  },
+  {
+    title: "Calculate Time Span",
+    description: "Click \"Calculate Duration\" to compute the exact elapsed time in years, months, and days."
+  }
+];
+const howToUseTip = "Click \"Reset\" to clear both dates and start a new calculation.";
 
 const faqItems = [
   {
@@ -34,9 +51,12 @@ const canonicalUrl = "https://tooltails.com/duration/";
       <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-ink mb-4">
         Date Duration Calculator — Calculate Time Between Two Dates
       </h1>
-      <p class="text-lg md:text-xl text-body leading-relaxed max-w-[700px] mx-auto mb-6">
+      <p class="text-lg md:text-xl text-body leading-relaxed max-w-[700px] mx-auto mb-4">
         Need to know exactly how much time is between two dates? Use our precision tool to calculate years, months, and days between any two points in time.
       </p>
+      <div class="mb-6 flex justify-center">
+        <HowToUseModal toolName="Date Duration Calculator" steps={howToUseSteps} tip={howToUseTip} />
+      </div>
     </div>
 
     <div class="max-w-[800px] mx-auto">
