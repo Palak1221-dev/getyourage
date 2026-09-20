@@ -24,6 +24,49 @@ const howToUseTip = "Click \"Load sample →\" to explore a demo evaluation with
 
 const canonicalUrl = "https://tooltails.com/resume-checker/";
 
+const faqItems = [
+  {
+    question: "What is an ATS resume checker?",
+    answer: "An ATS (Applicant Tracking System) resume checker analyzes how well your resume matches a job description by comparing keywords, skills, and formatting requirements used by hiring software."
+  },
+  {
+    question: "How is the ATS score calculated?",
+    answer: "The ATS score is calculated across four key categories with strict influence limits: Keywords (up to 40%, covering exact terms and multi-word phrases), Skills alignment (up to 30%, prioritizing required skills over preferred ones), Experience relevance (up to 20%, evaluating duration, seniority matching, and bullet point impact metrics), and Structure (up to 10%, checking sections, length, and format compatibility)."
+  },
+  {
+    question: "What sections should a resume have for ATS?",
+    answer: "ATS-friendly resumes typically include: Contact Information, Professional Summary, Work Experience, Skills, Education, and optionally Certifications and Projects. Avoid tables, columns, and graphics."
+  },
+  {
+    question: "Is this resume checker free?",
+    answer: "Yes, this ATS resume checker is completely free with real-time analysis. No sign-up or credit card required."
+  },
+  {
+    question: "How does the Sandbox tool help optimize my score?",
+    answer: "The Sandbox lets you test-fit new keywords or skills and instantly see their simulated impact on your overall match score before you manually modify your resume document."
+  },
+  {
+    question: "What is a \"Ghost Job\" and how is it detected?",
+    answer: "A ghost job is a job listing that is not actively being filled. We scan for template placeholders, evergreen phrases (\"always looking to hire\"), lack of salary info, and copy-paste clichés to flag risk."
+  },
+  {
+    question: "Will this checker read PDF and DOCX files?",
+    answer: "Yes, the file importer supports .pdf, .docx, and .txt formats up to 5MB. You can upload either your resume, the job description, or both."
+  },
+  {
+    question: "Does formatting like tables or columns hurt my score?",
+    answer: "Yes. Columns, tables, text boxes, and charts can scramble your text during parsing, causing critical contact details or job histories to be misread by ATS parsers."
+  },
+  {
+    question: "How often should I optimize my resume?",
+    answer: "You should customize your resume for every single job application. Tailoring your keywords and skills to match each unique job description is the single most effective way to pass recruiters' automated screenings."
+  },
+  {
+    question: "Is my resume data saved or shared?",
+    answer: "No. All parsing and analysis are performed locally inside your browser sessions. Your data is stored securely in your local browser storage and is never uploaded to remote servers or shared with third parties."
+  }
+];
+
 const resumeCheckerGraphSchema = {
   "@context": "https://schema.org",
   "@graph": [
