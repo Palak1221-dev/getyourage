@@ -22,42 +22,7 @@ const howToUseSteps = [
 ];
 const howToUseTip = "Log completed topics and track confidence levels to have the scheduler dynamically adjust your remaining workload.";
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com/" },
-    { "@type": "ListItem", "position": 2, "name": "Study Schedule Generator", "item": "https://tooltails.com/study-schedule/" }
-  ]
-};
-
-const appSchema = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Tooltails Study Schedule Generator",
-  "operatingSystem": "All",
-  "applicationCategory": "EducationalApplication",
-  "description": "An intelligent exam coach that shows your readiness score, predicts when you'll finish, and adapts as you study. Free, no login.",
-  "browserRequirements": "Requires JavaScript",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "featureList": "Exam Readiness Score, Readiness Forecast, Smart Review, Miss-Day Simulator, Study Streaks, Visual Roadmap"
-};
-
-const webPageSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Study Schedule Generator — Plan Your Exam Prep",
-  "description": "Your intelligent exam coach. See your readiness score, your path to exam day, and exactly what to study next. Free, no login.",
-  "url": "https://tooltails.com/study-schedule/"
-};
-
-const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Tooltails Study Schedule Generator",
-  "url": "https://tooltails.com/study-schedule/",
-  "description": "Your intelligent exam coach. Readiness score, study forecast, smart review, and streak tracking."
-};
+const canonicalUrl = "https://tooltails.com/study-schedule/";
 
 const faqItems = [
   {
@@ -102,17 +67,46 @@ const faqItems = [
   }
 ];
 
-const faqSchema = {
+const studyScheduleGraphSchema = {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqItems.map(item => ({
-    "@type": "Question",
-    "name": item.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": item.answer
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Study Schedule Generator", "item": canonicalUrl }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Tooltails Study Schedule Generator",
+      "operatingSystem": "All",
+      "applicationCategory": "EducationalApplication",
+      "description": "An intelligent exam study planner that calculates your readiness score, distributes topics across target exam dates, tracks revision cycles, and generates printable PDF planners.",
+      "url": canonicalUrl,
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Dynamic Exam Readiness Score (Topics, Density, Confidence)",
+        "Spaced Repetition & Smart Review Scheduler",
+        "Multi-Exam Countdown & Workload Balancing",
+        "Miss-Day Impact Simulator",
+        "Visual Roadmap to Exam Day",
+        "Printable High-Resolution PDF Planner Kits"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer
+        }
+      }))
     }
-  }))
+  ]
 };
 ---
 
@@ -124,8 +118,7 @@ const faqSchema = {
   <link slot="head" rel="preconnect" href="https://fonts.googleapis.com" />
   <link slot="head" rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link slot="head" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;900&family=Outfit:wght@400;500;600;700;800;900&family=Caveat:wght@600&display=swap" rel="stylesheet" />
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(studyScheduleGraphSchema)} />
 
   <a href="#main-content" class="skip-link sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-violet-600 focus:text-white focus:rounded-lg focus:text-sm focus:font-bold">Skip to main content</a>
   <div id="main-content" class="w-full flex-1 text-slate-800 font-outfit" style="font-family: 'Outfit', system-ui, -apple-system, sans-serif;">
@@ -718,6 +711,162 @@ Stay consistent. Review often. You've got this.
 
   </div></div></div>  <div id="planner-weekly" aria-hidden="true" style="position: fixed; left: -9999px; top: 0; width: 800px; height: 1131px; background: #fdfbf7; padding: 24px 32px; box-sizing: border-box; font-family: 'Outfit', sans-serif; display: flex; flex-direction: column; gap: 14px; border: 2px solid #e2e8f0; border-radius: 4px;"> <div style="background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); color: #ffffff; padding: 8px 20px; border-radius: 120px 10px 100px 8px/8px 100px 10px 120px; display: inline-flex; align-items: center; gap: 10px; width: fit-content;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 20px; font-weight: 900; letter-spacing: 1px;">WEEKLY PLANNER</span> <span style="font-size: 16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> </div> <div id="pk-weekly-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; flex: 1;"></div> <div style="display: flex; gap: 14px;"> <div style="flex: 1; border: 2px solid #e2e8f0; border-radius: 16px; padding: 12px 16px; background: #ffffff;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 11px; font-weight: 900; color: #7c3aed; display: flex; align-items: center; gap: 6px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Weekly Goals</span> <div id="pk-weekly-goals" style="margin-top: 6px; display: flex; flex-direction: column; gap: 6px;"></div> </div> <div style="flex: 1; border: 2px solid #e2e8f0; border-radius: 16px; padding: 12px 16px; background: #ffffff;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 11px; font-weight: 900; color: #7c3aed; display: flex; align-items: center; gap: 6px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Top 3 Priorities</span> <div id="pk-weekly-priorities" style="margin-top: 6px; display: flex; flex-direction: column; gap: 6px;"></div> </div> </div> </div>  <div id="planner-daily" aria-hidden="true" style="position: fixed; left: -9999px; top: 0; width: 800px; height: 1131px; background: #fdfbf7; padding: 24px 32px; box-sizing: border-box; font-family: 'Outfit', sans-serif; display: flex; flex-direction: column; gap: 10px; border: 2px solid #e2e8f0; border-radius: 4px;"> <div style="background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); color: #ffffff; padding: 8px 20px; border-radius: 120px 10px 100px 8px/8px 100px 10px 120px; display: inline-flex; align-items: center; gap: 10px; width: fit-content;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 20px; font-weight: 900; letter-spacing: 1px;">DAILY STUDY PLANNER</span> <span style="font-size: 16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span> </div> <div style="display: flex; gap: 10px; flex: 1;"> <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;"> <div style="border: 2px solid #e2e8f0; border-radius: 16px; padding: 10px 14px; background: #ffffff; flex: 1;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 11px; font-weight: 900; color: #7c3aed; display: flex; align-items: center; gap: 6px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Today's Goal</span> <div id="pk-daily-goal" style="margin-top: 4px; display: flex; flex-direction: column; gap: 4px;"></div> </div> <div style="border: 2px solid #e2e8f0; border-radius: 16px; padding: 10px 14px; background: #ffffff; flex: 1;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 11px; font-weight: 900; color: #7c3aed; display: flex; align-items: center; gap: 6px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> Top 3 Priorities</span> <div id="pk-daily-priorities" style="margin-top: 4px; display: flex; flex-direction: column; gap: 6px;"></div> </div> </div> <div style="flex: 2; border: 2px solid #e2e8f0; border-radius: 16px; padding: 10px 14px; background: #ffffff; display: flex; flex-direction: column;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 11px; font-weight: 900; color: #7c3aed; display: flex; align-items: center; gap: 6px;">â° Time Schedule</span> <div id="pk-daily-schedule" style="margin-top: 4px; flex: 1; display: flex; flex-direction: column; gap: 0;"></div> </div> </div> <div id="pk-daily-footer" style="display: flex; gap: 10px;"> <div style="flex: 1; border: 2px solid #e2e8f0; border-radius: 16px; padding: 10px 14px; background: #fffbeb; display: flex; flex-direction: column; gap: 4px;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 10px; font-weight: 900; color: #d97706; display: flex; align-items: center; gap: 6px;">💭 Notes</span> <div id="pk-daily-notes"></div> </div> <div style="flex: 1; border: 2px solid #e2e8f0; border-radius: 16px; padding: 10px 14px; background: #f0fdf4; display: flex; flex-direction: column; gap: 4px;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 10px; font-weight: 900; color: #16a34a; display: flex; align-items: center; gap: 6px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Reflection</span> <div style="display: flex; align-items: center; gap: 4px;"><span style="font-size: 8px; font-weight: 700; color: #16a34a;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span><div style="border-bottom: 1.5px dashed #bbf7d0; flex: 1; height: 14px;"></div></div> <div style="display: flex; align-items: center; gap: 4px;"><span style="font-size: 8px; font-weight: 700; color: #f97316;">↑</span><div style="border-bottom: 1.5px dashed #bbf7d0; flex: 1; height: 14px;"></div></div> </div> </div> </div>  <div id="planner-revision" aria-hidden="true" style="position: fixed; left: -9999px; top: 0; width: 800px; height: 1131px; background: #fdfbf7; padding: 24px 32px; box-sizing: border-box; font-family: 'Outfit', sans-serif; display: flex; flex-direction: column; gap: 12px; border: 2px solid #e2e8f0; border-radius: 4px;"> <div style="background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); color: #ffffff; padding: 8px 20px; border-radius: 120px 10px 100px 8px/8px 100px 10px 120px; display: inline-flex; align-items: center; gap: 10px; width: fit-content;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 20px; font-weight: 900; letter-spacing: 1px;">REVISION TRACKER</span> <span style="font-size: 16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></span> </div> <div style="flex: 1; border: 2px solid #e2e8f0; border-radius: 16px; background: #ffffff; overflow: hidden; display: flex; flex-direction: column;"> <div style="background: #f5f3ff; padding: 10px 14px; display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr 1fr 1fr; border-bottom: 2px solid #ddd6fe;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 10px; font-weight: 900; color: #7c3aed;">Topic</span> <span style="font-family: 'Fredoka', sans-serif; font-size: 10px; font-weight: 900; color: #7c3aed; text-align: center;">Learn</span> <span style="font-family: 'Fredoka', sans-serif; font-size: 10px; font-weight: 900; color: #7c3aed; text-align: center;">Rev 1</span> <span style="font-family: 'Fredoka', sans-serif; font-size: 10px; font-weight: 900; color: #7c3aed; text-align: center;">Rev 2</span> <span style="font-family: 'Fredoka', sans-serif; font-size: 10px; font-weight: 900; color: #7c3aed; text-align: center;">Rev 3</span> <span style="font-family: 'Fredoka', sans-serif; font-size: 10px; font-weight: 900; color: #7c3aed; text-align: center;">Final</span> </div> <div id="pk-revision-rows" style="flex: 1; display: flex; flex-direction: column;"></div> </div> <div style="display: flex; gap: 12px; align-items: center; justify-content: center; padding: 6px 0;"> <span style="display: flex; align-items: center; gap: 4px; font-size: 8px; color: #94a3b8;"><span style="display: inline-block; width: 10px; height: 10px; border: 2px solid #cbd5e1; border-radius: 50%;"></span> Not started</span> <span style="display: flex; align-items: center; gap: 4px; font-size: 8px; color: #94a3b8;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #7c3aed;"></span> In progress</span> <span style="display: flex; align-items: center; gap: 4px; font-size: 8px; color: #94a3b8;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #10b981;"></span> Completed</span> </div> </div>  <div id="planner-habits" aria-hidden="true" style="position: fixed; left: -9999px; top: 0; width: 800px; height: 1131px; background: #fdfbf7; padding: 24px 32px; box-sizing: border-box; font-family: 'Outfit', sans-serif; display: flex; flex-direction: column; gap: 12px; border: 2px solid #e2e8f0; border-radius: 4px;"> <div style="background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); color: #ffffff; padding: 8px 20px; border-radius: 120px 10px 100px 8px/8px 100px 10px 120px; display: inline-flex; align-items: center; gap: 10px; width: fit-content;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 20px; font-weight: 900; letter-spacing: 1px;">HABIT TRACKER</span> <span style="font-size: 16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span> </div> <div style="flex: 1; border: 2px solid #e2e8f0; border-radius: 16px; background: #ffffff; overflow: hidden; display: flex; flex-direction: column;"> <div style="background: #f5f3ff; padding: 8px 14px; display: grid; grid-template-columns: 1.8fr repeat(7, 1fr) 0.8fr; border-bottom: 2px solid #ddd6fe;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 8px; font-weight: 900; color: #7c3aed;">Your Habits</span> <span style="font-family: 'Fredoka', sans-serif; font-size: 8px; font-weight: 900; color: #7c3aed; text-align: center;">MON</span> <span style="font-family: 'Fredoka', sans-serif; font-size: 8px; font-weight: 900; color: #7c3aed; text-align: center;">TUE</span> <span style="font-family: 'Fredoka', sans-serif; font-size: 8px; font-weight: 900; color: #7c3aed; text-align: center;">WED</span> <span style="font-family: 'Fredoka', sans-serif; font-size: 8px; font-weight: 900; color: #7c3aed; text-align: center;">THU</span> <span style="font-family: 'Fredoka', sans-serif; font-size: 8px; font-weight: 900; color: #7c3aed; text-align: center;">FRI</span> <span style="font-family: 'Fredoka', sans-serif; font-size: 8px; font-weight: 900; color: #7c3aed; text-align: center;">SAT</span> <span style="font-family: 'Fredoka', sans-serif; font-size: 8px; font-weight: 900; color: #7c3aed; text-align: center;">SUN</span> <span style="font-family: 'Fredoka', sans-serif; font-size: 8px; font-weight: 900; color: #7c3aed; text-align: center;">Total</span> </div> <div id="pk-habits-rows" style="flex: 1; display: flex; flex-direction: column;"></div> </div> </div>  <div id="planner-countdown" aria-hidden="true" style="position: fixed; left: -9999px; top: 0; width: 800px; height: 1131px; background: #fdfbf7; padding: 24px 32px; box-sizing: border-box; font-family: 'Outfit', sans-serif; display: flex; flex-direction: column; gap: 12px; border: 2px solid #e2e8f0; border-radius: 4px;"> <div style="display: flex; gap: 14px; flex: 1;"> <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;"> <div style="background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); color: #ffffff; padding: 8px 20px; border-radius: 120px 10px 100px 8px/8px 100px 10px 120px; display: inline-flex; align-items: center; gap: 10px; width: fit-content;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 16px; font-weight: 900; letter-spacing: 1px;">EXAM COUNTDOWN</span> <span style="font-size: 14px;">â³</span> </div> <div style="border: 2px solid #e2e8f0; border-radius: 20px; background: #ffffff; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;"> <span style="font-size: 10px; font-weight: 800; color: #94a3b8; letter-spacing: 3px; text-transform: uppercase;">Days Left</span> <div style="width: 120px; height: 120px; border: 4px solid #7c3aed; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 12px 0;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 42px; font-weight: 900; color: #7c3aed;">___</span> </div> <div style="width: 80%; height: 6px; background: #f1f5f9; border-radius: 3px; overflow: hidden;"> <div style="width: 0%; height: 100%; background: linear-gradient(90deg, #7c3aed, #a78bfa); border-radius: 3px;"></div> </div> <span style="font-size: 8px; color: #94a3b8; margin-top: 4px;">Preparation Progress</span> </div> </div> <div style="flex: 1.5; display: flex; flex-direction: column; gap: 10px; padding-top: 4px;"> <div style="border: 2px solid #e2e8f0; border-radius: 16px; padding: 14px; background: #ffffff; flex: 1; display: flex; flex-direction: column; gap: 6px;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 11px; font-weight: 900; color: #7c3aed; display: flex; align-items: center; gap: 6px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> This Week's Focus</span> <div id="pk-countdown-focus" style="display: flex; flex-direction: column; gap: 6px;"></div> </div> <div style="border: 2px solid #e2e8f0; border-radius: 16px; padding: 14px; background: #fef2f2; flex: 1; display: flex; flex-direction: column; gap: 6px;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 11px; font-weight: 900; color: #dc2626; display: flex; align-items: center; gap: 6px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Biggest Challenge</span> <div id="pk-countdown-challenge"></div> </div> <div style="border: 2px solid #e2e8f0; border-radius: 16px; padding: 14px; background: #f0fdf4; flex: 1; display: flex; flex-direction: column; gap: 6px;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 11px; font-weight: 900; color: #16a34a; display: flex; align-items: center; gap: 6px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg> Action Plan</span> <div id="pk-countdown-action"></div> </div> </div> </div> <div style="text-align: center; padding: 6px 0;"> <p style="font-family: 'Caveat', cursive; font-size: 16px; color: #7c3aed; margin: 0;">"You don't have to be extreme, just consistent."</p> </div> </div>  <div id="planner-notes" aria-hidden="true" style="position: fixed; left: -9999px; top: 0; width: 800px; height: 1131px; background: #fdfbf7; padding: 24px 32px; box-sizing: border-box; font-family: 'Outfit', sans-serif; display: flex; flex-direction: column; gap: 12px; border: 2px solid #e2e8f0; border-radius: 4px;"> <div style="background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); color: #ffffff; padding: 8px 20px; border-radius: 120px 10px 100px 8px/8px 100px 10px 120px; display: inline-flex; align-items: center; gap: 10px; width: fit-content;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 20px; font-weight: 900; letter-spacing: 1px;">NOTES & FORMULA SHEET</span> <span style="font-size: 16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span> </div> <div style="display: flex; gap: 10px;"> <div style="flex: 1; border: 2px dashed #e2e8f0; border-radius: 12px; padding: 8px 12px; background: #fffbeb; min-height: 60px;"> <span style="font-size: 8px; font-weight: 800; color: #d97706; text-transform: uppercase; letter-spacing: 1px;">Quick Notes</span> <div style="border-bottom: 1px dashed #fde68a; margin-top: 4px;"></div> <div style="border-bottom: 1px dashed #fde68a; margin-top: 4px;"></div> </div> <div style="flex: 1; border: 2px dashed #e2e8f0; border-radius: 12px; padding: 8px 12px; background: #f0fdf4; min-height: 60px;"> <span style="font-size: 8px; font-weight: 800; color: #16a34a; text-transform: uppercase; letter-spacing: 1px;">Quick Notes</span> <div style="border-bottom: 1px dashed #bbf7d0; margin-top: 4px;"></div> <div style="border-bottom: 1px dashed #bbf7d0; margin-top: 4px;"></div> </div> <div style="flex: 1; border: 2px dashed #e2e8f0; border-radius: 12px; padding: 8px 12px; background: #eff6ff; min-height: 60px;"> <span style="font-size: 8px; font-weight: 800; color: #2563eb; text-transform: uppercase; letter-spacing: 1px;">Quick Notes</span> <div style="border-bottom: 1px dashed #bfdbfe; margin-top: 4px;"></div> <div style="border-bottom: 1px dashed #bfdbfe; margin-top: 4px;"></div> </div> </div> <div id="pk-notes-lines" style="flex: 1; border: 2px solid #e2e8f0; border-radius: 16px; background: #ffffff; padding: 16px 20px; display: flex; flex-direction: column; gap: 0; overflow: hidden;"></div> <div style="display: flex; align-items: center; justify-content: center; gap: 6px; padding-top: 4px;"> <span style="font-family: 'Fredoka', sans-serif; font-size: 10px; font-weight: 900; color: #7c3aed;">tooltails</span> <span style="font-size: 8px; color: #94a3b8;">study smarter &bull; printable planner kit</span> </div> </div>  <div id="import-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden" style="overscroll-behavior: contain"> <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="import-modal-backdrop"></div> <div class="relative w-full max-w-lg mx-4 bg-canvas rounded-2xl border border-hairline/40 shadow-xl shadow-black/10 p-6 sm:p-8 modal-overlay"> <button type="button" id="import-modal-close" class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg text-ink/40 hover:text-ink hover:bg-hairline/20 transition-all cursor-pointer" aria-label="Close"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> </button> <h3 class="text-base font-extrabold text-ink mb-1">Import exam sheet</h3> <p class="text-xs text-ink/60 mb-4">Upload a syllabus, exam schedule, or study plan. We'll extract the details.</p> <!-- Drag-and-drop zone --> <div id="drop-zone" class="relative border-2 border-dashed border-hairline/40 rounded-xl p-8 text-center transition-all duration-200 hover:border-violet-500/40 hover:bg-violet-500/[0.02] cursor-pointer" tabindex="0" role="button" aria-label="Upload file"> <input type="file" id="file-input" accept=".pdf,.docx,.txt,.csv,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/csv" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"> <div class="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center mx-auto mb-3"> <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet-600"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg> </div> <p class="text-sm font-semibold text-ink mb-1"><span class="text-violet-600">Click to upload</span> or drag and drop</p> <p class="text-[11px] text-ink/40">PDF, DOCX, TXT, or CSV</p> </div> <!-- Progress --> <div id="import-progress" class="hidden mt-4"> <div class="flex items-center gap-2 mb-2"> <div class="flex-1 h-1.5 bg-hairline/30 rounded-full overflow-hidden"> <div id="import-progress-bar" class="h-full rounded-full bg-gradient-to-r from-violet-500 to-indigo-500 transition-all duration-500" style="width:0%"></div> </div> <span id="import-progress-text" class="text-[10px] font-bold text-ink/40 w-10 text-right">0%</span> </div> <p id="import-status" class="text-[11px] text-ink/50 text-center">Reading file...</p> </div> <!-- Error --> <div id="import-error" class="hidden mt-3 p-3 rounded-lg bg-rose-500/5 border border-rose-500/15 text-xs text-rose-600 flex items-start gap-2"> <svg class="w-4 h-4 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg> <span id="import-error-text">Could not read this file.</span> </div> </div> </div>  <div id="preview-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden" style="overscroll-behavior: contain"> <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="preview-modal-backdrop"></div> <div class="relative w-full max-w-2xl mx-4 bg-canvas rounded-2xl border border-hairline/40 shadow-xl shadow-black/10 p-5 sm:p-6 modal-overlay max-h-[85vh] flex flex-col"> <div class="flex items-center justify-between mb-3 shrink-0"> <div> <h3 class="text-base font-extrabold text-ink">Review extracted data</h3> <p class="text-[11px] text-ink/50 mt-0.5">Edit anything below before importing.</p> </div> <button type="button" id="preview-modal-close" class="w-8 h-8 flex items-center justify-center rounded-lg text-ink/40 hover:text-ink hover:bg-hairline/20 transition-all cursor-pointer" aria-label="Close"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> </button> </div> <div id="preview-body" class="flex-1 overflow-y-auto space-y-4 pr-1 scrollbar-thin"> <!-- Filled dynamically --> </div> <div class="flex items-center justify-end gap-2 mt-4 pt-3 border-t border-hairline/10 shrink-0"> <button type="button" id="preview-cancel" class="h-9 px-4 text-xs font-bold text-ink/60 bg-canvas-soft-2 border border-hairline/30 rounded-xl hover:bg-hairline/30 hover:text-ink transition-all cursor-pointer">Cancel</button> <button type="button" id="preview-confirm" class="h-9 px-5 text-xs font-extrabold text-white bg-gradient-to-r from-violet-600 to-indigo-600 rounded-xl hover:from-violet-700 hover:to-indigo-700 hover:shadow-lg hover:shadow-indigo-500/20 active:scale-[0.97] transition-all cursor-pointer shadow-md shadow-indigo-500/10">Import & generate plan</button> </div> </div> </div>
 
+<!-- ===== EDITORIAL & METHODOLOGICAL GUIDE ===== -->
+<div class="w-full bg-white border-t border-slate-200/60 py-16 md:py-24">
+  <div class="max-w-[1000px] mx-auto px-4 sm:px-8 space-y-16">
+    
+    <!-- Section 1: The Science of Exam Preparation -->
+    <div class="space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-100 text-violet-700 text-xs font-bold tracking-wide uppercase">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Learning Science &amp; Exam Strategy
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+        The Science of Exam Preparation: Why Rigid Study Timetables Fail
+      </h2>
+      <p class="text-slate-600 leading-relaxed text-base">
+        Most students begin exam preparation with high motivation, constructing color-coded calendar timetables that allocate five or six hours of study every day leading up to exam week. Within two weeks, however, over 80% of these static schedules are abandoned. The reason is rooted in behavioral psychology: static timetables assume zero friction. When an unexpected illness, family commitment, or particularly challenging chapter derails a single day, the entire schedule collapses. This triggers the psychological phenomenon known as the <em>"what-the-hell effect"</em>—where a minor deviation leads to total surrender and last-minute cramming.
+      </p>
+      <p class="text-slate-600 leading-relaxed text-base">
+        The Tooltails Study Schedule Generator replaces rigid calendars with <strong>dynamic workload redistribution</strong>. Rather than locking study tasks to arbitrary calendar dates, the engine treats your syllabus as a fluid queue. When you log study progress, update confidence ratings, or simulate missed days, the algorithm recalculates remaining capacity across all available days until your exam. If you need focused interval pacing for individual study sessions, combine this roadmap with our <a href="/pomodoro-timer/" class="text-violet-600 font-semibold hover:underline">Pomodoro Timer</a> or our milestone-driven <a href="/focus/" class="text-violet-600 font-semibold hover:underline">Tooltails Focus</a> app.
+      </p>
+    </div>
+
+    <!-- Feature Grid: 3 Core Principles -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="p-6 bg-slate-50 border border-slate-200/80 rounded-2xl space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-violet-100 text-violet-700 flex items-center justify-center font-bold text-lg">1</div>
+        <h3 class="text-base font-bold text-slate-900">Dynamic Rebalancing</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Never feel guilty over a missed day. The scheduler automatically recalculates and spreads remaining topics smoothly across future days so you stay on track.
+        </p>
+      </div>
+      <div class="p-6 bg-slate-50 border border-slate-200/80 rounded-2xl space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg">2</div>
+        <h3 class="text-base font-bold text-slate-900">Confidence-Weighted</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Deep mastery beats rapid skimming. High-confidence topics require fewer reviews, while difficult topics receive scheduled spaced-repetition slots.
+        </p>
+      </div>
+      <div class="p-6 bg-slate-50 border border-slate-200/80 rounded-2xl space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-lg">3</div>
+        <h3 class="text-base font-bold text-slate-900">Analog &amp; Digital Dual Mode</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Track progress interactively in your browser or generate beautiful, printable PDF planner kits with weekly roadmaps and habit trackers for distraction-free study.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: Exam Readiness Score Formula -->
+    <div class="space-y-4">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+        How the Exam Readiness Score Works: Breadth, Pacing, and Confidence
+      </h2>
+      <p class="text-slate-600 leading-relaxed text-base">
+        A common trap during exam revision is confusing activity with mastery. Skimming 100 pages gives the superficial impression of progress, but without cognitive consolidation, recall during test conditions fails. Our proprietary <strong>Exam Readiness Score</strong> evaluates your preparation through a mathematically weighted 35/20/45 index:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="p-5 bg-slate-50 border border-slate-200/80 rounded-xl">
+          <div class="text-xs font-extrabold text-violet-600 uppercase tracking-wider mb-1">Topics Covered (35%)</div>
+          <h4 class="text-sm font-bold text-slate-900 mb-1">Curriculum Breadth</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Tracks the raw percentage of required syllabus topics you have logged at least one complete study session for.
+          </p>
+        </div>
+        <div class="p-5 bg-slate-50 border border-slate-200/80 rounded-xl">
+          <div class="text-xs font-extrabold text-indigo-600 uppercase tracking-wider mb-1">Schedule Density (20%)</div>
+          <h4 class="text-sm font-bold text-slate-900 mb-1">Pacing Feasibility</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Analyzes required study hours per remaining day against your configured daily capacity, penalizing over-dense, unsustainable workloads.
+          </p>
+        </div>
+        <div class="p-5 bg-slate-50 border border-slate-200/80 rounded-xl">
+          <div class="text-xs font-extrabold text-emerald-600 uppercase tracking-wider mb-1">Confidence Rating (45%)</div>
+          <h4 class="text-sm font-bold text-slate-900 mb-1">Depth Over Speed</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Carries the heaviest weight. Understanding 80% of topics at a high confidence level consistently yields higher exam percentiles than shallow exposure to 100%.
+          </p>
+        </div>
+      </div>
+      <p class="text-slate-600 leading-relaxed text-base">
+        By monitoring your Readiness Score over time, you gain objective visibility into whether your study pace will culminate in mastery by test day or whether daily hours need to be adjusted.
+      </p>
+    </div>
+
+    <!-- Section 3: Spaced Repetition -->
+    <div class="space-y-4">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+        Spaced Repetition &amp; The Ebbinghaus Forgetting Curve
+      </h2>
+      <p class="text-slate-600 leading-relaxed text-base">
+        In 1885, German psychologist Hermann Ebbinghaus formulated the <em>Forgetting Curve</em>, showing that without systematic review, humans forget approximately <strong>70% of newly learned information within 48 hours</strong>. Cramming a topic once five weeks before an exam means you will likely recall less than 15% of that material in the examination hall.
+      </p>
+      <p class="text-slate-600 leading-relaxed text-base">
+        The Tooltails Smart Review engine counters memory decay through systematic <strong>spaced repetition</strong>. After you log a topic and select your confidence rating, the scheduler automatically queues revision reminders based on optimal intervals:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-slate-600 text-base pl-2">
+        <li><strong>Review 1 (Day 1–2):</strong> Reinforces newly formed synaptic connections before primary decay occurs.</li>
+        <li><strong>Review 2 (Day 4–7):</strong> Tests active recall as retrieval effort increases, cementing memory consolidation.</li>
+        <li><strong>Review 3 (Day 14):</strong> Transfers conceptual frameworks into durable neocortical long-term memory.</li>
+        <li><strong>Final Review (Pre-Exam Week):</strong> Rapid synthesis and practice problem simulation under timed conditions.</li>
+      </ul>
+      <p class="text-slate-600 leading-relaxed text-base">
+        Crucially, revision sessions emphasize <em>active recall</em> (answering practice questions, explaining concepts without notes, solving flashcards) rather than <em>passive rereading</em>, which research consistently identifies as the single most ineffective study method.
+      </p>
+    </div>
+
+    <!-- Section 4: Multi-Exam Prioritization -->
+    <div class="space-y-4">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+        Multi-Exam Prioritization &amp; Cognitive Load Balancing
+      </h2>
+      <p class="text-slate-600 leading-relaxed text-base">
+        Students rarely study for just one exam in isolation. High school finals, university midterms, AP testing periods, and professional licensure exams (such as the USMLE, Bar Exam, CFA, or CPA) typically involve three to six concurrent subjects with staggered exam dates. Studying only for the nearest exam causes dangerous memory decay in subjects scheduled just a few days later.
+      </p>
+      <p class="text-slate-600 leading-relaxed text-base">
+        Tooltails Study Schedule solves this through <strong>interleaved study allocation</strong>. The scheduler maps all upcoming exams on a unified timeline, balancing study hours so upcoming urgent exams receive primary allocation while distant exams maintain low-volume, high-frequency revision sessions. Furthermore, cognitive research confirms that alternating between quantitative subjects (e.g. Mathematics, Organic Chemistry) and qualitative subjects (e.g. History, Literature) prevents mental exhaustion and sharpens conceptual discrimination.
+      </p>
+    </div>
+
+    <!-- Section 5: Miss-Day Simulator -->
+    <div class="space-y-4">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+        The 'What If I Miss a Day?' Simulator: Stress-Free Contingency Planning
+      </h2>
+      <p class="text-slate-600 leading-relaxed text-base">
+        Life happens. Illness, unexpected deadlines, family commitments, or mental fatigue will inevitably disrupt your study routine. In traditional static schedules, missing a day creates panic. Our interactive <em>Miss-Day Simulator</em> allows you to drag a slider from 1 to 5 days to see exactly how falling behind will alter your remaining daily study hours and exam readiness forecast.
+      </p>
+      <p class="text-slate-600 leading-relaxed text-base">
+        By simulating scenarios in advance, you eliminate the catastrophic thinking that often follows an unplanned break. You can instantly see whether a lost weekend requires adding 20 minutes to each subsequent day or if you should deprioritize low-yield optional topics to protect your core readiness score.
+      </p>
+    </div>
+
+    <!-- Section 6: Printable Planner Kits -->
+    <div class="space-y-4">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+        Printable Planner Kits: The Cognitive Power of Pen and Paper
+      </h2>
+      <p class="text-slate-600 leading-relaxed text-base">
+        While digital scheduling engines provide unparalleled mathematical precision, studying on a connected computer or tablet introduces constant distraction risks from browser notifications, messaging apps, and social feeds. Studies published in psychological journals consistently demonstrate that handwriting notes and physically checking off tasks activates deeper sensory-motor pathways, improving conceptual encoding and commitment.
+      </p>
+      <p class="text-slate-600 leading-relaxed text-base">
+        With a single click on "Planner Kit," Tooltails compiles your personalized timetable into a publication-grade, multi-page printable PDF planner kit. Styled with aesthetic GoodNotes and Etsy planner motifs, it includes:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-slate-600 text-base pl-2">
+        <li><strong>Personalized Cover Page:</strong> Student details, target exam countdown tracker, and custom motivational sticky notes.</li>
+        <li><strong>Weekly Roadmap:</strong> 7-day study time distribution, priority checklists, and weekly reflection prompts.</li>
+        <li><strong>Daily Schedule Grid:</strong> Hour-by-hour timeboxing slots with check-off circles and task completion bars.</li>
+        <li><strong>Spaced Revision Matrix:</strong> Comprehensive topic checklist tracking Learn, Rev 1, Rev 2, and Final stages.</li>
+        <li><strong>Habit &amp; Streak Tracker:</strong> Weekly commitment grids to maintain consistent study discipline.</li>
+      </ul>
+      <p class="text-slate-600 leading-relaxed text-base">
+        If you are writing long-form essay responses or research summaries for your exams, check your draft lengths and estimated reading times with our free <a href="/word-counter/" class="text-violet-600 font-semibold hover:underline">Word Counter</a>.
+      </p>
+    </div>
+
+  </div>
+</div>
+
 <!-- ===== FAQ SECTION ===== -->
 <div class="max-w-[1200px] mx-auto px-4 sm:px-8 py-16 md:py-24">
   <div class="max-w-3xl mx-auto">
@@ -745,9 +894,26 @@ Stay consistent. Review often. You've got this.
   </div>
 </div>
 
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(appSchema)} />
+<!-- ===== RELATED TOOLS ===== -->
+<div class="w-full bg-slate-50 border-t border-slate-200/60 py-16">
+  <div class="max-w-[1000px] mx-auto px-4 sm:px-8 text-center">
+    <h2 class="text-2xl font-bold text-slate-900 mb-6">Explore Other Student &amp; Productivity Tools</h2>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="/pomodoro-timer/" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-white text-slate-900 border border-slate-200 hover:bg-slate-100 hover:shadow-sm transition-all active:scale-[0.98]">
+        Pomodoro Timer
+      </a>
+      <a href="/focus/" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-white text-slate-900 border border-slate-200 hover:bg-slate-100 hover:shadow-sm transition-all active:scale-[0.98]">
+        Focus Timer
+      </a>
+      <a href="/word-counter/" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-white text-slate-900 border border-slate-200 hover:bg-slate-100 hover:shadow-sm transition-all active:scale-[0.98]">
+        Word Counter
+      </a>
+      <a href="/duration/" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-white text-slate-900 border border-slate-200 hover:bg-slate-100 hover:shadow-sm transition-all active:scale-[0.98]">
+        Duration Calculator
+      </a>
+    </div>
+  </div>
+</div>
 </Layout>
 
 <style is:global>

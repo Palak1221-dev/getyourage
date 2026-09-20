@@ -23,62 +23,89 @@ const howToUseSteps = [
 ];
 const howToUseTip = "Focus emphasizes shipping concrete milestones rather than merely watching the clock tick.";
 
-// FAQ Items for SEO
+// FAQ Items for SEO & User Guidance
 const faqItems = [
   {
     question: "What's the difference between this and a regular Pomodoro timer?",
-    answer: "A Pomodoro timer just counts down 25-minute blocks. Tooltails Focus flips the question from 'how long did you sit there?' to 'did you actually get it done?'. You write down a real goal before you start, break it into smaller checkpoints, then log whether you finished, partly finished, or hit a wall. It's less about compliance and more about shipping."
+    answer: "A traditional Pomodoro timer only counts down 25-minute blocks, measuring compliance rather than actual output. Tooltails Focus shifts the question from 'how long did you sit there?' to 'did you actually ship what you planned?'. You write down a clear objective and a 'Why' statement before starting, decompose it into 2–4 checklist milestones, and evaluate your true completion rate upon finishing. It prevents passive clock-watching and reinforces intentional deep work."
+  },
+  {
+    question: "How does checkpoint decomposition improve productivity?",
+    answer: "Vague, large objectives like 'Write paper' or 'Study for exam' activate the amygdala and trigger procrastination. Checkpoint decomposition breaks your session into 2 to 4 micro-deliverables (such as 'Draft intro paragraph', 'Calculate sample variance', 'Outline section 3'). Ticking off the first milestone within 5–10 minutes generates immediate dopamine feedback, eliminates task paralysis, and sustains momentum throughout the sprint."
   },
   {
     question: "What happens when I mark a session as Partial or Failed?",
-    answer: "Instead of guilt, you get a recovery plan. The engine looks at what went wrong — distraction, fatigue, or a goal that was too big — and suggests a practical next step. Maybe shorter blocks, a screen break, or breaking your goal down further. The idea is to learn, not to punish."
+    answer: "Instead of guilt or streak penalties, you receive an actionable cognitive recovery plan. The engine analyzes root friction factors—such as task over-scoping, energy slumps, or external interruptions—and prescribes practical next steps. Recommendations include shortening subsequent blocks to 15–20 minutes, taking a screen-free sensory break, or re-scoping goals to rebuild confidence."
   },
   {
-    question: "Is my data safe? Do I need an account?",
-    answer: "No accounts, no servers, no cloud. Everything — your sessions, streaks, checkpoints, journal entries — lives in your browser's LocalStorage. You can export a backup anytime, but nothing ever leaves your machine unless you choose to save the file."
+    question: "How do the ambient sounds work without downloading audio files?",
+    answer: "Instead of streaming heavy MP3 audio files that consume bandwidth and memory, Tooltails Focus generates soundwaves directly in your browser using the HTML5 Web Audio API. Brown noise, white noise, and rain acoustics are synthesized in real time via mathematical audio buffer nodes. This ensures instantaneous startup, zero bandwidth usage, infinite seamless loops, and 100% offline capability."
   },
   {
-    question: "How do the ambient sounds work without downloading anything?",
-    answer: "Instead of loading audio files, your browser generates the sounds on the fly using the Web Audio API. Brown noise, white noise, and rain are all synthesized in real time. That means zero downloads, zero buffering, and it all works offline."
+    question: "Is my session, streak, and journal data completely private?",
+    answer: "Yes, 100% private. All your session data, milestone histories, streak records, and personal journal reflections are stored exclusively in your browser's LocalStorage. Nothing is ever sent to external cloud servers, analytics databases, or third-party tracking scripts. Your private thoughts and work logs stay strictly on your local machine."
+  },
+  {
+    question: "Can I customize session durations and work intervals?",
+    answer: "Yes. While standard presets include 15, 25, 45, and 60 minutes, you can dial in any custom duration to match your specific cognitive rhythm. You can also customize break lengths, toggle soundscape styles, and configure ambient volume to suit your environment."
+  },
+  {
+    question: "How do streaks and completion heatmaps motivate consistent habits?",
+    answer: "Streaks and activity heatmaps visualize your daily commitment over time. By tracking both daily check-ins and session quality (completion percentage rather than just logged minutes), you build consistent deep work stamina without succumbing to burnout or vanity metrics."
+  },
+  {
+    question: "How does Tooltails Focus support ADHD and neurodivergent workflows?",
+    answer: "Tooltails Focus is designed to minimize cognitive friction common in ADHD minds: rapid setup, visual and auditory grounding (brown noise masks intrusive sensory stimuli), low-stakes milestone chunking that lowers the threshold for starting, and compassionate recovery guidance that removes the shame spiral often triggered by missed timers."
   }
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqItems.map(item => ({
-    "@type": "Question",
-    "name": item.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": item.answer
-    }
-  }))
-};
+const canonicalUrl = Astro.url.origin + "/focus/";
 
-const appSchema = {
+const focusGraphSchema = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Tooltails Focus",
-  "operatingSystem": "Web",
-  "applicationCategory": "ProductivityApplication",
-  "description": "An offline-first focus workspace with goal planning, checkpoint tracking, completion analytics, ambient sounds, and streak heatmaps — all in your browser.",
-  "url": Astro.url.origin + "/focus/",
-  "featureList": [
-    "Goal-Oriented Focus Timer (Intention over raw seconds)",
-    "Checkpoint Decomposer (Milestone checklist)",
-    "Cognitive Recovery Coach (Actionable diagnostics)",
-    "Synthesized Ambient Sound Engine (Web Audio API)",
-    "Offline-first LocalStorage Persistence",
-    "Personal Growth & Weekly Reflection Diagnostics"
-  ],
-  "browserRequirements": "Requires JavaScript. Requires HTML5.",
-  "image": Astro.url.origin + "/og-image.png",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  }
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Focus Timer", "item": canonicalUrl }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Tooltails Focus",
+      "operatingSystem": "All",
+      "applicationCategory": "ProductivityApplication",
+      "description": "An offline-first focus workspace with intention-driven timeboxing, milestone checklists, cognitive recovery diagnostics, real-time synthesized ambient sounds, and private LocalStorage persistence.",
+      "url": canonicalUrl,
+      "featureList": [
+        "Intention-Driven Timeboxing (Goal & 'Why' setting)",
+        "Checkpoint Decomposition (2-4 micro-milestone checklist)",
+        "Cognitive Recovery Coach (Non-judgmental debriefing)",
+        "Synthesized Ambient Sound Generator (Brown, white, rain via Web Audio API)",
+        "Offline-first LocalStorage Data Sovereignty",
+        "Visual Habit Heatmap & Weekly Reflection Journal"
+      ],
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "image": Astro.url.origin + "/og-focus.png",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer
+        }
+      }))
+    }
+  ]
 };
 ---
 
@@ -87,8 +114,7 @@ const appSchema = {
   description="An offline-first focus workspace: set a goal, break it into checkpoints, and track your completion rate. Includes ambient sounds, streak tracking, and heatmap analytics — all in your browser."
   image="/og-focus.png"
 >
-  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
-  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(appSchema)} />
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(focusGraphSchema)} />
   <!-- Main View Container -->
   <div class="max-w-[1600px] mx-auto px-4 sm:px-6 py-1 md:py-4 relative">
     
@@ -1455,15 +1481,189 @@ const appSchema = {
       </div>
     </div>
   </dialog>
+  </div>
 
-  <script type="application/ld+json" is:inline set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com" },
-      { "@type": "ListItem", "position": 2, "name": "Focus Timer", "item": "https://tooltails.com/focus" }
-    ]
-  })} />
+  <!-- Editorial & Methodological Guide -->
+  <section class="w-full py-16 md:py-24 border-t border-hairline bg-canvas">
+    <div class="max-w-[1000px] mx-auto px-4 sm:px-6 space-y-16">
+      
+      <!-- Section 1: The Psychology of Intention-Driven Timeboxing -->
+      <div class="space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-link/10 text-link text-xs font-bold tracking-wide uppercase">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Intention vs. Clock-Watching
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">
+          The Science of Intention-Driven Timeboxing: Moving Beyond the Mechanical Timer
+        </h2>
+        <p class="text-body leading-relaxed text-base">
+          Traditional interval timers—including standard 25-minute Pomodoro clocks—often reduce productivity to a mechanical compliance exercise: sit at your desk until the bell rings, take a five-minute break, and repeat. While structured intervals provide initial discipline, they frequently fail when knowledge workers encounter the real friction points of deep work: ambiguous task definitions, cognitive drifting within long sessions, and the all-or-nothing guilt that follows an unexpected interruption.
+        </p>
+        <p class="text-body leading-relaxed text-base">
+          Intention-driven timeboxing begins by answering two essential psychological questions before the clock ever starts ticking: <em>What concrete deliverable will exist when this session ends?</em> and <em>Why is this outcome meaningful right now?</em> Articulating a clear goal alongside a personal "Why" statement engages the executive control networks of the prefrontal cortex. This pre-commitment curbs task paralysis and directly counters Parkinson's Law—the well-documented cognitive tendency for any project to expand to fill whatever duration is allotted to it. If you need a traditional interval counter without goal checkpoints, explore our standard <a href="/pomodoro-timer/" class="text-link font-medium hover:underline">Pomodoro Timer</a>; for multi-week exam preparation, our <a href="/study-schedule/" class="text-link font-medium hover:underline">Study Schedule Generator</a> projects long-term revision milestones.
+        </p>
+      </div>
+
+      <!-- Feature Grid: 3 Core Pillars -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 bg-canvas-soft border border-hairline rounded-2xl space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-link/10 text-link flex items-center justify-center font-bold text-lg">1</div>
+          <h3 class="text-base font-bold text-ink">Define Concrete Outputs</h3>
+          <p class="text-xs text-body leading-relaxed">
+            Replace fuzzy intentions like "Work on thesis" with tangible outcomes like "Draft 3 paragraphs of the methodology section." Clear boundaries eliminate mid-session aimlessness.
+          </p>
+        </div>
+        <div class="p-6 bg-canvas-soft border border-hairline rounded-2xl space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center font-bold text-lg">2</div>
+          <h3 class="text-base font-bold text-ink">Break Into Checkpoints</h3>
+          <p class="text-xs text-body leading-relaxed">
+            Divide your sprint into 2 to 4 micro-milestones. Ticking off an early checkpoint within the first 10 minutes creates immediate dopamine momentum that keeps you engaged.
+          </p>
+        </div>
+        <div class="p-6 bg-canvas-soft border border-hairline rounded-2xl space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center font-bold text-lg">3</div>
+          <h3 class="text-base font-bold text-ink">Debrief &amp; Recover</h3>
+          <p class="text-xs text-body leading-relaxed">
+            Evaluate sessions with compassion. Incomplete sprints are treated as diagnostic data—revealing task over-scoping, fatigue, or interruptions—so you can adjust your next sprint.
+          </p>
+        </div>
+      </div>
+
+      <!-- Section 2: Checkpoint Decomposition -->
+      <div class="space-y-4">
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">
+          Checkpoint Decomposition: Why 2–4 Micro-Milestones Defeat Task Paralysis
+        </h2>
+        <p class="text-body leading-relaxed text-base">
+          When people procrastinate, it is rarely due to laziness; it is almost always an emotional regulation challenge. Facing an intimidating, open-ended task (such as writing a research grant, studying an entire textbook chapter, or refactoring a sprawling legacy codebase) activates the amygdala's threat response. The brain perceives the sheer scale of the endeavor as overwhelming and reflexively seeks escape through low-friction distractions like social media, news feeds, or email triaging.
+        </p>
+        <p class="text-body leading-relaxed text-base">
+          Checkpoint decomposition dissolves this resistance by transforming an abstract objective into a sequential checklist of bite-sized actions that can each be accomplished in 5 to 15 minutes. For example, instead of a vague goal of "Work on literature review," a writer might set three crisp checkpoints:
+        </p>
+        <ul class="list-disc list-inside space-y-2 text-body text-base pl-2">
+          <li><strong>Checkpoint 1:</strong> Select and highlight key findings in 2 foundational papers (~12 min).</li>
+          <li><strong>Checkpoint 2:</strong> Synthesize author arguments into a 150-word comparison summary (~15 min).</li>
+          <li><strong>Checkpoint 3:</strong> Draft the opening paragraph connecting their conclusions to my hypothesis (~10 min).</li>
+        </ul>
+        <p class="text-body leading-relaxed text-base">
+          By crossing off Checkpoint 1 shortly after launching the session, you experience immediate psychological closure. This micro-win floods the brain's reward pathway with dopamine, neutralizing anxiety and cementing the focus state needed to complete the remainder of the block.
+        </p>
+      </div>
+
+      <!-- Section 3: Attention Residue -->
+      <div class="space-y-4">
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">
+          Attention Residue &amp; The Neurological Costs of Context Switching
+        </h2>
+        <p class="text-body leading-relaxed text-base">
+          Modern work environments encourage constant multitasking under the guise of responsiveness. However, neuroscientific studies demonstrate that the human brain cannot parallel-process complex cognitive operations; it merely alternates rapidly between tasks. Every time you switch away from your primary document to check an incoming Slack notification, glance at an email alert, or look up an unrelated article, your mind suffers from what cognitive scientist Dr. Gloria Mark terms <em>attention residue</em>.
+        </p>
+        <p class="text-body leading-relaxed text-base">
+          Research from the University of California, Irvine, revealed that it takes an average of <strong>23 minutes and 15 seconds</strong> to regain deep focus after a single interruption. Even if an interruption lasts only 10 seconds, mental fragments of that secondary stimulus linger in working memory, degrading analytical acuity, creative connection-making, and error detection. Tooltails Focus provides an immersive full-screen distraction-free mode (press <kbd class="px-1.5 py-0.5 text-xs font-mono bg-canvas-soft border border-hairline rounded">F</kbd> or click the fullscreen icon) that strips away tabs and desktop clutter, giving your brain the uninterrupted sanctuary required to reach sustained alpha and theta brainwave flow. If your focus sessions involve drafting long-form essays or reports, you can verify your word counts, reading speeds, and readability levels using our integrated <a href="/word-counter/" class="text-link font-medium hover:underline">Word Counter</a>.
+        </p>
+      </div>
+
+      <!-- Section 4: Cognitive Recovery Coaching -->
+      <div class="space-y-4">
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">
+          Cognitive Recovery Coaching: Turning Incomplete Sessions into Self-Knowledge
+        </h2>
+        <p class="text-body leading-relaxed text-base">
+          In typical productivity applications, an interrupted or incomplete session is treated as a moral failure: timers turn red, streaks break, and the user experiences guilt. Over time, this punitive dynamic fosters an aversion to the productivity tool itself. Tooltails Focus replaces punitive mechanics with <em>Cognitive Recovery Coaching</em>.
+        </p>
+        <p class="text-body leading-relaxed text-base">
+          When a work block is marked as "Partial" or "Needs Work," the application prompts a brief diagnostic evaluation. Was the session derailed by an unavoidable external interruption, unexpected complexity requiring deeper research, or sudden physical and mental fatigue? Based on your answer, the coaching engine provides non-judgmental, actionable recommendations:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="p-5 bg-canvas-soft border border-hairline rounded-xl">
+            <h4 class="text-sm font-bold text-ink mb-1">When Scope Was Too Broad</h4>
+            <p class="text-xs text-body leading-relaxed">
+              Cut the next session duration in half (e.g. 15 minutes) and choose a single, ultra-specific micro-task to rebuild operational momentum.
+            </p>
+          </div>
+          <div class="p-5 bg-canvas-soft border border-hairline rounded-xl">
+            <h4 class="text-sm font-bold text-ink mb-1">When Mental Fatigue Strikes</h4>
+            <p class="text-xs text-body leading-relaxed">
+              Step away from all backlit screens. Engage in a 5-minute stroll, hydrate, or practice two physiological sighs (deep double inhale, extended exhale) to reset cortisol levels.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5: Synthesized Ambient Audio -->
+      <div class="space-y-4">
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">
+          Synthesized Ambient Soundscapes: The Science of Sound Colors and Auditory Masking
+        </h2>
+        <p class="text-body leading-relaxed text-base">
+          Sudden acoustic transients—a coworker speaking nearby, a car horn on the street, or a door latch clicking—automatically trigger the brain's orienting reflex, jerking attention away from deep work. Auditory masking introduces continuous, non-intrusive sound textures that raise the ambient acoustic floor, rendering erratic background noises imperceptible.
+        </p>
+        <p class="text-body leading-relaxed text-base">
+          Tooltails Focus includes a built-in sound engine featuring three distinct acoustic profiles:
+        </p>
+        <ul class="list-disc list-inside space-y-2 text-body text-base pl-2">
+          <li><strong>Brown Noise:</strong> Decreases in power density by 6 dB per octave as frequency increases. This creates a deep, rumbling warmth akin to a distant waterfall or heavy rainfall. Clinical studies show brown noise is exceptionally effective at quieting racing internal thoughts and soothing sensory overload in neurodivergent and ADHD brains.</li>
+          <li><strong>White Noise:</strong> Distributes equal energy across all audible frequencies, providing crisp masking power that obscures human speech and chatter in busy office or café environments.</li>
+          <li><strong>Rain Textures:</strong> Organic pink-noise distributions that simulate gentle precipitation, providing rhythmic sensory consistency without melodic distraction.</li>
+        </ul>
+        <p class="text-body leading-relaxed text-base">
+          Unlike other web tools that stream multi-megabyte MP3 recordings over your internet connection, Tooltails Focus generates soundwaves locally in real time using the browser's native <strong>Web Audio API</strong>. Audio buffer nodes synthesize sound via pure mathematical formulas, resulting in zero network bandwidth usage, zero buffering, flawless infinite looping, and full offline functionality.
+        </p>
+      </div>
+
+      <!-- Section 6: Privacy-First Architecture -->
+      <div class="space-y-4">
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">
+          Privacy-First Architecture: 100% Client-Side Data Sovereignty
+        </h2>
+        <p class="text-body leading-relaxed text-base">
+          Modern software frequently turns personal productivity into telemetry—logging keystrokes, recording session logs, and harvesting journal entries for advertising models or third-party AI training. Tooltails Focus takes an uncompromising stance on data sovereignty:
+        </p>
+        <div class="p-6 bg-canvas-soft border border-hairline rounded-2xl space-y-3">
+          <div class="flex items-center gap-2 text-sm font-bold text-ink">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-500"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Complete LocalStorage Data Isolation
+          </div>
+          <p class="text-xs text-body leading-relaxed">
+            Your personal goals, milestone checklists, session completion histories, activity heatmaps, and journal reflections are saved solely in your local browser storage. No accounts are required, no passwords are created, and no data packets ever leave your machine. You can export your entire history as a standalone JSON backup file or clear your data instantly whenever you choose.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="w-full py-16 md:py-24 border-t border-hairline bg-canvas-soft/30">
+    <div class="max-w-[800px] mx-auto px-4 sm:px-6">
+      <div class="flex items-center gap-3 mb-10">
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-ink">Frequently Asked Questions</h2>
+        <div class="h-px flex-1 bg-hairline"></div>
+      </div>
+      <FAQ items={faqItems} renderSchema={false} />
+    </div>
+  </section>
+
+  <!-- Related Tools -->
+  <section class="w-full py-16 bg-canvas border-t border-hairline">
+    <div class="max-w-[1000px] mx-auto px-4 sm:px-6 text-center">
+      <h2 class="text-2xl font-bold text-ink mb-6">Explore Other Free Productivity Tools</h2>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/pomodoro-timer/" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+          Pomodoro Timer
+        </a>
+        <a href="/study-schedule/" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+          Study Schedule Generator
+        </a>
+        <a href="/word-counter/" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+          Word Counter
+        </a>
+        <a href="/duration/" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+          Duration Calculator
+        </a>
+      </div>
+    </div>
+  </section>
 </Layout>
 
 <script src="/src/scripts/focus.ts"></script>
