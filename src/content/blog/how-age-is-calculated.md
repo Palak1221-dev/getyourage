@@ -83,7 +83,7 @@ Because timestamp duration measures the total elapsed interval, leap days and di
 
 The same delta calculation applies when measuring time spans between two different people or projecting age to a future date:
 
-* **Age Difference**: The earlier birth date serves as the start date and the later birth date serves as the target date to measure the chronological gap in years, months, and days.
+* **Age Difference**: The earlier birth date serves as the start date and the later birth date serves as the target date to measure the chronological gap in years, months, and days. You can use our interactive [age difference calculator](/age-difference/) to compare two birth dates with full leap-year and calendar-borrowing accuracy.
 * **Next Birthday Countdown**: Compares the current date against the upcoming occurrence of your birth month and day, calculating the remaining days and the weekday on which your birthday will fall.
 
 To calculate your age and lifetime statistics, you can use the [Tooltails Age Calculator](/age-calculator/). For comparing gaps between two dates of birth, see the [Age Difference Calculator](/age-difference/), or project milestones on upcoming dates using the [Future Age Calculator](/future-age/) and [Birthday Countdown](/birthday-countdown/).

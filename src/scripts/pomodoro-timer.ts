@@ -23,6 +23,8 @@
   let totalDuration = DEFAULT_WORK * 60;
   let isRunning = false;
   let timerInterval: number | null = null;
+  let timerEndTime: number | null = null;
+  let lastDisplaySecond = -1;
   let currentTask = '';
   let pendingOutcomeDuration = 0;
 
@@ -975,6 +977,25 @@
     updateTimerDisplay();
   };
 
+  const tick = () => {
+    if (timerEndTime !== null) {
+      const remainingMs = timerEndTime - Date.now();
+      timeLeft = Math.max(0, Math.ceil(remainingMs / 1000));
+    }
+    if (timeLeft <= 0) {
+      handleTimerCompletion();
+      return;
+    }
+    if (timeLeft !== lastDisplaySecond) {
+      lastDisplaySecond = timeLeft;
+      updateTimerDisplay();
+      if (isFocusMode) syncFocusMode();
+      if (currentMode === 'pomodoro') {
+        updatePhase(timeLeft / totalDuration);
+      }
+    }
+  };
+
   const startTimer = () => {
     if (isRunning) return;
     isRunning = true;
@@ -999,27 +1020,24 @@
       if (activeTaskContext) activeTaskContext.classList.remove('hidden');
       updateActiveTaskContext();
     }
-    timerInterval = window.setInterval(() => {
-      if (timeLeft > 0) {
-        timeLeft--;
-        updateTimerDisplay();
-        if (isFocusMode) syncFocusMode();
-        if (currentMode === 'pomodoro') {
-          const progress = timeLeft / totalDuration;
-          updatePhase(progress);
-        }
-      }
-      else { handleTimerCompletion(); }
-    }, 1000);
+    timerEndTime = Date.now() + timeLeft * 1000;
+    lastDisplaySecond = -1;
+    timerInterval = window.setInterval(tick, 1000);
+    tick();
   };
 
   const pauseTimer = () => {
     if (!isRunning) return;
+    if (timerEndTime !== null) {
+      timeLeft = Math.max(0, Math.ceil((timerEndTime - Date.now()) / 1000));
+      timerEndTime = null;
+    }
     isRunning = false;
     togglePulse(false);
     iconPlay?.classList.remove('hidden');
     iconPause?.classList.add('hidden');
     if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    updateTimerDisplay();
   };
 
   const togglePlayPause = () => { if (isRunning) pauseTimer(); else startTimer(); };
@@ -1095,6 +1113,7 @@
 
   const handleTimerCompletion = (isSkipped = false) => {
     if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    timerEndTime = null;
     isRunning = false;
     togglePulse(false);
     iconPlay?.classList.remove('hidden');
@@ -1831,6 +1850,13 @@
   focusModePause?.addEventListener('click', () => { pauseTimer(); syncFocusMode(); });
   focusModePlay?.addEventListener('click', () => { startTimer(); syncFocusMode(); });
   focusModeExit?.addEventListener('click', exitFocusMode);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && isRunning && timerEndTime !== null) {
+      lastDisplaySecond = -1;
+      tick();
+    }
+  });
 
   window.addEventListener('keydown', (e) => {
     if (e.code === 'Space' && !isFocusMode && document.activeElement !== taskInput && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {

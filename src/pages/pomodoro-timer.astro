@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Input from "../components/ui/Input.astro";
 import Button from "../components/ui/Button.astro";
+import FAQ from "../components/ui/FAQ.astro";
 import HowToUseModal from "../components/ui/HowToUseModal.astro";
 
 const howToUseSteps = [
@@ -20,42 +21,30 @@ const howToUseSteps = [
 ];
 const howToUseTip = "Adjust interval durations and sound alerts in the timer settings menu.";
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com/" },
-    { "@type": "ListItem", "position": 2, "name": "Pomodoro Timer", "item": "https://tooltails.com/pomodoro-timer/" }
-  ]
-};
+const faqItems = [
+  {
+    question: "What should I do during a 5-minute Pomodoro break?",
+    answer: "Step away from your screen. Stand up, stretch, grab a glass of water, or do light breathing exercises. Avoid browsing social media or checking email, as screen-based activities maintain cognitive fatigue rather than restoring attentional reserves."
+  },
+  {
+    question: "What if I finish my task before the 25-minute timer ends?",
+    answer: "Use the remaining time for 'overlearning' or reviewing what you just completed: proofread your writing, refactor the code you just wrote, review study notes, or organize your next priority task."
+  },
+  {
+    question: "How many Pomodoro sessions should I do each day?",
+    answer: "Most knowledge workers find that 4 to 8 focused 25-minute sessions (equal to 2 to 4 hours of pure uninterrupted deep focus) produce exceptional daily output without causing mental burnout."
+  },
+  {
+    question: "Can I customize the timer intervals?",
+    answer: "Yes. Click the settings gear icon on the timer to adjust focus length (e.g., 50 minutes for deep work), short breaks (5 to 10 minutes), and long breaks (15 to 30 minutes) to match your personal cadence."
+  },
+  {
+    question: "Is the Pomodoro Technique effective for ADHD?",
+    answer: "Yes. The technique provides clear external structure, lowers the threshold of initiation ('I only have to work for 25 minutes'), and gamifies attention with short, immediate milestones and regular dopamine-replenishing breaks."
+  }
+];
 
-const appSchema = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Tooltails Pomodoro Timer - Focus & Productivity Timer",
-  "operatingSystem": "All",
-  "applicationCategory": "ProductivityApplication",
-  "description": "Free Pomodoro Timer with task tracking, daily streaks, focus analytics, session history, and productivity scoring. Stay focused and get more done with Tooltails.",
-  "browserRequirements": "Requires JavaScript. Requires HTML5.",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "featureList": "Task tracking, Daily streaks, Focus analytics, Productivity score, Session history, Custom durations, Sound notifications, Desktop notifications, Offline support"
-};
-
-const webPageSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Pomodoro Timer — Free Focus & Productivity Timer",
-  "description": "Stay focused, build streaks, measure productivity, and turn work sessions into completed goals with the Tooltails Pomodoro Timer. Free, no login required.",
-  "url": "https://tooltails.com/pomodoro-timer/"
-};
-
-const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Tooltails Pomodoro",
-  "url": "https://tooltails.com/pomodoro-timer/",
-  "description": "Free Pomodoro Timer with task tracking, daily streaks, focus analytics, session history, and productivity scoring."
-};
+const canonicalUrl = "https://tooltails.com/pomodoro-timer/";
 ---
 
 <Layout
@@ -63,8 +52,6 @@ const websiteSchema = {
   description="Stay focused, build streaks, measure productivity, and turn work sessions into completed goals. Free Pomodoro Timer with task tracking, focus analytics, and daily streaks. No login required."
   image="/og-image.png"
 >
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
   <!-- ===== HERO SECTION ===== -->
   <div class="max-w-[1440px] mx-auto px-4 pt-1 pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -487,9 +474,183 @@ const websiteSchema = {
     </div>
   </div>
 
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(appSchema)} />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(websiteSchema)} />
+  <!-- Comprehensive Explanatory Section -->
+  <section class="w-full py-16 bg-canvas border-t border-hairline mt-12">
+    <div class="max-w-[1000px] mx-auto px-6 space-y-12">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-ink mb-4">The Science Behind the Pomodoro Technique</h2>
+        <p class="text-body leading-relaxed text-base mb-4">
+          Developed in the late 1980s by university student Francesco Cirillo, the Pomodoro Technique is a time-management methodology that transforms time from an adversary into an ally. Named after the Italian word for tomato—after the tomato-shaped kitchen timer Cirillo used—the core protocol alternates 25 minutes of single-task immersion with 5 minutes of deliberate cognitive rest.
+        </p>
+        <p class="text-body leading-relaxed text-base">
+          Modern neuroscience and cognitive psychology validate this cadence. According to <strong>Attention Restoration Theory (ART)</strong> and research on working memory capacity, the human brain’s prefrontal cortex exhausts its executive attentional resources after 20 to 40 minutes of intense concentration. Brief pauses replenish glycogen stores, flush out cognitive fatigue, and mitigate the subconscious anxiety caused by <em>Parkinson’s Law</em>—the adage that work expands to fill the time allotted for its completion. For extended writing projects, you can also pair your focus blocks with our <a href="/word-counter/" class="text-link font-medium hover:underline">word counter tool</a> or explore our guide on <a href="/blog/10-proven-productivity-techniques/" class="text-link font-medium hover:underline">10 proven productivity techniques</a>.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="p-6 bg-canvas-soft-2/40 border border-hairline rounded-2xl">
+          <h3 class="text-lg font-bold text-ink mb-2">Combating Cognitive Friction</h3>
+          <p class="text-sm text-body leading-relaxed">
+            The hardest part of any demanding task is initiation. By committing to just one 25-minute block rather than an overwhelming 8-hour workday, you lower the brain's emotional resistance to starting. Once underway, the <em>Zeigarnik Effect</em> takes over, creating natural cognitive momentum to see the task through to completion.
+          </p>
+        </div>
+        <div class="p-6 bg-canvas-soft-2/40 border border-hairline rounded-2xl">
+          <h3 class="text-lg font-bold text-ink mb-2">The Importance of Disconnected Rest</h3>
+          <p class="text-sm text-body leading-relaxed">
+            A 5-minute break is not an invitation to check social media, read emails, or process secondary messages. Screen-based stimuli keep the brain’s default mode network active and sustain mental exhaustion. True restoration involves standing up, looking out a window, hydrating, or gentle physical stretching.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-ink mb-4">Focus Protocol Comparison: Finding Your Optimal Rhythm</h2>
+        <p class="text-body leading-relaxed text-base mb-6">
+          While the traditional 25/5 interval is the gold standard for initiating work, different cognitive tasks benefit from alternate timeboxing protocols:
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse border border-hairline rounded-xl overflow-hidden">
+            <thead class="bg-canvas-soft-2/60 border-b border-hairline text-ink font-semibold">
+              <tr>
+                <th class="p-3.5 sm:p-4">Focus Protocol</th>
+                <th class="p-3.5 sm:p-4">Work / Rest Ratio</th>
+                <th class="p-3.5 sm:p-4">Best Suited For</th>
+                <th class="p-3.5 sm:p-4">Cognitive Benefit</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline text-body">
+              <tr class="hover:bg-canvas-soft/40 transition-colors">
+                <td class="p-3.5 sm:p-4 font-medium text-ink">Classic Pomodoro</td>
+                <td class="p-3.5 sm:p-4">25m work / 5m rest</td>
+                <td class="p-3.5 sm:p-4">High-procrastination tasks, exam studying, administrative duties</td>
+                <td class="p-3.5 sm:p-4">Lowest initiation barrier; eliminates overwhelm</td>
+              </tr>
+              <tr class="hover:bg-canvas-soft/40 transition-colors">
+                <td class="p-3.5 sm:p-4 font-medium text-ink">The 52/17 Rule</td>
+                <td class="p-3.5 sm:p-4">52m work / 17m rest</td>
+                <td class="p-3.5 sm:p-4">Knowledge workers, data analysis, deep writing</td>
+                <td class="p-3.5 sm:p-4">Statistically derived by DeskTime for peak productivity</td>
+              </tr>
+              <tr class="hover:bg-canvas-soft/40 transition-colors">
+                <td class="p-3.5 sm:p-4 font-medium text-ink">Ultradian Rhythm</td>
+                <td class="p-3.5 sm:p-4">90m work / 20–30m rest</td>
+                <td class="p-3.5 sm:p-4">Software engineering, architectural design, creative writing</td>
+                <td class="p-3.5 sm:p-4">Matches human biological 90-minute alertness cycles</td>
+              </tr>
+              <tr class="hover:bg-canvas-soft/40 transition-colors">
+                <td class="p-3.5 sm:p-4 font-medium text-ink">The Flowtime Technique</td>
+                <td class="p-3.5 sm:p-4">Variable (untimed) / 10–15m</td>
+                <td class="p-3.5 sm:p-4">Open-ended research, artistic flow states, prototyping</td>
+                <td class="p-3.5 sm:p-4">Prevents interrupting deep uninterrupted flow states</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-ink mb-4">Managing Distractions: The "Interruption Sheet" Strategy</h2>
+        <div class="space-y-4 text-body leading-relaxed text-base">
+          <p>
+            Distractions fall into two distinct categories: internal impulses and external interruptions. Managing both without derailing your timer is the secret to high focus scores:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+            <div class="p-5 bg-canvas border border-hairline rounded-xl">
+              <h3 class="font-bold text-ink mb-1.5 text-base">Handling Internal Distractions</h3>
+              <p class="text-sm text-body leading-relaxed">
+                When an unrelated thought strikes mid-session ("I need to pay that utility bill" or "Did I reply to that message?"), do not switch tabs. Instead, jot down a brief reminder on a physical notepad or in your task notes. Getting it out of working memory closes the mental loop, allowing you to resume your session immediately.
+              </p>
+            </div>
+            <div class="p-5 bg-canvas border border-hairline rounded-xl">
+              <h3 class="font-bold text-ink mb-1.5 text-base">Protecting External Boundaries</h3>
+              <p class="text-sm text-body leading-relaxed">
+                When colleagues or family members interrupt, apply Cirillo’s <em>Inform, Negotiate, Schedule, and Call Back</em> rule. Inform them that you are in the middle of a focused session, negotiate a quick follow-up window ("Can I come by your desk in 12 minutes?"), and return to your timer.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-ink mb-4">Daily Streaks, Habit Psychology, and Burnout Prevention</h2>
+        <p class="text-body leading-relaxed text-base mb-4">
+          Consistency is dramatically more effective than intermittent heroics. Completing 4 dedicated Pomodoro sessions every weekday (equaling 100 minutes of pure, high-density work) produces greater long-term output than irregular 10-hour marathon cram sessions.
+        </p>
+        <p class="text-body leading-relaxed text-base">
+          Our timer’s streak tracker, daily goal bar, and Focus Score are designed around behavioral habit loops (cue, routine, reward). By establishing a daily goal of 4 to 8 sessions, you build an unbroken chain of visual progress that protects against burnout while compounding professional results over months and years.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Tools & Productivity Guides -->
+  <section class="w-full py-16 bg-canvas-soft-2/50 border-t border-hairline">
+    <div class="max-w-[1200px] mx-auto px-6 text-center">
+      <h2 class="text-2xl font-bold text-ink mb-8">Productivity Tools & Guides</h2>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="/word-counter/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+          Word Counter
+        </a>
+        <a href="/duration/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+          Date Duration Calculator
+        </a>
+        <a href="/blog/10-proven-productivity-techniques/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+          Productivity Techniques Guide
+        </a>
+        <a href="/blog/mastering-time-management/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+          Time Management Tips
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="w-full py-16 bg-canvas border-t border-hairline">
+    <div class="max-w-4xl mx-auto px-6">
+      <FAQ items={faqItems} renderSchema={false} />
+    </div>
+  </section>
+
+  <!-- Structured Data (Unified Graph) -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Tooltails", "item": "https://tooltails.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Pomodoro Timer", "item": canonicalUrl }
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Tooltails Pomodoro Timer - Focus & Productivity Timer",
+        "url": canonicalUrl,
+        "operatingSystem": "All",
+        "applicationCategory": "ProductivityApplication",
+        "description": "Free Pomodoro Timer with task tracking, daily streaks, focus analytics, session history, and productivity scoring.",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": "Task tracking, Daily streaks, Focus analytics, Productivity score, Session history, Custom durations, Sound notifications, Offline support"
+      },
+      {
+        "@type": "WebPage",
+        "name": "Pomodoro Timer — Free Focus & Productivity Timer",
+        "url": canonicalUrl,
+        "description": "Stay focused, build streaks, measure productivity, and turn work sessions into completed goals with the Tooltails Pomodoro Timer."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": faqItems.map(item => ({
+          "@type": "Question",
+          "name": item.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": item.answer
+          }
+        }))
+      }
+    ]
+  })} />
 </Layout>
 
 <style is:global>
