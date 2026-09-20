@@ -116,33 +116,37 @@ const focusGraphSchema = {
 >
   <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(focusGraphSchema)} />
   <!-- Main View Container -->
-  <div class="max-w-[1600px] mx-auto px-4 sm:px-6 py-1 md:py-4 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-4 relative">
     
     <span id="global-streak-value" class="hidden">0</span>
     <span id="global-success-rate" class="hidden">0%</span>
 
-    <!-- Minimal header -->
-    <div class="flex items-center justify-between mb-3 md:mb-5 select-none gap-2">
-      <div class="flex items-center gap-3">
-        <h1 class="text-xl md:text-3xl font-extrabold tracking-tight text-ink">
-          Focus
+    <!-- Word Counter style header -->
+    <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 border-b border-hairline/60 pb-5">
+      <div>
+        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-ink mb-1.5 leading-tight">
+          Focus Timer
         </h1>
-        <HowToUseModal toolName="Focus" steps={howToUseSteps} tip={howToUseTip} />
+        <p class="text-sm md:text-base text-mute font-normal">
+          An offline-first deep focus workspace with goal planning, milestones, and habit analytics.
+        </p>
       </div>
       <div class="flex items-center gap-2">
-        <div role="tablist" class="flex items-center gap-1.5 bg-canvas-soft-2/80 rounded-full p-0.5">
-          <button id="tab-btn-workspace" role="tab" aria-selected="true" aria-controls="tab-workspace" class="tab-btn px-4 py-2 sm:py-1.5 min-h-[44px] text-sm font-semibold rounded-full bg-canvas text-ink shadow-sm focus-visible:outline-none transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('workspace')" aria-label="Open workspace tab">
+        <div role="tablist" class="flex items-center gap-1 bg-canvas-soft-2 rounded-full p-1 border border-hairline/60">
+          <button id="tab-btn-workspace" role="tab" aria-selected="true" aria-controls="tab-workspace" class="tab-btn px-4 py-1.5 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink shadow-sm focus-visible:outline-none transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('workspace')" aria-label="Open workspace tab">
             Timer
           </button>
-          <button id="tab-btn-analytics" role="tab" aria-selected="false" aria-controls="tab-analytics" class="tab-btn px-4 py-2 sm:py-1.5 min-h-[44px] text-sm font-semibold rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('analytics')" aria-label="Open progress analytics tab">
+          <button id="tab-btn-analytics" role="tab" aria-selected="false" aria-controls="tab-analytics" class="tab-btn px-4 py-1.5 text-xs sm:text-sm font-semibold rounded-full text-mute hover:text-ink transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('analytics')" aria-label="Open progress analytics tab">
             Progress
           </button>
-          <button id="tab-btn-premium" role="tab" aria-selected="false" aria-controls="tab-premium" class="tab-btn px-4 py-2 sm:py-1.5 min-h-[44px] text-sm font-semibold rounded-full text-body hover:text-ink transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('premium')" aria-label="Open growth and coaching tab">
+          <button id="tab-btn-premium" role="tab" aria-selected="false" aria-controls="tab-premium" class="tab-btn px-4 py-1.5 text-xs sm:text-sm font-semibold rounded-full text-mute hover:text-ink transition-all duration-150 cursor-pointer active:scale-[0.96]" onclick="switchTab('premium')" aria-label="Open growth and coaching tab">
             Journal
           </button>
         </div>
+        <HowToUseModal toolName="Focus" steps={howToUseSteps} tip={howToUseTip} />
       </div>
     </div>
+  </div>
 
     <!-- APP CONTENT BODY -->
     
@@ -219,8 +223,9 @@ const focusGraphSchema = {
       </div>
 
       <!-- FOCUS WORKSPACE — premium two-column grid -->
-      <div id="focus-workspace-container" class="settings-card max-w-[1400px] mx-auto bg-canvas rounded-2xl border border-hairline/60 shadow-sm transition-all duration-500">
-        <div class="workspace-grid gap-2 lg:gap-3 px-4 lg:px-6 pt-5 lg:pt-5 pb-3">
+      <div id="focus-workspace-container" class="settings-card max-w-7xl mx-auto bg-canvas rounded-[2.5rem] border border-hairline shadow-sm ring-1 ring-black/[0.03] dark:ring-white/[0.03] transition-all duration-300 hover:shadow-md hover:border-link/30 relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-link via-blue-500 to-indigo-500"></div>
+        <div class="workspace-grid gap-3 lg:gap-4 px-5 lg:px-8 pt-6 lg:pt-8 pb-4">
 
           <!-- GOAL (order-1 mobile, left-col desktop) -->
           <div class="grid-area-goal w-full">
@@ -1484,19 +1489,19 @@ const focusGraphSchema = {
   </div>
 
   <!-- Editorial & Methodological Guide -->
-  <section class="w-full py-16 md:py-24 border-t border-hairline bg-canvas">
-    <div class="max-w-[1000px] mx-auto px-4 sm:px-6 space-y-16">
+  <section class="w-full py-16 bg-canvas border-t border-hairline mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 space-y-14">
       
       <!-- Section 1: The Psychology of Intention-Driven Timeboxing -->
-      <div class="space-y-4">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-link/10 text-link text-xs font-bold tracking-wide uppercase">
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Intention vs. Clock-Watching
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Intention vs. Clock-Watching</h3>
+          <div class="h-px w-full bg-hairline"></div>
         </div>
-        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink mb-4">
           The Science of Intention-Driven Timeboxing: Moving Beyond the Mechanical Timer
         </h2>
-        <p class="text-body leading-relaxed text-base">
+        <p class="text-body leading-relaxed text-base mb-4">
           Traditional interval timers—including standard 25-minute Pomodoro clocks—often reduce productivity to a mechanical compliance exercise: sit at your desk until the bell rings, take a five-minute break, and repeat. While structured intervals provide initial discipline, they frequently fail when knowledge workers encounter the real friction points of deep work: ambiguous task definitions, cognitive drifting within long sessions, and the all-or-nothing guilt that follows an unexpected interruption.
         </p>
         <p class="text-body leading-relaxed text-base">
@@ -1505,23 +1510,23 @@ const focusGraphSchema = {
       </div>
 
       <!-- Feature Grid: 3 Core Pillars -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="p-6 bg-canvas-soft border border-hairline rounded-2xl space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-link/10 text-link flex items-center justify-center font-bold text-lg">1</div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        <div class="p-6 sm:p-8 bg-canvas border border-hairline rounded-3xl shadow-sm hover:shadow-md hover:border-link/20 transition-all space-y-3">
+          <div class="w-10 h-10 rounded-2xl bg-link/10 text-link flex items-center justify-center font-bold text-lg">1</div>
           <h3 class="text-base font-bold text-ink">Define Concrete Outputs</h3>
           <p class="text-xs text-body leading-relaxed">
             Replace fuzzy intentions like "Work on thesis" with tangible outcomes like "Draft 3 paragraphs of the methodology section." Clear boundaries eliminate mid-session aimlessness.
           </p>
         </div>
-        <div class="p-6 bg-canvas-soft border border-hairline rounded-2xl space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center font-bold text-lg">2</div>
+        <div class="p-6 sm:p-8 bg-canvas border border-hairline rounded-3xl shadow-sm hover:shadow-md hover:border-link/20 transition-all space-y-3">
+          <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-lg">2</div>
           <h3 class="text-base font-bold text-ink">Break Into Checkpoints</h3>
           <p class="text-xs text-body leading-relaxed">
             Divide your sprint into 2 to 4 micro-milestones. Ticking off an early checkpoint within the first 10 minutes creates immediate dopamine momentum that keeps you engaged.
           </p>
         </div>
-        <div class="p-6 bg-canvas-soft border border-hairline rounded-2xl space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center font-bold text-lg">3</div>
+        <div class="p-6 sm:p-8 bg-canvas border border-hairline rounded-3xl shadow-sm hover:shadow-md hover:border-link/20 transition-all space-y-3">
+          <div class="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-lg">3</div>
           <h3 class="text-base font-bold text-ink">Debrief &amp; Recover</h3>
           <p class="text-xs text-body leading-relaxed">
             Evaluate sessions with compassion. Incomplete sprints are treated as diagnostic data—revealing task over-scoping, fatigue, or interruptions—so you can adjust your next sprint.
@@ -1530,17 +1535,21 @@ const focusGraphSchema = {
       </div>
 
       <!-- Section 2: Checkpoint Decomposition -->
-      <div class="space-y-4">
-        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Checkpoint Decomposition</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink mb-4">
           Checkpoint Decomposition: Why 2–4 Micro-Milestones Defeat Task Paralysis
         </h2>
-        <p class="text-body leading-relaxed text-base">
+        <p class="text-body leading-relaxed text-base mb-4">
           When people procrastinate, it is rarely due to laziness; it is almost always an emotional regulation challenge. Facing an intimidating, open-ended task (such as writing a research grant, studying an entire textbook chapter, or refactoring a sprawling legacy codebase) activates the amygdala's threat response. The brain perceives the sheer scale of the endeavor as overwhelming and reflexively seeks escape through low-friction distractions like social media, news feeds, or email triaging.
         </p>
-        <p class="text-body leading-relaxed text-base">
+        <p class="text-body leading-relaxed text-base mb-4">
           Checkpoint decomposition dissolves this resistance by transforming an abstract objective into a sequential checklist of bite-sized actions that can each be accomplished in 5 to 15 minutes. For example, instead of a vague goal of "Work on literature review," a writer might set three crisp checkpoints:
         </p>
-        <ul class="list-disc list-inside space-y-2 text-body text-base pl-2">
+        <ul class="list-disc list-inside space-y-2 text-body text-base pl-2 mb-4">
           <li><strong>Checkpoint 1:</strong> Select and highlight key findings in 2 foundational papers (~12 min).</li>
           <li><strong>Checkpoint 2:</strong> Synthesize author arguments into a 150-word comparison summary (~15 min).</li>
           <li><strong>Checkpoint 3:</strong> Draft the opening paragraph connecting their conclusions to my hypothesis (~10 min).</li>
@@ -1551,11 +1560,15 @@ const focusGraphSchema = {
       </div>
 
       <!-- Section 3: Attention Residue -->
-      <div class="space-y-4">
-        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Neuroscience & Attention</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink mb-4">
           Attention Residue &amp; The Neurological Costs of Context Switching
         </h2>
-        <p class="text-body leading-relaxed text-base">
+        <p class="text-body leading-relaxed text-base mb-4">
           Modern work environments encourage constant multitasking under the guise of responsiveness. However, neuroscientific studies demonstrate that the human brain cannot parallel-process complex cognitive operations; it merely alternates rapidly between tasks. Every time you switch away from your primary document to check an incoming Slack notification, glance at an email alert, or look up an unrelated article, your mind suffers from what cognitive scientist Dr. Gloria Mark terms <em>attention residue</em>.
         </p>
         <p class="text-body leading-relaxed text-base">
@@ -1564,26 +1577,30 @@ const focusGraphSchema = {
       </div>
 
       <!-- Section 4: Cognitive Recovery Coaching -->
-      <div class="space-y-4">
-        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Cognitive Recovery</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink mb-4">
           Cognitive Recovery Coaching: Turning Incomplete Sessions into Self-Knowledge
         </h2>
-        <p class="text-body leading-relaxed text-base">
+        <p class="text-body leading-relaxed text-base mb-4">
           In typical productivity applications, an interrupted or incomplete session is treated as a moral failure: timers turn red, streaks break, and the user experiences guilt. Over time, this punitive dynamic fosters an aversion to the productivity tool itself. Tooltails Focus replaces punitive mechanics with <em>Cognitive Recovery Coaching</em>.
         </p>
-        <p class="text-body leading-relaxed text-base">
+        <p class="text-body leading-relaxed text-base mb-6">
           When a work block is marked as "Partial" or "Needs Work," the application prompts a brief diagnostic evaluation. Was the session derailed by an unavoidable external interruption, unexpected complexity requiring deeper research, or sudden physical and mental fatigue? Based on your answer, the coaching engine provides non-judgmental, actionable recommendations:
         </p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="p-5 bg-canvas-soft border border-hairline rounded-xl">
-            <h4 class="text-sm font-bold text-ink mb-1">When Scope Was Too Broad</h4>
-            <p class="text-xs text-body leading-relaxed">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="p-6 sm:p-7 bg-canvas border border-hairline rounded-3xl shadow-sm hover:shadow-md hover:border-link/20 transition-all">
+            <h4 class="text-base font-bold text-ink mb-2">When Scope Was Too Broad</h4>
+            <p class="text-sm text-body leading-relaxed">
               Cut the next session duration in half (e.g. 15 minutes) and choose a single, ultra-specific micro-task to rebuild operational momentum.
             </p>
           </div>
-          <div class="p-5 bg-canvas-soft border border-hairline rounded-xl">
-            <h4 class="text-sm font-bold text-ink mb-1">When Mental Fatigue Strikes</h4>
-            <p class="text-xs text-body leading-relaxed">
+          <div class="p-6 sm:p-7 bg-canvas border border-hairline rounded-3xl shadow-sm hover:shadow-md hover:border-link/20 transition-all">
+            <h4 class="text-base font-bold text-ink mb-2">When Mental Fatigue Strikes</h4>
+            <p class="text-sm text-body leading-relaxed">
               Step away from all backlit screens. Engage in a 5-minute stroll, hydrate, or practice two physiological sighs (deep double inhale, extended exhale) to reset cortisol levels.
             </p>
           </div>
@@ -1591,17 +1608,21 @@ const focusGraphSchema = {
       </div>
 
       <!-- Section 5: Synthesized Ambient Audio -->
-      <div class="space-y-4">
-        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Acoustic Engineering</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink mb-4">
           Synthesized Ambient Soundscapes: The Science of Sound Colors and Auditory Masking
         </h2>
-        <p class="text-body leading-relaxed text-base">
+        <p class="text-body leading-relaxed text-base mb-4">
           Sudden acoustic transients—a coworker speaking nearby, a car horn on the street, or a door latch clicking—automatically trigger the brain's orienting reflex, jerking attention away from deep work. Auditory masking introduces continuous, non-intrusive sound textures that raise the ambient acoustic floor, rendering erratic background noises imperceptible.
         </p>
-        <p class="text-body leading-relaxed text-base">
+        <p class="text-body leading-relaxed text-base mb-4">
           Tooltails Focus includes a built-in sound engine featuring three distinct acoustic profiles:
         </p>
-        <ul class="list-disc list-inside space-y-2 text-body text-base pl-2">
+        <ul class="list-disc list-inside space-y-2 text-body text-base pl-2 mb-4">
           <li><strong>Brown Noise:</strong> Decreases in power density by 6 dB per octave as frequency increases. This creates a deep, rumbling warmth akin to a distant waterfall or heavy rainfall. Clinical studies show brown noise is exceptionally effective at quieting racing internal thoughts and soothing sensory overload in neurodivergent and ADHD brains.</li>
           <li><strong>White Noise:</strong> Distributes equal energy across all audible frequencies, providing crisp masking power that obscures human speech and chatter in busy office or café environments.</li>
           <li><strong>Rain Textures:</strong> Organic pink-noise distributions that simulate gentle precipitation, providing rhythmic sensory consistency without melodic distraction.</li>
@@ -1612,19 +1633,23 @@ const focusGraphSchema = {
       </div>
 
       <!-- Section 6: Privacy-First Architecture -->
-      <div class="space-y-4">
-        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Data Sovereignty</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink mb-4">
           Privacy-First Architecture: 100% Client-Side Data Sovereignty
         </h2>
-        <p class="text-body leading-relaxed text-base">
+        <p class="text-body leading-relaxed text-base mb-6">
           Modern software frequently turns personal productivity into telemetry—logging keystrokes, recording session logs, and harvesting journal entries for advertising models or third-party AI training. Tooltails Focus takes an uncompromising stance on data sovereignty:
         </p>
-        <div class="p-6 bg-canvas-soft border border-hairline rounded-2xl space-y-3">
-          <div class="flex items-center gap-2 text-sm font-bold text-ink">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-500"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <div class="p-6 sm:p-8 bg-canvas border border-hairline rounded-3xl shadow-sm hover:shadow-md hover:border-link/20 transition-all space-y-3">
+          <div class="flex items-center gap-2.5 text-base font-bold text-ink">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-500"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             Complete LocalStorage Data Isolation
           </div>
-          <p class="text-xs text-body leading-relaxed">
+          <p class="text-sm text-body leading-relaxed">
             Your personal goals, milestone checklists, session completion histories, activity heatmaps, and journal reflections are saved solely in your local browser storage. No accounts are required, no passwords are created, and no data packets ever leave your machine. You can export your entire history as a standalone JSON backup file or clear your data instantly whenever you choose.
           </p>
         </div>
@@ -1634,31 +1659,30 @@ const focusGraphSchema = {
   </section>
 
   <!-- FAQ Section -->
-  <section class="w-full py-16 md:py-24 border-t border-hairline bg-canvas-soft/30">
-    <div class="max-w-[800px] mx-auto px-4 sm:px-6">
-      <div class="flex items-center gap-3 mb-10">
-        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-ink">Frequently Asked Questions</h2>
-        <div class="h-px flex-1 bg-hairline"></div>
-      </div>
+  <section class="w-full py-16 bg-canvas border-t border-hairline">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
       <FAQ items={faqItems} renderSchema={false} />
     </div>
   </section>
 
   <!-- Related Tools -->
-  <section class="w-full py-16 bg-canvas border-t border-hairline">
-    <div class="max-w-[1000px] mx-auto px-4 sm:px-6 text-center">
-      <h2 class="text-2xl font-bold text-ink mb-6">Explore Other Free Productivity Tools</h2>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href="/pomodoro-timer/" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+  <section class="w-full py-16 bg-canvas-soft border-t border-hairline">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center gap-3 mb-8">
+        <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Companion Tools & Guides</h3>
+        <div class="h-px w-full bg-hairline"></div>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/pomodoro-timer/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Pomodoro Timer
         </a>
-        <a href="/study-schedule/" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/study-schedule/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Study Schedule Generator
         </a>
-        <a href="/word-counter/" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/word-counter/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Word Counter
         </a>
-        <a href="/duration/" class="inline-flex items-center justify-center px-6 h-12 text-sm font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/duration/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Duration Calculator
         </a>
       </div>

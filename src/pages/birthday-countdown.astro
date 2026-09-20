@@ -46,64 +46,76 @@ const canonicalUrl = "https://tooltails.com/birthday-countdown/";
   title="Birthday Countdown — Days Until Your Next Birthday" 
   description="See exactly how many days, weeks, and months are left until your next birthday. Find out what day of the week your birthday falls on this year."
 >
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 md:py-8">
-    <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-      <div>
-        <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-ink mb-1.5 leading-tight">
-          Birthday Countdown — Days Until Your Next Birthday
-        </h1>
-        <p class="text-body text-sm sm:text-base max-w-2xl leading-relaxed">
-          Can't wait for your next birthday? Enter your birth date to see the live countdown and fun facts about your upcoming special day.
-        </p>
+  <!-- Hero Section -->
+  <section class="px-4 sm:px-6 pt-4 pb-2">
+    <div class="max-w-7xl mx-auto flex flex-col gap-3">
+      <div class="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-ink mb-1.5 leading-tight">
+            Birthday Countdown — Days Until Your Next Birthday
+          </h1>
+          <p class="text-body text-sm max-w-2xl leading-relaxed">
+            Can't wait for your next birthday? Enter your birth date to see the live countdown and fun facts about your upcoming special day.
+          </p>
+        </div>
+        <div class="shrink-0 self-start sm:self-auto">
+          <HowToUseModal toolName="Birthday Countdown" steps={howToUseSteps} tip={howToUseTip} />
+        </div>
       </div>
-      <div class="shrink-0 self-start sm:self-auto">
-        <HowToUseModal toolName="Birthday Countdown" steps={howToUseSteps} tip={howToUseTip} />
+
+      <div class="w-full">
+        <BirthdayCountdown />
+      </div>
+
+      <!-- Trust Signals -->
+      <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 mt-6 text-[11px] font-bold text-mute uppercase tracking-widest">
+        <span class="flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Privacy First (Client-Side)
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+          Leap-Year Accurate
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+          100% Free
+        </span>
       </div>
     </div>
-
-    <div class="w-full">
-      <BirthdayCountdown />
-    </div>
-
-    <!-- Trust Signals -->
-    <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 mt-6 text-[11px] font-bold text-mute uppercase tracking-widest">
-      <span class="flex items-center gap-1.5">
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Privacy First (Client-Side)
-      </span>
-      <span class="flex items-center gap-1.5">
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-        Leap-Year Accurate
-      </span>
-      <span class="flex items-center gap-1.5">
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
-        100% Free
-      </span>
-    </div>
-  </div>
+  </section>
 
   <!-- Comprehensive Explanatory Section -->
-  <section class="w-full py-16 bg-canvas border-t border-hairline">
-    <div class="max-w-[1000px] mx-auto px-6 space-y-12">
+  <section class="px-4 sm:px-6 py-12 bg-canvas border-t border-hairline">
+    <div class="max-w-7xl mx-auto space-y-12">
       <div>
-        <h2 class="text-2xl font-bold text-ink mb-4">How the Birthday Countdown Works</h2>
-        <p class="text-body leading-relaxed text-base mb-4">
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">How the Countdown Works</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <p class="text-body leading-relaxed text-base mb-4 max-w-3xl">
           A birthday countdown requires more than checking the current date against your birth month and day. It computes a real-time chronological delta between the exact local timestamp and the upcoming occurrence of your annual anniversary, accounting for differing calendar month lengths, leap years, and local time zones.
         </p>
-        <p class="text-body leading-relaxed text-base">
+        <p class="text-body leading-relaxed text-base max-w-3xl">
           Our calculator identifies whether your birthday has already occurred in the current calendar year. If today’s date is before your birthday, the countdown targets the anniversary this year; if your birthday has already passed, the algorithm increments the target to the next year. If you also want to calculate your cumulative lifetime metrics, such as total days and hours lived, explore our companion <a href="/age-calculator/" class="text-link font-medium hover:underline">exact age calculator</a>.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="p-6 bg-canvas-soft-2/40 border border-hairline rounded-2xl">
-          <h3 class="text-lg font-bold text-ink mb-2">Real-Time Timestamp Arithmetic</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-7 h-7 rounded-full bg-link/10 text-link flex items-center justify-center shadow-inner text-xs font-bold">1</div>
+            <h3 class="text-base font-bold text-ink group-hover:text-link transition-colors">Real-Time Timestamp Arithmetic</h3>
+          </div>
           <p class="text-sm text-body leading-relaxed">
             The countdown determines remaining duration by taking the target birthday timestamp at midnight in your local time zone and subtracting the active device timestamp. The remaining millisecond difference is then converted into remaining full days, hours, minutes, and seconds without relying on static 30-day month approximations.
           </p>
         </div>
-        <div class="p-6 bg-canvas-soft-2/40 border border-hairline rounded-2xl">
-          <h3 class="text-lg font-bold text-ink mb-2">Weekday Drift & the 28-Year Cycle</h3>
+        <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-7 h-7 rounded-full bg-link/10 text-link flex items-center justify-center shadow-inner text-xs font-bold">2</div>
+            <h3 class="text-base font-bold text-ink group-hover:text-link transition-colors">Weekday Drift & the 28-Year Cycle</h3>
+          </div>
           <p class="text-sm text-body leading-relaxed">
             Because a standard solar year consists of 365 days (52 weeks plus 1 day), your birthday advances by exactly one day of the week each non-leap year. When an intervening leap year includes February 29, the weekday shifts by two days. This pattern repeats on a predictable 28-year Gregorian cycle.
           </p>
@@ -111,25 +123,28 @@ const canonicalUrl = "https://tooltails.com/birthday-countdown/";
       </div>
 
       <div>
-        <h2 class="text-2xl font-bold text-ink mb-4">Handling February 29 Leap Day Birthdays</h2>
-        <p class="text-body leading-relaxed text-base mb-4">
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Handling February 29 Leap Day Birthdays</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <p class="text-body leading-relaxed text-base mb-6 max-w-3xl">
           Individuals born on February 29—commonly referred to as "leaplings"—face a unique calendar situation in common 365-day years. When the calendar does not contain a February 29, our algorithm transparently handles the celebration date according to established civil convention:
         </p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-          <div class="p-5 bg-canvas-soft-2/30 border border-hairline rounded-xl">
-            <h3 class="text-base font-bold text-ink mb-2">Common Year Celebration</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+            <h3 class="text-base font-bold text-ink mb-2 group-hover:text-link transition-colors">Common Year Celebration</h3>
             <p class="text-sm text-body leading-relaxed">
               In non-leap years, people born on February 29 typically celebrate on March 1 (representing the day immediately following February 28) or on February 28 itself. Our countdown defaults to March 1 for completed calendar age.
             </p>
           </div>
-          <div class="p-5 bg-canvas-soft-2/30 border border-hairline rounded-xl">
-            <h3 class="text-base font-bold text-ink mb-2">Legal Cutoff Rules</h3>
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+            <h3 class="text-base font-bold text-ink mb-2 group-hover:text-link transition-colors">Legal Cutoff Rules</h3>
             <p class="text-sm text-body leading-relaxed">
               Under English law and common law traditions, a person born on leap day officially reaches their legal majority (such as age 18 or 21) on March 1. In several other jurisdictions like New Zealand, February 28 is legally designated.
             </p>
           </div>
-          <div class="p-5 bg-canvas-soft-2/30 border border-hairline rounded-xl">
-            <h3 class="text-base font-bold text-ink mb-2">Quadrennial Accuracy</h3>
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+            <h3 class="text-base font-bold text-ink mb-2 group-hover:text-link transition-colors">Quadrennial Accuracy</h3>
             <p class="text-sm text-body leading-relaxed">
               When the countdown detects that an upcoming target year is a leap year (divisible by 4, except non-400 century marks), it restores the target precisely to February 29th, ensuring complete leap-year fidelity.
             </p>
@@ -138,67 +153,65 @@ const canonicalUrl = "https://tooltails.com/birthday-countdown/";
       </div>
 
       <div>
-        <h2 class="text-2xl font-bold text-ink mb-4">Half-Birthdays, Golden Birthdays, and Milestone Ages</h2>
-        <div class="space-y-4 text-body leading-relaxed text-base">
-          <p>
-            Beyond counting down to your primary birthday, calendar mathematics enables several other popular milestone calculations:
-          </p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
-            <div class="p-5 bg-canvas border border-hairline rounded-xl">
-              <h3 class="font-bold text-ink mb-1.5 text-base">The Half-Birthday (6-Month Offset)</h3>
-              <p class="text-sm text-body leading-relaxed">
-                A half-birthday occurs exactly six months after your birth date (or approximately 182.5 days). For example, someone born on January 15 celebrates their half-birthday on July 15. Half-birthdays are popular for pediatric growth markers and winter-born children who celebrate summer outdoor events.
-              </p>
-            </div>
-            <div class="p-5 bg-canvas border border-hairline rounded-xl">
-              <h3 class="font-bold text-ink mb-1.5 text-base">The Golden Birthday</h3>
-              <p class="text-sm text-body leading-relaxed">
-                A golden birthday (also known as a lucky or champagne birthday) occurs when the age you turn matches the numeric day of the month you were born. For example, turning 19 on the 19th of the month, or turning 31 on the 31st. Everyone experiences exactly one golden birthday in their lifetime.
-              </p>
-            </div>
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Milestone Celebrations</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+            <h3 class="font-bold text-ink mb-2 text-base group-hover:text-link transition-colors">The Half-Birthday (6-Month Offset)</h3>
+            <p class="text-sm text-body leading-relaxed">
+              A half-birthday occurs exactly six months after your birth date (or approximately 182.5 days). Half-birthdays are popular for pediatric growth markers and winter-born children who celebrate summer outdoor events.
+            </p>
+          </div>
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+            <h3 class="font-bold text-ink mb-2 text-base group-hover:text-link transition-colors">The Golden Birthday</h3>
+            <p class="text-sm text-body leading-relaxed">
+              A golden birthday (also known as a lucky or champagne birthday) occurs when the age you turn matches the numeric day of the month you were born (e.g. turning 25 on the 25th). Everyone experiences exactly one in their lifetime.
+            </p>
           </div>
         </div>
       </div>
 
       <div>
-        <h2 class="text-2xl font-bold text-ink mb-4">Key Milestone Birthdays Across the Human Lifespan</h2>
-        <p class="text-body leading-relaxed text-base mb-6">
-          Milestone birthdays mark cultural, legal, and sociological transitions. Here is a reference of universal milestones and their significance:
-        </p>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm border-collapse border border-hairline rounded-xl overflow-hidden">
-            <thead class="bg-canvas-soft-2/60 border-b border-hairline text-ink font-semibold">
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Universal Milestone Ages</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <div class="bg-canvas border border-hairline rounded-3xl overflow-hidden shadow-sm">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead class="bg-canvas-soft border-b border-hairline text-ink font-semibold">
               <tr>
-                <th class="p-3.5 sm:p-4">Milestone Age</th>
-                <th class="p-3.5 sm:p-4">Legal & Societal Significance</th>
-                <th class="p-3.5 sm:p-4">Celebration Tradition</th>
+                <th class="p-4 sm:p-5 text-xs font-extrabold uppercase tracking-wider text-mute">Milestone Age</th>
+                <th class="p-4 sm:p-5 text-xs font-extrabold uppercase tracking-wider text-mute">Legal & Societal Significance</th>
+                <th class="p-4 sm:p-5 text-xs font-extrabold uppercase tracking-wider text-mute">Celebration Tradition</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-hairline text-body">
               <tr class="hover:bg-canvas-soft/40 transition-colors">
-                <td class="p-3.5 sm:p-4 font-medium text-ink">Age 18</td>
-                <td class="p-3.5 sm:p-4">Age of majority in most nations; voting eligibility, legal independence</td>
-                <td class="p-3.5 sm:p-4">Adulthood celebration, graduation milestones</td>
+                <td class="p-4 sm:p-5 font-bold text-ink">Age 18</td>
+                <td class="p-4 sm:p-5">Age of majority in most nations; voting eligibility, legal independence</td>
+                <td class="p-4 sm:p-5">Adulthood celebration, graduation milestones</td>
               </tr>
               <tr class="hover:bg-canvas-soft/40 transition-colors">
-                <td class="p-3.5 sm:p-4 font-medium text-ink">Age 21</td>
-                <td class="p-3.5 sm:p-4">Full legal majority in all global jurisdictions; alcohol/financial independence</td>
-                <td class="p-3.5 sm:p-4">Key to the door tradition, festive gatherings</td>
+                <td class="p-4 sm:p-5 font-bold text-ink">Age 21</td>
+                <td class="p-4 sm:p-5">Full legal majority in all global jurisdictions; alcohol/financial independence</td>
+                <td class="p-4 sm:p-5">Key to the door tradition, festive gatherings</td>
               </tr>
               <tr class="hover:bg-canvas-soft/40 transition-colors">
-                <td class="p-3.5 sm:p-4 font-medium text-ink">Age 30 / 40 / 50</td>
-                <td class="p-3.5 sm:p-4">Decade milestones reflecting career maturity, family growth, and wisdom</td>
-                <td class="p-3.5 sm:p-4">Jubilee parties, reflective retreats, milestone travel</td>
+                <td class="p-4 sm:p-5 font-bold text-ink">Age 30 / 40 / 50</td>
+                <td class="p-4 sm:p-5">Decade milestones reflecting career maturity, family growth, and wisdom</td>
+                <td class="p-4 sm:p-5">Jubilee parties, reflective retreats, milestone travel</td>
               </tr>
               <tr class="hover:bg-canvas-soft/40 transition-colors">
-                <td class="p-3.5 sm:p-4 font-medium text-ink">Age 65</td>
-                <td class="p-3.5 sm:p-4">Traditional retirement age; healthcare (Medicare) and pension access</td>
-                <td class="p-3.5 sm:p-4">Retirement celebrations, lifetime achievement honors</td>
+                <td class="p-4 sm:p-5 font-bold text-ink">Age 65</td>
+                <td class="p-4 sm:p-5">Traditional retirement age; healthcare (Medicare) and pension access</td>
+                <td class="p-4 sm:p-5">Retirement celebrations, lifetime achievement honors</td>
               </tr>
               <tr class="hover:bg-canvas-soft/40 transition-colors">
-                <td class="p-3.5 sm:p-4 font-medium text-ink">Age 100</td>
-                <td class="p-3.5 sm:p-4">Centenarian milestone; official letter from head of state in many countries</td>
-                <td class="p-3.5 sm:p-4">Centenary tributes, generational family gatherings</td>
+                <td class="p-4 sm:p-5 font-bold text-ink">Age 100</td>
+                <td class="p-4 sm:p-5">Centenarian milestone; official letter from head of state in many countries</td>
+                <td class="p-4 sm:p-5">Centenary tributes, generational family gatherings</td>
               </tr>
             </tbody>
           </table>
@@ -208,23 +221,27 @@ const canonicalUrl = "https://tooltails.com/birthday-countdown/";
   </section>
 
   <!-- Related Tools -->
-  <section class="w-full py-16 bg-canvas-soft-2/50 border-t border-hairline">
-    <div class="max-w-[1200px] mx-auto px-6 text-center">
-      <h2 class="text-2xl font-bold text-ink mb-8">Try our other calculators</h2>
-      <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a href="/age-calculator/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+  <section class="px-4 sm:px-6 py-12 bg-canvas border-b border-hairline">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="flex items-center gap-3 mb-8">
+        <div class="h-px w-full bg-hairline"></div>
+        <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Explore Companion Tools</h3>
+        <div class="h-px w-full bg-hairline"></div>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/age-calculator/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Exact Age Calculator
         </a>
-        <a href="/future-age/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/future-age/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Future Age Calculator
         </a>
-        <a href="/age-difference/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/age-difference/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Age Difference Calculator
         </a>
-        <a href="/duration/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/duration/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Date Duration Calculator
         </a>
-        <a href="/word-counter/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/word-counter/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Word Counter
         </a>
       </div>
@@ -232,8 +249,8 @@ const canonicalUrl = "https://tooltails.com/birthday-countdown/";
   </section>
 
   <!-- FAQ Section -->
-  <section class="w-full py-16 bg-canvas border-t border-hairline">
-    <div class="max-w-4xl mx-auto px-6">
+  <section class="px-4 sm:px-6 py-16">
+    <div class="max-w-4xl mx-auto">
       <FAQ items={faqItems} renderSchema={false} />
     </div>
   </section>

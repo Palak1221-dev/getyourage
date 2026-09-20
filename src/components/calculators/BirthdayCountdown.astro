@@ -38,7 +38,7 @@ import Input from "../ui/Input.astro";
     </div>
   </form>
 
-  <div id="result-container" class="mt-10 pt-8 border-t border-hairline hidden space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 scroll-mt-24 relative z-10">
+  <div id="result-container" class="mt-10 pt-8 border-t border-hairline hidden space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 scroll-mt-24 relative z-10">
     <!-- Hero Primary Result -->
     <div class="bg-canvas-soft/40 border border-hairline p-6 sm:p-8 rounded-[2rem] text-center relative overflow-hidden group/hero">
       <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-60"></div>
@@ -50,17 +50,54 @@ import Input from "../ui/Input.astro";
     </div>
 
     <!-- Companion Metric Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div class="bg-canvas border border-hairline p-5 rounded-[1.75rem] shadow-sm relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-link/40 group/metric">
-        <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-60 group-hover/metric:opacity-100 transition-opacity"></div>
-        <span class="block text-[9px] sm:text-[10px] font-bold text-mute uppercase tracking-widest leading-none mb-2">Birthday Weekday</span>
-        <span id="res-weekday" class="text-2xl sm:text-3xl font-extrabold tracking-tighter text-ink">-</span>
+    <div>
+      <h4 class="text-[10px] font-extrabold text-body uppercase tracking-[0.2em] mb-4">Countdown Breakdown</h4>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div class="bg-canvas border border-hairline p-4 sm:p-5 rounded-[1.75rem] shadow-sm relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-link/40 group/metric">
+          <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-60 group-hover/metric:opacity-100 transition-opacity"></div>
+          <span class="block text-[9px] sm:text-[10px] font-bold text-mute uppercase tracking-widest leading-none mb-2">Days Remaining</span>
+          <span id="res-metric-days" class="text-2xl sm:text-3xl font-extrabold tracking-tighter text-ink">0</span>
+        </div>
+        <div class="bg-canvas border border-hairline p-4 sm:p-5 rounded-[1.75rem] shadow-sm relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-link/40 group/metric">
+          <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-60 group-hover/metric:opacity-100 transition-opacity"></div>
+          <span class="block text-[9px] sm:text-[10px] font-bold text-mute uppercase tracking-widest leading-none mb-2">Birthday Weekday</span>
+          <span id="res-weekday" class="text-2xl sm:text-3xl font-extrabold tracking-tighter text-ink">-</span>
+        </div>
+        <div class="bg-canvas border border-hairline p-4 sm:p-5 rounded-[1.75rem] shadow-sm relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-link/40 group/metric">
+          <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-60 group-hover/metric:opacity-100 transition-opacity"></div>
+          <span class="block text-[9px] sm:text-[10px] font-bold text-mute uppercase tracking-widest leading-none mb-2">Turning Age</span>
+          <span id="res-age" class="text-2xl sm:text-3xl font-extrabold tracking-tighter text-ink">0</span>
+        </div>
+        <div class="bg-canvas border border-hairline p-4 sm:p-5 rounded-[1.75rem] shadow-sm relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-link/40 group/metric">
+          <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-60 group-hover/metric:opacity-100 transition-opacity"></div>
+          <span class="block text-[9px] sm:text-[10px] font-bold text-mute uppercase tracking-widest leading-none mb-2">Approx Hours</span>
+          <span id="res-hours" class="text-2xl sm:text-3xl font-extrabold tracking-tighter text-ink">0</span>
+        </div>
       </div>
-      <div class="bg-canvas border border-hairline p-5 rounded-[1.75rem] shadow-sm relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-link/40 group/metric">
-        <div class="absolute top-0 left-0 w-full h-1 bg-link opacity-60 group-hover/metric:opacity-100 transition-opacity"></div>
-        <span class="block text-[9px] sm:text-[10px] font-bold text-mute uppercase tracking-widest leading-none mb-2">Age Turning</span>
-        <span id="res-age" class="text-2xl sm:text-3xl font-extrabold tracking-tighter text-ink">0</span>
+    </div>
+
+    <!-- Upcoming Milestone Card -->
+    <div class="p-5 sm:p-6 bg-link/5 rounded-[2rem] border border-link/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative overflow-hidden">
+      <div>
+        <span class="text-[10px] font-extrabold text-link uppercase tracking-[0.2em] block mb-1">Upcoming Milestone</span>
+        <p class="text-base sm:text-lg font-bold text-ink leading-tight">Celebrating on a <span id="res-milestone-weekday" class="text-link">-</span></p>
+        <p class="text-xs sm:text-sm text-mute mt-1">Turning <span id="res-milestone-age" class="font-bold text-ink">0</span> years old</p>
       </div>
+      <div class="w-12 h-12 rounded-2xl bg-link/10 text-link flex items-center justify-center shrink-0 self-center sm:self-auto shadow-inner">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 8v3"/><path d="M17 8v3"/><path d="M7 4h.01"/><path d="M12 4h.01"/><path d="M17 4h.01"/></svg>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+      <Button variant="secondary" size="md" id="copy-btn" class="flex-grow gap-2 py-3 rounded-full justify-center text-xs sm:text-sm font-semibold cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        Copy Results
+      </Button>
+      <Button variant="secondary" size="md" id="share-btn" class="flex-grow gap-2 py-3 rounded-full justify-center text-xs sm:text-sm font-semibold cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>
+        Share Link
+      </Button>
     </div>
   </div>
 </div>
@@ -69,12 +106,17 @@ import Input from "../ui/Input.astro";
   import { getNextBirthdayCountdown } from "../../utils/dateUtils";
   import { validateBirthDate } from "../../utils/formValidation";
   import { setQueryParams, getQueryParams } from "../../utils/seoUtils";
+  import { copyToClipboard } from "../../utils/clipboard";
 
   const form = document.getElementById('birthday-form') as HTMLFormElement;
   const resultContainer = document.getElementById('result-container');
   const resDays = document.getElementById('res-days');
+  const resMetricDays = document.getElementById('res-metric-days');
   const resWeekday = document.getElementById('res-weekday');
   const resAge = document.getElementById('res-age');
+  const resHours = document.getElementById('res-hours');
+  const resMilestoneWeekday = document.getElementById('res-milestone-weekday');
+  const resMilestoneAge = document.getElementById('res-milestone-age');
   
   const dobDay = document.getElementById('dob-day') as HTMLInputElement;
   const dobMonth = document.getElementById('dob-month') as HTMLInputElement;
@@ -90,10 +132,16 @@ import Input from "../ui/Input.astro";
     const result = getNextBirthdayCountdown(new Date(y, m - 1, d));
 
     if (resDays) resDays.textContent = result.days.toString();
+    if (resMetricDays) resMetricDays.textContent = result.days.toString();
     if (resWeekday) resWeekday.textContent = result.weekday;
     if (resAge) resAge.textContent = result.ageOnNextBirthday.toString();
+    if (resHours) resHours.textContent = (result.days * 24).toLocaleString();
+    if (resMilestoneWeekday) resMilestoneWeekday.textContent = result.weekday;
+    if (resMilestoneAge) resMilestoneAge.textContent = result.ageOnNextBirthday.toString();
 
     resultContainer?.classList.remove('hidden');
+    resultContainer?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
     setQueryParams({ d: d.toString(), m: m.toString(), y: y.toString() });
   };
 
@@ -106,6 +154,45 @@ import Input from "../ui/Input.astro";
     form.reset();
     resultContainer?.classList.add('hidden');
     setQueryParams({ d: '', m: '', y: '' });
+  });
+
+  // Copy Results Action
+  document.getElementById('copy-btn')?.addEventListener('click', async () => {
+    const text = `Birthday Countdown: ${resDays?.textContent} days left until turning ${resAge?.textContent} on a ${resWeekday?.textContent}! Track yours on Tooltails: ${window.location.href}`;
+    const success = await copyToClipboard(text);
+    if (success) {
+      const btn = document.getElementById('copy-btn');
+      if (btn) {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-link"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!`;
+        setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+      }
+    }
+  });
+
+  // Share Link Action
+  document.getElementById('share-btn')?.addEventListener('click', async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Birthday Countdown',
+          text: `Check out this birthday countdown on Tooltails!`,
+          url: window.location.href,
+        });
+      } catch (err) {
+        await copyToClipboard(window.location.href);
+      }
+    } else {
+      const success = await copyToClipboard(window.location.href);
+      if (success) {
+        const btn = document.getElementById('share-btn');
+        if (btn) {
+          const originalText = btn.innerHTML;
+          btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-link"><polyline points="20 6 9 17 4 12"></polyline></svg> Link Copied!`;
+          setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+        }
+      }
+    }
   });
 
   const params = getQueryParams();

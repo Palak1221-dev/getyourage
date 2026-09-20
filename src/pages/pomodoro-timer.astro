@@ -54,53 +54,62 @@ const canonicalUrl = "https://tooltails.com/pomodoro-timer/";
 >
 
   <!-- ===== HERO SECTION ===== -->
-  <div class="max-w-[1440px] mx-auto px-4 pt-1 pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-    <div>
-      <h1 class="text-pretty text-2xl sm:text-3xl md:text-4xl font-black tracking-tighter text-ink leading-tight">Pomodoro Timer — Focus on <span class="bg-gradient-to-r from-link via-blue-500 to-indigo-600 bg-clip-text text-transparent font-black">one thing</span>.</h1>
-      <p class="text-xs sm:text-sm text-ink/75 font-medium leading-relaxed mt-1">A premium focus space designed to protect your attention, rhythm, and flow.</p>
-    </div>
-    <div class="shrink-0 self-start sm:self-auto">
-      <HowToUseModal toolName="Pomodoro Timer" steps={howToUseSteps} tip={howToUseTip} />
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-4">
+    <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 border-b border-hairline/60 pb-5">
+      <div>
+        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-ink mb-1.5 leading-tight">
+          Pomodoro Timer
+        </h1>
+        <p class="text-sm md:text-base text-mute font-normal">
+          A focused productivity space designed to protect your attention, rhythm, and workflow.
+        </p>
+      </div>
+      <div class="flex items-center gap-2">
+        <HowToUseModal toolName="Pomodoro Timer" steps={howToUseSteps} tip={howToUseTip} />
+      </div>
     </div>
   </div>
 
   <!-- ===== MAIN CONTENT ===== -->
-  <div class="max-w-[1440px] mx-auto px-4 pb-2">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 pb-12 pt-4">
 
     <!-- ===== TWO-COLUMN LAYOUT ===== -->
-    <!--
-      Mobile stacking (order-*): Focus → Timer → Glance → Note → Streak → Recent
-      Desktop grid: Focus | Timer (sticky) — Glance | Note — Recent | Streak
-    -->
-    <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-3 lg:gap-4 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-4 lg:gap-6 items-start">
 
-            <!-- ===== LEFT COLUMN (Focus, Glance, Recent) ===== -->
-      <div class="order-2 flex flex-col gap-3 lg:col-start-1 lg:row-start-1 lg:row-end-4 w-full">
-        <div aria-busy="true" class="bg-canvas rounded-2xl border border-link/15 border-t-[3px] border-t-link shadow-[0_8px_30px_rgba(37,99,235,0.05)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-3.5 sm:p-4 transition-colors duration-300 hover:shadow-[0_12px_40px_rgba(37,99,235,0.08)] hover:border-link/25">
-            <div class="flex items-center gap-2 mb-1.5 border-b border-hairline/10 pb-1">
+      <!-- ===== LEFT COLUMN (Focus, Glance, Recent) ===== -->
+      <div class="order-2 flex flex-col gap-4 lg:col-start-1 lg:row-start-1 lg:row-end-4 w-full">
+        <!-- Today's Focus Card -->
+        <div aria-busy="true" class="bg-canvas rounded-3xl border border-hairline shadow-sm p-5 sm:p-6 transition-all duration-200 hover:shadow-md hover:border-link/30">
+          <div class="flex items-center gap-2.5 mb-3 border-b border-hairline/60 pb-3">
             <svg class="w-4 h-4 text-link shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>
-            <h2 class="text-pretty text-sm sm:text-base font-extrabold tracking-tight text-ink">Today's Focus</h2>
-            <span id="tasks-count" class="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-ink/75 ml-auto bg-canvas-soft-2 px-2 py-0.5 rounded-full border border-hairline/40">🌱 Nothing planned</span>
+            <h2 class="text-base font-bold tracking-tight text-ink">Today's Focus</h2>
+            <span id="tasks-count" class="text-[10px] font-bold uppercase tracking-wider text-mute ml-auto bg-canvas-soft-2 px-2.5 py-1 rounded-full border border-hairline">🌱 Nothing planned</span>
           </div>
-          <ul id="tasks-list" class="space-y-0.5">
-            <li class="text-sm text-ink/70 text-center py-8 leading-relaxed" id="tasks-empty">What do you want to work on today?</li>
+          <ul id="tasks-list" class="space-y-1">
+            <li class="text-sm text-mute text-center py-6 leading-relaxed" id="tasks-empty">What do you want to work on today?</li>
           </ul>
-          <div class="flex gap-2 mt-1.5 pt-1.5 border-t border-hairline/30">
-            <input id="task-add-input" type="text" placeholder="Add a task…" class="flex-1 h-10 px-3 text-sm bg-canvas-soft-2 border border-hairline/50 rounded-xl text-ink placeholder:text-ink/40 outline-none focus:border-link/50 focus:ring-2 focus:ring-link/10 transition-all" / autocomplete="off"><button id="task-add-btn" class="h-10 px-4 text-sm font-bold text-white bg-link rounded-xl hover:bg-link-hover transition-all shrink-0 cursor-pointer active:scale-95 shadow-sm shadow-link/20" type="button" style="touch-action: manipulation">Add task</button></div>
-          <div id="quick-start-section" class="mt-1.5 pt-1.5 border-t border-hairline/30">
-            <span class="text-xs font-bold uppercase tracking-widest text-ink/70 block mb-1.5">Quick start</span>
+          <div class="flex gap-2 mt-2 pt-3 border-t border-hairline/60">
+            <input id="task-add-input" type="text" placeholder="Add a task…" class="flex-1 h-11 px-3.5 text-sm bg-canvas-soft-2 border border-hairline rounded-xl text-ink placeholder:text-mute outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all" autocomplete="off" />
+            <button id="task-add-btn" class="h-11 px-5 text-sm font-semibold text-white bg-link rounded-xl hover:bg-link-hover transition-all shrink-0 cursor-pointer active:scale-95 shadow-sm shadow-link/20" type="button" style="touch-action: manipulation">Add task</button>
+          </div>
+          <div id="quick-start-section" class="mt-3 pt-3 border-t border-hairline/60">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-mute block mb-2">Quick start</span>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              <button type="button" class="quick-start-btn flex flex-col items-center justify-center min-h-[56px] py-2 px-3 rounded-xl border border-hairline/40 bg-canvas hover:bg-canvas-soft-2 transition-all cursor-pointer active:scale-95 text-center w-full" data-template="Study" style="touch-action: manipulation"><span class="text-xs font-bold text-ink">Study</span>
-                <span class="text-[9px] text-ink/65 font-medium mt-0.5 leading-none whitespace-nowrap">Review, notes</span>
+              <button type="button" class="quick-start-btn flex flex-col items-center justify-center min-h-[58px] py-2 px-3 rounded-xl border border-hairline bg-canvas hover:bg-canvas-soft-2 hover:border-link/30 transition-all cursor-pointer active:scale-95 text-center w-full" data-template="Study" style="touch-action: manipulation">
+                <span class="text-xs font-bold text-ink">Study</span>
+                <span class="text-[10px] text-mute font-medium mt-0.5 leading-none whitespace-nowrap">Review, notes</span>
               </button>
-              <button type="button" class="quick-start-btn flex flex-col items-center justify-center min-h-[56px] py-2 px-3 rounded-xl border border-hairline/40 bg-canvas hover:bg-canvas-soft-2 transition-all cursor-pointer active:scale-95 text-center w-full" data-template="Writing" style="touch-action: manipulation"><span class="text-xs font-bold text-ink">Writing</span>
-                <span class="text-[9px] text-ink/65 font-medium mt-0.5 leading-none whitespace-nowrap">Draft, outline</span>
+              <button type="button" class="quick-start-btn flex flex-col items-center justify-center min-h-[58px] py-2 px-3 rounded-xl border border-hairline bg-canvas hover:bg-canvas-soft-2 hover:border-link/30 transition-all cursor-pointer active:scale-95 text-center w-full" data-template="Writing" style="touch-action: manipulation">
+                <span class="text-xs font-bold text-ink">Writing</span>
+                <span class="text-[10px] text-mute font-medium mt-0.5 leading-none whitespace-nowrap">Draft, outline</span>
               </button>
-              <button type="button" class="quick-start-btn flex flex-col items-center justify-center min-h-[56px] py-2 px-3 rounded-xl border border-hairline/40 bg-canvas hover:bg-canvas-soft-2 transition-all cursor-pointer active:scale-95 text-center w-full" data-template="Coding" style="touch-action: manipulation"><span class="text-xs font-bold text-ink">Coding</span>
-                <span class="text-[9px] text-ink/65 font-medium mt-0.5 leading-none whitespace-nowrap">Feature, debug</span>
+              <button type="button" class="quick-start-btn flex flex-col items-center justify-center min-h-[58px] py-2 px-3 rounded-xl border border-hairline bg-canvas hover:bg-canvas-soft-2 hover:border-link/30 transition-all cursor-pointer active:scale-95 text-center w-full" data-template="Coding" style="touch-action: manipulation">
+                <span class="text-xs font-bold text-ink">Coding</span>
+                <span class="text-[10px] text-mute font-medium mt-0.5 leading-none whitespace-nowrap">Feature, debug</span>
               </button>
-              <button type="button" class="quick-start-btn flex flex-col items-center justify-center min-h-[56px] py-2 px-3 rounded-xl border border-hairline/40 bg-canvas hover:bg-canvas-soft-2 transition-all cursor-pointer active:scale-95 text-center w-full" data-template="Reading" style="touch-action: manipulation"><span class="text-xs font-bold text-ink">Reading</span>
-                <span class="text-[9px] text-ink/65 font-medium mt-0.5 leading-none whitespace-nowrap">Articles, books</span>
+              <button type="button" class="quick-start-btn flex flex-col items-center justify-center min-h-[58px] py-2 px-3 rounded-xl border border-hairline bg-canvas hover:bg-canvas-soft-2 hover:border-link/30 transition-all cursor-pointer active:scale-95 text-center w-full" data-template="Reading" style="touch-action: manipulation">
+                <span class="text-xs font-bold text-ink">Reading</span>
+                <span class="text-[10px] text-mute font-medium mt-0.5 leading-none whitespace-nowrap">Articles, books</span>
               </button>
             </div>
           </div>
@@ -114,145 +123,144 @@ const canonicalUrl = "https://tooltails.com/pomodoro-timer/";
             <button type="button" id="btn-complete-task" class="hidden"></button>
           </div>
         </div>
-        <div aria-busy="true" class="bg-canvas rounded-xl border border-indigo-500/15 border-t-[3px] border-t-indigo-500 shadow-[0_8px_30px_rgba(99,102,241,0.05)] p-2.5 sm:p-3 transition-colors duration-300 hover:shadow-[0_12px_40px_rgba(99,102,241,0.08)] hover:border-indigo-500/25">
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+        <!-- 4-Stat Bar -->
+        <div aria-busy="true" class="bg-canvas rounded-3xl border border-hairline shadow-sm p-4 sm:p-5 transition-all duration-200 hover:shadow-md hover:border-link/30 relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-link to-blue-500"></div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             <div>
-              <span class="text-[9px] sm:text-[10px] font-medium text-ink uppercase tracking-widest">Sessions</span>
-              <div class="flex items-baseline gap-0.5 mt-0.5">
-                <span id="stat-sessions" class="text-xl sm:text-2xl font-black tracking-tight text-ink leading-none" aria-live="polite">0</span>
-                <span class="text-xs text-ink/65 font-medium">/ <span id="stat-goal-total">4</span></span>
+              <span class="text-[10px] sm:text-[11px] font-bold text-mute uppercase tracking-widest">Sessions</span>
+              <div class="flex items-baseline gap-0.5 mt-1">
+                <span id="stat-sessions" class="text-xl sm:text-2xl font-extrabold tracking-tight text-ink leading-none" aria-live="polite">0</span>
+                <span class="text-xs text-mute font-medium">/ <span id="stat-goal-total">4</span></span>
               </div>
-              <div class="w-full h-0.5 bg-hairline/60 rounded-full overflow-hidden mt-1.5">
+              <div class="w-full h-1 bg-hairline/60 rounded-full overflow-hidden mt-2">
                 <div id="stat-goal-bar" class="bg-link h-full rounded-full transition-colors duration-500" style="width:0%"></div>
               </div>
             </div>
             <div>
-              <span class="text-[9px] sm:text-[10px] font-medium text-ink uppercase tracking-widest">Tasks done</span>
-              <div class="flex items-baseline mt-0.5">
-                <span id="stat-tasks" class="text-xl sm:text-2xl font-black tracking-tight text-green-500 leading-none" aria-live="polite">0</span>
+              <span class="text-[10px] sm:text-[11px] font-bold text-mute uppercase tracking-widest">Tasks done</span>
+              <div class="flex items-baseline mt-1">
+                <span id="stat-tasks" class="text-xl sm:text-2xl font-extrabold tracking-tight text-emerald-600 dark:text-emerald-400 leading-none" aria-live="polite">0</span>
               </div>
-              <div id="tasks-completed-sub" class="text-[10px] text-ink/75 mt-1 font-medium leading-tight">Add a task</div>
+              <div id="tasks-completed-sub" class="text-[11px] text-mute mt-1.5 font-medium leading-tight">Add a task</div>
             </div>
             <div>
-              <span class="text-[9px] sm:text-[10px] font-medium text-ink uppercase tracking-widest">Time spent</span>
-              <div class="flex items-baseline mt-0.5">
-                <span id="stat-total-time" class="text-xl sm:text-2xl font-black tracking-tight text-link leading-none" aria-live="polite">0m</span>
+              <span class="text-[10px] sm:text-[11px] font-bold text-mute uppercase tracking-widest">Time spent</span>
+              <div class="flex items-baseline mt-1">
+                <span id="stat-total-time" class="text-xl sm:text-2xl font-extrabold tracking-tight text-link leading-none" aria-live="polite">0m</span>
               </div>
-              <div class="text-[10px] text-ink/75 mt-1 font-medium leading-tight">Ready when you are</div>
+              <div class="text-[11px] text-mute mt-1.5 font-medium leading-tight">Ready when you are</div>
             </div>
             <div>
-              <span class="text-[9px] sm:text-[10px] font-medium text-ink uppercase tracking-widest">Focus score</span>
-              <div class="flex items-baseline gap-0.5 mt-0.5">
-                <span id="stat-focus-score" class="text-xl sm:text-2xl font-black tracking-tight text-ink leading-none" aria-live="polite">0</span>
-                <span class="text-xs text-ink/65 font-medium">/100</span>
+              <span class="text-[10px] sm:text-[11px] font-bold text-mute uppercase tracking-widest">Focus score</span>
+              <div class="flex items-baseline gap-0.5 mt-1">
+                <span id="stat-focus-score" class="text-xl sm:text-2xl font-extrabold tracking-tight text-ink leading-none" aria-live="polite">0</span>
+                <span class="text-xs text-mute font-medium">/100</span>
               </div>
               <span id="focus-score-label" class="text-[10px] font-medium text-link hidden"></span>
-              <div id="focus-score-label-fallback" class="text-[10px] text-ink/75 mt-1 font-medium leading-tight">Start a session</div>
+              <div id="focus-score-label-fallback" class="text-[11px] text-mute mt-1.5 font-medium leading-tight">Start a session</div>
             </div>
           </div>
-          <p id="stat-encouragement" class="text-xs text-ink/70 mt-2 pt-1.5 border-t border-hairline/20 leading-relaxed" aria-live="polite">Small progress still counts. Start where you are.</p>
+          <p id="stat-encouragement" class="text-xs text-mute mt-3 pt-2.5 border-t border-hairline/60 leading-relaxed" aria-live="polite">Small progress still counts. Start where you are.</p>
           <span id="session-counter-text" class="hidden"></span>
           <span id="stat-goal-percentage" class="hidden">0%</span>
         </div>
 
-      
-
         <!-- 4. UTILITY GRID CONTAINER (2x2 Grid) -->
         <div class="w-full">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             
             <!-- Card 1: Your Streak -->
-            <div class="bg-gradient-to-b from-orange-500/[0.04] via-orange-500/[0.01] to-canvas rounded-xl border border-orange-500/15 border-t-[3px] border-t-orange-500 shadow-[0_8px_30px_rgba(249,115,22,0.04)] p-3 sm:p-3.5 flex flex-col justify-between min-h-[120px] sm:min-h-[130px] md:min-h-[140px] transition-colors duration-300 hover:shadow-[0_16px_40px_rgba(249,115,22,0.08)] hover:border-orange-500/25 overflow-hidden">
+            <div class="bg-canvas rounded-3xl border border-hairline shadow-sm p-4 sm:p-5 flex flex-col justify-between min-h-[140px] transition-all duration-200 hover:shadow-md hover:border-link/30 relative overflow-hidden">
               <div class="flex flex-col grow">
-                <div class="flex items-center gap-1.5 mb-1.5 border-b border-hairline/10 pb-1">
-                  <svg class="w-3.5 h-3.5 text-orange-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-                  <span class="text-[9px] sm:text-[10px] font-extrabold uppercase text-ink tracking-widest">Your Streak</span>
+                <div class="flex items-center gap-2 mb-2 border-b border-hairline/60 pb-2">
+                  <svg class="w-4 h-4 text-amber-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                  <span class="text-[11px] font-bold uppercase text-mute tracking-widest">Your Streak</span>
                 </div>
-                <div class="flex items-center justify-between text-xs text-ink mt-2 mb-2 bg-orange-500/[0.04] dark:bg-orange-500/[0.01] px-2 py-1.5 rounded-xl border border-orange-500/10 select-none">
+                <div class="flex items-center justify-between text-xs text-ink mt-1 mb-2 bg-canvas-soft-2 px-3 py-2 rounded-2xl border border-hairline select-none">
                   <div class="flex items-center gap-2">
-                    <div class="w-7 h-7 rounded-lg bg-orange-500/10 dark:bg-orange-500/20 flex items-center justify-center text-xs shrink-0 select-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">🔥</div>
+                    <div class="w-7 h-7 rounded-lg bg-amber-500/10 flex items-center justify-center text-xs shrink-0 select-none">🔥</div>
                     <div class="flex flex-col">
-                      <span class="text-[8px] font-semibold uppercase tracking-widest text-ink/75 leading-none">Streak</span>
-                      <span class="text-xs sm:text-sm font-black text-ink mt-0.5" aria-live="polite"><span id="stat-streak">0</span><span class="text-[8px] text-ink/50 font-bold ml-0.5">d</span></span>
+                      <span class="text-[9px] font-semibold uppercase tracking-wider text-mute leading-none">Streak</span>
+                      <span class="text-xs sm:text-sm font-extrabold text-ink mt-0.5" aria-live="polite"><span id="stat-streak">0</span><span class="text-[9px] text-mute font-bold ml-0.5">d</span></span>
                     </div>
                   </div>
-                  <div class="w-px h-6 bg-orange-500/10"></div>
+                  <div class="w-px h-6 bg-hairline"></div>
                   <div class="flex items-center gap-2">
-                    <div class="w-7 h-7 rounded-lg bg-amber-500/10 dark:bg-amber-500/20 flex items-center justify-center text-xs shrink-0 select-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">🏆</div>
+                    <div class="w-7 h-7 rounded-lg bg-link/10 flex items-center justify-center text-xs shrink-0 select-none">🏆</div>
                     <div class="flex flex-col">
-                      <span class="text-[8px] font-semibold uppercase tracking-widest text-ink/75 leading-none">Best</span>
-                      <span class="text-xs sm:text-sm font-black text-ink mt-0.5" aria-live="polite"><span id="stat-longest-streak">0</span><span class="text-[8px] text-ink/50 font-bold ml-0.5">d</span></span>
+                      <span class="text-[9px] font-semibold uppercase tracking-wider text-mute leading-none">Best</span>
+                      <span class="text-xs sm:text-sm font-extrabold text-ink mt-0.5" aria-live="polite"><span id="stat-longest-streak">0</span><span class="text-[9px] text-mute font-bold ml-0.5">d</span></span>
                     </div>
                   </div>
-                  <div class="w-px h-6 bg-orange-500/10"></div>
+                  <div class="w-px h-6 bg-hairline"></div>
                   <div class="flex items-center gap-2">
-                    <div class="w-7 h-7 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center text-xs shrink-0 select-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">⚡</div>
+                    <div class="w-7 h-7 rounded-lg bg-blue-500/10 flex items-center justify-center text-xs shrink-0 select-none">⚡</div>
                     <div class="flex flex-col">
-                      <span class="text-[8px] font-semibold uppercase tracking-widest text-ink/75 leading-none">Score</span>
-                      <span class="text-xs sm:text-sm font-black text-ink mt-0.5"><span id="dash-score">0</span></span>
+                      <span class="text-[9px] font-semibold uppercase tracking-wider text-mute leading-none">Score</span>
+                      <span class="text-xs sm:text-sm font-extrabold text-ink mt-0.5"><span id="dash-score">0</span></span>
                     </div>
                   </div>
                 </div>
-                <p id="streak-context" class="text-[10px] sm:text-[11px] text-ink/80 mt-2.5 leading-snug font-medium border-l-2 border-orange-500/30 pl-1.5">Start today to begin your streak.</p>
+                <p id="streak-context" class="text-[11px] text-mute mt-2 leading-relaxed font-medium border-l-2 border-link/40 pl-2">Start today to begin your streak.</p>
                 <span id="streak-context-fallback" class="hidden"></span>
               </div>
-              <div class="mt-1 pt-1 border-t border-hairline/20 shrink-0">
+              <div class="mt-2 pt-2 border-t border-hairline/60 shrink-0">
                 <span id="heatmap-week-label" class="hidden"></span>
                 <div id="weekly-heatmap" class="flex gap-1 min-h-[20px] items-end">
-                  <div class="text-[9px] text-ink/75 w-full text-center">No sessions yet</div>
+                  <div class="text-[10px] text-mute w-full text-center">No sessions yet</div>
                 </div>
                 <!-- Dynamic day labels row placeholder -->
-                <div id="weekly-heatmap-labels" class="flex gap-1 mt-0.5 select-none"></div>
-                <div class="flex items-center justify-between mt-1 pt-1 border-t border-hairline/15 select-none">
-                  <span class="text-[8px] text-ink/75 font-semibold">Activity (Past 7 days)</span>
-                  <div class="flex gap-0.5">
-                    <span class="w-1.5 h-1.5 rounded-sm bg-slate-100 dark:bg-zinc-800/50 border border-slate-200 dark:border-zinc-700"></span>
-                    <span class="w-1.5 h-1.5 rounded-sm bg-violet-200 dark:bg-violet-800/40 border border-violet-300/40"></span>
-                    <span class="w-1.5 h-1.5 rounded-sm bg-violet-300 dark:bg-violet-700/50 border border-violet-400/40"></span>
-                    <span class="w-1.5 h-1.5 rounded-sm bg-violet-400 dark:bg-violet-600/60 border border-violet-500/40"></span>
-                    <span class="w-1.5 h-1.5 rounded-sm bg-violet-500 dark:bg-violet-500/70 border border-violet-600/40"></span>
+                <div id="weekly-heatmap-labels" class="flex gap-1 mt-1 select-none"></div>
+                <div class="flex items-center justify-between mt-2 pt-1.5 border-t border-hairline/60 select-none">
+                  <span class="text-[9px] text-mute font-semibold">Activity (Past 7 days)</span>
+                  <div class="flex gap-1">
+                    <span class="w-2 h-2 rounded-sm bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700"></span>
+                    <span class="w-2 h-2 rounded-sm bg-blue-200 dark:bg-blue-900/40 border border-blue-300/40"></span>
+                    <span class="w-2 h-2 rounded-sm bg-blue-300 dark:bg-blue-800/50 border border-blue-400/40"></span>
+                    <span class="w-2 h-2 rounded-sm bg-blue-400 dark:bg-blue-700/60 border border-blue-500/40"></span>
+                    <span class="w-2 h-2 rounded-sm bg-link dark:bg-link border border-link"></span>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Card 2: Daily Target -->
-            <div class="bg-canvas rounded-xl border border-green-500/15 border-t-[3px] border-t-green-500 shadow-[0_8px_30px_rgba(34,197,94,0.04)] p-2.5 sm:p-3 flex flex-col justify-between min-h-[85px] sm:min-h-[95px] md:min-h-[105px] transition-colors duration-300 hover:shadow-[0_12px_40px_rgba(34,197,94,0.08)] hover:border-green-500/25 overflow-hidden">
+            <div class="bg-canvas rounded-3xl border border-hairline shadow-sm p-4 sm:p-5 flex flex-col justify-between min-h-[140px] transition-all duration-200 hover:shadow-md hover:border-link/30 relative overflow-hidden">
               <div class="flex flex-col grow">
-                <div class="flex items-center gap-1.5 mb-1.5 border-b border-hairline/10 pb-1">
-                  <svg class="w-3.5 h-3.5 text-green-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                  <span class="text-[9px] sm:text-[10px] font-extrabold uppercase text-ink tracking-widest">Daily Target</span>
+                <div class="flex items-center gap-2 mb-2 border-b border-hairline/60 pb-2">
+                  <svg class="w-4 h-4 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                  <span class="text-[11px] font-bold uppercase text-mute tracking-widest">Daily Target</span>
                 </div>
-                <div class="flex flex-col mt-1.5">
-                  <span id="daily-target-large-text" class="text-sm font-black tracking-tight text-ink leading-none" aria-live="polite">0 of 4 sessions</span>
-                  <p id="daily-target-subtext" class="text-[10px] text-ink/75 mt-1 leading-normal font-medium">Keep going, you've got this!</p>
+                <div class="flex flex-col mt-2">
+                  <span id="daily-target-large-text" class="text-base sm:text-lg font-extrabold tracking-tight text-ink leading-none" aria-live="polite">0 of 4 sessions</span>
+                  <p id="daily-target-subtext" class="text-xs text-mute mt-1.5 leading-normal font-medium">Keep going, you've got this!</p>
                 </div>
               </div>
-              <div class="flex items-center gap-2 mt-auto w-full">
-                <div class="flex-1 h-1.5 bg-hairline/60 rounded-full overflow-hidden">
-                  <div id="daily-target-bar" class="bg-gradient-to-r from-emerald-500 to-green-500 shadow-[0_0_8px_rgba(34,197,94,0.35)] h-full rounded-full transition-colors duration-500" style="width:0%"></div>
+              <div class="flex items-center gap-2 mt-auto pt-3 w-full">
+                <div class="flex-1 h-2 bg-hairline/60 rounded-full overflow-hidden">
+                  <div id="daily-target-bar" class="bg-gradient-to-r from-emerald-500 to-green-500 shadow-sm h-full rounded-full transition-colors duration-500" style="width:0%"></div>
                 </div>
-                <span id="daily-target-pct" class="text-[10px] font-bold text-green-500 shrink-0">0%</span>
+                <span id="daily-target-pct" class="text-xs font-bold text-emerald-600 dark:text-emerald-400 shrink-0">0%</span>
                 <span id="daily-target-text" class="hidden">0/4</span>
               </div>
             </div>
 
-
           </div>
         </div>
 
-
         <!-- 5. A NOTE FOR TODAY -->
         <div class="w-full">
-          <div class="bg-canvas rounded-xl border border-violet-500/20 border-t-[3px] border-t-violet-500 shadow-[0_8px_30px_rgba(139,92,246,0.05)] p-2 sm:p-2.5 transition-colors duration-300 hover:shadow-[0_12px_40px_rgba(139,92,246,0.08)] hover:border-violet-500/30">
-            <div class="flex items-center gap-1.5 mb-1.5 border-b border-hairline/10 pb-1">
-              <svg class="w-3.5 h-3.5 text-ink/70 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-              <h2 class="text-pretty text-xs sm:text-sm font-extrabold tracking-tight text-ink">A Note for Today</h2>
+          <div class="bg-canvas rounded-3xl border border-hairline shadow-sm p-4 sm:p-5 transition-all duration-200 hover:shadow-md hover:border-link/30">
+            <div class="flex items-center gap-2 mb-2 border-b border-hairline/60 pb-2">
+              <svg class="w-4 h-4 text-mute shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              <h2 class="text-xs sm:text-sm font-bold tracking-tight text-ink">A Note for Today</h2>
             </div>
             <div id="daily-timeline-content" class="space-y-0">
               <div id="focus-insight-card">
-                <p id="focus-insight-text" class="text-xs text-ink/80 leading-relaxed">☕ One focus block is enough.</p>
-                <button type="button" id="focus-insight-refresh" class="mt-0.5 text-xs font-semibold text-ink/70 hover:text-link transition-colors cursor-pointer" aria-label="Show another insight" style="touch-action: manipulation">Show another</button></div>
+                <p id="focus-insight-text" class="text-xs text-body leading-relaxed">☕ One focus block is enough.</p>
+                <button type="button" id="focus-insight-refresh" class="mt-1 text-xs font-semibold text-link hover:underline transition-colors cursor-pointer" aria-label="Show another insight" style="touch-action: manipulation">Show another</button>
+              </div>
             </div>
             <span id="timeline-badge" class="hidden"></span>
           </div>
@@ -261,101 +269,116 @@ const canonicalUrl = "https://tooltails.com/pomodoro-timer/";
       </div>
 
       <!-- 2. TIMER + SETTINGS + WIDGETS -->
-      <div class="order-1 flex flex-col gap-3 lg:col-start-2 lg:row-start-1 lg:row-end-4 lg:sticky lg:top-4" style="overscroll-behavior: contain"><div aria-busy="true" class="bg-gradient-to-b from-link/[0.05] via-link/[0.02] to-canvas rounded-2xl border border-link/20 border-t-[4px] border-t-link shadow-[0_20px_50px_rgba(37,99,235,0.08)] ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03] p-3 pb-1.5 transition-colors duration-300 hover:shadow-[0_24px_60px_rgba(37,99,235,0.12)] hover:border-link/30">
-            <div class="flex gap-0.5 p-1 bg-link/[0.06] rounded-full w-full max-w-[300px] mx-auto mb-1.5">
-              <button type="button" id="mode-pomodoro" class="flex-1 py-1.5 text-xs sm:text-sm font-bold rounded-full transition-all cursor-pointer bg-link text-white shadow-[0_2px_8px_rgba(37,99,235,0.25)] ring-1 ring-link/20" aria-label="Switch to Pomodoro focus session" style="touch-action: manipulation">Pomodoro</button><button type="button" id="mode-short" class="flex-1 py-1.5 text-xs sm:text-sm font-bold text-body/70 hover:text-ink rounded-full transition-all cursor-pointer" aria-label="Switch to short break" style="touch-action: manipulation">Short Break</button><button type="button" id="mode-long" class="flex-1 py-1.5 text-xs sm:text-sm font-bold text-body/70 hover:text-ink rounded-full transition-all cursor-pointer" aria-label="Switch to long break" style="touch-action: manipulation">Long Break</button></div>
-            <div class="flex flex-col items-center gap-1">
-              <div id="timer-ring-container" class="relative w-full max-w-[230px] sm:max-w-[270px] md:max-w-[300px] aspect-square mx-auto flex items-center justify-center">
-                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 256 256" style="filter: drop-shadow(0 0 12px rgba(59,130,246,0.15))">
-                  <defs>
-                    <filter id="ring-glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-                  </defs>
-                  <circle cx="128" cy="128" r="120" stroke="currentColor" stroke-width="1" fill="transparent" class="text-link/[0.04]" />
-                  <circle cx="128" cy="128" r="116" stroke="currentColor" stroke-width="4" fill="transparent" class="text-hairline/20" />
-                  <circle id="timer-progress-ring" cx="128" cy="128" r="116" stroke="currentColor" stroke-width="10" fill="transparent" stroke-dasharray="728.85" stroke-dashoffset="0" stroke-linecap="round" class="text-link transition-colors duration-1000 ease-linear drop-shadow-[0_0_8px_rgba(59,130,246,0.35)]" filter="url(#ring-glow)" />
-                </svg>
-                <div class="absolute flex flex-col items-center justify-center select-none">
-                  <span id="timer-display" class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter text-ink tabular-nums leading-none">25:00</span>
-                  <span id="timer-status-text" class="text-[10px] sm:text-xs font-black text-link/70 mt-1 uppercase tracking-[0.2em]">Focus time</span>
-                </div>
-                <div id="timer-pulse" class="absolute inset-0 rounded-full border-[3px] border-link/15 pointer-events-none hidden"></div>
-                <div id="celebration-container" class="absolute inset-0 pointer-events-none hidden"></div>
+      <div class="order-1 flex flex-col gap-4 lg:col-start-2 lg:row-start-1 lg:row-end-4 lg:sticky lg:top-4" style="overscroll-behavior: contain">
+        <div aria-busy="true" class="bg-canvas rounded-[2.5rem] border border-hairline shadow-sm ring-1 ring-black/[0.03] dark:ring-white/[0.03] p-6 sm:p-8 transition-all duration-200 hover:shadow-md hover:border-link/30 relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-link via-blue-500 to-indigo-500"></div>
+          <div class="flex gap-1 p-1 bg-canvas-soft-2 rounded-full w-full max-w-[340px] mx-auto mb-4 border border-hairline/60">
+            <button type="button" id="mode-pomodoro" class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-full transition-all cursor-pointer bg-link text-white shadow-sm ring-1 ring-link/20" aria-label="Switch to Pomodoro focus session" style="touch-action: manipulation">Pomodoro</button>
+            <button type="button" id="mode-short" class="flex-1 py-2 text-xs sm:text-sm font-bold text-mute hover:text-ink rounded-full transition-all cursor-pointer" aria-label="Switch to short break" style="touch-action: manipulation">Short Break</button>
+            <button type="button" id="mode-long" class="flex-1 py-2 text-xs sm:text-sm font-bold text-mute hover:text-ink rounded-full transition-all cursor-pointer" aria-label="Switch to long break" style="touch-action: manipulation">Long Break</button>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div id="timer-ring-container" class="relative w-full max-w-[240px] sm:max-w-[280px] md:max-w-[310px] aspect-square mx-auto flex items-center justify-center">
+              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 256 256" style="filter: drop-shadow(0 0 16px rgba(37,99,235,0.12))">
+                <defs>
+                  <filter id="ring-glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                </defs>
+                <circle cx="128" cy="128" r="120" stroke="currentColor" stroke-width="1" fill="transparent" class="text-link/[0.04]" />
+                <circle cx="128" cy="128" r="116" stroke="currentColor" stroke-width="4" fill="transparent" class="text-hairline/20" />
+                <circle id="timer-progress-ring" cx="128" cy="128" r="116" stroke="currentColor" stroke-width="10" fill="transparent" stroke-dasharray="728.85" stroke-dashoffset="0" stroke-linecap="round" class="text-link transition-colors duration-1000 ease-linear drop-shadow-[0_0_8px_rgba(37,99,235,0.35)]" filter="url(#ring-glow)" />
+              </svg>
+              <div class="absolute flex flex-col items-center justify-center select-none">
+                <span id="timer-display" class="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tighter text-ink tabular-nums leading-none">25:00</span>
+                <span id="timer-status-text" class="text-[11px] sm:text-xs font-bold text-link/80 mt-2 uppercase tracking-[0.2em]">Focus time</span>
               </div>
-              <div id="timer-phase-container" class="text-center min-h-[10px]">
-                <span id="timer-phase" class="text-sm sm:text-base font-bold text-link/80 opacity-0 transition-colors duration-500">Whenever you're ready, begin.</span>
-              </div>
-              <div class="flex items-center gap-2 sm:gap-3">
-                <button type="button" id="btn-reset" class="w-10 h-10 rounded-full border border-hairline/50 bg-canvas text-body hover:text-link hover:bg-link/[0.06] hover:border-link/20 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Reset" aria-label="Reset Timer" style="touch-action: manipulation"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-                </button>
-                <button type="button" id="btn-play-pause" class="w-14 h-14 rounded-full bg-link text-white hover:bg-link-hover hover:shadow-2xl hover:shadow-link/40 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-xl shadow-link/30" title="Start Session" aria-label="Start or Pause Timer" style="touch-action: manipulation"><svg id="icon-play" class="ml-0.5" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
-                  <svg id="icon-pause" class="hidden" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg>
-                </button>
-                <button type="button" id="btn-skip" class="w-10 h-10 rounded-full border border-hairline/50 bg-canvas text-body hover:text-link hover:bg-link/[0.06] hover:border-link/20 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Skip" aria-label="Skip Timer" style="touch-action: manipulation"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/></svg>
-                </button>
-                <button type="button" id="btn-focus-mode" class="w-10 h-10 rounded-full border border-hairline/40 bg-canvas text-mute hover:text-link hover:bg-link/[0.06] hover:border-link/20 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Focus Mode" aria-label="Enter focus mode" style="touch-action: manipulation"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-                </button>
-                <button type="button" id="btn-toggle-settings" class="w-10 h-10 rounded-full border border-hairline/40 bg-canvas text-mute hover:text-link hover:bg-link/[0.06] hover:border-link/20 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Timer Settings" aria-expanded="false" aria-label="Toggle custom settings" style="touch-action: manipulation"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                </button>
-              </div>
+              <div id="timer-pulse" class="absolute inset-0 rounded-full border-[3px] border-link/15 pointer-events-none hidden"></div>
+              <div id="celebration-container" class="absolute inset-0 pointer-events-none hidden"></div>
             </div>
-            
-            <!-- Custom Settings Panel (Collapsible panel inside the Timer Card) -->
-            <div id="settings-panel" class="hidden w-full space-y-2.5 mt-2.5 pt-2.5 border-t border-hairline/15 select-none bg-canvas-soft-2/55 p-2.5 rounded-2xl border border-hairline/20">
-              <div class="space-y-2">
-                <!-- Section 1: Durations -->
-                <div>
-                  <span class="text-[9px] font-extrabold uppercase tracking-widest text-ink block mb-2 text-center">Session Durations</span>
-                  <div class="grid grid-cols-3 gap-2">
-                    <div class="flex flex-col gap-1">
-                      <label for="settings-work" class="text-[8px] font-bold uppercase tracking-wider text-ink/70 text-center">Focus (m)</label>
-                      <input type="number" id="settings-work" min="1" max="180" placeholder="25" class="w-full h-8 px-2 bg-canvas border border-hairline rounded-lg text-xs font-semibold text-ink focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all text-center" />
-                    </div>
-                    <div class="flex flex-col gap-1">
-                      <label for="settings-short" class="text-[8px] font-bold uppercase tracking-wider text-ink/70 text-center">Short (m)</label>
-                      <input type="number" id="settings-short" min="1" max="60" placeholder="5" class="w-full h-8 px-2 bg-canvas border border-hairline rounded-lg text-xs font-semibold text-ink focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all text-center" />
-                    </div>
-                    <div class="flex flex-col gap-1">
-                      <label for="settings-long" class="text-[8px] font-bold uppercase tracking-wider text-ink/70 text-center">Long (m)</label>
-                      <input type="number" id="settings-long" min="1" max="60" placeholder="15" class="w-full h-8 px-2 bg-canvas border border-hairline rounded-lg text-xs font-semibold text-ink focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all text-center" />
-                    </div>
+            <div id="timer-phase-container" class="text-center min-h-[14px]">
+              <span id="timer-phase" class="text-sm font-semibold text-mute opacity-0 transition-colors duration-500">Whenever you're ready, begin.</span>
+            </div>
+            <div class="flex items-center gap-3 sm:gap-4 mt-2">
+              <button type="button" id="btn-reset" class="w-11 h-11 rounded-full border border-hairline bg-canvas text-mute hover:text-ink hover:bg-canvas-soft-2 hover:border-link/30 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Reset" aria-label="Reset Timer" style="touch-action: manipulation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              </button>
+              <button type="button" id="btn-play-pause" class="w-16 h-16 rounded-full bg-link text-white hover:bg-link-hover hover:shadow-xl hover:shadow-link/30 transition-all flex items-center justify-center cursor-pointer active:scale-95 shadow-lg shadow-link/25" title="Start Session" aria-label="Start or Pause Timer" style="touch-action: manipulation">
+                <svg id="icon-play" class="ml-0.5" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                <svg id="icon-pause" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg>
+              </button>
+              <button type="button" id="btn-skip" class="w-11 h-11 rounded-full border border-hairline bg-canvas text-mute hover:text-ink hover:bg-canvas-soft-2 hover:border-link/30 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Skip" aria-label="Skip Timer" style="touch-action: manipulation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/></svg>
+              </button>
+              <button type="button" id="btn-focus-mode" class="w-11 h-11 rounded-full border border-hairline bg-canvas text-mute hover:text-ink hover:bg-canvas-soft-2 hover:border-link/30 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Focus Mode" aria-label="Enter focus mode" style="touch-action: manipulation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+              </button>
+              <button type="button" id="btn-toggle-settings" class="w-11 h-11 rounded-full border border-hairline bg-canvas text-mute hover:text-ink hover:bg-canvas-soft-2 hover:border-link/30 transition-all flex items-center justify-center cursor-pointer active:scale-90 shadow-sm" title="Timer Settings" aria-expanded="false" aria-label="Toggle custom settings" style="touch-action: manipulation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Custom Settings Panel (Collapsible panel inside the Timer Card) -->
+          <div id="settings-panel" class="hidden w-full space-y-3 mt-4 pt-4 border-t border-hairline/60 select-none bg-canvas-soft-2 p-4 rounded-2xl border border-hairline">
+            <div class="space-y-3">
+              <!-- Section 1: Durations -->
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-mute block mb-2 text-center">Session Durations</span>
+                <div class="grid grid-cols-3 gap-2">
+                  <div class="flex flex-col gap-1">
+                    <label for="settings-work" class="text-[9px] font-bold uppercase tracking-wider text-mute text-center">Focus (m)</label>
+                    <input type="number" id="settings-work" min="1" max="180" placeholder="25" class="w-full h-9 px-2 bg-canvas border border-hairline rounded-lg text-xs font-semibold text-ink focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all text-center" />
                   </div>
-                </div>
-
-                <!-- Section 2: Preferences -->
-                <div>
-                  <span class="text-[9px] font-extrabold uppercase tracking-widest text-ink block mb-2 text-center">Preferences</span>
-                  <div class="grid grid-cols-3 gap-2">
-                    <!-- SOUND -->
-                    <div class="bg-canvas border border-hairline/30 rounded-xl p-2 flex flex-col items-center justify-between min-h-[56px] transition-all hover:border-hairline/50">
-                      <label class="relative inline-flex items-center cursor-pointer select-none" style="touch-action: manipulation"><input type="checkbox" id="toggle-sound" class="sr-only peer" checked />
-                        <div class="w-6 h-3.5 bg-slate-200 dark:bg-zinc-700 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[1px] after:left-[1px] after:bg-white after:rounded-full after:h-2.5 after:w-2.5 after:transition-all peer-checked:after:translate-x-2.5 border border-slate-300 dark:border-zinc-600"></div>
-                      </label>
-                      <span class="text-[8px] font-bold uppercase tracking-wider text-ink/80 mt-1.5">Sound</span>
-                    </div>
-                    
-                    <!-- ALERTS -->
-                    <div class="bg-canvas border border-hairline/30 rounded-xl p-2 flex flex-col items-center justify-between min-h-[56px] transition-all hover:border-hairline/50">
-                      <label class="relative inline-flex items-center cursor-pointer select-none" style="touch-action: manipulation"><input type="checkbox" id="toggle-notifications" class="sr-only peer" />
-                        <div class="w-6 h-3.5 bg-slate-200 dark:bg-zinc-700 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[1px] after:left-[1px] after:bg-white after:rounded-full after:h-2.5 after:w-2.5 after:transition-all peer-checked:after:translate-x-2.5 border border-slate-300 dark:border-zinc-600"></div>
-                      </label>
-                      <span class="text-[8px] font-bold uppercase tracking-wider text-ink/80 mt-1.5">Alerts</span>
-                    </div>
-                    
-                    <!-- AUTO BREAK -->
-                    <div class="bg-canvas border border-hairline/30 rounded-xl p-2 flex flex-col items-center justify-between min-h-[56px] transition-all hover:border-hairline/50">
-                      <label class="relative inline-flex items-center cursor-pointer select-none" style="touch-action: manipulation"><input type="checkbox" id="toggle-autostart" class="sr-only peer" />
-                        <div class="w-6 h-3.5 bg-slate-200 dark:bg-zinc-700 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[1px] after:left-[1px] after:bg-white after:rounded-full after:h-2.5 after:w-2.5 after:transition-all peer-checked:after:translate-x-2.5 border border-slate-300 dark:border-zinc-600"></div>
-                      </label>
-                      <span class="text-[8px] font-bold uppercase tracking-wider text-ink/80 mt-1.5">Auto Break</span>
-                    </div>
+                  <div class="flex flex-col gap-1">
+                    <label for="settings-short" class="text-[9px] font-bold uppercase tracking-wider text-mute text-center">Short (m)</label>
+                    <input type="number" id="settings-short" min="1" max="60" placeholder="5" class="w-full h-9 px-2 bg-canvas border border-hairline rounded-lg text-xs font-semibold text-ink focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all text-center" />
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <label for="settings-long" class="text-[9px] font-bold uppercase tracking-wider text-mute text-center">Long (m)</label>
+                    <input type="number" id="settings-long" min="1" max="60" placeholder="15" class="w-full h-9 px-2 bg-canvas border border-hairline rounded-lg text-xs font-semibold text-ink focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-all text-center" />
                   </div>
                 </div>
               </div>
 
-              <!-- Action Buttons -->
-              <div class="flex justify-end gap-1.5 pt-2 border-t border-hairline/15">
-                <button id="btn-reset-durations" type="button" class="px-2.5 h-7 text-[10px] font-bold rounded-lg border border-hairline bg-canvas text-body hover:bg-canvas-soft-2 hover:text-ink transition-all cursor-pointer active:scale-95" style="touch-action: manipulation">Defaults</button><button id="btn-save-settings" type="button" class="px-3.5 h-7 text-[10px] font-bold rounded-lg bg-link text-white hover:bg-link-hover hover:shadow-md hover:shadow-link/10 transition-all cursor-pointer active:scale-95" style="touch-action: manipulation">Save</button></div>
+              <!-- Section 2: Preferences -->
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-mute block mb-2 text-center">Preferences</span>
+                <div class="grid grid-cols-3 gap-2">
+                  <!-- SOUND -->
+                  <div class="bg-canvas border border-hairline rounded-xl p-2.5 flex flex-col items-center justify-between min-h-[58px] transition-all hover:border-link/30">
+                    <label class="relative inline-flex items-center cursor-pointer select-none" style="touch-action: manipulation">
+                      <input type="checkbox" id="toggle-sound" class="sr-only peer" checked />
+                      <div class="w-7 h-4 bg-slate-200 dark:bg-zinc-700 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:after:translate-x-3 border border-slate-300 dark:border-zinc-600"></div>
+                    </label>
+                    <span class="text-[9px] font-bold uppercase tracking-wider text-mute mt-1.5">Sound</span>
+                  </div>
+                  
+                  <!-- ALERTS -->
+                  <div class="bg-canvas border border-hairline rounded-xl p-2.5 flex flex-col items-center justify-between min-h-[58px] transition-all hover:border-link/30">
+                    <label class="relative inline-flex items-center cursor-pointer select-none" style="touch-action: manipulation">
+                      <input type="checkbox" id="toggle-notifications" class="sr-only peer" />
+                      <div class="w-7 h-4 bg-slate-200 dark:bg-zinc-700 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:after:translate-x-3 border border-slate-300 dark:border-zinc-600"></div>
+                    </label>
+                    <span class="text-[9px] font-bold uppercase tracking-wider text-mute mt-1.5">Alerts</span>
+                  </div>
+                  
+                  <!-- AUTO BREAK -->
+                  <div class="bg-canvas border border-hairline rounded-xl p-2.5 flex flex-col items-center justify-between min-h-[58px] transition-all hover:border-link/30">
+                    <label class="relative inline-flex items-center cursor-pointer select-none" style="touch-action: manipulation">
+                      <input type="checkbox" id="toggle-autostart" class="sr-only peer" />
+                      <div class="w-7 h-4 bg-slate-200 dark:bg-zinc-700 rounded-full peer-checked:bg-link relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:after:translate-x-3 border border-slate-300 dark:border-zinc-600"></div>
+                    </label>
+                    <span class="text-[9px] font-bold uppercase tracking-wider text-mute mt-1.5">Auto Break</span>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <!-- Action Buttons -->
+            <div class="flex justify-end gap-2 pt-2.5 border-t border-hairline/60">
+              <button id="btn-reset-durations" type="button" class="px-3 h-8 text-[11px] font-semibold rounded-lg border border-hairline bg-canvas text-body hover:bg-canvas-soft-2 hover:text-ink transition-all cursor-pointer active:scale-95" style="touch-action: manipulation">Defaults</button>
+              <button id="btn-save-settings" type="button" class="px-4 h-8 text-[11px] font-bold rounded-lg bg-link text-white hover:bg-link-hover transition-all cursor-pointer active:scale-95 shadow-sm shadow-link/20" style="touch-action: manipulation">Save</button>
+            </div>
+          </div>
         </div>
 
         <div id="recent-tasks-container" class="hidden w-full">
@@ -476,9 +499,13 @@ const canonicalUrl = "https://tooltails.com/pomodoro-timer/";
 
   <!-- Comprehensive Explanatory Section -->
   <section class="w-full py-16 bg-canvas border-t border-hairline mt-12">
-    <div class="max-w-[1000px] mx-auto px-6 space-y-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 space-y-14">
       <div>
-        <h2 class="text-2xl sm:text-3xl font-bold text-ink mb-4">The Science Behind the Pomodoro Technique</h2>
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Neuroscience & Methodology</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink mb-4">The Science Behind the Pomodoro Technique</h2>
         <p class="text-body leading-relaxed text-base mb-4">
           Developed in the late 1980s by university student Francesco Cirillo, the Pomodoro Technique is a time-management methodology that transforms time from an adversary into an ally. Named after the Italian word for tomato—after the tomato-shaped kitchen timer Cirillo used—the core protocol alternates 25 minutes of single-task immersion with 5 minutes of deliberate cognitive rest.
         </p>
@@ -487,14 +514,14 @@ const canonicalUrl = "https://tooltails.com/pomodoro-timer/";
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="p-6 bg-canvas-soft-2/40 border border-hairline rounded-2xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        <div class="p-6 sm:p-8 bg-canvas border border-hairline rounded-3xl shadow-sm hover:shadow-md hover:border-link/20 transition-all">
           <h3 class="text-lg font-bold text-ink mb-2">Combating Cognitive Friction</h3>
           <p class="text-sm text-body leading-relaxed">
             The hardest part of any demanding task is initiation. By committing to just one 25-minute block rather than an overwhelming 8-hour workday, you lower the brain's emotional resistance to starting. Once underway, the <em>Zeigarnik Effect</em> takes over, creating natural cognitive momentum to see the task through to completion.
           </p>
         </div>
-        <div class="p-6 bg-canvas-soft-2/40 border border-hairline rounded-2xl">
+        <div class="p-6 sm:p-8 bg-canvas border border-hairline rounded-3xl shadow-sm hover:shadow-md hover:border-link/20 transition-all">
           <h3 class="text-lg font-bold text-ink mb-2">The Importance of Disconnected Rest</h3>
           <p class="text-sm text-body leading-relaxed">
             A 5-minute break is not an invitation to check social media, read emails, or process secondary messages. Screen-based stimuli keep the brain’s default mode network active and sustain mental exhaustion. True restoration involves standing up, looking out a window, hydrating, or gentle physical stretching.
@@ -503,44 +530,48 @@ const canonicalUrl = "https://tooltails.com/pomodoro-timer/";
       </div>
 
       <div>
-        <h2 class="text-2xl sm:text-3xl font-bold text-ink mb-4">Focus Protocol Comparison: Finding Your Optimal Rhythm</h2>
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Rhythm & Timeboxing</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink mb-4">Focus Protocol Comparison: Finding Your Optimal Rhythm</h2>
         <p class="text-body leading-relaxed text-base mb-6">
           While the traditional 25/5 interval is the gold standard for initiating work, different cognitive tasks benefit from alternate timeboxing protocols:
         </p>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm border-collapse border border-hairline rounded-xl overflow-hidden">
-            <thead class="bg-canvas-soft-2/60 border-b border-hairline text-ink font-semibold">
+        <div class="overflow-x-auto rounded-2xl border border-hairline bg-canvas shadow-sm">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead class="bg-canvas-soft-2/80 border-b border-hairline text-ink font-semibold">
               <tr>
-                <th class="p-3.5 sm:p-4">Focus Protocol</th>
-                <th class="p-3.5 sm:p-4">Work / Rest Ratio</th>
-                <th class="p-3.5 sm:p-4">Best Suited For</th>
-                <th class="p-3.5 sm:p-4">Cognitive Benefit</th>
+                <th class="p-4 text-xs font-bold uppercase tracking-wider text-mute">Focus Protocol</th>
+                <th class="p-4 text-xs font-bold uppercase tracking-wider text-mute">Work / Rest Ratio</th>
+                <th class="p-4 text-xs font-bold uppercase tracking-wider text-mute">Best Suited For</th>
+                <th class="p-4 text-xs font-bold uppercase tracking-wider text-mute">Cognitive Benefit</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-hairline text-body">
-              <tr class="hover:bg-canvas-soft/40 transition-colors">
-                <td class="p-3.5 sm:p-4 font-medium text-ink">Classic Pomodoro</td>
-                <td class="p-3.5 sm:p-4">25m work / 5m rest</td>
-                <td class="p-3.5 sm:p-4">High-procrastination tasks, exam studying, administrative duties</td>
-                <td class="p-3.5 sm:p-4">Lowest initiation barrier; eliminates overwhelm</td>
+              <tr class="hover:bg-canvas-soft-2/40 transition-colors">
+                <td class="p-4 font-semibold text-ink">Classic Pomodoro</td>
+                <td class="p-4 font-medium text-ink">25m work / 5m rest</td>
+                <td class="p-4">High-procrastination tasks, exam studying, administrative duties</td>
+                <td class="p-4">Lowest initiation barrier; eliminates overwhelm</td>
               </tr>
-              <tr class="hover:bg-canvas-soft/40 transition-colors">
-                <td class="p-3.5 sm:p-4 font-medium text-ink">The 52/17 Rule</td>
-                <td class="p-3.5 sm:p-4">52m work / 17m rest</td>
-                <td class="p-3.5 sm:p-4">Knowledge workers, data analysis, deep writing</td>
-                <td class="p-3.5 sm:p-4">Statistically derived by DeskTime for peak productivity</td>
+              <tr class="hover:bg-canvas-soft-2/40 transition-colors">
+                <td class="p-4 font-semibold text-ink">The 52/17 Rule</td>
+                <td class="p-4 font-medium text-ink">52m work / 17m rest</td>
+                <td class="p-4">Knowledge workers, data analysis, deep writing</td>
+                <td class="p-4">Statistically derived by DeskTime for peak productivity</td>
               </tr>
-              <tr class="hover:bg-canvas-soft/40 transition-colors">
-                <td class="p-3.5 sm:p-4 font-medium text-ink">Ultradian Rhythm</td>
-                <td class="p-3.5 sm:p-4">90m work / 20–30m rest</td>
-                <td class="p-3.5 sm:p-4">Software engineering, architectural design, creative writing</td>
-                <td class="p-3.5 sm:p-4">Matches human biological 90-minute alertness cycles</td>
+              <tr class="hover:bg-canvas-soft-2/40 transition-colors">
+                <td class="p-4 font-semibold text-ink">Ultradian Rhythm</td>
+                <td class="p-4 font-medium text-ink">90m work / 20–30m rest</td>
+                <td class="p-4">Software engineering, architectural design, creative writing</td>
+                <td class="p-4">Matches human biological 90-minute alertness cycles</td>
               </tr>
-              <tr class="hover:bg-canvas-soft/40 transition-colors">
-                <td class="p-3.5 sm:p-4 font-medium text-ink">The Flowtime Technique</td>
-                <td class="p-3.5 sm:p-4">Variable (untimed) / 10–15m</td>
-                <td class="p-3.5 sm:p-4">Open-ended research, artistic flow states, prototyping</td>
-                <td class="p-3.5 sm:p-4">Prevents interrupting deep uninterrupted flow states</td>
+              <tr class="hover:bg-canvas-soft-2/40 transition-colors">
+                <td class="p-4 font-semibold text-ink">The Flowtime Technique</td>
+                <td class="p-4 font-medium text-ink">Variable (untimed) / 10–15m</td>
+                <td class="p-4">Open-ended research, artistic flow states, prototyping</td>
+                <td class="p-4">Prevents interrupting deep uninterrupted flow states</td>
               </tr>
             </tbody>
           </table>
@@ -548,20 +579,24 @@ const canonicalUrl = "https://tooltails.com/pomodoro-timer/";
       </div>
 
       <div>
-        <h2 class="text-2xl sm:text-3xl font-bold text-ink mb-4">Managing Distractions: The "Interruption Sheet" Strategy</h2>
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Distraction Defense</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink mb-4">Managing Distractions: The "Interruption Sheet" Strategy</h2>
         <div class="space-y-4 text-body leading-relaxed text-base">
           <p>
             Distractions fall into two distinct categories: internal impulses and external interruptions. Managing both without derailing your timer is the secret to high focus scores:
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
-            <div class="p-5 bg-canvas border border-hairline rounded-xl">
-              <h3 class="font-bold text-ink mb-1.5 text-base">Handling Internal Distractions</h3>
+            <div class="p-6 sm:p-7 bg-canvas border border-hairline rounded-3xl shadow-sm hover:shadow-md hover:border-link/20 transition-all">
+              <h3 class="font-bold text-ink mb-2 text-base">Handling Internal Distractions</h3>
               <p class="text-sm text-body leading-relaxed">
                 When an unrelated thought strikes mid-session ("I need to pay that utility bill" or "Did I reply to that message?"), do not switch tabs. Instead, jot down a brief reminder on a physical notepad or in your task notes. Getting it out of working memory closes the mental loop, allowing you to resume your session immediately.
               </p>
             </div>
-            <div class="p-5 bg-canvas border border-hairline rounded-xl">
-              <h3 class="font-bold text-ink mb-1.5 text-base">Protecting External Boundaries</h3>
+            <div class="p-6 sm:p-7 bg-canvas border border-hairline rounded-3xl shadow-sm hover:shadow-md hover:border-link/20 transition-all">
+              <h3 class="font-bold text-ink mb-2 text-base">Protecting External Boundaries</h3>
               <p class="text-sm text-body leading-relaxed">
                 When colleagues or family members interrupt, apply Cirillo’s <em>Inform, Negotiate, Schedule, and Call Back</em> rule. Inform them that you are in the middle of a focused session, negotiate a quick follow-up window ("Can I come by your desk in 12 minutes?"), and return to your timer.
               </p>
@@ -571,7 +606,11 @@ const canonicalUrl = "https://tooltails.com/pomodoro-timer/";
       </div>
 
       <div>
-        <h2 class="text-2xl sm:text-3xl font-bold text-ink mb-4">Daily Streaks, Habit Psychology, and Burnout Prevention</h2>
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Habit Formation</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink mb-4">Daily Streaks, Habit Psychology, and Burnout Prevention</h2>
         <p class="text-body leading-relaxed text-base mb-4">
           Consistency is dramatically more effective than intermittent heroics. Completing 4 dedicated Pomodoro sessions every weekday (equaling 100 minutes of pure, high-density work) produces greater long-term output than irregular 10-hour marathon cram sessions.
         </p>
@@ -583,20 +622,23 @@ const canonicalUrl = "https://tooltails.com/pomodoro-timer/";
   </section>
 
   <!-- Related Tools & Productivity Guides -->
-  <section class="w-full py-16 bg-canvas-soft-2/50 border-t border-hairline">
-    <div class="max-w-[1200px] mx-auto px-6 text-center">
-      <h2 class="text-2xl font-bold text-ink mb-8">Productivity Tools & Guides</h2>
-      <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a href="/word-counter/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+  <section class="w-full py-16 bg-canvas-soft border-t border-hairline">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center gap-3 mb-8">
+        <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Companion Tools & Guides</h3>
+        <div class="h-px w-full bg-hairline"></div>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/word-counter/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Word Counter
         </a>
-        <a href="/duration/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/duration/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Date Duration Calculator
         </a>
-        <a href="/blog/10-proven-productivity-techniques/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/blog/10-proven-productivity-techniques/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Productivity Techniques Guide
         </a>
-        <a href="/blog/mastering-time-management/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/blog/mastering-time-management/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Time Management Tips
         </a>
       </div>
@@ -605,7 +647,7 @@ const canonicalUrl = "https://tooltails.com/pomodoro-timer/";
 
   <!-- FAQ Section -->
   <section class="w-full py-16 bg-canvas border-t border-hairline">
-    <div class="max-w-4xl mx-auto px-6">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
       <FAQ items={faqItems} renderSchema={false} />
     </div>
   </section>

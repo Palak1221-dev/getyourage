@@ -46,64 +46,76 @@ const canonicalUrl = "https://tooltails.com/age-difference/";
   title="Age Difference Calculator — Compare Two Birth Dates" 
   description="Calculate the exact age difference between two people in years, months, and days. Free, private, and instant age gap calculator."
 >
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 md:py-8">
-    <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-      <div>
-        <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-ink mb-1.5 leading-tight">
-          Age Difference Calculator — Compare Two Birth Dates
-        </h1>
-        <p class="text-body text-sm sm:text-base max-w-2xl leading-relaxed">
-          Find the exact age gap between friends, partners, or family members. Simply enter two dates of birth below to see the precise difference.
-        </p>
+  <!-- Hero Section -->
+  <section class="px-4 sm:px-6 pt-4 pb-2">
+    <div class="max-w-7xl mx-auto flex flex-col gap-3">
+      <div class="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-ink mb-1.5 leading-tight">
+            Age Difference Calculator — Compare Two Birth Dates
+          </h1>
+          <p class="text-body text-sm max-w-2xl leading-relaxed">
+            Find the exact age gap between friends, partners, or family members. Simply enter two dates of birth below to see the precise difference.
+          </p>
+        </div>
+        <div class="shrink-0 self-start sm:self-auto">
+          <HowToUseModal toolName="Age Difference Calculator" steps={howToUseSteps} tip={howToUseTip} />
+        </div>
       </div>
-      <div class="shrink-0 self-start sm:self-auto">
-        <HowToUseModal toolName="Age Difference Calculator" steps={howToUseSteps} tip={howToUseTip} />
+
+      <div class="w-full">
+        <AgeDifferenceCalculator />
+      </div>
+
+      <!-- Trust Signals -->
+      <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 mt-6 text-[11px] font-bold text-mute uppercase tracking-widest">
+        <span class="flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Privacy First (Client-Side)
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+          Leap-Year Accurate
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+          100% Free
+        </span>
       </div>
     </div>
-
-    <div class="w-full">
-      <AgeDifferenceCalculator />
-    </div>
-
-    <!-- Trust Signals -->
-    <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 mt-6 text-[11px] font-bold text-mute uppercase tracking-widest">
-      <span class="flex items-center gap-1.5">
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Privacy First (Client-Side)
-      </span>
-      <span class="flex items-center gap-1.5">
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-        Leap-Year Accurate
-      </span>
-      <span class="flex items-center gap-1.5">
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
-        100% Free
-      </span>
-    </div>
-  </div>
+  </section>
 
   <!-- Comprehensive Explanatory Section -->
-  <section class="w-full py-16 bg-canvas border-t border-hairline">
-    <div class="max-w-[1000px] mx-auto px-6 space-y-12">
+  <section class="px-4 sm:px-6 py-12 bg-canvas border-t border-hairline">
+    <div class="max-w-7xl mx-auto space-y-12">
       <div>
-        <h2 class="text-2xl font-bold text-ink mb-4">How the Age Difference Calculation Works</h2>
-        <p class="text-body leading-relaxed text-base mb-4">
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">How the Calculation Works</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <p class="text-body leading-relaxed text-base mb-4 max-w-3xl">
           Calculating the exact age gap between two individuals requires more than simply subtracting birth years. Because the Gregorian calendar contains months of irregular lengths (ranging from 28 to 31 days) and periodically incorporates a 366th leap day, determining an accurate age interval requires calendar-aware arithmetic known as the <strong>date borrowing algorithm</strong>.
         </p>
-        <p class="text-body leading-relaxed text-base">
+        <p class="text-body leading-relaxed text-base max-w-3xl">
           Our online calculator takes two calendar dates, automatically places them in chronological sequence, and evaluates the precise interval across three distinct time units: completed years, remaining full months, and remaining days. If you only need to compute your current age relative to today, you can also explore our companion <a href="/age-calculator/" class="text-link font-medium hover:underline">exact age calculator</a>.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="p-6 bg-canvas-soft-2/40 border border-hairline rounded-2xl">
-          <h3 class="text-lg font-bold text-ink mb-2">Calendar Borrowing Logic</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-7 h-7 rounded-full bg-link/10 text-link flex items-center justify-center shadow-inner text-xs font-bold">1</div>
+            <h3 class="text-base font-bold text-ink group-hover:text-link transition-colors">Calendar Borrowing Logic</h3>
+          </div>
           <p class="text-sm text-body leading-relaxed">
             In standard base-10 mathematics, borrowing always transfers a quantity of ten. In calendar math, borrowing is variable: borrowing from the preceding month transfers either 28, 29, 30, or 31 days depending strictly on which specific calendar month is being borrowed from. If the later date’s month is earlier in the year than the first date’s month, a full 12 months are borrowed from the later year.
           </p>
         </div>
-        <div class="p-6 bg-canvas-soft-2/40 border border-hairline rounded-2xl">
-          <h3 class="text-lg font-bold text-ink mb-2">Automatic Date Sorting</h3>
+        <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-7 h-7 rounded-full bg-link/10 text-link flex items-center justify-center shadow-inner text-xs font-bold">2</div>
+            <h3 class="text-base font-bold text-ink group-hover:text-link transition-colors">Automatic Date Sorting</h3>
+          </div>
           <p class="text-sm text-body leading-relaxed">
             You never need to worry about which person is older before entering their dates. The algorithm compares timestamps on submission, designates the earlier date as the baseline subtrahend and the later date as the minuend, and always outputs a positive, human-readable age gap without negative values.
           </p>
@@ -111,14 +123,17 @@ const canonicalUrl = "https://tooltails.com/age-difference/";
       </div>
 
       <div>
-        <h2 class="text-2xl font-bold text-ink mb-4">Step-by-Step Calculation Examples</h2>
-        <p class="text-body leading-relaxed text-base mb-6">
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Step-by-Step Calculation Examples</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <p class="text-body leading-relaxed text-base mb-6 max-w-3xl">
           To illustrate how calendar arithmetic operates in practice, consider two scenarios: one with straightforward subtraction and one requiring multi-stage borrowing across months and years.
         </p>
 
-        <div class="space-y-6">
-          <div class="p-6 bg-canvas border border-hairline rounded-2xl shadow-xs">
-            <h3 class="text-base font-bold text-ink mb-2">Example 1: Direct Subtraction (No Borrowing Required)</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+            <h3 class="text-base font-bold text-ink mb-2 group-hover:text-link transition-colors">Example 1: Direct Subtraction</h3>
             <p class="text-sm text-body leading-relaxed mb-3">
               Suppose Person 1 was born on <strong>March 12, 1992</strong> and Person 2 was born on <strong>October 26, 1999</strong>:
             </p>
@@ -127,22 +142,22 @@ const canonicalUrl = "https://tooltails.com/age-difference/";
               <li><strong>Month difference:</strong> 10 (October) − 3 (March) = <strong>7 months</strong></li>
               <li><strong>Year difference:</strong> 1999 − 1992 = <strong>7 years</strong></li>
             </ul>
-            <p class="text-sm text-body leading-relaxed mt-3">
+            <p class="text-sm text-body leading-relaxed mt-3 pt-3 border-t border-hairline">
               The age difference is exactly <strong>7 years, 7 months, and 14 days</strong> (or 2,784 total calendar days).
             </p>
           </div>
 
-          <div class="p-6 bg-canvas border border-hairline rounded-2xl shadow-xs">
-            <h3 class="text-base font-bold text-ink mb-2">Example 2: Complex Borrowing Across Months and Years</h3>
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+            <h3 class="text-base font-bold text-ink mb-2 group-hover:text-link transition-colors">Example 2: Complex Borrowing</h3>
             <p class="text-sm text-body leading-relaxed mb-3">
               Now consider Person 1 born on <strong>August 25, 1994</strong> and Person 2 born on <strong>April 10, 2002</strong>:
             </p>
             <ul class="list-disc list-inside text-sm text-body space-y-1.5">
-              <li><strong>Day borrowing:</strong> 10 is smaller than 25. We borrow from the preceding month (March), which contains 31 days. Adjusted days = 10 + 31 = 41. Now subtract: 41 − 25 = <strong>16 days</strong>.</li>
-              <li><strong>Month borrowing:</strong> April was decremented to March (month 3). Since 3 is less than 8 (August), we borrow 1 year (12 months) from 2002. Adjusted months = 3 + 12 = 15. Now subtract: 15 − 8 = <strong>7 months</strong>.</li>
-              <li><strong>Year subtraction:</strong> 2002 was decremented to 2001. Now subtract: 2001 − 1994 = <strong>7 years</strong>.</li>
+              <li><strong>Day borrowing:</strong> 10 &lt; 25. Borrow from March (31 days): 10 + 31 = 41. 41 − 25 = <strong>16 days</strong>.</li>
+              <li><strong>Month borrowing:</strong> April becomes March. 3 &lt; 8. Borrow 1 yr (12 mos): 3 + 12 = 15. 15 − 8 = <strong>7 months</strong>.</li>
+              <li><strong>Year subtraction:</strong> 2002 becomes 2001. 2001 − 1994 = <strong>7 years</strong>.</li>
             </ul>
-            <p class="text-sm text-body leading-relaxed mt-3">
+            <p class="text-sm text-body leading-relaxed mt-3 pt-3 border-t border-hairline">
               The exact difference is <strong>7 years, 7 months, and 16 days</strong> (or 2,785 total calendar days).
             </p>
           </div>
@@ -150,90 +165,103 @@ const canonicalUrl = "https://tooltails.com/age-difference/";
       </div>
 
       <div>
-        <h2 class="text-2xl font-bold text-ink mb-4">Handling Complex Calendar Edge Cases</h2>
-        <div class="space-y-4 text-body leading-relaxed text-base">
-          <p>
-            Calendar calculations must accommodate several intricate anomalies defined by the international civil calendar:
-          </p>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-            <div class="p-5 bg-canvas-soft-2/30 border border-hairline rounded-xl">
-              <h3 class="text-base font-bold text-ink mb-2">Leap Year Adjustments</h3>
-              <p class="text-sm text-body leading-relaxed">
-                Leap years insert a 366th day on February 29 every four years (excluding centuries not divisible by 400). If one person was born on February 29 and another on March 1, our algorithm accurately evaluates whether the intervening span traversed a 28-day or 29-day February, preserving day-level precision.
-              </p>
-            </div>
-            <div class="p-5 bg-canvas-soft-2/30 border border-hairline rounded-xl">
-              <h3 class="text-base font-bold text-ink mb-2">Twins & Same-Day Births</h3>
-              <p class="text-sm text-body leading-relaxed">
-                When two individuals share the identical birth date—such as fraternal or identical twins—the calculated difference is <strong>0 years, 0 months, and 0 days</strong>. While birth certificates record birth sequence down to the minute, official legal age intervals evaluate date boundaries.
-              </p>
-            </div>
-            <div class="p-5 bg-canvas-soft-2/30 border border-hairline rounded-xl">
-              <h3 class="text-base font-bold text-ink mb-2">Variable Month Durations</h3>
-              <p class="text-sm text-body leading-relaxed">
-                A span of "one month" does not represent a static number of hours. An interval between February 1 and March 1 spans 28 days (or 29 in leap years), while July 1 to August 1 spans 31 days. Our tool displays both decomposed units and cumulative days to provide full clarity.
-              </p>
-            </div>
-          </div>
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Handling Calendar Edge Cases</h3>
+          <div class="h-px w-full bg-hairline"></div>
         </div>
-      </div>
-
-      <div>
-        <h2 class="text-2xl font-bold text-ink mb-4">Common Practical Use Cases</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm text-body">
-          <div class="p-5 bg-canvas border border-hairline rounded-xl">
-            <h3 class="font-bold text-ink mb-1.5 text-base">Relationship & Partner Age Gaps</h3>
-            <p class="leading-relaxed">
-              Couples frequently compare exact birth dates to calculate their anniversary gaps, assess generational cohorts, or coordinate long-term financial and retirement planning timelines.
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+            <div class="w-10 h-10 rounded-2xl bg-link/10 text-link flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-ink mb-2 group-hover:text-link transition-colors">Leap Year Adjustments</h3>
+            <p class="text-sm text-body leading-relaxed">
+              Leap years insert a 366th day on February 29 every four years. If one person was born on February 29 and another on March 1, our algorithm accurately evaluates whether the intervening span traversed a 28-day or 29-day February.
             </p>
           </div>
-          <div class="p-5 bg-canvas border border-hairline rounded-xl">
-            <h3 class="font-bold text-ink mb-1.5 text-base">Family & Sibling Intervals</h3>
-            <p class="leading-relaxed">
-              Parents track exact spacing between siblings to evaluate pediatric developmental milestones, school readiness, and family care schedules.
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+            <div class="w-10 h-10 rounded-2xl bg-link/10 text-link flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-ink mb-2 group-hover:text-link transition-colors">Twins & Same-Day Births</h3>
+            <p class="text-sm text-body leading-relaxed">
+              When two individuals share the identical birth date—such as fraternal or identical twins—the calculated difference is <strong>0 years, 0 months, and 0 days</strong>. Official legal age intervals evaluate exact date boundaries.
             </p>
           </div>
-          <div class="p-5 bg-canvas border border-hairline rounded-xl">
-            <h3 class="font-bold text-ink mb-1.5 text-base">School & Sports Cutoff Verification</h3>
-            <p class="leading-relaxed">
-              Youth athletics and academic admissions strictly enforce cutoff birth dates (such as September 1 or January 1). Verifying the gap between two dates ensures league and grade eligibility.
-            </p>
-          </div>
-          <div class="p-5 bg-canvas border border-hairline rounded-xl">
-            <h3 class="font-bold text-ink mb-1.5 text-base">Generational Demographic Analysis</h3>
-            <p class="leading-relaxed">
-              Demographers, genealogists, and researchers use birth intervals to categorize individuals across demographic cohorts, such as Millennials, Gen Z, and Gen Alpha.
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+            <div class="w-10 h-10 rounded-2xl bg-link/10 text-link flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-ink mb-2 group-hover:text-link transition-colors">Variable Month Durations</h3>
+            <p class="text-sm text-body leading-relaxed">
+              A span of "one month" does not represent a static number of hours. An interval between February 1 and March 1 spans 28 days (or 29 in leap years), while July 1 to August 1 spans 31 days.
             </p>
           </div>
         </div>
       </div>
 
       <div>
-        <h2 class="text-2xl font-bold text-ink mb-4">Comparison of Age Gap Units</h2>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm border-collapse border border-hairline rounded-xl overflow-hidden">
-            <thead class="bg-canvas-soft-2/60 border-b border-hairline text-ink font-semibold">
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Common Practical Applications</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 shadow-sm transition-all hover:shadow-md group">
+            <h3 class="font-bold text-ink mb-2 text-sm group-hover:text-link transition-colors">Relationships</h3>
+            <p class="text-xs text-body leading-relaxed">
+              Compare exact birth dates to calculate anniversary gaps, assess generational cohorts, or coordinate retirement timelines.
+            </p>
+          </div>
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 shadow-sm transition-all hover:shadow-md group">
+            <h3 class="font-bold text-ink mb-2 text-sm group-hover:text-link transition-colors">Sibling Spacing</h3>
+            <p class="text-xs text-body leading-relaxed">
+              Track exact spacing between siblings to evaluate pediatric developmental milestones and family care schedules.
+            </p>
+          </div>
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 shadow-sm transition-all hover:shadow-md group">
+            <h3 class="font-bold text-ink mb-2 text-sm group-hover:text-link transition-colors">School & Sports Cutoffs</h3>
+            <p class="text-xs text-body leading-relaxed">
+              Verify compliance with strict academic and youth athletic admissions cutoff birth dates (such as Sept 1 or Jan 1).
+            </p>
+          </div>
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 shadow-sm transition-all hover:shadow-md group">
+            <h3 class="font-bold text-ink mb-2 text-sm group-hover:text-link transition-colors">Demographics</h3>
+            <p class="text-xs text-body leading-relaxed">
+              Categorize individuals across demographic cohorts such as Millennials, Gen Z, and Gen Alpha for research studies.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Comparison of Measurement Units</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <div class="bg-canvas border border-hairline rounded-3xl overflow-hidden shadow-sm">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead class="bg-canvas-soft border-b border-hairline text-ink font-semibold">
               <tr>
-                <th class="p-3.5 sm:p-4">Measurement Unit</th>
-                <th class="p-3.5 sm:p-4">Underlying Logic</th>
-                <th class="p-3.5 sm:p-4">Best Practical Application</th>
+                <th class="p-4 sm:p-5 text-xs font-extrabold uppercase tracking-wider text-mute">Measurement Unit</th>
+                <th class="p-4 sm:p-5 text-xs font-extrabold uppercase tracking-wider text-mute">Underlying Logic</th>
+                <th class="p-4 sm:p-5 text-xs font-extrabold uppercase tracking-wider text-mute">Best Practical Application</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-hairline text-body">
               <tr class="hover:bg-canvas-soft/40 transition-colors">
-                <td class="p-3.5 sm:p-4 font-medium text-ink">Years, Months, & Days</td>
-                <td class="p-3.5 sm:p-4">Decomposed Gregorian calendar borrowing</td>
-                <td class="p-3.5 sm:p-4">Everyday communication, relationship age gaps, and family milestones</td>
+                <td class="p-4 sm:p-5 font-bold text-ink">Years, Months, & Days</td>
+                <td class="p-4 sm:p-5">Decomposed Gregorian calendar borrowing</td>
+                <td class="p-4 sm:p-5">Everyday communication, relationship age gaps, and family milestones</td>
               </tr>
               <tr class="hover:bg-canvas-soft/40 transition-colors">
-                <td class="p-3.5 sm:p-4 font-medium text-ink">Total Elapsed Days</td>
-                <td class="p-3.5 sm:p-4">Timestamp delta divided by 86,400,000 ms</td>
-                <td class="p-3.5 sm:p-4">Legal eligibility, medical research, and statistical calculations</td>
+                <td class="p-4 sm:p-5 font-bold text-ink">Total Elapsed Days</td>
+                <td class="p-4 sm:p-5">Timestamp delta divided by 86,400,000 ms</td>
+                <td class="p-4 sm:p-5">Legal eligibility, medical research, and statistical calculations</td>
               </tr>
               <tr class="hover:bg-canvas-soft/40 transition-colors">
-                <td class="p-3.5 sm:p-4 font-medium text-ink">Total Weeks</td>
-                <td class="p-3.5 sm:p-4">Integer division of total days divided by 7</td>
-                <td class="p-3.5 sm:p-4">Infant developmental tracking, fitness planning, and project scheduling</td>
+                <td class="p-4 sm:p-5 font-bold text-ink">Total Weeks</td>
+                <td class="p-4 sm:p-5">Integer division of total days divided by 7</td>
+                <td class="p-4 sm:p-5">Infant developmental tracking, fitness planning, and project scheduling</td>
               </tr>
             </tbody>
           </table>
@@ -243,20 +271,27 @@ const canonicalUrl = "https://tooltails.com/age-difference/";
   </section>
 
   <!-- Related Tools -->
-  <section class="w-full py-16 bg-canvas-soft-2/50 border-t border-hairline">
-    <div class="max-w-[1200px] mx-auto px-6 text-center">
-      <h2 class="text-2xl font-bold text-ink mb-8">Try our other calculators</h2>
-      <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a href="/age-calculator/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+  <section class="px-4 sm:px-6 py-12 bg-canvas border-b border-hairline">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="flex items-center gap-3 mb-8">
+        <div class="h-px w-full bg-hairline"></div>
+        <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Explore Companion Tools</h3>
+        <div class="h-px w-full bg-hairline"></div>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/age-calculator/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Exact Age Calculator
         </a>
-        <a href="/birthday-countdown/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/birthday-countdown/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Birthday Countdown
         </a>
-        <a href="/future-age/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/future-age/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Future Age Calculator
         </a>
-        <a href="/word-counter/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/duration/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
+          Duration Calculator
+        </a>
+        <a href="/word-counter/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Word Counter
         </a>
       </div>
@@ -264,8 +299,8 @@ const canonicalUrl = "https://tooltails.com/age-difference/";
   </section>
 
   <!-- FAQ Section -->
-  <section class="w-full py-16 bg-canvas border-t border-hairline">
-    <div class="max-w-4xl mx-auto px-6">
+  <section class="px-4 sm:px-6 py-16">
+    <div class="max-w-4xl mx-auto">
       <FAQ items={faqItems} renderSchema={false} />
     </div>
   </section>

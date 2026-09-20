@@ -47,15 +47,15 @@ const canonicalUrl = "https://tooltails.com/age-calculator/";
   description="Free, accurate age calculator. Calculate your exact age in years, months, days, weeks, and seconds instantly. Processed 100% privately in your browser."
 >
   <!-- Hero Section -->
-  <section class="w-full pt-4 lg:pt-8 pb-8">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+  <section class="px-4 sm:px-6 pt-4 pb-2">
+    <div class="max-w-7xl mx-auto flex flex-col gap-3">
       <!-- Header Area -->
-      <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-ink mb-1.5 leading-tight">
+          <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-ink mb-1.5 leading-tight">
             Age Calculator — Calculate Your Exact Age
           </h1>
-          <p class="text-body text-sm sm:text-base max-w-2xl leading-relaxed">
+          <p class="text-body text-sm max-w-2xl leading-relaxed">
             Calculate your exact age in years, months, days, weeks, and seconds instantly. Processed 100% privately in your browser.
           </p>
         </div>
@@ -88,30 +88,39 @@ const canonicalUrl = "https://tooltails.com/age-calculator/";
   </section>
 
   <!-- Explanatory Section -->
-  <section class="w-full py-16 bg-canvas border-t border-hairline">
-    <div class="max-w-[1000px] mx-auto px-6 space-y-10">
+  <section class="px-4 sm:px-6 py-12 bg-canvas border-t border-hairline">
+    <div class="max-w-7xl mx-auto space-y-12">
       <div>
-        <h2 class="text-2xl font-bold text-ink mb-4">How the Age Calculator Works</h2>
-        <p class="text-body leading-relaxed text-base mb-4">
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">How the Age Calculator Works</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <p class="text-body leading-relaxed text-base mb-4 max-w-3xl">
           Calculating exact age requires subtracting your date of birth from the current date while accounting for varying month lengths (28, 29, 30, or 31 days) and leap years.
         </p>
-        <p class="text-body leading-relaxed text-base mb-4">
+        <p class="text-body leading-relaxed text-base mb-4 max-w-3xl">
           Our online age calculator evaluates your birth day, month, and year against the active date to determine completed full years, remaining full months, and remaining days with exact mathematical precision.
         </p>
-        <p class="text-body leading-relaxed text-base">
+        <p class="text-body leading-relaxed text-base max-w-3xl">
           If you need to compare two different birth dates rather than calculating your age against today, use our free <a href="/age-difference/" class="text-link font-medium hover:underline">age difference calculator</a> to find the exact gap in years, months, and days.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="p-6 bg-canvas-soft-2/40 border border-hairline rounded-2xl">
-          <h3 class="text-lg font-bold text-ink mb-2">Leap Year & Month Handling</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-7 h-7 rounded-full bg-link/10 text-link flex items-center justify-center shadow-inner text-xs font-bold">1</div>
+            <h3 class="text-base font-bold text-ink group-hover:text-link transition-colors">Leap Year & Month Handling</h3>
+          </div>
           <p class="text-sm text-body leading-relaxed">
             Leap years add a 366th day (February 29th) every four years. The calculator evaluates leap years across your age span so total days, hours, and seconds are calculated accurately.
           </p>
         </div>
-        <div class="p-6 bg-canvas-soft-2/40 border border-hairline rounded-2xl">
-          <h3 class="text-lg font-bold text-ink mb-2">Detailed Life Statistics</h3>
+        <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-7 h-7 rounded-full bg-link/10 text-link flex items-center justify-center shadow-inner text-xs font-bold">2</div>
+            <h3 class="text-base font-bold text-ink group-hover:text-link transition-colors">Detailed Life Statistics</h3>
+          </div>
           <p class="text-sm text-body leading-relaxed">
             In addition to your age in years, months, and days, the calculator provides total cumulative metrics: total days, total weeks, total hours, total seconds, and a live countdown to your next birthday milestone.
           </p>
@@ -119,8 +128,11 @@ const canonicalUrl = "https://tooltails.com/age-calculator/";
       </div>
 
       <div>
-        <h2 class="text-2xl font-bold text-ink mb-4">How to Use the Age Calculator</h2>
-        <ol class="list-decimal list-inside space-y-3 text-body leading-relaxed text-base">
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Step-by-Step Instructions</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <ol class="list-decimal list-inside space-y-3 text-body leading-relaxed text-base max-w-3xl">
           <li><strong>Enter Your Birth Date</strong>: Input your day, month, and four-digit birth year.</li>
           <li><strong>Calculate Your Age</strong>: Click the calculate button to compute your exact age and lifetime statistics instantly.</li>
           <li><strong>View & Share</strong>: Review your primary age breakdown, total metrics, and birthday countdown. Use the copy or share buttons to save your results.</li>
@@ -130,47 +142,66 @@ const canonicalUrl = "https://tooltails.com/age-calculator/";
   </section>
 
   <!-- Feature Grid -->
-  <section class="w-full py-16 bg-canvas-soft-2/50 border-y border-hairline">
-    <div class="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="p-6 sm:p-8 bg-canvas border border-hairline rounded-xl sm:rounded-lg card-shadow">
-        <h3 class="text-lg font-bold text-ink mb-3">Second-Level Precision</h3>
-        <p class="text-sm text-body leading-relaxed">
-          We calculate your age down to the exact second, giving you a detailed view of how much time has passed since your birth.
-        </p>
+  <section class="px-4 sm:px-6 py-12 bg-canvas-soft-2/30 border-y border-hairline">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-3 mb-8">
+        <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Core Precision Features</h3>
+        <div class="h-px w-full bg-hairline"></div>
       </div>
-      <div class="p-6 sm:p-8 bg-canvas border border-hairline rounded-xl sm:rounded-lg card-shadow">
-        <h3 class="text-lg font-bold text-ink mb-3">Privacy Friendly</h3>
-        <p class="text-sm text-body leading-relaxed">
-          Your birth date is processed locally in your browser. We never store or share your personal data.
-        </p>
-      </div>
-      <div class="p-6 sm:p-8 bg-canvas border border-hairline rounded-xl sm:rounded-lg card-shadow">
-        <h3 class="text-lg font-bold text-ink mb-3">Easy Sharing</h3>
-        <p class="text-sm text-body leading-relaxed">
-          Found a fun milestone? Copy your results or share a unique link with friends and family instantly.
-        </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+          <div class="w-10 h-10 rounded-2xl bg-link/10 text-link flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <h3 class="text-base font-bold text-ink mb-2 group-hover:text-link transition-colors">Second-Level Precision</h3>
+          <p class="text-sm text-body leading-relaxed">
+            We calculate your age down to the exact second, giving you a detailed view of how much time has passed since your birth.
+          </p>
+        </div>
+        <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+          <div class="w-10 h-10 rounded-2xl bg-link/10 text-link flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <h3 class="text-base font-bold text-ink mb-2 group-hover:text-link transition-colors">Privacy Friendly</h3>
+          <p class="text-sm text-body leading-relaxed">
+            Your birth date is processed locally in your browser. We never store or share your personal data.
+          </p>
+        </div>
+        <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+          <div class="w-10 h-10 rounded-2xl bg-link/10 text-link flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>
+          </div>
+          <h3 class="text-base font-bold text-ink mb-2 group-hover:text-link transition-colors">Easy Sharing</h3>
+          <p class="text-sm text-body leading-relaxed">
+            Found a fun milestone? Copy your results or share a unique link with friends and family instantly.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Related Tools -->
-  <section class="w-full py-16 bg-canvas border-b border-hairline">
-    <div class="max-w-[1200px] mx-auto px-6 text-center">
-      <h2 class="text-2xl font-bold text-ink mb-8">Try our other calculators</h2>
-      <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a href="/future-age/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+  <section class="px-4 sm:px-6 py-12 bg-canvas border-b border-hairline">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="flex items-center gap-3 mb-8">
+        <div class="h-px w-full bg-hairline"></div>
+        <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Explore Companion Tools</h3>
+        <div class="h-px w-full bg-hairline"></div>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/future-age/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Future Age Calculator
         </a>
-        <a href="/age-difference/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/age-difference/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Age Difference Calculator
         </a>
-        <a href="/birthday-countdown/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/birthday-countdown/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Birthday Countdown
         </a>
-        <a href="/duration/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/duration/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Duration Calculator
         </a>
-        <a href="/word-counter/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/word-counter/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Word Counter
         </a>
       </div>
@@ -178,8 +209,8 @@ const canonicalUrl = "https://tooltails.com/age-calculator/";
   </section>
 
   <!-- FAQ Section -->
-  <section class="w-full py-20">
-    <div class="max-w-[800px] mx-auto px-6">
+  <section class="px-4 sm:px-6 py-16">
+    <div class="max-w-4xl mx-auto">
       <FAQ items={faqItems} renderSchema={false} />
     </div>
   </section>

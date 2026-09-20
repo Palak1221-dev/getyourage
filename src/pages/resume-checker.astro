@@ -95,15 +95,15 @@ const resumeCheckerGraphSchema = {
       --rc-type-leading: 1.6;
       --rc-type-tracking-wide: 0.08em;
       --rc-type-tracking-wider: 0.12em;
-      --rc-bg: #eef0f6;
-      --rc-card-bg: #ffffff;
-      --rc-border: #e4e8f0;
-      --rc-border-strong: #cdd3df;
-      --rc-text-primary: #080b14;
-      --rc-text-secondary: #363c50;
-      --rc-text-muted: #636b80;
-      --rc-primary: #4f46e5;
-      --rc-primary-soft: #eef2ff;
+      --rc-bg: var(--color-canvas, #ffffff);
+      --rc-card-bg: var(--color-canvas, #ffffff);
+      --rc-border: var(--color-hairline, #e2e8f0);
+      --rc-border-strong: var(--color-hairline-strong, #cbd5e1);
+      --rc-text-primary: var(--color-ink, #0f172a);
+      --rc-text-secondary: var(--color-body, #334155);
+      --rc-text-muted: var(--color-mute, #64748b);
+      --rc-primary: var(--color-link, #2563eb);
+      --rc-primary-soft: rgba(37, 99, 235, 0.08);
       --rc-success: #0f9d58;
       --rc-success-soft: #e6f7ee;
       --rc-warning: #d97706;
@@ -118,10 +118,10 @@ const resumeCheckerGraphSchema = {
       --rc-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 0 0 1px rgba(0, 0, 0, 0.01);
       --rc-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02);
       --rc-shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.02);
-      --rc-gradient-brand: linear-gradient(135deg, #4f46e5, #7c3aed, #a78bfa);
+      --rc-gradient-brand: linear-gradient(135deg, #2563eb, #1d4ed8);
       --rc-gradient-warm: linear-gradient(135deg, #f59e0b, #f97316);
       --rc-gradient-success: linear-gradient(135deg, #0f9d58, #059669);
-      --rc-gradient-card-border: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.15), transparent);
+      --rc-gradient-card-border: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.2), transparent);
     }
 
     :root[data-theme="dark"] .rc-dashboard {
@@ -132,8 +132,8 @@ const resumeCheckerGraphSchema = {
       --rc-text-primary: #f4f4f5;
       --rc-text-secondary: #d4d4d8;
       --rc-text-muted: #a1a1aa;
-      --rc-primary: #818cf8;
-      --rc-primary-soft: rgba(129, 140, 248, 0.15);
+      --rc-primary: #3b82f6;
+      --rc-primary-soft: rgba(59, 130, 246, 0.15);
       --rc-success: #34d399;
       --rc-success-soft: rgba(52, 211, 153, 0.15);
       --rc-warning: #fbbf24;
@@ -155,16 +155,15 @@ const resumeCheckerGraphSchema = {
     .rc-bg-purple-aura {
       background: var(--rc-bg);
       background-image:
-        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(79,70,229,0.14) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 40% at 90% 90%, rgba(139,92,246,0.09) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 30% at 10% 80%, rgba(124,58,237,0.07) 0%, transparent 50%);
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(37,99,235,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 90% 90%, rgba(37,99,235,0.04) 0%, transparent 60%);
     }
 
     .rc-card {
       position: relative;
-      background: linear-gradient(180deg, var(--rc-card-bg) 0%, color-mix(in srgb, var(--rc-card-bg) 98%, var(--rc-primary) 2%) 100%);
+      background: var(--rc-card-bg);
       border: 1px solid var(--rc-border);
-      border-radius: 12px;
+      border-radius: 1.5rem;
       box-shadow: var(--rc-shadow);
       transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
     }
@@ -499,15 +498,15 @@ const resumeCheckerGraphSchema = {
       Skip to main content
     </a>
 
-    <!-- Purple-themed hero atmosphere -->
+    <!-- Hero atmosphere -->
     <div class="relative overflow-hidden">
-      <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(79,70,229,0.1) 0%, rgba(139,92,246,0.05) 40%, transparent 100%);"></div>
-      <div class="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full" style="background: radial-gradient(circle, rgba(79,70,229,0.12) 0%, transparent 70%);"></div>
-      <div class="absolute -top-24 right-1/4 w-80 h-80 rounded-full" style="background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);"></div>
-      <div id="main-content" class="relative max-w-[1080px] mx-auto px-4 sm:px-6 pt-3 pb-4 lg:pt-4 lg:pb-5">
+      <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(37,99,235,0.06) 0%, rgba(37,99,235,0.02) 40%, transparent 100%);"></div>
+      <div class="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full" style="background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%);"></div>
+      <div class="absolute -top-24 right-1/4 w-80 h-80 rounded-full" style="background: radial-gradient(circle, rgba(37,99,235,0.04) 0%, transparent 70%);"></div>
+      <div id="main-content" class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12">
 
         <!-- Toolbar: minimal -->
-        <div class="flex items-center justify-between mb-2.5">
+        <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-3">
             <HowToUseModal toolName="Resume Checker" steps={howToUseSteps} tip={howToUseTip} />
             <span id="live-status-indicator" class="hidden inline-flex items-center gap-1.5 text-xs text-[var(--rc-primary)] font-semibold">
@@ -520,17 +519,17 @@ const resumeCheckerGraphSchema = {
             </span>
           </div>
           <div class="flex items-center gap-2 shrink-0">
-            <button id="layout-toggle-btn" type="button" class="px-3 py-1.5 text-xs font-semibold rounded-lg border border-[var(--rc-border)] bg-[var(--rc-card-bg)] text-[var(--rc-text-secondary)] hover:text-[var(--rc-text-primary)] transition-colors cursor-pointer inline-flex items-center gap-1.5 shadow-sm">
-              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+            <button id="layout-toggle-btn" type="button" class="px-3.5 py-1.5 text-xs font-semibold rounded-pill border border-[var(--rc-border)] bg-[var(--rc-card-bg)] text-[var(--rc-text-secondary)] hover:text-[var(--rc-text-primary)] transition-colors cursor-pointer inline-flex items-center gap-1.5 shadow-sm">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-link"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
               <span>Edit Resume</span>
             </button>
-            <button id="sample-btn-header" class="px-3 py-1.5 text-xs font-medium text-[var(--rc-primary)] hover:text-[var(--rc-primary)]/80 transition-colors cursor-pointer">
+            <button id="sample-btn-header" class="px-3.5 py-1.5 text-xs font-medium text-link hover:underline transition-colors cursor-pointer">
               Load sample →
             </button>
-            <button id="clear-btn" class="px-3 py-1.5 text-xs font-medium text-[var(--rc-text-muted)] hover:text-[var(--rc-text-primary)] transition-colors cursor-pointer inline-flex">
+            <button id="clear-btn" class="px-3.5 py-1.5 text-xs font-medium text-mute hover:text-ink transition-colors cursor-pointer inline-flex">
               Clear
             </button>
-            <button id="print-pdf-btn" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hidden whitespace-nowrap cursor-pointer hover:opacity-90 shadow-sm transition-colors" style="background: var(--rc-gradient-brand); color: white;">
+            <button id="print-pdf-btn" class="px-4 py-1.5 text-xs font-bold rounded-pill disabled:opacity-30 disabled:cursor-not-allowed hidden whitespace-nowrap cursor-pointer hover:opacity-90 shadow-sm transition-colors" style="background: var(--rc-gradient-brand); color: white;">
               <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="inline mr-1"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
               Download PDF Report
             </button>
@@ -538,18 +537,22 @@ const resumeCheckerGraphSchema = {
         </div>
 
         <!-- Compact hero -->
-        <div id="hero-section" class="text-center mb-3 sm:mb-4">
-          <h1 class="text-xl sm:text-2xl font-bold text-[var(--rc-text-primary)] tracking-[-0.02em] leading-tight animate-fade-in rc-delay-1">
+        <div id="hero-section" class="text-center mb-6 sm:mb-8">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-link/10 text-link text-xs font-bold tracking-wide uppercase mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+            AI-Powered ATS Matcher
+          </div>
+          <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[var(--rc-text-primary)] tracking-tight leading-tight animate-fade-in rc-delay-1">
             Stop getting rejected by robots. Start getting <span class="rc-text-gradient">more interviews</span>.
           </h1>
-          <p class="text-xs text-[var(--rc-text-secondary)] mt-1 max-w-xl mx-auto leading-relaxed animate-fade-in rc-delay-2">
+          <p class="text-sm md:text-base text-[var(--rc-text-secondary)] mt-2 max-w-2xl mx-auto leading-relaxed animate-fade-in rc-delay-2">
             Paste your resume and the job description to see how well you match — keyword gaps, missing skills, and dynamic ATS optimization scores.
           </p>
         </div>
 
         <!-- Split Mode Editor Tabs (Only visible in Split View) -->
         <div id="split-editor-tabs" class="hidden flex border-b border-[var(--rc-border)]/40 mb-3 gap-1 select-none">
-          <button id="tab-edit-resume" type="button" class="px-4 py-2 text-xs font-bold border-b-2 border-indigo-600 text-indigo-600 cursor-pointer bg-transparent">
+          <button id="tab-edit-resume" type="button" class="px-4 py-2 text-xs font-bold border-b-2 border-link text-link cursor-pointer bg-transparent">
             Edit Resume
           </button>
           <button id="tab-edit-jd" type="button" class="px-4 py-2 text-xs font-bold border-b-2 border-transparent text-[var(--rc-text-secondary)] hover:text-[var(--rc-text-primary)] cursor-pointer bg-transparent">
@@ -558,19 +561,19 @@ const resumeCheckerGraphSchema = {
         </div>
 
         <!-- Inputs Row -->
-        <div id="live-score-bar" class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-5">
+        <div id="live-score-bar" class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <!-- Resume Card -->
-          <div id="resume-card" class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-xl p-4 md:p-5 flex flex-col justify-between">
+          <div id="resume-card" class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-3xl p-6 sm:p-7 shadow-sm flex flex-col justify-between">
             <div id="resume-dropzone" class="flex-grow flex flex-col">
               <div class="flex items-center justify-between mb-3">
-                <span class="text-xs font-semibold text-[var(--rc-text-secondary)] flex items-center">
+                <span class="text-xs font-bold text-[var(--rc-text-secondary)] flex items-center">
                   <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)] inline mr-1.5"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
                   Resume
                 </span>
-                <div class="flex items-center gap-2 text-[10px] text-[var(--rc-text-muted)]">
+                <div class="flex items-center gap-2 text-xs text-[var(--rc-text-muted)]">
                   <span id="resume-char-count">0 chars</span>
                   <span class="w-px h-3 bg-[var(--rc-border)]"></span>
-                  <span id="resume-word-count" class="font-semibold">0 words</span>
+                  <span id="resume-word-count" class="font-bold">0 words</span>
                 </div>
               </div>
               <div class="relative flex-grow min-h-[95px] flex flex-col">
@@ -617,17 +620,17 @@ const resumeCheckerGraphSchema = {
           </div>
 
           <!-- Job Description Card -->
-          <div id="jd-card" class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-xl p-4 md:p-5 flex flex-col justify-between">
+          <div id="jd-card" class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-3xl p-6 sm:p-7 shadow-sm flex flex-col justify-between">
             <div id="jd-dropzone" class="flex-grow flex flex-col">
               <div class="flex items-center justify-between mb-3">
-                <span class="text-xs font-semibold text-[var(--rc-text-secondary)] flex items-center">
+                <span class="text-xs font-bold text-[var(--rc-text-secondary)] flex items-center">
                   <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)] inline mr-1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
                   Job Description
                 </span>
-                <div class="flex items-center gap-2 text-[10px] text-[var(--rc-text-muted)]">
+                <div class="flex items-center gap-2 text-xs text-[var(--rc-text-muted)]">
                   <span id="jd-char-count">0 chars</span>
                   <span class="w-px h-3 bg-[var(--rc-border)]"></span>
-                  <span id="jd-word-count" class="font-semibold">0 words</span>
+                  <span id="jd-word-count" class="font-bold">0 words</span>
                 </div>
               </div>
               <div class="relative flex-grow min-h-[95px] flex flex-col">
@@ -674,8 +677,8 @@ const resumeCheckerGraphSchema = {
         <div id="empty-state" class="hidden"></div>
 
         <!-- Centered Action Button -->
-        <div id="analyze-btn-wrapper" class="flex justify-center mt-4 mb-0 animate-fade-in rc-delay-4">
-          <button id="analyze-btn" class="rc-btn-primary flex items-center justify-center gap-2.5 px-8 py-3 rounded-xl text-sm font-semibold shadow-md hover:shadow-lg transition-colors cursor-pointer">
+        <div id="analyze-btn-wrapper" class="flex justify-center mt-6 mb-2 animate-fade-in rc-delay-4">
+          <button id="analyze-btn" class="rc-btn-primary flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-pill text-sm font-bold shadow-md hover:shadow-lg transition-all cursor-pointer">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             Analyze My Match
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-white"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -683,23 +686,23 @@ const resumeCheckerGraphSchema = {
         </div>
 
         <!-- Dashboard -->
-        <div id="dashboard" class="space-y-4 hidden mt-4">
-          <div id="score-card-hero" class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-3 sm:p-3.5 relative overflow-hidden shadow-sm transition-[border-color,box-shadow] duration-300">
+        <div id="dashboard" class="space-y-6 hidden mt-6">
+          <div id="score-card-hero" class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-sm transition-[border-color,box-shadow] duration-300">
             
-            <div class="flex flex-col md:flex-row gap-4 items-center justify-between w-full">
+            <div class="flex flex-col md:flex-row gap-6 items-center justify-between w-full">
               
               <!-- Left Column: Score Ring + Grade/Pills -->
-              <div class="flex items-center gap-3 md:border-r border-[var(--rc-border)]/20 md:pr-6 shrink-0 w-full md:w-auto justify-center md:justify-start">
+              <div class="flex items-center gap-4 md:border-r border-[var(--rc-border)]/40 md:pr-8 shrink-0 w-full md:w-auto justify-center md:justify-start">
                 <!-- Ring (120px) -->
                 <div class="relative w-[120px] h-[120px] shrink-0">
                   <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
                     <defs>
                       <linearGradient id="score-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#6366f1" />
-                        <stop offset="100%" stop-color="#a855f7" />
+                        <stop offset="0%" stop-color="#2563eb" />
+                        <stop offset="100%" stop-color="#3b82f6" />
                       </linearGradient>
                     </defs>
-                    <circle cx="18" cy="18" r="15.5" fill="none" stroke="currentColor" stroke-width="1.0" class="stroke-[var(--rc-border)]/20"/>
+                    <circle cx="18" cy="18" r="15.5" fill="none" stroke="currentColor" stroke-width="1.0" class="stroke-[var(--rc-border)]/40"/>
                     <circle id="score-ring-glow" cx="18" cy="18" r="15.5" fill="none" stroke="url(#score-grad)" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="97.4" stroke-dashoffset="97.4" class="opacity-30" style="filter: blur(3px); transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);"/>
                     <circle id="score-ring" cx="18" cy="18" r="15.5" fill="none" stroke="url(#score-grad)" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="97.4" stroke-dashoffset="97.4" style="transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);"/>
                   </svg>
@@ -811,55 +814,53 @@ const resumeCheckerGraphSchema = {
           </div>
 
           <!-- ATS Compatibility + Requirement Breakdown -->
-          <div id="match-breakdown-card" class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-5 md:p-6 mt-4">
+          <div id="match-breakdown-card" class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-3xl p-6 sm:p-8 mt-6 shadow-sm">
             <div class="flex items-center gap-2.5 mb-4">
               <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)]"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
               <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">ATS Compatibility &amp; Requirement Breakdown</h3>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-              <div class="flex items-center justify-between p-3.5 rounded-xl border border-[var(--rc-border)] bg-[var(--rc-card-bg)]">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div class="flex items-center justify-between p-4 rounded-2xl border border-[var(--rc-border)] bg-[var(--rc-card-bg)]">
                 <div>
                   <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--rc-text-muted)] block">Job Match</span>
-                  <span id="job-match-value" class="text-lg font-black text-[var(--rc-text-primary)] tabular-nums">—</span>
+                  <span id="job-match-value" class="text-xl font-black text-[var(--rc-text-primary)] tabular-nums">—</span>
                 </div>
-                <span class="text-[10px] text-[var(--rc-text-muted)]">Semantic fit vs. requirements</span>
+                <span class="text-xs text-[var(--rc-text-muted)]">Semantic fit vs. requirements</span>
               </div>
-              <div class="flex items-center justify-between p-3.5 rounded-xl border border-[var(--rc-border)] bg-[var(--rc-card-bg)]">
+              <div class="flex items-center justify-between p-4 rounded-2xl border border-[var(--rc-border)] bg-[var(--rc-card-bg)]">
                 <div>
                   <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--rc-text-muted)] block">ATS Parsing</span>
-                  <span id="ats-score-value" class="text-lg font-black text-[var(--rc-text-primary)] tabular-nums">—</span>
+                  <span id="ats-score-value" class="text-xl font-black text-[var(--rc-text-primary)] tabular-nums">—</span>
                 </div>
-                <span class="text-[10px] text-[var(--rc-text-muted)]">Structure &amp; machine readability</span>
+                <span class="text-xs text-[var(--rc-text-muted)]">Structure &amp; machine readability</span>
               </div>
             </div>
 
-            <p id="match-why" class="hidden text-[11px] text-[var(--rc-text-secondary)] leading-relaxed mb-4 p-3 rounded-xl border border-[var(--rc-border)]/40 bg-[var(--rc-card-bg)]"></p>
+            <p id="match-why" class="hidden text-xs text-[var(--rc-text-secondary)] leading-relaxed mb-4 p-4 rounded-2xl border border-[var(--rc-border)] bg-[var(--rc-card-bg)]"></p>
 
-            <div class="space-y-2.5 mb-4">
+            <div class="space-y-3 mb-4">
               <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--rc-text-muted)] block">Requirement Coverage</span>
               <div id="requirement-coverage-list" class="space-y-2">
-                <p class="text-[11px] text-[var(--rc-text-muted)]">Run an analysis to see how your resume stacks up against each requirement.</p>
+                <p class="text-xs text-[var(--rc-text-muted)]">Run an analysis to see how your resume stacks up against each requirement.</p>
               </div>
             </div>
 
             <div>
               <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--rc-text-muted)] block mb-2">Critical Gaps</span>
-              <div id="critical-gaps-list" class="space-y-1.5">
-                <p class="text-[11px] text-[var(--rc-text-muted)]">No critical gaps detected yet.</p>
+              <div id="critical-gaps-list" class="space-y-2">
+                <p class="text-xs text-[var(--rc-text-muted)]">No critical gaps detected yet.</p>
               </div>
             </div>
           </div>
 
           <!-- Separation Header -->
-          <div class="pt-4 mt-6 border-t border-[var(--rc-border)]/30">
-            <h2 class="text-xs font-bold uppercase tracking-widest text-[var(--rc-text-muted)] mb-2">Insights &amp; Recommendations</h2>
-            <p class="text-[11px] text-[var(--rc-text-muted)] leading-relaxed">
-              Step-by-step breakdown of your score gaps, recommended updates, and missing skills.
-            </p>
+          <div class="flex items-center gap-3 pt-6 mt-8 border-t border-[var(--rc-border)] mb-4">
+            <h2 class="text-xs font-bold uppercase tracking-widest text-[var(--rc-text-muted)] whitespace-nowrap">Insights &amp; Recommendations</h2>
+            <div class="h-px flex-1 bg-[var(--rc-border)]"></div>
           </div>
-              <!-- 2. Top 3 Reasons Your ATS Score Is Not Higher -->
-          <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-5 md:p-6">
+          <!-- 2. Top 3 Reasons Your ATS Score Is Not Higher -->
+          <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-3xl p-6 sm:p-8 shadow-sm">
             <div class="flex items-center gap-2.5 mb-4">
               <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-error)]"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
               <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">Top 3 Improvements Backed by Your Score</h3>
@@ -870,21 +871,21 @@ const resumeCheckerGraphSchema = {
           </div>
 
           <!-- 2b. Improve My Resume (evidence-backed edits) -->
-          <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-5 md:p-6">
+          <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-3xl p-6 sm:p-8 shadow-sm">
             <div class="flex items-center gap-2.5 mb-1">
               <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)]"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
               <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">Improve My Resume</h3>
             </div>
-            <p class="text-[11px] text-[var(--rc-text-muted)] leading-relaxed mb-3">
+            <p class="text-xs text-[var(--rc-text-muted)] leading-relaxed mb-3">
               Concrete, evidence-backed edits drawn from your resume and the job description. Each "Apply to resume" re-runs the real scoring engine so the projected change is exactly what you'll see.
             </p>
             <div id="rc-recommendations-list" class="space-y-2">
-              <p class="text-[11px] text-[var(--rc-text-muted)]">Run an analysis to see evidence-backed improvements.</p>
+              <p class="text-xs text-[var(--rc-text-muted)]">Run an analysis to see evidence-backed improvements.</p>
             </div>
           </div>
 
           <!-- 3. Top 5 Resume Changes To Make Today -->
-          <div id="improvements-card" class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-5 md:p-6">
+          <div id="improvements-card" class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-3xl p-6 sm:p-8 shadow-sm">
             <div class="flex items-center gap-2.5 mb-4">
               <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)]"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
               <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">Top 5 Resume Changes To Make Today</h3>
@@ -895,50 +896,50 @@ const resumeCheckerGraphSchema = {
             
             <!-- Custom changes input form -->
             <form id="custom-tips-form" class="mt-4 pt-3 border-t border-[var(--rc-border)]/50 flex gap-2">
-              <input id="custom-tips-input" type="text" autocomplete="off" placeholder="Add custom action item to your changes checklist…" class="flex-grow text-xs px-3 py-1.5 rounded-lg border border-[var(--rc-border)] bg-[var(--rc-card-bg)] focus:outline-none focus:border-[var(--rc-primary)] text-[var(--rc-text-primary)] placeholder:text-[var(--rc-text-muted)]/50" />
-              <button type="submit" class="px-3.5 py-1.5 rounded-lg bg-[var(--rc-primary)] text-white text-xs font-semibold hover:opacity-90 transition-opacity shrink-0 cursor-pointer">
+              <input id="custom-tips-input" type="text" autocomplete="off" placeholder="Add custom action item to your changes checklist…" class="flex-grow text-xs px-3 py-2 rounded-xl border border-[var(--rc-border)] bg-[var(--rc-card-bg)] focus:outline-none focus:border-[var(--rc-primary)] text-[var(--rc-text-primary)] placeholder:text-[var(--rc-text-muted)]/50" />
+              <button type="submit" class="px-4 py-2 rounded-xl bg-[var(--rc-primary)] text-white text-xs font-bold hover:opacity-90 transition-opacity shrink-0 cursor-pointer">
                 Add
               </button>
             </form>
           </div>
 
           <!-- Score Optimizer Sandbox -->
-          <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-5 md:p-6">
+          <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-3xl p-6 sm:p-8 shadow-sm">
             <div class="flex items-center justify-between mb-4">
               <div class="flex items-center gap-2.5">
-                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
                 <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">Score Optimizer Sandbox</h3>
               </div>
-              <span class="text-[9px] font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 px-1.5 py-0.5 rounded-md uppercase tracking-wider">Simulate Impact</span>
+              <span class="text-[9px] font-bold text-link bg-link/10 px-2 py-0.5 rounded-full uppercase tracking-wider">Simulate Impact</span>
             </div>
-            <p class="text-[11px] text-[var(--rc-text-muted)] leading-relaxed mb-3">
+            <p class="text-xs text-[var(--rc-text-muted)] leading-relaxed mb-3">
               Test how adding specific keywords or skills (e.g. Kubernetes, Docker) will improve your ATS score in real-time before updating your actual resume.
             </p>
             <div class="flex gap-2">
               <input id="sandbox-input" type="text" autocomplete="off" placeholder="Type keywords or skills separated by commas…" class="flex-grow text-xs px-3 py-2 rounded-xl border border-[var(--rc-border)] bg-[var(--rc-card-bg)] focus:outline-none focus:border-[var(--rc-primary)] text-[var(--rc-text-primary)] placeholder:text-[var(--rc-text-muted)]/50" />
-              <button id="sandbox-test-btn" type="button" class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-700 transition-colors shrink-0 cursor-pointer flex items-center gap-1.5 shadow-sm">
+              <button id="sandbox-test-btn" type="button" class="px-4 py-2 rounded-xl bg-link text-white text-xs font-bold hover:bg-link/90 transition-colors shrink-0 cursor-pointer flex items-center gap-1.5 shadow-sm">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 Test Impact
               </button>
             </div>
-            <div id="sandbox-result" class="hidden mt-3 p-2.5 rounded-xl border border-indigo-100 bg-indigo-50/15 animate-fade-in flex items-center justify-between text-xs">
+            <div id="sandbox-result" class="hidden mt-3 p-3 rounded-2xl border border-link/20 bg-link/5 animate-fade-in flex items-center justify-between text-xs">
               <!-- Rendered dynamically -->
             </div>
           </div>
 
           <!-- 4. Missing Skills That Matter Most -->
-          <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-5 md:p-6">
+          <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-3xl p-6 sm:p-8 shadow-sm">
             <div class="flex items-center gap-2.5 mb-4">
               <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)]"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
               <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">Missing Skills That Matter Most</h3>
             </div>
-            <div id="missing-skills-matter" class="flex flex-wrap gap-1.5 mt-2">
+            <div id="missing-skills-matter" class="flex flex-wrap gap-2 mt-2">
               <!-- Rendered dynamically -->
             </div>
           </div>
 
           <!-- 5. Recruiter Perspective -->
-          <div id="recruiter-perspective-card" class="rc-card border border-indigo-100/50 bg-indigo-50/20 rounded-2xl p-5 md:p-6">
+          <div id="recruiter-perspective-card" class="rc-card border border-[var(--rc-border)] bg-[var(--rc-card-bg)] rounded-3xl p-6 sm:p-8 shadow-sm">
             <div class="flex items-center gap-2.5 mb-3">
               <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)]"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">Recruiter Perspective</h3>
@@ -949,28 +950,28 @@ const resumeCheckerGraphSchema = {
           </div>
 
           <!-- AI Resume Bullet Point Optimizer Card -->
-          <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl p-5 md:p-6">
+          <div class="rc-card bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-3xl p-6 sm:p-8 shadow-sm">
             <div class="flex items-center justify-between mb-4">
               <div class="flex items-center gap-2.5">
-                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                 <h3 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">AI Resume Bullet Point Optimizer</h3>
               </div>
-              <span class="text-[9px] font-bold text-[var(--rc-primary)] bg-[var(--rc-primary-soft)] px-1.5 py-0.5 rounded-md uppercase tracking-wider">Score Booster</span>
+              <span class="text-[9px] font-bold text-[var(--rc-primary)] bg-[var(--rc-primary-soft)] px-2 py-0.5 rounded-full uppercase tracking-wider">Score Booster</span>
             </div>
-            <p class="text-[11px] text-[var(--rc-text-muted)] leading-relaxed mb-3">
+            <p class="text-xs text-[var(--rc-text-muted)] leading-relaxed mb-3">
               Paste a weak bullet point from your resume (e.g. "Responsible for maintaining servers") to rewrite it using active action verbs and quantified impact placeholders to boost your ATS score.
             </p>
 
-            <div id="bullet-opt-suggestions" class="hidden mb-4 p-3 rounded-xl border border-[var(--rc-border)]/50 bg-[var(--rc-card-bg)] space-y-2">
-              <span class="text-[10px] font-bold text-amber-500 uppercase tracking-wider block">⚠️ Weak Bullets Detected in Your Resume</span>
+            <div id="bullet-opt-suggestions" class="hidden mb-4 p-4 rounded-2xl border border-[var(--rc-border)] bg-[var(--rc-card-bg)] space-y-2">
+              <span class="text-xs font-bold text-amber-500 uppercase tracking-wider block">⚠️ Weak Bullets Detected in Your Resume</span>
               <div id="bullet-suggestions-list" class="space-y-1.5 max-h-36 overflow-y-auto pr-1"></div>
             </div>
-            <div class="flex flex-col gap-2.5">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <textarea id="bullet-opt-input" autocomplete="off" placeholder="Paste your bullet point here (e.g. 'Responsible for building APIs')…" rows="2" class="w-full text-xs px-3 py-2 rounded-xl border border-[var(--rc-border)] bg-[var(--rc-card-bg)] focus:outline-none focus:border-[var(--rc-primary)] text-[var(--rc-text-primary)] placeholder:text-[var(--rc-text-muted)]/50 resize-y sm:col-span-2"></textarea>
+            <div class="flex flex-col gap-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <textarea id="bullet-opt-input" autocomplete="off" placeholder="Paste your bullet point here (e.g. 'Responsible for building APIs')…" rows="2" class="w-full text-xs px-3 py-2.5 rounded-xl border border-[var(--rc-border)] bg-[var(--rc-card-bg)] focus:outline-none focus:border-[var(--rc-primary)] text-[var(--rc-text-primary)] placeholder:text-[var(--rc-text-muted)]/50 resize-y sm:col-span-2"></textarea>
                 <div>
-                  <label for="bullet-opt-focus" class="text-[9px] font-bold uppercase tracking-wider text-[var(--rc-text-muted)] block mb-1">Optimization Focus</label>
-                  <select id="bullet-opt-focus" class="w-full text-xs px-2.5 py-1.5 rounded-xl border border-[var(--rc-border)] bg-[var(--rc-card-bg)] focus:outline-none focus:border-[var(--rc-primary)] text-[var(--rc-text-primary)] cursor-pointer">
+                  <label for="bullet-opt-focus" class="text-[10px] font-bold uppercase tracking-wider text-[var(--rc-text-muted)] block mb-1">Optimization Focus</label>
+                  <select id="bullet-opt-focus" class="w-full text-xs px-3 py-2 rounded-xl border border-[var(--rc-border)] bg-[var(--rc-card-bg)] focus:outline-none focus:border-[var(--rc-primary)] text-[var(--rc-text-primary)] cursor-pointer">
                     <option value="performance">⚡ Speed &amp; Performance</option>
                     <option value="scale">🌐 Scale &amp; Architecture</option>
                     <option value="revenue">📈 Revenue &amp; Growth</option>
@@ -980,7 +981,7 @@ const resumeCheckerGraphSchema = {
                   </select>
                 </div>
                 <div class="flex items-end">
-                  <button id="bullet-opt-btn" type="button" class="w-full py-2 rounded-xl text-white text-xs font-semibold hover:opacity-90 transition-opacity cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" style="background: var(--rc-gradient-brand);">
+                  <button id="bullet-opt-btn" type="button" class="w-full py-2.5 rounded-xl text-white text-xs font-bold hover:opacity-90 transition-opacity cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" style="background: var(--rc-gradient-brand);">
                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                     Optimize Bullet Point
                   </button>
@@ -988,7 +989,7 @@ const resumeCheckerGraphSchema = {
               </div>
             </div>
             
-            <div id="bullet-opt-result" class="hidden mt-3 p-3 rounded-xl border border-indigo-200/30 bg-indigo-50/10 animate-fade-in space-y-2">
+            <div id="bullet-opt-result" class="hidden mt-3 p-4 rounded-2xl border border-link/20 bg-link/5 animate-fade-in space-y-2">
               <!-- Rendered dynamically -->
             </div>
           </div>
@@ -1005,27 +1006,26 @@ const resumeCheckerGraphSchema = {
         </div>
 
         <!-- FAQs Section for SEO (Accordion Style) -->
-        <section class="mt-8 pt-6 border-t border-[var(--rc-border)]/30 animate-fade-up select-none">
-          <div class="flex items-center gap-3 mb-6">
-            <h2 class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight flex items-center gap-2">
-              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--rc-primary)]"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <section class="mt-12 pt-8 border-t border-[var(--rc-border)] select-none">
+          <div class="flex items-center gap-3 mb-8">
+            <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-[var(--rc-text-primary)]">
               Frequently Asked Questions
             </h2>
-            <div class="h-px flex-1 bg-[var(--rc-border)]/30"></div>
+            <div class="h-px flex-1 bg-[var(--rc-border)]"></div>
           </div>
           
           <div class="space-y-3">
             {faqItems.map((item) => (
-              <details class="group bg-[var(--rc-card-bg)] border border-[var(--rc-border)]/40 rounded-2xl overflow-hidden shadow-sm transition-all hover:shadow-md hover:border-[var(--rc-primary)]/20 [&_summary::-webkit-details-marker]:hidden">
-                <summary class="flex items-center justify-between px-5 py-3.5 cursor-pointer hover:bg-[var(--rc-bg-muted)] transition-colors select-none">
-                  <span class="text-xs font-bold text-[var(--rc-text-primary)] tracking-tight">{item.question}</span>
-                  <div class="w-5 h-5 rounded-full border border-[var(--rc-border)] flex items-center justify-center transition-transform group-open:rotate-180 group-hover:bg-[var(--rc-card-bg)] shrink-0 ml-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-[var(--rc-text-secondary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <details class="group bg-[var(--rc-card-bg)] border border-[var(--rc-border)] rounded-3xl overflow-hidden shadow-sm transition-all hover:shadow-md hover:border-link/20 [&_summary::-webkit-details-marker]:hidden">
+                <summary class="flex items-center justify-between px-6 py-4 cursor-pointer hover:bg-canvas-soft transition-colors select-none">
+                  <span class="text-sm font-bold text-[var(--rc-text-primary)] tracking-tight">{item.question}</span>
+                  <div class="w-6 h-6 rounded-full border border-[var(--rc-border)] flex items-center justify-center transition-transform group-open:rotate-180 group-hover:bg-[var(--rc-card-bg)] shrink-0 ml-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-[var(--rc-text-secondary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                       <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                   </div>
                 </summary>
-                <div class="px-5 py-4 text-[11px] text-[var(--rc-text-secondary)] leading-relaxed border-t border-[var(--rc-border)]/30 bg-[var(--rc-card-bg)]">
+                <div class="px-6 py-5 text-sm text-[var(--rc-text-secondary)] leading-relaxed border-t border-[var(--rc-border)] bg-[var(--rc-card-bg)]">
                   {item.answer}
                 </div>
               </details>

@@ -46,64 +46,76 @@ const canonicalUrl = "https://tooltails.com/duration/";
   title="Date Duration Calculator — Calculate Time Between Two Dates" 
   description="Calculate the exact duration between any two dates in years, months, and days. Free, instant, and 100% browser-based date duration tool."
 >
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 md:py-8">
-    <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-      <div>
-        <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-ink mb-1.5 leading-tight">
-          Date Duration Calculator — Calculate Time Between Two Dates
-        </h1>
-        <p class="text-body text-sm sm:text-base max-w-2xl leading-relaxed">
-          Need to know exactly how much time is between two dates? Use our precision tool to calculate years, months, and days between any two points in time.
-        </p>
+  <!-- Hero Section -->
+  <section class="px-4 sm:px-6 pt-4 pb-2">
+    <div class="max-w-7xl mx-auto flex flex-col gap-3">
+      <div class="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-ink mb-1.5 leading-tight">
+            Date Duration Calculator — Calculate Time Between Two Dates
+          </h1>
+          <p class="text-body text-sm max-w-2xl leading-relaxed">
+            Need to know exactly how much time is between two dates? Use our precision tool to calculate years, months, and days between any two points in time.
+          </p>
+        </div>
+        <div class="shrink-0 self-start sm:self-auto">
+          <HowToUseModal toolName="Date Duration Calculator" steps={howToUseSteps} tip={howToUseTip} />
+        </div>
       </div>
-      <div class="shrink-0 self-start sm:self-auto">
-        <HowToUseModal toolName="Date Duration Calculator" steps={howToUseSteps} tip={howToUseTip} />
+
+      <div class="w-full">
+        <DateDurationCalculator />
+      </div>
+
+      <!-- Trust Signals -->
+      <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 mt-6 text-[11px] font-bold text-mute uppercase tracking-widest">
+        <span class="flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Privacy First (Client-Side)
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+          Calendar Accurate
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+          100% Free
+        </span>
       </div>
     </div>
-
-    <div class="w-full">
-      <DateDurationCalculator />
-    </div>
-
-    <!-- Trust Signals -->
-    <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 mt-6 text-[11px] font-bold text-mute uppercase tracking-widest">
-      <span class="flex items-center gap-1.5">
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Privacy First (Client-Side)
-      </span>
-      <span class="flex items-center gap-1.5">
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-        Calendar Accurate
-      </span>
-      <span class="flex items-center gap-1.5">
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
-        100% Free
-      </span>
-    </div>
-  </div>
+  </section>
 
   <!-- Comprehensive Explanatory Section -->
-  <section class="w-full py-16 bg-canvas border-t border-hairline">
-    <div class="max-w-[1000px] mx-auto px-6 space-y-12">
+  <section class="px-4 sm:px-6 py-12 bg-canvas border-t border-hairline">
+    <div class="max-w-7xl mx-auto space-y-12">
       <div>
-        <h2 class="text-2xl font-bold text-ink mb-4">How Date Duration Calculation Works</h2>
-        <p class="text-body leading-relaxed text-base mb-4">
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">How Date Duration Works</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <p class="text-body leading-relaxed text-base mb-4 max-w-3xl">
           Measuring the duration between two dates requires evaluating the chronological distance between a start date and an end date. Depending on whether you need conversational calendar units or rigorous mathematical duration, date calculation uses two distinct methodologies: <strong>calendar borrowing decomposition</strong> and <strong>absolute epoch duration</strong>.
         </p>
-        <p class="text-body leading-relaxed text-base">
+        <p class="text-body leading-relaxed text-base max-w-3xl">
           Our calculator delivers both perspectives. It breaks elapsed time down into intuitive full years, remaining months, and remaining days, while also calculating cumulative metrics. If you specifically need to compare the chronological gap between two individuals' birth dates, check our dedicated <a href="/age-difference/" class="text-link font-medium hover:underline">age difference calculator</a>, or calculate personal longevity metrics with the <a href="/age-calculator/" class="text-link font-medium hover:underline">exact age calculator</a>.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="p-6 bg-canvas-soft-2/40 border border-hairline rounded-2xl">
-          <h3 class="text-lg font-bold text-ink mb-2">Calendar Decomposition vs. Epoch Math</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-7 h-7 rounded-full bg-link/10 text-link flex items-center justify-center shadow-inner text-xs font-bold">1</div>
+            <h3 class="text-base font-bold text-ink group-hover:text-link transition-colors">Calendar Decomposition vs. Epoch Math</h3>
+          </div>
           <p class="text-sm text-body leading-relaxed">
             Calendar decomposition mimics how humans speak about time (e.g., "3 years, 2 months, and 10 days"). Absolute epoch duration calculates the exact physical time between two timestamps (in milliseconds) and divides by 86,400,000 to derive true elapsed days without distortion from varying month lengths.
           </p>
         </div>
-        <div class="p-6 bg-canvas-soft-2/40 border border-hairline rounded-2xl">
-          <h3 class="text-lg font-bold text-ink mb-2">The Fencepost Problem: Inclusive vs. Exclusive</h3>
+        <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-7 h-7 rounded-full bg-link/10 text-link flex items-center justify-center shadow-inner text-xs font-bold">2</div>
+            <h3 class="text-base font-bold text-ink group-hover:text-link transition-colors">The Fencepost Problem</h3>
+          </div>
           <p class="text-sm text-body leading-relaxed">
             In standard date arithmetic, the duration between May 1 and May 3 is 2 days (exclusive of one boundary). However, for event schedules or hotel stays, inclusive counting includes both the start date and end date (3 calendar days). Understanding which convention your project requires prevents contract disputes.
           </p>
@@ -111,90 +123,103 @@ const canonicalUrl = "https://tooltails.com/duration/";
       </div>
 
       <div>
-        <h2 class="text-2xl font-bold text-ink mb-4">Calendar Days vs. Business Days</h2>
-        <div class="space-y-4 text-body leading-relaxed text-base">
-          <p>
-            When managing projects, legal deadlines, or financial contracts, distinguishing between calendar days and working business days is critical:
-          </p>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-            <div class="p-5 bg-canvas-soft-2/30 border border-hairline rounded-xl">
-              <h3 class="text-base font-bold text-ink mb-2">Calendar Days (Civil Time)</h3>
-              <p class="text-sm text-body leading-relaxed">
-                Includes every 24-hour cycle regardless of weekends or holidays. Essential for biological processes, visa expiration periods, statutory statute of limitations, and interest accrual.
-              </p>
-            </div>
-            <div class="p-5 bg-canvas-soft-2/30 border border-hairline rounded-xl">
-              <h3 class="text-base font-bold text-ink mb-2">Business Days (Working Time)</h3>
-              <p class="text-sm text-body leading-relaxed">
-                Excludes Saturdays, Sundays, and public bank holidays. In a typical month of 30 calendar days, only 20 to 22 days are productive business working days.
-              </p>
-            </div>
-            <div class="p-5 bg-canvas-soft-2/30 border border-hairline rounded-xl">
-              <h3 class="text-base font-bold text-ink mb-2">Leap Year Traversal</h3>
-              <p class="text-sm text-body leading-relaxed">
-                Spans crossing February in a leap year automatically account for the 366th day, guaranteeing that cumulative daily intervals remain mathematically exact.
-              </p>
-            </div>
-          </div>
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Calendar Days vs. Business Days</h3>
+          <div class="h-px w-full bg-hairline"></div>
         </div>
-      </div>
-
-      <div>
-        <h2 class="text-2xl font-bold text-ink mb-4">Common Practical Applications for Date Duration</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm text-body">
-          <div class="p-5 bg-canvas border border-hairline rounded-xl">
-            <h3 class="font-bold text-ink mb-1.5 text-base">Contract, Lease, & Warranty Periods</h3>
-            <p class="leading-relaxed">
-              Verify exact elapsed time for commercial lease agreements, 30-day return policies, 90-day warranty coverage, and software license renewals.
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+            <div class="w-10 h-10 rounded-2xl bg-link/10 text-link flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <h3 class="text-base font-bold text-ink mb-2 group-hover:text-link transition-colors">Calendar Days (Civil Time)</h3>
+            <p class="text-sm text-body leading-relaxed">
+              Includes every 24-hour cycle regardless of weekends or holidays. Essential for biological processes, visa expiration periods, statutory statute of limitations, and interest accrual.
             </p>
           </div>
-          <div class="p-5 bg-canvas border border-hairline rounded-xl">
-            <h3 class="font-bold text-ink mb-1.5 text-base">Visa & Immigration Stays</h3>
-            <p class="leading-relaxed">
-              Calculate exact days remaining under tourist visas or Schengen area 90/180-day stay restrictions to ensure compliance with international border controls.
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+            <div class="w-10 h-10 rounded-2xl bg-link/10 text-link flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-ink mb-2 group-hover:text-link transition-colors">Business Days (Working Time)</h3>
+            <p class="text-sm text-body leading-relaxed">
+              Excludes Saturdays, Sundays, and public bank holidays. In a typical month of 30 calendar days, only 20 to 22 days are productive business working days.
             </p>
           </div>
-          <div class="p-5 bg-canvas border border-hairline rounded-xl">
-            <h3 class="font-bold text-ink mb-1.5 text-base">Project Sprints & Agile Roadmaps</h3>
-            <p class="leading-relaxed">
-              Software engineering teams and project managers measure exact sprint durations, milestone intervals, and time-to-market delivery timelines.
-            </p>
-          </div>
-          <div class="p-5 bg-canvas border border-hairline rounded-xl">
-            <h3 class="font-bold text-ink mb-1.5 text-base">Historical Research & Genealogy</h3>
-            <p class="leading-relaxed">
-              Historians and genealogists evaluate exact elapsed time between pivotal historical events, reign durations, and family biographical timelines.
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-md group">
+            <div class="w-10 h-10 rounded-2xl bg-link/10 text-link flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-ink mb-2 group-hover:text-link transition-colors">Leap Year Traversal</h3>
+            <p class="text-sm text-body leading-relaxed">
+              Spans crossing February in a leap year automatically account for the 366th day, guaranteeing that cumulative daily intervals remain mathematically exact.
             </p>
           </div>
         </div>
       </div>
 
       <div>
-        <h2 class="text-2xl font-bold text-ink mb-4">Comparison of Date Duration Units</h2>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm border-collapse border border-hairline rounded-xl overflow-hidden">
-            <thead class="bg-canvas-soft-2/60 border-b border-hairline text-ink font-semibold">
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Common Practical Applications</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 shadow-sm transition-all hover:shadow-md group">
+            <h3 class="font-bold text-ink mb-2 text-sm group-hover:text-link transition-colors">Contracts & Leases</h3>
+            <p class="text-xs text-body leading-relaxed">
+              Verify exact elapsed time for commercial lease agreements, 30-day return policies, and 90-day warranty coverage.
+            </p>
+          </div>
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 shadow-sm transition-all hover:shadow-md group">
+            <h3 class="font-bold text-ink mb-2 text-sm group-hover:text-link transition-colors">Visas & Travel</h3>
+            <p class="text-xs text-body leading-relaxed">
+              Calculate exact days remaining under tourist visas or Schengen area 90/180-day stay restrictions.
+            </p>
+          </div>
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 shadow-sm transition-all hover:shadow-md group">
+            <h3 class="font-bold text-ink mb-2 text-sm group-hover:text-link transition-colors">Project Sprints</h3>
+            <p class="text-xs text-body leading-relaxed">
+              Software engineering teams and project managers measure exact sprint durations and milestone intervals.
+            </p>
+          </div>
+          <div class="bg-canvas border border-hairline rounded-3xl p-6 shadow-sm transition-all hover:shadow-md group">
+            <h3 class="font-bold text-ink mb-2 text-sm group-hover:text-link transition-colors">Historical Research</h3>
+            <p class="text-xs text-body leading-relaxed">
+              Historians and genealogists evaluate exact elapsed time between pivotal historical events and family timelines.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Comparison of Measurement Units</h3>
+          <div class="h-px w-full bg-hairline"></div>
+        </div>
+        <div class="bg-canvas border border-hairline rounded-3xl overflow-hidden shadow-sm">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead class="bg-canvas-soft border-b border-hairline text-ink font-semibold">
               <tr>
-                <th class="p-3.5 sm:p-4">Measurement Metric</th>
-                <th class="p-3.5 sm:p-4">Underlying Calculation Logic</th>
-                <th class="p-3.5 sm:p-4">Best Practical Application</th>
+                <th class="p-4 sm:p-5 text-xs font-extrabold uppercase tracking-wider text-mute">Measurement Metric</th>
+                <th class="p-4 sm:p-5 text-xs font-extrabold uppercase tracking-wider text-mute">Underlying Calculation Logic</th>
+                <th class="p-4 sm:p-5 text-xs font-extrabold uppercase tracking-wider text-mute">Best Practical Application</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-hairline text-body">
               <tr class="hover:bg-canvas-soft/40 transition-colors">
-                <td class="p-3.5 sm:p-4 font-medium text-ink">Years, Months, & Days</td>
-                <td class="p-3.5 sm:p-4">Gregorian calendar borrowing algorithm</td>
-                <td class="p-3.5 sm:p-4">Biographical timelines, age differences, and general conversation</td>
+                <td class="p-4 sm:p-5 font-bold text-ink">Years, Months, & Days</td>
+                <td class="p-4 sm:p-5">Gregorian calendar borrowing algorithm</td>
+                <td class="p-4 sm:p-5">Biographical timelines, age differences, and general conversation</td>
               </tr>
               <tr class="hover:bg-canvas-soft/40 transition-colors">
-                <td class="p-3.5 sm:p-4 font-medium text-ink">Total Elapsed Days</td>
-                <td class="p-3.5 sm:p-4">Exact timestamp delta divided by 86,400,000 ms</td>
-                <td class="p-3.5 sm:p-4">Legal notice periods, immigration visa limits, and scientific logging</td>
+                <td class="p-4 sm:p-5 font-bold text-ink">Total Elapsed Days</td>
+                <td class="p-4 sm:p-5">Exact timestamp delta divided by 86,400,000 ms</td>
+                <td class="p-4 sm:p-5">Legal notice periods, immigration visa limits, and scientific logging</td>
               </tr>
               <tr class="hover:bg-canvas-soft/40 transition-colors">
-                <td class="p-3.5 sm:p-4 font-medium text-ink">Total Elapsed Weeks</td>
-                <td class="p-3.5 sm:p-4">Integer division of total days divided by 7</td>
-                <td class="p-3.5 sm:p-4">Academic terms, fitness training blocks, and construction cycles</td>
+                <td class="p-4 sm:p-5 font-bold text-ink">Total Elapsed Weeks</td>
+                <td class="p-4 sm:p-5">Integer division of total days divided by 7</td>
+                <td class="p-4 sm:p-5">Academic terms, fitness training blocks, and construction cycles</td>
               </tr>
             </tbody>
           </table>
@@ -204,23 +229,27 @@ const canonicalUrl = "https://tooltails.com/duration/";
   </section>
 
   <!-- Related Tools -->
-  <section class="w-full py-16 bg-canvas-soft-2/50 border-t border-hairline">
-    <div class="max-w-[1200px] mx-auto px-6 text-center">
-      <h2 class="text-2xl font-bold text-ink mb-8">Try our other calculators</h2>
-      <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a href="/age-calculator/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+  <section class="px-4 sm:px-6 py-12 bg-canvas border-b border-hairline">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="flex items-center gap-3 mb-8">
+        <div class="h-px w-full bg-hairline"></div>
+        <h3 class="text-[11px] font-bold text-mute uppercase tracking-widest whitespace-nowrap">Explore Companion Tools</h3>
+        <div class="h-px w-full bg-hairline"></div>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/age-calculator/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Exact Age Calculator
         </a>
-        <a href="/age-difference/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/age-difference/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Age Difference Calculator
         </a>
-        <a href="/future-age/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/future-age/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Future Age Calculator
         </a>
-        <a href="/birthday-countdown/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/birthday-countdown/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Birthday Countdown
         </a>
-        <a href="/word-counter/" class="inline-flex items-center justify-center px-6 h-12 text-base font-medium rounded-pill bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:shadow-sm transition-all active:scale-[0.98]">
+        <a href="/word-counter/" class="inline-flex items-center justify-center px-5 h-11 text-xs sm:text-sm font-semibold rounded-full bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 hover:border-link/40 hover:text-link hover:shadow-sm transition-all active:scale-[0.98]">
           Word Counter
         </a>
       </div>
@@ -228,8 +257,8 @@ const canonicalUrl = "https://tooltails.com/duration/";
   </section>
 
   <!-- FAQ Section -->
-  <section class="w-full py-16 bg-canvas border-t border-hairline">
-    <div class="max-w-4xl mx-auto px-6">
+  <section class="px-4 sm:px-6 py-16">
+    <div class="max-w-4xl mx-auto">
       <FAQ items={faqItems} renderSchema={false} />
     </div>
   </section>
