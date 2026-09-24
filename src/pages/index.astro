@@ -96,13 +96,13 @@ const tools = [
     popular: true,
     tag: "Productivity"
   },
-  {
+  ...(import.meta.env.DEV ? [{
     title: "Smart Document Generator",
     description: "Turn long text into a professionally structured PDF with locally detected titles, headings, lists, tables, and references.",
     href: "/ai-document-generator/",
     icon: "document",
     tag: "Generators"
-  },
+  }] : [])
 ];
 
 const whyTooltails = [

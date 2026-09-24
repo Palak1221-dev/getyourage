@@ -14,16 +14,17 @@ const isActive = (path: string) => {
 };
 
 const toolItems = [
-  { href: "/age-calculator", label: "Age Calculator" },
-  { href: "/age-difference", label: "Age Difference Calculator" },
-  { href: "/birthday-countdown", label: "Birthday Countdown" },
-  { href: "/duration", label: "Duration Calculator" },
-  { href: "/future-age", label: "Future Age Calculator" },
-  { href: "/pomodoro-timer", label: "Pomodoro Timer" },
-  { href: "/focus", label: "Focus Goals Timer" },
-  { href: "/word-counter", label: "Word Counter" },
-  { href: "/study-schedule", label: "Study Schedule Generator" },
-  { href: "/resume-checker", label: "Resume Checker" }
+  { href: "/age-calculator/", label: "Age Calculator" },
+  { href: "/age-difference/", label: "Age Difference Calculator" },
+  { href: "/birthday-countdown/", label: "Birthday Countdown" },
+  { href: "/duration/", label: "Duration Calculator" },
+  { href: "/future-age/", label: "Future Age Calculator" },
+  { href: "/pomodoro-timer/", label: "Pomodoro Timer" },
+  { href: "/focus/", label: "Focus Goals Timer" },
+  { href: "/word-counter/", label: "Word Counter" },
+  { href: "/study-schedule/", label: "Study Schedule Generator" },
+  { href: "/resume-checker/", label: "Resume Checker" },
+  ...(import.meta.env.DEV ? [{ href: "/ai-document-generator/", label: "Smart Document Generator" }] : [])
 ];
 
 const isToolActive = toolItems.some(item => isActive(item.href));
@@ -74,7 +75,7 @@ const isToolActive = toolItems.some(item => isActive(item.href));
         </div>
 
         <a 
-          href="/about" 
+          href="/about/" 
           class:list={[
             "nav-link-premium px-3 py-1.5 text-[13px] font-medium transition-all rounded-full whitespace-nowrap", 
             isActive("/about") 
@@ -87,7 +88,7 @@ const isToolActive = toolItems.some(item => isActive(item.href));
         <!-- Planners Dropdown -->
         <div class="relative group" id="store-dropdown">
           <a 
-            href="/digital-store" 
+            href="/digital-store/" 
             class:list={[
               "nav-link-premium px-3 py-1.5 text-[13px] font-medium transition-all rounded-full whitespace-nowrap flex items-center gap-1 group-hover:bg-canvas-soft-2", 
               isActive("/digital-store") || currentPath.startsWith("/digital-store/") 
@@ -101,20 +102,20 @@ const isToolActive = toolItems.some(item => isActive(item.href));
 
           <div class="absolute top-full left-0 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
             <div class="w-56 bg-canvas border border-hairline rounded-xl shadow-2xl p-2 space-y-0.5">
-              <a href="/digital-store/study-planner-pro" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-link/5 hover:text-link transition-colors text-[13px] font-medium">
+              <a href="/digital-store/study-planner-pro/" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-link/5 hover:text-link transition-colors text-[13px] font-medium">
                 <span>📖</span> Study Planner Pro
               </a>
-              <a href="/digital-store/master-your-day" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-link/5 hover:text-link transition-colors text-[13px] font-medium">
+              <a href="/digital-store/master-your-day/" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-link/5 hover:text-link transition-colors text-[13px] font-medium">
                 <span>☀️</span> Master Your Day
               </a>
-              <a href="/digital-store/wellness-journal" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-link/5 hover:text-link transition-colors text-[13px] font-medium">
+              <a href="/digital-store/wellness-journal/" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-link/5 hover:text-link transition-colors text-[13px] font-medium">
                 <span>🌿</span> Wellness Journal
               </a>
-              <a href="/digital-store/social-media-detox" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-link/5 hover:text-link transition-colors text-[13px] font-medium">
+              <a href="/digital-store/social-media-detox/" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-link/5 hover:text-link transition-colors text-[13px] font-medium">
                 <span>📵</span> Social Media Detox
               </a>
               <div class="border-t border-hairline mt-1 pt-1">
-                <a href="/digital-store" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-link/5 hover:text-link transition-colors text-[13px] font-bold text-link">
+                <a href="/digital-store/" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-link/5 hover:text-link transition-colors text-[13px] font-bold text-link">
                   View All Planners <span class="text-sm">&rarr;</span>
                 </a>
               </div>
@@ -199,7 +200,7 @@ const isToolActive = toolItems.some(item => isActive(item.href));
       </div>
 
       <a 
-        href="/about" 
+        href="/about/" 
         class:list={[
           "px-4 py-3 text-sm font-medium transition-all rounded-md mobile-link flex items-center justify-between", 
           isActive("/about") ? "text-link bg-link/5" : "text-body hover:text-ink hover:bg-canvas-soft-2"
@@ -209,7 +210,7 @@ const isToolActive = toolItems.some(item => isActive(item.href));
         {isActive("/about") && <span class="w-1.5 h-1.5 rounded-full bg-link"></span>}
       </a>
       <a 
-        href="/digital-store" 
+        href="/digital-store/" 
         class:list={[
           "px-4 py-3 text-sm font-medium transition-all rounded-md mobile-link flex items-center justify-between", 
           isActive("/digital-store") || currentPath.startsWith("/digital-store/") ? "text-link bg-link/5" : "text-body hover:text-ink hover:bg-canvas-soft-2"
@@ -219,7 +220,7 @@ const isToolActive = toolItems.some(item => isActive(item.href));
         {(isActive("/digital-store") || currentPath.startsWith("/digital-store/")) && <span class="w-1.5 h-1.5 rounded-full bg-link"></span>}
       </a>
       <a 
-        href="/blog" 
+        href="/blog/" 
         class:list={[
           "px-4 py-3 text-sm font-medium transition-all rounded-md mobile-link flex items-center justify-between", 
           isActive("/blog") || currentPath.startsWith("/blog/") ? "text-link bg-link/5" : "text-body hover:text-ink hover:bg-canvas-soft-2"

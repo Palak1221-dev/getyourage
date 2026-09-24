@@ -80,7 +80,7 @@ The checker tests for formatting elements that can interfere with text extractio
 > **Evaluate your resume alignment:**  
 > You can test your resume and target job listing in the [Tooltails ATS Resume Checker](/resume-checker/) to view keyword alignment, missing skills, bullet quality feedback, and formatting flags.
 
-Before running an ATS check, you can also verify your total word and character counts using our [Word Counter and text analyzer](/word-counter/), or format clean plain-text notes with the [Smart Document Generator](/ai-document-generator/).
+Before running an ATS check, you can also verify your total word and character counts using our [Word Counter and text analyzer](/word-counter/), or format clean plain-text notes with our formatting tools.
 
 ---
 

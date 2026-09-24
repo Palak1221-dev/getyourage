@@ -14,7 +14,7 @@ Here is a practical guide to structuring unformatted text for clean document gen
 
 ## 1. Establishing Heading Hierarchy (H1, H2, and H3)
 
-The [Tooltails Smart Document Generator](/ai-document-generator/) recognizes three main levels of headings using standard plain-text conventions:
+The **Tooltails Smart Document Generator** recognizes three main levels of headings using standard plain-text conventions:
 
 * **Document Title (H1)**: Place your title as the first line of your document, or precede it with a single Markdown hash (`# Title`).
 * **Major Section Headings (H2)**:
@@ -103,7 +103,7 @@ On August 28 at 14:22 UTC, the primary database experienced connection saturatio
 ```
 
 ### Output: Structured Document Elements
-When parsed by the [Tooltails Smart Document Generator](/ai-document-generator/), the plain text is converted into distinct document components:
+When parsed by the **Tooltails Smart Document Generator**, the plain text is converted into distinct document components:
 1. **Title Block**: The top heading formats as the main document title with the author and date byline placed directly below.
 2. **Section Hierarchy**: Numbered sections (`1. Incident Overview`, `2. Impact Summary`, `3. Remediation Items`) format as distinct section headers with proportional spacing.
 3. **Callout**: The key takeaway renders as an italicized pull-quote with a dedicated accent border.
@@ -116,7 +116,7 @@ When parsed by the [Tooltails Smart Document Generator](/ai-document-generator/)
 
 When working with internal meeting notes, project drafts, or proprietary documentation, data privacy is an important consideration.
 
-The [Tooltails Smart Document Generator](/ai-document-generator/) performs text analysis and layout pagination locally within your browser using client-side JavaScript. Your text is processed on your device and is not sent to external servers or remote databases.
+The **Tooltails Smart Document Generator** performs text analysis and layout pagination locally within your browser using client-side JavaScript. Your text is processed on your device and is not sent to external servers or remote databases.
 
 Before generating your PDF, you can also paste your draft into our [free Word Counter and text analyzer](/word-counter/) to check character counts, paragraph density, and estimated reading time.
 
@@ -125,7 +125,7 @@ Before generating your PDF, you can also paste your draft into our [free Word Co
 ## Frequently Asked Questions
 
 **Can I edit sections after generating the document preview?**  
-Yes. In the [Tooltails Smart Document Generator](/ai-document-generator/), you can switch to Edit mode to modify headings, body text, lists, and tables inline, or apply local formatting transformations (such as converting text blocks to bullet points) before printing or downloading your PDF.
+Yes. In the **Tooltails Smart Document Generator**, you can switch to Edit mode to modify headings, body text, lists, and tables inline, or apply local formatting transformations (such as converting text blocks to bullet points) before printing or downloading your PDF.
 
 **What visual document styles are available?**  
 The generator provides four style presets: **Minimal** (compact margins and spacing), **Professional** (serif typography), **Academic** (traditional research formatting), and **Modern** (bold sans-serif headings).

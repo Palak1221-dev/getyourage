@@ -81,7 +81,9 @@ const isDigitalStorePath = Astro.url.pathname.startsWith('/digital-store');
               <li><a href="/focus/" class="text-sm text-body hover:text-ink transition-colors">Focus Goals Timer</a></li>
               <li><a href="/word-counter/" class="text-sm text-body hover:text-ink transition-colors">Word Counter</a></li>
               <li><a href="/study-schedule/" class="text-sm text-body hover:text-ink transition-colors">Study Schedule Generator</a></li>
-              <li><a href="/ai-document-generator/" class="text-sm text-body hover:text-ink transition-colors">Smart Document Generator</a></li>
+              {import.meta.env.DEV && (
+                <li><a href="/ai-document-generator/" class="text-sm text-body hover:text-ink transition-colors">Smart Document Generator</a></li>
+              )}
             </>
           )}
         </ul>
